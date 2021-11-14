@@ -16,11 +16,12 @@ import javax.persistence.UniqueConstraint;
 @Getter
 @Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name", name = "BusinessCategoryName")
+        @UniqueConstraint(columnNames = "name", name = "Country_Name")
 })
-public class BusinessCategory extends DateTime {
+public class Country extends DateTime {
 
     @Id
-    private String businessCategoryId;
+    private String countryId;
     private String name;
+
 }

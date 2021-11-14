@@ -24,7 +24,7 @@ import javax.persistence.*;
 public class BusinessProfile {
 
     @Id
-    private String businessId;
+    private String businessProId;
     private String businessName;
     private String address;
     private String contactNumber1;
@@ -40,5 +40,4 @@ public class BusinessProfile {
 
     @OneToOne
     private Town town;
-    
 }

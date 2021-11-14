@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class CustomerProfile extends DateTime {
 
     @Id
-    private String customerId;
+    private String customerProId;
     private String customerName;
     private String contactNumber;
     private String address;
