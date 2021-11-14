@@ -26,7 +26,7 @@ public class Item extends DateTime {
     private double itemDiscount;
     private String itemDiscountType;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumns({
             @JoinColumn(name = "businessProId", referencedColumnName = "businessProId", updatable = false, nullable = false),
             @JoinColumn(name = "businessCategoryId", referencedColumnName = "businessCategoryId", updatable = false, nullable = false)

@@ -20,6 +20,6 @@ public class Notification extends DateTime {
     private String notificationId;
     private String description;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private User user;
 }

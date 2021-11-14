@@ -22,6 +22,6 @@ public class Town extends DateTime {
     private String townId;
     private String name;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private District district;
 }

@@ -20,7 +20,7 @@ public class Complaint extends DateTime {
     private String complaintId;
     private String description;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private User complainedBy;
 
 }

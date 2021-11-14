@@ -25,8 +25,8 @@ public class CustomerProfile extends DateTime {
     private String address;
     private String gender;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private User user;
-    @OneToOne
+    @OneToOne(optional = false)
     private Town town;
 }

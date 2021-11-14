@@ -38,6 +38,6 @@ public class BusinessProfile {
     private String socialTwitter;
     private String socialLinkedIn;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private Town town;
 }

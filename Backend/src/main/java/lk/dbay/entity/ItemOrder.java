@@ -23,6 +23,6 @@ public class ItemOrder extends DateTime {
     private double amount;
     private double discount;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private CustomerProfile customerProfile;
 }

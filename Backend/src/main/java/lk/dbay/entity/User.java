@@ -28,7 +28,7 @@ public class User extends DateTime {
     private boolean available;
     private boolean confirmed;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private User confirmedBy;
     private LocalDateTime confirmedAt;
 }

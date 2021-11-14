@@ -13,16 +13,16 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"categoryName", "businessProId", "businessCategoryId"}, name = "CategoryName")
+        @UniqueConstraint(columnNames = {"name", "businessProId", "businessCategoryId"}, name = "ItemCategoryName")
 })
-public class Category extends DateTime {
+public class ItemCategory extends DateTime {
 
     @Id
-    private String categoryId;
-    private String categoryName;
+    private String itemCategoryId;
+    private String name;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumns({
             @JoinColumn(name = "businessProId", referencedColumnName = "businessProId", updatable = false, nullable = false),
             @JoinColumn(name = "businessCategoryId", referencedColumnName = "businessCategoryId", updatable = false, nullable = false)
