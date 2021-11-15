@@ -1,6 +1,5 @@
 package lk.dbay.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,14 +13,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name", name = "Town_Name")
+        @UniqueConstraint(columnNames = "name", name = "Feature_Name")
 })
-public class Town extends DateTime {
+public class ItemFeature extends DateTime {
 
     @Id
-    private String townId;
+    private String featureId;
     private String name;
 
     @ManyToOne(optional = false)
-    private District district;
+    private Item item;
 }

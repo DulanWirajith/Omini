@@ -8,22 +8,21 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Complaint extends DateTime {
+public class Review extends DateTime {
 
     @Id
-    private String complaintId;
+    private String reviewId;
     private String description;
 
     @ManyToOne(optional = false)
-    private User complainedBy;
+    private BusinessProfile businessProfile;
 
     @ManyToOne(optional = false)
-    private Complaint complaint;
+    private CustomerProfile customerProfile;
 }

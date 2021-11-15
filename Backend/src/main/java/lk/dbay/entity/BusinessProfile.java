@@ -37,7 +37,4 @@ public class BusinessProfile {
     private String socialInsta;
     private String socialTwitter;
     private String socialLinkedIn;
-
-    @OneToOne(optional = false)
-    private Town town;
 }

@@ -27,6 +27,6 @@ public class CustomerProfile extends DateTime {
 
     @OneToOne(optional = false)
     private User user;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Town town;
 }

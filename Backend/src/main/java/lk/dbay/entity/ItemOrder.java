@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
@@ -23,6 +24,6 @@ public class ItemOrder extends DateTime {
     private double amount;
     private double discount;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private CustomerProfile customerProfile;
 }
