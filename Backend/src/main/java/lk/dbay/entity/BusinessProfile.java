@@ -21,7 +21,7 @@ import javax.persistence.*;
         @UniqueConstraint(columnNames = "socialInsta", name = "SocialInsta"),
         @UniqueConstraint(columnNames = "socialLinkedIn", name = "SocialLinkedIn"),
 })
-public class BusinessProfile {
+public class BusinessProfile extends DateTime {
 
     @Id
     private String businessProId;
@@ -37,4 +37,6 @@ public class BusinessProfile {
     private String socialInsta;
     private String socialTwitter;
     private String socialLinkedIn;
+    private int proViewCount;
+    private int contactViewCount;
 }
