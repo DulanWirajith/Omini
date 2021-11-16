@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = "email", name = "Email_Address")
 })
-public class User extends DateTime {
+public class DbayUser extends DateTime {
 
     @Id
     private String userId;
@@ -29,6 +29,6 @@ public class User extends DateTime {
     private boolean confirmed;
 
     @ManyToOne(optional = false)
-    private User confirmedBy;
+    private DbayUser confirmedBy;
     private LocalDateTime confirmedAt;
 }

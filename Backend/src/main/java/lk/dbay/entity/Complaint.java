@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 @NoArgsConstructor
@@ -22,7 +21,7 @@ public class Complaint extends DateTime {
     private String description;
 
     @ManyToOne(optional = false)
-    private User complainedBy;
+    private DbayUser complainedBy;
 
     @ManyToOne(optional = false)
     private Complaint complaint;
