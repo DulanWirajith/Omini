@@ -1,6 +1,6 @@
 package lk.dbay.security;
 
-import lk.dbay.dto.UserDTO;
+import lk.dbay.dto.DbayUserDTO;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
@@ -10,7 +10,7 @@ import java.util.Set;
 @Component
 public class JwtCache {
 
-    private static Set<UserDTO> users = new HashSet<>();
+    private static Set<DbayUserDTO> users = new HashSet<>();
 
     public JwtCache() {
         new Thread(new Runnable() {
@@ -31,8 +31,8 @@ public class JwtCache {
         }).start();
     }
 
-    public UserDTO getUser(UserDTO user) {
-        for (UserDTO userDTO : users) {
+    public DbayUserDTO getUser(DbayUserDTO user) {
+        for (DbayUserDTO userDTO : users) {
             if (userDTO.equals(user)) {
                 return userDTO;
             }
@@ -40,8 +40,8 @@ public class JwtCache {
         return null;
     }
 
-    public void setUser(UserDTO user) {
-        UserDTO userObj = getUser(user);
+    public void setUser(DbayUserDTO user) {
+        DbayUserDTO userObj = getUser(user);
         if (userObj != null) {
             userObj.setSecurityKey(user.getSecurityKey());
         } else {
@@ -49,7 +49,7 @@ public class JwtCache {
         }
     }
 
-    public boolean removeUser(UserDTO user) {
+    public boolean removeUser(DbayUserDTO user) {
         return users.remove(user);
     }
 }

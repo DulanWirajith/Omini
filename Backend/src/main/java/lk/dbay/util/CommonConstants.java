@@ -2,13 +2,13 @@ package lk.dbay.util;
 
 public class CommonConstants {
 
-    public static final String DOMAIN_ECLASS = "eclass";
+    public static final String DOMAIN_DBAY = "dbay";
     public static final String SUPER_ADMIN = "/superadmin";
     public static final String ADMIN = "/admin";
     public static final String USER = "/user";
     public static final int ID_LENGTH = 6;
 
-    public static final String ECLASS_USER = "/eclass_user";
+    public static final String DBAY_USER = "/dbay_user";
     public static final String STUDENT = "/student";
     public static final String TUTOR = "/tutor";
     public static final String INSTITUTE = "/institute";

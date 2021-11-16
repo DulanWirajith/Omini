@@ -1,7 +1,7 @@
 package lk.dbay.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import lk.dbay.dto.UserDTO;
+import lk.dbay.dto.DbayUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,7 +33,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String authorizationHeader = httpServletRequest.getHeader("Authorization");
         String token = null;
-        UserDTO user = null;
+        DbayUserDTO user = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7);
@@ -53,9 +53,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDTO userDTO = new UserDTO();
+            DbayUserDTO userDTO = new DbayUserDTO();
             userDTO.setUserId(user.getUserId());
-            UserDTO userCached = jwtCache.getUser(userDTO);
+            DbayUserDTO userCached = jwtCache.getUser(userDTO);
             JwtUserDetails userDetails = null;
             if (userCached != null) {
                 if (user.getSecurityKey() > 0) {

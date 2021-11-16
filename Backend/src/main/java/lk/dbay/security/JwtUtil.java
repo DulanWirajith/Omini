@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lk.dbay.dto.UserDTO;
+import lk.dbay.dto.DbayUserDTO;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ public class JwtUtil {
     private String secret = "mercedes";
     private static final long JWT_TOKEN_VALIDITY = 60 * 60 * 18; //18 hours
 
-    public String generate(UserDTO user) {
+    public String generate(DbayUserDTO user) {
         Claims claims = Jwts.claims().setSubject(user.getUsername());
         claims.put("userId", String.valueOf(user.getUserId()));
         claims.put("role", user.getRole());
@@ -31,10 +31,10 @@ public class JwtUtil {
         return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
-    public UserDTO validate(String token) {
+    public DbayUserDTO validate(String token) {
         try {
             Claims body = getBody(token);
-            UserDTO user = new UserDTO();
+            DbayUserDTO user = new DbayUserDTO();
             user.setUsername(body.getSubject());
             user.setUserId(body.get("userId").toString());
             user.setRole(body.get("role").toString());
@@ -59,7 +59,7 @@ public class JwtUtil {
     }
 
 
-    public boolean validateToken(UserDTO user, JwtUserDetails userDetails, HttpServletRequest httpServletRequest) {
+    public boolean validateToken(DbayUserDTO user, JwtUserDetails userDetails, HttpServletRequest httpServletRequest) {
 //        boolean rollIdentified = false;
 //        if (httpServletRequest.getRequestURI().startsWith("/" + CommonConstants.DOMAIN_MEDILAB + CommonConstants.ADMIN) && user.getRole().equals("Admin")) {
 //            rollIdentified = true;
