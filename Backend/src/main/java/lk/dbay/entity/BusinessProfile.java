@@ -39,4 +39,7 @@ public class BusinessProfile extends DateTime {
     private String socialLinkedIn;
     private int proViewCount;
     private int contactViewCount;
+
+    @OneToOne(optional = false)
+    private DbayUser user;
 }

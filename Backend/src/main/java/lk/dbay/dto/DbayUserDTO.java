@@ -50,8 +50,8 @@ public class DbayUserDTO extends DateTimeDTO {
 //        if (dbayUser != null) {
         this.userId = dbayUser.getUserId();
         this.email = dbayUser.getEmail();
-        this.firstName = dbayUser.getFirstName();
-        this.lastName = dbayUser.getLastName();
+//        this.firstName = dbayUser.getFirstName();
+//        this.lastName = dbayUser.getLastName();
         this.username = dbayUser.getUsername();
         this.role = dbayUser.getRole();
         this.available = dbayUser.isAvailable();

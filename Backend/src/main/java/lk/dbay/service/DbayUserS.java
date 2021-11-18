@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface DbayUserService extends UserDetailsService {
+public interface DbayUserS extends UserDetailsService {
 
     DbayUserDTO authenticate(DbayUser dbayUser) throws Exception;
 

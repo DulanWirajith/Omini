@@ -1,6 +1,6 @@
 package lk.dbay.security;
 
-import lk.dbay.service.DbayUserService;
+import lk.dbay.service.DbayUserS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtFilter jwtFilter;
 
     @Autowired
-    private DbayUserService userService;
+    private DbayUserS userService;
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {

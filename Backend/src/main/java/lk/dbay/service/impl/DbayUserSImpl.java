@@ -5,7 +5,7 @@ import lk.dbay.entity.DbayUser;
 import lk.dbay.repository.DbayUserR;
 import lk.dbay.security.JwtCache;
 import lk.dbay.security.JwtUtil;
-import lk.dbay.service.DbayUserService;
+import lk.dbay.service.DbayUserS;
 import lk.dbay.service.SendEmailSMTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
-public class DbayUserServiceImpl implements DbayUserService {
+public class DbayUserSImpl implements DbayUserS {
 
     @Value("${email.link}")
     private String emailLink;

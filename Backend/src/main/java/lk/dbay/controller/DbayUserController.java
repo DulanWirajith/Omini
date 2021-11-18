@@ -2,7 +2,7 @@ package lk.dbay.controller;
 
 import lk.dbay.dto.DbayUserDTO;
 import lk.dbay.entity.DbayUser;
-import lk.dbay.service.DbayUserService;
+import lk.dbay.service.DbayUserS;
 import lk.dbay.util.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 public class DbayUserController {
 
     @Autowired
-    private DbayUserService dbayUserService;
+    private DbayUserS dbayUserService;
 
     @PostMapping(value = "/authenticate")
     public ResponseEntity authenticate(@RequestBody DbayUser dbayUser, HttpServletRequest request) {

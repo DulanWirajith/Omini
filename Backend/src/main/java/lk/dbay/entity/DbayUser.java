@@ -24,8 +24,8 @@ public class DbayUser extends DateTime {
     private String type;
     private String password;
     private String verificationCode;
-    private String firstName;
-    private String lastName;
+//    private String firstName;
+//    private String lastName;
     private String role;
     private String email;
     private boolean available;
