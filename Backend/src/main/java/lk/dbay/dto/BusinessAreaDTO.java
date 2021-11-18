@@ -12,4 +12,9 @@ import lombok.Setter;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BusinessAreaDTO extends DateTimeDTO {
+
+    private String businessProId;
+    private String townId;
+    private BusinessProfileDTO businessProfile;
+    private TownDTO town;
 }

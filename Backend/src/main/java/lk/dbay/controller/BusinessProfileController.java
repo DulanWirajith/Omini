@@ -18,7 +18,7 @@ public class BusinessProfileController {
     @Autowired
     private BusinessProfileS businessProfileS;
 
-    @PostMapping(value = CommonConstants.USER + CommonConstants.ADD)
+    @PostMapping(value = "/addBusinessProfile")
     public ResponseEntity addBusinessProfile(@RequestBody BusinessProfile businessProfile) {
         try {
             BusinessProfileDTO businessProfileDTO = businessProfileS.addBusinessProfile(businessProfile);

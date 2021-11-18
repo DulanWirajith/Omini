@@ -81,7 +81,7 @@ public class SendEmailSMTPImpl implements SendEmailSMTP {
         new Thread(() -> {
             try {
                 if (dbayUser.getEmail() != null && !dbayUser.getEmail().equals("")) {
-                    String emailTxt = "Hello " + dbayUser.getFirstName() + " " + dbayUser.getLastName() + " (" + dbayUser.getUsername() + "), " +
+                    String emailTxt = "Hello " + " (" + dbayUser.getUsername() + "), " +
                             "\nYou are now new " + dbayUser.getRole() + " of the (E-Class) system." +
                             "\nYour " + dbayUser.getRole() + " ID is " + dbayUser.getUserId();
                     sendEmail(dbayUser.getEmail(), "YEWOI(E-Class) New " + dbayUser.getRole(), emailTxt);

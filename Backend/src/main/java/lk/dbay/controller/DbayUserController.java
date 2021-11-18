@@ -113,62 +113,62 @@ public class DbayUserController {
         }
     }
 
-    @PostMapping(value = CommonConstants.ADMIN + "/addUser")
-    public ResponseEntity addClassUser(@RequestBody DbayUser dbayUser) {
-        try {
-            DbayUserDTO userDTO = dbayUserService.addClassUser(dbayUser);
-            if (userDTO != null) {
-                return ResponseEntity.ok(userDTO);
-            } else {
-                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping(value = CommonConstants.ADMIN + "/addUser")
+//    public ResponseEntity addClassUser(@RequestBody DbayUser dbayUser) {
+//        try {
+//            DbayUserDTO userDTO = dbayUserService.addClassUser(dbayUser);
+//            if (userDTO != null) {
+//                return ResponseEntity.ok(userDTO);
+//            } else {
+//                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
-    @PostMapping(value = CommonConstants.ADMIN + "/updateUser")
-    public ResponseEntity updateClassUser(@RequestBody DbayUser dbayUser) {
-        try {
-            DbayUserDTO userDTO = dbayUserService.updateClassUser(dbayUser);
-            if (userDTO != null) {
-                return ResponseEntity.ok(userDTO);
-            } else {
-                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping(value = CommonConstants.ADMIN + "/updateUser")
+//    public ResponseEntity updateClassUser(@RequestBody DbayUser dbayUser) {
+//        try {
+//            DbayUserDTO userDTO = dbayUserService.updateClassUser(dbayUser);
+//            if (userDTO != null) {
+//                return ResponseEntity.ok(userDTO);
+//            } else {
+//                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
-    @DeleteMapping(value = CommonConstants.ADMIN + "/removeUser/{id}")
-    public ResponseEntity removeClassUser(@PathVariable String id) {
-        try {
-            if (dbayUserService.removeClassUser(id)) {
-                return ResponseEntity.ok("{\"reply\":\"Success\"}");
-            } else {
-                return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @DeleteMapping(value = CommonConstants.ADMIN + "/removeUser/{id}")
+//    public ResponseEntity removeClassUser(@PathVariable String id) {
+//        try {
+//            if (dbayUserService.removeClassUser(id)) {
+//                return ResponseEntity.ok("{\"reply\":\"Success\"}");
+//            } else {
+//                return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
-    @GetMapping(value = CommonConstants.ADMIN + "/getAllUsers/{role}")
-    public ResponseEntity getAllUsersByRole(@PathVariable String role) {
-        return ResponseEntity.ok(dbayUserService.getAllUsersByRole(role));
-    }
+//    @GetMapping(value = CommonConstants.ADMIN + "/getAllUsers/{role}")
+//    public ResponseEntity getAllUsersByRole(@PathVariable String role) {
+//        return ResponseEntity.ok(dbayUserService.getAllUsersByRole(role));
+//    }
 
 //    @GetMapping(value = CommonConstants.ADMIN + "/getAllUsers")
 //    public ResponseEntity getAllUsers() {
 //        return ResponseEntity.ok(dbayUserService.getAllUsers());
 //    }
 
-    @GetMapping(value = CommonConstants.ADMIN + "/getUser/{userId}")
-    public ResponseEntity getUser(@PathVariable String userId) {
-        return ResponseEntity.ok(dbayUserService.getUser(userId));
-    }
+//    @GetMapping(value = CommonConstants.ADMIN + "/getUser/{userId}")
+//    public ResponseEntity getUser(@PathVariable String userId) {
+//        return ResponseEntity.ok(dbayUserService.getUser(userId));
+//    }
 }

@@ -172,7 +172,7 @@ public class DbayUserSImpl implements DbayUserS {
             String verifyCode = (new Random().nextInt(89999999) + 10000001) + "";
             user.setVerificationCode(verifyCode);
             dbayUserR.save(user);
-            String emailTxt = "Hello " + user.getFirstName() + " " + user.getLastName() + ", " +
+            String emailTxt = "Hello " + user.getUsername() + ", " +
                     "\nYou are now new user to the system" +
                     "\nUse below link to set your password\n\n" +
                     "\n" + emailLink + "?email=" + user.getEmail() + "&verify=" + verifyCode;
@@ -191,8 +191,8 @@ public class DbayUserSImpl implements DbayUserS {
             Optional<DbayUser> userOptional = dbayUserR.findById(user.getUserId());
             if (userOptional.isPresent()) {
                 DbayUser userObj = userOptional.get();
-                userObj.setFirstName(user.getFirstName());
-                userObj.setLastName(user.getLastName());
+//                userObj.setFirstName(user.getFirstName());
+//                userObj.setLastName(user.getLastName());
                 userObj.setUsername(user.getUsername());
                 userObj.setEmail(user.getEmail());
                 userObj.setRole(user.getRole());

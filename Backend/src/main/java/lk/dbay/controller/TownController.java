@@ -14,22 +14,22 @@ public class TownController {
     @Autowired
     private TownS townS;
 
-    @GetMapping(value = CommonConstants.USER + "/getCountries")
+    @GetMapping(value = "/getCountries")
     public ResponseEntity getCountries() {
         return ResponseEntity.ok(townS.getCountries());
     }
 
-    @GetMapping(value = CommonConstants.USER + "/getDistricts/{countryId}")
+    @GetMapping(value = "/getDistricts/{countryId}")
     public ResponseEntity getDistricts(@PathVariable String countryId) {
         return ResponseEntity.ok(townS.getDistricts(countryId));
     }
 
-    @GetMapping(value = CommonConstants.USER + "/getTowns/{districtId}")
+    @GetMapping(value = "/getTowns/{districtId}")
     public ResponseEntity getTowns(@PathVariable String districtId) {
         return ResponseEntity.ok(townS.getTowns(districtId));
     }
 
-    @GetMapping(value = CommonConstants.USER + "/getTownsWIthDistrict")
+    @GetMapping(value = "/getTownsWIthDistrict")
     public ResponseEntity getTownsWIthDistrict() {
         return ResponseEntity.ok(townS.getTownsWIthDistrict());
     }
