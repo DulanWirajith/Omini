@@ -31,7 +31,7 @@ public class DbayUser extends DateTime {
     private boolean available;
     private boolean confirmed;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private DbayUser confirmedBy;
     private LocalDateTime confirmedAt;
 }

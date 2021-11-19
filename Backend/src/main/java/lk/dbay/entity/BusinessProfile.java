@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -40,6 +41,15 @@ public class BusinessProfile extends DateTime {
     private int proViewCount;
     private int contactViewCount;
 
+    @ManyToOne(optional = false)
+    private Town town;
+
     @OneToOne(optional = false)
     private DbayUser user;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "businessProfile")
+    private Set<BusinessArea> businessAreas;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "businessProfile")
+    private Set<BusinessProfileCategory> businessProfileCategories;
 }

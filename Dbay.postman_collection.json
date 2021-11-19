@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "4cc7c053-a12c-4f51-bc9c-ff6985ffb022",
+		"name": "Dbay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getCountries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbay/town/getCountries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbay",
+						"town",
+						"getCountries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDistricts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbay/town/getDistricts/C001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbay",
+						"town",
+						"getDistricts",
+						"C001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTowns",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbay/town/getTowns/D001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbay",
+						"town",
+						"getTowns",
+						"D001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTownsWIthDistrict",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbay/town/getTownsWIthDistrict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbay",
+						"town",
+						"getTownsWIthDistrict"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addBusinessProfile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"businessName\": \"Abc\",\r\n    \"address\": \"123, abc road\",\r\n    \"contactNumber1\": \"077\",\r\n    \"contactNumber2\": \"\",\r\n    \"contactNumber3\": \"\",\r\n    \"businessRegistrationCode\": \"123\",\r\n    \"businessOwner\": \"imalka\",\r\n    \"businessOwnerNic\": \"258963\",\r\n    \"socialFb\": \"fb\",\r\n    \"socialInsta\": \"insta\",\r\n    \"socialTwitter\": \"twitter\",\r\n    \"socialLinkedIn\": \"\",\r\n    \"town\": {\r\n        \"townId\": \"T001\"\r\n    },\r\n    \"businessAreas\": [\r\n        {\r\n            \"town\": {\r\n                \"townId\": \"T001\"\r\n            }\r\n        },\r\n        {\r\n            \"town\": {\r\n                \"townId\": \"T002\"\r\n            }\r\n        }\r\n    ],\r\n    \"businessProfileCategories\": [\r\n        {\r\n            \"businessCategory\": {\r\n                \"businessCategoryId\": \"BC001\"\r\n            }\r\n        },\r\n        {\r\n            \"businessCategory\": {\r\n                \"businessCategoryId\": \"BC002\"\r\n            }\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"username\": \"buddhima\",\r\n        \"password\": \"159\",\r\n        \"email\": \"buddi@gmail.com\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dbay/business_profile/addBusinessProfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbay",
+						"business_profile",
+						"addBusinessProfile"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

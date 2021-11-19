@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Setter
 public class BusinessProfileCategoryPK implements Serializable {
 
-    private String businessCategoryId;
     private String businessProId;
+    private String businessCategoryId;
 
 }
