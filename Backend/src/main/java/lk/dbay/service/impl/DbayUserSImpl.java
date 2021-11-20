@@ -39,10 +39,11 @@ public class DbayUserSImpl implements DbayUserS {
     private JwtCache jwtCache;
     @Autowired
     private DbayUserR dbayUserR;
+    private DbayUser userByUsernameOrEmail;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        DbayUser userByUsernameOrEmail = dbayUserR.getUserByUsernameOrEmailAndVerificationCode(s);
+        userByUsernameOrEmail = dbayUserR.getUserByUsernameOrEmailAndVerificationCode(s);
         List<SimpleGrantedAuthority> roles = new ArrayList<>();
 //        for (UserPrivilege userPrivilege : userByUsernameOrEmail.getUserPrivileges()) {
 //            roles.add(new SimpleGrantedAuthority(userPrivilege.getPrivilege().getPrivilegeName()));
@@ -54,8 +55,8 @@ public class DbayUserSImpl implements DbayUserS {
     public DbayUserDTO authenticate(DbayUser dbayUser) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dbayUser.getUsername(), dbayUser.getPassword()));
-            DbayUser userObj = dbayUserR.getUserByUsernameOrEmailAndVerificationCode(dbayUser.getUsername());
-            if (userObj != null) {
+//            DbayUser userObj = dbayUserR.getUserByUsernameOrEmailAndVerificationCode(dbayUser.getUsername());
+            if (userByUsernameOrEmail != null) {
 //                if (userObj.getUserId().startsWith("AT")) {
 //
 //                } else if (userObj.getUserId().startsWith("A")) {
@@ -66,11 +67,11 @@ public class DbayUserSImpl implements DbayUserS {
 //
 //                }
 //                System.out.println(userObj.getPassword());
-                userObj.setCreatedAt(null);
+                userByUsernameOrEmail.setCreatedAt(null);
 //                userObj.getPharmacy().setCreatedAt(null);
-                userObj.setUpdatedAt(null);
+                userByUsernameOrEmail.setUpdatedAt(null);
 //                userObj.getPharmacy().setUpdatedAt(null);
-                DbayUserDTO userDTOobj = new DbayUserDTO(userObj);
+                DbayUserDTO userDTOobj = new DbayUserDTO(userByUsernameOrEmail);
                 userDTOobj.setSecurityKey(dbayUser.hashCode());
 
 //                List<String> userPrivileges = new ArrayList<>();
