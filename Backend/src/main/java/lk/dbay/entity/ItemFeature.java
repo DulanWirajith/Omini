@@ -18,9 +18,8 @@ import javax.persistence.*;
 public class ItemFeature extends DateTime {
 
     @Id
-    private String featureId;
+    private String itemFeatureId;
     private String name;
+    private String description;
 
-    @ManyToOne(optional = false)
-    private Item item;
 }
