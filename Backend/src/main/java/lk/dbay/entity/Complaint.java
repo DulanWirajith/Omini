@@ -24,5 +24,5 @@ public class Complaint extends DateTime {
     private DbayUser complainedBy;
 
     @ManyToOne(optional = false)
-    private Complaint complaint;
+    private ComplaintType complaintType;
 }

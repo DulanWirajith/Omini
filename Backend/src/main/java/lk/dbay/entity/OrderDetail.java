@@ -23,17 +23,16 @@ public class OrderDetail extends DateTime {
     @ManyToOne(optional = false)
     private ItemOrder itemOrder;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "itemPId", referencedColumnName = "itemId", updatable = false, nullable = false),
+            @JoinColumn(name = "itemId", referencedColumnName = "itemId", updatable = false, nullable = false),
             @JoinColumn(name = "itemPackageId", referencedColumnName = "itemPackageId", updatable = false, nullable = false)
     })
     private ItemItemPackage itemItemPackage;
 
-    @ManyToOne(optional = false)
-    @JoinColumns({
-            @JoinColumn(name = "itemCId", referencedColumnName = "itemId", updatable = false, nullable = false),
-            @JoinColumn(name = "itemCategoryId", referencedColumnName = "itemCategoryId", updatable = false, nullable = false)
-    })
-    private ItemItemCategory itemItemCategory;
+    @ManyToOne
+    private Item item;
+
+    @ManyToOne
+    private ItemCategory itemCategory;
 }

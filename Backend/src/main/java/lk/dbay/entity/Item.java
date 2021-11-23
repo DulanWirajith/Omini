@@ -39,8 +39,8 @@ public class Item extends DateTime {
     })
     private BusinessProfileCategory businessProfileCategory;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
-    private Set<ItemItemCategory> itemItemCategories;
+    @ManyToOne
+    private ItemCategory itemCategory;
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
     private Set<ItemItemFeature> itemItemFeatures;

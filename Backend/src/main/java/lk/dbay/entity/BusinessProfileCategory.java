@@ -17,11 +17,11 @@ public class BusinessProfileCategory extends DateTime {
     @EmbeddedId
     private BusinessProfileCategoryPK businessProfileCategoryId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "businessProId", referencedColumnName = "businessProId", insertable = false, updatable = false, nullable = false)
     private BusinessProfile businessProfile;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "businessCategoryId", referencedColumnName = "businessCategoryId", insertable = false, updatable = false, nullable = false)
     private BusinessCategory businessCategory;
 }
