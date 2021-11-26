@@ -21,6 +21,7 @@ public class ItemCategory extends DateTime {
     private String itemCategoryId;
     private String name;
     private String description;
+    private boolean confirmed;
 
     @ManyToOne(optional = false)
     @JoinColumns({

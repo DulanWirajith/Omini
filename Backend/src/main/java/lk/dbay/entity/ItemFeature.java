@@ -21,5 +21,6 @@ public class ItemFeature extends DateTime {
     private String itemFeatureId;
     private String name;
     private String description;
+    private boolean confirmed;
 
 }

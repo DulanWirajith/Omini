@@ -1,0 +1,129 @@
+<div class="bg-light rounded-3 py-4 px-md-4 mb-3">
+  <div class="steps pt-4 pb-1">
+    <div class="step active">
+      <div class="step-progress">
+                    <span class="step-progress-start"></span
+                    ><span class="step-progress-end"></span
+      ><span class="step-number">1</span>
+      </div>
+      <div class="step-label">User Info</div>
+    </div>
+    <div class="step active">
+      <div class="step-progress">
+                    <span class="step-progress-start"></span
+                    ><span class="step-progress-end"></span
+      ><span class="step-number">2</span>
+      </div>
+      <div class="step-label">Business Info</div>
+    </div>
+    <div class="step active">
+      <div class="step-progress">
+                    <span class="step-progress-start"></span
+                    ><span class="step-progress-end"></span
+      ><span class="step-number">3</span>
+      </div>
+      <div class="step-label">Ownership</div>
+    </div>
+    <div class="step active">
+      <div class="step-progress">
+                    <span class="step-progress-start"></span
+                    ><span class="step-progress-end"></span
+      ><span class="step-number">4</span>
+      </div>
+      <div class="step-label">Service & Socials</div>
+    </div>
+    <div class="step">
+      <div class="step-progress">
+                    <span class="step-progress-start"></span
+                    ><span class="step-progress-end"></span
+      ><span class="step-number">5</span>
+      </div>
+      <div class="step-label">Verification</div>
+    </div>
+    <div class="step">
+      <div class="step-progress">
+                    <span class="step-progress-start"></span
+                    ><span class="step-progress-end"></span
+      ><span class="step-number">6</span>
+      </div>
+      <div class="step-label">Confirmation</div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-light rounded-3 p-4 p-md-5 mb-3">
+  <h2 class="h4 mb-4">
+    <i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i
+    >Service and Socials
+  </h2>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-info mb-4" role="alert">
+        <div class="d-flex">
+          <i class="fi-alert-circle me-2 me-sm-3"></i>
+          <p class="fs-sm mb-1">
+            Please select your business belongs to which business types and also select areas your service providing.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 mb-4">
+      <label class="form-label" for="biz-type"
+      >Business Types <span class="text-danger">*</span></label
+      >
+      <select class="form-select mt-3" id="biz-type" multiple name="stypes[]" data-bs-binded-element="#type-value">
+        <option value="Juicebar">Juice Bar</option>
+        <option value="Cake Baker">Cake Baker</option>
+        <option value="Bakery">Bakery</option>
+        <option value="FoodShop">Food Shop</option>
+      </select>
+    </div>
+    <div class="col-sm-6 mb-4">
+      <label class="form-label" for="biz-servicearea"
+      >Business Service areas
+        <span class="text-danger">*</span></label
+      >
+      <select class="form-select mt-3" multiple name="areas[]" id="biz-servicearea" data-bs-binded-element="#ba-value">
+        <option value="Galle-Galle">Galle-Galle</option>
+        <option value="Galle-Matara">Galle-Matara</option>
+        <option value="Galle-Ambalangoda">Galle-Ambalangoda</option>
+      </select>
+    </div>
+    <div class="col-sm-6 mb-4">
+      <div class="pb-4 mb-2">
+        <label class="form-label fw-bold mb-3">Socials</label>
+        <div class="d-flex align-items-center mb-3">
+          <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+            class="fi-facebook text-body"></i></div>
+          <input class="form-control" type="text" placeholder="Your Facebook account">
+        </div>
+        <div class="d-flex align-items-center mb-3">
+          <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+            class="fi-linkedin text-body"></i></div>
+          <input class="form-control" type="text" placeholder="Your LinkedIn account">
+        </div>
+        <div class="d-flex align-items-center mb-3">
+          <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+            class="fi-twitter text-body"></i></div>
+          <input class="form-control" type="text" placeholder="Your Twitter account">
+        </div>
+        <div class="collapse" id="showMoreSocials">
+          <div class="d-flex align-items-center mb-3">
+            <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+              class="fi-instagram text-body"></i></div>
+            <input class="form-control" type="text" placeholder="Your Instagram account">
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+              class="fi-youtube text-body"></i></div>
+            <input class="form-control" type="text" placeholder="Your Behance account">
+          </div>
+        </div>
+        <a class="collapse-label collapsed d-inline-block fs-sm fw-bold text-decoration-none pt-2"
+           href="#showMoreSocials" data-bs-toggle="collapse" data-bs-label-collapsed="Show more"
+           data-bs-label-expanded="Show less" role="button" aria-expanded="false" aria-controls="showMoreSocials"><i
+          class="fi-arrow-down me-2"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
