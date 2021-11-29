@@ -71,12 +71,21 @@
       <label class="form-label" for="biz-type"
       >Business Types <span class="text-danger">*</span></label
       >
-      <select class="form-select mt-3" id="biz-type" multiple name="stypes[]" data-bs-binded-element="#type-value">
-        <option value="Juicebar">Juice Bar</option>
-        <option value="Cake Baker">Cake Baker</option>
-        <option value="Bakery">Bakery</option>
-        <option value="FoodShop">Food Shop</option>
-      </select>
+      <!--<select class="form-select mt-3" id="biz-type" multiple name="stypes[]" data-bs-binded-element="#type-value">-->
+        <!--<option value="Juicebar">Juice Bar</option>-->
+        <!--<option value="Cake Baker">Cake Baker</option>-->
+        <!--<option value="Bakery">Bakery</option>-->
+        <!--<option value="FoodShop">Food Shop</option>-->
+      <!--</select>-->
+      <ng-select
+        [items]="cars"
+        bindLabel="name"
+        placeholder="Select Service areas"
+        dropdownPosition="auto"
+        [multiple]="true"
+        [searchWhileComposing]="true"
+        [(ngModel)]="selected">
+      </ng-select>
     </div>
     <div class="col-sm-6 mb-4">
       <label class="form-label" for="biz-servicearea"

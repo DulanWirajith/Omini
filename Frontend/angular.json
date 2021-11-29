@@ -39,14 +39,12 @@
               "src/assets/vendor/filepond/dist/filepond.min.css",
               "src/assets/css/nouislider.min.css",
               "src/assets/vendor/leaflet/dist/leaflet.css",
-              "src/assets/vendor/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css",
-              "node_modules/select2/dist/css/select2.min.css"
+              "src/assets/vendor/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/jquery.min.js",
               "src/assets/js/bootstrap.bundle.min.js",
-              "src/assets/js/select2.min.js",
-              "node_modules/select2/dist/js/select2.min.js"
+              "src/assets/js/select2.min.js"
             ]
           },
           "configurations": {

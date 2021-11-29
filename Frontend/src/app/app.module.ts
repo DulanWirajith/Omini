@@ -11,6 +11,8 @@ import { BrStep3Component } from './view/business-register/br-step3/br-step3.com
 import { BrStep4Component } from './view/business-register/br-step4/br-step4.component';
 import { BrStep5Component } from './view/business-register/br-step5/br-step5.component';
 import { BrStep6Component } from './view/business-register/br-step6/br-step6.component';
+import {NgSelectModule} from "@ng-select/ng-select";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { BrStep6Component } from './view/business-register/br-step6/br-step6.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
