@@ -13,6 +13,11 @@ import { BrStep5Component } from './view/business-register/br-step5/br-step5.com
 import { BrStep6Component } from './view/business-register/br-step6/br-step6.component';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormsModule} from "@angular/forms";
+import { BusinessAccountComponent } from './view/business-account/business-account.component';
+import { BaManageComponent } from './view/business-account/ba-manage/ba-manage.component';
+import { BaMonitorComponent } from './view/business-account/ba-monitor/ba-monitor.component';
+import {HttpClientModule} from "@angular/common/http";
+import { ConfirmPasswordDirective } from './_validator/confirm-password.directive';
 
 @NgModule({
   declarations: [
@@ -24,13 +29,18 @@ import {FormsModule} from "@angular/forms";
     BrStep3Component,
     BrStep4Component,
     BrStep5Component,
-    BrStep6Component
+    BrStep6Component,
+    BusinessAccountComponent,
+    BaManageComponent,
+    BaMonitorComponent,
+    ConfirmPasswordDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

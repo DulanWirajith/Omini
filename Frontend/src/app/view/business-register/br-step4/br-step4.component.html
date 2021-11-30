@@ -1,55 +1,4 @@
-<div class="bg-light rounded-3 py-4 px-md-4 mb-3">
-  <div class="steps pt-4 pb-1">
-    <div class="step active">
-      <div class="step-progress">
-                    <span class="step-progress-start"></span
-                    ><span class="step-progress-end"></span
-      ><span class="step-number">1</span>
-      </div>
-      <div class="step-label">User Info</div>
-    </div>
-    <div class="step active">
-      <div class="step-progress">
-                    <span class="step-progress-start"></span
-                    ><span class="step-progress-end"></span
-      ><span class="step-number">2</span>
-      </div>
-      <div class="step-label">Business Info</div>
-    </div>
-    <div class="step active">
-      <div class="step-progress">
-                    <span class="step-progress-start"></span
-                    ><span class="step-progress-end"></span
-      ><span class="step-number">3</span>
-      </div>
-      <div class="step-label">Ownership</div>
-    </div>
-    <div class="step active">
-      <div class="step-progress">
-                    <span class="step-progress-start"></span
-                    ><span class="step-progress-end"></span
-      ><span class="step-number">4</span>
-      </div>
-      <div class="step-label">Service & Socials</div>
-    </div>
-    <div class="step">
-      <div class="step-progress">
-                    <span class="step-progress-start"></span
-                    ><span class="step-progress-end"></span
-      ><span class="step-number">5</span>
-      </div>
-      <div class="step-label">Verification</div>
-    </div>
-    <div class="step">
-      <div class="step-progress">
-                    <span class="step-progress-start"></span
-                    ><span class="step-progress-end"></span
-      ><span class="step-number">6</span>
-      </div>
-      <div class="step-label">Confirmation</div>
-    </div>
-  </div>
-</div>
+
 
 <div class="bg-light rounded-3 p-4 p-md-5 mb-3">
   <h2 class="h4 mb-4">
@@ -72,10 +21,10 @@
       >Business Types <span class="text-danger">*</span></label
       >
       <!--<select class="form-select mt-3" id="biz-type" multiple name="stypes[]" data-bs-binded-element="#type-value">-->
-        <!--<option value="Juicebar">Juice Bar</option>-->
-        <!--<option value="Cake Baker">Cake Baker</option>-->
-        <!--<option value="Bakery">Bakery</option>-->
-        <!--<option value="FoodShop">Food Shop</option>-->
+      <!--<option value="Juicebar">Juice Bar</option>-->
+      <!--<option value="Cake Baker">Cake Baker</option>-->
+      <!--<option value="Bakery">Bakery</option>-->
+      <!--<option value="FoodShop">Food Shop</option>-->
       <!--</select>-->
       <ng-select
         [items]="cars"
@@ -92,11 +41,20 @@
       >Business Service areas
         <span class="text-danger">*</span></label
       >
-      <select class="form-select mt-3" multiple name="areas[]" id="biz-servicearea" data-bs-binded-element="#ba-value">
-        <option value="Galle-Galle">Galle-Galle</option>
-        <option value="Galle-Matara">Galle-Matara</option>
-        <option value="Galle-Ambalangoda">Galle-Ambalangoda</option>
-      </select>
+      <!--<select class="form-select mt-3" multiple name="areas[]" id="biz-servicearea" data-bs-binded-element="#ba-value">-->
+      <!--<option value="Galle-Galle">Galle-Galle</option>-->
+      <!--<option value="Galle-Matara">Galle-Matara</option>-->
+      <!--<option value="Galle-Ambalangoda">Galle-Ambalangoda</option>-->
+      <!--</select>-->
+      <ng-select
+        [items]="cars"
+        bindLabel="name"
+        placeholder="Select Service areas"
+        dropdownPosition="auto"
+        [multiple]="true"
+        [searchWhileComposing]="true"
+        [(ngModel)]="selected">
+      </ng-select>
     </div>
     <div class="col-sm-6 mb-4">
       <div class="pb-4 mb-2">
