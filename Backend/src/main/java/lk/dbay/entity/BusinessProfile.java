@@ -14,8 +14,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"contactNumber1", "contactNumber2", "contactNumber3"}, name = "ContactNumber"),
-        @UniqueConstraint(columnNames = "address", name = "Address"),
+        @UniqueConstraint(columnNames = {"contactNumber1", "contactNumber2", "contactNumber3"}, name = "ContactNumbers"),
+        @UniqueConstraint(columnNames = "businessAddress", name = "BusinessAddress"),
         @UniqueConstraint(columnNames = "businessRegistrationCode", name = "BusinessRegistrationCode"),
         @UniqueConstraint(columnNames = "businessOwnerNic", name = "BusinessOwnerNic"),
         @UniqueConstraint(columnNames = "socialFb", name = "SocialFb"),
@@ -27,7 +27,8 @@ public class BusinessProfile extends DateTime {
     @Id
     private String businessProId;
     private String businessName;
-    private String address;
+    private String businessEmail;
+    private String businessAddress;
     private String contactNumber1;
     private String contactNumber2;
     private String contactNumber3;

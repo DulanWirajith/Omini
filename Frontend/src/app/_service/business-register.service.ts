@@ -15,6 +15,22 @@ export class BusinessRegisterService {
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
+  addBusinessProfile(businessReg): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'business_profile/addBusinessProfile', businessReg);
+  }
+
+  getBusinessCategories(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_category/getBusinessCategories');
+  }
+
+  getBusinessAreas(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_area/getBusinessAreas');
+  }
+
+  getTownsWIthDistrict(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'town/getTownsWIthDistrict');
+  }
+
   getCountries(): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'town/getCountries');
   }
@@ -30,7 +46,8 @@ export class BusinessRegisterService {
   getNewBR() {
     return {
       businessName: "",
-      address: "",
+      businessEmail: "",
+      businessAddress: "",
       contactNumber1: "",
       contactNumber2: "",
       contactNumber3: "",
@@ -41,6 +58,8 @@ export class BusinessRegisterService {
       socialInsta: "",
       socialTwitter: "",
       socialLinkedIn: "",
+      country: "",
+      district: "",
       town: {
         townId: ""
       },
@@ -50,7 +69,8 @@ export class BusinessRegisterService {
         username: "",
         password: "",
         passwordC: "",
-        email: ""
+        email: "",
+        verificationCode: ""
       }
     }
   }

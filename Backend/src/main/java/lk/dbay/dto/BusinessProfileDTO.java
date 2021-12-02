@@ -14,7 +14,8 @@ public class BusinessProfileDTO extends DateTimeDTO {
 
     private String businessProId;
     private String businessName;
-    private String address;
+    private String businessEmail;
+    private String businessAddress;
     private String contactNumber1;
     private String contactNumber2;
     private String contactNumber3;
@@ -32,7 +33,8 @@ public class BusinessProfileDTO extends DateTimeDTO {
     public BusinessProfileDTO(@NonNull BusinessProfile businessProfile) {
         this.businessProId = businessProfile.getBusinessProId();
         this.businessName = businessProfile.getBusinessName();
-        this.address = businessProfile.getAddress();
+        this.businessEmail = businessProfile.getBusinessEmail();
+        this.businessAddress = businessProfile.getBusinessAddress();
         this.contactNumber1 = businessProfile.getContactNumber1();
         this.contactNumber2 = businessProfile.getContactNumber2();
         this.contactNumber3 = businessProfile.getContactNumber3();

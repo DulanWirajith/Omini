@@ -17,7 +17,7 @@ public class BusinessAreaController {
     @Autowired
     private BusinessAreaS businessAreaS;
 
-    @GetMapping(value = CommonConstants.USER + "/getBusinessAreas")
+    @GetMapping(value = "/getBusinessAreas")
     public ResponseEntity getBusinessAreas() {
         return ResponseEntity.ok(businessAreaS.getBusinessAreas());
     }

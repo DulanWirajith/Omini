@@ -11,17 +11,16 @@ export class BrStep1Component implements OnInit {
 
   businessReg;
 
-  @ViewChild('brForm1', {static: true}) public instituteForm: NgForm;
+  @ViewChild('brForm1', {static: true}) public brForm1: NgForm;
 
   constructor(private businessRegisterService: BusinessRegisterService) {
-    if (localStorage.getItem('br') !== null) {
-      this.businessReg = JSON.parse(localStorage.getItem('br'));
-    } else {
-      this.businessReg = businessRegisterService.getNewBR();
-    }
+    this.businessReg = JSON.parse(JSON.stringify(businessRegisterService.getNewBR()));
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem('br') !== null) {
+      this.businessReg = JSON.parse(localStorage.getItem('br'));
+    }
   }
 
   onSubmit() {

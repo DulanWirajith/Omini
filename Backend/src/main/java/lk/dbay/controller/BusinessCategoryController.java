@@ -15,7 +15,7 @@ public class BusinessCategoryController {
     @Autowired
     private BusinessCategoryS businessCategoryS;
 
-    @GetMapping(value = CommonConstants.USER + "/getBusinessCategories")
+    @GetMapping("/getBusinessCategories")
     public ResponseEntity getBusinessCategories() {
         return ResponseEntity.ok(businessCategoryS.getBusinessCategories());
     }

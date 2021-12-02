@@ -10,26 +10,52 @@ import {NgForm} from "@angular/forms";
 export class BrStep2Component implements OnInit {
 
   businessReg;
+  countries;
+  districts;
+  towns;
 
-  @ViewChild('brForm2', {static: true}) public instituteForm: NgForm;
+  @ViewChild('brForm2', {static: true}) public brForm2: NgForm;
 
   constructor(private businessRegisterService: BusinessRegisterService) {
-    if (localStorage.getItem('br') !== null) {
-      this.businessReg = JSON.parse(localStorage.getItem('br'));
-    } else {
-      this.businessReg = businessRegisterService.getNewBR();
-    }
+    this.businessReg = JSON.parse(JSON.stringify(businessRegisterService.getNewBR()));
   }
 
   ngOnInit(): void {
+    this.getCountries();
+    if (localStorage.getItem('br') !== null) {
+      this.businessReg = JSON.parse(localStorage.getItem('br'));
+      if (this.businessReg.country !== '' && this.businessReg.district !== '') {
+        this.getDistricts(this.businessReg.country)
+        this.getTowns(this.businessReg.district)
+      }
+    }
+  }
+
+  getCountries() {
+    this.businessRegisterService.getCountries().subscribe((countries) => {
+      this.countries = countries;
+    })
+  }
+
+  getDistricts(countryId) {
+    this.businessRegisterService.getDistricts(countryId).subscribe((districts) => {
+      this.districts = districts;
+    })
+  }
+
+  getTowns(districtId) {
+    this.businessRegisterService.getTowns(districtId).subscribe((towns) => {
+      this.towns = towns;
+    })
   }
 
   onSubmit() {
-    this.businessRegisterService.step.next(2)
     localStorage.setItem('br', JSON.stringify(this.businessReg));
+    this.businessRegisterService.step.next(3)
   }
 
   previousPage() {
+    localStorage.setItem('br', JSON.stringify(this.businessReg));
     this.businessRegisterService.step.next(1);
   }
 }

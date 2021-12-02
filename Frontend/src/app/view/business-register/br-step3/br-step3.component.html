@@ -1,17 +1,41 @@
+<form #brForm3="ngForm" (ngSubmit)="brForm3.form.valid && onSubmit()" novalidate>
 
-<!-- Step 3: Ownership-->
-<div class="bg-light rounded-3 p-4 p-md-5 mb-3">
-  <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Ownership</h2>
-  <div class="row">
-    <div class="col-sm-6 mb-4">
-      <label class="form-label" for="biz-ownername">Business owner name <span class='text-danger'>*</span></label>
-      <input class="form-control form-control-lg" type="text" id="biz-ownername" value="" placeholder="Enter business owner name" required>
-    </div>
-    <div class="col-sm-6 mb-4">
-      <label class="form-label" for="biz-ownernic">Business owner nic <span class='text-danger'>*</span></label>
-      <input class="form-control form-control-lg" type="text" id="biz-ownernic" value="" placeholder="Enter business owner's NIC" required>
-    </div>
+  <!-- Step 3: Ownership-->
+  <div class="bg-light rounded-3 p-4 p-md-5 mb-3">
+    <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Ownership</h2>
+    <div class="row">
+      <div class="col-sm-6 mb-4">
+        <label class="form-label" for="biz-ownername">Business owner name <span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="text" id="biz-ownername" value=""
+               placeholder="Enter business owner name" required
+               [(ngModel)]="businessReg.businessOwner" #businessOwner="ngModel" name="businessOwner">
+        <div *ngIf="(businessOwner.touched || brForm3.submitted) && businessOwner.errors?.required"
+             class="validErr">
+          Business owner name is required
+        </div>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <label class="form-label" for="biz-ownernic">Business owner nic <span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="text" id="biz-ownernic" value=""
+               placeholder="Enter business owner's NIC" required
+               [(ngModel)]="businessReg.businessOwnerNic" #businessOwnerNic="ngModel" name="businessOwnerNic">
+        <div *ngIf="(businessOwnerNic.touched || brForm3.submitted) && businessOwnerNic.errors?.required"
+             class="validErr">
+          Business owner nic is required
+        </div>
+      </div>
 
+    </div>
   </div>
 
-</div>
+  <div class="d-flex flex-column flex-sm-row bg-light rounded-3 p-4 px-md-5">
+    <button type="button" class="btn btn-primary btn-lg rounded-pill"
+            (click)="previousPage()">
+      <i class="fi-chevron-left fs-sm"></i> Previous step
+    </button>
+    <button type="submit" class="btn btn-primary btn-lg rounded-pill ms-sm-auto">
+      Next step <i class="fi-chevron-right fs-sm ms-2"></i>
+    </button>
+  </div>
+
+</form>

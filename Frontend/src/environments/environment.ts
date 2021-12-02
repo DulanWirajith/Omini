@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backend_url: 'http://locahost:8080/dabay/'
+  backend_url: 'http://localhost:8080/dbay/'
 };
 
 /*

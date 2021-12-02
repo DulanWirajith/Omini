@@ -1,10 +1,9 @@
 package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lk.dbay.entity.BusinessArea;
+import lk.dbay.entity.Town;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,6 +14,12 @@ public class BusinessAreaDTO extends DateTimeDTO {
 
     private String businessProId;
     private String townId;
+    private String name;
     private BusinessProfileDTO businessProfile;
     private TownDTO town;
+
+    public BusinessAreaDTO(@NonNull TownDTO town) {
+        this.name = town.getName();
+        this.town = town;
+    }
 }
