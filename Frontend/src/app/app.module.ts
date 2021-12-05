@@ -1,0 +1,48 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './view/header/header.component';
+import { BusinessRegisterComponent } from './view/business-register/business-register.component';
+import { BrStep1Component } from './view/business-register/br-step1/br-step1.component';
+import { BrStep2Component } from './view/business-register/br-step2/br-step2.component';
+import { BrStep3Component } from './view/business-register/br-step3/br-step3.component';
+import { BrStep4Component } from './view/business-register/br-step4/br-step4.component';
+import { BrStep5Component } from './view/business-register/br-step5/br-step5.component';
+import { BrStep6Component } from './view/business-register/br-step6/br-step6.component';
+import {NgSelectModule} from "@ng-select/ng-select";
+import {FormsModule} from "@angular/forms";
+import { BusinessAccountComponent } from './view/business-account/business-account.component';
+import { BaManageComponent } from './view/business-account/ba-manage/ba-manage.component';
+import { BaMonitorComponent } from './view/business-account/ba-monitor/ba-monitor.component';
+import {HttpClientModule} from "@angular/common/http";
+import { ConfirmPasswordDirective } from './_validator/confirm-password.directive';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    BusinessRegisterComponent,
+    BrStep1Component,
+    BrStep2Component,
+    BrStep3Component,
+    BrStep4Component,
+    BrStep5Component,
+    BrStep6Component,
+    BusinessAccountComponent,
+    BaManageComponent,
+    BaMonitorComponent,
+    ConfirmPasswordDirective
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    NgSelectModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

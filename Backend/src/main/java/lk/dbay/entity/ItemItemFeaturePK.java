@@ -13,8 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItemItemCategoryPK implements Serializable {
+public class ItemItemFeaturePK implements Serializable {
 
     private String itemId;
-    private String itemCategoryId;
+    private String itemFeatureId;
 }

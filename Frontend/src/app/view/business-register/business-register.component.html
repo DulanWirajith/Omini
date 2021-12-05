@@ -1,0 +1,96 @@
+<app-header></app-header>
+
+<div class="container mt-5 mb-md-4 py-5">
+  <!-- Page content-->
+  <div class="row justify-content-center pb-sm-2">
+    <div class="col-lg-11 col-xl-10">
+      <!-- Page title-->
+      <div class="text-center pb-4 mb-3">
+        <h1 class="h2 mb-4">Create business resume</h1>
+        <p class="mb-4">
+          Save time by uploading a resume to prefill some of the fields
+          below. Please, use PDF format.
+        </p>
+        <button class="btn btn-primary btn-lg rounded-pill" type="button">
+          <i class="fi-upload me-2"></i>Join as a Customer
+        </button>
+      </div>
+      <!-- Steps-->
+
+      <div class="bg-light rounded-3 py-4 px-md-4 mb-3">
+        <div class="steps pt-4 pb-1">
+          <div class="step"
+               [ngClass]="step===1 || step===2 || step===3 || step===4 || step===5 || step===6?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">1</span></div>
+            <div class="step-label">User Info</div>
+          </div>
+          <div class="step"
+               [ngClass]="step===2 || step===3 || step===4 || step===5 || step===6?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">2</span></div>
+            <div class="step-label">Business Info</div>
+          </div>
+          <div class="step"
+               [ngClass]="step===3 || step===4 || step===5 || step===6?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">3</span></div>
+            <div class="step-label">Ownership</div>
+          </div>
+          <div class="step"
+               [ngClass]="step===4 || step===5 || step===6?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">4</span></div>
+            <div class="step-label">Service & Socials</div>
+          </div>
+          <div class="step"
+               [ngClass]="step===5 || step===6?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">5</span></div>
+            <div class="step-label">Verification</div>
+          </div>
+          <div class="step"
+               [ngClass]="step===6?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">6</span></div>
+            <div class="step-label">Confirmation</div>
+          </div>
+        </div>
+      </div>
+
+      <app-br-step1 *ngIf="step===1"></app-br-step1>
+      <app-br-step2 *ngIf="step===2"></app-br-step2>
+      <app-br-step3 *ngIf="step===3"></app-br-step3>
+      <app-br-step4 *ngIf="step===4"></app-br-step4>
+      <app-br-step5 *ngIf="step===5"></app-br-step5>
+      <app-br-step6 *ngIf="step===6"></app-br-step6>
+
+      <!-- Navigation-->
+      <!--<div class="d-flex flex-column flex-sm-row bg-light rounded-3 p-4 px-md-5">-->
+        <!--<a *ngIf="step > 1" class="btn btn-primary btn-lg rounded-pill"-->
+           <!--(click)="step=step-1">-->
+          <!--<i class="fi-chevron-left fs-sm"></i> Previous step-->
+        <!--</a>-->
+        <!--<a *ngIf="step < 6" class="btn btn-primary btn-lg rounded-pill ms-sm-auto"-->
+           <!--(click)="step=step+1">-->
+          <!--Next step <i class="fi-chevron-right fs-sm ms-2"></i>-->
+        <!--</a>-->
+      <!--</div>-->
+    </div>
+  </div>
+</div>
+<!--</main>-->
+
+<!-- Filters sidebar toggle button (mobile)-->
+<button
+  class="btn btn-primary btn-sm w-100 rounded-0 fixed-bottom d-lg-none"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#filters-sidebar"
+>
+  <i class="fi-filter me-2"></i>Filters
+</button>
+<!-- Back to top button--><a class="btn-scroll-top" href="#top" data-scroll
+><span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span
+><i class="btn-scroll-top-icon fi-chevron-up"> </i
+></a>

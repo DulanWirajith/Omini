@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -26,11 +27,22 @@ public class Item extends DateTime {
     private double itemDiscount;
     private String itemDiscountType;
 
+    @Lob
+    private byte[] itemImg;
+    private String itemImgName;
+    private String itemImgType;
+
     @ManyToOne(optional = false)
     @JoinColumns({
             @JoinColumn(name = "businessProId", referencedColumnName = "businessProId", updatable = false, nullable = false),
             @JoinColumn(name = "businessCategoryId", referencedColumnName = "businessCategoryId", updatable = false, nullable = false)
     })
     private BusinessProfileCategory businessProfileCategory;
+
+    @ManyToOne
+    private ItemCategory itemCategory;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
+    private Set<ItemItemFeature> itemItemFeatures;
 
 }

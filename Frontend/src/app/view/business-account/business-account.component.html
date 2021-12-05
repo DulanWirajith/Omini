@@ -1,0 +1,118 @@
+<app-header></app-header>
+
+<div class="container pt-5 pb-lg-4 mt-5 mb-sm-2">
+  <!-- Breadcrumb-->
+  <nav class="mb-4 pt-md-3" aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="real-estate-home.html">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="real-estate-account-info.html">Account</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">{{breadCrumbTxt}}</li>
+    </ol>
+  </nav>
+  <!-- Page content-->
+  <div class="row">
+    <!-- Sidebar-->
+    <aside class="col-lg-4 col-md-5 pe-xl-4 mb-5">
+      <!-- Account nav-->
+      <div class="card card-body border-0 shadow-sm pb-1 me-lg-1">
+        <div
+          class="
+                  d-flex d-md-block d-lg-flex
+                  align-items-start
+                  pt-lg-2
+                  mb-4
+                "
+        >
+          <img
+            class="rounded-circle"
+            src="../../../assets/img/37.png"
+            width="48"
+            alt="Annette Black"
+          />
+          <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
+            <h2 class="fs-lg mb-0">Business Name</h2>
+            <span class="star-rating"
+            ><i class="star-rating-icon fi-star-filled active"></i
+            ><i class="star-rating-icon fi-star-filled active"></i
+            ><i class="star-rating-icon fi-star-filled active"></i
+            ><i class="star-rating-icon fi-star-filled active"></i
+            ><i class="star-rating-icon fi-star-filled active"></i
+            ></span>
+            <ul class="list-unstyled fs-sm mt-3 mb-0">
+              <li>
+                <a class="nav-link fw-normal p-0" href="tel:3025550107"
+                ><i class="fi-phone opacity-60 me-2"></i>(302) 555-0107
+                  | (302) 555-0107 | (302) 555-0107</a
+                >
+              </li>
+              <li>
+                <a
+                  class="nav-link fw-normal p-0"
+                  href="mailto:annette_black@email.com"
+                ><i class="fi-mail opacity-60 me-2"></i
+                >annette_black@email.com</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <a
+          class="btn btn-outline-secondary d-block d-md-none w-100 mb-3"
+          href="#account-nav"
+          data-bs-toggle="collapse"
+        ><i class="fi-align-justify me-2"></i>Menu</a
+        >
+        <div class="collapse d-md-block mt-3" id="account-nav">
+          <div class="card-nav">
+            <a
+              class="card-nav-link"
+              [routerLinkActive]="'active'"
+              [routerLink]="'/business_account/ba_monitor'"
+              (click)="breadCrumbTxt='Monitor'"
+            ><i class="fi-tv opacity-60 me-2"></i>Monitor</a
+            >
+            <a
+              class="card-nav-link"
+              [routerLinkActive]="'active'"
+              [routerLink]="'/business_account/ba_manage'"
+              (click)="breadCrumbTxt='Manage'"
+            ><i class="fi-shop opacity-60 me-2"></i>Manage</a
+            >
+            <a class="card-nav-link" href="#"
+            ><i class="fi-shopping-bag opacity-60 me-2"></i>Order</a
+            >
+            <a class="card-nav-link" href="#"
+            ><i class="fi-clock opacity-60 me-2"></i>Order History</a
+            >
+            <a class="card-nav-link" href="#"
+            ><i class="fi-user opacity-60 me-2"></i>Profile</a
+            >
+            <a class="card-nav-link" href="./business-account-review.html"
+            ><i class="fi-star opacity-60 me-2"></i>Reviews</a
+            >
+            <a class="card-nav-link" href="#"
+            ><i class="fi-bell opacity-60 me-2"></i>Notifications</a
+            >
+            <a class="card-nav-link" href="#"
+            ><i class="fi-help opacity-60 me-2"></i>Help</a
+            >
+            <a class="card-nav-link" href="#"
+            ><i class="fi-logout opacity-60 me-2"></i>Sign Out</a
+            >
+          </div>
+        </div>
+      </div>
+    </aside>
+    <!-- Content-->
+
+    <div class="col-lg-8 col-md-7 mb-5">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>

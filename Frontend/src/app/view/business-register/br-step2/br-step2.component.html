@@ -1,0 +1,143 @@
+<form #brForm2="ngForm" (ngSubmit)="brForm2.form.valid && onSubmit()" novalidate>
+
+  <!-- Step 2: Business Info-->
+  <div class="bg-light rounded-3 p-4 p-md-5 mb-3">
+    <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Business Info</h2>
+    <div class="row">
+      <div class="col-sm-6 mb-4">
+        <label class="form-label" for="biz-name">Business name <span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="text" id="biz-name" value=""
+               placeholder="Enter your business name" required
+               [(ngModel)]="businessReg.businessName" #businessName="ngModel" name="businessName">
+        <div *ngIf="(businessName.touched || brForm2.submitted) && businessName.errors?.required" class="validErr">
+          Business name is required
+        </div>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <label class="form-label" for="biz-address">Business address <span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="email" id="biz-address" value=""
+               placeholder="Enter your business address" required
+               [(ngModel)]="businessReg.businessAddress" #businessAddress="ngModel" name="businessAddress">
+        <div *ngIf="(businessAddress.touched || brForm2.submitted) && businessAddress.errors?.required"
+             class="validErr">
+          Business address is required
+        </div>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <label class="form-label" for="biz-brnum">Business registration number<span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="text" id="biz-brnum" value=""
+               placeholder="Enter your business registration number" required
+               [(ngModel)]="businessReg.businessRegistrationCode" #businessRegistrationCode="ngModel"
+               name="businessRegistrationCode">
+        <div
+          *ngIf="(businessRegistrationCode.touched || brForm2.submitted) && businessRegistrationCode.errors?.required"
+          class="validErr">
+          Business registration number is required
+        </div>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <label class="form-label" for="biz-country">Country <span class='text-danger'>*</span></label>
+        <select class="form-select form-select-lg" required
+                [(ngModel)]="businessReg.country" #country="ngModel" name="country" (change)="getDistricts($event.target.value)">
+          <option value="" disabled selected>Choose country</option>
+          <option *ngFor="let country of countries" [value]="country.countryId">{{country.name}}</option>
+        </select>
+        <div *ngIf="(country.touched || brForm2.submitted) && country.errors?.required" class="validErr">
+          Country is required
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="alert alert-info mb-4" role="alert">
+          <div class="d-flex"><i class="fi-alert-circle me-2 me-sm-3"></i>
+            <p class="fs-sm mb-1">Filling out your business location.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <label class="form-label" for="biz-district">District <span class='text-danger'>*</span></label>
+        <select class="form-select form-select-lg" id="biz-district" required
+                [(ngModel)]="businessReg.district" #district="ngModel" name="district" (change)="getTowns($event.target.value)">
+          <option value="" disabled selected>Choose district</option>
+          <option *ngFor="let district of districts" [value]="district.districtId">{{district.name}}</option>
+        </select>
+        <div *ngIf="(district.touched || brForm2.submitted) && district.errors?.required" class="validErr">
+          District is required
+        </div>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <label class="form-label">Town <span class='text-danger'>*</span></label>
+        <select class="form-select form-select-lg" id="biz-country" required
+                [(ngModel)]="businessReg.town.townId" #townId="ngModel" name="townId">
+          <option value="" disabled selected>Choose town</option>
+          <option *ngFor="let town of towns" [value]="town.townId">{{town.name}}</option>
+        </select>
+        <div *ngIf="(townId.touched || brForm2.submitted) && townId.errors?.required" class="validErr">
+          Town is required
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="alert alert-info mb-4" role="alert">
+          <div class="d-flex"><i class="fi-alert-circle me-2 me-sm-3"></i>
+            <p class="fs-sm mb-1">Filling out your business contact details.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pb-4 mb-2">
+        <label class="form-label fw-bold mb-3">Contacts</label>
+        <div class="d-flex align-items-center mb-3">
+          <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+            class="fi-mail text-body"></i></div>
+          <div style="width: 100%">
+            <input class="form-control" type="text" placeholder="Your business e-mail" required
+                   [(ngModel)]="businessReg.businessEmail" #businessEmail="ngModel" name="businessEmail">
+            <div *ngIf="(businessEmail.touched || brForm2.submitted) && businessEmail.errors?.required"
+                 class="validErr">
+              Business Email is required
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center mb-3">
+          <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+            class="fi-phone text-body"></i></div>
+          <div style="width: 100%">
+            <input class="form-control" type="text" placeholder="Your business contact number 1" required
+                   [(ngModel)]="businessReg.contactNumber1" #contactNumber1="ngModel" name="contactNumber1">
+            <div *ngIf="(contactNumber1.touched || brForm2.submitted) && contactNumber1.errors?.required"
+                 class="validErr">
+              Contact number 1 is required
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="showMoreSocials">
+          <div class="d-flex align-items-center mb-3">
+            <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+              class="fi-phone text-body"></i></div>
+            <input class="form-control" type="text" placeholder="Your business contact number 2">
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+              class="fi-phone text-body"></i></div>
+            <input class="form-control" type="text" placeholder="Your business contact number 3">
+          </div>
+        </div>
+        <a class="collapse-label collapsed d-inline-block fs-sm fw-bold text-decoration-none pt-2"
+           href="#showMoreSocials"
+           data-bs-toggle="collapse" data-bs-label-collapsed="Show more" data-bs-label-expanded="Show less"
+           role="button"
+           aria-expanded="false" aria-controls="showMoreSocials"><i class="fi-arrow-down me-2"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-flex flex-column flex-sm-row bg-light rounded-3 p-4 px-md-5">
+    <button type="button" class="btn btn-primary btn-lg rounded-pill"
+            (click)="previousPage()">
+      <i class="fi-chevron-left fs-sm"></i> Previous step
+    </button>
+    <button type="submit" class="btn btn-primary btn-lg rounded-pill ms-sm-auto">
+      Next step <i class="fi-chevron-right fs-sm ms-2"></i>
+    </button>
+  </div>
+
+</form>
