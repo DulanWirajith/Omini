@@ -1,0 +1,1183 @@
+<div
+  class="
+                    d-flex
+                    flex-sm-row flex-column
+                    align-items-sm-center align-items-stretch
+                    justify-content-between
+                    pb-4
+                    mb-2 mb-md-3
+                  "
+>
+  <div class="d-flex flex-sm-row">
+    <button
+      class="
+                        btn btn-icon btn-outline-primary btn-xs
+                        rounded-circle
+                        shadow-sm
+                      "
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#add-new-category"
+      aria-controls="add-new-category"
+      aria-expanded="false"
+      title="Add new item"
+      data-bs-original-title="Add new item"
+      aria-label="Add new item"
+    >
+      <i class="fi-plus"></i>
+    </button>
+    <h3 class="h4 mb-sm-0 ms-2">
+      <!-- <i class="fi-info-circle mt-n1 me-2 lead align-middle text-warning"></i> -->
+      Category
+    </h3>
+  </div>
+  <div class="d-flex align-items-center ms-sm-4">
+    <label
+      class="fs-sm me-2 pe-1 text-nowrap"
+      for="review-sorting1"
+    ><i class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort
+      by:</label
+    >
+    <select
+      class="form-select form-select-sm"
+    >
+      <option>Newest</option>
+      <option>Oldest</option>
+      <option>Popular</option>
+      <option>High rating</option>
+      <option>Low rating</option>
+    </select>
+  </div>
+</div>
+<div class="collapse" id="add-new-category">
+  <div class="card card-body">
+    <form class="needs-validation" novalidate>
+      <div class="row">
+        <div class="col-md-8 mb-3">
+          <label class="form-label" for="validationTooltipc1"
+          >Title</label
+          >
+          <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+             data-bs-toggle="tooltip" title="" data-bs-original-title="Suitable title for describe category"
+             aria-label="Suitable title for describe category"><i class="fi-help"></i>
+          </a>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Title"
+            value=""
+            required
+          />
+          <div class="invalid-tooltip">
+            Please fill item title
+          </div>
+          <div class="valid-tooltip">Looks good!</div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label class="form-label" for="validationTooltipc2"
+          >Description</label
+          >
+          <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+             data-bs-toggle="tooltip" title="Small description about your category."
+             data-bs-original-title="Small description about your category."
+             aria-label="Small description about your category."><i class="fi-help"></i>
+          </a>
+          <textarea class="form-control" rows="5" placeholder="Description"></textarea>
+          <div class="invalid-tooltip">
+            Please fill item discount
+          </div>
+          <div class="valid-tooltip">Looks good!</div>
+        </div>
+      </div>
+
+      <div class="mb-3 py-2">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="invalidCheck"
+            required
+          />
+          <label class="form-check-label" for="invalidCheck"
+          >I confirm that the information provided information is accurate and correct.</label
+          >
+          <div class="invalid-tooltip">
+            You must agree before submitting.
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-md" type="submit">
+        Save
+      </button>
+    </form>
+  </div>
+</div>
+<div class="row g-4 py-1">
+  <!-- Accordion basic -->
+  <div class="accordion" id="category-list">
+
+    <!-- Accordion item -->
+    <div class="accordion-item">
+      <div class="accordion-header d-flex" id="headingOne">
+        <div class="p-2 flex-grow-1 bd-highlight">
+          <a href="#" class="nav-link">Category 1</a>
+        </div>
+        <div class="p-2 bd-highlight">
+          <a type="button" class="nav-link hover-text-danger">
+            <i class="fi-trash"></i>
+          </a>
+        </div>
+        <div class="p-2 bd-highlight">
+          <a type="button" class="nav-link hover-text-info" data-bs-toggle="collapse"
+             data-bs-target="#categoryOneEdit" aria-expanded="true" aria-controls="categoryOneEdit">
+            <i class="fi-edit"></i>
+          </a>
+        </div>
+        <div class="p-2 bd-highlight">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#categoryOne"
+                  aria-expanded="true" aria-controls="categoryOne"></button>
+        </div>
+      </div>
+      <div class="accordion-collapse collapse" aria-labelledby="headingEdit" data-bs-parent="#category-list"
+           id="categoryOneEdit">
+        <div class="card card-body border-none">
+          <form class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-md-8 mb-3">
+                <label class="form-label" for="validationTooltipc1"
+                >Title</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="" data-bs-original-title="Suitable title for describe item"
+                   aria-label="Suitable title for describe item"><i class="fi-help"></i>
+                </a>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="validationTooltipc1"
+                  placeholder="Title"
+                  value=""
+                  required
+                />
+                <div class="invalid-tooltip">
+                  Please fill item title
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label class="form-label" for="validationTooltipc2"
+                >Description</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="Small description about your item."
+                   data-bs-original-title="Small description about your item."
+                   aria-label="Small description about your item."><i class="fi-help"></i>
+                </a>
+                <textarea class="form-control" id="validationTooltipc2" rows="5"
+                          placeholder="Description"></textarea>
+                <div class="invalid-tooltip">
+                  Please fill item discount
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <div class="alert alert-info mb-4" role="alert">
+                  <div class="d-flex"><i class="fi-alert-circle me-2 me-sm-3"></i>
+                    <p class="fs-sm mb-1">The maximum photo size is 8 MB. Formats: jpeg, jpg, png. Put the main
+                      picture first.<br>The maximum video size is 10 MB. Formats: mp4, mov.</p>
+                  </div>
+                </div>
+                <input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"
+                       accept="image/png, image/jpeg, video/mp4, video/mov"
+                       data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos / video&lt;/div&gt;&lt;br&gt;or drag them in">
+              </div>
+
+            </div>
+            <div class="mb-3 py-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="invalidCheck"
+                  required
+                />
+                <label class="form-check-label" for="invalidCheck"
+                >Agree to terms and conditions</label
+                >
+                <div class="invalid-tooltip">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-md" type="submit">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#category-list"
+           id="categoryOne">
+        <div class="accordion-body">
+          <div class="row g-4 py-1">
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 1</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/06.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+
+                  <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#" data-bs-toggle="offcanvas"
+                                                 data-bs-target="#item-viewer">Item Name</a></h3>
+                  <!-- <div class="d-flex align-items-center text-nowrap">
+                    <p class="mb-2 fs-sm text-muted">Quantity </p>
+                    <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
+                  </div> -->
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 1,650
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox">
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold"
+                           for="form-switch-2"> Not Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 1</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/07.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/07.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-green fw-bold">Available</h4> -->
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 2,000
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 1</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/08.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/08.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 1,350
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 1</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/09.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/09.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">1kg</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">10%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 2,400
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-info mb-1">Category 1</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/10.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/10.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR $550</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 1</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/11.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/11.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 680</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox">
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold"
+                           for="form-switch-2"> Not Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion item -->
+    <div class="accordion-item">
+      <div class="accordion-header d-flex" id="headingOne">
+        <div class="p-2 flex-grow-1 bd-highlight">
+          <a href="#" class="nav-link">Category 2</a>
+        </div>
+        <div class="p-2 bd-highlight">
+          <a type="button" class="nav-link hover-text-danger">
+            <i class="fi-trash"></i>
+          </a>
+        </div>
+        <div class="p-2 bd-highlight">
+          <a type="button" class="nav-link hover-text-info" data-bs-toggle="collapse"
+             data-bs-target="#categoryTwoEdit" aria-expanded="true" aria-controls="categoryTwoEdit">
+            <i class="fi-edit"></i>
+          </a>
+        </div>
+        <div class="p-2 bd-highlight">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#categoryTwo"
+                  aria-expanded="true" aria-controls="categoryOne"></button>
+        </div>
+      </div>
+      <div class="accordion-collapse collapse" aria-labelledby="headingEdit" data-bs-parent="#category-list"
+           id="categoryTwoEdit">
+        <div class="card card-body border-none">
+          <form class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-md-8 mb-3">
+                <label class="form-label" for="validationTooltipc1"
+                >Title</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="" data-bs-original-title="Suitable title for describe item"
+                   aria-label="Suitable title for describe item"><i class="fi-help"></i>
+                </a>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="validationTooltipc1"
+                  placeholder="Title"
+                  value=""
+                  required
+                />
+                <div class="invalid-tooltip">
+                  Please fill item title
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label class="form-label" for="validationTooltipc2"
+                >Description</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="Small description about your item."
+                   data-bs-original-title="Small description about your item."
+                   aria-label="Small description about your item."><i class="fi-help"></i>
+                </a>
+                <textarea class="form-control" id="validationTooltipc2" rows="5"
+                          placeholder="Description"></textarea>
+                <div class="invalid-tooltip">
+                  Please fill item discount
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <div class="alert alert-info mb-4" role="alert">
+                  <div class="d-flex"><i class="fi-alert-circle me-2 me-sm-3"></i>
+                    <p class="fs-sm mb-1">The maximum photo size is 8 MB. Formats: jpeg, jpg, png. Put the main
+                      picture first.<br>The maximum video size is 10 MB. Formats: mp4, mov.</p>
+                  </div>
+                </div>
+                <input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"
+                       accept="image/png, image/jpeg, video/mp4, video/mov"
+                       data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos / video&lt;/div&gt;&lt;br&gt;or drag them in">
+              </div>
+
+            </div>
+            <div class="mb-3 py-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="invalidCheck"
+                  required
+                />
+                <label class="form-check-label" for="invalidCheck"
+                >Agree to terms and conditions</label
+                >
+                <div class="invalid-tooltip">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-md" type="submit">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#category-list"
+           id="categoryTwo">
+        <div class="accordion-body">
+          <div class="row g-4 py-1">
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 2</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/06.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+
+                  <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#" data-bs-toggle="offcanvas"
+                                                 data-bs-target="#item-viewer">Item Name</a></h3>
+                  <!-- <div class="d-flex align-items-center text-nowrap">
+                    <p class="mb-2 fs-sm text-muted">Quantity </p>
+                    <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
+                  </div> -->
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 1,650
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox">
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold"
+                           for="form-switch-2"> Not Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 2</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/07.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/07.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-green fw-bold">Available</h4> -->
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 2,000
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 2</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/08.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/08.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 1,350
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 2</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/09.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/09.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">1kg</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">10%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 2,400
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-info mb-1">Category 2</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/10.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/10.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR $550</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 2</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/11.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/11.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 680</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox">
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold"
+                           for="form-switch-2"> Not Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion item -->
+    <div class="accordion-item">
+      <div class="accordion-header d-flex" id="headingThree">
+        <div class="p-2 flex-grow-1 bd-highlight">
+          <a href="#" class="nav-link">Category 3</a>
+        </div>
+        <div class="p-2 bd-highlight">
+          <a type="button" class="nav-link hover-text-danger">
+            <i class="fi-trash"></i>
+          </a>
+        </div>
+        <div class="p-2 bd-highlight">
+          <a type="button" class="nav-link hover-text-info" data-bs-toggle="collapse"
+             data-bs-target="#categoryThreeEdit" aria-expanded="true" aria-controls="categoryThreeEdit">
+            <i class="fi-edit"></i>
+          </a>
+        </div>
+        <div class="p-2 bd-highlight">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#categoryThree"
+                  aria-expanded="true" aria-controls="categoryThree"></button>
+        </div>
+      </div>
+      <div class="accordion-collapse collapse" aria-labelledby="headingEdit" data-bs-parent="#category-list"
+           id="categoryThreeEdit">
+        <div class="card card-body border-none">
+          <form class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-md-8 mb-3">
+                <label class="form-label" for="validationTooltipc1"
+                >Title</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="" data-bs-original-title="Suitable title for describe item"
+                   aria-label="Suitable title for describe item"><i class="fi-help"></i>
+                </a>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="validationTooltipc1"
+                  placeholder="Title"
+                  value=""
+                  required
+                />
+                <div class="invalid-tooltip">
+                  Please fill item title
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label class="form-label" for="validationTooltipc2"
+                >Description</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="Small description about your item."
+                   data-bs-original-title="Small description about your item."
+                   aria-label="Small description about your item."><i class="fi-help"></i>
+                </a>
+                <textarea class="form-control" id="validationTooltipc2" rows="5"
+                          placeholder="Description"></textarea>
+                <div class="invalid-tooltip">
+                  Please fill item discount
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <div class="alert alert-info mb-4" role="alert">
+                  <div class="d-flex"><i class="fi-alert-circle me-2 me-sm-3"></i>
+                    <p class="fs-sm mb-1">The maximum photo size is 8 MB. Formats: jpeg, jpg, png. Put the main
+                      picture first.<br>The maximum video size is 10 MB. Formats: mp4, mov.</p>
+                  </div>
+                </div>
+                <input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"
+                       accept="image/png, image/jpeg, video/mp4, video/mov"
+                       data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos / video&lt;/div&gt;&lt;br&gt;or drag them in">
+              </div>
+
+            </div>
+            <div class="mb-3 py-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="invalidCheck"
+                  required
+                />
+                <label class="form-check-label" for="invalidCheck"
+                >Agree to terms and conditions</label
+                >
+                <div class="invalid-tooltip">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-md" type="submit">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#category-list"
+           id="categoryThree">
+        <div class="accordion-body">
+          <div class="row g-4 py-1">
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 3</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/06.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+
+                  <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#" data-bs-toggle="offcanvas"
+                                                 data-bs-target="#item-viewer">Item Name</a></h3>
+                  <!-- <div class="d-flex align-items-center text-nowrap">
+                    <p class="mb-2 fs-sm text-muted">Quantity </p>
+                    <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
+                  </div> -->
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 1,650
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox">
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold"
+                           for="form-switch-2"> Not Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 3</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/07.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/07.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-green fw-bold">Available</h4> -->
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 2,000
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 3</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/08.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/08.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 1,350
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 3</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/09.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/09.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">1kg</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">10%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 2,400
+                  </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-info mb-1">Category 3</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/10.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/10.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR $550</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox" checked>
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold"
+                           for="form-switch-2"> Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Item-->
+            <div class="col-sm-6 col-xl-4">
+              <div class="card shadow-sm card-hover border-0 h-100">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                    class="d-table badge bg-info">Category 3</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
+                      class="fi-trash"></i></button>
+                  </div>
+                  <div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/11.jpg" alt="Image"><img
+                    src="../../../../assets/img/catalog/11.jpg" alt="Image"></div>
+                </div>
+                <div class="card-body position-relative pb-3">
+                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>
+                  <div class="row cols-sm-2 row-cols-md-12">
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Quantity </p>
+                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-2 fs-sm text-muted">Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 680</div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" id="form-switch-2" type="checkbox">
+                    <label class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold"
+                           for="form-switch-2"> Not Available</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

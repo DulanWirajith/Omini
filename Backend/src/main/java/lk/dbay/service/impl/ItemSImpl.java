@@ -27,9 +27,10 @@ public class ItemSImpl implements ItemS {
     @Override
     public ItemDTO addItem(Item item, MultipartFile file) throws Exception {
         try {
-            item.setItemId("IT" + item.getItemTitle() + item.getBusinessProfileCategory().getBusinessProfileCategoryId());
+            BusinessProfileCategory businessProfileCategory = item.getBusinessProfileCategory();
+            item.setItemId("ITM" + item.getItemTitle() + businessProfileCategory.getBusinessProfile().getBusinessProId() + businessProfileCategory.getBusinessCategory().getBusinessCategoryId());
             for (ItemItemFeature itemItemFeature : item.getItemItemFeatures()) {
-                if (itemItemFeature.getItemFeature().getItemFeatureId() == null) {
+                if (itemItemFeature.getItemFeature().getItemFeatureId().equals("0")) {
                     LocalDateTime localDateTime = LocalDateTime.now();
                     String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
                     itemItemFeature.getItemFeature().setItemFeatureId("ITF" + format);
@@ -39,6 +40,9 @@ public class ItemSImpl implements ItemS {
                 itemItemFeature.setItemItemFeatureId(new ItemItemFeaturePK(item.getItemId(), itemItemFeature.getItemFeature().getItemFeatureId()));
                 itemItemFeature.setItem(item);
             }
+            businessProfileCategory.setBusinessProfileCategoryId(
+                    new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
+            );
             item.setItemImg(file.getBytes());
             item.setItemImgName(StringUtils.cleanPath(file.getOriginalFilename()));
             item.setItemImgType(file.getContentType());

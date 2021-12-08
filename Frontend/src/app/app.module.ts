@@ -18,6 +18,11 @@ import { BaManageComponent } from './view/business-account/ba-manage/ba-manage.c
 import { BaMonitorComponent } from './view/business-account/ba-monitor/ba-monitor.component';
 import {HttpClientModule} from "@angular/common/http";
 import { ConfirmPasswordDirective } from './_validator/confirm-password.directive';
+import { ShopProfileComponent } from './view/profile/shop-profile/shop-profile.component';
+import { CustomerProfileComponent } from './view/profile/customer-profile/customer-profile.component';
+import { BaManageItemComponent } from './view/business-account/ba-manage/ba-manage-item/ba-manage-item.component';
+import { BaManageCategoryComponent } from './view/business-account/ba-manage/ba-manage-category/ba-manage-category.component';
+import { BaManagePackageComponent } from './view/business-account/ba-manage/ba-manage-package/ba-manage-package.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,12 @@ import { ConfirmPasswordDirective } from './_validator/confirm-password.directiv
     BusinessAccountComponent,
     BaManageComponent,
     BaMonitorComponent,
-    ConfirmPasswordDirective
+    ConfirmPasswordDirective,
+    ShopProfileComponent,
+    CustomerProfileComponent,
+    BaManageItemComponent,
+    BaManageCategoryComponent,
+    BaManagePackageComponent
   ],
   imports: [
     BrowserModule,

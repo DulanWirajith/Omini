@@ -9,7 +9,7 @@ import {BaMonitorComponent} from "./view/business-account/ba-monitor/ba-monitor.
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'business_register',
+    redirectTo: 'business_account',
     pathMatch: 'full'
   },
   {

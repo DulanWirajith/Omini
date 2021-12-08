@@ -83,19 +83,20 @@
               (click)="breadCrumbTxt='Manage'"
             ><i class="fi-shop opacity-60 me-2"></i>Manage</a
             >
-            <a class="card-nav-link" href="#"
-            ><i class="fi-shopping-bag opacity-60 me-2"></i>Order</a
-            >
-            <a class="card-nav-link" href="#"
+            <a class="card-nav-link" href="./business-account-order.html"
+            ><i class="fi-shopping-bag opacity-60 me-2"></i>Order
+              <span class="badge rounded-pill bg-primary">10</span>
+            </a>
+            <a class="card-nav-link" href="./business-account-order-history.html"
             ><i class="fi-clock opacity-60 me-2"></i>Order History</a
             >
-            <a class="card-nav-link" href="#"
+            <a class="card-nav-link" href="./business-account-profile.html"
             ><i class="fi-user opacity-60 me-2"></i>Profile</a
             >
             <a class="card-nav-link" href="./business-account-review.html"
             ><i class="fi-star opacity-60 me-2"></i>Reviews</a
             >
-            <a class="card-nav-link" href="#"
+            <a class="card-nav-link" href="./business-account-notifications.html"
             ><i class="fi-bell opacity-60 me-2"></i>Notifications</a
             >
             <a class="card-nav-link" href="#"
@@ -109,10 +110,8 @@
       </div>
     </aside>
     <!-- Content-->
-
     <div class="col-lg-8 col-md-7 mb-5">
       <router-outlet></router-outlet>
     </div>
-
   </div>
 </div>

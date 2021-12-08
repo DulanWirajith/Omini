@@ -20,7 +20,7 @@ public class ItemController {
     private ItemS itemS;
 
     @PostMapping(value = "/addItem")
-    public ResponseEntity addItem(@RequestBody Item item, @RequestPart("imageFile") MultipartFile file) {
+    public ResponseEntity addItem(@RequestPart("item") Item item, @RequestPart("imageFile") MultipartFile file) {
         try {
             ItemDTO itemDTO = itemS.addItem(item, file);
             if (itemDTO != null) {

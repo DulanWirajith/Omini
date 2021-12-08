@@ -38,7 +38,8 @@ INSERT INTO `dbay`.`business_category` (`business_category_id`, `created_at`, `u
 SELECT `business_profile`.`business_pro_id`,
     `business_profile`.`created_at`,
     `business_profile`.`updated_at`,
-    `business_profile`.`address`,
+    `business_profile`.`business_address`,
+    `business_profile`.`business_email`,
     `business_profile`.`business_name`,
     `business_profile`.`business_owner`,
     `business_profile`.`business_owner_nic`,
@@ -52,8 +53,10 @@ SELECT `business_profile`.`business_pro_id`,
     `business_profile`.`social_insta`,
     `business_profile`.`social_linked_in`,
     `business_profile`.`social_twitter`,
+    `business_profile`.`town_town_id`,
     `business_profile`.`user_user_id`
 FROM `dbay`.`business_profile`;
+
 
 SELECT `dbay_user`.`user_id`,
     `dbay_user`.`created_at`,
@@ -81,3 +84,38 @@ SELECT `business_profile_category`.`business_category_id`,
     `business_profile_category`.`created_at`,
     `business_profile_category`.`updated_at`
 FROM `dbay`.`business_profile_category`;
+
+SELECT `item_feature`.`item_feature_id`,
+    `item_feature`.`created_at`,
+    `item_feature`.`updated_at`,
+    `item_feature`.`confirmed`,
+    `item_feature`.`description`,
+    `item_feature`.`name`,
+    `item_feature`.`business_category_business_category_id`
+FROM `dbay`.`item_feature`;
+
+INSERT INTO `dbay`.`item_feature` (`item_feature_id`, `created_at`, `updated_at`, `confirmed`, `name`, `business_category_business_category_id`) VALUES ('IF1', '2020-05-05', '2020-05-05', true, 'White', 'BC001');
+
+SELECT `item`.`item_id`,
+    `item`.`created_at`,
+    `item`.`updated_at`,
+    `item`.`item_description`,
+    `item`.`item_discount`,
+    `item`.`item_discount_type`,
+    `item`.`item_img`,
+    `item`.`item_img_name`,
+    `item`.`item_img_type`,
+    `item`.`item_price`,
+    `item`.`item_qty`,
+    `item`.`item_title`,
+    `item`.`business_category_id`,
+    `item`.`business_pro_id`,
+    `item`.`item_category_item_category_id`
+FROM `dbay`.`item`;
+
+SELECT `item_item_feature`.`item_feature_id`,
+    `item_item_feature`.`item_id`,
+    `item_item_feature`.`created_at`,
+    `item_item_feature`.`updated_at`
+FROM `dbay`.`item_item_feature`;
+

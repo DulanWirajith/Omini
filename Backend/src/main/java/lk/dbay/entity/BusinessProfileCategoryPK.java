@@ -18,4 +18,8 @@ public class BusinessProfileCategoryPK implements Serializable {
     private String businessProId;
     private String businessCategoryId;
 
+//    @Override
+//    public String toString() {
+//        return businessProId + businessCategoryId;
+//    }
 }
