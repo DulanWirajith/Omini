@@ -1,6 +1,5 @@
 package lk.dbay.service.impl;
 
-import lk.dbay.dto.ItemCategoryDTO;
 import lk.dbay.dto.ItemDTO;
 import lk.dbay.entity.*;
 import lk.dbay.repository.ItemFeatureR;
@@ -59,6 +58,19 @@ public class ItemSImpl implements ItemS {
         List<ItemDTO> itemDTOS = new ArrayList<>();
         for (Item item : itemList) {
             itemDTOS.add(new ItemDTO(item));
+        }
+        return itemDTOS;
+    }
+
+    @Override
+    public List<ItemDTO> getItemsBusinessCategory(String businessProfileId, String businessCategoryId) {
+        List<Item> itemList = itemR.getAllByBusinessProfileCategory_BusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
+        List<ItemDTO> itemDTOS = new ArrayList<>();
+        for (Item item : itemList) {
+            ItemDTO itemDTO = new ItemDTO(item);
+            itemDTO.setItemId(item.getItemId());
+            itemDTO.setName(item.getItemTitle());
+            itemDTOS.add(itemDTO);
         }
         return itemDTOS;
     }

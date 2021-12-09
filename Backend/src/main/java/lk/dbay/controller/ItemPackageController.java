@@ -9,19 +9,20 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = CommonConstants.DOMAIN_DBAY + CommonConstants.PACKAGE_CATEGORY)
+@RequestMapping(value = CommonConstants.DOMAIN_DBAY + CommonConstants.PACKAGE)
 public class ItemPackageController {
 
     @Autowired
     private ItemPackageS packageCategoryS;
 
     @PostMapping(value = "/addPackage")
-    public ResponseEntity addPackage(@RequestBody ItemPackage itemPackage) {
+    public ResponseEntity addPackage(@RequestPart("package") ItemPackage itemPackage, @RequestPart("imageFile") MultipartFile file) {
         try {
-            ItemPackageDTO itemPackageDTO = packageCategoryS.addPackage(itemPackage);
+            ItemPackageDTO itemPackageDTO = packageCategoryS.addPackage(itemPackage, file);
             if (itemPackageDTO != null) {
                 return ResponseEntity.ok(itemPackageDTO);
             } else {

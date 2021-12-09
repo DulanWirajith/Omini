@@ -52,7 +52,7 @@
 <div class="collapse" id="add-new-item">
   <div class="card card-body">
 
-    <form #baManageForm="ngForm" (ngSubmit)="baManageForm.form.valid && onSubmit()" novalidate>
+    <form #baManageFormItem="ngForm" (ngSubmit)="baManageFormItem.form.valid && onSubmit()" novalidate>
 
       <div class="row">
         <div class="col-md-8 mb-3">
@@ -71,7 +71,7 @@
             required
             [(ngModel)]="item.itemTitle" #itemTitle="ngModel" name="itemTitle"
           />
-          <div *ngIf="(itemTitle.touched || baManageForm.submitted) && itemTitle.errors?.required"
+          <div *ngIf="(itemTitle.touched || baManageFormItem.submitted) && itemTitle.errors?.required"
                class="validErr">
             Title is required
           </div>
@@ -94,7 +94,7 @@
             required
             [(ngModel)]="item.itemQty" #itemQty="ngModel" name="itemQty"
           />
-          <div *ngIf="(itemQty.touched || baManageForm.submitted) && itemQty.errors?.required"
+          <div *ngIf="(itemQty.touched || baManageFormItem.submitted) && itemQty.errors?.required"
                class="validErr">
             Quantity is required
           </div>
@@ -121,16 +121,16 @@
             id="validationTooltip03"
             [(ngModel)]="item.itemDiscountType" #itemDiscountType="ngModel" name="itemDiscountType"
           >
-            <option value="">Choose discount type</option>
+            <option value="None">None</option>
             <option value="Cash">Cash</option>
             <option value="Percentage">Percentage</option>
           </select>
-          <div *ngIf="(itemDiscountType.touched || baManageForm.submitted) && itemDiscountType.errors?.required"
+          <div *ngIf="(itemDiscountType.touched || baManageFormItem.submitted) && itemDiscountType.errors?.required"
                class="validErr">
             Discount type is required
           </div>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-4 mb-3" *ngIf="item.itemDiscountType!=='None'">
           <label class="form-label" for="validationTooltip04"
           >Discount</label
           >
@@ -143,9 +143,10 @@
             type="number"
             id="validationTooltip04"
             placeholder="Discount"
+            required
             [(ngModel)]="item.itemDiscount" #itemDiscount="ngModel" name="itemDiscount"
           />
-          <div *ngIf="(itemDiscount.touched || baManageForm.submitted) && itemDiscount.errors?.required"
+          <div *ngIf="(itemDiscount.touched || baManageFormItem.submitted) && itemDiscount.errors?.required"
                class="validErr">
             Discount is required
           </div>
@@ -173,7 +174,7 @@
                    required [(ngModel)]="item.itemPrice" #itemPrice="ngModel" name="itemPrice">
             <!--<span class="input-group-text">.00</span>-->
           </div>
-          <div *ngIf="(itemPrice.touched || baManageForm.submitted) && itemPrice.errors?.required"
+          <div *ngIf="(itemPrice.touched || baManageFormItem.submitted) && itemPrice.errors?.required"
                class="validErr">
             Price is required
           </div>
@@ -204,7 +205,7 @@
             [(ngModel)]="item.businessProfileCategory">
           </ng-select>
           <div
-            *ngIf="(businessProfileCategories.touched || baManageForm.submitted) && businessProfileCategories.errors?.required"
+            *ngIf="(businessProfileCategories.touched || baManageFormItem.submitted) && businessProfileCategories.errors?.required"
             class="validErr">
             Business type is required
           </div>
@@ -236,7 +237,7 @@
              aria-label="You can create new feature." style="padding-left: 20px;padding-top: 4px">Create Feature
           </a>
 
-          <form #baManageFormFeatureExs="ngForm" (ngSubmit)="baManageFormFeatureExs.form.valid && addFeature()" novalidate>
+          <form #baManageFormItemFeatureExs="ngForm" (ngSubmit)="baManageFormItemFeatureExs.form.valid && addFeature()" novalidate>
 
             <div class="d-flex flex-column flex-sm-row">
               <div style="width: 100%">
@@ -254,7 +255,7 @@
                     style="width: 100%">
                   </ng-select>
                 </div>
-                <div *ngIf="(baManageFormFeatureExs.submitted) && itemFeature===undefined"
+                <div *ngIf="(baManageFormItemFeatureExs.submitted) && itemFeature===undefined"
                      class="validErr">
                   Feature is required
                 </div>
@@ -279,7 +280,7 @@
       <div class="row">
         <div class="d-flex flex-wrap mb-4">
                 <span *ngFor="let itemFeature of item.itemItemFeatures;let i = index"
-                      class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemFeature.name}}
+                      class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemFeature.itemFeature.name}}
                   <i class="fi-x fs-xs ms-2" (click)="item.itemItemFeatures.splice(i,1)" style="cursor: pointer"></i>
                 </span>
         </div>
@@ -318,7 +319,7 @@
                  <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->
         </div>
         <div
-          *ngIf="(imageInput.touched || baManageForm.submitted) && imageInput.errors?.required"
+          *ngIf="(imageInput.touched || baManageFormItem.submitted) && imageInput.errors?.required"
           class="validErr" style="margin-bottom: 10px">
           Image is required
         </div>
@@ -613,8 +614,8 @@
           <i class="fi-alert-circle me-2 me-sm-3 lead"></i>
           <div>It takes few minutes to review your feature.Then we will add it into your item.</div>
         </div>
-        <form class="tab-pane fade show active" autocomplete="off" id="add-feature" #baManageFormFeature="ngForm"
-              (ngSubmit)="baManageFormFeature.form.valid && addFeatureTemp()" novalidate>
+        <form class="tab-pane fade show active" autocomplete="off" id="add-feature" #baManageFormItemFeature="ngForm"
+              (ngSubmit)="baManageFormItemFeature.form.valid && addFeatureTemp()" novalidate>
           <div class="mb-3">
             <label class="form-label" for="feature">Feature</label>
             <div style="display: flex">
@@ -626,7 +627,7 @@
               </button>
             </div>
           </div>
-          <div *ngIf="(newFeature.touched || baManageFormFeature.submitted) && newFeature.errors?.required"
+          <div *ngIf="(newFeature.touched || baManageFormItemFeature.submitted) && newFeature.errors?.required"
                class="validErr" style="margin-bottom: 10px">
             Item Feature is required
           </div>

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ItemFeatureR extends JpaRepository<ItemFeature, String> {
 
-    List<ItemFeature> getAllByBusinessCategory_BusinessCategoryId(String businessCategoryId);
+    List<ItemFeature> getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(String businessCategoryId, boolean confirmed);
 
 }

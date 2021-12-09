@@ -10,4 +10,6 @@ public interface ItemS {
     ItemDTO addItem(Item item, MultipartFile file) throws Exception;
 
     List<ItemDTO> getItems();
+
+    List<ItemDTO> getItemsBusinessCategory(String businessProfileId, String businessCategoryId);
 }

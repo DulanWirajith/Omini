@@ -20,9 +20,9 @@ export class BaManageItemComponent implements OnInit {
   imgUrl;
   isNewFeature = false;
   isNewItem = false;
-  @ViewChild('baManageForm', {static: true}) public baManageForm: NgForm;
-  @ViewChild('baManageFormFeature', {static: true}) public baManageFormFeature: NgForm;
-  @ViewChild('baManageFormFeatureExs', {static: true}) public baManageFormFeatureExs: NgForm;
+  @ViewChild('baManageFormItem', {static: true}) public baManageFormItem: NgForm;
+  @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
+  @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
 
   constructor(private businessRegisterService: BusinessRegisterService, private businessAccountService: BusinessAccountService) {
     this.item = this.getNewItem();
@@ -46,13 +46,13 @@ export class BaManageItemComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.item.itemItemFeatures)
-    let itemFeatures = [];
-    for (let itemFeature of this.item.itemItemFeatures) {
-      itemFeatures.push({
-        itemFeature: itemFeature
-      })
-    }
-    this.item.itemItemFeatures = itemFeatures;
+    // let itemFeatures = [];
+    // for (let itemFeature of this.item.itemItemFeatures) {
+    //   itemFeatures.push({
+    //     itemFeature: itemFeature
+    //   })
+    // }
+    // this.item.itemItemFeatures = itemFeatures;
 
     this.item.businessProfileCategory = {
       businessProfile: {
@@ -61,7 +61,7 @@ export class BaManageItemComponent implements OnInit {
       businessCategory: this.item.businessProfileCategory
     };
 
-    console.log(this.item)
+    // console.log(this.item)
     const uploadImageData = new FormData();
     uploadImageData.append('imageFile', this.itemImg, this.itemImg.name);
     uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
@@ -69,15 +69,17 @@ export class BaManageItemComponent implements OnInit {
         type: "application/json"
       }));
     this.businessAccountService.addItem(uploadImageData).subscribe((reply) => {
-      this.baManageForm.resetForm(this.getNewItem());
+      this.baManageFormItem.resetForm(this.getNewItem());
       this.item.itemItemFeatures = [];
     })
   }
 
   addFeature() {
     if (this.itemFeature !== undefined) {
-      this.item.itemItemFeatures.push(this.itemFeature)
-      this.baManageFormFeatureExs.resetForm()
+      this.item.itemItemFeatures.push({
+        itemFeature: this.itemFeature
+      })
+      this.baManageFormItemFeatureExs.resetForm()
       this.itemFeature = undefined;
     }
   }
@@ -91,12 +93,14 @@ export class BaManageItemComponent implements OnInit {
       }
     );
     this.newItemFeature = '';
-    this.baManageFormFeature.resetForm()
+    this.baManageFormItemFeature.resetForm()
   }
 
   addNewItemFeature() {
     for (let itemFeature of this.newItemFeaturesTemp) {
-      this.item.itemItemFeatures.push(itemFeature)
+      this.item.itemItemFeatures.push({
+        itemFeature: itemFeature
+      })
     }
     this.isNewFeature = false;
     this.newItemFeaturesTemp = [];
@@ -111,7 +115,7 @@ export class BaManageItemComponent implements OnInit {
       itemTitle: "",
       itemQty: 1,
       itemDiscount: "",
-      itemDiscountType: "",
+      itemDiscountType: "None",
       itemPrice: "",
       itemDescription: "",
       businessProfileCategory: undefined,

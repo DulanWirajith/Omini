@@ -40,4 +40,9 @@ public class ItemController {
     public ResponseEntity getItems() {
         return ResponseEntity.ok(itemS.getItems());
     }
+
+    @GetMapping(value = "/getItemsBusinessCategory/{businessProfileId}/{businessCategoryId}")
+    public ResponseEntity getItemsBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+        return ResponseEntity.ok(itemS.getItemsBusinessCategory(businessProfileId, businessCategoryId));
+    }
 }
