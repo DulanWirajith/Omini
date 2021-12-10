@@ -23,6 +23,8 @@ import { CustomerProfileComponent } from './view/profile/customer-profile/custom
 import { BaManageItemComponent } from './view/business-account/ba-manage/ba-manage-item/ba-manage-item.component';
 import { BaManageCategoryComponent } from './view/business-account/ba-manage/ba-manage-category/ba-manage-category.component';
 import { BaManagePackageComponent } from './view/business-account/ba-manage/ba-manage-package/ba-manage-package.component';
+import { CpProfileSettingsComponent } from './view/profile/customer-profile/cp-profile-settings/cp-profile-settings.component';
+import { SpProfileSettingsComponent } from './view/profile/shop-profile/sp-profile-settings/sp-profile-settings.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { BaManagePackageComponent } from './view/business-account/ba-manage/ba-m
     CustomerProfileComponent,
     BaManageItemComponent,
     BaManageCategoryComponent,
-    BaManagePackageComponent
+    BaManagePackageComponent,
+    CpProfileSettingsComponent,
+    SpProfileSettingsComponent
   ],
   imports: [
     BrowserModule,
