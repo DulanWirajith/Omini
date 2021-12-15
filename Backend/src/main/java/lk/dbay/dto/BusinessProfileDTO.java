@@ -1,9 +1,14 @@
 package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lk.dbay.entity.BusinessArea;
 import lk.dbay.entity.BusinessCategory;
 import lk.dbay.entity.BusinessProfile;
+import lk.dbay.entity.BusinessProfileCategory;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +34,8 @@ public class BusinessProfileDTO extends DateTimeDTO {
     private int proViewCount;
     private int contactViewCount;
     private DbayUserDTO user;
+    private List<BusinessAreaDTO> businessAreas;
+    private List<BusinessProfileCategoryDTO> businessProfileCategories;
 
     public BusinessProfileDTO(@NonNull BusinessProfile businessProfile) {
         this.businessProId = businessProfile.getBusinessProId();
@@ -53,4 +60,28 @@ public class BusinessProfileDTO extends DateTimeDTO {
         this(businessProfile);
         this.user = user;
     }
+
+    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUserDTO user, boolean needAreas, boolean needCategories) {
+        this(businessProfile);
+        this.user = user;
+        if (needAreas) {
+            businessAreas = new ArrayList<>();
+            for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
+                businessAreas.add(new BusinessAreaDTO(new BusinessProfileDTO(businessProfile), new TownDTO(businessArea.getTown())));
+            }
+        }
+        if (needCategories) {
+            businessProfileCategories = new ArrayList<>();
+            for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
+                businessProfileCategories.add(new BusinessProfileCategoryDTO(new BusinessProfileDTO(businessProfile), new BusinessCategoryDTO(businessProfileCategory.getBusinessCategory())));
+            }
+        }
+    }
+
+//    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUserDTO user, @NonNull List<BusinessAreaDTO> businessAreas, @NonNull List<BusinessProfileCategoryDTO> businessProfileCategories) {
+//        this(businessProfile);
+//        this.user = user;
+//        this.businessAreas = businessAreas;
+//        this.businessProfileCategories = businessProfileCategories;
+//    }
 }

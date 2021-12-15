@@ -39,15 +39,15 @@ export class BrStep4Component implements OnInit {
     }
   }
 
-  getBusinessCategories() {
-    this.businessRegisterService.getBusinessCategories().subscribe((businessCategories) => {
-      this.businessCategories = businessCategories;
-    })
-  }
-
   getTownsWIthDistrict() {
     this.businessRegisterService.getTownsWIthDistrict().subscribe((businessAreas) => {
       this.businessAreas = businessAreas;
+    })
+  }
+
+  getBusinessCategories() {
+    this.businessRegisterService.getBusinessCategories().subscribe((businessCategories) => {
+      this.businessCategories = businessCategories;
     })
   }
 

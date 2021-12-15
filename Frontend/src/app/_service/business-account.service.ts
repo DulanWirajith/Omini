@@ -18,6 +18,10 @@ export class BusinessAccountService {
   //   this.breadCrumbSub.next(txt)
   // }
 
+  updateBusinessProfile(businessReg): Observable<any> {
+    return this.http.put<any>(environment.backend_url + 'business_profile/updateBusinessProfile/' + businessReg.businessProId, businessReg);
+  }
+
   addItem(item): Observable<any> {
     return this.http.post<any>(environment.backend_url + 'item/addItem', item);
   }
@@ -32,5 +36,9 @@ export class BusinessAccountService {
 
   getItemsBusinessCategory(businessProfileId, businessCategoryId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/getItemsBusinessCategory/' + businessProfileId + '/' + businessCategoryId);
+  }
+
+  getBusinessProfile(businessProfileId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId);
   }
 }

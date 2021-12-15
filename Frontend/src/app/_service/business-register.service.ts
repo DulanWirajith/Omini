@@ -45,6 +45,7 @@ export class BusinessRegisterService {
 
   getNewBR() {
     return {
+      businessProId: "",
       businessName: "",
       businessEmail: "",
       businessAddress: "",
@@ -67,6 +68,7 @@ export class BusinessRegisterService {
       businessProfileCategories: [],
       user: {
         username: "",
+        cPassword: "",
         password: "",
         passwordC: "",
         email: "",
