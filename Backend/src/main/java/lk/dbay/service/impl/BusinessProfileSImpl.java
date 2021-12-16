@@ -65,19 +65,11 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     }
 
     @Override
-//    @Transactional
     public BusinessProfileDTO updateBusinessProfile(BusinessProfile businessProfile, String businessProfileId) throws Exception {
         try {
-//            businessAreaR.deleteBusinessAreas(businessProfileId);
-////            LocalDateTime localDateTime = LocalDateTime.now();
-////            String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-////            businessProfile.setBusinessProId("B" + businessProfile.getBusinessRegistrationCode());
-////            businessProfile.getUser().setUserId("U" + format);
-////            businessProfile.getUser().setRole("B");
             Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(businessProfileId);
             if (businessProfileOptional.isPresent()) {
                 BusinessProfile businessProfileObj = businessProfileOptional.get();
-//                DbayUser userObj = businessProfileObj.getUser();
                 businessProfileObj.setBusinessName(businessProfile.getBusinessName());
                 businessProfileObj.setContactNumber1(businessProfile.getContactNumber1());
                 businessProfileObj.setContactNumber2(businessProfile.getContactNumber2());
@@ -88,6 +80,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessProfileObj.setBusinessOwner(businessProfile.getBusinessOwner());
                 businessProfileObj.setBusinessOwnerNic(businessProfile.getBusinessOwnerNic());
                 businessProfileObj.getUser().setUsername(businessProfile.getUser().getUsername());
+                businessProfileObj.getUser().setTwoFactorAuth(businessProfile.getUser().isTwoFactorAuth());
                 if (!businessProfile.getUser().getPassword().equals("")) {
                     businessProfileObj.getUser().setPassword(businessProfile.getUser().getPassword());
                 }
@@ -102,26 +95,26 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 Set<BusinessArea> businessAreaSetRemove = new HashSet<>(businessProfileObj.getBusinessAreas());
                 businessAreaSetRemove.removeAll(businessAreas);
                 businessProfile.getBusinessAreas().removeAll(businessAreas);
-//                for (BusinessArea businessAreaObj : businessAreas) {
-//                    for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
-//
-//                    }
-//                }
-//
-//                for(int i=0;i<businessProfileObj.getBusinessAreas().size();i++){
-//
-//                }
-
                 businessProfileObj.setBusinessAreas(businessProfile.getBusinessAreas());
-//
-//                for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
-//                    businessProfileCategory.setBusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId()));
-//                    businessProfileCategory.setBusinessProfile(businessProfile);
-//                }
-////                businessProfileObj.setBusinessProfileCategories(businessProfile.getBusinessProfileCategories());
+
+                for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
+                    businessProfileCategory.setBusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId()));
+                    businessProfileCategory.setBusinessProfile(businessProfileObj);
+                }
+
+                HashSet<BusinessProfileCategory> profileCategories = new HashSet<>(businessProfile.getBusinessProfileCategories());
+                profileCategories.retainAll(businessProfileObj.getBusinessProfileCategories());
+                Set<BusinessProfileCategory> profileCategorySetRemove = new HashSet<>(businessProfileObj.getBusinessProfileCategories());
+                profileCategorySetRemove.removeAll(profileCategories);
+                businessProfile.getBusinessProfileCategories().removeAll(profileCategories);
+                businessProfileObj.setBusinessProfileCategories(businessProfile.getBusinessProfileCategories());
+
                 businessAreaR.deleteAll(businessAreaSetRemove);
+                businessProfileCategoryR.deleteAll(profileCategorySetRemove);
                 dbayUserR.save(businessProfileObj.getUser());
                 businessProfileR.save(businessProfileObj);
+                businessProfileObj.getBusinessAreas().addAll(businessAreas);
+                businessProfileObj.getBusinessProfileCategories().addAll(profileCategories);
                 return new BusinessProfileDTO(businessProfileObj, new DbayUserDTO(businessProfileObj.getUser()), true, true);
             }
             return null;

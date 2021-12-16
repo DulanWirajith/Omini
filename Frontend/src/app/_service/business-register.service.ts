@@ -72,7 +72,8 @@ export class BusinessRegisterService {
         password: "",
         passwordC: "",
         email: "",
-        verificationCode: ""
+        verificationCode: "",
+        twoFactorAuth: false
       }
     }
   }

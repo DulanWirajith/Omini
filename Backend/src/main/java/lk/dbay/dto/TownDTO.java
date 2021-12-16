@@ -16,6 +16,10 @@ public class TownDTO extends DateTimeDTO {
 
     public TownDTO(@NonNull Town town) {
         this.townId = town.getTownId();
-        this.name = town.getDistrict().getName() + "-" + town.getName();
+        if (town.getDistrict() != null) {
+            this.name = town.getDistrict().getName() + "-" + town.getName();
+        } else {
+            this.name = town.getName();
+        }
     }
 }

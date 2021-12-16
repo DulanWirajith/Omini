@@ -443,8 +443,9 @@
               #businessProfileCategories="ngModel" required
               [(ngModel)]="businessProfile.businessProfileCategories">
             </ng-select>
-            <div *ngIf="(businessProfileCategories.touched || spProfileForm.submitted) && businessProfileCategories.errors?.required"
-                 class="validErr">
+            <div
+              *ngIf="(businessProfileCategories.touched || spProfileForm.submitted) && businessProfileCategories.errors?.required"
+              class="validErr">
               Shop type is required
             </div>
             <!--<select class="form-select mt-3" id="shop-type-select" multiple name="stypes[]"-->
@@ -461,7 +462,7 @@
           <div class="d-flex align-items-center justify-content-between">
             <div class="pe-2">
               <label class="form-label fw-bold">Two-factor authentication</label>
-              <div id="auth-value">Inactive</div>
+              <div id="auth-value">{{businessProfile.user.twoFactorAuth?'Active':'Inactive'}}</div>
             </div>
             <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#auth-collapse"
                                                                         data-bs-toggle="collapse"><i
@@ -469,10 +470,11 @@
             </div>
           </div>
           <div class="collapse" id="auth-collapse" data-bs-parent="#account-settings">
-            <select class="form-select mt-3" data-bs-binded-element="#auth-value" name="accAuth">
-              <option value="" disabled>Enable / disbale two-factor authentication</option>
-              <option value="Active">Enable</option>
-              <option value="Inactive" selected>Disable</option>
+            <select class="form-select mt-3" data-bs-binded-element="#auth-value" name="accAuth"
+                    [(ngModel)]="businessProfile.user.twoFactorAuth">
+              <!--<option value="" disabled>Enable / disbale two-factor authentication</option>-->
+              <option [value]="true">Enable</option>
+              <option [value]="false" selected>Disable</option>
             </select>
           </div>
         </div>

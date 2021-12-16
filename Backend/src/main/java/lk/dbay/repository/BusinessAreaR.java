@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface BusinessAreaR extends JpaRepository<BusinessArea, BusinessAreaPK> {
 
-    @Modifying
-    @Transactional
-    @Query(value = "delete from BusinessArea where businessAreaId.businessProId=?1")
-    void deleteBusinessAreas(String businessProfileId);
+//    @Modifying
+//    @Transactional
+//    @Query(value = "delete from BusinessArea where businessAreaId.businessProId=?1")
+//    void deleteBusinessAreas(String businessProfileId);
 
 }

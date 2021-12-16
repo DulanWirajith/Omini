@@ -36,7 +36,7 @@ export class SpProfileSettingsComponent implements OnInit {
       businessProfile.user.password = '';
       businessProfile.user.passwordC = '';
       businessProfile.user.cPassword = '';
-      // console.log(businessProfile)
+      console.log(businessProfile)
       this.businessProfile = businessProfile;
     })
   }
@@ -93,21 +93,34 @@ export class SpProfileSettingsComponent implements OnInit {
     let businessTypes = [];
     let businessAreas = [];
     for (let businessType of this.businessProfile.businessProfileCategories) {
-      businessTypes.push({
-        businessCategory: businessType
-      })
+      if (businessType.businessCategory === undefined) {
+        businessTypes.push({
+          name: businessType.name,
+          businessCategory: businessType
+        })
+      }
     }
-    this.businessProfile.businessProfileCategories = businessTypes;
+    if (businessTypes.length > 0) {
+      this.businessProfile.businessProfileCategories = businessTypes;
+    }
 
     for (let businessArea of this.businessProfile.businessAreas) {
-      businessAreas.push({
-        town: businessArea
-      })
+      if (businessArea.town === undefined) {
+        businessAreas.push({
+          name: businessArea.name,
+          town: businessArea
+        })
+      }
     }
-    this.businessProfile.businessAreas = businessAreas;
+    if (businessAreas.length > 0) {
+      this.businessProfile.businessAreas = businessAreas;
+    }
     console.log(this.businessProfile)
     this.businessAccountService.updateBusinessProfile(this.businessProfile).subscribe((businessProfile) => {
-      console.log(businessProfile)
+      // console.log(businessProfile)
+      businessProfile.user.password = '';
+      businessProfile.user.passwordC = '';
+      businessProfile.user.cPassword = '';
       this.businessProfile = businessProfile;
     })
   }

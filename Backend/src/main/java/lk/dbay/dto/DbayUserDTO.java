@@ -37,6 +37,7 @@ public class DbayUserDTO extends DateTimeDTO {
     private String verificationCode;
     private int securityKey;
     private int editRow = 1;
+    private boolean twoFactorAuth;
     private String curDateTime;
     //    private List<UserPrivilegeDTO> userPrivileges;
     private List<String> privileges;
@@ -57,6 +58,7 @@ public class DbayUserDTO extends DateTimeDTO {
         this.available = dbayUser.isAvailable();
         this.confirmed = dbayUser.isConfirmed();
         this.verificationCode = dbayUser.getVerificationCode();
+        this.twoFactorAuth = dbayUser.isTwoFactorAuth();
 //            this.curDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 //            setCreatedAt(dbayUser.getCreatedAt());
 //            setUpdatedAt(dbayUser.getUpdatedAt());
