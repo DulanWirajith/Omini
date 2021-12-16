@@ -12,6 +12,7 @@ public class CommonConstants {
 
     public static final String DBAY_USER = "/dbay_user";
     public static final String BUSINESS_PROFILE = "/business_profile";
+    public static final String CUSTOMER_PROFILE = "/customer_profile";
     public static final String BUSINESS_CATEGORY = "/business_category";
     public static final String ITEM_FEATURE = "/item_feature";
     public static final String PACKAGE_CATEGORY = "/package_category";

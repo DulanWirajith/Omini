@@ -29,7 +29,7 @@
           [searchWhileComposing]="true"
           name="businessProfileCategories"
           #businessProfileCategories="ngModel" required
-          [(ngModel)]="businessReg.businessProfileCategories">
+          [(ngModel)]="businessProfile.businessProfileCategories">
         </ng-select>
         <div *ngIf="(businessProfileCategories.touched || brForm4.submitted) && businessProfileCategories.errors?.required"
              class="validErr">
@@ -50,7 +50,7 @@
           [searchWhileComposing]="true"
           name="businessSAreas"
           #businessSAreas="ngModel" required
-          [(ngModel)]="businessReg.businessAreas">
+          [(ngModel)]="businessProfile.businessAreas">
         </ng-select>
         <div *ngIf="(businessSAreas.touched || brForm4.submitted) && businessSAreas.errors?.required"
              class="validErr">

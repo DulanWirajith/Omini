@@ -20,8 +20,8 @@ export class SpProfileSettingsComponent implements OnInit {
     toggleView: false
   };
 
-  constructor(private businessRegisterService: BusinessRegisterService, private businessAccountService: BusinessAccountService) {
-    this.businessProfile = businessRegisterService.getNewBR();
+  constructor(private businessAccountService: BusinessAccountService) {
+    this.businessProfile = businessAccountService.getNewBusinessProfile();
   }
 
   ngOnInit(): void {
@@ -33,16 +33,18 @@ export class SpProfileSettingsComponent implements OnInit {
 
   getBusinessProfile() {
     this.businessAccountService.getBusinessProfile("B321").subscribe((businessProfile) => {
-      businessProfile.user.password = '';
-      businessProfile.user.passwordC = '';
-      businessProfile.user.cPassword = '';
-      console.log(businessProfile)
-      this.businessProfile = businessProfile;
+      if (businessProfile !== null) {
+        businessProfile.user.password = '';
+        businessProfile.user.passwordC = '';
+        businessProfile.user.cPassword = '';
+        console.log(businessProfile)
+        this.businessProfile = businessProfile;
+      }
     })
   }
 
   getBusinessCategories() {
-    this.businessRegisterService.getBusinessCategories().subscribe((businessCategories) => {
+    this.businessAccountService.getBusinessCategories().subscribe((businessCategories) => {
       // for (let i = 0; i < businessCategories.length; i++) {
       //   businessCategories[i] = {
       //     businessCategory: businessCategories[i]
@@ -53,7 +55,7 @@ export class SpProfileSettingsComponent implements OnInit {
   }
 
   getTownsWIthDistrict() {
-    this.businessRegisterService.getTownsWIthDistrict().subscribe((businessAreas) => {
+    this.businessAccountService.getTownsWIthDistrict().subscribe((businessAreas) => {
       // for (let i = 0; i < businessAreas.length; i++) {
       //   businessAreas[i] = {
       //     town: businessAreas[i]

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {BusinessRegisterService} from "../../../_service/business-register.service";
+import {BusinessAccountService} from "../../../_service/business-account.service";
 
 @Component({
   selector: 'app-br-step1',
@@ -9,23 +10,23 @@ import {BusinessRegisterService} from "../../../_service/business-register.servi
 })
 export class BrStep1Component implements OnInit {
 
-  businessReg;
+  businessProfile;
 
   @ViewChild('brForm1', {static: true}) public brForm1: NgForm;
 
-  constructor(private businessRegisterService: BusinessRegisterService) {
-    this.businessReg = JSON.parse(JSON.stringify(businessRegisterService.getNewBR()));
+  constructor(private businessAccountService: BusinessAccountService) {
+    this.businessProfile = JSON.parse(JSON.stringify(businessAccountService.getNewBusinessProfile()));
   }
 
   ngOnInit(): void {
     if (localStorage.getItem('br') !== null) {
-      this.businessReg = JSON.parse(localStorage.getItem('br'));
+      this.businessProfile = JSON.parse(localStorage.getItem('br'));
     }
   }
 
   onSubmit() {
-    this.businessRegisterService.step.next(2)
-    localStorage.setItem('br', JSON.stringify(this.businessReg));
+    this.businessAccountService.step.next(2)
+    localStorage.setItem('br', JSON.stringify(this.businessProfile));
   }
 
 }

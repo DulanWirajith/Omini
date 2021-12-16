@@ -24,7 +24,7 @@ export class BaManageItemComponent implements OnInit {
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
 
-  constructor(private businessRegisterService: BusinessRegisterService, private businessAccountService: BusinessAccountService) {
+  constructor(private businessAccountService: BusinessAccountService) {
     this.item = this.getNewItem();
   }
 
@@ -33,7 +33,7 @@ export class BaManageItemComponent implements OnInit {
   }
 
   getBusinessCategories() {
-    this.businessRegisterService.getBusinessCategories().subscribe((businessCategories) => {
+    this.businessAccountService.getBusinessCategories().subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
   }

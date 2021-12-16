@@ -8,7 +8,7 @@
         <label class="form-label" for="biz-ownername">Business owner name <span class='text-danger'>*</span></label>
         <input class="form-control form-control-lg" type="text" id="biz-ownername" value=""
                placeholder="Enter business owner name" required
-               [(ngModel)]="businessReg.businessOwner" #businessOwner="ngModel" name="businessOwner">
+               [(ngModel)]="businessProfile.businessOwner" #businessOwner="ngModel" name="businessOwner">
         <div *ngIf="(businessOwner.touched || brForm3.submitted) && businessOwner.errors?.required"
              class="validErr">
           Business owner name is required
@@ -18,7 +18,7 @@
         <label class="form-label" for="biz-ownernic">Business owner nic <span class='text-danger'>*</span></label>
         <input class="form-control form-control-lg" type="text" id="biz-ownernic" value=""
                placeholder="Enter business owner's NIC" required
-               [(ngModel)]="businessReg.businessOwnerNic" #businessOwnerNic="ngModel" name="businessOwnerNic">
+               [(ngModel)]="businessProfile.businessOwnerNic" #businessOwnerNic="ngModel" name="businessOwnerNic">
         <div *ngIf="(businessOwnerNic.touched || brForm3.submitted) && businessOwnerNic.errors?.required"
              class="validErr">
           Business owner nic is required

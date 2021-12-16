@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BusinessRegisterService} from "../../../_service/business-register.service";
 import {NgForm} from "@angular/forms";
+import {BusinessAccountService} from "../../../_service/business-account.service";
 
 @Component({
   selector: 'app-br-step2',
@@ -9,53 +10,53 @@ import {NgForm} from "@angular/forms";
 })
 export class BrStep2Component implements OnInit {
 
-  businessReg;
+  businessProfile;
   countries;
   districts;
   towns;
 
   @ViewChild('brForm2', {static: true}) public brForm2: NgForm;
 
-  constructor(private businessRegisterService: BusinessRegisterService) {
-    this.businessReg = JSON.parse(JSON.stringify(businessRegisterService.getNewBR()));
+  constructor(private businessAccountService: BusinessAccountService) {
+    this.businessProfile = JSON.parse(JSON.stringify(businessAccountService.getNewBusinessProfile()));
   }
 
   ngOnInit(): void {
     this.getCountries();
     if (localStorage.getItem('br') !== null) {
-      this.businessReg = JSON.parse(localStorage.getItem('br'));
-      if (this.businessReg.country !== '' && this.businessReg.district !== '') {
-        this.getDistricts(this.businessReg.country)
-        this.getTowns(this.businessReg.district)
+      this.businessProfile = JSON.parse(localStorage.getItem('br'));
+      if (this.businessProfile.country !== '' && this.businessProfile.district !== '') {
+        this.getDistricts(this.businessProfile.country)
+        this.getTowns(this.businessProfile.district)
       }
     }
   }
 
   getCountries() {
-    this.businessRegisterService.getCountries().subscribe((countries) => {
+    this.businessAccountService.getCountries().subscribe((countries) => {
       this.countries = countries;
     })
   }
 
   getDistricts(countryId) {
-    this.businessRegisterService.getDistricts(countryId).subscribe((districts) => {
+    this.businessAccountService.getDistricts(countryId).subscribe((districts) => {
       this.districts = districts;
     })
   }
 
   getTowns(districtId) {
-    this.businessRegisterService.getTowns(districtId).subscribe((towns) => {
+    this.businessAccountService.getTowns(districtId).subscribe((towns) => {
       this.towns = towns;
     })
   }
 
   onSubmit() {
-    localStorage.setItem('br', JSON.stringify(this.businessReg));
-    this.businessRegisterService.step.next(3)
+    localStorage.setItem('br', JSON.stringify(this.businessProfile));
+    this.businessAccountService.step.next(3)
   }
 
   previousPage() {
-    localStorage.setItem('br', JSON.stringify(this.businessReg));
-    this.businessRegisterService.step.next(1);
+    localStorage.setItem('br', JSON.stringify(this.businessProfile));
+    this.businessAccountService.step.next(1);
   }
 }

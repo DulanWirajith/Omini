@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessRegisterService} from "../../_service/business-register.service";
+import {BusinessAccountService} from "../../_service/business-account.service";
 
 @Component({
   selector: 'app-business-register',
@@ -10,8 +11,8 @@ export class BusinessRegisterComponent implements OnInit {
 
   step = 1;
 
-  constructor(private businessRegisterService: BusinessRegisterService) {
-    businessRegisterService.step.subscribe((val) => {
+  constructor(private businessAccountService: BusinessAccountService) {
+    businessAccountService.step.subscribe((val) => {
       this.step = val;
     })
   }
