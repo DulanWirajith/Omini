@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BusinessRegisterService} from "../../../_service/business-register.service";
 import {NgForm} from "@angular/forms";
+import {BusinessAccountService} from "../../../_service/business-account.service";
 
 @Component({
   selector: 'app-br-step6',
@@ -9,15 +9,15 @@ import {NgForm} from "@angular/forms";
 })
 export class BrStep6Component implements OnInit {
 
-  businessReg;
+  businessProfile;
 
-  constructor(private businessRegisterService: BusinessRegisterService) {
-    this.businessReg = JSON.parse(JSON.stringify(businessRegisterService.getNewBR()));
+  constructor(private businessAccountService: BusinessAccountService) {
+    this.businessProfile = JSON.parse(JSON.stringify(businessAccountService.getNewBusinessProfile()));
   }
 
   ngOnInit(): void {
     if (localStorage.getItem('br') !== null) {
-      this.businessReg = JSON.parse(localStorage.getItem('br'));
+      this.businessProfile = JSON.parse(localStorage.getItem('br'));
     }
   }
 
@@ -26,7 +26,7 @@ export class BrStep6Component implements OnInit {
   }
 
   previousPage() {
-    localStorage.setItem('br', JSON.stringify(this.businessReg));
-    this.businessRegisterService.step.next(5);
+    localStorage.setItem('br', JSON.stringify(this.businessProfile));
+    this.businessAccountService.step.next(5);
   }
 }

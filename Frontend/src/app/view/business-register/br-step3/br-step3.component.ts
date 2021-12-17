@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {BusinessRegisterService} from "../../../_service/business-register.service";
+import {BusinessAccountService} from "../../../_service/business-account.service";
 
 @Component({
   selector: 'app-br-step3',
@@ -9,27 +9,27 @@ import {BusinessRegisterService} from "../../../_service/business-register.servi
 })
 export class BrStep3Component implements OnInit {
 
-  businessReg;
+  businessProfile;
 
   @ViewChild('brForm3', {static: true}) public instituteForm: NgForm;
 
-  constructor(private businessRegisterService: BusinessRegisterService) {
-    this.businessReg = JSON.parse(JSON.stringify(businessRegisterService.getNewBR()));
+  constructor(private businessAccountService: BusinessAccountService) {
+    this.businessProfile = JSON.parse(JSON.stringify(businessAccountService.getNewBusinessProfile()));
   }
 
   ngOnInit(): void {
     if (localStorage.getItem('br') !== null) {
-      this.businessReg = JSON.parse(localStorage.getItem('br'));
+      this.businessProfile = JSON.parse(localStorage.getItem('br'));
     }
   }
 
   onSubmit() {
-    localStorage.setItem('br', JSON.stringify(this.businessReg));
-    this.businessRegisterService.step.next(4)
+    localStorage.setItem('br', JSON.stringify(this.businessProfile));
+    this.businessAccountService.step.next(4)
   }
 
   previousPage() {
-    localStorage.setItem('br', JSON.stringify(this.businessReg));
-    this.businessRegisterService.step.next(2);
+    localStorage.setItem('br', JSON.stringify(this.businessProfile));
+    this.businessAccountService.step.next(2);
   }
 }

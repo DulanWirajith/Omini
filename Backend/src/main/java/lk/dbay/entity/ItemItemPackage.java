@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class ItemItemPackage extends DateTime {
 
     @EmbeddedId
-    private ItemItemPackagePK itemPackageId;
+    private ItemItemPackagePK itemItemPackageId;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "itemId", referencedColumnName = "itemId", insertable = false, updatable = false, nullable = false)

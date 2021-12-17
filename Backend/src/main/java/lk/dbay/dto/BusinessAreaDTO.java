@@ -18,8 +18,9 @@ public class BusinessAreaDTO extends DateTimeDTO {
     private BusinessProfileDTO businessProfile;
     private TownDTO town;
 
-    public BusinessAreaDTO(@NonNull TownDTO town) {
+    public BusinessAreaDTO(@NonNull BusinessProfileDTO businessProfile, @NonNull TownDTO town) {
         this.name = town.getName();
+        this.businessProfile = businessProfile;
         this.town = town;
     }
 }

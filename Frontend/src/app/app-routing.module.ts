@@ -5,11 +5,15 @@ import {BusinessRegisterComponent} from "./view/business-register/business-regis
 import {BusinessAccountComponent} from "./view/business-account/business-account.component";
 import {BaManageComponent} from "./view/business-account/ba-manage/ba-manage.component";
 import {BaMonitorComponent} from "./view/business-account/ba-monitor/ba-monitor.component";
+import {CustomerProfileComponent} from "./view/profile/customer-profile/customer-profile.component";
+import {CpProfileSettingsComponent} from "./view/profile/customer-profile/cp-profile-settings/cp-profile-settings.component";
+import {ShopProfileComponent} from "./view/profile/shop-profile/shop-profile.component";
+import {SpProfileSettingsComponent} from "./view/profile/shop-profile/sp-profile-settings/sp-profile-settings.component";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'business_register',
+    redirectTo: 'business_account',
     pathMatch: 'full'
   },
   {
@@ -31,6 +35,26 @@ const routes: Routes = [
       {
         path: 'ba_manage',
         component: BaManageComponent,
+      }
+    ]
+  },
+  {
+    path: 'customer_profile',
+    component: CustomerProfileComponent,
+    children: [
+      {
+        path: 'profile_settings',
+        component: CpProfileSettingsComponent,
+      }
+    ]
+  },
+  {
+    path: 'shop_profile',
+    component: ShopProfileComponent,
+    children: [
+      {
+        path: 'profile_settings',
+        component: SpProfileSettingsComponent,
       }
     ]
   }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -24,4 +25,17 @@ public class BusinessArea extends DateTime {
     @ManyToOne(optional = false)
     @JoinColumn(name = "townId", referencedColumnName = "townId", insertable = false, updatable = false, nullable = false)
     private Town town;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BusinessArea that = (BusinessArea) o;
+        return Objects.equals(town.getTownId(), that.town.getTownId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(town.getTownId());
+    }
 }

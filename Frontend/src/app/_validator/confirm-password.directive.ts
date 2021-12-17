@@ -12,6 +12,7 @@ export class ConfirmPasswordDirective implements Validator {
   // @Input() passwordC;
 
   validate(control: AbstractControl): { [key: string]: any } | null {
+    // console.log(control.parent.controls['password'].value +' '+ control.parent.controls['passwordC'].value)
     // let NIC_REGEX = /^[0-9]{9}[Vv]$|^[0-9]{11}[Vv]$/; // Regular Expression 1
     if (control.parent.controls['password'] === undefined || control.parent.controls['passwordC'] === undefined) {
       return null;

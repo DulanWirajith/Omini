@@ -6,6 +6,7 @@ import lk.dbay.service.ItemS;
 import lk.dbay.util.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class ItemController {
     private ItemS itemS;
 
     @PostMapping(value = "/addItem")
-    public ResponseEntity addItem(@RequestBody Item item, @RequestPart("imageFile") MultipartFile file) {
+    public ResponseEntity addItem(@RequestPart("item") Item item, @RequestPart("imageFile") MultipartFile file) {
         try {
             ItemDTO itemDTO = itemS.addItem(item, file);
             if (itemDTO != null) {
@@ -39,5 +40,28 @@ public class ItemController {
     @GetMapping(value = "/getItems")
     public ResponseEntity getItems() {
         return ResponseEntity.ok(itemS.getItems());
+    }
+
+    @GetMapping(value = "/getItemsBusinessCategory/{businessProfileId}/{businessCategoryId}")
+    public ResponseEntity getItemsBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+        return ResponseEntity.ok(itemS.getItemsBusinessCategory(businessProfileId, businessCategoryId));
+    }
+
+    @GetMapping(value = "/getItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
+    public ResponseEntity getItemsOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
+        return ResponseEntity.ok(itemS.getItemsOrdered(businessProfileId, businessCategoryId, start, limit));
+    }
+
+    @GetMapping(value = "/itemImg/{id}")
+    public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {
+
+        ItemDTO itemDTO = itemS.getItemImg(id);
+
+        if (itemDTO != null) {
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + itemDTO.getItemImgName() + "\"")
+                    .body(itemDTO.getItemImg());
+        }
+        return null;
     }
 }

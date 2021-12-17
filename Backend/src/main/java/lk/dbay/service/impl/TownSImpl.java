@@ -61,10 +61,10 @@ public class TownSImpl implements TownS {
         List<Town> townRAll = townR.findAll();
         List<TownDTO> townDTOS = new ArrayList<>();
         for (Town town : townRAll) {
-            TownDTO townDTO = new TownDTO();
-            townDTO.setTownId(town.getTownId());
-            townDTO.setName(town.getDistrict().getName() + "-" + town.getName());
-            townDTOS.add(townDTO);
+//            TownDTO townDTO = new TownDTO();
+//            townDTO.setTownId(town.getTownId());
+//            townDTO.setName(town.getDistrict().getName() + "-" + town.getName());
+            townDTOS.add(new TownDTO(town));
         }
         return townDTOS;
     }

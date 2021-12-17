@@ -1,0 +1,283 @@
+<main class="page-wrapper">
+
+  <!--Sign In Modal-->
+  <div class="modal fade" id="signin-modal" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
+      <div class="modal-content">
+        <div class="modal-body px-0 py-2 py-sm-0">
+          <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal"></button>
+          <div class="row mx-0 align-items-center">
+            <div class="col-md-6 border-end-md p-4 p-sm-5">
+              <h2 class="h3 mb-4 mb-sm-5">Hey there!<br>Welcome back.</h2><img class="d-block mx-auto" src="../../../../assets/img/signin.svg" width="344" alt="Illustartion">
+              <div class="mt-4 mt-sm-5">Don't have an account? <a href="#signup-modal" data-bs-toggle="modal" data-bs-dismiss="modal">Sign up here</a></div>
+            </div>
+            <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+
+              <form class="needs-validation" novalidate="">
+                <div class="mb-4">
+                  <label class="form-label mb-2" for="signin-email">Email address</label>
+                  <input class="form-control" type="email" id="signin-email" placeholder="Enter your email" required="">
+                </div>
+                <div class="mb-4">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <label class="form-label mb-0" for="signin-password">Password</label><a class="fs-sm" href="#">Forgot password?</a>
+                  </div>
+                  <div class="password-toggle">
+                    <input class="form-control" type="password" id="signin-password" placeholder="Enter password" required="">
+                    <label class="password-toggle-btn" aria-label="Show/hide password">
+                      <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                    </label>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-lg w-100 rounded-pill" type="submit">Sign in</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Sign Up Modal-->
+  <div class="modal fade" id="signup-modal" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 734px;">
+      <div class="modal-content">
+        <div class="modal-body p-sm-5">
+          <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal"></button>
+          <ul class="nav nav-pills flex-column flex-sm-row border-bottom pb-4 mt-sm-n2 my-4" role="tablist">
+            <li class="nav-item me-sm-3 mb-sm-0"><a class="nav-link" href="#customer" data-bs-toggle="tab" role="tab" aria-controls="customer" aria-selected="false"><i class="fi-user me-2"></i>I am customer</a></li>
+            <li class="nav-item mb-sm-0"><a class="nav-link active" href="#business" data-bs-toggle="tab" role="tab" aria-controls="business" aria-selected="true"><i class="fi-briefcase me-2"></i>I am shop owner</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade" id="customer" role="tabpanel">
+              <h3>Register to </h3>
+              <p class="pb-2">Get access to all the functions of the site that will help you find a great job.</p>
+              <!-- <div class="row gx-2 gx-md-4">
+                <div class="col-sm-6 mb-3"><a class="btn btn-outline-info w-100 rounded-pill" href="#"><i class="fi-google fs-lg me-1"></i>Sign in with Google</a></div>
+                <div class="col-sm-6 mb-3"><a class="btn btn-outline-info w-100 rounded-pill" href="#"><i class="fi-facebook fs-lg me-1"></i>Sign in with Facebook</a></div>
+              </div>
+              <div class="d-flex align-items-center py-2 mb-2">
+                <hr class="w-100">
+                <div class="px-3">Or</div>
+                <hr class="w-100">
+              </div> -->
+              <form class="needs-validation" novalidate="">
+                <div class="row gx-2 gx-md-4">
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="js-fn">Full name</label>
+                    <input class="form-control" type="text" id="js-fn" placeholder="Enter your full name" required="">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="js-email">Emaill address</label>
+                    <input class="form-control" type="email" id="js-email" placeholder="Enter your email" required="">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="js-password">Password <span class="text-muted">(min. 8 char)</span></label>
+                    <div class="password-toggle">
+                      <input class="form-control" type="password" id="js-password" minlength="8" required="">
+                      <label class="password-toggle-btn" aria-label="Show/hide password">
+                        <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="js-password-confirm">Confirm password</label>
+                    <div class="password-toggle">
+                      <input class="form-control" type="password" id="js-password-confirm" minlength="8" required="">
+                      <label class="password-toggle-btn" aria-label="Show/hide password">
+                        <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-check mb-4">
+                  <input class="form-check-input" type="checkbox" id="agree-to-terms" required="">
+                  <label class="form-check-label" for="agree-to-terms">By joining, I agree to the <a href="#">Terms of use</a> and <a href="#">Privacy policy</a></label>
+                </div>
+                <button class="btn btn-primary btn-lg w-100 rounded-pill" type="submit">Sign up</button>
+              </form>
+            </div>
+            <div class="tab-pane fade active show" id="business" role="tabpanel">
+              <h3>Create a online shop</h3>
+              <p class="pb-3">Get access to all special services for employers on Finder.</p>
+              <div class="d-flex align-items-center py-2 mb-2">
+                <hr class="w-100">
+                <div class="px-3">User</div>
+                <hr class="w-100">
+              </div>
+              <form class="needs-validation" novalidate="">
+                <div class="row gx-2 gx-md-4">
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-fn">User name</label>
+                    <input class="form-control" type="text" id="shop_user_name" placeholder="Enter your user name" required="">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-email">User Emaill <span class="text-muted">(better corporate)</span></label>
+                    <input class="form-control" type="email" id="shop_user_email" placeholder="Enter email" required="">
+                  </div>
+                  <!-- <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-company">Contact number <span class="text-muted">(better corporate)</span></label>
+                    <input class="form-control" type="tel" id="em-contactnumber" placeholder="Enter contact number" required="">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-location">Address <span class="text-muted">(user address)</span></label>
+                    <input class="form-control" type="text" id="em-location" placeholder="Country, City, Address" required="">
+                  </div> -->
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-password">Password <span class="text-muted">(min. 8 char)</span></label>
+                    <div class="password-toggle">
+                      <input class="form-control" type="password" id="em-password" minlength="8" required="">
+                      <label class="password-toggle-btn" aria-label="Show/hide password">
+                        <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-password-confirm">Confirm password</label>
+                    <div class="password-toggle">
+                      <input class="form-control" type="password" id="em-password-confirm" minlength="8" required="">
+                      <label class="password-toggle-btn" aria-label="Show/hide password">
+                        <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="form-check mb-4">
+                  <input class="form-check-input" type="checkbox" id="agree-to-terms2" required="">
+                  <label class="form-check-label" for="agree-to-terms2">By joining, I agree to the <a href="#">Terms of use</a> and <a href="#">Privacy policy</a></label>
+                </div>
+                <button class="btn btn-primary btn-lg w-100 rounded-pill" type="submit">Sign up</button> -->
+                <div class="d-flex align-items-center py-2 mb-2">
+                  <hr class="w-100">
+                  <div class="px-3">Shop</div>
+                  <hr class="w-100">
+                </div>
+                <div class="row gx-2 gx-md-4">
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-fn">Shop name</label>
+                    <input class="form-control" type="text" id="shop_name" placeholder="Enter shop name" required="">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-email">Contact Number<span class="text-muted">(better corporate)</span></label>
+                    <input class="form-control" type="tel" id="shop_contact_number" placeholder="Enter shop contact number" required="">
+                  </div>
+                </div>
+                <div class="row gx-2 gx-md-4">
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-fn">Address</label>
+                    <input class="form-control" type="text" id="shop_address" placeholder="Enter shop address" required="">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-email">Shop Emaill <span class="text-muted">(better corporate)</span></label>
+                    <input class="form-control" type="email" id="shop_email" placeholder="Enter shop email" required="">
+                  </div>
+                </div>
+                <div class="row gx-2 gx-md-4">
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-fn">B.R Code<span class="text-muted"> (Optional)</span></label>
+                    <input class="form-control" type="text" id="br_code" placeholder="Enter business registration code" required="">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-email">Owner name<span class="text-muted"> (In NIC)</span></label>
+                    <input class="form-control" type="email" id="owner_name" placeholder="Enter shop owner name" required="">
+                  </div>
+                </div>
+                <div class="row gx-2 gx-md-4">
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-fn">Owner NIC</label>
+                    <input class="form-control" type="text" id="owner_nic" placeholder="Enter shop owner NIC" required="">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="em-email">Owner Emaill <span class="text-muted">(better corporate)</span></label>
+                    <input class="form-control" type="email" id="em-email" placeholder="Enter owner email" required="">
+                  </div>
+                </div>
+                <div class="row gx-2 gx-md-4">
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="stype-rf">Shop Type</label>
+                    <select multiple name="strf[]" id="stype-rf">
+                      <option value="FoodShop">Food Shop</option>
+                      <option value="JuiceBar">Juice Bar</option>
+                      <option value="CakeBaker">Cake Baker</option>
+                      <option value="Bakery">Bakery</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label" for="ba-area-rf">Business Areas <span class="text-muted">(Service areas)</span></label>
+                    <select class="form-select mt-3" multiple name="areasrf[]" id="ba-area-rf" data-bs-binded-element="#ba-value">
+                      <option value="Galle-Galle">Galle-Galle</option>
+                      <option value="Galle-Matara">Galle-Matara</option>
+                      <option value="Galle-Ambalangoda">Galle-Ambalangoda</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-lg w-100" type="submit">Sign up         </button>
+              </form>
+
+            </div>
+          </div>
+          <div class="pt-4 pb-3 pb-sm-0 mt-2">Already have an account? <a href="#signin-modal" data-bs-toggle="modal" data-bs-dismiss="modal">Sign in</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Header-->
+  <header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" data-scroll-header="" style="">
+    <div class="container"><a class="navbar-brand me-3 me-xl-4" href="real-estate-home.html"><img class="d-block" src="https://finder.createx.studio/img/logo/logo-light.svg" width="116" alt="Finder"></a>
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <a class="btn btn-sm text-primary d-none d-lg-block order-lg-3" href="#signin-modal" data-bs-toggle="modal"><i class="fas fa-user me-2"></i>Sign in</a>
+      <a class="btn btn-primary btn-sm ms-2 order-lg-3" href="real-estate-add-property.html"><i class="fas fa-plus me-2"></i>Sign<span class="d-none d-sm-inline"> up</span></a>
+      <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
+        <ul class="navbar-nav navbar-nav-scroll" style="max-height: 35rem;">
+          <li class="nav-item d-lg-none"><a class="nav-link" href="#signin-modal" data-bs-toggle="modal"><i class="fas fa-user me-2"></i>Sign in</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <!-- Page content-->
+  <!-- Page container-->
+  <div class="position-absolute top-0 start-0 w-100 bg-dark" style="height: 398px;"></div>
+  <div class="container content-overlay mt-5 mb-md-4 py-5">
+    <!-- Breadcrumb-->
+    <nav class="mb-3 mb-md-4 pt-md-3" aria-label="Breadcrumb">
+      <ol class="breadcrumb breadcrumb-light">
+        <li class="breadcrumb-item"><a href="job-board-home-v1.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="job-board-account-profile.html">Account</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Profile settings</li>
+      </ol>
+    </nav>
+    <!-- Page card like wrapper-->
+    <div class="bg-light shadow-sm rounded-3 p-4 p-md-5 mb-2">
+      <!-- Account header-->
+      <div class="d-flex align-items-start justify-content-between pb-4 mb-2">
+        <div class="d-flex align-items-start">
+          <div class="position-relative flex-shrink-0"><img class="rounded-circle" src="../../../../assets/img/37.png" width="100" alt="Annette Black">
+            <button class="btn btn-icon btn-light btn-xs rounded-circle shadow-sm position-absolute end-0 bottom-0" type="button" data-bs-toggle="tooltip" title="Change image"><i class="fi-pencil fs-xs"></i></button>
+          </div>
+          <div class="ps-3 ps-sm-4">
+            <h3 class="h5">Annette Black</h3>
+            <ul class="list-unstyled fs-sm mb-0">
+              <li class="d-flex text-nav text-break"><i class="fi-mail opacity-60 mt-1 me-2"></i><span>annette_black@email.com</span></li>
+              <li class="d-flex text-nav text-break"><i class="fi-phone opacity-60 mt-1 me-2"></i><span>(302) 555-0107</span></li>
+            </ul>
+          </div>
+        </div>
+        <!-- <a class="nav-link p-0 d-none d-md-block" href="#"><i class="fi-logout mt-n1 me-2"></i>Sign out</a> -->
+      </div>
+      <!-- Account menu--><a class="btn btn-outline-primary btn-lg rounded-pill w-100 d-md-none" href="#account-nav" data-bs-toggle="collapse"><i class="fi-align-justify me-2"></i>Account Menu</a>
+      <div class="collapse d-md-block" id="account-nav">
+        <ul class="nav nav-pills flex-column flex-md-row pt-3 pt-md-0 pb-md-4 border-bottom-md">
+          <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link active" href="#" aria-current="page"><i class="fi-settings mt-n1 me-2 fs-base"></i>Profile Settings</a></li>
+          <!-- <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link" href="#"><i class="fi-file mt-n1 me-2 fs-base"></i>My Resumes</a></li> -->
+          <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link"><i class="fi-wallet mt-n1 me-2 fs-base"></i>Orders</a></li>
+          <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link"><i class="fi-clock mt-n1 me-2 fs-base"></i>History</a></li>
+          <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link"><i class="fi-heart mt-n1 me-2 fs-base"></i>Following</a></li>
+        </ul>
+      </div>
+
+      <app-cp-profile-settings></app-cp-profile-settings>
+
+    </div>
+  </div>
+</main>

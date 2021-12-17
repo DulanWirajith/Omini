@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {BusinessRegisterService} from "../../../_service/business-register.service";
+import {BusinessAccountService} from "../../../_service/business-account.service";
 
 @Component({
   selector: 'app-br-step4',
@@ -21,43 +21,43 @@ export class BrStep4Component implements OnInit {
   //
   // selected = [{id: 3, name: "Volkswagen Ford"}];
 
-  businessReg;
+  businessProfile;
   businessCategories = [];
   businessAreas = [];
 
   @ViewChild('brForm4', {static: true}) public brForm4: NgForm;
 
-  constructor(private businessRegisterService: BusinessRegisterService) {
-    this.businessReg = JSON.parse(JSON.stringify(businessRegisterService.getNewBR()));
+  constructor(private businessAccountService: BusinessAccountService) {
+    this.businessProfile = JSON.parse(JSON.stringify(businessAccountService.getNewBusinessProfile()));
   }
 
   ngOnInit(): void {
     this.getBusinessCategories();
     this.getTownsWIthDistrict();
     if (localStorage.getItem('br') !== null) {
-      this.businessReg = JSON.parse(localStorage.getItem('br'));
+      this.businessProfile = JSON.parse(localStorage.getItem('br'));
     }
   }
 
-  getBusinessCategories() {
-    this.businessRegisterService.getBusinessCategories().subscribe((businessCategories) => {
-      this.businessCategories = businessCategories;
-    })
-  }
-
   getTownsWIthDistrict() {
-    this.businessRegisterService.getTownsWIthDistrict().subscribe((businessAreas) => {
+    this.businessAccountService.getTownsWIthDistrict().subscribe((businessAreas) => {
       this.businessAreas = businessAreas;
     })
   }
 
+  getBusinessCategories() {
+    this.businessAccountService.getBusinessCategories().subscribe((businessCategories) => {
+      this.businessCategories = businessCategories;
+    })
+  }
+
   onSubmit() {
-    localStorage.setItem('br', JSON.stringify(this.businessReg));
-    this.businessRegisterService.step.next(5)
+    localStorage.setItem('br', JSON.stringify(this.businessProfile));
+    this.businessAccountService.step.next(5)
   }
 
   previousPage() {
-    localStorage.setItem('br', JSON.stringify(this.businessReg));
-    this.businessRegisterService.step.next(3);
+    localStorage.setItem('br', JSON.stringify(this.businessProfile));
+    this.businessAccountService.step.next(3);
   }
 }

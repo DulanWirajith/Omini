@@ -23,4 +23,7 @@ public class ItemFeature extends DateTime {
     private String description;
     private boolean confirmed;
 
+    @ManyToOne
+    private BusinessCategory businessCategory;
+
 }

@@ -34,4 +34,26 @@ public class BusinessProfileController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping(value = "/updateBusinessProfile/{businessProfileId}")
+    public ResponseEntity updateBusinessProfile(@RequestBody BusinessProfile businessProfile, @PathVariable String businessProfileId) {
+        try {
+            BusinessProfileDTO businessProfileDTO = businessProfileS.updateBusinessProfile(businessProfile, businessProfileId);
+            if (businessProfileDTO != null) {
+                return ResponseEntity.ok(businessProfileDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/getBusinessProfile/{businessProfileId}")
+    public ResponseEntity getBusinessProfile(@PathVariable String businessProfileId) {
+        return ResponseEntity.ok(businessProfileS.getBusinessProfile(businessProfileId));
+    }
 }

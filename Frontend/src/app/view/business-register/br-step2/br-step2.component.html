@@ -8,7 +8,7 @@
         <label class="form-label" for="biz-name">Business name <span class='text-danger'>*</span></label>
         <input class="form-control form-control-lg" type="text" id="biz-name" value=""
                placeholder="Enter your business name" required
-               [(ngModel)]="businessReg.businessName" #businessName="ngModel" name="businessName">
+               [(ngModel)]="businessProfile.businessName" #businessName="ngModel" name="businessName">
         <div *ngIf="(businessName.touched || brForm2.submitted) && businessName.errors?.required" class="validErr">
           Business name is required
         </div>
@@ -17,7 +17,7 @@
         <label class="form-label" for="biz-address">Business address <span class='text-danger'>*</span></label>
         <input class="form-control form-control-lg" type="email" id="biz-address" value=""
                placeholder="Enter your business address" required
-               [(ngModel)]="businessReg.businessAddress" #businessAddress="ngModel" name="businessAddress">
+               [(ngModel)]="businessProfile.businessAddress" #businessAddress="ngModel" name="businessAddress">
         <div *ngIf="(businessAddress.touched || brForm2.submitted) && businessAddress.errors?.required"
              class="validErr">
           Business address is required
@@ -27,7 +27,7 @@
         <label class="form-label" for="biz-brnum">Business registration number<span class='text-danger'>*</span></label>
         <input class="form-control form-control-lg" type="text" id="biz-brnum" value=""
                placeholder="Enter your business registration number" required
-               [(ngModel)]="businessReg.businessRegistrationCode" #businessRegistrationCode="ngModel"
+               [(ngModel)]="businessProfile.businessRegistrationCode" #businessRegistrationCode="ngModel"
                name="businessRegistrationCode">
         <div
           *ngIf="(businessRegistrationCode.touched || brForm2.submitted) && businessRegistrationCode.errors?.required"
@@ -38,7 +38,7 @@
       <div class="col-sm-6 mb-4">
         <label class="form-label" for="biz-country">Country <span class='text-danger'>*</span></label>
         <select class="form-select form-select-lg" required
-                [(ngModel)]="businessReg.country" #country="ngModel" name="country" (change)="getDistricts($event.target.value)">
+                [(ngModel)]="businessProfile.country" #country="ngModel" name="country" (change)="getDistricts($event.target.value)">
           <option value="" disabled selected>Choose country</option>
           <option *ngFor="let country of countries" [value]="country.countryId">{{country.name}}</option>
         </select>
@@ -56,7 +56,7 @@
       <div class="col-sm-6 mb-4">
         <label class="form-label" for="biz-district">District <span class='text-danger'>*</span></label>
         <select class="form-select form-select-lg" id="biz-district" required
-                [(ngModel)]="businessReg.district" #district="ngModel" name="district" (change)="getTowns($event.target.value)">
+                [(ngModel)]="businessProfile.district" #district="ngModel" name="district" (change)="getTowns($event.target.value)">
           <option value="" disabled selected>Choose district</option>
           <option *ngFor="let district of districts" [value]="district.districtId">{{district.name}}</option>
         </select>
@@ -67,7 +67,7 @@
       <div class="col-sm-6 mb-4">
         <label class="form-label">Town <span class='text-danger'>*</span></label>
         <select class="form-select form-select-lg" id="biz-country" required
-                [(ngModel)]="businessReg.town.townId" #townId="ngModel" name="townId">
+                [(ngModel)]="businessProfile.town.townId" #townId="ngModel" name="townId">
           <option value="" disabled selected>Choose town</option>
           <option *ngFor="let town of towns" [value]="town.townId">{{town.name}}</option>
         </select>
@@ -89,7 +89,7 @@
             class="fi-mail text-body"></i></div>
           <div style="width: 100%">
             <input class="form-control" type="text" placeholder="Your business e-mail" required
-                   [(ngModel)]="businessReg.businessEmail" #businessEmail="ngModel" name="businessEmail">
+                   [(ngModel)]="businessProfile.businessEmail" #businessEmail="ngModel" name="businessEmail">
             <div *ngIf="(businessEmail.touched || brForm2.submitted) && businessEmail.errors?.required"
                  class="validErr">
               Business Email is required
@@ -101,7 +101,7 @@
             class="fi-phone text-body"></i></div>
           <div style="width: 100%">
             <input class="form-control" type="text" placeholder="Your business contact number 1" required
-                   [(ngModel)]="businessReg.contactNumber1" #contactNumber1="ngModel" name="contactNumber1">
+                   [(ngModel)]="businessProfile.contactNumber1" #contactNumber1="ngModel" name="contactNumber1">
             <div *ngIf="(contactNumber1.touched || brForm2.submitted) && contactNumber1.errors?.required"
                  class="validErr">
               Contact number 1 is required

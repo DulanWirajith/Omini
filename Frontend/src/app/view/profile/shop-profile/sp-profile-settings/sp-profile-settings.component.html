@@ -1,0 +1,494 @@
+<form #spProfileForm="ngForm" (ngSubmit)="spProfileForm.form.valid && onSubmit()" novalidate>
+
+  <!-- Authorization info-->
+  <div class="row pt-4 mt-3">
+    <div class="col-lg-3">
+      <h2 class="h4">Authorization info</h2>
+    </div>
+    <div class="col-lg-9">
+      <div class="border rounded-3 p-3" id="auth-info">
+        <!-- Email-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">User Name</label>
+              <div id="username-value">{{businessProfile.user.username}}</div>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#username-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="username-collapse" data-bs-parent="#auth-info">
+            <input class="form-control mt-3" type="text" data-bs-binded-element="#username-value"
+                   data-bs-unset-value="Not specified" required
+                   [(ngModel)]="businessProfile.user.username" #username="ngModel" name="username">
+          </div>
+          <div *ngIf="(username.touched || spProfileForm.submitted) && username.errors?.required"
+               class="validErr">
+            Username is required
+          </div>
+        </div>
+        <!-- Password-->
+        <div>
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Password</label>
+              <div>********</div>
+              <!--<div *ngIf="!passwordView.toggleView">-->
+              <!--<div *ngIf="(curPassword.dirty || spProfileForm.submitted) && curPassword.errors?.required"-->
+              <!--class="validErr">-->
+              <!--Current password is required-->
+              <!--</div>-->
+              <!--<div-->
+              <!--*ngIf="(confNewPassword.dirty || newPassword.dirty || spProfileForm.submitted) && (confNewPassword.errors?.confirmPassword || newPassword.errors?.confirmPassword)"-->
+              <!--class="validErr">-->
+              <!--Password does not match-->
+              <!--</div>-->
+              <!--</div>-->
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit">
+              <a class="nav-link py-0" href="#password-collapse" data-bs-toggle="collapse"
+              >
+                <i class="fi-edit"></i>
+              </a>
+            </div>
+          </div>
+          <div class="collapse" id="password-collapse" data-bs-parent="#auth-info">
+            <div class="row gx-3 align-items-center my-3">
+              <label class="col-sm-4 col-md-3 col-form-label" for="account-password-current">Current password:</label>
+              <div class="col-sm-8 col-md-9">
+                <div class="password-toggle">
+                  <input class="form-control" [type]="passwordView.curView?'text':'password'"
+                         id="account-password-current"
+                         placeholder="Enter current password" [required]="businessProfile.user.password!==''"
+                         [(ngModel)]="businessProfile.user.cPassword" #curPassword="ngModel" name="curPassword">
+                  <label class="password-toggle-btn" aria-label="Show/hide password">
+                    <input class="password-toggle-check" type="checkbox">
+                    <span class="password-toggle-indicator" id="password-toggle-indicator1"></span>
+                  </label>
+                </div>
+                <div *ngIf="(curPassword.dirty || spProfileForm.submitted) && curPassword.errors?.required"
+                     class="validErr">
+                  Current password is required
+                </div>
+              </div>
+            </div>
+            <div class="row gx-3 align-items-center my-3">
+              <label class="col-sm-4 col-md-3 col-form-label" for="account-password-new">New password:</label>
+              <div class="col-sm-8 col-md-9">
+                <div class="password-toggle">
+                  <input class="form-control" [type]="passwordView.newView?'text':'password'" id="account-password-new"
+                         placeholder="Enter new password"
+                         [(ngModel)]="businessProfile.user.password" #newPassword="ngModel" name="password"
+                         appConfirmPassword [password]="businessProfile.user.passwordC">
+                  <label class="password-toggle-btn" aria-label="Show/hide password">
+                    <input class="password-toggle-check" type="checkbox">
+                    <span class="password-toggle-indicator" id="password-toggle-indicator2"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row gx-3 align-items-center">
+              <label class="col-sm-4 col-md-3 col-form-label" for="account-password-confirm">Confirm new
+                password:</label>
+              <div class="col-sm-8 col-md-9">
+                <div class="password-toggle">
+                  <input class="form-control" type="password" id="account-password-confirm"
+                         placeholder="Confirm new password"
+                         [(ngModel)]="businessProfile.user.passwordC" #confNewPassword="ngModel" name="passwordC"
+                         appConfirmPassword [password]="businessProfile.user.password">
+                  <label class="password-toggle-btn" aria-label="Show/hide password">
+                    <input class="password-toggle-check" type="checkbox">
+                    <span class="password-toggle-indicator" id="password-toggle-indicator3"></span>
+                  </label>
+                </div>
+                <div
+                  *ngIf="(confNewPassword.dirty || newPassword.dirty || spProfileForm.submitted) && (confNewPassword.errors?.confirmPassword || newPassword.errors?.confirmPassword)"
+                  class="validErr">
+                  Password does not match
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Shop details-->
+  <div class="row pt-4 mt-2">
+    <div class="col-lg-3">
+      <h2 class="h4">Shop details</h2>
+    </div>
+    <div class="col-lg-9">
+      <div class="border rounded-3 p-3" id="shop-details">
+        <div class="row border-bottom pb-3 mb-3">
+          <div class="col-lg-3">
+            <input class="file-uploader bg-secondary" type="file" accept="image/png, image/jpeg"
+                   data-label-idle='<i class="d-inline-block fi-camera-plus fs-2 text-muted mb-2"></i><br><span class="fw-bold">Change picture</span>'
+                   data-style-panel-layout="compact" data-image-preview-height="160" data-image-crop-aspect-ratio="1:1"
+                   data-image-resize-target-width="200" data-image-resize-target-height="200" name="proPic">
+          </div>
+        </div>
+        <!--shop name-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Shop name</label>
+              <div id="fn-value">{{businessProfile.businessName}}</div>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#sn-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="sn-collapse" data-bs-parent="#shop-details">
+            <input class="form-control mt-3" type="text" data-bs-binded-element="#sn-value"
+                   data-bs-unset-value="Not specified"
+                   [(ngModel)]="businessProfile.businessName" #businessName="ngModel" name="businessName">
+          </div>
+          <div *ngIf="(businessName.touched || spProfileForm.submitted) && businessName.errors?.required"
+               class="validErr">
+            Shop name is required
+          </div>
+        </div>
+        <!-- Phone number-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Phone number</label>
+              <ul class="list-unstyled mb-0">
+                <li id="phone1-value">{{businessProfile.contactNumber1}}</li>
+                <li id="phone2-value">{{businessProfile.contactNumber2}}</li>
+                <li id="phone3-value">{{businessProfile.contactNumber3}}</li>
+              </ul>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0"
+                                                                        href="#phonenumber-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse mt-3" id="phonenumber-collapse" data-bs-parent="#shop-details">
+            <div class="d-flex align-items-center mb-3">
+              <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+                class="fi-phone text-body"></i></div>
+              <input class="form-control" type="tel" data-bs-binded-element="#phone1-value"
+                     placeholder="Your Contact Number " [(ngModel)]="businessProfile.contactNumber1"
+                     name="contactNumber1" #contactNumber1="ngModel">
+            </div>
+            <div *ngIf="(contactNumber1.touched || spProfileForm.submitted) && contactNumber1.errors?.required"
+                 class="validErr">
+              Contact Number is required
+            </div>
+            <div class="d-flex align-items-center mb-3">
+              <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+                class="fi-phone text-body"></i></div>
+              <input class="form-control" type="tel" data-bs-binded-element="#phone2-value"
+                     placeholder="Your Contact Number " [(ngModel)]="businessProfile.contactNumber2"
+                     name="contactNumber2">
+            </div>
+            <div class="d-flex align-items-center mb-3">
+              <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+                class="fi-phone text-body"></i></div>
+              <input class="form-control" type="tel" data-bs-binded-element="#phone3-value"
+                     placeholder="Your Contact Number " [(ngModel)]="businessProfile.contactNumber3"
+                     name="contactNumber3">
+            </div>
+          </div>
+        </div>
+        <!-- Address-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Address</label>
+              <div id="address-value">{{businessProfile.businessAddress}}</div>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#address-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="address-collapse" data-bs-parent="#shop-details">
+            <input class="form-control mt-3" type="text" data-bs-binded-element="#address-value"
+                   data-bs-unset-value="Not specified" placeholder="Enter address"
+                   [(ngModel)]="businessProfile.businessAddress" name="businessAddress" #businessAddress="ngModel">
+          </div>
+          <div *ngIf="(businessAddress.touched || spProfileForm.submitted) && businessAddress.errors?.required"
+               class="validErr">
+            Business Address is required
+          </div>
+        </div>
+        <!--Shop email-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Shop email</label>
+              <div id="shopemail-value">{{businessProfile.businessEmail}}</div>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#shopemail-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="shopemail-collapse" data-bs-parent="#shop-details">
+            <input class="form-control mt-3" type="email" data-bs-binded-element="#shopemail-value"
+                   data-bs-unset-value="Not specified" [(ngModel)]="businessProfile.businessEmail" name="businessEmail"
+                   #businessEmail="ngModel">
+          </div>
+          <div *ngIf="(businessEmail.touched || spProfileForm.submitted) && businessEmail.errors?.required"
+               class="validErr">
+            Business Address is required
+          </div>
+        </div>
+        <!--br code-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Business registration code</label>
+              <div id="brcode-value">{{businessProfile.businessRegistrationCode}}</div>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#brcode-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="brcode-collapse" data-bs-parent="#shop-details">
+            <input class="form-control mt-3" type="text" data-bs-binded-element="#brcode-value"
+                   data-bs-unset-value="Not specified" [(ngModel)]="businessProfile.businessRegistrationCode"
+                   name="businessRegistrationCode" #businessRegistrationCode="ngModel">
+          </div>
+          <div
+            *ngIf="(businessRegistrationCode.touched || spProfileForm.submitted) && businessRegistrationCode.errors?.required"
+            class="validErr">
+            Business RegistrationCode is required
+          </div>
+        </div>
+        <!--shop owner name-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Owner name</label>
+              <div id="ownername-value">{{businessProfile.businessOwner}}</div>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#ownername-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="ownername-collapse" data-bs-parent="#shop-details">
+            <input class="form-control mt-3" type="text" data-bs-binded-element="#ownername-value"
+                   data-bs-unset-value="Not specified" [(ngModel)]="businessProfile.businessOwner" name="businessOwner"
+                   #businessOwner="ngModel">
+          </div>
+          <div
+            *ngIf="(businessOwner.touched || spProfileForm.submitted) && businessOwner.errors?.required"
+            class="validErr">
+            Business Owner is required
+          </div>
+        </div>
+        <!--owner nic-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Owner NIC</label>
+              <div id="ownernic-value">{{businessProfile.businessOwnerNic}}</div>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#ownernic-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="ownernic-collapse" data-bs-parent="#shop-details">
+            <input class="form-control mt-3" type="text" data-bs-binded-element="#ownernic-value"
+                   data-bs-unset-value="Not specified" [(ngModel)]="businessProfile.businessOwnerNic"
+                   name="businessOwnerNic" #businessOwnerNic="ngModel">
+          </div>
+          <div
+            *ngIf="(businessOwnerNic.touched || spProfileForm.submitted) && businessOwnerNic.errors?.required"
+            class="validErr">
+            Business Owner NIC is required
+          </div>
+        </div>
+        <!--Business Area-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Business Area
+                <div class="text-muted fw-normal">(Areas your service available)</div>
+              </label>
+              <!-- <div id="ba-value">shop type</div> -->
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#ba-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="ba-collapse" data-bs-parent="#account-settings">
+            <ng-select
+              [items]="businessAreas"
+              bindLabel="name"
+              placeholder="Select Service Areas"
+              dropdownPosition="auto"
+              [multiple]="true"
+              [searchWhileComposing]="true"
+              name="businessSAreas"
+              #businessSAreas="ngModel" required
+              [(ngModel)]="businessProfile.businessAreas">
+            </ng-select>
+            <div *ngIf="(businessSAreas.touched || spProfileForm.submitted) && businessSAreas.errors?.required"
+                 class="validErr">
+              Business area is required
+            </div>
+            <!--<select class="form-select mt-3" multiple name="areas[]" id="baselect" data-bs-binded-element="#ba-value">-->
+            <!--<option value="Galle-Galle">Galle-Galle</option>-->
+            <!--<option value="Galle-Matara">Galle-Matara</option>-->
+            <!--<option value="Galle-Ambalangoda">Galle-Ambalangoda</option>-->
+            <!--</select>-->
+          </div>
+        </div>
+        <!-- Socials-->
+        <div>
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Socials</label>
+              <ul class="list-unstyled mb-0">
+                <li *ngIf="notSpecifiedSocials()">Not Specified</li>
+                <li id="facebook-value">{{businessProfile.socialFb}}</li>
+                <li id="linkedin-value">{{businessProfile.socialLinkedIn}}</li>
+                <li id="twitter-value">{{businessProfile.socialTwitter}}</li>
+                <li id="instagram-value">{{businessProfile.socialInsta}}</li>
+                <li id="behance-value"></li>
+              </ul>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#socials-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse mt-3" id="socials-collapse" data-bs-parent="#shop-details">
+            <div class="d-flex align-items-center mb-3">
+              <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+                class="fi-facebook text-body"></i></div>
+              <input class="form-control" type="text" data-bs-binded-element="#facebook-value"
+                     placeholder="Your Facebook account"
+                     [(ngModel)]="businessProfile.socialFb" name="socialFb">
+            </div>
+            <div class="d-flex align-items-center mb-3">
+              <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+                class="fi-linkedin text-body"></i></div>
+              <input class="form-control" type="text" data-bs-binded-element="#linkedin-value"
+                     placeholder="Your LinkedIn account"
+                     [(ngModel)]="businessProfile.socialLinkedIn" name="socialLinkedIn">
+            </div>
+            <div class="d-flex align-items-center mb-3">
+              <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+                class="fi-twitter text-body"></i></div>
+              <input class="form-control" type="text" data-bs-binded-element="#twitter-value"
+                     placeholder="Your Twitter account"
+                     [(ngModel)]="businessProfile.socialTwitter" name="socialTwitter">
+            </div>
+            <div class="collapse" id="showMoreSocials">
+              <div class="d-flex align-items-center mb-3">
+                <div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i
+                  class="fi-instagram text-body"></i></div>
+                <input class="form-control" type="text" data-bs-binded-element="#instagram-value"
+                       placeholder="Your Instagram account"
+                       [(ngModel)]="businessProfile.socialInsta" name="socialInsta">
+              </div>
+              <!--<div class="d-flex align-items-center mb-3">-->
+              <!--<div class="btn btn-icon btn-light btn-xs shadow-sm rounded-circle pe-none flex-shrink-0 me-3"><i-->
+              <!--class="fi-behance text-body"></i></div>-->
+              <!--<input class="form-control" type="text" data-bs-binded-element="#behance-value"-->
+              <!--placeholder="Your Behance account">-->
+              <!--</div>-->
+            </div>
+            <a class="collapse-label collapsed d-inline-block fs-sm fw-bold text-decoration-none pt-2 pb-3"
+               href="#showMoreSocials" data-bs-toggle="collapse" data-bs-label-collapsed="Show more"
+               data-bs-label-expanded="Show less" role="button" aria-expanded="false" aria-controls="showMoreSocials"><i
+              class="fi-arrow-down me-2"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Account settings-->
+  <div class="row pt-4 mt-2">
+    <div class="col-lg-3">
+      <h2 class="h4">Account settings</h2>
+    </div>
+    <div class="col-lg-9">
+      <div class="border rounded-3 p-3" id="account-settings">
+        <!-- Account type-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Shop type</label>
+              <!-- <div id="type-value">shop type</div> -->
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#type-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="type-collapse" data-bs-parent="#account-settings">
+            <ng-select
+              [items]="businessCategories"
+              bindLabel="name"
+              placeholder="Select Business Types"
+              dropdownPosition="auto"
+              [multiple]="true"
+              [searchWhileComposing]="true"
+              name="businessProfileCategories"
+              #businessProfileCategories="ngModel" required
+              [(ngModel)]="businessProfile.businessProfileCategories">
+            </ng-select>
+            <div
+              *ngIf="(businessProfileCategories.touched || spProfileForm.submitted) && businessProfileCategories.errors?.required"
+              class="validErr">
+              Shop type is required
+            </div>
+            <!--<select class="form-select mt-3" id="shop-type-select" multiple name="stypes[]"-->
+            <!--data-bs-binded-element="#type-value">-->
+            <!--<option value="Juicebar">Juice Bar</option>-->
+            <!--<option value="Cake Baker">Cake Baker</option>-->
+            <!--<option value="Bakery">Bakery</option>-->
+            <!--<option value="FoodShop">Food Shop</option>-->
+            <!--</select>-->
+          </div>
+        </div>
+        <!-- Two-factor authentication-->
+        <div>
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">Two-factor authentication</label>
+              <div id="auth-value">{{businessProfile.user.twoFactorAuth?'Active':'Inactive'}}</div>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#auth-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a>
+            </div>
+          </div>
+          <div class="collapse" id="auth-collapse" data-bs-parent="#account-settings">
+            <select class="form-select mt-3" data-bs-binded-element="#auth-value" name="accAuth"
+                    [(ngModel)]="businessProfile.user.twoFactorAuth">
+              <!--<option value="" disabled>Enable / disbale two-factor authentication</option>-->
+              <option [value]="true">Enable</option>
+              <option [value]="false" selected>Disable</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Action buttons-->
+  <div class="row pt-4 mt-2">
+    <div class="col-lg-9 offset-lg-3">
+      <div class="d-flex align-items-center justify-content-between">
+        <button class="btn btn-primary rounded-pill px-3 px-sm-4" type="submit">Save changes</button>
+        <button class="btn btn-link btn-sm px-0" type="button"><i class="fi-trash me-2"></i>Delete account</button>
+      </div>
+    </div>
+  </div>
+
+</form>

@@ -14,6 +14,7 @@ public class ItemDTO extends DateTimeDTO {
 
     private String itemId;
     private String itemTitle;
+    private String name;
     private int itemQty;
     private double itemPrice;
     private String itemDescription;
@@ -21,7 +22,11 @@ public class ItemDTO extends DateTimeDTO {
     private String itemDiscountType;
     private ItemCategoryDTO itemCategory;
 
-    public ItemDTO(@NonNull Item item) {
+    private byte[] itemImg;
+    private String itemImgName;
+    private String itemImgType;
+
+    public ItemDTO(@NonNull Item item, boolean needImage) {
         this.itemId = item.getItemId();
         this.itemTitle = item.getItemTitle();
         this.itemQty = item.getItemQty();
@@ -29,10 +34,15 @@ public class ItemDTO extends DateTimeDTO {
         this.itemDescription = item.getItemDescription();
         this.itemDiscount = item.getItemDiscount();
         this.itemDiscountType = item.getItemDiscountType();
+        if (needImage) {
+            this.itemImgName = item.getItemImgName();
+            this.itemImg = item.getItemImg();
+            this.itemImgType = item.getItemImgType();
+        }
     }
 
-    public ItemDTO(@NonNull Item item, @NonNull ItemCategoryDTO itemCategory) {
-        this(item);
+    public ItemDTO(@NonNull Item item, boolean needImage, @NonNull ItemCategoryDTO itemCategory) {
+        this(item, needImage);
         this.itemCategory = itemCategory;
     }
 }

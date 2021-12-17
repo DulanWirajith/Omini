@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-ba-manage',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaManageComponent implements OnInit {
 
-  constructor() { }
+
+  constructor() {
+
+  }
 
   ngOnInit(): void {
+
   }
+
 
 }

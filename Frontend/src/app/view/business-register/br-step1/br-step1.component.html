@@ -9,7 +9,7 @@
         <label class="form-label" for="biz-un">User name <span class='text-danger'>*</span></label>
         <input class="form-control form-control-lg" type="text" id="biz-un" value=""
                placeholder="Enter your user name" required
-               [(ngModel)]="businessReg.user.username" #username="ngModel" name="username">
+               [(ngModel)]="businessProfile.user.username" #username="ngModel" name="username">
         <div *ngIf="(username.touched || brForm1.submitted) && username.errors?.required" class="validErr">
           User name is required
         </div>
@@ -18,7 +18,7 @@
         <label class="form-label" for="biz-ue">User email <span class='text-danger'>*</span></label>
         <input class="form-control form-control-lg" type="email" id="biz-ue" value=""
                placeholder="Enter your user email" required
-               [(ngModel)]="businessReg.user.email" #email="ngModel" name="email">
+               [(ngModel)]="businessProfile.user.email" #email="ngModel" name="email">
         <div *ngIf="(email.touched || brForm1.submitted) && email.errors?.required" class="validErr">
           User email is required
         </div>
@@ -27,8 +27,8 @@
         <label class="form-label" for="biz-pass">Password <span class='text-danger'>*</span></label>
         <input class="form-control form-control-lg" type="password" id="biz-pass" value=""
                placeholder="Enter your password" required
-               [(ngModel)]="businessReg.user.password" #password="ngModel" name="password"
-               appConfirmPassword [password]="businessReg.user.passwordC">
+               [(ngModel)]="businessProfile.user.password" #password="ngModel" name="password"
+               appConfirmPassword [password]="businessProfile.user.passwordC">
         <div *ngIf="(password.touched || brForm1.submitted) && password.errors?.required" class="validErr">
           Password is required
         </div>
@@ -37,8 +37,8 @@
         <label class="form-label" for="biz-cpass">Confirm Password <span class='text-danger'>*</span></label>
         <input class="form-control form-control-lg" type="password" id="biz-cpass" value=""
                placeholder="Re-Enter your password" required
-               [(ngModel)]="businessReg.user.passwordC" #passwordC="ngModel" name="passwordC"
-               appConfirmPassword [password]="businessReg.user.password">
+               [(ngModel)]="businessProfile.user.passwordC" #passwordC="ngModel" name="passwordC"
+               appConfirmPassword [password]="businessProfile.user.password">
         <div
           *ngIf="(passwordC.dirty || password.dirty || brForm1.submitted) && (passwordC.errors?.confirmPassword || password.errors?.confirmPassword)"
           class="validErr">

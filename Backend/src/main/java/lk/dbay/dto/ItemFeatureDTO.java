@@ -12,12 +12,12 @@ import lombok.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemFeatureDTO extends DateTimeDTO {
 
-    private String itemCategoryId;
+    private String itemFeatureId;
     private String name;
     private String description;
 
     public ItemFeatureDTO(@NonNull ItemFeature itemFeature) {
-        this.itemCategoryId = itemFeature.getItemFeatureId();
+        this.itemFeatureId = itemFeature.getItemFeatureId();
         this.name = itemFeature.getName();
         this.description = itemFeature.getDescription();
     }
