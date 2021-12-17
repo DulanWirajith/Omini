@@ -408,7 +408,7 @@
           </button>
         </div>
         <!--<div class="tns-carousel-inner">-->
-          <img [src]="getImageSrc(item)" alt="Image">
+        <img [src]="getImageSrc(item)" alt="Image">
         <!--</div>-->
         <!--<img src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>-->
       </div>
@@ -435,10 +435,18 @@
       </div>
       <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
         <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="item-form-switch">
-          <label class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold" for="item-form-switch">
+          <input class="form-check-input" type="checkbox" [checked]="item.itemAvailable"
+                 (click)="setItemAvailable(item)">
+          <label *ngIf="!item.itemAvailable" class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">
             Not Available</label>
+          <label *ngIf="item.itemAvailable" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
+            Available</label>
         </div>
+        <!--<div class="form-check form-switch" *ngIf="item.itemAvailable">-->
+        <!--<input class="form-check-input" type="checkbox" checked>-->
+        <!--<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">-->
+        <!--Available</label>-->
+        <!--</div>-->
       </div>
     </div>
   </div>

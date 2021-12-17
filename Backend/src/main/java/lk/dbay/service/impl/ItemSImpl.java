@@ -101,4 +101,16 @@ public class ItemSImpl implements ItemS {
         }
         return itemDTOS;
     }
+
+    @Override
+    public boolean setItemAvailable(String itemId) {
+        Optional<Item> itemOptional = itemR.findById(itemId);
+        if (itemOptional.isPresent()) {
+            Item item = itemOptional.get();
+            item.setItemAvailable(!item.isItemAvailable());
+            itemR.save(item);
+            return item.isItemAvailable();
+        }
+        return false;
+    }
 }

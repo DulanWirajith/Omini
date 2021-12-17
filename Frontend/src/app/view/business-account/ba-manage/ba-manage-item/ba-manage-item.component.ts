@@ -124,6 +124,12 @@ export class BaManageItemComponent implements OnInit {
     this.itemImg = event.target.files[0];
   }
 
+  setItemAvailable(item) {
+    this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
+      item.itemAvailable = reply;
+    })
+  }
+
   getImageSrc(item) {
     // let image;
     // const reader = new FileReader();

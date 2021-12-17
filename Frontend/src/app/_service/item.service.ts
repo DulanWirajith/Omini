@@ -32,6 +32,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item/getItemsOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit);
   }
 
+  setItemAvailable(itemId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/setItemAvailable/' + itemId);
+  }
+
   getNewItem() {
     return {
       itemId: "",
@@ -43,6 +47,7 @@ export class ItemService {
       itemDescription: "",
       itemImg: "",
       itemImgType: "",
+      itemAvailable: false,
       businessProfileCategory: undefined,
       itemItemFeatures: []
     }

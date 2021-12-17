@@ -21,6 +21,7 @@ public class ItemDTO extends DateTimeDTO {
     private double itemDiscount;
     private String itemDiscountType;
     private ItemCategoryDTO itemCategory;
+    private boolean itemAvailable;
 
     private byte[] itemImg;
     private String itemImgName;
@@ -34,6 +35,7 @@ public class ItemDTO extends DateTimeDTO {
         this.itemDescription = item.getItemDescription();
         this.itemDiscount = item.getItemDiscount();
         this.itemDiscountType = item.getItemDiscountType();
+        this.itemAvailable = item.isItemAvailable();
         if (needImage) {
             this.itemImgName = item.getItemImgName();
             this.itemImg = item.getItemImg();

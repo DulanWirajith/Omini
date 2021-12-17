@@ -52,6 +52,11 @@ public class ItemController {
         return ResponseEntity.ok(itemS.getItemsOrdered(businessProfileId, businessCategoryId, start, limit));
     }
 
+    @GetMapping(value = "/setItemAvailable/{itemId}")
+    public ResponseEntity setItemAvailable(@PathVariable String itemId) {
+        return ResponseEntity.ok(itemS.setItemAvailable(itemId));
+    }
+
     @GetMapping(value = "/itemImg/{id}")
     public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {
 

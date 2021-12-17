@@ -16,4 +16,6 @@ public interface ItemS {
     ItemDTO getItemImg(String id);
 
     List<ItemDTO> getItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
+
+    boolean setItemAvailable(String itemId);
 }

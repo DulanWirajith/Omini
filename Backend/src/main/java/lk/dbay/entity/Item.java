@@ -26,6 +26,7 @@ public class Item extends DateTime {
     private String itemDescription;
     private double itemDiscount;
     private String itemDiscountType;
+    private boolean itemAvailable;
 
     @Lob
     private byte[] itemImg;
