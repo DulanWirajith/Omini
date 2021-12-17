@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BusinessRegisterService} from "../../../_service/business-register.service";
 import {NgForm} from "@angular/forms";
 import {BusinessAccountService} from "../../../_service/business-account.service";
 
@@ -41,7 +40,7 @@ export class BrStep5Component implements OnInit {
       })
     }
     this.businessProfile.businessAreas = businessAreas;
-    console.log(this.businessProfile)
+    //console.log(this.businessProfile)
     this.businessAccountService.addBusinessProfile(this.businessProfile).subscribe((reply) => {
       localStorage.removeItem('br');
       this.businessAccountService.step.next(6)

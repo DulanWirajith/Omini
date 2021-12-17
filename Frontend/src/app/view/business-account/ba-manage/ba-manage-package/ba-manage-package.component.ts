@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BusinessRegisterService} from "../../../../_service/business-register.service";
 import {BusinessAccountService} from "../../../../_service/business-account.service";
 import {NgForm} from "@angular/forms";
+import {ItemService} from "../../../../_service/item.service";
 
 @Component({
   selector: 'app-ba-manage-package',
@@ -21,14 +21,14 @@ export class BaManagePackageComponent implements OnInit {
   @ViewChild('baManageFormPackage', {static: true}) public baManageFormPackage: NgForm;
   @ViewChild('baManageFormPackageItemExs', {static: true}) public baManageFormPackageItemExs: NgForm;
 
-  constructor(private businessAccountService: BusinessAccountService) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService) {
     this.package = this.getNewPackage();
   }
 
   ngOnInit(): void {
     // this.getItems();
     this.getBusinessCategories();
-    console.log(9)
+    //console.log(9)
   }
 
   getBusinessCategories() {
@@ -63,14 +63,14 @@ export class BaManagePackageComponent implements OnInit {
       businessCategory: this.package.businessProfileCategory
     };
 
-    console.log(this.package)
+    //console.log(this.package)
     const uploadImageData = new FormData();
     uploadImageData.append('imageFile', this.packageImg, this.packageImg.name);
     uploadImageData.append('package', new Blob([JSON.stringify(this.package)],
       {
         type: "application/json"
       }));
-    this.businessAccountService.addPackage(uploadImageData).subscribe((reply) => {
+    this.itemService.addPackage(uploadImageData).subscribe((reply) => {
       this.baManageFormPackage.resetForm(this.getNewPackage());
       this.package.itemItemPackages = [];
       this.item = undefined;
@@ -82,7 +82,7 @@ export class BaManagePackageComponent implements OnInit {
   }
 
   getItems() {
-    this.businessAccountService.getItemsBusinessCategory("B321", this.package.businessProfileCategory.businessCategoryId).subscribe((items) => {
+    this.itemService.getItemsBusinessCategory("B321", this.package.businessProfileCategory.businessCategoryId).subscribe((items) => {
       this.items = items;
     })
   }

@@ -38,7 +38,7 @@ export class CpProfileSettingsComponent implements OnInit {
       that.passwordView.cView ? that.passwordView.cView = false : that.passwordView.cView = true
     })
     // $('#password-collapse').on('classChanged', function () {
-    //   console.log(456)
+    //   //console.log(456)
     //   if ($("#password-collapse").hasClass("show")) {
     //     that.passwordView.toggleView = false
     //   } else {
@@ -54,7 +54,7 @@ export class CpProfileSettingsComponent implements OnInit {
         customerProfile.user.password = '';
         customerProfile.user.passwordC = '';
         customerProfile.user.cPassword = '';
-        console.log(customerProfile)
+        //console.log(customerProfile)
         this.customerProfile = customerProfile;
       }
     })

@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BusinessRegisterService} from "../../../_service/business-register.service";
 
 @Component({
   selector: 'app-ba-manage',
@@ -9,7 +8,7 @@ import {BusinessRegisterService} from "../../../_service/business-register.servi
 export class BaManageComponent implements OnInit {
 
 
-  constructor(private businessRegisterService: BusinessRegisterService) {
+  constructor() {
 
   }
 

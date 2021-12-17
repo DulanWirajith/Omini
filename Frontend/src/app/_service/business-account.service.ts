@@ -24,22 +24,6 @@ export class BusinessAccountService {
     return this.http.put<any>(environment.backend_url + 'business_profile/updateBusinessProfile/' + businessReg.businessProId, businessReg);
   }
 
-  addItem(item): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'item/addItem', item);
-  }
-
-  addPackage(itemsPackage): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'package/addPackage', itemsPackage);
-  }
-
-  getItemFeatures(businessCategoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_feature/getItemFeatures/' + businessCategoryId);
-  }
-
-  getItemsBusinessCategory(businessProfileId, businessCategoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemsBusinessCategory/' + businessProfileId + '/' + businessCategoryId);
-  }
-
   getBusinessProfile(businessProfileId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId);
   }

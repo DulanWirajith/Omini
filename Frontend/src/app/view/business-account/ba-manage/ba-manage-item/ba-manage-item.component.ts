@@ -1,7 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BusinessRegisterService} from "../../../../_service/business-register.service";
 import {NgForm} from "@angular/forms";
 import {BusinessAccountService} from "../../../../_service/business-account.service";
+import {ItemService} from "../../../../_service/item.service";
+import {environment} from "../../../../../environments/environment";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-ba-manage-item',
@@ -20,16 +22,20 @@ export class BaManageItemComponent implements OnInit {
   imgUrl;
   isNewFeature = false;
   isNewItem = false;
+  businessProfileCategory;
+  items = [];
   @ViewChild('baManageFormItem', {static: true}) public baManageFormItem: NgForm;
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
+  image
 
-  constructor(private businessAccountService: BusinessAccountService) {
-    this.item = this.getNewItem();
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
+    this.item = this.itemService.getNewItem();
   }
 
   ngOnInit(): void {
     this.getBusinessCategories();
+    // this.getItemsOrdered();
   }
 
   getBusinessCategories() {
@@ -39,13 +45,13 @@ export class BaManageItemComponent implements OnInit {
   }
 
   getItemFeatures() {
-    this.businessAccountService.getItemFeatures(this.item.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
+    this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
       this.itemFeatures = itemFeatures;
     })
   }
 
   onSubmit() {
-    // console.log(this.item.itemItemFeatures)
+    // //console.log(this.item.itemItemFeatures)
     // let itemFeatures = [];
     // for (let itemFeature of this.item.itemItemFeatures) {
     //   itemFeatures.push({
@@ -61,16 +67,24 @@ export class BaManageItemComponent implements OnInit {
       businessCategory: this.item.businessProfileCategory
     };
 
-    // console.log(this.item)
+    // //console.log(this.item)
     const uploadImageData = new FormData();
     uploadImageData.append('imageFile', this.itemImg, this.itemImg.name);
     uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
       {
         type: "application/json"
       }));
-    this.businessAccountService.addItem(uploadImageData).subscribe((reply) => {
-      this.baManageFormItem.resetForm(this.getNewItem());
+    this.itemService.addItem(uploadImageData).subscribe((reply) => {
+      this.baManageFormItem.resetForm(this.itemService.getNewItem());
       this.item.itemItemFeatures = [];
+    })
+  }
+
+  getItemsOrdered() {
+    this.itemService.getItemsOrdered("B321", this.businessProfileCategory.businessCategoryId, 0, 100).subscribe((items) => {
+      this.items = items;
+      // this.getImageSrc(items[0])
+      console.log(items)
     })
   }
 
@@ -110,16 +124,14 @@ export class BaManageItemComponent implements OnInit {
     this.itemImg = event.target.files[0];
   }
 
-  getNewItem() {
-    return {
-      itemTitle: "",
-      itemQty: 1,
-      itemDiscount: "",
-      itemDiscountType: "None",
-      itemPrice: "",
-      itemDescription: "",
-      businessProfileCategory: undefined,
-      itemItemFeatures: []
-    }
+  getImageSrc(item) {
+    // let image;
+    // const reader = new FileReader();
+    // reader.onload = (e) => this.image = e.target.result;
+    // reader.readAsDataURL(new Blob([item.itemImg]));
+    let imageData = 'data:' + item.itemImgType + ';base64,' + item.itemImg;
+    return this.sanitizer.bypassSecurityTrustUrl(imageData);
+    // return image;
+    // return environment.backend_url+'item/itemImg/'+item.itemId
   }
 }

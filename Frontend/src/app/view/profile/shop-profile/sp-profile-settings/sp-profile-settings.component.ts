@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {BusinessRegisterService} from "../../../../_service/business-register.service";
 import {BusinessAccountService} from "../../../../_service/business-account.service";
 import * as $ from 'jquery';
 
@@ -37,7 +36,7 @@ export class SpProfileSettingsComponent implements OnInit {
         businessProfile.user.password = '';
         businessProfile.user.passwordC = '';
         businessProfile.user.cPassword = '';
-        console.log(businessProfile)
+        //console.log(businessProfile)
         this.businessProfile = businessProfile;
       }
     })
@@ -81,7 +80,7 @@ export class SpProfileSettingsComponent implements OnInit {
       that.passwordView.cView ? that.passwordView.cView = false : that.passwordView.cView = true
     })
     // $('#password-collapse').on('classChanged', function () {
-    //   console.log(456)
+    //   //console.log(456)
     //   if ($("#password-collapse").hasClass("show")) {
     //     that.passwordView.toggleView = false
     //   } else {
@@ -117,9 +116,9 @@ export class SpProfileSettingsComponent implements OnInit {
     if (businessAreas.length > 0) {
       this.businessProfile.businessAreas = businessAreas;
     }
-    console.log(this.businessProfile)
+    //console.log(this.businessProfile)
     this.businessAccountService.updateBusinessProfile(this.businessProfile).subscribe((businessProfile) => {
-      // console.log(businessProfile)
+      // //console.log(businessProfile)
       businessProfile.user.password = '';
       businessProfile.user.passwordC = '';
       businessProfile.user.cPassword = '';
