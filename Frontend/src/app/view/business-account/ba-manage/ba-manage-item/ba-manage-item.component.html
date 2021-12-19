@@ -201,7 +201,7 @@
             [searchWhileComposing]="true"
             name="businessProfileCategories"
             #businessProfileCategories="ngModel" required
-            (change)="getItemFeatures()"
+            (change)="getItemFeatures('n')"
             [(ngModel)]="item.businessProfileCategory">
           </ng-select>
           <div
@@ -412,7 +412,7 @@
         <!--</div>-->
         <!--<img src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>-->
       </div>
-      <div class="card-body position-relative pb-3">
+      <div class="card-body position-relative pb-3" (click)="editItem=item">
 
         <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
         <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#" data-bs-toggle="offcanvas"
@@ -437,7 +437,8 @@
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" [checked]="item.itemAvailable"
                  (click)="setItemAvailable(item)">
-          <label *ngIf="!item.itemAvailable" class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">
+          <label *ngIf="!item.itemAvailable"
+                 class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">
             Not Available</label>
           <label *ngIf="item.itemAvailable" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
             Available</label>
@@ -450,193 +451,6 @@
       </div>
     </div>
   </div>
-  <!--&lt;!&ndash; Item&ndash;&gt;-->
-  <!--<div class="col-sm-6 col-xl-4">-->
-  <!--<div class="card shadow-sm card-hover border-0 h-100">-->
-  <!--<div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>-->
-  <!--<div class="position-absolute start-0 top-0 pt-3 ps-3"><span-->
-  <!--class="d-table badge bg-info">Category Name</span></div>-->
-  <!--<div class="content-overlay end-0 top-0 pt-3 pe-3">-->
-  <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
-  <!--data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>-->
-  <!--</button>-->
-  <!--</div>-->
-  <!--<div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/07.jpg" alt="Image"><img-->
-  <!--src="../../../../assets/img/catalog/07.jpg" alt="Image"></div>-->
-  <!--</div>-->
-  <!--<div class="card-body position-relative pb-3">-->
-  <!--&lt;!&ndash; <h4 class="mb-1 fs-xs fw-normal text-uppercase text-green fw-bold">Available</h4> &ndash;&gt;-->
-  <!--<h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>-->
-  <!--<div class="row cols-sm-2 row-cols-md-12">-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Quantity </p>-->
-  <!--<p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>-->
-  <!--</div>-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Discount </p>-->
-  <!--<p class="mb-2 fs-sm text-primary fw-bold">20%</p>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 2,000</div>-->
-  <!--</div>-->
-  <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
-  <!--<div class="form-check form-switch">-->
-  <!--<input class="form-check-input" type="checkbox" checked>-->
-  <!--<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold" for="form-switch-2">-->
-  <!--Available</label>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash; Item&ndash;&gt;-->
-  <!--<div class="col-sm-6 col-xl-4">-->
-  <!--<div class="card shadow-sm card-hover border-0 h-100">-->
-  <!--<div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>-->
-  <!--<div class="position-absolute start-0 top-0 pt-3 ps-3"><span-->
-  <!--class="d-table badge bg-info">Category Name</span></div>-->
-  <!--<div class="content-overlay end-0 top-0 pt-3 pe-3">-->
-  <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
-  <!--data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>-->
-  <!--</button>-->
-  <!--</div>-->
-  <!--<div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/08.jpg" alt="Image"><img-->
-  <!--src="../../../../assets/img/catalog/08.jpg" alt="Image"></div>-->
-  <!--</div>-->
-  <!--<div class="card-body position-relative pb-3">-->
-  <!--<h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>-->
-  <!--<div class="row cols-sm-2 row-cols-md-12">-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Quantity </p>-->
-  <!--<p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>-->
-  <!--</div>-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Discount </p>-->
-  <!--<p class="mb-2 fs-sm text-primary fw-bold">20%</p>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 1,350</div>-->
-  <!--</div>-->
-  <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
-  <!--<div class="form-check form-switch">-->
-  <!--<input class="form-check-input" type="checkbox" checked>-->
-  <!--<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold" for="form-switch-2">-->
-  <!--Available</label>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash; Item&ndash;&gt;-->
-  <!--<div class="col-sm-6 col-xl-4">-->
-  <!--<div class="card shadow-sm card-hover border-0 h-100">-->
-  <!--<div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>-->
-  <!--<div class="position-absolute start-0 top-0 pt-3 ps-3"><span-->
-  <!--class="d-table badge bg-success">Package Name</span></div>-->
-  <!--<div class="content-overlay end-0 top-0 pt-3 pe-3">-->
-  <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
-  <!--data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>-->
-  <!--</button>-->
-  <!--</div>-->
-  <!--<div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/09.jpg" alt="Image"><img-->
-  <!--src="../../../../assets/img/catalog/09.jpg" alt="Image"></div>-->
-  <!--</div>-->
-  <!--<div class="card-body position-relative pb-3">-->
-  <!--<h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>-->
-  <!--<div class="row cols-sm-2 row-cols-md-12">-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Quantity </p>-->
-  <!--<p class="mb-2 fs-sm text-warning fw-bold mx-2">1kg</p>-->
-  <!--</div>-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Discount </p>-->
-  <!--<p class="mb-2 fs-sm text-primary fw-bold">10%</p>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 2,400</div>-->
-  <!--</div>-->
-  <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
-  <!--<div class="form-check form-switch">-->
-  <!--<input class="form-check-input" type="checkbox" checked>-->
-  <!--<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold" for="form-switch-2">-->
-  <!--Available</label>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash; Item&ndash;&gt;-->
-  <!--<div class="col-sm-6 col-xl-4">-->
-  <!--<div class="card shadow-sm card-hover border-0 h-100">-->
-  <!--<div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>-->
-  <!--<div class="position-absolute start-0 top-0 pt-3 ps-3"><span-->
-  <!--class="d-table badge bg-success mb-1">Package Name</span>-->
-  <!--</div>-->
-  <!--<div class="content-overlay end-0 top-0 pt-3 pe-3">-->
-  <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
-  <!--data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>-->
-  <!--</button>-->
-  <!--</div>-->
-  <!--<div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/10.jpg" alt="Image"><img-->
-  <!--src="../../../../assets/img/catalog/10.jpg" alt="Image"></div>-->
-  <!--</div>-->
-  <!--<div class="card-body position-relative pb-3">-->
-  <!--<h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>-->
-  <!--<div class="row cols-sm-2 row-cols-md-12">-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Quantity </p>-->
-  <!--<p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>-->
-  <!--</div>-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Discount </p>-->
-  <!--<p class="mb-2 fs-sm text-primary fw-bold">20%</p>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR $550</div>-->
-  <!--</div>-->
-  <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
-  <!--<div class="form-check form-switch">-->
-  <!--<input class="form-check-input" type="checkbox" checked>-->
-  <!--<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold" for="form-switch-2">-->
-  <!--Available</label>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash; Item&ndash;&gt;-->
-  <!--<div class="col-sm-6 col-xl-4">-->
-  <!--<div class="card shadow-sm card-hover border-0 h-100">-->
-  <!--<div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>-->
-  <!--<div class="position-absolute start-0 top-0 pt-3 ps-3"><span-->
-  <!--class="d-table badge bg-danger">Un Assigned</span></div>-->
-  <!--<div class="content-overlay end-0 top-0 pt-3 pe-3">-->
-  <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
-  <!--data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>-->
-  <!--</button>-->
-  <!--</div>-->
-  <!--<div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/11.jpg" alt="Image"><img-->
-  <!--src="../../../../assets/img/catalog/11.jpg" alt="Image"></div>-->
-  <!--</div>-->
-  <!--<div class="card-body position-relative pb-3">-->
-  <!--<h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#">Item Name</a></h3>-->
-  <!--<div class="row cols-sm-2 row-cols-md-12">-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Quantity </p>-->
-  <!--<p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p>-->
-  <!--</div>-->
-  <!--<div class="col">-->
-  <!--<p class="mb-2 fs-sm text-muted">Discount </p>-->
-  <!--<p class="mb-2 fs-sm text-primary fw-bold">20%</p>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR 680</div>-->
-  <!--</div>-->
-  <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
-  <!--<div class="form-check form-switch">-->
-  <!--<input class="form-check-input" type="checkbox" id="form-switch-2">-->
-  <!--<label class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold" for="form-switch-2">-->
-  <!--Not Available</label>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
 
 </div>
 
@@ -702,6 +516,394 @@
         </form>
       </div>
     </div>
+  </div>
+</div>
+
+<!--Item side viewer-->
+<div class="offcanvas offcanvas-end" id="item-viewer" style="width:50rem;">
+  <div class="offcanvas-header d-block border-bottom">
+    <div class="d-flex align-items-center justify-content-between">
+      <h2 class="h5 mb-0">{{editItem.itemTitle}}</h2>
+      <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+  </div>
+  <div class="offcanvas-body">
+    <!-- Tabs content-->
+    <div class="tab-content">
+      <!-- Item View-->
+      <div class="tab-pane fade show active" id="item-view" role="tabpanel">
+        <!--<div class="row">-->
+        <!--<div class="row g-2 g-md-3 gallery" data-thumbnails="true" style="min-width: 30rem;">-->
+        <!--<div class="col-8"><a class="gallery-item rounded rounded-md-3" href="./asset/img/catalog/01.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Kids bed&lt;/h6&gt;"><img src="./asset/img/catalog/01.jpg" alt="Gallery thumbnail"></a></div>-->
+        <!--<div class="col-4"><a class="gallery-item rounded rounded-md-3 mb-2 mb-md-3" href="./asset/img/catalog/02.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Kids bed&lt;/h6&gt;"><img src="./asset/img/catalog/02.jpg" alt="Gallery thumbnail"></a>-->
+        <!--<a class="gallery-item rounded rounded-md-3" href="./asset/img/catalog/03.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;"><img src="./asset/img/catalog/03.jpg" alt="Gallery thumbnail"></a></div>-->
+        <!--<div class="col-12">-->
+        <!--<div class="row g-2 g-md-3">-->
+        <!--<div class="col"><a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/03.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;"><img src="./asset/img/catalog/03.jpg" alt="Gallery thumbnail"></a></div>-->
+        <!--<div class="col"><a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/04.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;King size bed&lt;/h6&gt;"><img src="./asset/img/catalog/04.jpg" alt="Gallery thumbnail"></a></div>-->
+        <!--<div class="col"><a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/05.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Towels&lt;/h6&gt;"><img src="./asset/img/catalog/05.jpg" alt="Gallery thumbnail"></a></div>-->
+        <!--<div class="col"><a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/06.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Bathroom&lt;/h6&gt;"><img src="./asset/img/catalog/06.jpg" alt="Gallery thumbnail"></a></div>-->
+        <!--<div class="col"><a class="gallery-item more-item rounded-1 rounded-md-2" href="./asset/img/catalog/07.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Bathroom&lt;/h6&gt;"><img src="./asset/img/catalog/07.jpg" alt="Gallery thumbnail"><span class="gallery-item-caption fs-base">+5 <span class='d-none d-md-inline'>photos</span></span></a></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="rowg-3  mt-4">
+          <h3 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Information</h3>
+        </div>
+        <div class="row cols-md-4">
+          <div class="col"><p class="mb-2 fs-sm text-dark fw-bold">Quantity </p></div>
+          <div class="col"><p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p></div>
+          <div class="col"><p class="mb-2 fs-sm text-dark fw-bold">Discount </p></div>
+          <div class="col"><p class="mb-2 fs-sm text-primary fw-bold">20%</p></div>
+          <div class="col"><p class="mb-2 fs-sm text-dark fw-bold">Price </p></div>
+          <div class="col"><p class="mb-2 fs-sm text-primary fw-bold">LKR 2000</p></div>
+        </div>
+        <div class="row cols-md-12 mt-2">
+          <p class="mb-2 fs-sm text-dark fw-bold">Description </p>
+          <div class="col">
+            <p class="mb-2 fs-sm text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
+              consequuntur laudantium inventore dignissimos ipsum. Error sint perferendis dolores eligendi animi alias
+              excepturi aut aliquid, molestiae recusandae atque, quo iusto rem! </p>
+          </div>
+        </div>
+
+        <div class="row cols-md-12 mt-2">
+          <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
+          <div class="col">
+            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Interface<i
+              class="fi-x fs-xs ms-2"></i></span>
+          </div>
+          <div class="col">
+            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">Typography<i
+              class="fi-x fs-xs ms-2"></i></span>
+          </div>
+          <div class="col">
+            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Experience<i
+              class="fi-x fs-xs ms-2"></i></span>
+          </div>
+          <div class="col">
+            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Interface<i
+              class="fi-x fs-xs ms-2"></i></span>
+          </div>
+          <div class="col">
+            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">Typography<i
+              class="fi-x fs-xs ms-2"></i></span>
+          </div>
+          <div class="col">
+            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Experience<i
+              class="fi-x fs-xs ms-2"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <!--Item Edit-->
+      <div class="tab-pane fade" id="item-edit" role="tabpanel">
+        <div class="card card-body">
+          <form #baManageFormItemEdit="ngForm" (ngSubmit)="baManageFormItemEdit.form.valid && onSubmitEdit()"
+                novalidate>
+            <div class="row">
+              <div class="col-md-8 mb-3">
+                <label class="form-label" for="validationTooltip01"
+                >Title</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="" data-bs-original-title="Suitable title for describe item"
+                   aria-label="Suitable title for describe item"><i class="fi-help"></i>
+                </a>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="validationTooltip01"
+                  placeholder="Title"
+                  value=""
+                  required
+                />
+                <div class="invalid-tooltip">
+                  Please fill item title
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label" for="validationTooltip02"
+                >Quantity</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="Item quantity" data-bs-original-title="Item quantity"
+                   aria-label="Item quantity"><i class="fi-help"></i>
+                </a>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="validationTooltip02"
+                  placeholder="Quantity"
+                  value=""
+                  required
+                />
+                <div class="invalid-tooltip">
+                  Please fill item quantity
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+              <!-- <div class="col-md-4 mb-3">
+                      <label class="form-label" for="validationTooltipUsername">Username</label>
+                      <input class="form-control" type="text" id="validationTooltipUsername" placeholder="Username" required>
+                      <div class="invalid-tooltip">Please choose a username.</div>
+                      <div class="valid-tooltip">Looks good!</div>
+                    </div> -->
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label" for="validationTooltip03"
+                >Discount type</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="Select discount type" data-bs-original-title=""
+                   aria-label="Item price"><i class="fi-help"></i>
+                </a>
+                <select
+                  class="form-select"
+                  id="validationTooltip03"
+                  required
+                >
+                  <option value="">Choose discount type</option>
+                  <option value="Category">Cash</option>
+                  <option value="Package">Precentage</option>
+                </select>
+                <div class="invalid-tooltip">
+                  Please provide a discount type.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label" for="validationTooltip04"
+                >Discount</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="Item discount" data-bs-original-title="Item discount"
+                   aria-label="Item discount"><i class="fi-help"></i>
+                </a>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="validationTooltip04"
+                  placeholder="Discount"
+                  value=""
+                  required
+                />
+                <div class="invalid-tooltip">
+                  Please fill item discount
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label" for="validationTooltip02"
+                >Price (LKR)</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="" data-bs-original-title="Item price" aria-label="Item price"><i
+                  class="fi-help"></i>
+                </a>
+                <!-- <input
+                  class="form-control"
+                  type="text"
+                  id="validationTooltip02"
+                  placeholder="Price"
+                  value=""
+                  required
+                /> -->
+                <div class="input-group">
+                  <span class="input-group-text fs-lg py-1">LKR</span>
+                  <input type="text" class="form-control" id="validationTooltip02" placeholder="Amount">
+                  <span class="input-group-text">.00</span>
+                  <div class="invalid-tooltip">
+                    Please fill item price
+                  </div>
+                  <div class="valid-tooltip">Looks good!</div>
+                </div>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label class="form-label" for="add-business-item"
+                >Business type </label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="Select this item belongs to which type of business"
+                   data-bs-original-title="Select this item belongs to which type of business"
+                   aria-label="Select this item belongs to which type of business"><i class="fi-help"></i>
+                </a>
+                <!-- <div class="d-flex flex-column flex-sm-row"> -->
+                <ng-select
+                  [items]="businessCategories"
+                  bindLabel="name"
+                  placeholder="Select Business Type"
+                  dropdownPosition="auto"
+                  [multiple]="false"
+                  [searchWhileComposing]="true"
+                  name="businessProfileCategories"
+                  #businessProfileCategoriesE="ngModel" required
+                  (change)="getItemFeatures('e')"
+                  [(ngModel)]="editItem.businessProfileCategory">
+                </ng-select>
+                <div
+                  *ngIf="(businessProfileCategoriesE.touched || baManageFormItemEdit.submitted) && businessProfileCategoriesE.errors?.required"
+                  class="validErr">
+                  Business type is required
+                </div>
+                <!-- <div class="invalid-tooltip">
+                  Please fill item quantity
+                </div>
+                <div class="valid-tooltip">Looks good!</div> -->
+                <!-- <button type="button" class="btn btn-light-primary btn-icon shadow-sm">
+                  <i class="fi-plus"></i>
+                </button> -->
+                <!-- <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> -->
+                <!-- </div> -->
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label class="form-label" for="validationTooltip04"
+                >Features</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="You can add if there any features"
+                   data-bs-original-title="You can add if there any features"
+                   aria-label="You can add if there any features"><i class="fi-help"></i>
+                </a>
+
+                <form #baManageFormItemFeatureExsEdit="ngForm"
+                      (ngSubmit)="baManageFormItemFeatureExsEdit.form.valid && addFeature()"
+                      novalidate>
+
+                  <div class="d-flex flex-column flex-sm-row">
+                    <div style="width: 100%">
+                      <div>
+                        <ng-select
+                          [items]="itemFeaturesEdit"
+                          bindLabel="name"
+                          placeholder="Select Feature"
+                          dropdownPosition="auto"
+                          [multiple]="false"
+                          [searchWhileComposing]="true"
+                          name="iFeature"
+                          #iFeatureE="ngModel" required
+                          [(ngModel)]="itemFeatureEdit"
+                          style="width: 100%">
+                        </ng-select>
+                      </div>
+                      <div *ngIf="(baManageFormItemFeatureExsEdit.submitted) && itemFeatureEdit===undefined"
+                           class="validErr">
+                        Feature is required
+                      </div>
+                    </div>
+                    <!-- <div class="invalid-tooltip">
+                      Please fill item quantity
+                    </div>
+                    <div class="valid-tooltip">Looks good!</div> -->
+                    <button style="margin-left: 10px" type="submit" class="btn btn-light-primary btn-icon shadow-sm">
+                      <i class="fi-plus"></i>
+                    </button>
+                    <!-- <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> -->
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="d-flex flex-wrap mb-4">
+                  <span
+                    class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Interface<i
+                    class="fi-x fs-xs ms-2"></i></span>
+                <span
+                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">Typography<i
+                  class="fi-x fs-xs ms-2"></i></span>
+                <span
+                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Experience<i
+                  class="fi-x fs-xs ms-2"></i></span>
+                <span
+                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">Illustration<i
+                  class="fi-x fs-xs ms-2"></i></span>
+                <span
+                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Experience<i
+                  class="fi-x fs-xs ms-2"></i></span>
+                <span
+                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">Illustration<i
+                  class="fi-x fs-xs ms-2"></i></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label class="form-label" for="validationTooltip05"
+                >Description</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="Small description about your item."
+                   data-bs-original-title="Small description about your item."
+                   aria-label="Small description about your item."><i class="fi-help"></i>
+                </a>
+                <textarea class="form-control" id="validationTooltip05" rows="5" placeholder="Description"></textarea>
+                <div class="invalid-tooltip">
+                  Please fill item discount
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <div class="alert alert-info mb-4" role="alert">
+                  <div class="d-flex"><i class="fi-alert-circle me-2 me-sm-3"></i>
+                    <p class="fs-sm mb-1">The maximum photo size is 5 MB. Formats: jpeg, jpg, png. Put the main
+                      picture first.</p>
+                  </div>
+                </div>
+                <input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"
+                       accept="image/png, image/jpeg"
+                       data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">
+              </div>
+            </div>
+            <div class="mb-3 py-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="invalidCheck"
+                  required
+                />
+                <label class="form-check-label" for="invalidCheck"
+                >I confirm that the information provided information is accurate and correct.</label
+                >
+                <div class="invalid-tooltip">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-md" type="submit">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas-footer border-top" style="display: block;">
+    <ul class="nav nav-tabs justify-content-end" role="tablist">
+      <li class="nav-item me-2">
+        <a class="btn btn-md btn-outline-info" href="#item-view" data-bs-toggle="tab" role="tab"><i
+          class="fi-arrow-back fs-lg me-2"></i>Back</a>
+      </li>
+      <li class="nav-item me-2">
+        <a class="btn btn-md btn-outline-primary" href="#item-edit" data-bs-toggle="tab" role="tab"><i
+          class="fi-edit fs-lg me-2"></i>Edit</a>
+      </li>
+      <li class="nav-item me-2">
+        <a class="btn btn-md btn-outline-danger" href="#" rel="noopener"><i class="fi-trash fs-lg me-2"></i>Remove</a>
+      </li>
+    </ul>
   </div>
 </div>
 

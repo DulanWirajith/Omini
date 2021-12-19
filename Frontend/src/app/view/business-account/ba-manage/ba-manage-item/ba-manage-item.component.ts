@@ -27,10 +27,11 @@ export class BaManageItemComponent implements OnInit {
   @ViewChild('baManageFormItem', {static: true}) public baManageFormItem: NgForm;
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
-  image
+  image;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
+    this.editItem = this.itemService.getNewItem();
   }
 
   ngOnInit(): void {
@@ -44,10 +45,16 @@ export class BaManageItemComponent implements OnInit {
     })
   }
 
-  getItemFeatures() {
-    this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
-      this.itemFeatures = itemFeatures;
-    })
+  getItemFeatures(val) {
+    if (val === 'n') {
+      this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
+        this.itemFeatures = itemFeatures;
+      })
+    } else if (val === 'e') {
+      this.itemService.getItemFeatures(this.editItem.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
+        this.itemFeaturesEdit = itemFeatures;
+      })
+    }
   }
 
   onSubmit() {
@@ -139,5 +146,15 @@ export class BaManageItemComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(imageData);
     // return image;
     // return environment.backend_url+'item/itemImg/'+item.itemId
+  }
+
+  //===============================================Edit=================================================================
+
+  editItem;
+  itemFeaturesEdit = [];
+  itemFeatureEdit;
+
+  onSubmitEdit() {
+
   }
 }
