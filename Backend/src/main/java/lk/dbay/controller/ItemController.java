@@ -1,6 +1,7 @@
 package lk.dbay.controller;
 
 import lk.dbay.dto.ItemDTO;
+import lk.dbay.dto.ItemImgDTO;
 import lk.dbay.entity.Item;
 import lk.dbay.service.ItemS;
 import lk.dbay.util.CommonConstants;
@@ -21,9 +22,9 @@ public class ItemController {
     private ItemS itemS;
 
     @PostMapping(value = "/addItem")
-    public ResponseEntity addItem(@RequestPart("item") Item item, @RequestPart("imageFile") MultipartFile file) {
+    public ResponseEntity addItem(@RequestPart("item") Item item, @RequestParam("imageFile") MultipartFile[] files) {
         try {
-            ItemDTO itemDTO = itemS.addItem(item, file);
+            ItemDTO itemDTO = itemS.addItem(item, files);
             if (itemDTO != null) {
                 return ResponseEntity.ok(itemDTO);
             } else {
@@ -57,15 +58,20 @@ public class ItemController {
         return ResponseEntity.ok(itemS.setItemAvailable(itemId));
     }
 
+    @GetMapping(value = "/getItemSelected/{itemId}")
+    public ResponseEntity getItemSelected(@PathVariable String itemId) {
+        return ResponseEntity.ok(itemS.getItemSelected(itemId));
+    }
+
     @GetMapping(value = "/itemImg/{id}")
     public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {
 
-        ItemDTO itemDTO = itemS.getItemImg(id);
+        ItemImgDTO itemImg = itemS.getItemImg(id);
 
-        if (itemDTO != null) {
+        if (itemImg != null) {
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + itemDTO.getItemImgName() + "\"")
-                    .body(itemDTO.getItemImg());
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + itemImg.getItemImgName() + "\"")
+                    .body(itemImg.getItemImg());
         }
         return null;
     }

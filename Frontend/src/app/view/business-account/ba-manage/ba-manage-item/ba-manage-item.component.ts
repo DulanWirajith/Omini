@@ -18,7 +18,7 @@ export class BaManageItemComponent implements OnInit {
   itemFeature;
   businessCategories = [];
   itemFeatures = [];
-  itemImg;
+  itemImgs = [];
   imgUrl;
   isNewFeature = false;
   isNewItem = false;
@@ -28,10 +28,11 @@ export class BaManageItemComponent implements OnInit {
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   image;
+  images = [];
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
-    this.editItem = this.itemService.getNewItem();
+    this.itemE = this.itemService.getNewItem();
   }
 
   ngOnInit(): void {
@@ -51,8 +52,8 @@ export class BaManageItemComponent implements OnInit {
         this.itemFeatures = itemFeatures;
       })
     } else if (val === 'e') {
-      this.itemService.getItemFeatures(this.editItem.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
-        this.itemFeaturesEdit = itemFeatures;
+      this.itemService.getItemFeatures(this.itemE.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
+        this.itemFeaturesE = itemFeatures;
       })
     }
   }
@@ -76,7 +77,9 @@ export class BaManageItemComponent implements OnInit {
 
     // //console.log(this.item)
     const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.itemImg, this.itemImg.name);
+    for (let itemImg of this.itemImgs) {
+      uploadImageData.append('imageFile', itemImg, itemImg.name);
+    }
     uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
       {
         type: "application/json"
@@ -91,44 +94,130 @@ export class BaManageItemComponent implements OnInit {
     this.itemService.getItemsOrdered("B321", this.businessProfileCategory.businessCategoryId, 0, 100).subscribe((items) => {
       this.items = items;
       // this.getImageSrc(items[0])
-      console.log(items)
+      // console.log(items)
     })
   }
 
-  addFeature() {
-    if (this.itemFeature !== undefined) {
-      this.item.itemItemFeatures.push({
-        itemFeature: this.itemFeature
-      })
-      this.baManageFormItemFeatureExs.resetForm()
-      this.itemFeature = undefined;
-    }
-  }
-
-  addFeatureTemp() {
-    this.newItemFeaturesTemp.push(
-      {
-        itemFeatureId: 0,
-        name: this.newItemFeature,
-        businessCategory: this.item.businessProfileCategory
+  addFeature(val) {
+    if (val === 'n') {
+      if (this.itemFeature !== undefined) {
+        this.item.itemItemFeatures.push({
+          itemFeature: this.itemFeature
+        })
+        this.baManageFormItemFeatureExs.resetForm()
+        this.itemFeature = undefined;
       }
-    );
-    this.newItemFeature = '';
-    this.baManageFormItemFeature.resetForm()
-  }
-
-  addNewItemFeature() {
-    for (let itemFeature of this.newItemFeaturesTemp) {
-      this.item.itemItemFeatures.push({
-        itemFeature: itemFeature
-      })
+    } else if (val === 'e') {
+      if (this.itemFeatureE !== undefined) {
+        this.itemE.itemItemFeatures.push({
+          itemFeature: this.itemFeatureE
+        })
+        this.baManageFormItemFeatureExsE.resetForm()
+        this.itemFeatureE = undefined;
+      }
     }
-    this.isNewFeature = false;
-    this.newItemFeaturesTemp = [];
   }
 
-  processFile(event) {
-    this.itemImg = event.target.files[0];
+  addFeatureTemp(val) {
+    if (val === 'n') {
+      this.newItemFeaturesTemp.push(
+        {
+          itemFeatureId: 0,
+          name: this.newItemFeature,
+          businessCategory: this.item.businessProfileCategory
+        }
+      );
+      this.newItemFeature = '';
+      this.baManageFormItemFeature.resetForm()
+    } else if (val === 'e') {
+      this.newItemFeaturesTempE.push(
+        {
+          itemFeatureId: 0,
+          name: this.newItemFeatureE,
+          businessCategory: this.itemE.businessProfileCategory
+        }
+      );
+      this.newItemFeatureE = '';
+      this.baManageFormItemFeatureE.resetForm()
+    }
+  }
+
+  addNewItemFeature(val) {
+    if (val === 'n') {
+      for (let itemFeature of this.newItemFeaturesTemp) {
+        this.item.itemItemFeatures.push({
+          itemFeature: itemFeature
+        })
+      }
+      this.isNewFeature = false;
+      this.newItemFeaturesTemp = [];
+    } else if (val === 'e') {
+      for (let itemFeature of this.newItemFeaturesTempE) {
+        this.itemE.itemItemFeatures.push({
+          itemFeature: itemFeature
+        })
+      }
+      this.isNewFeatureE = false;
+      this.newItemFeaturesTempE = [];
+    }
+  }
+
+  getItemSelected(item) {
+    this.itemService.getItemSelected(item.itemId).subscribe((item) => {
+      this.itemE = item;
+      this.itemFeaturesE = item.itemFeatures;
+      // let filesAmount = item.itemImgs;
+      // for (let i = 0; i < filesAmount; i++) {
+      //   this.itemImgs.push(item.itemImgs[i]);
+      //   let reader = new FileReader();
+      //
+      //   reader.onload = (event: any) => {
+      //     // console.log(event.target.result);
+      //     this.imagesE.push(event.target.result);
+      //
+      //     // this.myForm.patchValue({
+      //     //   fileSource: this.images
+      //     // });
+      //   }
+      //
+      //   reader.readAsDataURL(item.itemImgs[i]);
+      // }
+      // this.imagesE = item.itemImgs;
+      console.log(item)
+    })
+  }
+
+  processFile(event, val) {
+    // this.itemImg.push(event.target.files[0]);
+    // this.itemImg.push(event.target.files[1]);
+    if (event.target.files && event.target.files[0]) {
+      let filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        if (val === 'n') {
+          this.itemImgs.push(event.target.files[i]);
+          let reader = new FileReader();
+
+          reader.onload = (event: any) => {
+            // console.log(event.target.result);
+            this.images.push(event.target.result);
+
+          }
+
+          reader.readAsDataURL(event.target.files[i]);
+        } else if (val === 'e') {
+          this.itemImgsE.push(event.target.files[i]);
+          let reader = new FileReader();
+
+          reader.onload = (event: any) => {
+            // console.log(event.target.result);
+            this.imagesE.push(event.target.result);
+
+          }
+
+          reader.readAsDataURL(event.target.files[i]);
+        }
+      }
+    }
   }
 
   setItemAvailable(item) {
@@ -137,12 +226,12 @@ export class BaManageItemComponent implements OnInit {
     })
   }
 
-  getImageSrc(item) {
+  getImageSrc(itemImg) {
     // let image;
     // const reader = new FileReader();
     // reader.onload = (e) => this.image = e.target.result;
     // reader.readAsDataURL(new Blob([item.itemImg]));
-    let imageData = 'data:' + item.itemImgType + ';base64,' + item.itemImg;
+    let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     return this.sanitizer.bypassSecurityTrustUrl(imageData);
     // return image;
     // return environment.backend_url+'item/itemImg/'+item.itemId
@@ -150,11 +239,25 @@ export class BaManageItemComponent implements OnInit {
 
   //===============================================Edit=================================================================
 
-  editItem;
-  itemFeaturesEdit = [];
-  itemFeatureEdit;
+  itemE;
+  itemFeaturesE = [];
+  itemFeatureE;
+  imgUrlE;
+  isNewItemE;
+  isNewFeatureE;
+  newItemFeatureE;
+  newItemFeaturesTempE = [];
+  imagesE = [];
+  itemImgsE = [];
+  @ViewChild('baManageFormItemE', {static: true}) public baManageFormItemE: NgForm;
+  @ViewChild('baManageFormItemFeatureE', {static: true}) public baManageFormItemFeatureE: NgForm;
+  @ViewChild('baManageFormItemFeatureExsE', {static: true}) public baManageFormItemFeatureExsE: NgForm;
 
-  onSubmitEdit() {
+  onSubmitE() {
 
   }
+
+  // processFileE(){
+  //
+  // }
 }

@@ -47,7 +47,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
 
             dbayUserR.save(businessProfile.getUser());
             businessProfileR.save(businessProfile);
-            return new BusinessProfileDTO(businessProfile, new DbayUserDTO(businessProfile.getUser()));
+            return new BusinessProfileDTO(businessProfile, businessProfile.getUser());
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
@@ -59,7 +59,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(businessProfileId);
         if (businessProfileOptional.isPresent()) {
             BusinessProfile businessProfile = businessProfileOptional.get();
-            return new BusinessProfileDTO(businessProfile, new DbayUserDTO(businessProfile.getUser()), true, true);
+            return new BusinessProfileDTO(businessProfile, businessProfile.getUser(), true, true);
         }
         return null;
     }
@@ -115,7 +115,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessProfileR.save(businessProfileObj);
                 businessProfileObj.getBusinessAreas().addAll(businessAreas);
                 businessProfileObj.getBusinessProfileCategories().addAll(profileCategories);
-                return new BusinessProfileDTO(businessProfileObj, new DbayUserDTO(businessProfileObj.getUser()), true, true);
+                return new BusinessProfileDTO(businessProfileObj, businessProfileObj.getUser(), true, true);
             }
             return null;
         } catch (Exception e) {

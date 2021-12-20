@@ -1,10 +1,7 @@
 package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lk.dbay.entity.BusinessArea;
-import lk.dbay.entity.BusinessCategory;
-import lk.dbay.entity.BusinessProfile;
-import lk.dbay.entity.BusinessProfileCategory;
+import lk.dbay.entity.*;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -56,14 +53,14 @@ public class BusinessProfileDTO extends DateTimeDTO {
         this.contactViewCount = businessProfile.getContactViewCount();
     }
 
-    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUserDTO user) {
+    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUser user) {
         this(businessProfile);
-        this.user = user;
+        this.user = new DbayUserDTO(user);
     }
 
-    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUserDTO user, boolean needAreas, boolean needCategories) {
+    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUser user, boolean needAreas, boolean needCategories) {
         this(businessProfile);
-        this.user = user;
+        this.user = new DbayUserDTO(user);
         if (needAreas) {
             businessAreas = new ArrayList<>();
             for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
@@ -73,7 +70,7 @@ public class BusinessProfileDTO extends DateTimeDTO {
         if (needCategories) {
             businessProfileCategories = new ArrayList<>();
             for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
-                businessProfileCategories.add(new BusinessProfileCategoryDTO(new BusinessProfileDTO(businessProfile), new BusinessCategoryDTO(businessProfileCategory.getBusinessCategory())));
+                businessProfileCategories.add(new BusinessProfileCategoryDTO(businessProfile, businessProfileCategory.getBusinessCategory()));
             }
         }
     }

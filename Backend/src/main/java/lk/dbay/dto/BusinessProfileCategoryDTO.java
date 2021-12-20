@@ -1,6 +1,8 @@
 package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lk.dbay.entity.BusinessCategory;
+import lk.dbay.entity.BusinessProfile;
 import lombok.*;
 
 @NoArgsConstructor
@@ -15,9 +17,9 @@ public class BusinessProfileCategoryDTO extends DateTimeDTO {
 
     private BusinessCategoryDTO businessCategory;
 
-    public BusinessProfileCategoryDTO(@NonNull BusinessProfileDTO businessProfile, @NonNull BusinessCategoryDTO businessCategory) {
+    public BusinessProfileCategoryDTO(@NonNull BusinessProfile businessProfile, @NonNull BusinessCategory businessCategory) {
         this.name = businessCategory.getName();
-        this.businessProfile = businessProfile;
-        this.businessCategory = businessCategory;
+        this.businessProfile = new BusinessProfileDTO(businessProfile);
+        this.businessCategory = new BusinessCategoryDTO(businessCategory);
     }
 }

@@ -119,3 +119,4 @@ SELECT `item_item_feature`.`item_feature_id`,
     `item_item_feature`.`updated_at`
 FROM `dbay`.`item_item_feature`;
 
+UPDATE `dbay`.`item_feature` SET `confirmed` = true WHERE (`item_feature_id` = 'ITF20211208230630');
