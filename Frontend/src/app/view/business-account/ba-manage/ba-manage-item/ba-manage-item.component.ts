@@ -28,6 +28,7 @@ export class BaManageItemComponent implements OnInit {
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   image;
+  @ViewChild('myPond') myPond: any;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
@@ -157,4 +158,22 @@ export class BaManageItemComponent implements OnInit {
   onSubmitEdit() {
 
   }
+
+  pondOptions = {
+    class: 'my-filepond',
+    multiple: true,
+    labelIdle: '<div class="btn btn-primary mt-3 mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos</div></br>or drag them in',
+    acceptedFileTypes: 'image/jpeg, image/png'
+  }
+
+  pondFiles = []
+
+  pondHandleInit() {
+    console.log('FilePond has initialised', this.myPond);
+  }
+
+  pondHandleAddFile(event: any) {
+    console.log('A file was added', event);
+  }
+  
 }

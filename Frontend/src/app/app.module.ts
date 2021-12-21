@@ -12,6 +12,14 @@ import { BrStep4Component } from './view/business-register/br-step4/br-step4.com
 import { BrStep5Component } from './view/business-register/br-step5/br-step5.component';
 import { BrStep6Component } from './view/business-register/br-step6/br-step6.component';
 import {NgSelectModule} from "@ng-select/ng-select";
+// import filepond module
+import { FilePondModule, registerPlugin } from 'ngx-filepond';
+
+import  * as FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import  * as FilepondPluginImageEdit from 'filepond-plugin-image-edit';
+import  * as FilepondPluginImagePreview from 'filepond-plugin-image-preview';
+registerPlugin(FilePondPluginFileValidateType,FilepondPluginImageEdit,FilepondPluginImagePreview);
+
 import {FormsModule} from "@angular/forms";
 import { BusinessAccountComponent } from './view/business-account/business-account.component';
 import { BaManageComponent } from './view/business-account/ba-manage/ba-manage.component';
@@ -53,6 +61,7 @@ import { SpProfileSettingsComponent } from './view/profile/shop-profile/sp-profi
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    FilePondModule,
     NgSelectModule,
     HttpClientModule
   ],

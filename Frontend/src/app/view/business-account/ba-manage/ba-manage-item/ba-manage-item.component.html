@@ -312,10 +312,24 @@
                 first.</p>
             </div>
           </div>
-          <input class="file-uploader file-uploader-grid" type='file' accept="image/*" #imageInput="ngModel"
+          <!-- <input type='file' accept="image/*" #imageInput="ngModel"
+                multiple
                  data-max-file-size="5MB"
+                 data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in"
                  [(ngModel)]="imgUrl" name="imageInput"
-                 (change)="processFile($event)" required>
+                 (change)="processFile($event)" required> -->
+
+                 <file-pond #myPond 
+                 class="file-uploader-grid"
+                 #imageInput="ngModel"
+                 [options]="pondOptions" 
+                 [files]="pondFiles"
+                 [(ngModel)]="imgUrl" 
+                 name="imageInput"
+                 (change)="processFile($event)"
+                 (oninit)="pondHandleInit()"
+                 (onaddfile)="pondHandleAddFile($event)">
+             </file-pond>
           <!--<input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"-->
           <!--accept="image/png, image/jpeg"-->
           <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->
