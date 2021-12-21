@@ -28,11 +28,6 @@ public class Item extends DateTime {
     private String itemDiscountType;
     private boolean itemAvailable;
 
-    @Lob
-    private byte[] itemImg;
-    private String itemImgName;
-    private String itemImgType;
-
     @ManyToOne(optional = false)
     @JoinColumns({
             @JoinColumn(name = "businessProId", referencedColumnName = "businessProId", updatable = false, nullable = false),
@@ -46,4 +41,6 @@ public class Item extends DateTime {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
     private Set<ItemItemFeature> itemItemFeatures;
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
+    private Set<ItemImg> itemImgs;
 }

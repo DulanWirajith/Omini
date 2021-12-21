@@ -36,6 +36,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item/setItemAvailable/' + itemId);
   }
 
+  getItemSelected(itemId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  }
+
   getNewItem() {
     return {
       itemId: "",
@@ -45,8 +49,7 @@ export class ItemService {
       itemDiscountType: "None",
       itemPrice: "",
       itemDescription: "",
-      itemImg: "",
-      itemImgType: "",
+      itemImgs: [],
       itemAvailable: false,
       businessProfileCategory: undefined,
       itemItemFeatures: []

@@ -1,8 +1,11 @@
 package lk.dbay.service.impl;
 
 import lk.dbay.dto.ItemDTO;
+import lk.dbay.dto.ItemFeatureDTO;
+import lk.dbay.dto.ItemImgDTO;
 import lk.dbay.entity.*;
 import lk.dbay.repository.ItemFeatureR;
+import lk.dbay.repository.ItemImgR;
 import lk.dbay.repository.ItemR;
 import lk.dbay.service.ItemS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ItemSImpl implements ItemS {
@@ -24,9 +25,11 @@ public class ItemSImpl implements ItemS {
     private ItemR itemR;
     @Autowired
     private ItemFeatureR itemFeatureR;
+    @Autowired
+    private ItemImgR itemImgR;
 
     @Override
-    public ItemDTO addItem(Item item, MultipartFile file) throws Exception {
+    public ItemDTO addItem(Item item, MultipartFile[] files) throws Exception {
         try {
             BusinessProfileCategory businessProfileCategory = item.getBusinessProfileCategory();
             item.setItemId("ITM" + item.getItemTitle() + businessProfileCategory.getBusinessProfile().getBusinessProId() + businessProfileCategory.getBusinessCategory().getBusinessCategoryId());
@@ -44,9 +47,20 @@ public class ItemSImpl implements ItemS {
             businessProfileCategory.setBusinessProfileCategoryId(
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
-            item.setItemImg(file.getBytes());
-            item.setItemImgName(StringUtils.cleanPath(file.getOriginalFilename()));
-            item.setItemImgType(file.getContentType());
+            Set<ItemImg> itemImgs = new HashSet<>();
+            LocalDateTime localDateTime = LocalDateTime.now();
+            String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+            int i = 0;
+            for (MultipartFile file : files) {
+                ItemImg itemImg = new ItemImg();
+                itemImg.setItemImgId("ITIMG" + ++i + format);
+                itemImg.setItemImg(file.getBytes());
+                itemImg.setItemImgName(StringUtils.cleanPath(file.getOriginalFilename()));
+                itemImg.setItemImgType(file.getContentType());
+                itemImg.setItem(item);
+                itemImgs.add(itemImg);
+            }
+            item.setItemImgs(itemImgs);
             return new ItemDTO(itemR.save(item), false);
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,16 +92,11 @@ public class ItemSImpl implements ItemS {
     }
 
     @Override
-    public ItemDTO getItemImg(String id) {
-        Optional<Item> itemOptional = itemR.findById(id);
-        if (itemOptional.isPresent()) {
-            Item item = itemOptional.get();
-            ItemDTO itemDTO = new ItemDTO();
-            itemDTO.setItemId(item.getItemId());
-            itemDTO.setItemImg(item.getItemImg());
-            itemDTO.setItemImgName(item.getItemImgName());
-            itemDTO.setItemImgType(item.getItemImgType());
-            return itemDTO;
+    public ItemImgDTO getItemImg(String id) {
+        Optional<ItemImg> itemImgOptional = itemImgR.findById(id);
+        if (itemImgOptional.isPresent()) {
+            ItemImg itemImg = itemImgOptional.get();
+            return new ItemImgDTO(itemImg);
         }
         return null;
     }
@@ -100,6 +109,23 @@ public class ItemSImpl implements ItemS {
             itemDTOS.add(new ItemDTO(item, true));
         }
         return itemDTOS;
+    }
+
+    @Override
+    public ItemDTO getItemSelected(String itemId) {
+        Optional<Item> itemOptional = itemR.findById(itemId);
+        if (itemOptional.isPresent()) {
+            Item item = itemOptional.get();
+            List<ItemFeature> itemFeatureRAll = itemFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId(), true);
+            List<ItemFeatureDTO> itemFeatureDTOS = new ArrayList<>();
+            for (ItemFeature itemFeature : itemFeatureRAll) {
+                itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
+            }
+            ItemDTO itemDTO = new ItemDTO(item, true, item.getBusinessProfileCategory(), item.getItemItemFeatures());
+            itemDTO.setItemFeatures(itemFeatureDTOS);
+            return itemDTO;
+        }
+        return null;
     }
 
     @Override
