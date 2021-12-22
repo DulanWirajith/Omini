@@ -27,9 +27,10 @@ public class ItemItemFeatureDTO extends DateTimeDTO {
     private ItemDTO item;
     private ItemFeatureDTO itemFeature;
 
-    public ItemItemFeatureDTO(ItemFeature itemFeature) {
+    public ItemItemFeatureDTO(Item item, ItemFeature itemFeature) {
 //        this.item = new ItemDTO(item, true);
         this.name = itemFeature.getName();
         this.itemFeature = new ItemFeatureDTO(itemFeature);
+        this.item = new ItemDTO(item, false);
     }
 }

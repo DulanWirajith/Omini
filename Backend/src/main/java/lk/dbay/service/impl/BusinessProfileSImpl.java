@@ -109,8 +109,12 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessProfile.getBusinessProfileCategories().removeAll(profileCategories);
                 businessProfileObj.setBusinessProfileCategories(businessProfile.getBusinessProfileCategories());
 
-                businessAreaR.deleteAll(businessAreaSetRemove);
-                businessProfileCategoryR.deleteAll(profileCategorySetRemove);
+                if (businessAreaSetRemove.size() > 0) {
+                    businessAreaR.deleteAll(businessAreaSetRemove);
+                }
+                if (profileCategorySetRemove.size() > 0) {
+                    businessProfileCategoryR.deleteAll(profileCategorySetRemove);
+                }
                 dbayUserR.save(businessProfileObj.getUser());
                 businessProfileR.save(businessProfileObj);
                 businessProfileObj.getBusinessAreas().addAll(businessAreas);

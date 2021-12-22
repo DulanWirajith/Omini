@@ -31,11 +31,25 @@ public class BusinessArea extends DateTime {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BusinessArea that = (BusinessArea) o;
-        return Objects.equals(town.getTownId(), that.town.getTownId());
+        return Objects.equals(businessProfile.getBusinessProId(), that.businessProfile.getBusinessProId()) &&
+                Objects.equals(town.getTownId(), that.town.getTownId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(town.getTownId());
+        return Objects.hash(businessProfile.getBusinessProId(), town.getTownId());
     }
+
+    //    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        BusinessArea that = (BusinessArea) o;
+//        return Objects.equals(town.getTownId(), that.town.getTownId());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(town.getTownId());
+//    }
 }

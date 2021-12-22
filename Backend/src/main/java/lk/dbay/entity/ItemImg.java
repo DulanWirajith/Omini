@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -27,4 +28,16 @@ public class ItemImg extends DateTime {
     @ManyToOne
     private Item item;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemImg itemImg = (ItemImg) o;
+        return Objects.equals(itemImgId, itemImg.itemImgId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(itemImgId);
+    }
 }

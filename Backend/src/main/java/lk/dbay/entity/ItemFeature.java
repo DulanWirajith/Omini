@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name", name = "Feature_Name")
+        @UniqueConstraint(columnNames = {"name", "business_category_business_category_id"}, name = "Feature_Name")
 })
 public class ItemFeature extends DateTime {
 

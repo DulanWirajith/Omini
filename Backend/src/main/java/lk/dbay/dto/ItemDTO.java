@@ -65,7 +65,7 @@ public class ItemDTO extends DateTimeDTO {
         this.businessProfileCategory = new BusinessProfileCategoryDTO(businessProfileCategory.getBusinessProfile(), businessProfileCategory.getBusinessCategory());
         this.itemItemFeatures = new ArrayList<>();
         for (ItemItemFeature itemItemFeature : itemItemFeatures) {
-            this.itemItemFeatures.add(new ItemItemFeatureDTO(itemItemFeature.getItemFeature()));
+            this.itemItemFeatures.add(new ItemItemFeatureDTO(item, itemItemFeature.getItemFeature()));
         }
     }
 }

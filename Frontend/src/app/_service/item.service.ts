@@ -16,6 +16,10 @@ export class ItemService {
     return this.http.post<any>(environment.backend_url + 'item/addItem', item);
   }
 
+  updateItem(item, itemId): Observable<any> {
+    return this.http.put<any>(environment.backend_url + 'item/updateItem/' + itemId, item);
+  }
+
   addPackage(itemsPackage): Observable<any> {
     return this.http.post<any>(environment.backend_url + 'package/addPackage', itemsPackage);
   }
@@ -51,7 +55,10 @@ export class ItemService {
       itemDescription: "",
       itemImgs: [],
       itemAvailable: false,
-      businessProfileCategory: undefined,
+      businessProfileCategory: {
+        businessProfile: undefined,
+        businessCategory: undefined
+      },
       itemItemFeatures: []
     }
   }

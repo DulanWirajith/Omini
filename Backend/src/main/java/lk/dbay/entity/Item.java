@@ -30,8 +30,8 @@ public class Item extends DateTime {
 
     @ManyToOne(optional = false)
     @JoinColumns({
-            @JoinColumn(name = "businessProId", referencedColumnName = "businessProId", updatable = false, nullable = false),
-            @JoinColumn(name = "businessCategoryId", referencedColumnName = "businessCategoryId", updatable = false, nullable = false)
+            @JoinColumn(name = "businessProId", referencedColumnName = "businessProId", updatable = true, nullable = false),
+            @JoinColumn(name = "businessCategoryId", referencedColumnName = "businessCategoryId", updatable = true, nullable = false)
     })
     private BusinessProfileCategory businessProfileCategory;
 

@@ -201,7 +201,7 @@
             name="businessProfileCategories"
             #businessProfileCategories="ngModel" required
             (change)="getItemFeatures('n')"
-            [(ngModel)]="item.businessProfileCategory">
+            [(ngModel)]="item.businessProfileCategory.businessCategory">
           </ng-select>
           <div
             *ngIf="(businessProfileCategories.touched || baManageFormItem.submitted) && businessProfileCategories.errors?.required"
@@ -312,30 +312,27 @@
                 first.</p>
             </div>
           </div>
-          <!-- <input type='file' accept="image/*" #imageInput="ngModel"
-                multiple
-                 data-max-file-size="5MB"
-                 data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in"
-                 [(ngModel)]="imgUrl" name="imageInput"
-                 (change)="processFile($event)" required> -->
+          <!--<input type='file' accept="image/*" #imageInput="ngModel"-->
+                <!--multiple-->
+                 <!--data-max-file-size="5MB"-->
+                 <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in"-->
+                 <!--[(ngModel)]="imgUrl" name="imageInput"-->
+                 <!--(change)="processFile($event,'n')" required>-->
 
-                 <file-pond #myPond 
-                 class="file-uploader-grid"
-                 #imageInput="ngModel"
-                 [options]="pondOptions" 
-                 [files]="pondFiles"
-                 [(ngModel)]="imgUrl" 
-                 name="imageInput"
-                 (oninit)="pondHandleInit()"
-                 (onaddfile)="pondHandleAddFile($event)">
-             </file-pond>
+          <file-pond
+            class="file-uploader-grid"
+            #imageInput
+            [options]="pondOptions"
+            name="imageInput"
+            (onaddfile)="pondHandleAddFile($event,'n')">
+          </file-pond>
           <!--<input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"-->
           <!--accept="image/png, image/jpeg"-->
           <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->
         </div>
-        <div class="col-md-4 mb-4" *ngFor='let url of images'>
-          <img [src]="url" style="margin: 3px;height: 200px;width: 300px">
-        </div>
+        <!--<div class="col-md-4 mb-4" *ngFor='let url of images'>-->
+        <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->
+        <!--</div>-->
         <div
           *ngIf="(imageInput.touched || baManageFormItem.submitted) && imageInput.errors?.required"
           class="validErr" style="margin-bottom: 10px">
@@ -630,7 +627,7 @@
                   name="businessProfileCategories"
                   #businessProfileCategoriesE="ngModel" required
                   (change)="getItemFeatures('e')"
-                  [(ngModel)]="itemE.businessProfileCategory">
+                  [(ngModel)]="itemE.businessProfileCategory.businessCategory">
                 </ng-select>
                 <div
                   *ngIf="(businessProfileCategoriesE.touched || baManageFormItemE.submitted) && businessProfileCategoriesE.errors?.required"
@@ -743,8 +740,8 @@
                 </div>
                 <input class="file-uploader file-uploader-grid" type='file' accept="image/*" #imageInputE="ngModel"
                        data-max-file-size="5MB"
-                       [(ngModel)]="imgUrlE" name="imageInput"
-                       (change)="processFile($event,'e')" required>
+                       [(ngModel)]="imgUrlE" name="imageInputE"
+                       (change)="processFile($event,'e')">
                 <!--<input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"-->
                 <!--accept="image/png, image/jpeg"-->
                 <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->

@@ -31,11 +31,25 @@ public class BusinessProfileCategory extends DateTime {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BusinessProfileCategory that = (BusinessProfileCategory) o;
-        return Objects.equals(businessCategory.getBusinessCategoryId(), that.businessCategory.getBusinessCategoryId());
+        return Objects.equals(businessProfile.getBusinessProId(), that.businessProfile.getBusinessProId()) &&
+                Objects.equals(businessCategory.getBusinessCategoryId(), that.businessCategory.getBusinessCategoryId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(businessCategory.getBusinessCategoryId());
+        return Objects.hash(businessProfile.getBusinessProId(), businessCategory.getBusinessCategoryId());
     }
+
+    //    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        BusinessProfileCategory that = (BusinessProfileCategory) o;
+//        return Objects.equals(businessCategory.getBusinessCategoryId(), that.businessCategory.getBusinessCategoryId());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(businessCategory.getBusinessCategoryId());
+//    }
 }

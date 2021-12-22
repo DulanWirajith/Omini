@@ -10,6 +10,8 @@ import java.util.List;
 public interface ItemS {
     ItemDTO addItem(Item item, MultipartFile[] files) throws Exception;
 
+    ItemDTO updateItem(Item item, MultipartFile[] files, String itemId) throws Exception;
+
     List<ItemDTO> getItems();
 
     List<ItemDTO> getItemsBusinessCategory(String businessProfileId, String businessCategoryId);

@@ -19,7 +19,7 @@ export class BaManageItemComponent implements OnInit {
   businessCategories = [];
   itemFeatures = [];
   itemImgs = [];
-  imgUrl;
+  // imgUrl;
   isNewFeature = false;
   isNewItem = false;
   businessProfileCategory;
@@ -28,7 +28,7 @@ export class BaManageItemComponent implements OnInit {
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   image;
-  images=[];
+  images = [];
   @ViewChild('myPond') myPond: any;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
@@ -51,10 +51,12 @@ export class BaManageItemComponent implements OnInit {
     if (val === 'n') {
       this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
         this.itemFeatures = itemFeatures;
+        this.item.itemItemFeatures = [];
       })
     } else if (val === 'e') {
       this.itemService.getItemFeatures(this.itemE.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
         this.itemFeaturesE = itemFeatures;
+        this.itemE.itemItemFeatures = [];
       })
     }
   }
@@ -69,11 +71,15 @@ export class BaManageItemComponent implements OnInit {
     // }
     // this.item.itemItemFeatures = itemFeatures;
 
-    this.item.businessProfileCategory = {
-      businessProfile: {
-        businessProId: "B321"
-      },
-      businessCategory: this.item.businessProfileCategory
+    // this.item.businessProfileCategory = {
+    //   businessProfile: {
+    //     businessProId: "B321"
+    //   },
+    //   businessCategory: this.item.businessProfileCategory
+    // };
+
+    this.item.businessProfileCategory.businessProfile = {
+      businessProId: "B321"
     };
 
     // //console.log(this.item)
@@ -103,6 +109,7 @@ export class BaManageItemComponent implements OnInit {
     if (val === 'n') {
       if (this.itemFeature !== undefined) {
         this.item.itemItemFeatures.push({
+          item: {itemId: this.item.itemId},
           itemFeature: this.itemFeature
         })
         this.baManageFormItemFeatureExs.resetForm()
@@ -111,6 +118,7 @@ export class BaManageItemComponent implements OnInit {
     } else if (val === 'e') {
       if (this.itemFeatureE !== undefined) {
         this.itemE.itemItemFeatures.push({
+          item: {itemId: this.itemE.itemId},
           itemFeature: this.itemFeatureE
         })
         this.baManageFormItemFeatureExsE.resetForm()
@@ -125,7 +133,7 @@ export class BaManageItemComponent implements OnInit {
         {
           itemFeatureId: 0,
           name: this.newItemFeature,
-          businessCategory: this.item.businessProfileCategory
+          businessCategory: this.item.businessProfileCategory.businessCategory
         }
       );
       this.newItemFeature = '';
@@ -135,7 +143,7 @@ export class BaManageItemComponent implements OnInit {
         {
           itemFeatureId: 0,
           name: this.newItemFeatureE,
-          businessCategory: this.itemE.businessProfileCategory
+          businessCategory: this.itemE.businessProfileCategory.businessCategory
         }
       );
       this.newItemFeatureE = '';
@@ -147,6 +155,7 @@ export class BaManageItemComponent implements OnInit {
     if (val === 'n') {
       for (let itemFeature of this.newItemFeaturesTemp) {
         this.item.itemItemFeatures.push({
+          item: {itemId: this.item.itemId},
           itemFeature: itemFeature
         })
       }
@@ -155,6 +164,7 @@ export class BaManageItemComponent implements OnInit {
     } else if (val === 'e') {
       for (let itemFeature of this.newItemFeaturesTempE) {
         this.itemE.itemItemFeatures.push({
+          item: {itemId: this.itemE.itemId},
           itemFeature: itemFeature
         })
       }
@@ -189,6 +199,7 @@ export class BaManageItemComponent implements OnInit {
   }
 
   processFile(event, val) {
+    console.log(event.target.files)
     // this.itemImg.push(event.target.files[0]);
     // this.itemImg.push(event.target.files[1]);
     if (event.target.files && event.target.files[0]) {
@@ -255,7 +266,38 @@ export class BaManageItemComponent implements OnInit {
   @ViewChild('baManageFormItemFeatureExsE', {static: true}) public baManageFormItemFeatureExsE: NgForm;
 
   onSubmitE() {
+    // console.log(this.itemE.businessProfileCategory.businessCategory)
+    // for (let itemFeature of this.itemE.itemItemFeatures) {
+    //   if (itemFeature.businessCategory === undefined) {
+    //     itemFeature.businessCategory = this.businessProfileCategory;
+    //   }
+    // }
 
+    // if (this.itemE.businessProfileCategory.businessCategory === undefined) {
+    //   this.itemE.businessProfileCategory = {
+    //     businessProfile: {
+    //       businessProId: "B321"
+    //     },
+    //     businessCategory: this.itemE.businessProfileCategory
+    //   };
+    // }
+    this.itemE.businessProfileCategory.businessProfile = {
+      businessProId: "B321"
+    };
+// this.itemE.itemItemFeatures=[]
+    console.log(this.itemE)
+    const uploadImageData = new FormData();
+    for (let itemImg of this.itemImgsE) {
+      uploadImageData.append('imageFile', itemImg, itemImg.name);
+    }
+    uploadImageData.append('item', new Blob([JSON.stringify(this.itemE)],
+      {
+        type: "application/json"
+      }));
+    this.itemService.updateItem(uploadImageData, this.itemE.itemId).subscribe((reply) => {
+      this.baManageFormItem.resetForm(this.itemService.getNewItem());
+      this.itemE.itemItemFeatures = [];
+    })
   }
 
   pondOptions = {
@@ -271,8 +313,33 @@ export class BaManageItemComponent implements OnInit {
     console.log('FilePond has initialised', this.myPond);
   }
 
-  pondHandleAddFile(event: any) {
-    console.log('A file was added', event);
+  pondHandleAddFile(event, val) {
+    // console.log('A file was added', event.file.file);
+    // console.log(this.pondFiles)
+    // console.log(this.imgUrl)
+    if (val === 'n') {
+      this.itemImgs.push(event.file.file);
+      // let reader = new FileReader();
+      //
+      // reader.onload = (event: any) => {
+      //   // console.log(event.target.result);
+      //   this.images.push(event.target.result);
+      //
+      // }
+      //
+      // reader.readAsDataURL(event.target.files[i]);
+    } else if (val === 'e') {
+      this.itemImgsE.push(event.file.file);
+      // let reader = new FileReader();
+      //
+      // reader.onload = (event: any) => {
+      //   // console.log(event.target.result);
+      //   this.imagesE.push(event.target.result);
+      //
+      // }
+      //
+      // reader.readAsDataURL(event.target.files[i]);
+    }
   }
-  
+
 }

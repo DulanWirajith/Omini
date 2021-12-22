@@ -38,6 +38,23 @@ public class ItemController {
         }
     }
 
+    @PutMapping(value = "/updateItem/{itemId}")
+    public ResponseEntity updateItem(@RequestPart("item") Item item, @RequestParam("imageFile") MultipartFile[] files, @PathVariable String itemId) {
+        try {
+            ItemDTO itemDTO = itemS.updateItem(item, files, itemId);
+            if (itemDTO != null) {
+                return ResponseEntity.ok(itemDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping(value = "/getItems")
     public ResponseEntity getItems() {
         return ResponseEntity.ok(itemS.getItems());
