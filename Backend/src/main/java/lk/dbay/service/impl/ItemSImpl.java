@@ -75,45 +75,31 @@ public class ItemSImpl implements ItemS {
                 addFeaturesToItem(item);
                 addImagesToItem(item, files);
 
-//                Set<ItemItemFeatureOpt> itemItemFeatureOpts = new HashSet<>();
-//                Set<ItemItemFeatureOpt> itemItemFeatureOptsObj = new HashSet<>();
-//                for (ItemItemFeature itemItemFeature : item.getItemItemFeatures()) {
-//                    itemItemFeatureOpts.add(new ItemItemFeatureOpt(itemItemFeature.getItemItemFeatureId(), itemItemFeature.getItem(), itemItemFeature.getItemFeature()));
-//                }
-//
-//                for (ItemItemFeature itemItemFeature : itemObj.getItemItemFeatures()) {
-//                    itemItemFeatureOptsObj.add(new ItemItemFeatureOpt(itemItemFeature.getItemItemFeatureId(), itemItemFeature.getItem(), itemItemFeature.getItemFeature()));
-//                }
-
                 HashSet<ItemItemFeature> itemItemFeatures = new HashSet<>(item.getItemItemFeatures());
                 itemItemFeatures.retainAll(itemObj.getItemItemFeatures());
                 Set<ItemItemFeature> itemItemFeaturesSetRemove = new HashSet<>(itemObj.getItemItemFeatures());
                 itemItemFeaturesSetRemove.removeAll(itemItemFeatures);
-                itemObj.setItemItemFeatures(item.getItemItemFeatures());
+                Set<ItemItemFeature> itemItemFeaturesSetAdd = new HashSet<>(item.getItemItemFeatures());
+                itemItemFeaturesSetAdd.removeAll(itemItemFeatures);
+                itemObj.setItemItemFeatures(itemItemFeaturesSetAdd);
 
                 HashSet<ItemImg> itemImgs = new HashSet<>(item.getItemImgs());
                 itemImgs.retainAll(itemObj.getItemImgs());
                 Set<ItemImg> itemImgsSetRemove = new HashSet<>(itemObj.getItemImgs());
                 itemImgsSetRemove.removeAll(itemImgs);
-//                Set<ItemItemFeature> itemItemFeaturesSetRemove = new HashSet<>();
-//                for (ItemItemFeatureOpt itemItemFeatureOpt : itemItemFeaturesSetRemoveOpt) {
-//                    itemItemFeaturesSetRemove.add(new ItemItemFeature(itemItemFeatureOpt.getItemItemFeatureId(), itemItemFeatureOpt.getItem(), itemItemFeatureOpt.getItemFeature()));
-//                }
+                Set<ItemImg> itemImgsSetAdd = new HashSet<>(item.getItemImgs());
+                itemImgsSetAdd.removeAll(itemImgs);
+                itemObj.setItemImgs(itemImgsSetAdd);
+
                 if (itemItemFeaturesSetRemove.size() > 0) {
                     itemItemFeatureR.deleteAll(itemItemFeaturesSetRemove);
                 }
                 if (itemImgsSetRemove.size() > 0) {
-//                    itemImgR.deleteAll(itemImgsSetRemove);
+                    itemImgR.deleteAll(itemImgsSetRemove);
                 }
-//                for (ItemItemFeature itemItemFeature : itemObj.getItemItemFeatures()) {
-//                    try {
-//                        itemItemFeatureR.save(itemItemFeature);
-//                    } catch (ConstraintViolationException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
 
-                return new ItemDTO(itemR.save(itemObj), false);
+                itemR.save(itemObj);
+                return new ItemDTO(itemObj, true);
             }
             return null;
         } catch (Exception e) {
@@ -124,7 +110,10 @@ public class ItemSImpl implements ItemS {
 
     private void addImagesToItem(Item item, MultipartFile[] files) {
         try {
-            Set<ItemImg> itemImgs = new HashSet<>();
+//            Set<ItemImg> itemImgs = new HashSet<>();
+            for (ItemImg itemImg : item.getItemImgs()) {
+                itemImg.setItem(item);
+            }
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             int i = 0;
@@ -135,9 +124,9 @@ public class ItemSImpl implements ItemS {
                 itemImg.setItemImgName(StringUtils.cleanPath(file.getOriginalFilename()));
                 itemImg.setItemImgType(file.getContentType());
                 itemImg.setItem(item);
-                itemImgs.add(itemImg);
+                item.getItemImgs().add(itemImg);
             }
-            item.setItemImgs(itemImgs);
+//            item.setItemImgs(itemImgs);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -29,7 +29,7 @@ export class BaManageItemComponent implements OnInit {
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   image;
   images = [];
-  @ViewChild('myPond') myPond: any;
+  @ViewChild('imageInputE') myPond: any;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
@@ -49,12 +49,12 @@ export class BaManageItemComponent implements OnInit {
 
   getItemFeatures(val) {
     if (val === 'n') {
-      this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
+      this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
         this.itemFeatures = itemFeatures;
         this.item.itemItemFeatures = [];
       })
     } else if (val === 'e') {
-      this.itemService.getItemFeatures(this.itemE.businessProfileCategory.businessCategoryId).subscribe((itemFeatures) => {
+      this.itemService.getItemFeatures(this.itemE.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
         this.itemFeaturesE = itemFeatures;
         this.itemE.itemItemFeatures = [];
       })
@@ -285,7 +285,7 @@ export class BaManageItemComponent implements OnInit {
       businessProId: "B321"
     };
 // this.itemE.itemItemFeatures=[]
-    console.log(this.itemE)
+//     console.log(this.itemE)
     const uploadImageData = new FormData();
     for (let itemImg of this.itemImgsE) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
@@ -294,9 +294,14 @@ export class BaManageItemComponent implements OnInit {
       {
         type: "application/json"
       }));
-    this.itemService.updateItem(uploadImageData, this.itemE.itemId).subscribe((reply) => {
-      this.baManageFormItem.resetForm(this.itemService.getNewItem());
-      this.itemE.itemItemFeatures = [];
+    this.itemService.updateItem(uploadImageData, this.itemE.itemId).subscribe((itemE) => {
+      this.myPond.removeFiles();
+      // console.log(itemE.itemImgs)
+      this.itemE.itemImgs = this.itemE.itemImgs.concat(itemE.itemImgs);
+      // console.log(this.itemE.itemImgs)
+      // this.baManageFormItemE.resetForm(this.itemService.getNewItem());
+      // this.itemE = reply;
+      // this.itemImgsE = [];
     })
   }
 

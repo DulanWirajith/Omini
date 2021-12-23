@@ -313,11 +313,11 @@
             </div>
           </div>
           <!--<input type='file' accept="image/*" #imageInput="ngModel"-->
-                <!--multiple-->
-                 <!--data-max-file-size="5MB"-->
-                 <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in"-->
-                 <!--[(ngModel)]="imgUrl" name="imageInput"-->
-                 <!--(change)="processFile($event,'n')" required>-->
+          <!--multiple-->
+          <!--data-max-file-size="5MB"-->
+          <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in"-->
+          <!--[(ngModel)]="imgUrl" name="imageInput"-->
+          <!--(change)="processFile($event,'n')" required>-->
 
           <file-pond
             class="file-uploader-grid"
@@ -738,10 +738,17 @@
                       first.</p>
                   </div>
                 </div>
-                <input class="file-uploader file-uploader-grid" type='file' accept="image/*" #imageInputE="ngModel"
-                       data-max-file-size="5MB"
-                       [(ngModel)]="imgUrlE" name="imageInputE"
-                       (change)="processFile($event,'e')">
+                <file-pond
+                  class="file-uploader-grid"
+                  #imageInputE
+                  [options]="pondOptions"
+                  name="imageInput"
+                  (onaddfile)="pondHandleAddFile($event,'e')">
+                </file-pond>
+                <!--<input class="file-uploader file-uploader-grid" type='file' accept="image/*" #imageInputE="ngModel"-->
+                <!--data-max-file-size="5MB"-->
+                <!--[(ngModel)]="imgUrlE" name="imageInputE"-->
+                <!--(change)="processFile($event,'e')">-->
                 <!--<input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"-->
                 <!--accept="image/png, image/jpeg"-->
                 <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->
@@ -751,11 +758,17 @@
                 class="validErr" style="margin-bottom: 10px">
                 Image is required
               </div>
-              <div class="col-md-4 mb-4" *ngFor='let url of imagesE'>
-                <img [src]="url" style="margin: 3px;height: 200px;width: 300px">
-              </div>
-              <div class="col-md-4 mb-4" *ngFor='let itemImg of itemE.itemImgs'>
-                <img [src]="getImageSrc(itemImg)" style="margin: 3px;height: 200px;width: 300px">
+              <!--<div class="col-md-4 mb-4" *ngFor='let url of imagesE'>-->
+              <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->
+              <!--</div>-->
+              <div class="col-md-4 mb-4" *ngFor='let itemImg of itemE.itemImgs;let j = index'>
+                <div style="position: relative" class="delImgT">
+                  <img [src]="getImageSrc(itemImg)" style="margin: 3px;height: 200px;width: 300px">
+                  <span class="delImg">
+                    <i class="fi-trash" style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 25px;"
+                       (click)="itemE.itemImgs.splice(j,1)"></i>
+                  </span>
+                </div>
               </div>
             </div>
             <div class="mb-3 py-2">
@@ -934,7 +947,7 @@
   <!-- Item-->
   <div class="col-sm-6 col-xl-4" *ngFor="let item of items">
     <div class="card shadow-sm card-hover border-0 h-100">
-      <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+      <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"></a>
         <div class="position-absolute start-0 top-0 pt-3 ps-3">
           <div class="btn-group dropup">
             <!--<span class="d-table badge bg-danger cursor-point dropdown-toggle" data-bs-toggle="dropdown"-->
