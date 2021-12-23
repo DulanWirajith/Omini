@@ -19,7 +19,6 @@ export class BaManageItemComponent implements OnInit {
   businessCategories = [];
   itemFeatures = [];
   itemImgs = [];
-  // imgUrl;
   isNewFeature = false;
   isNewItem = false;
   businessProfileCategory;
@@ -29,7 +28,8 @@ export class BaManageItemComponent implements OnInit {
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   image;
   images = [];
-  @ViewChild('imageInputE') myPond: any;
+  @ViewChild('imageInput') imageInput: any;
+  @ViewChild('imageInputE') imageInputE: any;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
@@ -62,27 +62,12 @@ export class BaManageItemComponent implements OnInit {
   }
 
   onSubmit() {
-    // //console.log(this.item.itemItemFeatures)
-    // let itemFeatures = [];
-    // for (let itemFeature of this.item.itemItemFeatures) {
-    //   itemFeatures.push({
-    //     itemFeature: itemFeature
-    //   })
-    // }
-    // this.item.itemItemFeatures = itemFeatures;
-
-    // this.item.businessProfileCategory = {
-    //   businessProfile: {
-    //     businessProId: "B321"
-    //   },
-    //   businessCategory: this.item.businessProfileCategory
-    // };
 
     this.item.businessProfileCategory.businessProfile = {
       businessProId: "B321"
     };
 
-    // //console.log(this.item)
+    console.log(this.itemImgs)
     const uploadImageData = new FormData();
     for (let itemImg of this.itemImgs) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
@@ -91,17 +76,17 @@ export class BaManageItemComponent implements OnInit {
       {
         type: "application/json"
       }));
-    this.itemService.addItem(uploadImageData).subscribe((reply) => {
+    this.itemService.addItem(uploadImageData).subscribe((item) => {
+      this.items.push(item)
       this.baManageFormItem.resetForm(this.itemService.getNewItem());
       this.item.itemItemFeatures = [];
+      this.imageInput.removeFiles();
     })
   }
 
   getItemsOrdered() {
     this.itemService.getItemsOrdered("B321", this.businessProfileCategory.businessCategoryId, 0, 100).subscribe((items) => {
       this.items = items;
-      // this.getImageSrc(items[0])
-      // console.log(items)
     })
   }
 
@@ -177,59 +162,8 @@ export class BaManageItemComponent implements OnInit {
     this.itemService.getItemSelected(item.itemId).subscribe((item) => {
       this.itemE = item;
       this.itemFeaturesE = item.itemFeatures;
-      // let filesAmount = item.itemImgs;
-      // for (let i = 0; i < filesAmount; i++) {
-      //   this.itemImgs.push(item.itemImgs[i]);
-      //   let reader = new FileReader();
-      //
-      //   reader.onload = (event: any) => {
-      //     // console.log(event.target.result);
-      //     this.imagesE.push(event.target.result);
-      //
-      //     // this.myForm.patchValue({
-      //     //   fileSource: this.images
-      //     // });
-      //   }
-      //
-      //   reader.readAsDataURL(item.itemImgs[i]);
-      // }
-      // this.imagesE = item.itemImgs;
       console.log(item)
     })
-  }
-
-  processFile(event, val) {
-    console.log(event.target.files)
-    // this.itemImg.push(event.target.files[0]);
-    // this.itemImg.push(event.target.files[1]);
-    if (event.target.files && event.target.files[0]) {
-      let filesAmount = event.target.files.length;
-      for (let i = 0; i < filesAmount; i++) {
-        if (val === 'n') {
-          this.itemImgs.push(event.target.files[i]);
-          let reader = new FileReader();
-
-          reader.onload = (event: any) => {
-            // console.log(event.target.result);
-            this.images.push(event.target.result);
-
-          }
-
-          reader.readAsDataURL(event.target.files[i]);
-        } else if (val === 'e') {
-          this.itemImgsE.push(event.target.files[i]);
-          let reader = new FileReader();
-
-          reader.onload = (event: any) => {
-            // console.log(event.target.result);
-            this.imagesE.push(event.target.result);
-
-          }
-
-          reader.readAsDataURL(event.target.files[i]);
-        }
-      }
-    }
   }
 
   setItemAvailable(item) {
@@ -239,14 +173,8 @@ export class BaManageItemComponent implements OnInit {
   }
 
   getImageSrc(itemImg) {
-    // let image;
-    // const reader = new FileReader();
-    // reader.onload = (e) => this.image = e.target.result;
-    // reader.readAsDataURL(new Blob([item.itemImg]));
     let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    // return image;
-    // return environment.backend_url+'item/itemImg/'+item.itemId
   }
 
   //===============================================Edit=================================================================
@@ -254,38 +182,20 @@ export class BaManageItemComponent implements OnInit {
   itemE;
   itemFeaturesE = [];
   itemFeatureE;
-  imgUrlE;
   isNewItemE;
   isNewFeatureE;
   newItemFeatureE;
   newItemFeaturesTempE = [];
-  imagesE = [];
   itemImgsE = [];
   @ViewChild('baManageFormItemE', {static: true}) public baManageFormItemE: NgForm;
   @ViewChild('baManageFormItemFeatureE', {static: true}) public baManageFormItemFeatureE: NgForm;
   @ViewChild('baManageFormItemFeatureExsE', {static: true}) public baManageFormItemFeatureExsE: NgForm;
 
   onSubmitE() {
-    // console.log(this.itemE.businessProfileCategory.businessCategory)
-    // for (let itemFeature of this.itemE.itemItemFeatures) {
-    //   if (itemFeature.businessCategory === undefined) {
-    //     itemFeature.businessCategory = this.businessProfileCategory;
-    //   }
-    // }
-
-    // if (this.itemE.businessProfileCategory.businessCategory === undefined) {
-    //   this.itemE.businessProfileCategory = {
-    //     businessProfile: {
-    //       businessProId: "B321"
-    //     },
-    //     businessCategory: this.itemE.businessProfileCategory
-    //   };
-    // }
     this.itemE.businessProfileCategory.businessProfile = {
       businessProId: "B321"
     };
-// this.itemE.itemItemFeatures=[]
-//     console.log(this.itemE)
+
     const uploadImageData = new FormData();
     for (let itemImg of this.itemImgsE) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
@@ -295,13 +205,8 @@ export class BaManageItemComponent implements OnInit {
         type: "application/json"
       }));
     this.itemService.updateItem(uploadImageData, this.itemE.itemId).subscribe((itemE) => {
-      this.myPond.removeFiles();
-      // console.log(itemE.itemImgs)
+      this.imageInputE.removeFiles();
       this.itemE.itemImgs = this.itemE.itemImgs.concat(itemE.itemImgs);
-      // console.log(this.itemE.itemImgs)
-      // this.baManageFormItemE.resetForm(this.itemService.getNewItem());
-      // this.itemE = reply;
-      // this.itemImgsE = [];
     })
   }
 
@@ -312,39 +217,63 @@ export class BaManageItemComponent implements OnInit {
     acceptedFileTypes: 'image/jpeg, image/png'
   }
 
-  pondFiles = []
-
-  pondHandleInit() {
-    console.log('FilePond has initialised', this.myPond);
-  }
-
   pondHandleAddFile(event, val) {
-    // console.log('A file was added', event.file.file);
-    // console.log(this.pondFiles)
-    // console.log(this.imgUrl)
     if (val === 'n') {
       this.itemImgs.push(event.file.file);
-      // let reader = new FileReader();
-      //
-      // reader.onload = (event: any) => {
-      //   // console.log(event.target.result);
-      //   this.images.push(event.target.result);
-      //
-      // }
-      //
-      // reader.readAsDataURL(event.target.files[i]);
     } else if (val === 'e') {
       this.itemImgsE.push(event.file.file);
-      // let reader = new FileReader();
-      //
-      // reader.onload = (event: any) => {
-      //   // console.log(event.target.result);
-      //   this.imagesE.push(event.target.result);
-      //
-      // }
-      //
-      // reader.readAsDataURL(event.target.files[i]);
     }
   }
 
+  pondHandlerRemoveFile(event, val) {
+    if (val === 'n') {
+      for (let i = 0; i < this.itemImgs.length; i++) {
+        console.log(this.itemImgs[i].name +' '+ event.file.file.name)
+        if (this.itemImgs[i].name === event.file.file.name) {
+          this.itemImgs.splice(i, 1);
+        }
+      }
+    } else if (val === 'e') {
+      for (let i = 0; i < this.itemImgsE.length; i++) {
+        if (this.itemImgsE[i].name === event.file.file.name) {
+          this.itemImgsE.splice(i, 1);
+        }
+      }
+    }
+  }
 }
+
+
+// processFile(event, val) {
+//   console.log(event.target.files)
+//   // this.itemImg.push(event.target.files[0]);
+//   // this.itemImg.push(event.target.files[1]);
+//   if (event.target.files && event.target.files[0]) {
+//     let filesAmount = event.target.files.length;
+//     for (let i = 0; i < filesAmount; i++) {
+//       if (val === 'n') {
+//         this.itemImgs.push(event.target.files[i]);
+//         let reader = new FileReader();
+//
+//         reader.onload = (event: any) => {
+//           // console.log(event.target.result);
+//           this.images.push(event.target.result);
+//
+//         }
+//
+//         reader.readAsDataURL(event.target.files[i]);
+//       } else if (val === 'e') {
+//         this.itemImgsE.push(event.target.files[i]);
+//         let reader = new FileReader();
+//
+//         reader.onload = (event: any) => {
+//           // console.log(event.target.result);
+//           this.imagesE.push(event.target.result);
+//
+//         }
+//
+//         reader.readAsDataURL(event.target.files[i]);
+//       }
+//     }
+//   }
+// }

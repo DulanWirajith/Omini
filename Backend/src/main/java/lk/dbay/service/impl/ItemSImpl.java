@@ -48,7 +48,7 @@ public class ItemSImpl implements ItemS {
             businessProfileCategory.setBusinessProfileCategoryId(
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
-            return new ItemDTO(itemR.save(item), false);
+            return new ItemDTO(itemR.save(item), true);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");

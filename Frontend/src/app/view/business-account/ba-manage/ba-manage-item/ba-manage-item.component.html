@@ -324,7 +324,8 @@
             #imageInput
             [options]="pondOptions"
             name="imageInput"
-            (onaddfile)="pondHandleAddFile($event,'n')">
+            (onaddfile)="pondHandleAddFile($event,'n')"
+            (onremovefile)="pondHandlerRemoveFile($event,'n')">
           </file-pond>
           <!--<input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"-->
           <!--accept="image/png, image/jpeg"-->
@@ -743,7 +744,8 @@
                   #imageInputE
                   [options]="pondOptions"
                   name="imageInput"
-                  (onaddfile)="pondHandleAddFile($event,'e')">
+                  (onaddfile)="pondHandleAddFile($event,'e')"
+                  (onremovefile)="pondHandlerRemoveFile($event,'e')">
                 </file-pond>
                 <!--<input class="file-uploader file-uploader-grid" type='file' accept="image/*" #imageInputE="ngModel"-->
                 <!--data-max-file-size="5MB"-->
@@ -765,7 +767,8 @@
                 <div style="position: relative" class="delImgT">
                   <img [src]="getImageSrc(itemImg)" style="margin: 3px;height: 200px;width: 300px">
                   <span class="delImg">
-                    <i class="fi-trash" style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 25px;"
+                    <i class="fi-trash"
+                       style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 25px;"
                        (click)="itemE.itemImgs.splice(j,1)"></i>
                   </span>
                 </div>
