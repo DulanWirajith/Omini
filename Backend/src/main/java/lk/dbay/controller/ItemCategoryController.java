@@ -3,7 +3,6 @@ package lk.dbay.controller;
 import lk.dbay.dto.ItemCategoryDTO;
 import lk.dbay.entity.ItemCategory;
 import lk.dbay.service.ItemCategoryS;
-import lk.dbay.service.ItemPackageS;
 import lk.dbay.util.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,5 +34,15 @@ public class ItemCategoryController {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping(value = "/getCategoriesOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
+    public ResponseEntity getCategoriesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
+        return ResponseEntity.ok(itemCategoryS.getCategoriesOrdered(businessProfileId, businessCategoryId, start, limit));
+    }
+
+    @GetMapping(value = "/getCategorySelected/{categoryId}")
+    public ResponseEntity getCategorySelected(@PathVariable String categoryId) {
+        return ResponseEntity.ok(itemCategoryS.getCategorySelected(categoryId));
     }
 }
