@@ -23,19 +23,20 @@ export class BaManagePackageComponent implements OnInit {
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService) {
     this.package = this.getNewPackage();
+    businessAccountService.businessCategories.subscribe((businessCategories) => {
+      this.businessCategories = businessCategories;
+    })
   }
 
   ngOnInit(): void {
     // this.getItems();
-    this.getBusinessCategories();
+    // this.getBusinessCategories();
     //console.log(9)
   }
 
-  getBusinessCategories() {
-    this.businessAccountService.getBusinessCategories().subscribe((businessCategories) => {
-      this.businessCategories = businessCategories;
-    })
-  }
+  // getBusinessCategories() {
+  //   this.businessCategories = this.businessAccountService.businessCategories;
+  // }
 
   addItem() {
     if (this.item !== undefined) {

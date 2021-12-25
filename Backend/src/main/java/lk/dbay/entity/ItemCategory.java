@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -30,4 +31,6 @@ public class ItemCategory extends DateTime {
     })
     private BusinessProfileCategory businessProfileCategory;
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "itemCategory")
+    private Set<Item> items;
 }

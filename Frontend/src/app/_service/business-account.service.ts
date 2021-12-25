@@ -12,8 +12,10 @@ export class BusinessAccountService {
   businessProfile;
   step = new Subject<number>();
   breadCrumbSub = new Subject<string>();
+  businessCategories = new Subject<any>();
 
   constructor(private http: HttpClient, private commonService: CommonService) {
+    this.getBusinessCategoriesCom();
   }
 
   // setText(txt) {
@@ -54,6 +56,12 @@ export class BusinessAccountService {
 
   getTowns(districtId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'town/getTowns/' + districtId);
+  }
+
+  getBusinessCategoriesCom() {
+    this.getBusinessCategories().subscribe((businessCategories) => {
+      this.businessCategories.next(businessCategories);
+    })
   }
 
   getNewBusinessProfile() {

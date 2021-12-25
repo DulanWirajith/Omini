@@ -35,6 +35,7 @@ public class ItemDTO extends DateTimeDTO {
 //    private String itemImgType;
 
     public ItemDTO(@NonNull Item item, boolean needImage) {
+        this.name = item.getItemTitle();
         this.itemId = item.getItemId();
         this.itemTitle = item.getItemTitle();
         this.itemQty = item.getItemQty();

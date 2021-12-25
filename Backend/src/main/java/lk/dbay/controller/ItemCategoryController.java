@@ -29,6 +29,7 @@ public class ItemCategoryController {
                 return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
             }
         } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();

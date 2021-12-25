@@ -98,8 +98,7 @@ public class ItemSImpl implements ItemS {
                     itemImgR.deleteAll(itemImgsSetRemove);
                 }
 
-                itemR.save(itemObj);
-                return new ItemDTO(itemObj, true);
+                return new ItemDTO(itemR.save(itemObj), true);
             }
             return null;
         } catch (Exception e) {
@@ -162,10 +161,7 @@ public class ItemSImpl implements ItemS {
         List<Item> itemList = itemR.getAllByBusinessProfileCategory_BusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
         List<ItemDTO> itemDTOS = new ArrayList<>();
         for (Item item : itemList) {
-            ItemDTO itemDTO = new ItemDTO(item, false);
-            itemDTO.setItemId(item.getItemId());
-            itemDTO.setName(item.getItemTitle());
-            itemDTOS.add(itemDTO);
+            itemDTOS.add(new ItemDTO(item, false));
         }
         return itemDTOS;
     }

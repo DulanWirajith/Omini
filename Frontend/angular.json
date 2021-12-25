@@ -50,7 +50,7 @@
               "src/assets/js/bootstrap.bundle.min.js",
               "src/assets/js/select2.min.js",
               "src/assets/js/simplebar.min.js",
-               "src/assets/js/smooth-scroll.polyfills.min.js",
+              "src/assets/js/smooth-scroll.polyfills.min.js",
               "src/assets/vendor/lightgallery.js/dist/js/lightgallery.min.js",
               "src/assets/js/nouislider.min.js",
               "src/assets/vendor/lg-fullscreen.js/dist/lg-fullscreen.min.js",

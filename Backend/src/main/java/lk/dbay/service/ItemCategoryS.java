@@ -7,5 +7,5 @@ import lk.dbay.entity.ItemPackage;
 
 public interface ItemCategoryS {
 
-    ItemCategoryDTO addCategory(ItemCategory itemCategory);
+    ItemCategoryDTO addCategory(ItemCategory itemCategory) throws Exception;
 }

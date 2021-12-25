@@ -20,6 +20,10 @@ export class ItemService {
     return this.http.put<any>(environment.backend_url + 'item/updateItem/' + itemId, item);
   }
 
+  addCategory(itemsPackage): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'package_category/addCategory', itemsPackage);
+  }
+
   addPackage(itemsPackage): Observable<any> {
     return this.http.post<any>(environment.backend_url + 'package/addPackage', itemsPackage);
   }
@@ -60,6 +64,20 @@ export class ItemService {
         businessCategory: undefined
       },
       itemItemFeatures: []
+    }
+  }
+
+  getNewCategory() {
+    return {
+      itemCategoryId: "",
+      name: "",
+      description: "",
+      confirmed: "",
+      businessProfileCategory: {
+        businessProfile: undefined,
+        businessCategory: undefined
+      },
+      items: []
     }
   }
 }

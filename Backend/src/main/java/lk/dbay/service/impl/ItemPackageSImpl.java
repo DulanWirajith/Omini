@@ -6,6 +6,7 @@ import lk.dbay.repository.ItemPackageR;
 import lk.dbay.service.ItemPackageS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,7 @@ public class ItemPackageSImpl implements ItemPackageS {
     private ItemPackageR itemPackageR;
 
     @Override
+    @Transactional
     public ItemPackageDTO addPackage(ItemPackage itemPackage, MultipartFile file) throws Exception {
         try {
             BusinessProfileCategory businessProfileCategory = itemPackage.getBusinessProfileCategory();
@@ -40,4 +42,7 @@ public class ItemPackageSImpl implements ItemPackageS {
         }
     }
 
+//    private void addItemsToPackage(ItemPackage itemPackage) {
+//        itemPackage.geti
+//    }
 }

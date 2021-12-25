@@ -34,18 +34,19 @@ export class BaManageItemComponent implements OnInit {
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
     this.itemE = this.itemService.getNewItem();
-  }
-
-  ngOnInit(): void {
-    this.getBusinessCategories();
-    // this.getItemsOrdered();
-  }
-
-  getBusinessCategories() {
-    this.businessAccountService.getBusinessCategories().subscribe((businessCategories) => {
+    businessAccountService.businessCategories.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
   }
+
+  ngOnInit(): void {
+    // this.getBusinessCategories();
+    // this.getItemsOrdered();
+  }
+
+  // getBusinessCategories() {
+  //   console.log(this.businessCategories)
+  // }
 
   getItemFeatures(val) {
     if (val === 'n') {
@@ -62,7 +63,6 @@ export class BaManageItemComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.item.businessProfileCategory.businessProfile = {
       businessProId: "B321"
     };
@@ -228,7 +228,7 @@ export class BaManageItemComponent implements OnInit {
   pondHandlerRemoveFile(event, val) {
     if (val === 'n') {
       for (let i = 0; i < this.itemImgs.length; i++) {
-        console.log(this.itemImgs[i].name +' '+ event.file.file.name)
+        console.log(this.itemImgs[i].name + ' ' + event.file.file.name)
         if (this.itemImgs[i].name === event.file.file.name) {
           this.itemImgs.splice(i, 1);
         }
