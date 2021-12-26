@@ -155,7 +155,7 @@
                   style="width: 100%">
                 </ng-select>
               </div>
-              <div *ngIf="(baManageFormCategory.submitted) && addedItems===undefined"
+              <div *ngIf="(baManageFormCategory.submitted) && category.items.length===0"
                    class="validErr">
                 Item is required
               </div>
@@ -238,7 +238,7 @@
       dropdownPosition="auto"
       [multiple]="false"
       [searchWhileComposing]="true"
-      (change)="getItemCategoriesOrdered()"
+      (change)="getItemCategoriesOrdered();getItems('e')"
       [(ngModel)]="businessProfileCategory">
     </ng-select>
     <!-- <div class="invalid-tooltip">
@@ -285,7 +285,7 @@
       <div class="accordion-collapse collapse" aria-labelledby="headingEdit" data-bs-parent="#category-list"
            id="categoryEdit{{i}}">
         <div class="card card-body border-none">
-          <form #baManageFormCategoryE="ngForm" (ngSubmit)="baManageFormCategoryE.form.valid && onSubmitE()" novalidate>
+          <form #baManageFormCategoryE="ngForm" (ngSubmit)="baManageFormCategoryE.form.valid && onSubmitE(categoryE)" novalidate>
 
             <div class="row">
               <div class="col-md-8 mb-3">
@@ -332,7 +332,7 @@
                   [searchWhileComposing]="true"
                   name="businessProfileCategories"
                   #businessProfileCategoriesE="ngModel" required
-                  (change)="getItems('e')"
+                  (change)="getItems('e',categoryE)"
                   [(ngModel)]="categoryE.businessProfileCategory.businessCategory">
                 </ng-select>
                 <div
@@ -377,7 +377,7 @@
                   <div style="width: 100%">
                     <div>
                       <ng-select
-                        [items]="itemsToAdd"
+                        [items]="itemsToAddE"
                         bindLabel="name"
                         placeholder="Select Item"
                         dropdownPosition="auto"
@@ -389,7 +389,7 @@
                         style="width: 100%">
                       </ng-select>
                     </div>
-                    <div *ngIf="(baManageFormCategoryE.submitted) && addedItemsE===undefined"
+                    <div *ngIf="(baManageFormCategoryE.submitted) && categoryE.items.length===0"
                          class="validErr">
                       Item is required
                     </div>
@@ -438,6 +438,8 @@
                   type="checkbox"
                   id="invalidCheck"
                   required
+                  name="isUpdateCategory"
+                  [(ngModel)]="categoryE.isUpdateCategory"
                 />
                 <label class="form-check-label" for="invalidCheck"
                 >I confirm that the information provided information is accurate and correct.</label
@@ -447,7 +449,7 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary btn-md" type="submit">
+            <button class="btn btn-primary btn-md" type="submit" [disabled]="!categoryE.isUpdateCategory">
               Save
             </button>
           </form>
@@ -471,7 +473,7 @@
                   </div>
                   <!--<div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/06.jpg" alt="Image"><img-->
                   <!--src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>-->
-                  <img style="height: 180px;width: 280px" [src]="getImageSrc(item.itemImgs[0])" alt="Image">
+                  <img *ngIf="item.itemImgs!==undefined" style="height: 180px;width: 280px" [src]="getImageSrc(item.itemImgs[0])" alt="Image">
                 </div>
                 <div class="card-body position-relative pb-3">
 

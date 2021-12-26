@@ -36,6 +36,23 @@ public class ItemCategoryController {
         }
     }
 
+    @PutMapping(value = "/updateCategory/{categoryId}")
+    public ResponseEntity updateCategory(@RequestBody ItemCategory itemCategory, @PathVariable String categoryId) {
+        try {
+            ItemCategoryDTO itemCategoryDTO = itemCategoryS.updateCategory(itemCategory, categoryId);
+            if (itemCategoryDTO != null) {
+                return ResponseEntity.ok(itemCategoryDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping(value = "/getItemCategoriesOrdered/{businessProfileId}/{businessCategoryId}")
     public ResponseEntity getItemCategoriesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
         return ResponseEntity.ok(itemCategoryS.getItemCategoriesOrdered(businessProfileId, businessCategoryId));

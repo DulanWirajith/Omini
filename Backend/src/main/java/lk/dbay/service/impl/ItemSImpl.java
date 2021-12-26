@@ -72,8 +72,8 @@ public class ItemSImpl implements ItemS {
                 itemObj.getBusinessProfileCategory().setBusinessProfileCategoryId(
                         new BusinessProfileCategoryPK(itemObj.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(), itemObj.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId())
                 );
-                addFeaturesToItem(item);
-                addImagesToItem(item, files);
+//                addFeaturesToItem(item);
+//                addImagesToItem(item, files);
 
                 HashSet<ItemItemFeature> itemItemFeatures = new HashSet<>(item.getItemItemFeatures());
                 itemItemFeatures.retainAll(itemObj.getItemItemFeatures());
@@ -82,6 +82,7 @@ public class ItemSImpl implements ItemS {
                 Set<ItemItemFeature> itemItemFeaturesSetAdd = new HashSet<>(item.getItemItemFeatures());
                 itemItemFeaturesSetAdd.removeAll(itemItemFeatures);
                 itemObj.setItemItemFeatures(itemItemFeaturesSetAdd);
+                addFeaturesToItem(itemObj);
 
                 HashSet<ItemImg> itemImgs = new HashSet<>(item.getItemImgs());
                 itemImgs.retainAll(itemObj.getItemImgs());
@@ -90,6 +91,7 @@ public class ItemSImpl implements ItemS {
                 Set<ItemImg> itemImgsSetAdd = new HashSet<>(item.getItemImgs());
                 itemImgsSetAdd.removeAll(itemImgs);
                 itemObj.setItemImgs(itemImgsSetAdd);
+                addImagesToItem(itemObj, files);
 
                 if (itemItemFeaturesSetRemove.size() > 0) {
                     itemItemFeatureR.deleteAll(itemItemFeaturesSetRemove);
@@ -133,14 +135,14 @@ public class ItemSImpl implements ItemS {
 
     private void addFeaturesToItem(Item item) {
         for (ItemItemFeature itemItemFeature : item.getItemItemFeatures()) {
-            if (itemItemFeature.getItemFeature().getItemFeatureId().equals("0")) {
+//            if (itemItemFeature.getItemFeature().getItemFeatureId().equals("0")) {
 //                LocalDateTime localDateTime = LocalDateTime.now();
 //                String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
                 ItemFeature itemFeatureObj = itemItemFeature.getItemFeature();
                 itemFeatureObj.setItemFeatureId("ITF" + itemFeatureObj.getName().replace(" ", "_") + itemFeatureObj.getBusinessCategory().getBusinessCategoryId());
                 ItemFeature itemFeature = itemFeatureR.save(itemItemFeature.getItemFeature());
                 itemItemFeature.setItemFeature(itemFeature);
-            }
+//            }
             itemItemFeature.setItemItemFeatureId(new ItemItemFeaturePK(item.getItemId(), itemItemFeature.getItemFeature().getItemFeatureId()));
             itemItemFeature.setItem(item);
         }

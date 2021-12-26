@@ -20,8 +20,12 @@ export class ItemService {
     return this.http.put<any>(environment.backend_url + 'item/updateItem/' + itemId, item);
   }
 
-  addCategory(itemsPackage): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'category/addCategory', itemsPackage);
+  addCategory(itemsCategory): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'category/addCategory', itemsCategory);
+  }
+
+  updateCategory(itemsCategory): Observable<any> {
+    return this.http.put<any>(environment.backend_url + 'category/updateCategory/' + itemsCategory.itemCategoryId, itemsCategory);
   }
 
   addPackage(itemsPackage): Observable<any> {
@@ -85,7 +89,10 @@ export class ItemService {
         businessProfile: undefined,
         businessCategory: undefined
       },
-      items: []
+      items: [],
+      isUpdateCategory: false,
+      tempBusinessCategory: undefined,
+      tempItems: []
     }
   }
 }

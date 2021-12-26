@@ -13,6 +13,7 @@ import * as $ from "jquery";
 export class BaManageCategoryComponent implements OnInit {
 
   itemsToAdd = [];
+  itemsToAddE = [];
   addedItems;
   addedItemsE;
   businessCategories = [];
@@ -49,8 +50,16 @@ export class BaManageCategoryComponent implements OnInit {
     })
   }
 
-  onSubmitE() {
+  onSubmitE(category) {
+    category.businessProfileCategory.businessProfile = {
+      businessProId: "B321"
+    };
 
+    this.itemService.updateCategory(category).subscribe((item) => {
+      // this.items.push(item)
+      this.baManageFormCategory.resetForm(this.itemService.getNewItem());
+      // this.item.itemItemFeatures = [];
+    })
   }
 
   getItemCategoriesOrdered() {
@@ -62,6 +71,7 @@ export class BaManageCategoryComponent implements OnInit {
           businessProfile: undefined,
           businessCategory: undefined
         }
+        category.isUpdateCategory = false;
       }
     })
   }
@@ -70,11 +80,23 @@ export class BaManageCategoryComponent implements OnInit {
   //   this.businessCategories = this.businessAccountService.businessCategories;
   // }
 
-  getItems(val) {
+  getItems(val, category?) {
     if (val === 'n') {
       this.itemService.getItemsBusinessCategory("B321", this.category.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAdd = items;
+      })
+    } else if (val === 'e') {
+      this.itemService.getItemsBusinessCategory("B321", this.businessProfileCategory.businessCategoryId).subscribe((items) => {
+        // console.log(items)
+        this.itemsToAddE = items;
+        if (category !== undefined) {
+          if (category.businessProfileCategory.businessCategory.businessCategoryId === category.tempBusinessCategory.businessCategoryId) {
+            category.items = category.tempItems;
+          } else {
+            category.items = [];
+          }
+        }
       })
     }
   }
@@ -102,6 +124,8 @@ export class BaManageCategoryComponent implements OnInit {
       that.itemService.getItemCategorySelected($(obj).val()).subscribe((category) => {
         // that.categories[index] = category;
         Object.assign(that.categories[index], category)
+        that.categories[index].tempBusinessCategory = category.businessProfileCategory.businessCategory;
+        that.categories[index].tempItems = category.items;
         // console.log(that.categories[index])
         // for (let i = 0; i < that.categories.length; i++) {
         //   if (that.categories[i].itemCategoryId === $(obj).val()) {

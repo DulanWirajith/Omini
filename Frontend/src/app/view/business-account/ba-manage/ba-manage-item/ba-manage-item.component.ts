@@ -4,6 +4,7 @@ import {BusinessAccountService} from "../../../../_service/business-account.serv
 import {ItemService} from "../../../../_service/item.service";
 import {environment} from "../../../../../environments/environment";
 import {DomSanitizer} from "@angular/platform-browser";
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-ba-manage-item',
@@ -87,6 +88,9 @@ export class BaManageItemComponent implements OnInit {
   getItemsOrdered() {
     this.itemService.getItemsOrdered("B321", this.businessProfileCategory.businessCategoryId, 0, 100).subscribe((items) => {
       this.items = items;
+      for (let item of this.items) {
+        item.itemItemFeatures = [];
+      }
     })
   }
 
@@ -159,11 +163,21 @@ export class BaManageItemComponent implements OnInit {
   }
 
   getItemSelected(item) {
-    this.itemService.getItemSelected(item.itemId).subscribe((item) => {
-      this.itemE = item;
-      this.itemFeaturesE = item.itemFeatures;
-      console.log(item)
+    let index: any = this.items.findIndex(itemObj => {
+      return itemObj.itemId === item.itemId
     })
+    // console.log(this.items[index])
+    if (this.items[index].itemItemFeatures.length === 0) {
+      this.itemService.getItemSelected(item.itemId).subscribe((item) => {
+        // Object.assign(this.items[index], item)
+        this.items[index] = item;
+        this.itemFeaturesE = item.itemFeatures;
+        this.itemE = this.items[index]
+        console.log(this.items[index])
+      })
+    } else {
+      this.itemE = this.items[index]
+    }
   }
 
   setItemAvailable(item) {
