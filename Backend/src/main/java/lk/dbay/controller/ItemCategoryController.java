@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = CommonConstants.DOMAIN_DBAY + CommonConstants.PACKAGE_CATEGORY)
+@RequestMapping(value = CommonConstants.DOMAIN_DBAY + CommonConstants.CATEGORY)
 public class ItemCategoryController {
 
     @Autowired
@@ -36,13 +36,13 @@ public class ItemCategoryController {
         }
     }
 
-    @GetMapping(value = "/getCategoriesOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
-    public ResponseEntity getCategoriesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
-        return ResponseEntity.ok(itemCategoryS.getCategoriesOrdered(businessProfileId, businessCategoryId, start, limit));
+    @GetMapping(value = "/getItemCategoriesOrdered/{businessProfileId}/{businessCategoryId}")
+    public ResponseEntity getItemCategoriesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+        return ResponseEntity.ok(itemCategoryS.getItemCategoriesOrdered(businessProfileId, businessCategoryId));
     }
 
-    @GetMapping(value = "/getCategorySelected/{categoryId}")
-    public ResponseEntity getCategorySelected(@PathVariable String categoryId) {
-        return ResponseEntity.ok(itemCategoryS.getCategorySelected(categoryId));
+    @GetMapping(value = "/getItemCategorySelected/{categoryId}")
+    public ResponseEntity getItemCategorySelected(@PathVariable String categoryId) {
+        return ResponseEntity.ok(itemCategoryS.getItemCategorySelected(categoryId));
     }
 }

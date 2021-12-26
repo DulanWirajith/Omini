@@ -12,5 +12,5 @@ import java.util.List;
 public interface ItemCategoryR extends JpaRepository<ItemCategory,String> {
 
     @Query(value = "from ItemCategory where businessProfileCategory.businessProfileCategoryId=?1 order by name")
-    List<ItemCategory> getCategoriesOrdered(BusinessProfileCategoryPK businessCategoryId, Pageable pageable);
+    List<ItemCategory> getItemCategoriesOrdered(BusinessProfileCategoryPK businessCategoryId);
 }

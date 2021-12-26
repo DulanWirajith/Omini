@@ -11,7 +11,7 @@ public interface ItemCategoryS {
 
     ItemCategoryDTO addCategory(ItemCategory itemCategory) throws Exception;
 
-    List<ItemCategoryDTO> getCategoriesOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
+    List<ItemCategoryDTO> getItemCategoriesOrdered(String businessProfileId, String businessCategoryId);
 
-    ItemCategoryDTO getCategorySelected(String categoryId);
+    ItemCategoryDTO getItemCategorySelected(String categoryId);
 }

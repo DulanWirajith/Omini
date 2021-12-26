@@ -21,7 +21,7 @@ export class ItemService {
   }
 
   addCategory(itemsPackage): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'package_category/addCategory', itemsPackage);
+    return this.http.post<any>(environment.backend_url + 'category/addCategory', itemsPackage);
   }
 
   addPackage(itemsPackage): Observable<any> {
@@ -40,12 +40,20 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item/getItemsOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit);
   }
 
+  getItemCategoriesOrdered(businessProfileId, businessCategoryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'category/getItemCategoriesOrdered/' + businessProfileId + '/' + businessCategoryId);
+  }
+
   setItemAvailable(itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/setItemAvailable/' + itemId);
   }
 
   getItemSelected(itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  }
+
+  getItemCategorySelected(categoryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'category/getItemCategorySelected/' + categoryId);
   }
 
   getNewItem() {
