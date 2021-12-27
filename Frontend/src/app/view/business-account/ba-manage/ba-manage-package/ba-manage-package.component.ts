@@ -41,7 +41,7 @@ export class BaManagePackageComponent implements OnInit {
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.itemPackage = this.itemService.getNewPackage();
-    businessAccountService.businessCategories.subscribe((businessCategories) => {
+    businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
   }
@@ -50,6 +50,7 @@ export class BaManagePackageComponent implements OnInit {
     // this.getItems();
     // this.getBusinessCategories();
     //console.log(9)
+    this.businessCategories = this.businessAccountService.businessCategories;
     this.toggleCategoryBtn();
   }
 

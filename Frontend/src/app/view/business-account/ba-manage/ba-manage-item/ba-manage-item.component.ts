@@ -35,7 +35,7 @@ export class BaManageItemComponent implements OnInit {
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
     this.itemE = this.itemService.getNewItem();
-    businessAccountService.businessCategories.subscribe((businessCategories) => {
+    businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
   }
@@ -43,6 +43,7 @@ export class BaManageItemComponent implements OnInit {
   ngOnInit(): void {
     // this.getBusinessCategories();
     // this.getItemsOrdered();
+    this.businessCategories = this.businessAccountService.businessCategories;
   }
 
   // getBusinessCategories() {

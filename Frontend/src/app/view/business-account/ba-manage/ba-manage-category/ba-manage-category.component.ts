@@ -23,7 +23,7 @@ export class BaManageCategoryComponent implements OnInit {
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.itemCategory = itemService.getNewCategory();
     // this.categoryE = itemService.getNewCategory();
-    businessAccountService.businessCategories.subscribe((businessCategories) => {
+    businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
       // console.log(this.businessCategories)
     })
@@ -32,6 +32,7 @@ export class BaManageCategoryComponent implements OnInit {
   ngOnInit(): void {
     // this.getBusinessCategories();
     // this.getItemCategoriesOrdered();
+    this.businessCategories = this.businessAccountService.businessCategories;
     this.toggleCategoryBtn();
   }
 
