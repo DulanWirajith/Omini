@@ -348,7 +348,7 @@
             type="checkbox"
             required
             name="newItemC"
-            [(ngModel)]="isNewItem"
+            [(ngModel)]="item.isNewItem"
           />
           <label class="form-check-label" for="invalidCheck"
           >I confirm that the provided information is accurate and correct.</label
@@ -358,7 +358,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-primary btn-md" type="submit" [disabled]="!isNewItem">
+      <button class="btn btn-primary btn-md" type="submit" [disabled]="!item.isNewItem">
         Save
       </button>
     </form>
@@ -781,7 +781,7 @@
                   type="checkbox"
                   required
                   name="newItemC"
-                  [(ngModel)]="isNewItemE"
+                  [(ngModel)]="itemE.isNewItem"
                 />
                 <label class="form-check-label" for="invalidCheck"
                 >I confirm that the provided information is accurate and correct.</label
@@ -791,7 +791,7 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary btn-md" type="submit" [disabled]="!isNewItemE">
+            <button class="btn btn-primary btn-md" type="submit" [disabled]="!itemE.isNewItem">
               Save
             </button>
           </form>

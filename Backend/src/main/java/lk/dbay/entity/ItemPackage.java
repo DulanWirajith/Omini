@@ -27,9 +27,9 @@ public class ItemPackage extends DateTime {
     private String discountType;
 
     @Lob
-    private byte[] itemImg;
-    private String itemImgName;
-    private String itemImgType;
+    private byte[] itemPackageImg;
+    private String itemPackageName;
+    private String itemPackageType;
 
     @ManyToOne(optional = false)
     @JoinColumns({

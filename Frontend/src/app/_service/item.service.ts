@@ -48,6 +48,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'category/getItemCategoriesOrdered/' + businessProfileId + '/' + businessCategoryId);
   }
 
+  getItemPackagesOrdered(businessProfileId, businessCategoryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'package/getItemPackagesOrdered/' + businessProfileId + '/' + businessCategoryId);
+  }
+
   setItemAvailable(itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/setItemAvailable/' + itemId);
   }
@@ -58,6 +62,10 @@ export class ItemService {
 
   getItemCategorySelected(categoryId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'category/getItemCategorySelected/' + categoryId);
+  }
+
+  getItemPackageSelected(itemPackageId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/getItemPackageSelected/' + itemPackageId);
   }
 
   getNewItem() {
@@ -75,7 +83,9 @@ export class ItemService {
         businessProfile: undefined,
         businessCategory: undefined
       },
-      itemItemFeatures: []
+      itemItemFeatures: [],
+      isNewItem: false,
+      isUpdateItem: false,
     }
   }
 
@@ -90,7 +100,30 @@ export class ItemService {
         businessCategory: undefined
       },
       items: [],
+      isNewCategory: false,
       isUpdateCategory: false,
+      tempBusinessCategory: undefined,
+      tempItems: []
+    }
+  }
+
+  getNewPackage() {
+    return {
+      itemPackageId: "",
+      name: "",
+      description: "",
+      price: "",
+      discount: "",
+      discountType: "None",
+      businessProfileCategory: {
+        businessProfile: undefined,
+        businessCategory: undefined
+      },
+      isNewPackage: false,
+      isUpdatePackage: false,
+      itemItemPackages: [],
+      itemPkgImgs: [],
+      itemPackageImgs: [],
       tempBusinessCategory: undefined,
       tempItems: []
     }

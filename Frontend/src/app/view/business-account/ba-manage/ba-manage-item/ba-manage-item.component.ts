@@ -19,9 +19,9 @@ export class BaManageItemComponent implements OnInit {
   itemFeature;
   businessCategories = [];
   itemFeatures = [];
-  itemImgs = [];
+  // itemImgs = [];
   isNewFeature = false;
-  isNewItem = false;
+  // isNewItem = false;
   businessProfileCategory;
   items = [];
   @ViewChild('baManageFormItem', {static: true}) public baManageFormItem: NgForm;
@@ -68,9 +68,9 @@ export class BaManageItemComponent implements OnInit {
       businessProId: "B321"
     };
 
-    console.log(this.itemImgs)
+    // console.log(this.itemImgs)
     const uploadImageData = new FormData();
-    for (let itemImg of this.itemImgs) {
+    for (let itemImg of this.item.itemImgs) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
     }
     uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
@@ -196,11 +196,11 @@ export class BaManageItemComponent implements OnInit {
   itemE;
   itemFeaturesE = [];
   itemFeatureE;
-  isNewItemE;
+  // isNewItemE;
   isNewFeatureE;
   newItemFeatureE;
   newItemFeaturesTempE = [];
-  itemImgsE = [];
+  // itemImgsE = [];
   @ViewChild('baManageFormItemE', {static: true}) public baManageFormItemE: NgForm;
   @ViewChild('baManageFormItemFeatureE', {static: true}) public baManageFormItemFeatureE: NgForm;
   @ViewChild('baManageFormItemFeatureExsE', {static: true}) public baManageFormItemFeatureExsE: NgForm;
@@ -211,7 +211,7 @@ export class BaManageItemComponent implements OnInit {
     };
 
     const uploadImageData = new FormData();
-    for (let itemImg of this.itemImgsE) {
+    for (let itemImg of this.itemE.itemImgs) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
     }
     uploadImageData.append('item', new Blob([JSON.stringify(this.itemE)],
@@ -233,24 +233,24 @@ export class BaManageItemComponent implements OnInit {
 
   pondHandleAddFile(event, val) {
     if (val === 'n') {
-      this.itemImgs.push(event.file.file);
+      this.item.itemImgs.push(event.file.file);
     } else if (val === 'e') {
-      this.itemImgsE.push(event.file.file);
+      this.itemE.itemImgs.push(event.file.file);
     }
   }
 
   pondHandlerRemoveFile(event, val) {
     if (val === 'n') {
-      for (let i = 0; i < this.itemImgs.length; i++) {
-        console.log(this.itemImgs[i].name + ' ' + event.file.file.name)
-        if (this.itemImgs[i].name === event.file.file.name) {
-          this.itemImgs.splice(i, 1);
+      for (let i = 0; i < this.item.itemImgs.length; i++) {
+        // console.log(this.itemImgs[i].name + ' ' + event.file.file.name)
+        if (this.item.itemImgs[i].name === event.file.file.name) {
+          this.item.itemImgs.splice(i, 1);
         }
       }
     } else if (val === 'e') {
-      for (let i = 0; i < this.itemImgsE.length; i++) {
-        if (this.itemImgsE[i].name === event.file.file.name) {
-          this.itemImgsE.splice(i, 1);
+      for (let i = 0; i < this.itemE.itemImgs.length; i++) {
+        if (this.itemE.itemImgs[i].name === event.file.file.name) {
+          this.itemE.itemImgs.splice(i, 1);
         }
       }
     }

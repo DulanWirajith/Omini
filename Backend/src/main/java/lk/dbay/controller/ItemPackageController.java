@@ -20,9 +20,9 @@ public class ItemPackageController {
     private ItemPackageS packageCategoryS;
 
     @PostMapping(value = "/addPackage")
-    public ResponseEntity addPackage(@RequestPart("package") ItemPackage itemPackage, @RequestPart("imageFile") MultipartFile file) {
+    public ResponseEntity addPackage(@RequestPart("package") ItemPackage itemPackage, @RequestPart("imageFile") MultipartFile[] files) {
         try {
-            ItemPackageDTO itemPackageDTO = packageCategoryS.addPackage(itemPackage, file);
+            ItemPackageDTO itemPackageDTO = packageCategoryS.addPackage(itemPackage, files);
             if (itemPackageDTO != null) {
                 return ResponseEntity.ok(itemPackageDTO);
             } else {
@@ -36,4 +36,13 @@ public class ItemPackageController {
         }
     }
 
+    @GetMapping(value = "/getItemPackagesOrdered/{businessProfileId}/{businessCategoryId}")
+    public ResponseEntity getItemPackagesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+        return ResponseEntity.ok(packageCategoryS.getItemPackagesOrdered(businessProfileId, businessCategoryId));
+    }
+
+    @GetMapping(value = "/getItemPackageSelected/{itemPackageId}")
+    public ResponseEntity getItemPackageSelected(@PathVariable String itemPackageId) {
+        return ResponseEntity.ok(packageCategoryS.getItemPackageSelected(itemPackageId));
+    }
 }
