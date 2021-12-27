@@ -97,12 +97,12 @@ export class BaManagePackageComponent implements OnInit {
       {
         type: "application/json"
       }));
-    this.itemService.addPackage(uploadImageData).subscribe((reply) => {
+    this.itemService.addPackage(uploadImageData).subscribe((itemPackage) => {
       this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
       this.itemPackage.itemItemPackages = [];
       // this.item = undefined;
 
-      this.itemPackages.push(this.itemPackage)
+      this.itemPackages.push(itemPackage)
       // this.item.itemItemFeatures = [];
       this.imageInput.removeFiles();
     })
@@ -130,49 +130,58 @@ export class BaManagePackageComponent implements OnInit {
   }
 
   getItemPackagesOrdered() {
-    this.itemService.getItemPackagesOrdered("B321", this.businessProfileCategory.businessCategoryId).subscribe((packages) => {
-      console.log(packages)
-      this.itemPackages = packages;
-      for (let itemPackage of this.itemPackages) {
-        itemPackage.businessProfileCategory = {
-          businessProfile: undefined,
-          businessCategory: undefined
+    if (this.businessProfileCategory !== null) {
+      this.itemService.getItemPackagesOrdered("B321", this.businessProfileCategory.businessCategoryId).subscribe((packages) => {
+        // console.log(packages)
+        this.itemPackages = packages;
+        for (let itemPackage of this.itemPackages) {
+          itemPackage.businessProfileCategory = {
+            businessProfile: undefined,
+            businessCategory: undefined
+          }
+          itemPackage.isUpdatePackage = false;
         }
-        itemPackage.isUpdatePackage = false;
-      }
-    })
+      })
+    } else {
+      this.itemPackages = [];
+    }
   }
 
   getItems(val, itemPackage?) {
     if (val === 'n') {
-      this.itemService.getItemsBusinessCategory("B321", this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
-        // console.log(items)
-        this.itemsToAdd = items;
-      })
+      if (this.itemPackage.businessProfileCategory !== null) {
+        this.itemService.getItemsBusinessCategory("B321", this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+          // console.log(items)
+          this.itemsToAdd = items;
+        })
+      }
     } else if (val === 'e') {
-      this.itemService.getItemsBusinessCategory("B321", this.businessProfileCategory.businessCategoryId).subscribe((items) => {
-        // console.log(items)
-        this.itemsToAddE = items;
-        if (itemPackage !== undefined) {
-          if (itemPackage.businessProfileCategory.businessCategory.businessCategoryId === itemPackage.tempBusinessCategory.businessCategoryId) {
-            itemPackage.items = itemPackage.tempItems;
-          } else {
-            itemPackage.items = [];
+      if (this.businessProfileCategory !== null) {
+        this.itemService.getItemsBusinessCategory("B321", this.businessProfileCategory.businessCategoryId).subscribe((items) => {
+          // console.log(items)
+          this.itemsToAddE = items;
+          if (itemPackage !== undefined) {
+            if (itemPackage.businessProfileCategory.businessCategory.businessCategoryId === itemPackage.tempBusinessCategory.businessCategoryId) {
+              console.log(itemPackage.tempItems)
+              itemPackage.itemItemPackages = itemPackage.tempItems;
+            } else {
+              itemPackage.itemItemPackages = [];
+            }
           }
-        }
-      })
+        })
+      }
     }
   }
 
   toggleCategoryBtn() {
     let that = this;
     $(document).on('click', '.btnEdit', function () {
-      if (!$(this).hasClass('collapsed')) {
+      if (!$(this, '.accordionEdit').hasClass('show')) {
         that.getItemPackageSelected(that, this);
       }
     })
     $(document).on('click', '.btnView', function () {
-      if (!$(this).hasClass('collapsed')) {
+      if (!$(this, '.accordionView').hasClass('show')) {
         that.getItemPackageSelected(that, this);
       }
     })
@@ -180,16 +189,16 @@ export class BaManagePackageComponent implements OnInit {
 
   getItemPackageSelected(that, obj) {
     let index: any = that.itemPackages.findIndex(itemPackage => {
-      return itemPackage.itemCategoryId === $(obj).val()
+      return itemPackage.itemPackageId === $(obj).val()
     })
-    // console.log(categoryObj)that.categories[index]
-    if (that.itemPackages[index] !== undefined && that.itemPackages[index].items === undefined) {
+    console.log($(obj).val())
+    if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
       that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
         // that.categories[index] = category;
-        Object.assign(that.categories[index], itemPackage)
+        Object.assign(that.itemPackages[index], itemPackage)
         that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
-        that.itemPackages[index].tempItems = itemPackage.items;
-        // console.log(that.categories[index])
+        that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
+        console.log(that.itemPackages[index])
         // for (let i = 0; i < that.categories.length; i++) {
         //   if (that.categories[i].itemCategoryId === $(obj).val()) {
         //     // console.log(category)

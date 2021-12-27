@@ -404,13 +404,13 @@
                   <button
                     class="btnView btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
                     type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#package' + i" aria-expanded="true"
-                    aria-controls="packageOne">
+                    aria-controls="packageOne" value="{{itemPackageE.itemPackageId}}">
                     <i class="fi-eye-on"></i>
                   </button>
                   <button
                     class="btnEdit btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
                     type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#packageEdit' + i" aria-expanded="true"
-                    aria-controls="packageOneEdit">
+                    aria-controls="packageOneEdit" value="{{itemPackageE.itemPackageId}}">
                     <i class="fi-edit"></i>
                   </button>
                   <!-- <button type="button" class="btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm">
@@ -453,7 +453,7 @@
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#packageOne" aria-expanded="true" aria-controls="packageOne"></button>
         </div> -->
       </div>
-      <div class="accordion-collapse collapse mt-2" aria-labelledby="headingEdit" data-bs-parent="#package-list"
+      <div class="accordionEdit accordion-collapse collapse mt-2" aria-labelledby="headingEdit" data-bs-parent="#package-list"
            id="packageEdit{{i}}">
         <div class="card card-body">
           <form #baManageFormPackageE="ngForm"
@@ -585,7 +585,7 @@
                   [searchWhileComposing]="true"
                   name="businessProfileCategories"
                   #businessProfileCategoriesE="ngModel" required
-                  (change)="getItems('n')"
+                  (change)="getItems('e',itemPackageE)"
                   [(ngModel)]="itemPackageE.businessProfileCategory.businessCategory">
                 </ng-select>
                 <div
@@ -622,7 +622,7 @@
                   <div style="width: 100%">
                     <div>
                       <ng-select
-                        [items]="itemsToAdd"
+                        [items]="itemsToAddE"
                         bindLabel="name"
                         placeholder="Select Item"
                         dropdownPosition="auto"
@@ -737,7 +737,7 @@
           </form>
         </div>
       </div>
-      <div class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#package-list"
+      <div class="accordionView accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#package-list"
            id="package{{i}}">
         <div class="accordion-body">
           <div class="row g-4 py-1">

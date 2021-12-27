@@ -13,5 +13,5 @@ public interface ItemPackageS {
 
     List<ItemPackageDTO> getItemPackagesOrdered(String businessProfileId, String businessCategoryId);
 
-    List<ItemPackageDTO> getItemPackageSelected(String itemPackageId);
+    ItemPackageDTO getItemPackageSelected(String itemPackageId);
 }

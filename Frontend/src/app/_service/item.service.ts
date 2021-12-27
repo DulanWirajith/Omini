@@ -65,7 +65,7 @@ export class ItemService {
   }
 
   getItemPackageSelected(itemPackageId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemPackageSelected/' + itemPackageId);
+    return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
   }
 
   getNewItem() {

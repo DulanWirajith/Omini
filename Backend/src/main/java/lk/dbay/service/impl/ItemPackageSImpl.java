@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemPackageSImpl implements ItemPackageS {
@@ -36,7 +37,8 @@ public class ItemPackageSImpl implements ItemPackageS {
             businessProfileCategory.setBusinessProfileCategoryId(
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
-            return new ItemPackageDTO(itemPackageR.save(itemPackage));
+            itemPackageR.save(itemPackage);
+            return new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs());
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
@@ -79,13 +81,18 @@ public class ItemPackageSImpl implements ItemPackageS {
         List<ItemPackage> itemPackageList = itemPackageR.getItemPackagesOrdered(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
         List<ItemPackageDTO> itemPackageDTOS = new ArrayList<>();
         for (ItemPackage itemPackage : itemPackageList) {
-            itemPackageDTOS.add(new ItemPackageDTO(itemPackage, itemPackage.getItemItemPackages(), itemPackage.getItemPackageImgs()));
+            itemPackageDTOS.add(new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs()));
         }
         return itemPackageDTOS;
     }
 
     @Override
-    public List<ItemPackageDTO> getItemPackageSelected(String itemPackageId) {
+    public ItemPackageDTO getItemPackageSelected(String itemPackageId) {
+        Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(itemPackageId);
+        if (itemPackageOptional.isPresent()) {
+            ItemPackage itemPackage = itemPackageOptional.get();
+            return new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemItemPackages(), itemPackage.getItemPackageImgs(), true);
+        }
         return null;
     }
 
