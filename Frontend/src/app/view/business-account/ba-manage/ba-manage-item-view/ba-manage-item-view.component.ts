@@ -39,9 +39,22 @@ export class BaManageItemViewComponent implements OnInit {
       return itemObj.itemId === item.itemId
     })
     // console.log(this.items[index])
-    if (this.items[index].itemItemFeatures.length === 0) {
+    if (this.items[index].itemItemFeatures === undefined) {
       this.itemService.getItemSelected(item.itemId).subscribe((item) => {
         // Object.assign(this.items[index], item)
+        item.itemImgsRaw = [];
+        // item.itemItemFeatures = [];
+        // item.businessProfileCategory = {
+        //   businessProfile: undefined,
+        //   businessCategory: undefined
+        // }
+        // if (item.itemDiscountType === "None") {
+        //   item.itemDiscountView = "N/A";
+        // } else if (item.itemDiscountType === "Cash") {
+        //   item.itemDiscountView = "LKR " + item.itemDiscount;
+        // } else if (item.itemDiscountType === "Percentage") {
+        //   item.itemDiscountView = item.itemDiscount + "%";
+        // }
         this.items[index] = item;
         this.itemService.itemFeaturesSub.next(item.itemFeatures);
         this.itemService.itemSub.next(this.items[index]);

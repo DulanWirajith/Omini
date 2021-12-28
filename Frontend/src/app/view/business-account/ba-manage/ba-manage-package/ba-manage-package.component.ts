@@ -27,8 +27,8 @@ export class BaManagePackageComponent implements OnInit {
   // itemPkgImgs = [];
   // itemPkgImgsE = [];
   @ViewChild('baManageFormPackage', {static: true}) public baManageFormPackage: NgForm;
+
   @ViewChild('imageInput') imageInput: any;
-  @ViewChild('imageInputE') imageInputE: any;
 
   pondOptions = {
     class: 'my-filepond',
@@ -168,6 +168,10 @@ export class BaManagePackageComponent implements OnInit {
             } else {
               itemPackage.itemItemPackages = [];
             }
+            // itemPackage.items = [];
+            // for (let item of itemPackage.itemItemPackages) {
+            //   itemPackage.items.push(item.item);
+            // }
           }
         })
       }
@@ -200,11 +204,6 @@ export class BaManagePackageComponent implements OnInit {
         that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
         that.itemPackages[index].items = [];
         for (let item of itemPackage.itemItemPackages) {
-          item.item.itemItemFeatures = [];
-          item.item.businessProfileCategory = {
-            businessProfile: undefined,
-            businessCategory: undefined
-          }
           that.itemPackages[index].items.push(item.item);
         }
         that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
@@ -220,14 +219,10 @@ export class BaManagePackageComponent implements OnInit {
     }
   }
 
-  // setItems(itemPackage) {
-  //   this.items = [];
+  // setItems(itemPackage, items) {
+  //   // this.items = [];
   //   for (let item of itemPackage.itemItemPackages) {
-  //     item.item.businessProfileCategory = {
-  //       businessProfile: undefined,
-  //       businessCategory: undefined
-  //     }
-  //     this.items.push(item.item);
+  //     items.push(item.item);
   //   }
   // }
 

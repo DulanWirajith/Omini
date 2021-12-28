@@ -81,6 +81,7 @@ export class ItemService {
       itemPrice: "",
       itemDescription: "",
       itemImgs: [],
+      itemImgsRaw: [],
       itemAvailable: false,
       businessProfileCategory: {
         businessProfile: undefined,

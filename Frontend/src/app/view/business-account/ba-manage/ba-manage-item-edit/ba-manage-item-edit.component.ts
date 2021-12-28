@@ -13,7 +13,7 @@ export class BaManageItemEditComponent implements OnInit {
 
   item;
   itemFeatures;
-  imageInput;
+  @ViewChild('imageInput') imageInput: any;
   pondOptions = {
     class: 'my-filepond',
     multiple: true,
@@ -49,9 +49,15 @@ export class BaManageItemEditComponent implements OnInit {
     this.item.businessProfileCategory.businessProfile = {
       businessProId: "B321"
     };
-
+    if (this.item.itemDiscount === 'N/A') {
+      this.item.itemDiscount = 0;
+    }
+    // for (let item of this.item.itemItemFeatures) {
+    //   item.name = item.item.itemTitle;
+    // }
+    console.log(this.item)
     const uploadImageData = new FormData();
-    for (let itemImg of this.item.itemImgs) {
+    for (let itemImg of this.item.itemImgsRaw) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
     }
     uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
@@ -111,13 +117,13 @@ export class BaManageItemEditComponent implements OnInit {
   }
 
   pondHandleAddFile(event) {
-    this.item.itemImgs.push(event.file.file);
+    this.item.itemImgsRaw.push(event.file.file);
   }
 
   pondHandlerRemoveFile(event) {
-    for (let i = 0; i < this.item.itemImgs.length; i++) {
-      if (this.item.itemImgs[i].name === event.file.file.name) {
-        this.item.itemImgs.splice(i, 1);
+    for (let i = 0; i < this.item.itemImgsRaw.length; i++) {
+      if (this.item.itemImgsRaw[i].name === event.file.file.name) {
+        this.item.itemImgsRaw.splice(i, 1);
       }
     }
   }

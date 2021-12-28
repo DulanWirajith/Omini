@@ -124,10 +124,12 @@ export class BaManageCategoryComponent implements OnInit {
         Object.assign(that.categories[index], itemCategory)
         that.categories[index].tempBusinessCategory = itemCategory.businessProfileCategory.businessCategory;
         for (let item of itemCategory.items) {
-          item.item.businessProfileCategory = {
-            businessProfile: undefined,
-            businessCategory: undefined
-          }
+          // item.itemImgsRaw = [];
+          // item.itemItemFeatures = [];
+          // item.businessProfileCategory = {
+          //   businessProfile: undefined,
+          //   businessCategory: undefined
+          // }
           // this.items.push(item.item);
         }
         that.categories[index].tempItems = itemCategory.items;

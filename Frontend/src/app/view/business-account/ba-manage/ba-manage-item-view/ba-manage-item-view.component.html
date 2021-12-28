@@ -41,7 +41,9 @@
           </div>
           <div class="col">
             <p class="mb-2 fs-sm text-muted">Discount </p>
-            <p class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount}}</p>
+            <p *ngIf="item.itemDiscountType==='None'" class="mb-2 fs-sm text-primary fw-bold">N/A</p>
+            <p *ngIf="item.itemDiscountType==='Cash'" class="mb-2 fs-sm text-primary fw-bold">{{"LKR " + item.itemDiscount}}</p>
+            <p *ngIf="item.itemDiscountType==='Percentage'" class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount + "%"}}</p>
           </div>
         </div>
         <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR {{item.itemPrice}}</div>
