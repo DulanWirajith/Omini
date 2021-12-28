@@ -20,9 +20,20 @@
                   data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>
           </button>
         </div>
+        <ngb-carousel *ngIf="item.itemImgs.length>0" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+          <ng-template ngbSlide *ngFor="let image of item.itemImgs">
+            <div class="picsum-img-wrapper">
+              <img [src]="getImageSrc(image)" alt="Random slide" style="height: 180px;width: 280px">
+            </div>
+            <!-- <div class="carousel-caption">
+              <h3>No mouse navigation</h3>
+              <p>This carousel hides navigation arrows and indicators.</p>
+            </div> -->
+          </ng-template>
+        </ngb-carousel>
         <!--<div class="tns-carousel-inner">-->
-        <img *ngIf="item.itemImgs.length>0" style="height: 180px;width: 280px" [src]="getImageSrc(item.itemImgs[0])" alt="Image">
-        <img *ngIf="item.itemImgs.length===0" style="height: 180px;width: 280px" alt="Image">
+        <!-- <img *ngIf="item.itemImgs.length>0" style="height: 180px;width: 280px" [src]="getImageSrc(item.itemImgs[0])" alt="Image">
+        <img *ngIf="item.itemImgs.length===0" style="height: 180px;width: 280px" alt="Image"> -->
         <!--</div>-->
         <!--<img src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>-->
       </div>

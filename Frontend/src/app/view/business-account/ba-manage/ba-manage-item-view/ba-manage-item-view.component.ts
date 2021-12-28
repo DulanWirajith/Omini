@@ -4,19 +4,23 @@ import {ItemService} from "../../../../_service/item.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {NgForm} from "@angular/forms";
 import {environment} from "../../../../../environments/environment";
+import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-ba-manage-item-view',
   templateUrl: './ba-manage-item-view.component.html',
-  styleUrls: ['./ba-manage-item-view.component.css']
+  styleUrls: ['./ba-manage-item-view.component.css'],
+  providers: [NgbCarouselConfig]
 })
 export class BaManageItemViewComponent implements OnInit {
 
   @Input() items;
   @Input() itemViewerId;
-
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
-
+  showNavigationArrows = true;
+  showNavigationIndicators = false;
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer,private config: NgbCarouselConfig) {
+    config.showNavigationArrows = true;
+    config.showNavigationIndicators = true;
   }
 
   ngOnInit(): void {

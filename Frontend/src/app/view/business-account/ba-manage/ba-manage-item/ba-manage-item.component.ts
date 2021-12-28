@@ -5,13 +5,12 @@ import {ItemService} from "../../../../_service/item.service";
 import {environment} from "../../../../../environments/environment";
 import {DomSanitizer} from "@angular/platform-browser";
 import * as $ from "jquery";
-import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-ba-manage-item',
   templateUrl: './ba-manage-item.component.html',
-  styleUrls: ['./ba-manage-item.component.css'],
-  providers: [NgbCarouselConfig]
+  styleUrls: ['./ba-manage-item.component.css']
 })
 export class BaManageItemComponent implements OnInit {
 
@@ -29,8 +28,7 @@ export class BaManageItemComponent implements OnInit {
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   @ViewChild('imageInput') imageInput: any;
   @ViewChild('imageInputE') imageInputE: any;
-  showNavigationArrows = true;
-  showNavigationIndicators = false;
+
   pondOptions = {
     class: 'my-filepond',
     multiple: true,
@@ -38,13 +36,12 @@ export class BaManageItemComponent implements OnInit {
     acceptedFileTypes: 'image/jpeg, image/png'
   }
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer,private config: NgbCarouselConfig) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     });
-    config.showNavigationArrows = true;
-    config.showNavigationIndicators = true;
+
   }
 
   ngOnInit(): void {
