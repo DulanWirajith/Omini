@@ -21,7 +21,7 @@ public class ItemDTO extends DateTimeDTO {
     private int itemQty;
     private double itemPrice;
     private String itemDescription;
-    private double itemDiscount;
+    private String itemDiscount;
     private String itemDiscountType;
     private ItemCategoryDTO itemCategory;
     private boolean itemAvailable;
@@ -41,8 +41,14 @@ public class ItemDTO extends DateTimeDTO {
         this.itemQty = item.getItemQty();
         this.itemPrice = item.getItemPrice();
         this.itemDescription = item.getItemDescription();
-        this.itemDiscount = item.getItemDiscount();
         this.itemDiscountType = item.getItemDiscountType();
+        if (this.itemDiscountType.equals("None")) {
+            this.itemDiscount = "N/A";
+        } else if (this.itemDiscountType.equals("Cash")) {
+            this.itemDiscount = "LKR " + item.getItemDiscount();
+        } else if (this.itemDiscountType.equals("Percentage")) {
+            this.itemDiscount = item.getItemDiscount() + "%";
+        }
         this.itemAvailable = item.isItemAvailable();
         if (needImage) {
             List<ItemImgDTO> itemImgs = new ArrayList<>();

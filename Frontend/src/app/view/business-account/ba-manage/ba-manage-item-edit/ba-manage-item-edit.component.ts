@@ -1,0 +1,124 @@
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {BusinessAccountService} from "../../../../_service/business-account.service";
+import {ItemService} from "../../../../_service/item.service";
+import {DomSanitizer} from "@angular/platform-browser";
+import {NgForm} from "@angular/forms";
+
+@Component({
+  selector: 'app-ba-manage-item-edit',
+  templateUrl: './ba-manage-item-edit.component.html',
+  styleUrls: ['./ba-manage-item-edit.component.css']
+})
+export class BaManageItemEditComponent implements OnInit {
+
+  item;
+  itemFeatures;
+  imageInput;
+  pondOptions = {
+    class: 'my-filepond',
+    multiple: true,
+    labelIdle: '<div class="btn btn-primary mt-3 mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos</div></br>or drag them in',
+    acceptedFileTypes: 'image/jpeg, image/png'
+  }
+  businessCategories = [];
+  itemFeature;
+  isNewFeature;
+  newItemFeature;
+  newItemFeaturesTemp = [];
+  @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
+  @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
+
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
+    this.item = this.itemService.getNewItem();
+    businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
+      this.businessCategories = businessCategories;
+    })
+    itemService.itemSub.subscribe((item) => {
+      this.item = item;
+    })
+    itemService.itemFeaturesSub.subscribe((itemFeatures) => {
+      this.itemFeatures = itemFeatures;
+    })
+  }
+
+  ngOnInit(): void {
+    this.businessCategories = this.businessAccountService.businessCategories;
+  }
+
+  onSubmitE() {
+    this.item.businessProfileCategory.businessProfile = {
+      businessProId: "B321"
+    };
+
+    const uploadImageData = new FormData();
+    for (let itemImg of this.item.itemImgs) {
+      uploadImageData.append('imageFile', itemImg, itemImg.name);
+    }
+    uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
+      {
+        type: "application/json"
+      }));
+    this.itemService.updateItem(uploadImageData, this.item.itemId).subscribe((item) => {
+      this.imageInput.removeFiles();
+      this.item.itemImgs = this.item.itemImgs.concat(item.itemImgs);
+    })
+  }
+
+  getItemFeatures() {
+    this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
+      this.itemFeatures = itemFeatures;
+      this.item.itemItemFeatures = [];
+    })
+  }
+
+  addFeature() {
+    if (this.itemFeature !== undefined) {
+      this.item.itemItemFeatures.push({
+        item: {itemId: this.item.itemId},
+        itemFeature: this.itemFeature
+      })
+      this.baManageFormItemFeatureExs.resetForm()
+      this.itemFeature = undefined;
+    }
+  }
+
+  addFeatureTemp() {
+    this.newItemFeaturesTemp.push(
+      {
+        itemFeatureId: 0,
+        name: this.newItemFeature,
+        businessCategory: this.item.businessProfileCategory.businessCategory
+      }
+    );
+    this.newItemFeature = '';
+    this.baManageFormItemFeature.resetForm()
+  }
+
+  addNewItemFeature() {
+    for (let itemFeature of this.newItemFeaturesTemp) {
+      this.item.itemItemFeatures.push({
+        item: {itemId: this.item.itemId},
+        itemFeature: itemFeature
+      })
+    }
+    this.isNewFeature = false;
+    this.newItemFeaturesTemp = [];
+  }
+
+  getImageSrc(itemImg) {
+    let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
+    return this.sanitizer.bypassSecurityTrustUrl(imageData);
+  }
+
+  pondHandleAddFile(event) {
+    this.item.itemImgs.push(event.file.file);
+  }
+
+  pondHandlerRemoveFile(event) {
+    for (let i = 0; i < this.item.itemImgs.length; i++) {
+      if (this.item.itemImgs[i].name === event.file.file.name) {
+        this.item.itemImgs.splice(i, 1);
+      }
+    }
+  }
+}

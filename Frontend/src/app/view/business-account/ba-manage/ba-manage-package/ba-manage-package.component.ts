@@ -14,7 +14,7 @@ export class BaManagePackageComponent implements OnInit {
 
   itemPackage;
   itemPackages = [];
-  items;
+  items = [];
   // item;
   // packageImg;
   // imgUrl;
@@ -163,7 +163,7 @@ export class BaManagePackageComponent implements OnInit {
           this.itemsToAddE = items;
           if (itemPackage !== undefined) {
             if (itemPackage.businessProfileCategory.businessCategory.businessCategoryId === itemPackage.tempBusinessCategory.businessCategoryId) {
-              console.log(itemPackage.tempItems)
+              // console.log(itemPackage.tempItems)
               itemPackage.itemItemPackages = itemPackage.tempItems;
             } else {
               itemPackage.itemItemPackages = [];
@@ -198,6 +198,15 @@ export class BaManagePackageComponent implements OnInit {
         // that.categories[index] = category;
         Object.assign(that.itemPackages[index], itemPackage)
         that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
+        that.itemPackages[index].items = [];
+        for (let item of itemPackage.itemItemPackages) {
+          item.item.itemItemFeatures = [];
+          item.item.businessProfileCategory = {
+            businessProfile: undefined,
+            businessCategory: undefined
+          }
+          that.itemPackages[index].items.push(item.item);
+        }
         that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
         console.log(that.itemPackages[index])
         // for (let i = 0; i < that.categories.length; i++) {
@@ -211,21 +220,32 @@ export class BaManagePackageComponent implements OnInit {
     }
   }
 
-  setItemAvailable(item) {
-    this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
-      item.itemAvailable = reply;
-    })
-  }
+  // setItems(itemPackage) {
+  //   this.items = [];
+  //   for (let item of itemPackage.itemItemPackages) {
+  //     item.item.businessProfileCategory = {
+  //       businessProfile: undefined,
+  //       businessCategory: undefined
+  //     }
+  //     this.items.push(item.item);
+  //   }
+  // }
+
+  // setItemAvailable(item) {
+  //   this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
+  //     item.itemAvailable = reply;
+  //   })
+  // }
 
   getPackageImageSrc(itemPackageImg) {
     let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
     return this.sanitizer.bypassSecurityTrustUrl(imageData);
   }
 
-  getImageSrc(itemImg) {
-    let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
-    return this.sanitizer.bypassSecurityTrustUrl(imageData);
-  }
+  // getImageSrc(itemImg) {
+  //   let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
+  //   return this.sanitizer.bypassSecurityTrustUrl(imageData);
+  // }
 
   pondHandleAddFile(event, val, itemPackageE?) {
     if (val === 'n') {

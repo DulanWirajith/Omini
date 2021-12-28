@@ -19,22 +19,22 @@ export class BaManageItemComponent implements OnInit {
   itemFeature;
   businessCategories = [];
   itemFeatures = [];
-  // itemImgs = [];
   isNewFeature = false;
-  // isNewItem = false;
   businessProfileCategory;
   items = [];
   @ViewChild('baManageFormItem', {static: true}) public baManageFormItem: NgForm;
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
-  image;
-  images = [];
   @ViewChild('imageInput') imageInput: any;
-  @ViewChild('imageInputE') imageInputE: any;
+  pondOptions = {
+    class: 'my-filepond',
+    multiple: true,
+    labelIdle: '<div class="btn btn-primary mt-3 mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos</div></br>or drag them in',
+    acceptedFileTypes: 'image/jpeg, image/png'
+  }
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
-    this.itemE = this.itemService.getNewItem();
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
@@ -50,18 +50,11 @@ export class BaManageItemComponent implements OnInit {
   //   console.log(this.businessCategories)
   // }
 
-  getItemFeatures(val) {
-    if (val === 'n') {
-      this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
-        this.itemFeatures = itemFeatures;
-        this.item.itemItemFeatures = [];
-      })
-    } else if (val === 'e') {
-      this.itemService.getItemFeatures(this.itemE.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
-        this.itemFeaturesE = itemFeatures;
-        this.itemE.itemItemFeatures = [];
-      })
-    }
+  getItemFeatures() {
+    this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
+      this.itemFeatures = itemFeatures;
+      this.item.itemItemFeatures = [];
+    })
   }
 
   onSubmit() {
@@ -95,30 +88,18 @@ export class BaManageItemComponent implements OnInit {
     })
   }
 
-  addFeature(val) {
-    if (val === 'n') {
-      if (this.itemFeature !== undefined) {
-        this.item.itemItemFeatures.push({
-          item: {itemId: this.item.itemId},
-          itemFeature: this.itemFeature
-        })
-        this.baManageFormItemFeatureExs.resetForm()
-        this.itemFeature = undefined;
-      }
-    } else if (val === 'e') {
-      if (this.itemFeatureE !== undefined) {
-        this.itemE.itemItemFeatures.push({
-          item: {itemId: this.itemE.itemId},
-          itemFeature: this.itemFeatureE
-        })
-        this.baManageFormItemFeatureExsE.resetForm()
-        this.itemFeatureE = undefined;
-      }
+  addFeature() {
+    if (this.itemFeature !== undefined) {
+      this.item.itemItemFeatures.push({
+        item: {itemId: this.item.itemId},
+        itemFeature: this.itemFeature
+      })
+      this.baManageFormItemFeatureExs.resetForm()
+      this.itemFeature = undefined;
     }
   }
 
-  addFeatureTemp(val) {
-    if (val === 'n') {
+  addFeatureTemp() {
       this.newItemFeaturesTemp.push(
         {
           itemFeatureId: 0,
@@ -128,21 +109,9 @@ export class BaManageItemComponent implements OnInit {
       );
       this.newItemFeature = '';
       this.baManageFormItemFeature.resetForm()
-    } else if (val === 'e') {
-      this.newItemFeaturesTempE.push(
-        {
-          itemFeatureId: 0,
-          name: this.newItemFeatureE,
-          businessCategory: this.itemE.businessProfileCategory.businessCategory
-        }
-      );
-      this.newItemFeatureE = '';
-      this.baManageFormItemFeatureE.resetForm()
-    }
   }
 
-  addNewItemFeature(val) {
-    if (val === 'n') {
+  addNewItemFeature() {
       for (let itemFeature of this.newItemFeaturesTemp) {
         this.item.itemItemFeatures.push({
           item: {itemId: this.item.itemId},
@@ -151,108 +120,19 @@ export class BaManageItemComponent implements OnInit {
       }
       this.isNewFeature = false;
       this.newItemFeaturesTemp = [];
-    } else if (val === 'e') {
-      for (let itemFeature of this.newItemFeaturesTempE) {
-        this.itemE.itemItemFeatures.push({
-          item: {itemId: this.itemE.itemId},
-          itemFeature: itemFeature
-        })
-      }
-      this.isNewFeatureE = false;
-      this.newItemFeaturesTempE = [];
-    }
   }
 
-  getItemSelected(item) {
-    let index: any = this.items.findIndex(itemObj => {
-      return itemObj.itemId === item.itemId
-    })
-    // console.log(this.items[index])
-    if (this.items[index].itemItemFeatures.length === 0) {
-      this.itemService.getItemSelected(item.itemId).subscribe((item) => {
-        // Object.assign(this.items[index], item)
-        this.items[index] = item;
-        this.itemFeaturesE = item.itemFeatures;
-        this.itemE = this.items[index]
-        console.log(this.items[index])
-      })
-    } else {
-      this.itemE = this.items[index]
-    }
+  // @ViewChild('baManageFormItemE', {static: true}) public baManageFormItemE: NgForm;
+
+  pondHandleAddFile(event) {
+    this.item.itemImgs.push(event.file.file);
   }
 
-  setItemAvailable(item) {
-    this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
-      item.itemAvailable = reply;
-    })
-  }
-
-  getImageSrc(itemImg) {
-    let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
-    return this.sanitizer.bypassSecurityTrustUrl(imageData);
-  }
-
-  //===============================================Edit=================================================================
-
-  itemE;
-  itemFeaturesE = [];
-  itemFeatureE;
-  // isNewItemE;
-  isNewFeatureE;
-  newItemFeatureE;
-  newItemFeaturesTempE = [];
-  // itemImgsE = [];
-  @ViewChild('baManageFormItemE', {static: true}) public baManageFormItemE: NgForm;
-  @ViewChild('baManageFormItemFeatureE', {static: true}) public baManageFormItemFeatureE: NgForm;
-  @ViewChild('baManageFormItemFeatureExsE', {static: true}) public baManageFormItemFeatureExsE: NgForm;
-
-  onSubmitE() {
-    this.itemE.businessProfileCategory.businessProfile = {
-      businessProId: "B321"
-    };
-
-    const uploadImageData = new FormData();
-    for (let itemImg of this.itemE.itemImgs) {
-      uploadImageData.append('imageFile', itemImg, itemImg.name);
-    }
-    uploadImageData.append('item', new Blob([JSON.stringify(this.itemE)],
-      {
-        type: "application/json"
-      }));
-    this.itemService.updateItem(uploadImageData, this.itemE.itemId).subscribe((itemE) => {
-      this.imageInputE.removeFiles();
-      this.itemE.itemImgs = this.itemE.itemImgs.concat(itemE.itemImgs);
-    })
-  }
-
-  pondOptions = {
-    class: 'my-filepond',
-    multiple: true,
-    labelIdle: '<div class="btn btn-primary mt-3 mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos</div></br>or drag them in',
-    acceptedFileTypes: 'image/jpeg, image/png'
-  }
-
-  pondHandleAddFile(event, val) {
-    if (val === 'n') {
-      this.item.itemImgs.push(event.file.file);
-    } else if (val === 'e') {
-      this.itemE.itemImgs.push(event.file.file);
-    }
-  }
-
-  pondHandlerRemoveFile(event, val) {
-    if (val === 'n') {
-      for (let i = 0; i < this.item.itemImgs.length; i++) {
-        // console.log(this.itemImgs[i].name + ' ' + event.file.file.name)
-        if (this.item.itemImgs[i].name === event.file.file.name) {
-          this.item.itemImgs.splice(i, 1);
-        }
-      }
-    } else if (val === 'e') {
-      for (let i = 0; i < this.itemE.itemImgs.length; i++) {
-        if (this.itemE.itemImgs[i].name === event.file.file.name) {
-          this.itemE.itemImgs.splice(i, 1);
-        }
+  pondHandlerRemoveFile(event) {
+    for (let i = 0; i < this.item.itemImgs.length; i++) {
+      // console.log(this.itemImgs[i].name + ' ' + event.file.file.name)
+      if (this.item.itemImgs[i].name === event.file.file.name) {
+        this.item.itemImgs.splice(i, 1);
       }
     }
   }

@@ -1,0 +1,69 @@
+<div class="row g-4 py-1">
+  <!-- Item-->
+  <div class="col-sm-6 col-xl-4" *ngFor="let item of items">
+    <div class="card shadow-sm card-hover border-0 h-100">
+      <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"></a>
+        <div class="position-absolute start-0 top-0 pt-3 ps-3">
+          <div class="btn-group dropup">
+            <!--<span class="d-table badge bg-danger cursor-point dropdown-toggle" data-bs-toggle="dropdown"-->
+            <!--aria-haspopup="true" aria-expanded="false">Un Assigned</span>-->
+            <div class="dropdown-menu mx-1">
+              <a href="#" class="dropdown-item">Action</a>
+              <a href="#" class="dropdown-item">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">Something else here</a>
+            </div>
+          </div>
+        </div>
+        <div class="content-overlay end-0 top-0 pt-3 pe-3">
+          <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                  data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>
+          </button>
+        </div>
+        <!--<div class="tns-carousel-inner">-->
+        <img style="height: 180px;width: 280px" [src]="getImageSrc(item.itemImgs[0])" alt="Image">
+        <!--</div>-->
+        <!--<img src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>-->
+      </div>
+      <div class="card-body position-relative pb-3" (click)="getItemSelected(item)">
+
+        <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
+        <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#" data-bs-toggle="offcanvas"
+                                       data-bs-target="#item-viewer">{{item.itemTitle}}</a></h3>
+        <!-- <div class="d-flex align-items-center text-nowrap">
+          <p class="mb-2 fs-sm text-muted">Quantity </p>
+          <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
+        </div> -->
+        <div class="row cols-sm-2 row-cols-md-12">
+          <div class="col">
+            <p class="mb-2 fs-sm text-muted">Quantity </p>
+            <p class="mb-2 fs-sm text-warning fw-bold mx-2">{{item.itemQty}}</p>
+          </div>
+          <div class="col">
+            <p class="mb-2 fs-sm text-muted">Discount </p>
+            <p class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount}}</p>
+          </div>
+        </div>
+        <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR {{item.itemPrice}}</div>
+      </div>
+      <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" [checked]="item.itemAvailable"
+                 (click)="setItemAvailable(item)">
+          <label *ngIf="!item.itemAvailable"
+                 class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">
+            Not Available</label>
+          <label *ngIf="item.itemAvailable" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
+            Available</label>
+        </div>
+        <!--<div class="form-check form-switch" *ngIf="item.itemAvailable">-->
+        <!--<input class="form-check-input" type="checkbox" checked>-->
+        <!--<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">-->
+        <!--Available</label>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+
+</div>
+

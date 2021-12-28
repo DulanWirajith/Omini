@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {CommonService} from "./common.service";
@@ -8,6 +8,9 @@ import {CommonService} from "./common.service";
   providedIn: 'root'
 })
 export class ItemService {
+
+  itemSub = new Subject<any>();
+  itemFeaturesSub = new Subject<any>();
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
@@ -122,6 +125,7 @@ export class ItemService {
       isNewPackage: false,
       isUpdatePackage: false,
       itemItemPackages: [],
+      items: [],
       itemPkgImgs: [],
       itemPackageImgs: [],
       tempBusinessCategory: undefined,
