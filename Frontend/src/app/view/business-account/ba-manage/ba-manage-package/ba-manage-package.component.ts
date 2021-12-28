@@ -109,12 +109,22 @@ export class BaManagePackageComponent implements OnInit {
     })
   }
 
-  onSubmitE(itemPackageE) {
+  onSubmitE(itemPackageE, imageInput) {
     itemPackageE.businessProfileCategory.businessProfile = {
       businessProId: "B321"
     };
-
-    //console.log(this.package)
+    for (let i = 0; i < itemPackageE.itemItemPackages.length; i++) {
+      // console.log(itemPackageE.itemItemPackages[i].itemPackage)
+      if (itemPackageE.itemItemPackages[i].itemPackage === undefined) {
+        itemPackageE.itemItemPackages[i] = {
+          item: itemPackageE.itemItemPackages[i],
+          itemPackage: {
+            itemPackageId: itemPackageE.itemPackageId
+          }
+        }
+      }
+    }
+    console.log(itemPackageE)
     const uploadImageData = new FormData();
     for (let itemImg of itemPackageE.itemPkgImgs) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
@@ -123,10 +133,12 @@ export class BaManagePackageComponent implements OnInit {
       {
         type: "application/json"
       }));
-    this.itemService.addPackage(uploadImageData).subscribe((reply) => {
-      this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
-      this.itemPackage.itemItemPackages = [];
+    this.itemService.updatePackage(uploadImageData, itemPackageE.itemPackageId).subscribe((itemPackageR) => {
+      // this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
+      // this.itemPackage.itemItemPackages = [];
       // this.item = undefined;
+      imageInput.removeFiles();
+      itemPackageE.itemPackageImgs = itemPackageE.itemPackageImgs.concat(itemPackageR.itemPackageImgs);
     })
   }
 
@@ -136,6 +148,7 @@ export class BaManagePackageComponent implements OnInit {
         // console.log(packages)
         this.itemPackages = packages;
         for (let itemPackage of this.itemPackages) {
+          itemPackage.itemPkgImgs = [];
           itemPackage.businessProfileCategory = {
             businessProfile: undefined,
             businessCategory: undefined
@@ -178,6 +191,13 @@ export class BaManagePackageComponent implements OnInit {
     }
   }
 
+  getImageSrc(itemPackageImg) {
+    // console.log(itemImg)
+    // let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
+    // return this.sanitizer.bypassSecurityTrustUrl(imageData);
+    return this.sanitizer.bypassSecurityTrustUrl('http://localhost/Dbay/' + itemPackageImg.itemPackageImgName);
+  }
+
   toggleCategoryBtn() {
     let that = this;
     $(document).on('click', '.btnEdit', function () {
@@ -207,7 +227,7 @@ export class BaManagePackageComponent implements OnInit {
           that.itemPackages[index].items.push(item.item);
         }
         that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
-        console.log(that.itemPackages[index])
+        // console.log(that.itemPackages[index])
         // for (let i = 0; i < that.categories.length; i++) {
         //   if (that.categories[i].itemCategoryId === $(obj).val()) {
         //     // console.log(category)

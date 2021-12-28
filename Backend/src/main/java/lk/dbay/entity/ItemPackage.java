@@ -25,11 +25,12 @@ public class ItemPackage extends DateTime {
     private double price;
     private double discount;
     private String discountType;
+    private boolean confirmed;
 
-    @Lob
-    private byte[] itemPackageImg;
-    private String itemPackageName;
-    private String itemPackageType;
+//    @Lob
+//    private byte[] itemPackageImg;
+//    private String itemPackageName;
+//    private String itemPackageType;
 
     @ManyToOne(optional = false)
     @JoinColumns({

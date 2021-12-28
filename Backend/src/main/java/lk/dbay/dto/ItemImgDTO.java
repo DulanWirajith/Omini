@@ -16,8 +16,9 @@ import javax.persistence.*;
 public class ItemImgDTO extends DateTimeDTO {
 
     private String itemImgId;
-    private byte[] itemImg;
+//    private byte[] itemImg;
     private String itemImgName;
+//    private String itemImgPath;
     private String itemImgType;
     private boolean thumbnail;
 
@@ -25,7 +26,7 @@ public class ItemImgDTO extends DateTimeDTO {
 
     public ItemImgDTO(@NonNull ItemImg itemImg) {
         this.itemImgId = itemImg.getItemImgId();
-        this.itemImg = itemImg.getItemImg();
+//        this.itemImgPath = itemImg.getItemImgPath();
         this.itemImgName = itemImg.getItemImgName();
         this.itemImgType = itemImg.getItemImgType();
         this.thumbnail = itemImg.isThumbnail();

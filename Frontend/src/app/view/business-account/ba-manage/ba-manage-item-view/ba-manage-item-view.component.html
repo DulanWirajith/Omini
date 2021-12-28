@@ -21,7 +21,8 @@
           </button>
         </div>
         <!--<div class="tns-carousel-inner">-->
-        <img style="height: 180px;width: 280px" [src]="getImageSrc(item.itemImgs[0])" alt="Image">
+        <img *ngIf="item.itemImgs.length>0" style="height: 180px;width: 280px" [src]="getImageSrc(item.itemImgs[0])" alt="Image">
+        <img *ngIf="item.itemImgs.length===0" style="height: 180px;width: 280px" alt="Image">
         <!--</div>-->
         <!--<img src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>-->
       </div>

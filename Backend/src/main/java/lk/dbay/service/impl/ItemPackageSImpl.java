@@ -3,6 +3,8 @@ package lk.dbay.service.impl;
 import lk.dbay.dto.ItemCategoryDTO;
 import lk.dbay.dto.ItemPackageDTO;
 import lk.dbay.entity.*;
+import lk.dbay.repository.ItemItemPackageR;
+import lk.dbay.repository.ItemPackageImgR;
 import lk.dbay.repository.ItemPackageR;
 import lk.dbay.service.ItemPackageS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +16,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ItemPackageSImpl implements ItemPackageS {
 
     @Autowired
     private ItemPackageR itemPackageR;
+    @Autowired
+    private ItemItemPackageR itemItemPackageR;
+    @Autowired
+    private ItemPackageImgR itemPackageImgR;
 
     @Override
     @Transactional
@@ -39,6 +43,61 @@ public class ItemPackageSImpl implements ItemPackageS {
             );
             itemPackageR.save(itemPackage);
             return new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Something went wrong");
+        }
+    }
+
+    @Override
+    @Transactional
+    public ItemPackageDTO updatePackage(ItemPackage itemPackage, MultipartFile[] files, String itemPackageId) throws Exception {
+        try {
+            Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(itemPackageId);
+            if (itemPackageOptional.isPresent()) {
+                ItemPackage itemPackageObj = itemPackageOptional.get();
+                itemPackageObj.setName(itemPackage.getName());
+                itemPackageObj.setDescription(itemPackage.getDescription());
+                itemPackageObj.setPrice(itemPackage.getPrice());
+                itemPackageObj.setDiscount(itemPackage.getDiscount());
+                itemPackageObj.setDiscountType(itemPackage.getDiscountType());
+                itemPackageObj.setConfirmed(itemPackage.isConfirmed());
+//                addItemsToItemPackage(itemPackage);
+//                addImagesToItemPackage(itemPackage, files);
+                BusinessProfileCategory businessProfileCategory = itemPackage.getBusinessProfileCategory();
+                businessProfileCategory.setBusinessProfileCategoryId(
+                        new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
+                );
+
+                HashSet<ItemItemPackage> itemItemPackages = new HashSet<>(itemPackage.getItemItemPackages());
+                itemItemPackages.retainAll(itemPackageObj.getItemItemPackages());
+                Set<ItemItemPackage> itemItemPackagesSetRemove = new HashSet<>(itemPackageObj.getItemItemPackages());
+                itemItemPackagesSetRemove.removeAll(itemItemPackages);
+                Set<ItemItemPackage> itemItemPackagesSetAdd = new HashSet<>(itemPackage.getItemItemPackages());
+                itemItemPackagesSetAdd.removeAll(itemItemPackages);
+                itemPackageObj.setItemItemPackages(itemItemPackagesSetAdd);
+                addItemsToItemPackage(itemPackageObj);
+
+                HashSet<ItemPackageImg> itemPackageImgs = new HashSet<>(itemPackage.getItemPackageImgs());
+                itemPackageImgs.retainAll(itemPackageObj.getItemPackageImgs());
+                Set<ItemPackageImg> itemPackageImgsSetRemove = new HashSet<>(itemPackageObj.getItemPackageImgs());
+                itemPackageImgsSetRemove.removeAll(itemPackageImgs);
+                Set<ItemPackageImg> itemPackageImgsSetAdd = new HashSet<>(itemPackage.getItemPackageImgs());
+                itemPackageImgsSetAdd.removeAll(itemPackageImgs);
+                itemPackageObj.setItemPackageImgs(itemPackageImgsSetAdd);
+                addImagesToItemPackage(itemPackageObj, files);
+
+                if (itemItemPackagesSetRemove.size() > 0) {
+                    itemItemPackageR.deleteAll(itemItemPackagesSetRemove);
+                }
+                if (itemPackageImgsSetRemove.size() > 0) {
+                    itemPackageImgR.deleteAll(itemPackageImgsSetRemove);
+                }
+
+                itemPackageR.save(itemPackageObj);
+                return new ItemPackageDTO(itemPackageObj, itemPackageObj.getBusinessProfileCategory(), itemPackageObj.getItemPackageImgs());
+            }
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");

@@ -83,8 +83,13 @@ export class BaManageItemComponent implements OnInit {
     this.itemService.getItemsOrdered("B321", this.businessProfileCategory.businessCategoryId, 0, 100).subscribe((items) => {
       this.items = items;
       for (let item of this.items) {
-        item.itemItemFeatures = [];
+        item.itemImgsRaw = [];
+        item.businessProfileCategory = {
+          businessProfile: undefined,
+          businessCategory: undefined
+        }
       }
+      console.log(this.items)
     })
   }
 

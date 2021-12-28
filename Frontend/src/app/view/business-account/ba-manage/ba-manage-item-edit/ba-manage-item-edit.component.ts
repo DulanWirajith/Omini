@@ -112,8 +112,9 @@ export class BaManageItemEditComponent implements OnInit {
   }
 
   getImageSrc(itemImg) {
-    let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
-    return this.sanitizer.bypassSecurityTrustUrl(imageData);
+    // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
+    // return this.sanitizer.bypassSecurityTrustUrl(imageData);
+    return this.sanitizer.bypassSecurityTrustUrl('http://localhost/Dbay/' + itemImg.itemImgName);
   }
 
   pondHandleAddFile(event) {

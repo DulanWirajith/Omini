@@ -377,7 +377,8 @@
   <div class="accordion" id="package-list">
 
     <!-- Accordion item -->
-    <div class="accordion-item mb-2" *ngFor="let itemPackageE of itemPackages;let i = index" [ngStyle]="{'margin-top':i>0 ? '30px':'0px'}">
+    <div class="accordion-item mb-2" *ngFor="let itemPackageE of itemPackages;let i = index"
+         [ngStyle]="{'margin-top':i>0 ? '30px':'0px'}">
       <div class="accordion-header" id="">
         <div class="card bg-position-center border-0 overflow-hidden"
              style="height: 350px; background-size: cover;">
@@ -409,7 +410,8 @@
                   </button>
                   <button
                     class="btnEdit btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
-                    type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#packageEdit' + i" aria-expanded="true"
+                    type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#packageEdit' + i"
+                    aria-expanded="true"
                     aria-controls="packageOneEdit" value="{{itemPackageE.itemPackageId}}">
                     <i class="fi-edit"></i>
                   </button>
@@ -454,11 +456,12 @@
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#packageOne" aria-expanded="true" aria-controls="packageOne"></button>
         </div> -->
       </div>
-      <div class="accordionEdit accordion-collapse collapse mt-2" aria-labelledby="headingEdit" data-bs-parent="#package-list"
+      <div class="accordionEdit accordion-collapse collapse mt-2" aria-labelledby="headingEdit"
+           data-bs-parent="#package-list"
            id="packageEdit{{i}}">
         <div class="card card-body">
           <form #baManageFormPackageE="ngForm"
-                (ngSubmit)="baManageFormPackageE.form.valid && onSubmitE(itemPackageE)" novalidate>
+                (ngSubmit)="baManageFormPackageE.form.valid && onSubmitE(itemPackageE,imageInputE)" novalidate>
 
             <div class="row">
               <div class="col-md-8 mb-3">
@@ -701,8 +704,8 @@
                   #imageInputE
                   [options]="pondOptions"
                   name="imageInput"
-                  (onaddfile)="pondHandleAddFile($event,'e')"
-                  (onremovefile)="pondHandlerRemoveFile($event,'e')">
+                  (onaddfile)="pondHandleAddFile($event,'e',itemPackageE)"
+                  (onremovefile)="pondHandlerRemoveFile($event,'e',itemPackageE)">
                 </file-pond>
                 <!--<input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"-->
                 <!--accept="image/png, image/jpeg"-->
@@ -712,6 +715,16 @@
                 *ngIf="(imageInputE.touched || baManageFormPackageE.submitted) && imageInputE.errors?.required"
                 class="validErr" style="margin-bottom: 10px">
                 Image is required
+              </div>
+              <div class="col-md-4 mb-4" *ngFor='let itemImg of itemPackageE.itemPackageImgs;let j = index'>
+                <div style="position: relative" class="delImgT">
+                  <img [src]="getImageSrc(itemImg)" style="margin: 3px;height: 200px;width: 300px">
+                  <span class="delImg">
+                    <i class="fi-trash"
+                       style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 25px;"
+                       (click)="itemPackageE.itemPackageImgs.splice(j,1)"></i>
+                  </span>
+                </div>
               </div>
             </div>
             <div class="mb-3 py-2">

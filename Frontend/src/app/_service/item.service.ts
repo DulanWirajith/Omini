@@ -35,6 +35,10 @@ export class ItemService {
     return this.http.post<any>(environment.backend_url + 'package/addPackage', itemsPackage);
   }
 
+  updatePackage(itemsPackage, itemPackageId): Observable<any> {
+    return this.http.put<any>(environment.backend_url + 'package/updatePackage/' + itemPackageId, itemsPackage);
+  }
+
   getItemFeatures(businessCategoryId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_feature/getItemFeatures/' + businessCategoryId);
   }

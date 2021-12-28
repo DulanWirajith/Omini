@@ -18,6 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -118,11 +122,22 @@ public class ItemSImpl implements ItemS {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             int i = 0;
+            String filePath = "C:\\xampp\\htdocs\\Dbay";
             for (MultipartFile file : files) {
                 ItemImg itemImg = new ItemImg();
                 itemImg.setItemImgId("ITIMG" + ++i + format);
-                itemImg.setItemImg(file.getBytes());
+//                itemImg.setItemImg(file.getBytes());
+                Path root = Paths.get(filePath);
+//                if (!Files.exists(root)) {
+////                    Files.createDirectories(Paths.get(filePath));
+//                }
+                try {
+                    Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
+                } catch (FileAlreadyExistsException e) {
+
+                }
                 itemImg.setItemImgName(StringUtils.cleanPath(file.getOriginalFilename()));
+//                itemImg.setItemImgPath("C:\\xampp\\htdocs\\Dbay\\" + itemImg.getItemImgName());
                 itemImg.setItemImgType(file.getContentType());
                 itemImg.setItem(item);
                 item.getItemImgs().add(itemImg);
@@ -138,10 +153,10 @@ public class ItemSImpl implements ItemS {
 //            if (itemItemFeature.getItemFeature().getItemFeatureId().equals("0")) {
 //                LocalDateTime localDateTime = LocalDateTime.now();
 //                String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-                ItemFeature itemFeatureObj = itemItemFeature.getItemFeature();
-                itemFeatureObj.setItemFeatureId("ITF" + itemFeatureObj.getName().replace(" ", "_") + itemFeatureObj.getBusinessCategory().getBusinessCategoryId());
-                ItemFeature itemFeature = itemFeatureR.save(itemItemFeature.getItemFeature());
-                itemItemFeature.setItemFeature(itemFeature);
+            ItemFeature itemFeatureObj = itemItemFeature.getItemFeature();
+            itemFeatureObj.setItemFeatureId("ITF" + itemFeatureObj.getName().replace(" ", "_") + itemFeatureObj.getBusinessCategory().getBusinessCategoryId());
+            ItemFeature itemFeature = itemFeatureR.save(itemItemFeature.getItemFeature());
+            itemItemFeature.setItemFeature(itemFeature);
 //            }
             itemItemFeature.setItemItemFeatureId(new ItemItemFeaturePK(item.getItemId(), itemItemFeature.getItemFeature().getItemFeatureId()));
             itemItemFeature.setItem(item);
