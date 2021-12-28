@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backend_url: 'http://localhost:8080/dbay/'
+  backend_url: 'http://imalkag.ddns.net:8080/dbay/'
 };
 
 /*

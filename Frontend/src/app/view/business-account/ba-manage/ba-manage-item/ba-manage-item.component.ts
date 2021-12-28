@@ -5,11 +5,13 @@ import {ItemService} from "../../../../_service/item.service";
 import {environment} from "../../../../../environments/environment";
 import {DomSanitizer} from "@angular/platform-browser";
 import * as $ from "jquery";
+import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-ba-manage-item',
   templateUrl: './ba-manage-item.component.html',
-  styleUrls: ['./ba-manage-item.component.css']
+  styleUrls: ['./ba-manage-item.component.css'],
+  providers: [NgbCarouselConfig]
 })
 export class BaManageItemComponent implements OnInit {
 
@@ -31,13 +33,17 @@ export class BaManageItemComponent implements OnInit {
   images = [];
   @ViewChild('imageInput') imageInput: any;
   @ViewChild('imageInputE') imageInputE: any;
+  showNavigationArrows = true;
+  showNavigationIndicators = false;
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer,private config: NgbCarouselConfig) {
     this.item = this.itemService.getNewItem();
     this.itemE = this.itemService.getNewItem();
     businessAccountService.businessCategories.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
-    })
+    });
+    config.showNavigationArrows = true;
+    config.showNavigationIndicators = true;
   }
 
   ngOnInit(): void {

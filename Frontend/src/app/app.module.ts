@@ -33,6 +33,7 @@ import { BaManageCategoryComponent } from './view/business-account/ba-manage/ba-
 import { BaManagePackageComponent } from './view/business-account/ba-manage/ba-manage-package/ba-manage-package.component';
 import { CpProfileSettingsComponent } from './view/profile/customer-profile/cp-profile-settings/cp-profile-settings.component';
 import { SpProfileSettingsComponent } from './view/profile/shop-profile/sp-profile-settings/sp-profile-settings.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { SpProfileSettingsComponent } from './view/profile/shop-profile/sp-profi
     FormsModule,
     FilePondModule,
     NgSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
