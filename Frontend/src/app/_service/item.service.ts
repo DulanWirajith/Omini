@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {CommonService} from "./common.service";
@@ -8,6 +8,9 @@ import {CommonService} from "./common.service";
   providedIn: 'root'
 })
 export class ItemService {
+
+  itemSub = new Subject<any>();
+  itemFeaturesSub = new Subject<any>();
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
@@ -32,6 +35,10 @@ export class ItemService {
     return this.http.post<any>(environment.backend_url + 'package/addPackage', itemsPackage);
   }
 
+  updatePackage(itemsPackage, itemPackageId): Observable<any> {
+    return this.http.put<any>(environment.backend_url + 'package/updatePackage/' + itemPackageId, itemsPackage);
+  }
+
   getItemFeatures(businessCategoryId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_feature/getItemFeatures/' + businessCategoryId);
   }
@@ -48,6 +55,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'category/getItemCategoriesOrdered/' + businessProfileId + '/' + businessCategoryId);
   }
 
+  getItemPackagesOrdered(businessProfileId, businessCategoryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'package/getItemPackagesOrdered/' + businessProfileId + '/' + businessCategoryId);
+  }
+
   setItemAvailable(itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/setItemAvailable/' + itemId);
   }
@@ -60,6 +71,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'category/getItemCategorySelected/' + categoryId);
   }
 
+  getItemPackageSelected(itemPackageId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
+  }
+
   getNewItem() {
     return {
       itemId: "",
@@ -70,12 +85,15 @@ export class ItemService {
       itemPrice: "",
       itemDescription: "",
       itemImgs: [],
+      itemImgsRaw: [],
       itemAvailable: false,
       businessProfileCategory: {
         businessProfile: undefined,
         businessCategory: undefined
       },
-      itemItemFeatures: []
+      itemItemFeatures: [],
+      isNewItem: false,
+      isUpdateItem: false,
     }
   }
 
@@ -90,7 +108,31 @@ export class ItemService {
         businessCategory: undefined
       },
       items: [],
+      isNewCategory: false,
       isUpdateCategory: false,
+      tempBusinessCategory: undefined,
+      tempItems: []
+    }
+  }
+
+  getNewPackage() {
+    return {
+      itemPackageId: "",
+      name: "",
+      description: "",
+      price: "",
+      discount: "",
+      discountType: "None",
+      businessProfileCategory: {
+        businessProfile: undefined,
+        businessCategory: undefined
+      },
+      isNewPackage: false,
+      isUpdatePackage: false,
+      itemItemPackages: [],
+      items: [],
+      itemPkgImgs: [],
+      itemPackageImgs: [],
       tempBusinessCategory: undefined,
       tempItems: []
     }

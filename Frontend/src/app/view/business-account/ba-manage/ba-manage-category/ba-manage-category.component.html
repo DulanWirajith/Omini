@@ -68,7 +68,7 @@
             type="text"
             placeholder="Title"
             required
-            [(ngModel)]="category.name" #categoryTitle="ngModel" name="categoryTitle"
+            [(ngModel)]="itemCategory.name" #categoryTitle="ngModel" name="categoryTitle"
           />
           <div *ngIf="(categoryTitle.touched || baManageFormCategory.submitted) && categoryTitle.errors?.required"
                class="validErr">
@@ -99,7 +99,7 @@
             name="businessProfileCategories"
             #businessProfileCategories="ngModel" required
             (change)="getItems('n')"
-            [(ngModel)]="category.businessProfileCategory.businessCategory">
+            [(ngModel)]="itemCategory.businessProfileCategory.businessCategory">
           </ng-select>
           <div
             *ngIf="(businessProfileCategories.touched || baManageFormCategory.submitted) && businessProfileCategories.errors?.required"
@@ -151,11 +151,11 @@
                   [searchWhileComposing]="true"
                   name="items"
                   #items="ngModel" required
-                  [(ngModel)]="category.items"
+                  [(ngModel)]="itemCategory.items"
                   style="width: 100%">
                 </ng-select>
               </div>
-              <div *ngIf="(baManageFormCategory.submitted) && category.items.length===0"
+              <div *ngIf="(baManageFormCategory.submitted) && itemCategory.items.length===0"
                    class="validErr">
                 Item is required
               </div>
@@ -189,7 +189,7 @@
              aria-label="Small description about your category."><i class="fi-help"></i>
           </a>
           <textarea class="form-control" id="validationTooltip05" rows="5" placeholder="Description"
-                    [(ngModel)]="category.description" name="categoryDescription"></textarea>
+                    [(ngModel)]="itemCategory.description" name="categoryDescription"></textarea>
           <div class="invalid-tooltip">
             Please fill item discount
           </div>
@@ -203,6 +203,8 @@
             class="form-check-input"
             type="checkbox"
             id="invalidCheck"
+            [(ngModel)]="itemCategory.isNewCategory"
+            name="newCategory"
             required
           />
           <label class="form-check-label" for="invalidCheck"
@@ -213,7 +215,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-primary btn-md" type="submit">
+      <button class="btn btn-primary btn-md" type="submit" [disabled]="!itemCategory.isNewCategory">
         Save
       </button>
     </form>
@@ -259,10 +261,10 @@
   <div class="accordion" id="category-list">
 
     <!-- Accordion item -->
-    <div class="accordion-item" *ngFor="let categoryE of categories;let i = index">
+    <div class="accordion-item" *ngFor="let itemCategoryE of categories;let i = index">
       <div class="accordion-header d-flex" id="headingOne">
         <div class="p-2 flex-grow-1 bd-highlight">
-          <a class="nav-link">{{categoryE.name}}</a>
+          <a class="nav-link">{{itemCategoryE.name}}</a>
         </div>
         <div class="p-2 bd-highlight">
           <a type="button" class="nav-link hover-text-danger">
@@ -272,20 +274,20 @@
         <div class="p-2 bd-highlight">
           <a type="button" class="nav-link hover-text-info" data-bs-toggle="collapse"
              [attr.data-bs-target]="'#categoryEdit' + i" aria-expanded="true" aria-controls="categoryOneEdit"
-             value="{{categoryE.itemCategoryId}}">
+             value="{{itemCategoryE.itemCategoryId}}">
             <i class="fi-edit"></i>
           </a>
         </div>
         <div class="p-2 bd-highlight">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   [attr.data-bs-target]="'#category' + i"
-                  aria-expanded="true" aria-controls="categoryOne" value="{{categoryE.itemCategoryId}}"></button>
+                  aria-expanded="true" aria-controls="categoryOne" value="{{itemCategoryE.itemCategoryId}}"></button>
         </div>
       </div>
       <div class="accordion-collapse collapse" aria-labelledby="headingEdit" data-bs-parent="#category-list"
            id="categoryEdit{{i}}">
         <div class="card card-body border-none">
-          <form #baManageFormCategoryE="ngForm" (ngSubmit)="baManageFormCategoryE.form.valid && onSubmitE(categoryE)" novalidate>
+          <form #baManageFormCategoryE="ngForm" (ngSubmit)="baManageFormCategoryE.form.valid && onSubmitE(itemCategoryE)" novalidate>
 
             <div class="row">
               <div class="col-md-8 mb-3">
@@ -301,7 +303,7 @@
                   type="text"
                   placeholder="Title"
                   required
-                  [(ngModel)]="categoryE.name" #categoryTitleE="ngModel" name="categoryTitle"
+                  [(ngModel)]="itemCategoryE.name" #categoryTitleE="ngModel" name="categoryTitle"
                 />
                 <div
                   *ngIf="(categoryTitleE.touched || baManageFormCategoryE.submitted) && categoryTitleE.errors?.required"
@@ -332,8 +334,8 @@
                   [searchWhileComposing]="true"
                   name="businessProfileCategories"
                   #businessProfileCategoriesE="ngModel" required
-                  (change)="getItems('e',categoryE)"
-                  [(ngModel)]="categoryE.businessProfileCategory.businessCategory">
+                  (change)="getItems('e',itemCategoryE)"
+                  [(ngModel)]="itemCategoryE.businessProfileCategory.businessCategory">
                 </ng-select>
                 <div
                   *ngIf="(businessProfileCategoriesE.touched || baManageFormCategoryE.submitted) && businessProfileCategoriesE.errors?.required"
@@ -385,11 +387,11 @@
                         [searchWhileComposing]="true"
                         name="items"
                         #itemsE="ngModel" required
-                        [(ngModel)]="categoryE.items"
+                        [(ngModel)]="itemCategoryE.items"
                         style="width: 100%">
                       </ng-select>
                     </div>
-                    <div *ngIf="(baManageFormCategoryE.submitted) && categoryE.items.length===0"
+                    <div *ngIf="(baManageFormCategoryE.submitted) && itemCategoryE.items.length===0"
                          class="validErr">
                       Item is required
                     </div>
@@ -423,7 +425,7 @@
                    aria-label="Small description about your category."><i class="fi-help"></i>
                 </a>
                 <textarea class="form-control" id="validationTooltip05" rows="5" placeholder="Description"
-                          [(ngModel)]="categoryE.description" name="categoryDescription"></textarea>
+                          [(ngModel)]="itemCategoryE.description" name="categoryDescription"></textarea>
                 <div class="invalid-tooltip">
                   Please fill item discount
                 </div>
@@ -439,7 +441,7 @@
                   id="invalidCheck"
                   required
                   name="isUpdateCategory"
-                  [(ngModel)]="categoryE.isUpdateCategory"
+                  [(ngModel)]="itemCategoryE.isUpdateCategory"
                 />
                 <label class="form-check-label" for="invalidCheck"
                 >I confirm that the information provided information is accurate and correct.</label
@@ -449,7 +451,7 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary btn-md" type="submit" [disabled]="!categoryE.isUpdateCategory">
+            <button class="btn btn-primary btn-md" type="submit" [disabled]="!itemCategoryE.isUpdateCategory">
               Save
             </button>
           </form>
@@ -458,62 +460,9 @@
       <div class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#category-list"
            id="category{{i}}">
         <div class="accordion-body">
-          <div class="row g-4 py-1">
-            <!-- Item-->
-            <div class="col-sm-6 col-xl-4" *ngFor="let item of categoryE.items">
-              <div class="card shadow-sm card-hover border-0 h-100">
-                <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"></a>
-                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
-                    class="d-table badge bg-info">{{categoryE.name}}</span>
-                  </div>
-                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
-                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
-                            data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i
-                      class="fi-trash"></i></button>
-                  </div>
-                  <!--<div class="tns-carousel-inner"><img src="../../../../assets/img/catalog/06.jpg" alt="Image"><img-->
-                  <!--src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>-->
-                  <img *ngIf="item.itemImgs!==undefined" style="height: 180px;width: 280px" [src]="getImageSrc(item.itemImgs[0])" alt="Image">
-                </div>
-                <div class="card-body position-relative pb-3">
 
-                  <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
-                  <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#" data-bs-toggle="offcanvas"
-                                                 data-bs-target="#item-viewer">{{item.itemTitle}}</a></h3>
-                  <!-- <div class="d-flex align-items-center text-nowrap">
-                    <p class="mb-2 fs-sm text-muted">Quantity </p>
-                    <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
-                  </div> -->
-                  <div class="row cols-sm-2 row-cols-md-12">
-                    <div class="col">
-                      <p class="mb-2 fs-sm text-muted">Quantity </p>
-                      <p class="mb-2 fs-sm text-warning fw-bold mx-2">{{item.itemQty}}</p>
-                    </div>
-                    <div class="col">
-                      <p class="mb-2 fs-sm text-muted">Discount </p>
-                      <p class="mb-2 fs-sm text-primary fw-bold">20%</p>
-                    </div>
-                  </div>
-                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR
-                    {{item.itemPrice}}
-                  </div>
-                </div>
-                <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" [checked]="item.itemAvailable"
-                           (click)="setItemAvailable(item)">
-                    <label *ngIf="!item.itemAvailable"
-                           class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">
-                      Not Available</label>
-                    <label *ngIf="item.itemAvailable"
-                           class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
-                      Available</label>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <app-ba-manage-item-view [items]="itemCategoryE.items"></app-ba-manage-item-view>
 
-          </div>
         </div>
       </div>
     </div>

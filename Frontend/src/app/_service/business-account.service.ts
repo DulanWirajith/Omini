@@ -12,7 +12,8 @@ export class BusinessAccountService {
   businessProfile;
   step = new Subject<number>();
   breadCrumbSub = new Subject<string>();
-  businessCategories = new Subject<any>();
+  businessCategoriesSub = new Subject<any>();
+  businessCategories = [];
 
   constructor(private http: HttpClient, private commonService: CommonService) {
     this.getBusinessCategoriesCom();
@@ -60,7 +61,8 @@ export class BusinessAccountService {
 
   getBusinessCategoriesCom() {
     this.getBusinessCategories().subscribe((businessCategories) => {
-      this.businessCategories.next(businessCategories);
+      this.businessCategoriesSub.next(businessCategories);
+      this.businessCategories = businessCategories;
     })
   }
 

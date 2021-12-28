@@ -14,19 +14,16 @@ export class BaManageCategoryComponent implements OnInit {
 
   itemsToAdd = [];
   itemsToAddE = [];
-  addedItems;
-  addedItemsE;
   businessCategories = [];
-  category;
-  // categoryE;
+  itemCategory;
   categories = [];
   businessProfileCategory;
   @ViewChild('baManageFormCategory', {static: true}) public baManageFormCategory: NgForm;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
-    this.category = itemService.getNewCategory();
+    this.itemCategory = itemService.getNewCategory();
     // this.categoryE = itemService.getNewCategory();
-    businessAccountService.businessCategories.subscribe((businessCategories) => {
+    businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
       // console.log(this.businessCategories)
     })
@@ -35,27 +32,28 @@ export class BaManageCategoryComponent implements OnInit {
   ngOnInit(): void {
     // this.getBusinessCategories();
     // this.getItemCategoriesOrdered();
+    this.businessCategories = this.businessAccountService.businessCategories;
     this.toggleCategoryBtn();
   }
 
   onSubmit() {
-    this.category.businessProfileCategory.businessProfile = {
+    this.itemCategory.businessProfileCategory.businessProfile = {
       businessProId: "B321"
     };
 
-    this.itemService.addCategory(this.category).subscribe((item) => {
+    this.itemService.addCategory(this.itemCategory).subscribe((item) => {
       // this.items.push(item)
       this.baManageFormCategory.resetForm(this.itemService.getNewItem());
       // this.item.itemItemFeatures = [];
     })
   }
 
-  onSubmitE(category) {
-    category.businessProfileCategory.businessProfile = {
+  onSubmitE(itemCategory) {
+    itemCategory.businessProfileCategory.businessProfile = {
       businessProId: "B321"
     };
 
-    this.itemService.updateCategory(category).subscribe((item) => {
+    this.itemService.updateCategory(itemCategory).subscribe((item) => {
       // this.items.push(item)
       this.baManageFormCategory.resetForm(this.itemService.getNewItem());
       // this.item.itemItemFeatures = [];
@@ -66,12 +64,12 @@ export class BaManageCategoryComponent implements OnInit {
     this.itemService.getItemCategoriesOrdered("B321", this.businessProfileCategory.businessCategoryId).subscribe((categories) => {
       // console.log(categories)
       this.categories = categories;
-      for (let category of this.categories) {
-        category.businessProfileCategory = {
+      for (let itemCategory of this.categories) {
+        itemCategory.businessProfileCategory = {
           businessProfile: undefined,
           businessCategory: undefined
         }
-        category.isUpdateCategory = false;
+        itemCategory.isUpdateCategory = false;
       }
     })
   }
@@ -80,9 +78,9 @@ export class BaManageCategoryComponent implements OnInit {
   //   this.businessCategories = this.businessAccountService.businessCategories;
   // }
 
-  getItems(val, category?) {
+  getItems(val, itemCategory?) {
     if (val === 'n') {
-      this.itemService.getItemsBusinessCategory("B321", this.category.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+      this.itemService.getItemsBusinessCategory("B321", this.itemCategory.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAdd = items;
       })
@@ -90,11 +88,11 @@ export class BaManageCategoryComponent implements OnInit {
       this.itemService.getItemsBusinessCategory("B321", this.businessProfileCategory.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAddE = items;
-        if (category !== undefined) {
-          if (category.businessProfileCategory.businessCategory.businessCategoryId === category.tempBusinessCategory.businessCategoryId) {
-            category.items = category.tempItems;
+        if (itemCategory !== undefined) {
+          if (itemCategory.businessProfileCategory.businessCategory.businessCategoryId === itemCategory.tempBusinessCategory.businessCategoryId) {
+            itemCategory.items = itemCategory.tempItems;
           } else {
-            category.items = [];
+            itemCategory.items = [];
           }
         }
       })
@@ -116,16 +114,25 @@ export class BaManageCategoryComponent implements OnInit {
   }
 
   getItemCategorySelected(that, obj) {
-    let index: any = that.categories.findIndex(category => {
-      return category.itemCategoryId === $(obj).val()
+    let index: any = that.categories.findIndex(itemCategory => {
+      return itemCategory.itemCategoryId === $(obj).val()
     })
     // console.log(categoryObj)that.categories[index]
     if (that.categories[index] !== undefined && that.categories[index].items === undefined) {
-      that.itemService.getItemCategorySelected($(obj).val()).subscribe((category) => {
+      that.itemService.getItemCategorySelected($(obj).val()).subscribe((itemCategory) => {
         // that.categories[index] = category;
-        Object.assign(that.categories[index], category)
-        that.categories[index].tempBusinessCategory = category.businessProfileCategory.businessCategory;
-        that.categories[index].tempItems = category.items;
+        Object.assign(that.categories[index], itemCategory)
+        that.categories[index].tempBusinessCategory = itemCategory.businessProfileCategory.businessCategory;
+        for (let item of itemCategory.items) {
+          // item.itemImgsRaw = [];
+          // item.itemItemFeatures = [];
+          // item.businessProfileCategory = {
+          //   businessProfile: undefined,
+          //   businessCategory: undefined
+          // }
+          // this.items.push(item.item);
+        }
+        that.categories[index].tempItems = itemCategory.items;
         // console.log(that.categories[index])
         // for (let i = 0; i < that.categories.length; i++) {
         //   if (that.categories[i].itemCategoryId === $(obj).val()) {
@@ -138,14 +145,14 @@ export class BaManageCategoryComponent implements OnInit {
     }
   }
 
-  setItemAvailable(item) {
-    this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
-      item.itemAvailable = reply;
-    })
-  }
-
-  getImageSrc(itemImg) {
-    let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
-    return this.sanitizer.bypassSecurityTrustUrl(imageData);
-  }
+  // setItemAvailable(item) {
+  //   this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
+  //     item.itemAvailable = reply;
+  //   })
+  // }
+  //
+  // getImageSrc(itemImg) {
+  //   let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
+  //   return this.sanitizer.bypassSecurityTrustUrl(imageData);
+  // }
 }

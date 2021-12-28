@@ -80,16 +80,16 @@ public class ItemController {
         return ResponseEntity.ok(itemS.getItemSelected(itemId));
     }
 
-    @GetMapping(value = "/itemImg/{id}")
-    public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {
-
-        ItemImgDTO itemImg = itemS.getItemImg(id);
-
-        if (itemImg != null) {
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + itemImg.getItemImgName() + "\"")
-                    .body(itemImg.getItemImg());
-        }
-        return null;
-    }
+//    @GetMapping(value = "/itemImg/{id}")
+//    public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {
+//
+//        ItemImgDTO itemImg = itemS.getItemImg(id);
+//
+//        if (itemImg != null) {
+//            return ResponseEntity.ok()
+//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + itemImg.getItemImgName() + "\"")
+//                    .body(itemImg.getItemImg());
+//        }
+//        return null;
+//    }
 }

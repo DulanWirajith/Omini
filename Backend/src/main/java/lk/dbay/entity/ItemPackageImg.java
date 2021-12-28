@@ -21,8 +21,6 @@ public class ItemPackageImg extends DateTime {
     @Id
     private String itemPackageImgId;
 
-    @Lob
-    private byte[] itemPackageImg;
     private String itemPackageImgName;
     private String itemPackageImgType;
     private boolean thumbnail;

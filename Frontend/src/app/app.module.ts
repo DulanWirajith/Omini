@@ -34,6 +34,8 @@ import { BaManagePackageComponent } from './view/business-account/ba-manage/ba-m
 import { CpProfileSettingsComponent } from './view/profile/customer-profile/cp-profile-settings/cp-profile-settings.component';
 import { SpProfileSettingsComponent } from './view/profile/shop-profile/sp-profile-settings/sp-profile-settings.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BaManageItemViewComponent } from './view/business-account/ba-manage/ba-manage-item-view/ba-manage-item-view.component';
+import { BaManageItemEditComponent } from './view/business-account/ba-manage/ba-manage-item-edit/ba-manage-item-edit.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BaManageCategoryComponent,
     BaManagePackageComponent,
     CpProfileSettingsComponent,
-    SpProfileSettingsComponent
+    SpProfileSettingsComponent,
+    BaManageItemViewComponent,
+    BaManageItemEditComponent
   ],
   imports: [
     BrowserModule,

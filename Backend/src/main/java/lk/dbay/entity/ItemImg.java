@@ -19,10 +19,11 @@ public class ItemImg extends DateTime {
     @Id
     private String itemImgId;
 
-    @Lob
-    private byte[] itemImg;
+//    @Lob
+//    private byte[] itemImg;
     private String itemImgName;
     private String itemImgType;
+//    private String itemImgPath;
     private boolean thumbnail;
 
     @ManyToOne

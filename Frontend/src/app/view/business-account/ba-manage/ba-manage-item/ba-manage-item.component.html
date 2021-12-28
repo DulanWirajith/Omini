@@ -200,7 +200,7 @@
             [searchWhileComposing]="true"
             name="businessProfileCategories"
             #businessProfileCategories="ngModel" required
-            (change)="getItemFeatures('n')"
+            (change)="getItemFeatures()"
             [(ngModel)]="item.businessProfileCategory.businessCategory">
           </ng-select>
           <div
@@ -237,7 +237,7 @@
           </a>
 
           <form #baManageFormItemFeatureExs="ngForm"
-                (ngSubmit)="baManageFormItemFeatureExs.form.valid && addFeature('n')"
+                (ngSubmit)="baManageFormItemFeatureExs.form.valid && addFeature()"
                 novalidate>
 
             <div class="d-flex flex-column flex-sm-row">
@@ -324,8 +324,8 @@
             #imageInput
             [options]="pondOptions"
             name="imageInput"
-            (onaddfile)="pondHandleAddFile($event,'n')"
-            (onremovefile)="pondHandlerRemoveFile($event,'n')">
+            (onaddfile)="pondHandleAddFile($event)"
+            (onremovefile)="pondHandlerRemoveFile($event)">
           </file-pond>
           <!--<input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"-->
           <!--accept="image/png, image/jpeg"-->
@@ -348,7 +348,7 @@
             type="checkbox"
             required
             name="newItemC"
-            [(ngModel)]="isNewItem"
+            [(ngModel)]="item.isNewItem"
           />
           <label class="form-check-label" for="invalidCheck"
           >I confirm that the provided information is accurate and correct.</label
@@ -358,7 +358,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-primary btn-md" type="submit" [disabled]="!isNewItem">
+      <button class="btn btn-primary btn-md" type="submit" [disabled]="!item.isNewItem">
         Save
       </button>
     </form>
@@ -399,423 +399,6 @@
   </div>
 </div>
 
-<!--Item side viewer-->
-<div class="offcanvas offcanvas-end" id="item-viewer" style="width:50rem;">
-  <div class="offcanvas-header d-block border-bottom">
-    <div class="d-flex align-items-center justify-content-between">
-      <h2 class="h5 mb-0">{{itemE.itemTitle}}</h2>
-      <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
-    </div>
-
-  </div>
-  <div class="offcanvas-body">
-    <!-- Tabs content-->
-    <div class="tab-content">
-      <!-- Item View-->
-      <div class="tab-pane fade show active" id="item-view" role="tabpanel">
-        <!--<div class="row">-->
-        <!--<div class="row g-2 g-md-3 gallery" data-thumbnails="true" style="min-width: 30rem;">-->
-        <!--<div class="col-8"><a class="gallery-item rounded rounded-md-3" href="./asset/img/catalog/01.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Kids bed&lt;/h6&gt;"><img src="./asset/img/catalog/01.jpg" alt="Gallery thumbnail"></a></div>-->
-        <!--<div class="col-4"><a class="gallery-item rounded rounded-md-3 mb-2 mb-md-3" href="./asset/img/catalog/02.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Kids bed&lt;/h6&gt;"><img src="./asset/img/catalog/02.jpg" alt="Gallery thumbnail"></a>-->
-        <!--<a class="gallery-item rounded rounded-md-3" href="./asset/img/catalog/03.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;"><img src="./asset/img/catalog/03.jpg" alt="Gallery thumbnail"></a></div>-->
-        <!--<div class="col-12">-->
-        <!--<div class="row g-2 g-md-3">-->
-        <!--<div class="col"><a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/03.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;"><img src="./asset/img/catalog/03.jpg" alt="Gallery thumbnail"></a></div>-->
-        <!--<div class="col"><a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/04.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;King size bed&lt;/h6&gt;"><img src="./asset/img/catalog/04.jpg" alt="Gallery thumbnail"></a></div>-->
-        <!--<div class="col"><a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/05.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Towels&lt;/h6&gt;"><img src="./asset/img/catalog/05.jpg" alt="Gallery thumbnail"></a></div>-->
-        <!--<div class="col"><a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/06.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Bathroom&lt;/h6&gt;"><img src="./asset/img/catalog/06.jpg" alt="Gallery thumbnail"></a></div>-->
-        <!--<div class="col"><a class="gallery-item more-item rounded-1 rounded-md-2" href="./asset/img/catalog/07.jpg" data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Bathroom&lt;/h6&gt;"><img src="./asset/img/catalog/07.jpg" alt="Gallery thumbnail"><span class="gallery-item-caption fs-base">+5 <span class='d-none d-md-inline'>photos</span></span></a></div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <div class="rowg-3  mt-4">
-          <h3 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Information</h3>
-        </div>
-        <div class="row cols-md-4">
-          <div class="col"><p class="mb-2 fs-sm text-dark fw-bold">Quantity </p></div>
-          <div class="col"><p class="mb-2 fs-sm text-warning fw-bold mx-2">250g</p></div>
-          <div class="col"><p class="mb-2 fs-sm text-dark fw-bold">Discount </p></div>
-          <div class="col"><p class="mb-2 fs-sm text-primary fw-bold">20%</p></div>
-          <div class="col"><p class="mb-2 fs-sm text-dark fw-bold">Price </p></div>
-          <div class="col"><p class="mb-2 fs-sm text-primary fw-bold">LKR 2000</p></div>
-        </div>
-        <div class="row cols-md-12 mt-2">
-          <p class="mb-2 fs-sm text-dark fw-bold">Description </p>
-          <div class="col">
-            <p class="mb-2 fs-sm text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
-              consequuntur laudantium inventore dignissimos ipsum. Error sint perferendis dolores eligendi animi alias
-              excepturi aut aliquid, molestiae recusandae atque, quo iusto rem! </p>
-          </div>
-        </div>
-
-        <div class="row cols-md-12 mt-2">
-          <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
-          <div class="col">
-            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Interface<i
-              class="fi-x fs-xs ms-2"></i></span>
-          </div>
-          <div class="col">
-            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">Typography<i
-              class="fi-x fs-xs ms-2"></i></span>
-          </div>
-          <div class="col">
-            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Experience<i
-              class="fi-x fs-xs ms-2"></i></span>
-          </div>
-          <div class="col">
-            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Interface<i
-              class="fi-x fs-xs ms-2"></i></span>
-          </div>
-          <div class="col">
-            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">Typography<i
-              class="fi-x fs-xs ms-2"></i></span>
-          </div>
-          <div class="col">
-            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">User Experience<i
-              class="fi-x fs-xs ms-2"></i></span>
-          </div>
-        </div>
-      </div>
-
-      <!--Item Edit-->
-      <div class="tab-pane fade" id="item-edit" role="tabpanel">
-        <div class="card card-body">
-          <form #baManageFormItemE="ngForm" (ngSubmit)="baManageFormItemE.form.valid && onSubmitE()" novalidate>
-
-            <div class="row">
-              <div class="col-md-8 mb-3">
-                <label class="form-label"
-                >Title</label
-                >
-                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
-                   data-bs-toggle="tooltip" title="" data-bs-original-title="Suitable title for describe item"
-                   aria-label="Suitable title for describe item"><i class="fi-help"></i>
-                </a>
-                <input
-                  class="form-control"
-                  type="text"
-                  placeholder="Title"
-                  required
-                  [(ngModel)]="itemE.itemTitle" #itemTitleE="ngModel" name="itemTitle"
-                />
-                <div *ngIf="(itemTitleE.touched || baManageFormItemE.submitted) && itemTitleE.errors?.required"
-                     class="validErr">
-                  Title is required
-                </div>
-                <div class="valid-tooltip">Looks good!</div>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label class="form-label" for="validationTooltip02"
-                >Quantity</label
-                >
-                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
-                   data-bs-toggle="tooltip" title="Item quantity" data-bs-original-title="Item quantity"
-                   aria-label="Item quantity"><i class="fi-help"></i>
-                </a>
-                <input
-                  class="form-control"
-                  type="number"
-                  placeholder="Quantity"
-                  min="1"
-                  required
-                  [(ngModel)]="itemE.itemQty" #itemQtyE="ngModel" name="itemQty"
-                />
-                <div *ngIf="(itemQtyE.touched || baManageFormItemE.submitted) && itemQtyE.errors?.required"
-                     class="validErr">
-                  Quantity is required
-                </div>
-                <div class="valid-tooltip">Looks good!</div>
-              </div>
-              <!-- <div class="col-md-4 mb-3">
-                      <label class="form-label" for="validationTooltipUsername">Username</label>
-                      <input class="form-control" type="text" id="validationTooltipUsername" placeholder="Username" required>
-                      <div class="invalid-tooltip">Please choose a username.</div>
-                      <div class="valid-tooltip">Looks good!</div>
-                    </div> -->
-            </div>
-            <div class="row">
-              <div class="col-md-4 mb-3">
-                <label class="form-label" for="validationTooltip03"
-                >Discount type</label
-                >
-                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
-                   data-bs-toggle="tooltip" title="Select discount type" data-bs-original-title=""
-                   aria-label="Item price"><i class="fi-help"></i>
-                </a>
-                <select
-                  class="form-select"
-                  [(ngModel)]="itemE.itemDiscountType" #itemDiscountTypeE="ngModel" name="itemDiscountType"
-                >
-                  <option value="None">None</option>
-                  <option value="Cash">Cash</option>
-                  <option value="Percentage">Percentage</option>
-                </select>
-                <div
-                  *ngIf="(itemDiscountTypeE.touched || baManageFormItemE.submitted) && itemDiscountTypeE.errors?.required"
-                  class="validErr">
-                  Discount type is required
-                </div>
-              </div>
-              <div class="col-md-4 mb-3" *ngIf="item.itemDiscountType!=='None'">
-                <label class="form-label" for="validationTooltip04"
-                >Discount</label
-                >
-                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
-                   data-bs-toggle="tooltip" title="Item discount" data-bs-original-title="Item discount"
-                   aria-label="Item discount"><i class="fi-help"></i>
-                </a>
-                <input
-                  class="form-control"
-                  type="number"
-                  placeholder="Discount"
-                  required
-                  [(ngModel)]="itemE.itemDiscount" #itemDiscountE="ngModel" name="itemDiscount"
-                />
-                <div *ngIf="(itemDiscountE.touched || baManageFormItemE.submitted) && itemDiscountE.errors?.required"
-                     class="validErr">
-                  Discount is required
-                </div>
-                <!--<div class="valid-tooltip">Looks good!</div>-->
-              </div>
-              <div class="col-md-4 mb-3">
-                <label class="form-label" for="validationTooltip02"
-                >Price (LKR)</label
-                >
-                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
-                   data-bs-toggle="tooltip" title="" data-bs-original-title="Item price" aria-label="Item price"><i
-                  class="fi-help"></i>
-                </a>
-                <!-- <input
-                  class="form-control"
-                  type="text"
-                  id="validationTooltip02"
-                  placeholder="Price"
-                  value=""
-                  required
-                /> -->
-                <div class="input-group">
-                  <span class="input-group-text fs-lg py-1">LKR</span>
-                  <input type="number" class="form-control" placeholder="Amount"
-                         required [(ngModel)]="itemE.itemPrice" #itemPriceE="ngModel" name="itemPrice">
-                  <!--<span class="input-group-text">.00</span>-->
-                </div>
-                <div *ngIf="(itemPriceE.touched || baManageFormItemE.submitted) && itemPriceE.errors?.required"
-                     class="validErr">
-                  Price is required
-                </div>
-
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 mb-3">
-                <label class="form-label"
-                >Business type </label
-                >
-                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
-                   data-bs-toggle="tooltip" title="Select this item belongs to which type of business"
-                   data-bs-original-title="Select this item belongs to which type of business"
-                   aria-label="Select this item belongs to which type of business"><i class="fi-help"></i>
-                </a>
-                <!-- <div class="d-flex flex-column flex-sm-row"> -->
-                <ng-select
-                  [items]="businessCategories"
-                  bindLabel="name"
-                  placeholder="Select Business Type"
-                  dropdownPosition="auto"
-                  [multiple]="false"
-                  [searchWhileComposing]="true"
-                  name="businessProfileCategories"
-                  #businessProfileCategoriesE="ngModel" required
-                  (change)="getItemFeatures('e')"
-                  [(ngModel)]="itemE.businessProfileCategory.businessCategory">
-                </ng-select>
-                <div
-                  *ngIf="(businessProfileCategoriesE.touched || baManageFormItemE.submitted) && businessProfileCategoriesE.errors?.required"
-                  class="validErr">
-                  Business type is required
-                </div>
-                <!-- <div class="invalid-tooltip">
-                  Please fill item quantity
-                </div>
-                <div class="valid-tooltip">Looks good!</div> -->
-                <!-- <button type="button" class="btn btn-light-primary btn-icon shadow-sm">
-                  <i class="fi-plus"></i>
-                </button> -->
-                <!-- <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> -->
-                <!-- </div> -->
-
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 mb-3">
-                <label class="form-label" for="validationTooltip04"
-                >Features</label
-                >
-                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
-                   data-bs-toggle="tooltip" title="You can add if there any features"
-                   data-bs-original-title="You can add if there any features"
-                   aria-label="You can add if there any features"><i class="fi-help"></i>
-                </a>
-                <a href="#new-feature-edit" data-bs-toggle="modal" data-bs-dismiss="modal"
-                   class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-3 fw-bold"
-                   title="You can create new feature." data-bs-original-title="You can create new feature."
-                   aria-label="You can create new feature." style="padding-left: 20px;padding-top: 4px">Create Feature
-                </a>
-
-                <form #baManageFormItemFeatureExsE="ngForm"
-                      (ngSubmit)="baManageFormItemFeatureExsE.form.valid && addFeature('e')"
-                      novalidate>
-
-                  <div class="d-flex flex-column flex-sm-row">
-                    <div style="width: 100%">
-                      <div>
-                        <ng-select
-                          [items]="itemFeaturesE"
-                          bindLabel="name"
-                          placeholder="Select Feature"
-                          dropdownPosition="auto"
-                          [multiple]="false"
-                          [searchWhileComposing]="true"
-                          name="iFeature"
-                          #iFeatureE="ngModel" required
-                          [(ngModel)]="itemFeatureE"
-                          style="width: 100%">
-                        </ng-select>
-                      </div>
-                      <div *ngIf="(baManageFormItemFeatureExsE.submitted) && itemFeatureE===undefined"
-                           class="validErr">
-                        Feature is required
-                      </div>
-                      <!--<div style="color: blue;padding-left: 10px;padding-top: 5px">-->
-                      <!--Add new feature-->
-                      <!--</div>-->
-                    </div>
-                    <!-- <div class="invalid-tooltip">
-                      Please fill item quantity
-                    </div>
-                    <div class="valid-tooltip">Looks good!</div> -->
-                    <button style="margin-left: 10px" type="submit"
-                            class="btn btn-light-primary btn-icon shadow-sm">
-                      <i class="fi-plus"></i>
-                    </button>
-                    <!-- <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> -->
-                  </div>
-                </form>
-
-              </div>
-            </div>
-            <div class="row">
-              <div class="d-flex flex-wrap mb-4">
-                <span *ngFor="let itemFeature of itemE.itemItemFeatures;let i = index"
-                      class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemFeature.itemFeature.name}}
-                  <i class="fi-x fs-xs ms-2" (click)="itemE.itemItemFeatures.splice(i,1)" style="cursor: pointer"></i>
-                </span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 mb-3">
-                <label class="form-label" for="validationTooltip05"
-                >Description</label
-                >
-                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
-                   data-bs-toggle="tooltip" title="Small description about your item."
-                   data-bs-original-title="Small description about your item."
-                   aria-label="Small description about your item."><i class="fi-help"></i>
-                </a>
-                <textarea class="form-control" rows="5" placeholder="Description"
-                          [(ngModel)]="itemE.itemDescription" name="itemDescription"></textarea>
-                <div class="invalid-tooltip">
-                  Please fill item discount
-                </div>
-                <div class="valid-tooltip">Looks good!</div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 mb-3">
-                <div class="alert alert-info mb-4" role="alert">
-                  <div class="d-flex"><i class="fi-alert-circle me-2 me-sm-3"></i>
-                    <p class="fs-sm mb-1">The maximum photo size is 5 MB. Formats: jpeg, jpg, png. Put the main picture
-                      first.</p>
-                  </div>
-                </div>
-                <file-pond
-                  class="file-uploader-grid"
-                  #imageInputE
-                  [options]="pondOptions"
-                  name="imageInput"
-                  (onaddfile)="pondHandleAddFile($event,'e')"
-                  (onremovefile)="pondHandlerRemoveFile($event,'e')">
-                </file-pond>
-                <!--<input class="file-uploader file-uploader-grid" type='file' accept="image/*" #imageInputE="ngModel"-->
-                <!--data-max-file-size="5MB"-->
-                <!--[(ngModel)]="imgUrlE" name="imageInputE"-->
-                <!--(change)="processFile($event,'e')">-->
-                <!--<input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"-->
-                <!--accept="image/png, image/jpeg"-->
-                <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->
-              </div>
-              <div
-                *ngIf="(imageInputE.touched || baManageFormItemE.submitted) && imageInputE.errors?.required"
-                class="validErr" style="margin-bottom: 10px">
-                Image is required
-              </div>
-              <!--<div class="col-md-4 mb-4" *ngFor='let url of imagesE'>-->
-              <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->
-              <!--</div>-->
-              <div class="col-md-4 mb-4" *ngFor='let itemImg of itemE.itemImgs;let j = index'>
-                <div style="position: relative" class="delImgT">
-                  <img [src]="getImageSrc(itemImg)" style="margin: 3px;height: 200px;width: 300px">
-                  <span class="delImg">
-                    <i class="fi-trash"
-                       style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 25px;"
-                       (click)="itemE.itemImgs.splice(j,1)"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="mb-3 py-2">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  required
-                  name="newItemC"
-                  [(ngModel)]="isNewItemE"
-                />
-                <label class="form-check-label" for="invalidCheck"
-                >I confirm that the provided information is accurate and correct.</label
-                >
-                <div class="invalid-tooltip">
-                  You must agree before submitting.
-                </div>
-              </div>
-            </div>
-            <button class="btn btn-primary btn-md" type="submit" [disabled]="!isNewItemE">
-              Save
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="offcanvas-footer border-top" style="display: block;">
-    <ul class="nav nav-tabs justify-content-end" role="tablist">
-      <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-info" href="#item-view" data-bs-toggle="tab" role="tab"><i
-          class="fi-arrow-back fs-lg me-2"></i>Back</a>
-      </li>
-      <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-primary" href="#item-edit" data-bs-toggle="tab" role="tab"><i
-          class="fi-edit fs-lg me-2"></i>Edit</a>
-      </li>
-      <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-danger" href="#" rel="noopener"><i class="fi-trash fs-lg me-2"></i>Remove</a>
-      </li>
-    </ul>
-  </div>
-</div>
-
 <!--modal item-->
 
 <div class="modal fade" role="dialog" id="new-feature" tabindex="-1" aria-hidden="true">
@@ -838,7 +421,7 @@
           <div>It takes few minutes to review your feature.Then we will add it into your item.</div>
         </div>
         <form class="tab-pane fade show active" autocomplete="off" id="add-feature" #baManageFormItemFeature="ngForm"
-              (ngSubmit)="baManageFormItemFeature.form.valid && addFeatureTemp('n')" novalidate>
+              (ngSubmit)="baManageFormItemFeature.form.valid && addFeatureTemp()" novalidate>
           <div class="mb-3">
             <label class="form-label" for="feature">Feature</label>
             <div style="display: flex">
@@ -873,7 +456,7 @@
             </div>
           </div>
           <button data-bs-dismiss="modal" class="btn btn-primary d-block w-100" type="button"
-                  (click)="addNewItemFeature('n')" [disabled]="!isNewFeature">Save
+                  (click)="addNewItemFeature()" [disabled]="!isNewFeature">Save
           </button>
         </form>
       </div>
@@ -1028,6 +611,7 @@
 
 </div>
 
+<app-ba-manage-item-view [items]="items"></app-ba-manage-item-view>
 <!-- <div class="mb-4 pb-4 border-bottom">
 <p class="pt-1 mb-1">Manage your Items</p>
 </div> -->
