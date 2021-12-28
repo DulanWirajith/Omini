@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  backend_url: 'http://localhost:8080/dbay/'
+  backend_url: 'http://localhost:8080/dbay/',
+  image_url: 'http://localhost/Dbay/'
 };
 
 /*

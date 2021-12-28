@@ -47,11 +47,11 @@ public class ItemSImpl implements ItemS {
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             BusinessProfileCategory businessProfileCategory = item.getBusinessProfileCategory();
             item.setItemId("ITM" + businessProfileCategory.getBusinessProfile().getBusinessProId() + format);
-            addFeaturesToItem(item);
-            addImagesToItem(item, files);
             businessProfileCategory.setBusinessProfileCategoryId(
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
+            addFeaturesToItem(item);
+            addImagesToItem(item, files);
             return new ItemDTO(itemR.save(item), true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,7 +134,7 @@ public class ItemSImpl implements ItemS {
                 try {
                     Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
                 } catch (FileAlreadyExistsException e) {
-
+                    e.printStackTrace();
                 }
                 itemImg.setItemImgName(StringUtils.cleanPath(file.getOriginalFilename()));
 //                itemImg.setItemImgPath("C:\\xampp\\htdocs\\Dbay\\" + itemImg.getItemImgName());
@@ -154,7 +154,7 @@ public class ItemSImpl implements ItemS {
 //                LocalDateTime localDateTime = LocalDateTime.now();
 //                String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             ItemFeature itemFeatureObj = itemItemFeature.getItemFeature();
-            itemFeatureObj.setItemFeatureId("ITF" + itemFeatureObj.getName().replace(" ", "_") + itemFeatureObj.getBusinessCategory().getBusinessCategoryId());
+            itemFeatureObj.setItemFeatureId("ITF" + itemFeatureObj.getName().replace(" ", "_") + item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId());
             ItemFeature itemFeature = itemFeatureR.save(itemItemFeature.getItemFeature());
             itemItemFeature.setItemFeature(itemFeature);
 //            }

@@ -29,18 +29,24 @@ export class BrStep5Component implements OnInit {
     let businessAreas = [];
     for (let businessType of this.businessProfile.businessProfileCategories) {
       businessTypes.push({
-        businessCategory: businessType
+        businessCategory: businessType,
+        businessProfile: {
+          businessProId: this.businessProfile.businessProId
+        }
       })
     }
     this.businessProfile.businessProfileCategories = businessTypes;
 
     for (let businessArea of this.businessProfile.businessAreas) {
       businessAreas.push({
-        town: businessArea
+        town: businessArea,
+        businessProfile: {
+          businessProId: this.businessProfile.businessProId
+        }
       })
     }
     this.businessProfile.businessAreas = businessAreas;
-    //console.log(this.businessProfile)
+    console.log(this.businessProfile)
     this.businessAccountService.addBusinessProfile(this.businessProfile).subscribe((reply) => {
       localStorage.removeItem('br');
       this.businessAccountService.step.next(6)

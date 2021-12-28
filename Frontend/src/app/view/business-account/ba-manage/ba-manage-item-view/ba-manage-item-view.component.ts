@@ -3,6 +3,7 @@ import {BusinessAccountService} from "../../../../_service/business-account.serv
 import {ItemService} from "../../../../_service/item.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {NgForm} from "@angular/forms";
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-ba-manage-item-view',
@@ -31,7 +32,7 @@ export class BaManageItemViewComponent implements OnInit {
   getImageSrc(itemImg) {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl('http://localhost/Dbay/' + itemImg.itemImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemImg.itemImgName);
   }
 
   getItemSelected(item) {

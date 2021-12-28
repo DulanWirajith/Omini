@@ -145,14 +145,14 @@ export class BaManageCategoryComponent implements OnInit {
     }
   }
 
-  setItemAvailable(item) {
-    this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
-      item.itemAvailable = reply;
-    })
-  }
-
-  getImageSrc(itemImg) {
-    let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
-    return this.sanitizer.bypassSecurityTrustUrl(imageData);
-  }
+  // setItemAvailable(item) {
+  //   this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
+  //     item.itemAvailable = reply;
+  //   })
+  // }
+  //
+  // getImageSrc(itemImg) {
+  //   let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
+  //   return this.sanitizer.bypassSecurityTrustUrl(imageData);
+  // }
 }

@@ -27,7 +27,6 @@ public class ItemPackageImgDTO extends DateTimeDTO {
 
     public ItemPackageImgDTO(@NonNull ItemPackageImg itemPackageImg) {
         this.itemPackageImgId = itemPackageImg.getItemPackageImgId();
-        this.itemPackageImg = itemPackageImg.getItemPackageImg();
         this.itemPackageImgName = itemPackageImg.getItemPackageImgName();
         this.itemPackageImgType = itemPackageImg.getItemPackageImgType();
         this.thumbnail = itemPackageImg.isThumbnail();

@@ -14,6 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -36,11 +40,11 @@ public class ItemPackageSImpl implements ItemPackageS {
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             BusinessProfileCategory businessProfileCategory = itemPackage.getBusinessProfileCategory();
             itemPackage.setItemPackageId("IPK" + businessProfileCategory.getBusinessProfile().getBusinessProId() + format);
-            addItemsToItemPackage(itemPackage);
-            addImagesToItemPackage(itemPackage, files);
             businessProfileCategory.setBusinessProfileCategoryId(
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
+            addItemsToItemPackage(itemPackage);
+            addImagesToItemPackage(itemPackage, files);
             itemPackageR.save(itemPackage);
             return new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs());
         } catch (Exception e) {
@@ -120,10 +124,19 @@ public class ItemPackageSImpl implements ItemPackageS {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             int i = 0;
+            String filePath = "C:\\xampp\\htdocs\\Dbay";
             for (MultipartFile file : files) {
                 ItemPackageImg itemPackageImg = new ItemPackageImg();
                 itemPackageImg.setItemPackageImgId("ITPKGIMG" + ++i + format);
-                itemPackageImg.setItemPackageImg(file.getBytes());
+                Path root = Paths.get(filePath);
+//                if (!Files.exists(root)) {
+////                    Files.createDirectories(Paths.get(filePath));
+//                }
+                try {
+                    Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
+                } catch (FileAlreadyExistsException e) {
+                    e.printStackTrace();
+                }
                 itemPackageImg.setItemPackageImgName(StringUtils.cleanPath(file.getOriginalFilename()));
                 itemPackageImg.setItemPackageImgType(file.getContentType());
                 itemPackageImg.setItemPackage(itemPackage);

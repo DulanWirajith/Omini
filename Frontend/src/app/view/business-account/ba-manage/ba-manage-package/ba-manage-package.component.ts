@@ -4,6 +4,7 @@ import {NgForm} from "@angular/forms";
 import {ItemService} from "../../../../_service/item.service";
 import * as $ from "jquery";
 import {DomSanitizer} from "@angular/platform-browser";
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-ba-manage-package',
@@ -82,13 +83,19 @@ export class BaManagePackageComponent implements OnInit {
     };
 
     let itemItemPackages = [];
-    for (let itemItemPackage of this.itemPackage.itemItemPackages) {
-      itemItemPackages.push({
-        name: itemItemPackage.itemTitle,
-        item: itemItemPackage
-      })
+    for (let i = 0; i < this.itemPackage.itemItemPackages.length; i++) {
+      if (this.itemPackage.itemItemPackages[i].itemPackage === undefined) {
+        this.itemPackage.itemItemPackages[i] = {
+          name: this.itemPackage.itemItemPackages[i].itemTitle,
+          item: this.itemPackage.itemItemPackages[i],
+          itemPackage: {
+            itemPackageId: this.itemPackage.itemPackageId
+          }
+        }
+      }
     }
-    this.itemPackage.itemItemPackages = itemItemPackages;
+
+    // this.itemPackage.itemItemPackages = itemItemPackages;
     console.log(this.itemPackage)
     const uploadImageData = new FormData();
     for (let itemImg of this.itemPackage.itemPkgImgs) {
@@ -195,7 +202,7 @@ export class BaManagePackageComponent implements OnInit {
     // console.log(itemImg)
     // let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl('http://localhost/Dbay/' + itemPackageImg.itemPackageImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
   }
 
   toggleCategoryBtn() {
@@ -253,8 +260,9 @@ export class BaManagePackageComponent implements OnInit {
   // }
 
   getPackageImageSrc(itemPackageImg) {
-    let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
-    return this.sanitizer.bypassSecurityTrustUrl(imageData);
+    // let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
+    // return this.sanitizer.bypassSecurityTrustUrl(imageData);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
   }
 
   // getImageSrc(itemImg) {

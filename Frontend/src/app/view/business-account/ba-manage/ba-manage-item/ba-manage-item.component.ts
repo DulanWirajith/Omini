@@ -62,9 +62,9 @@ export class BaManageItemComponent implements OnInit {
       businessProId: "B321"
     };
 
-    // console.log(this.itemImgs)
+    console.log(this.item)
     const uploadImageData = new FormData();
-    for (let itemImg of this.item.itemImgs) {
+    for (let itemImg of this.item.itemImgsRaw) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
     }
     uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
@@ -108,8 +108,7 @@ export class BaManageItemComponent implements OnInit {
       this.newItemFeaturesTemp.push(
         {
           itemFeatureId: 0,
-          name: this.newItemFeature,
-          businessCategory: this.item.businessProfileCategory.businessCategory
+          name: this.newItemFeature
         }
       );
       this.newItemFeature = '';
@@ -130,14 +129,14 @@ export class BaManageItemComponent implements OnInit {
   // @ViewChild('baManageFormItemE', {static: true}) public baManageFormItemE: NgForm;
 
   pondHandleAddFile(event) {
-    this.item.itemImgs.push(event.file.file);
+    this.item.itemImgsRaw.push(event.file.file);
   }
 
   pondHandlerRemoveFile(event) {
-    for (let i = 0; i < this.item.itemImgs.length; i++) {
+    for (let i = 0; i < this.item.itemImgsRaw.length; i++) {
       // console.log(this.itemImgs[i].name + ' ' + event.file.file.name)
-      if (this.item.itemImgs[i].name === event.file.file.name) {
-        this.item.itemImgs.splice(i, 1);
+      if (this.item.itemImgsRaw[i].name === event.file.file.name) {
+        this.item.itemImgsRaw.splice(i, 1);
       }
     }
   }
