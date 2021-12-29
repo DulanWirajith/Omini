@@ -435,7 +435,7 @@
               <!--<img src="../../../../assets/img/catalog/07.jpg" alt="Image" style="height: 350px;">-->
               <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
                 <mdb-carousel-item *ngFor="let image of itemPackageE.itemPackageImgs">
-                  <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.36);position: absolute"></span>
+                  <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
                   <img style="max-height:350px;height: 350px" class="d-block w-100" [src]="getPackageImageSrc(image)" alt="First slide">
                 </mdb-carousel-item>
               </mdb-carousel>
@@ -757,7 +757,7 @@
         </div>
       </div>
       <div class="accordionView accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#package-list"
-           id="package{{i}}">
+           id="package{{i}}" style="margin-top: 10px">
         <div class="accordion-body">
 
           <app-ba-manage-item-view [items]="itemPackageE.items"></app-ba-manage-item-view>

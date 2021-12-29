@@ -2,7 +2,7 @@
   <!-- Item-->
   <div class="col-sm-12 col-md-6 col-xl-4" *ngFor="let item of items">
     <div class="card shadow-sm card-hover border-0 h-100">
-      <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.36)">
+      <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.25)">
         <a class="img-overlay"></a>
         <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
         <div class="content-overlay end-0 top-0 pt-3 pe-3">
@@ -13,7 +13,7 @@
 
         <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
           <mdb-carousel-item *ngFor="let image of item.itemImgs">
-            <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.36);position: absolute"></span>
+            <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
             <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)" alt="First slide">
           </mdb-carousel-item>
         </mdb-carousel>
