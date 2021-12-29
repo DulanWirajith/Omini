@@ -1,20 +1,9 @@
 <div class="row g-4 py-1">
   <!-- Item-->
-  <div class="col-sm-6 col-xl-4" *ngFor="let item of items">
+  <div class="col-sm-12 col-md-6 col-xl-4" *ngFor="let item of items">
     <div class="card shadow-sm card-hover border-0 h-100">
       <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"></a>
-        <div class="position-absolute start-0 top-0 pt-3 ps-3">
-          <div class="btn-group dropup">
-            <!--<span class="d-table badge bg-danger cursor-point dropdown-toggle" data-bs-toggle="dropdown"-->
-            <!--aria-haspopup="true" aria-expanded="false">Un Assigned</span>-->
-            <div class="dropdown-menu mx-1">
-              <a href="#" class="dropdown-item">Action</a>
-              <a href="#" class="dropdown-item">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">Something else here</a>
-            </div>
-          </div>
-        </div>
+        <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
         <div class="content-overlay end-0 top-0 pt-3 pe-3">
           <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                   data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>
@@ -23,7 +12,11 @@
         <ngb-carousel *ngIf="item.itemImgs.length>0" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
           <ng-template ngbSlide *ngFor="let image of item.itemImgs">
             <div class="picsum-img-wrapper">
-              <img [src]="getImageSrc(image)" alt="Random slide" style="height: 180px;width: 280px">
+              <img [src]="getImageSrc(image)" alt="Random slide" style="height: 180px;">
+            </div>
+            <div class="carousel-caption">
+              <h3></h3>
+              <p></p>
             </div>
             <!-- <div class="carousel-caption">
               <h3>No mouse navigation</h3>
@@ -40,13 +33,35 @@
       <div class="card-body position-relative pb-3" (click)="getItemSelected(item)">
 
         <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
-        <h3 class="h6 mb-2 fs-base"><a class="nav-link stretched-link" href="#" data-bs-toggle="offcanvas"
+        <h3 class="h6 mb-2 fs-base"><a class="nav-link" href="#" data-bs-toggle="offcanvas"
                                        data-bs-target="#item-viewer">{{item.itemTitle}}</a></h3>
         <!-- <div class="d-flex align-items-center text-nowrap">
           <p class="mb-2 fs-sm text-muted">Quantity </p>
           <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
         </div> -->
-        <div class="row cols-sm-2 row-cols-md-12">
+        <div class="row g-2">
+          <!-- <div class="col me-sm-1">
+            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
+              <i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>
+              <span class="fs-xs text-light fw-bold">{{item.itemQty}}</span>
+            </div>
+          </div> -->
+          <div class="col me-sm-1">
+            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
+              <i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>
+              <span class="fs-xs text-light fw-bold"  *ngIf="item.itemDiscountType==='None'"> - </span>
+              <span class="fs-xs text-light fw-bold" *ngIf="item.itemDiscountType==='Cash'">{{"LKR " + item.itemDiscount}}</span>
+              <span class="fs-xs text-light fw-bold" *ngIf="item.itemDiscountType==='Percentage'">{{item.itemDiscount + "%"}}</span>
+            </div>
+          </div>
+          <div class="col me-sm-1">
+            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
+              <i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>
+              <span class="fs-xs text-light fw-bold">LKR {{item.itemPrice}}</span>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row cols-sm-2 row-cols-md-12">
           <div class="col">
             <p class="mb-2 fs-sm text-muted">Quantity </p>
             <p class="mb-2 fs-sm text-warning fw-bold mx-2">{{item.itemQty}}</p>
@@ -58,7 +73,7 @@
             <p *ngIf="item.itemDiscountType==='Percentage'" class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount + "%"}}</p>
           </div>
         </div>
-        <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR {{item.itemPrice}}</div>
+        <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR {{item.itemPrice}}</div> -->
       </div>
       <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
         <div class="form-check form-switch">

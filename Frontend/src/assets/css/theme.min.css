@@ -18910,4 +18910,81 @@ _:-ms-lang(x), .jarallax .jarallax-img {
   color: green;
 }
 
+.help {
+	justify-content: flex-start;
+}
+
+.cursor-point {
+	cursor: pointer;
+}
+
+.border-none {
+	border: none;
+}
+
+.hover-text-danger:active {
+	color: var(--bs-danger);
+}
+
+.hover-text-info:active {
+	color: var(--bs-info);
+}
+
+.pending-card-micon::before {
+	color: var(--bs-warning);
+}
+
+.inprogress-card-micon::before {
+	color: var(--bs-info);
+}
+
+.complete-card-micon::before {
+	color: var(--bs-success);
+}
+
+.btnhgreen:hover,
+.btnhgreen:focus,
+.btnhgreen:active,
+.btnhgreen.active {
+	background: var(--bs-success) !important;
+}
+
+.btnhred:hover,
+.btnhred:focus,
+.btnhred:active,
+.btnhred.active {
+	background: var(--bs-danger) !important;
+}
+
+.btnhblue:hover,
+.btnhblue:focus,
+.btnhblue:active,
+.btnhblue.active {
+	background: var(--bs-info) !important;
+}
+
+.btnhyellow:hover,
+.btnhyellow:focus,
+.btnhyellow:active,
+.btnhyellow.active {
+	background: var(--bs-warning) !important;
+}
+
+.co::before {
+	display: inline-block;
+	font-family: "finder-icons";
+	font-size: 3rem;
+	color: #fd5631;
+	content: "\e946"
+}
+
+.bg-teal {
+	background-color: teal;
+}
+
+.bg-darkslategrey {
+	background-color: darkslategrey;
+}
+
+
 /*# sourceMappingURL=theme.min.css.map */

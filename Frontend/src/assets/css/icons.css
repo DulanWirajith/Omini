@@ -808,3 +808,6 @@ body{
 .fi-education:before {
     content: '\ea00';
 }
+.fi-precentage:before{
+    content: '\0025';
+}
