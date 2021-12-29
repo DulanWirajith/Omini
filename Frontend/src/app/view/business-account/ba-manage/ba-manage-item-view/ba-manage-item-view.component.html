@@ -2,28 +2,37 @@
   <!-- Item-->
   <div class="col-sm-12 col-md-6 col-xl-4" *ngFor="let item of items">
     <div class="card shadow-sm card-hover border-0 h-100">
-      <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"></a>
+      <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.36)">
+        <a class="img-overlay"></a>
         <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
         <div class="content-overlay end-0 top-0 pt-3 pe-3">
           <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                   data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>
           </button>
         </div>
-        <ngb-carousel *ngIf="item.itemImgs.length>0" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
-          <ng-template ngbSlide *ngFor="let image of item.itemImgs">
-            <div class="picsum-img-wrapper">
-              <img [src]="getImageSrc(image)" alt="Random slide" style="height: 180px;">
-            </div>
-            <div class="carousel-caption">
-              <h3></h3>
-              <p></p>
-            </div>
+
+        <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+          <mdb-carousel-item *ngFor="let image of item.itemImgs">
+            <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.36);position: absolute"></span>
+            <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)" alt="First slide">
+          </mdb-carousel-item>
+        </mdb-carousel>
+        <!--<ngb-carousel *ngIf="item.itemImgs.length>0" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">-->
+          <!--<ng-template ngbSlide *ngFor="let image of item.itemImgs">-->
+            <!--<div class="mySlides fade" *ngFor="let image of item.itemImgs">-->
+              <!--<img [src]="getImageSrc(image)" alt="Random slide" style="height: 180px;">-->
+            <!--</div>-->
+        <!--<app-image-slider [images]="item.itemImgs"></app-image-slider>-->
+            <!--<div class="carousel-caption">-->
+              <!--<h3></h3>-->
+              <!--<p></p>-->
+            <!--</div>-->
             <!-- <div class="carousel-caption">
               <h3>No mouse navigation</h3>
               <p>This carousel hides navigation arrows and indicators.</p>
             </div> -->
-          </ng-template>
-        </ngb-carousel>
+          <!--</ng-template>-->
+        <!--</ngb-carousel>-->
         <!--<div class="tns-carousel-inner">-->
         <!-- <img *ngIf="item.itemImgs.length>0" style="height: 180px;width: 280px" [src]="getImageSrc(item.itemImgs[0])" alt="Image">
         <img *ngIf="item.itemImgs.length===0" style="height: 180px;width: 280px" alt="Image"> -->
@@ -46,22 +55,22 @@
               <span class="fs-xs text-light fw-bold">{{item.itemQty}}</span>
             </div>
           </div> -->
-          <div class="col me-sm-1">
-            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-              <i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>
-              <span class="fs-xs text-light fw-bold"  *ngIf="item.itemDiscountType==='None'"> - </span>
-              <span class="fs-xs text-light fw-bold" *ngIf="item.itemDiscountType==='Cash'">{{"LKR " + item.itemDiscount}}</span>
-              <span class="fs-xs text-light fw-bold" *ngIf="item.itemDiscountType==='Percentage'">{{item.itemDiscount + "%"}}</span>
-            </div>
-          </div>
-          <div class="col me-sm-1">
-            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-              <i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>
-              <span class="fs-xs text-light fw-bold">LKR {{item.itemPrice}}</span>
-            </div>
-          </div>
+          <!--<div class="col me-sm-1">-->
+            <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
+              <!--<i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>-->
+              <!--<span class="fs-xs text-light fw-bold"  *ngIf="item.itemDiscountType==='None'"> - </span>-->
+              <!--<span class="fs-xs text-light fw-bold" *ngIf="item.itemDiscountType==='Cash'">{{"LKR " + item.itemDiscount}}</span>-->
+              <!--<span class="fs-xs text-light fw-bold" *ngIf="item.itemDiscountType==='Percentage'">{{item.itemDiscount + "%"}}</span>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col me-sm-1">-->
+            <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
+              <!--<i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>-->
+              <!--<span class="fs-xs text-light fw-bold">LKR {{item.itemPrice}}</span>-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
-        <!-- <div class="row cols-sm-2 row-cols-md-12">
+      <div class="row cols-sm-2 row-cols-md-12">
           <div class="col">
             <p class="mb-2 fs-sm text-muted">Quantity </p>
             <p class="mb-2 fs-sm text-warning fw-bold mx-2">{{item.itemQty}}</p>
@@ -73,7 +82,7 @@
             <p *ngIf="item.itemDiscountType==='Percentage'" class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount + "%"}}</p>
           </div>
         </div>
-        <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR {{item.itemPrice}}</div> -->
+        <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR {{item.itemPrice}}</div>
       </div>
       <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
         <div class="form-check form-switch">

@@ -36,6 +36,8 @@ import { SpProfileSettingsComponent } from './view/profile/shop-profile/sp-profi
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BaManageItemViewComponent } from './view/business-account/ba-manage/ba-manage-item-view/ba-manage-item-view.component';
 import { BaManageItemEditComponent } from './view/business-account/ba-manage/ba-manage-item-edit/ba-manage-item-edit.component';
+import { ImageSliderComponent } from './view/image-slider/image-slider.component';
+import {MDBBootstrapModule} from "angular-bootstrap-md";
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { BaManageItemEditComponent } from './view/business-account/ba-manage/ba-
     CpProfileSettingsComponent,
     SpProfileSettingsComponent,
     BaManageItemViewComponent,
-    BaManageItemEditComponent
+    BaManageItemEditComponent,
+    ImageSliderComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ import { BaManageItemEditComponent } from './view/business-account/ba-manage/ba-
     FilePondModule,
     NgSelectModule,
     HttpClientModule,
-    NgbModule
+    MDBBootstrapModule
+    // NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

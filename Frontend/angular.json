@@ -43,8 +43,8 @@
               "src/assets/vendor/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css",
               "src/assets/vendor/flatpickr/dist/flatpickr.min.css",
               "src/assets/vendor/lightgallery.js/dist/css/lightgallery.min.css",
-              "./node_modules/filepond/dist/filepond.min.css",
-              "./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css"
+              "node_modules/filepond/dist/filepond.min.css",
+              "node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css"
             ],
             "scripts": [
               "src/assets/js/jquery.min.js",

@@ -1,6 +1,11 @@
-ngb-carousel .picsum-img-wrapper>img {
-    top: 0;
-    width:100%; 
-    bottom: 0;
-    right: 0;
-  }
+ngb-carousel .picsum-img-wrapper > img {
+  top: 0;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+}
+
+.carousel-inner img {
+
+  max-height: 350px;
+}
