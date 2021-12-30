@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 
 import {ShopProfileRoutingModule} from './shop-profile-routing.module';
+import {ShopProfileComponent} from './shop-profile.component';
 import {BusinessRegisterComponent} from "./view/business-register/business-register.component";
 import {BrStep1Component} from "./view/business-register/br-step1/br-step1.component";
 import {BrStep2Component} from "./view/business-register/br-step2/br-step2.component";
@@ -11,7 +12,6 @@ import {BrStep6Component} from "./view/business-register/br-step6/br-step6.compo
 import {BusinessAccountComponent} from "./view/business-account/business-account.component";
 import {BaManageComponent} from "./view/business-account/ba-manage/ba-manage.component";
 import {BaMonitorComponent} from "./view/business-account/ba-monitor/ba-monitor.component";
-import {ShopProfileComponent} from "./view/shop-profile/shop-profile.component";
 import {BaManageItemComponent} from "./view/business-account/ba-manage/ba-manage-item/ba-manage-item.component";
 import {BaManageCategoryComponent} from "./view/business-account/ba-manage/ba-manage-category/ba-manage-category.component";
 import {BaManagePackageComponent} from "./view/business-account/ba-manage/ba-manage-package/ba-manage-package.component";
@@ -42,11 +42,10 @@ const components = [
 
 @NgModule({
   declarations: [
-    components
+    components,
+    ShopProfileComponent
   ],
-  exports: [
-    components
-  ],
+  exports: [components],
   imports: [
     SharedModule,
     ShopProfileRoutingModule

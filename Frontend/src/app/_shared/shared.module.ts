@@ -7,6 +7,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {HttpClientModule} from "@angular/common/http";
 import {MDBBootstrapModule} from "angular-bootstrap-md";
 import {HeaderComponent} from "../view/header/header.component";
+import {RouterModule} from "@angular/router";
 
 const components = [
   HeaderComponent,
@@ -27,7 +28,8 @@ const components = [
     components
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class SharedModule {

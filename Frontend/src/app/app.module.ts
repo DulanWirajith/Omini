@@ -21,9 +21,8 @@ import * as FilepondPluginImagePreview from 'filepond-plugin-image-preview';
 
 registerPlugin(FilePondPluginFileValidateType, FilepondPluginImageEdit, FilepondPluginImagePreview);
 
-import {ShopProfileModule} from "./shop-profile/shop-profile.module";
-import {CustomerProfileModule} from "./customer-profile/customer-profile.module";
 import {CommonModule} from "@angular/common";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -33,8 +32,7 @@ import {CommonModule} from "@angular/common";
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    ShopProfileModule,
-    CustomerProfileModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

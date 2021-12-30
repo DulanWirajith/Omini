@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CustomerProfileComponent } from './customer-profile.component';
 import {HeaderComponent} from "../view/header/header.component";
-import {CustomerProfileComponent} from "./view/customer-profile/customer-profile.component";
 import {CpProfileSettingsComponent} from "./view/customer-profile/cp-profile-settings/cp-profile-settings.component";
 
 const routes: Routes = [
@@ -30,5 +30,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CustomerProfileRoutingModule {
-}
+export class CustomerProfileRoutingModule { }
