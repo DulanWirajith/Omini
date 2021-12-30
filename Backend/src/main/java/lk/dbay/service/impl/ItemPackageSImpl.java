@@ -3,9 +3,7 @@ package lk.dbay.service.impl;
 import lk.dbay.dto.ItemCategoryDTO;
 import lk.dbay.dto.ItemPackageDTO;
 import lk.dbay.entity.*;
-import lk.dbay.repository.ItemItemPackageR;
-import lk.dbay.repository.ItemPackageImgR;
-import lk.dbay.repository.ItemPackageR;
+import lk.dbay.repository.*;
 import lk.dbay.service.ItemPackageS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +29,10 @@ public class ItemPackageSImpl implements ItemPackageS {
     private ItemItemPackageR itemItemPackageR;
     @Autowired
     private ItemPackageImgR itemPackageImgR;
+    @Autowired
+    private ItemPackageFeatureR itemPackageFeatureR;
+    @Autowired
+    private ItemPackageItemPackageFeatureR itemPackageItemPackageFeatureR;
 
     @Override
     @Transactional
@@ -44,6 +46,7 @@ public class ItemPackageSImpl implements ItemPackageS {
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
             addItemsToItemPackage(itemPackage);
+            addFeaturesToItemPackage(itemPackage);
             addImagesToItemPackage(itemPackage, files);
             itemPackageR.save(itemPackage);
             return new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs());
@@ -82,6 +85,15 @@ public class ItemPackageSImpl implements ItemPackageS {
                 itemPackageObj.setItemItemPackages(itemItemPackagesSetAdd);
                 addItemsToItemPackage(itemPackageObj);
 
+                HashSet<ItemPackageItemPackageFeature> itemPackageItemPackageFeatures = new HashSet<>(itemPackage.getItemPackageItemPackageFeatures());
+                itemPackageItemPackageFeatures.retainAll(itemPackageObj.getItemPackageItemPackageFeatures());
+                Set<ItemPackageItemPackageFeature> itemPackageItemPackageFeaturesSetRemove = new HashSet<>(itemPackageObj.getItemPackageItemPackageFeatures());
+                itemPackageItemPackageFeaturesSetRemove.removeAll(itemPackageItemPackageFeatures);
+                Set<ItemPackageItemPackageFeature> itemPackageItemPackageFeaturesSetAdd = new HashSet<>(itemPackage.getItemPackageItemPackageFeatures());
+                itemPackageItemPackageFeaturesSetAdd.removeAll(itemPackageItemPackageFeatures);
+                itemPackageObj.setItemPackageItemPackageFeatures(itemPackageItemPackageFeaturesSetAdd);
+                addFeaturesToItemPackage(itemPackageObj);
+
                 HashSet<ItemPackageImg> itemPackageImgs = new HashSet<>(itemPackage.getItemPackageImgs());
                 itemPackageImgs.retainAll(itemPackageObj.getItemPackageImgs());
                 Set<ItemPackageImg> itemPackageImgsSetRemove = new HashSet<>(itemPackageObj.getItemPackageImgs());
@@ -93,6 +105,9 @@ public class ItemPackageSImpl implements ItemPackageS {
 
                 if (itemItemPackagesSetRemove.size() > 0) {
                     itemItemPackageR.deleteAll(itemItemPackagesSetRemove);
+                }
+                if (itemPackageItemPackageFeaturesSetRemove.size() > 0) {
+                    itemPackageItemPackageFeatureR.deleteAll(itemPackageItemPackageFeaturesSetRemove);
                 }
                 if (itemPackageImgsSetRemove.size() > 0) {
                     itemPackageImgR.deleteAll(itemPackageImgsSetRemove);
@@ -112,6 +127,17 @@ public class ItemPackageSImpl implements ItemPackageS {
         for (ItemItemPackage itemItemPackage : itemPackage.getItemItemPackages()) {
             itemItemPackage.setItemItemPackageId(new ItemItemPackagePK(itemItemPackage.getItem().getItemId(), itemPackage.getItemPackageId()));
             itemItemPackage.setItemPackage(itemPackage);
+        }
+    }
+
+    private void addFeaturesToItemPackage(ItemPackage itemPackage) {
+        for (ItemPackageItemPackageFeature itemPackageItemPackageFeature : itemPackage.getItemPackageItemPackageFeatures()) {
+            ItemPackageFeature itemPackageFeatureObj = itemPackageItemPackageFeature.getItemPackageFeature();
+            itemPackageFeatureObj.setItemPackageFeatureId("ITPF" + itemPackageFeatureObj.getName().replace(" ", "_") + itemPackage.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId());
+            ItemPackageFeature itemPackageFeature = itemPackageFeatureR.save(itemPackageItemPackageFeature.getItemPackageFeature());
+            itemPackageItemPackageFeature.setItemPackageFeature(itemPackageFeature);
+            itemPackageItemPackageFeature.setItemPackageItemPackageFeatureId(new ItemPackageItemPackageFeaturePK(itemPackage.getItemPackageId(), itemPackageItemPackageFeature.getItemPackageFeature().getItemPackageFeatureId()));
+            itemPackageItemPackageFeature.setItemPackage(itemPackage);
         }
     }
 

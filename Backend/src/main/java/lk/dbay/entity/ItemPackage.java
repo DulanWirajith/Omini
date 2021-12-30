@@ -43,5 +43,8 @@ public class ItemPackage extends DateTime {
     private Set<ItemItemPackage> itemItemPackages;
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "itemPackage")
+    private Set<ItemPackageItemPackageFeature> itemPackageItemPackageFeatures;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "itemPackage")
     private Set<ItemPackageImg> itemPackageImgs;
 }
