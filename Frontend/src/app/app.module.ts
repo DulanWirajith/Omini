@@ -23,6 +23,8 @@ registerPlugin(FilePondPluginFileValidateType, FilepondPluginImageEdit, Filepond
 
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
+import {AppShopModule} from "./app-shop/app-shop.module";
+import {AppCustomerModule} from "./app-customer/app-customer.module";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    // AppShopModule,
+    // AppCustomerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
