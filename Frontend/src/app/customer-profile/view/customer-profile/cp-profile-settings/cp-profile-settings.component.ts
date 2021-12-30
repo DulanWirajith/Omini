@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import * as $ from "jquery";
-import {CustomerAccountService} from "../../../../_service/customer-account.service";
+import {CustomerAccountService} from "../../../_service/customer-account.service";
 
 @Component({
   selector: 'app-cp-profile-settings',

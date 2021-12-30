@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BusinessAccountService} from "../../../../_service/business-account.service";
+import {BusinessAccountService} from "../../../_service/business-account.service";
 import * as $ from 'jquery';
 
 @Component({

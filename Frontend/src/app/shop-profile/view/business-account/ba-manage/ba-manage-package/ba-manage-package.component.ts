@@ -4,7 +4,7 @@ import {NgForm} from "@angular/forms";
 import {ItemService} from "../../../../_service/item.service";
 import * as $ from "jquery";
 import {DomSanitizer} from "@angular/platform-browser";
-import {environment} from "../../../../../environments/environment";
+import {environment} from "../../../../../../environments/environment";
 
 @Component({
   selector: 'app-ba-manage-package',

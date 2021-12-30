@@ -3,7 +3,7 @@ import {BusinessAccountService} from "../../../../_service/business-account.serv
 import {ItemService} from "../../../../_service/item.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {NgForm} from "@angular/forms";
-import {environment} from "../../../../../environments/environment";
+import {environment} from "../../../../../../environments/environment";
 
 @Component({
   selector: 'app-ba-manage-item-edit',

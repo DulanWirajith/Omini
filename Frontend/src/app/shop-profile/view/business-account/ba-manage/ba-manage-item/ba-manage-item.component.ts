@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {BusinessAccountService} from "../../../../_service/business-account.service";
 import {ItemService} from "../../../../_service/item.service";
-import {environment} from "../../../../../environments/environment";
+import {environment} from "../../../../../../environments/environment";
 import {DomSanitizer} from "@angular/platform-browser";
 import * as $ from "jquery";
 
