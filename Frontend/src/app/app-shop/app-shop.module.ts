@@ -1,7 +1,8 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {ShopProfileRoutingModule} from './shop-profile-routing.module';
-import {ShopProfileComponent} from './shop-profile.component';
+import { AppShopRoutingModule } from './app-shop-routing.module';
+import { AppShopComponent } from './app-shop.component';
 import {BusinessRegisterComponent} from "./view/business-register/business-register.component";
 import {BrStep1Component} from "./view/business-register/br-step1/br-step1.component";
 import {BrStep2Component} from "./view/business-register/br-step2/br-step2.component";
@@ -19,6 +20,7 @@ import {SpProfileSettingsComponent} from "./view/shop-profile/sp-profile-setting
 import {BaManageItemViewComponent} from "./view/business-account/ba-manage/ba-manage-item-view/ba-manage-item-view.component";
 import {BaManageItemEditComponent} from "./view/business-account/ba-manage/ba-manage-item-edit/ba-manage-item-edit.component";
 import {SharedModule} from "../_shared/shared.module";
+import {ShopProfileComponent} from "./view/shop-profile/shop-profile.component";
 
 const components = [
   BusinessRegisterComponent,
@@ -38,18 +40,17 @@ const components = [
   SpProfileSettingsComponent,
   BaManageItemViewComponent,
   BaManageItemEditComponent
-]
+];
 
 @NgModule({
   declarations: [
-    components,
-    ShopProfileComponent
+    AppShopComponent,
+    components
   ],
   exports: [components],
   imports: [
     SharedModule,
-    ShopProfileRoutingModule
+    AppShopRoutingModule
   ]
 })
-export class ShopProfileModule {
-}
+export class AppShopModule { }

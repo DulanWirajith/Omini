@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShopProfileComponent } from './shop-profile.component';
+import { AppShopComponent } from './app-shop.component';
 import {HeaderComponent} from "../view/header/header.component";
 import {BusinessRegisterComponent} from "./view/business-register/business-register.component";
 import {BusinessAccountComponent} from "./view/business-account/business-account.component";
 import {BaMonitorComponent} from "./view/business-account/ba-monitor/ba-monitor.component";
 import {BaManageComponent} from "./view/business-account/ba-manage/ba-manage.component";
 import {SpProfileSettingsComponent} from "./view/shop-profile/sp-profile-settings/sp-profile-settings.component";
+import {ShopProfileComponent} from "./view/shop-profile/shop-profile.component";
 
 const routes: Routes = [
   // {
@@ -52,4 +53,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ShopProfileRoutingModule { }
+export class AppShopRoutingModule { }
