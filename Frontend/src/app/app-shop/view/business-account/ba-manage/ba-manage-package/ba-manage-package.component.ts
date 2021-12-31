@@ -16,6 +16,12 @@ export class BaManagePackageComponent implements OnInit {
   itemPackage;
   itemPackages = [];
   items = [];
+  itemPackageItemPackageFeatures = [];
+  itemPackageItemPackageFeature;
+  newPackageFeature;
+  newPackageFeaturesTemp;
+  isNewFeature;
+  itemPackageFeature;
   // item;
   // packageImg;
   // imgUrl;
@@ -28,7 +34,7 @@ export class BaManagePackageComponent implements OnInit {
   // itemPkgImgs = [];
   // itemPkgImgsE = [];
   @ViewChild('baManageFormPackage', {static: true}) public baManageFormPackage: NgForm;
-
+  @ViewChild('baManageFormPackageExs', {static: true}) public baManageFormPackageExs: NgForm;
   @ViewChild('imageInput') imageInput: any;
 
   pondOptions = {
@@ -68,6 +74,38 @@ export class BaManagePackageComponent implements OnInit {
   //   this.item = undefined;
   // }
   // }
+  addFeature() {
+    if (this.itemPackageFeature !== undefined) {
+      this.itemPackage.itemPackageItemPackageFeatures.push({
+        itemPackage: {itemId: this.itemPackage.itemPackageId},
+        itemPackageFeature: this.itemPackageFeature
+      })
+      this.baManageFormPackageExs.resetForm()
+      this.itemPackageFeature = undefined;
+    }
+  }
+
+  addFeatureTemp() {
+    this.newPackageFeaturesTemp.push(
+      {
+        itemPackageFeatureId: 0,
+        name: this.newPackageFeature
+      }
+    );
+    this.newPackageFeature = '';
+    this.baManageFormPackageExs.resetForm()
+  }
+
+  addNewPackageFeature() {
+    for (let itemPackageFeature of this.newPackageFeaturesTemp) {
+      this.itemPackageFeature.itemItemFeatures.push({
+        itemPackage: {itemPackageId: this.itemPackage.itemPackageId},
+        itemPackageFeature: itemPackageFeature
+      })
+    }
+    this.isNewFeature = false;
+    this.newPackageFeaturesTemp = [];
+  }
 
   onSubmit() {
     // let packageItems = [];

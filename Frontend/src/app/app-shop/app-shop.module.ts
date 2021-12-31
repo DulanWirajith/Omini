@@ -17,10 +17,11 @@ import {BaManageItemComponent} from "./view/business-account/ba-manage/ba-manage
 import {BaManageCategoryComponent} from "./view/business-account/ba-manage/ba-manage-category/ba-manage-category.component";
 import {BaManagePackageComponent} from "./view/business-account/ba-manage/ba-manage-package/ba-manage-package.component";
 import {SpProfileSettingsComponent} from "./view/shop-profile/sp-profile-settings/sp-profile-settings.component";
-import {BaManageItemViewComponent} from "./view/business-account/ba-manage/ba-manage-item-view/ba-manage-item-view.component";
-import {BaManageItemEditComponent} from "./view/business-account/ba-manage/ba-manage-item-edit/ba-manage-item-edit.component";
+import {BaManageItemViewComponent} from "./view/business-account/ba-manage/ba-manage-item/ba-manage-item-view/ba-manage-item-view.component";
+import {BaManageItemEditComponent} from "./view/business-account/ba-manage/ba-manage-item/ba-manage-item-edit/ba-manage-item-edit.component";
 import {SharedModule} from "../_shared/shared.module";
 import {ShopProfileComponent} from "./view/shop-profile/shop-profile.component";
+import {BaManagePackageEditComponent} from "./view/business-account/ba-manage/ba-manage-package/ba-manage-package-edit/ba-manage-package-edit.component";
 
 const components = [
   BusinessRegisterComponent,
@@ -39,7 +40,8 @@ const components = [
   BaManagePackageComponent,
   SpProfileSettingsComponent,
   BaManageItemViewComponent,
-  BaManageItemEditComponent
+  BaManageItemEditComponent,
+  BaManagePackageEditComponent
 ];
 
 @NgModule({

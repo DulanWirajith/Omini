@@ -131,6 +131,7 @@ export class ItemService {
       isUpdatePackage: false,
       itemItemPackages: [],
       items: [],
+      itemPackageItemPackageFeatures: [],
       itemPkgImgs: [],
       itemPackageImgs: [],
       tempBusinessCategory: undefined,

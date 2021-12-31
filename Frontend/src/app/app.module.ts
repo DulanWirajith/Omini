@@ -25,6 +25,7 @@ import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
 import {AppShopModule} from "./app-shop/app-shop.module";
 import {AppCustomerModule} from "./app-customer/app-customer.module";
+import { BaManagePackageEditComponent } from './app-shop/view/business-account/ba-manage/ba-manage-package/ba-manage-package-edit/ba-manage-package-edit.component';
 
 @NgModule({
   declarations: [
