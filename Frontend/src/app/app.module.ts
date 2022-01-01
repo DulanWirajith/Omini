@@ -12,7 +12,7 @@ import {BrStep4Component} from './app-shop/view/business-register/br-step4/br-st
 import {BrStep5Component} from './app-shop/view/business-register/br-step5/br-step5.component';
 import {BrStep6Component} from './app-shop/view/business-register/br-step6/br-step6.component';
 import {NgSelectModule} from "@ng-select/ng-select";
-import { LightboxModule } from 'ngx-lightbox';
+
 // import filepond module
 import {FilePondModule, registerPlugin} from 'ngx-filepond';
 
@@ -37,7 +37,6 @@ import { BaManagePackageEditComponent } from './app-shop/view/business-account/b
     CommonModule,
     AppRoutingModule,
     HttpClientModule,
-    LightboxModule
     // NgbModule
     // AppShopModule,
     // AppCustomerModule

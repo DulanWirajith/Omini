@@ -8,6 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {MDBBootstrapModule} from "angular-bootstrap-md";
 import {HeaderComponent} from "../view/header/header.component";
 import {RouterModule} from "@angular/router";
+import { LightboxModule } from 'ngx-lightbox';
 
 const components = [
   HeaderComponent,
@@ -23,6 +24,7 @@ const components = [
     NgSelectModule,
     HttpClientModule,
     MDBBootstrapModule,
+    LightboxModule
   ],
   declarations: [
     components
