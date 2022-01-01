@@ -4,6 +4,8 @@ import {ItemService} from "../../../../_service/item.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {NgForm} from "@angular/forms";
 import {environment} from "../../../../../environments/environment";
+import { Lightbox } from 'ngx-lightbox';
+
 
 @Component({
   selector: 'app-ba-manage-item-edit',
@@ -28,18 +30,52 @@ export class BaManageItemEditComponent implements OnInit {
   newItemFeaturesTemp = [];
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
+  _album: [];
+  lightbox;
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer,private _lightbox: Lightbox) {
     this.item = this.itemService.getNewItem();
+    this.lightbox=_lightbox;
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
     itemService.itemSub.subscribe((item) => {
       this.item = item;
+      this.getAlbum(this.item);
+
     })
     itemService.itemFeaturesSub.subscribe((itemFeatures) => {
       this.itemFeatures = itemFeatures;
     })
+  }
+  open(index: number): void {
+    // open lightbox
+    this.lightbox.open(this._album, index);
+  }
+  close(): void {
+    // close lightbox programmatically
+    this.lightbox.close();
+  }
+
+  getAlbum(imageList){
+    var promises=[];
+    imageList.itemImgs.forEach(element => {
+      promises.push(this.setAlbum(element));
+    });
+    Promise.all(promises).then((result:[])=>{
+      this._album=result;
+      console.log(this._album);
+    });
+  }
+
+  setAlbum(img){
+    return new Promise((resolve,reject)=>{
+      resolve({
+        src:this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemImgName),
+        caption:img.itemImgId,
+        thumb:this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemImgName)
+      })
+    });
   }
 
   ngOnInit(): void {

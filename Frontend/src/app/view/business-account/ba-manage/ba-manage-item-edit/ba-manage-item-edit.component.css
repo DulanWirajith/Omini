@@ -13,3 +13,29 @@
   justify-content: center;
   align-content: center;
 }
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container img {
+  width: 23%;
+  height: 200px;
+  object-fit: cover;
+  margin: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.g-overlay {
+  min-width: 320px;
+}
+
+
+img {
+  width: 150px;
+}
+
+.lightbox-example, .gallerize-example {
+  margin: 2em;
+}

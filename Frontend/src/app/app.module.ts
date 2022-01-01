@@ -12,6 +12,7 @@ import { BrStep4Component } from './view/business-register/br-step4/br-step4.com
 import { BrStep5Component } from './view/business-register/br-step5/br-step5.component';
 import { BrStep6Component } from './view/business-register/br-step6/br-step6.component';
 import {NgSelectModule} from "@ng-select/ng-select";
+import { LightboxModule } from 'ngx-lightbox';
 // import filepond module
 import { FilePondModule, registerPlugin } from 'ngx-filepond';
 
@@ -72,7 +73,8 @@ import {MDBBootstrapModule} from "angular-bootstrap-md";
     FilePondModule,
     NgSelectModule,
     HttpClientModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    LightboxModule
     // NgbModule
   ],
   providers: [],

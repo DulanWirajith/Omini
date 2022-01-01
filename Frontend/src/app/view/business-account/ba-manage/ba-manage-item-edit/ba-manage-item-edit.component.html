@@ -25,13 +25,21 @@
             <!--data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;"><img-->
             <!--src="./asset/img/catalog/03.jpg" alt="Gallery thumbnail"></a></div>-->
             <div class="col-12">
-              <div class="row g-2 g-md-3">
-                <div class="col" *ngFor="let itemImg of item.itemImgs">
+              <div class="row g-2 g-md-3 gallery">
+
+                <p class="container">
+                  <img 
+                  *ngFor="let image of _album; let i=index"
+                  [lightbox]="i"
+                  [gallery]="'anotherLightbox'"
+                  [src]="image.thumb" (click)="open(i)" />
+                </p>
+                <!-- <div class="col" *ngFor="let itemImg of item.itemImgs">
                   <a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/03.jpg"
                      data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;">
                     <img [src]="getImageSrc(itemImg)" alt="Gallery thumbnail">
                   </a>
-                </div>
+                </div> -->
                 <!--<div class="col"><a class="gallery-item more-item rounded-1 rounded-md-2"-->
                 <!--href="./asset/img/catalog/07.jpg"-->
                 <!--data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Bathroom&lt;/h6&gt;"><img-->
