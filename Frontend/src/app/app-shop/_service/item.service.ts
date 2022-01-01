@@ -43,6 +43,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item_feature/getItemFeatures/' + businessCategoryId);
   }
 
+  getItemPackageFeatures(businessCategoryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package_feature/getItemPackageFeatures/' + businessCategoryId);
+  }
+
   getItemsBusinessCategory(businessProfileId, businessCategoryId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/getItemsBusinessCategory/' + businessProfileId + '/' + businessCategoryId);
   }
@@ -132,6 +136,7 @@ export class ItemService {
       itemItemPackages: [],
       items: [],
       itemPackageItemPackageFeatures: [],
+      itemPackageItemPackageFeature: "",
       itemPkgImgs: [],
       itemPackageImgs: [],
       tempBusinessCategory: undefined,
