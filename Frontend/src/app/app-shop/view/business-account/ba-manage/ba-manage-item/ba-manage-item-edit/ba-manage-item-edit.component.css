@@ -39,3 +39,8 @@ img {
 .lightbox-example, .gallerize-example {
   margin: 2em;
 }
+
+/*::ng-deep .filepond--wrapper {*/
+  /*width: 100%;*/
+  /*border-width: 1px;*/
+/*}*/
