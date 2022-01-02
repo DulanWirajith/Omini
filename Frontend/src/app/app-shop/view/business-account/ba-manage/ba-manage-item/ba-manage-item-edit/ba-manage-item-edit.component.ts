@@ -77,6 +77,12 @@ export class BaManageItemEditComponent implements OnInit {
     });
   }
 
+  getAlbumSrc(imgNo){
+      let albumImgSrc;
+      albumImgSrc=this._album[imgNo]['thumb'];
+      return albumImgSrc ;
+  }
+
   ngOnInit(): void {
     this.businessCategories = this.businessAccountService.businessCategories;
   }
@@ -162,5 +168,12 @@ export class BaManageItemEditComponent implements OnInit {
         this.item.itemImgsRaw.splice(i, 1);
       }
     }
+  }
+
+  firstImg=0;
+  secondImg=1;
+  thirdImg=2;
+  getIndex(value){
+    return value;
   }
 }
