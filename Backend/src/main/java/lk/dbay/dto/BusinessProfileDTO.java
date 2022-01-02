@@ -30,7 +30,8 @@ public class BusinessProfileDTO extends DateTimeDTO {
     private String socialLinkedIn;
     private int proViewCount;
     private int contactViewCount;
-    private DbayUserDTO user;
+    private DbayUserDTO dbayUser;
+    private TownDTO town;
     private List<BusinessAreaDTO> businessAreas;
     private List<BusinessProfileCategoryDTO> businessProfileCategories;
 
@@ -53,14 +54,19 @@ public class BusinessProfileDTO extends DateTimeDTO {
         this.contactViewCount = businessProfile.getContactViewCount();
     }
 
-    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUser user) {
+    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUser dbayUser) {
         this(businessProfile);
-        this.user = new DbayUserDTO(user);
+        this.dbayUser = new DbayUserDTO(dbayUser);
     }
 
-    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUser user, boolean needAreas, boolean needCategories) {
+    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUser dbayUser, boolean needAreas, boolean needCategories, boolean needImages) {
         this(businessProfile);
-        this.user = new DbayUserDTO(user);
+        if (needImages) {
+            this.dbayUser = new DbayUserDTO(dbayUser, dbayUser.getDbayUserImgs());
+        } else {
+            this.dbayUser = new DbayUserDTO(dbayUser);
+        }
+        this.town = new TownDTO(businessProfile.getTown(), businessProfile.getTown().getDistrict(), businessProfile.getTown().getDistrict().getCountry());
         if (needAreas) {
             businessAreas = new ArrayList<>();
             for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {

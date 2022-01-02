@@ -51,9 +51,9 @@ export class CpProfileSettingsComponent implements OnInit {
   getCustomerProfile() {
     this.customerAccountService.getCustomerProfile("B321").subscribe((customerProfile) => {
       if (customerProfile !== null) {
-        customerProfile.user.password = '';
-        customerProfile.user.passwordC = '';
-        customerProfile.user.cPassword = '';
+        customerProfile.dbayUser.password = '';
+        customerProfile.dbayUser.passwordC = '';
+        customerProfile.dbayUser.cPassword = '';
         //console.log(customerProfile)
         this.customerProfile = customerProfile;
       }

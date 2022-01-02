@@ -2,10 +2,13 @@ package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.DbayUser;
+import lk.dbay.entity.DbayUserImg;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
@@ -41,6 +44,7 @@ public class DbayUserDTO extends DateTimeDTO {
     private String curDateTime;
     //    private List<UserPrivilegeDTO> userPrivileges;
     private List<String> privileges;
+    private List<DbayUserImgDTO> dbayUserImgs;
 
 //    private InstituteDTO institute;
 //    private StudentDTO student;
@@ -65,4 +69,11 @@ public class DbayUserDTO extends DateTimeDTO {
 //        }
     }
 
+    public DbayUserDTO(@NonNull DbayUser dbayUser, @NonNull Set<DbayUserImg> dbayUserImgs) {
+        this(dbayUser);
+        this.dbayUserImgs = new ArrayList<>();
+        for (DbayUserImg dbayUserImg : dbayUserImgs) {
+            this.dbayUserImgs.add(new DbayUserImgDTO(dbayUserImg));
+        }
+    }
 }

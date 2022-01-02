@@ -20,7 +20,7 @@ export class BrStep5Component implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('br') !== null) {
       this.businessProfile = JSON.parse(localStorage.getItem('br'));
-      this.businessProfile.user.verificationCode = '';
+      this.businessProfile.dbayUser.verificationCode = '';
     }
   }
 
@@ -47,7 +47,15 @@ export class BrStep5Component implements OnInit {
     }
     this.businessProfile.businessAreas = businessAreas;
     console.log(this.businessProfile)
-    this.businessAccountService.addBusinessProfile(this.businessProfile).subscribe((reply) => {
+    const uploadImageData = new FormData();
+    for (let dbayUserImg of this.businessProfile.dbayUser.dbayUserImgsRaw) {
+      uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
+    }
+    uploadImageData.append('businessProfile', new Blob([JSON.stringify(this.businessProfile)],
+      {
+        type: "application/json"
+      }));
+    this.businessAccountService.addBusinessProfile(uploadImageData).subscribe((reply) => {
       localStorage.removeItem('br');
       this.businessAccountService.step.next(6)
     })

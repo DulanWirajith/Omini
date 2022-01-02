@@ -2,15 +2,18 @@ package lk.dbay.service.impl;
 
 import lk.dbay.dto.*;
 import lk.dbay.entity.*;
-import lk.dbay.repository.BusinessAreaR;
-import lk.dbay.repository.BusinessProfileCategoryR;
-import lk.dbay.repository.BusinessProfileR;
-import lk.dbay.repository.DbayUserR;
+import lk.dbay.repository.*;
 import lk.dbay.service.BusinessProfileS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -25,29 +28,26 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     @Autowired
     private BusinessAreaR businessAreaR;
     @Autowired
+    private DbayUserImgR dbayUserImgR;
+    @Autowired
     private BusinessProfileCategoryR businessProfileCategoryR;
+    @Value("${image.path}")
+    private String filePath;
 
     @Override
-    public BusinessProfileDTO addBusinessProfile(BusinessProfile businessProfile) throws Exception {
+    public BusinessProfileDTO addBusinessProfile(BusinessProfile businessProfile, MultipartFile[] files) throws Exception {
         try {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             businessProfile.setBusinessProId("B" + businessProfile.getBusinessRegistrationCode());
-            businessProfile.getUser().setUserId("U" + format);
-            businessProfile.getUser().setRole("B");
-            for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
-                businessArea.setBusinessAreaId(new BusinessAreaPK(businessProfile.getBusinessProId(), businessArea.getTown().getTownId()));
-                businessArea.setBusinessProfile(businessProfile);
-            }
-
-            for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
-                businessProfileCategory.setBusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId()));
-                businessProfileCategory.setBusinessProfile(businessProfile);
-            }
-
-            dbayUserR.save(businessProfile.getUser());
+            businessProfile.getDbayUser().setUserId("U" + format);
+            businessProfile.getDbayUser().setRole("B");
+            addBusinessAreas(businessProfile);
+            addBusinessProfileCategories(businessProfile);
+            addImagesToBusinessProfile(businessProfile.getDbayUser(), files);
+            dbayUserR.save(businessProfile.getDbayUser());
             businessProfileR.save(businessProfile);
-            return new BusinessProfileDTO(businessProfile, businessProfile.getUser());
+            return new BusinessProfileDTO(businessProfile, businessProfile.getDbayUser());
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
@@ -59,13 +59,13 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(businessProfileId);
         if (businessProfileOptional.isPresent()) {
             BusinessProfile businessProfile = businessProfileOptional.get();
-            return new BusinessProfileDTO(businessProfile, businessProfile.getUser(), true, true);
+            return new BusinessProfileDTO(businessProfile, businessProfile.getDbayUser(), true, true, true);
         }
         return null;
     }
 
     @Override
-    public BusinessProfileDTO updateBusinessProfile(BusinessProfile businessProfile, String businessProfileId) throws Exception {
+    public BusinessProfileDTO updateBusinessProfile(BusinessProfile businessProfile, MultipartFile[] files, String businessProfileId) throws Exception {
         try {
             Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(businessProfileId);
             if (businessProfileOptional.isPresent()) {
@@ -79,35 +79,60 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessProfileObj.setBusinessRegistrationCode(businessProfile.getBusinessRegistrationCode());
                 businessProfileObj.setBusinessOwner(businessProfile.getBusinessOwner());
                 businessProfileObj.setBusinessOwnerNic(businessProfile.getBusinessOwnerNic());
-                businessProfileObj.getUser().setUsername(businessProfile.getUser().getUsername());
-                businessProfileObj.getUser().setTwoFactorAuth(businessProfile.getUser().isTwoFactorAuth());
-                if (!businessProfile.getUser().getPassword().equals("")) {
-                    businessProfileObj.getUser().setPassword(businessProfile.getUser().getPassword());
+                businessProfileObj.getDbayUser().setUsername(businessProfile.getDbayUser().getUsername());
+                businessProfileObj.getDbayUser().setTwoFactorAuth(businessProfile.getDbayUser().isTwoFactorAuth());
+                if (!businessProfile.getDbayUser().getPassword().equals("")) {
+                    businessProfileObj.getDbayUser().setPassword(businessProfile.getDbayUser().getPassword());
                 }
 
-                for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
-                    businessArea.setBusinessAreaId(new BusinessAreaPK(businessProfile.getBusinessProId(), businessArea.getTown().getTownId()));
-                    businessArea.setBusinessProfile(businessProfileObj);
-                }
-
+//                for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
+//                    businessArea.setBusinessAreaId(new BusinessAreaPK(businessProfile.getBusinessProId(), businessArea.getTown().getTownId()));
+//                    businessArea.setBusinessProfile(businessProfileObj);
+//                }
                 HashSet<BusinessArea> businessAreas = new HashSet<>(businessProfile.getBusinessAreas());
                 businessAreas.retainAll(businessProfileObj.getBusinessAreas());
                 Set<BusinessArea> businessAreaSetRemove = new HashSet<>(businessProfileObj.getBusinessAreas());
                 businessAreaSetRemove.removeAll(businessAreas);
-                businessProfile.getBusinessAreas().removeAll(businessAreas);
-                businessProfileObj.setBusinessAreas(businessProfile.getBusinessAreas());
+                Set<BusinessArea> businessAreaSetAdd = new HashSet<>(businessProfile.getBusinessAreas());
+                businessAreaSetAdd.removeAll(businessAreas);
+                businessProfileObj.setBusinessAreas(businessAreaSetAdd);
+                addBusinessAreas(businessProfileObj);
 
-                for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
-                    businessProfileCategory.setBusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId()));
-                    businessProfileCategory.setBusinessProfile(businessProfileObj);
-                }
+//                HashSet<BusinessArea> businessAreas = new HashSet<>(businessProfile.getBusinessAreas());
+//                businessAreas.retainAll(businessProfileObj.getBusinessAreas());
+//                Set<BusinessArea> businessAreaSetRemove = new HashSet<>(businessProfileObj.getBusinessAreas());
+//                businessAreaSetRemove.removeAll(businessAreas);
+//                businessProfile.getBusinessAreas().removeAll(businessAreas);
+//                businessProfileObj.setBusinessAreas(businessProfile.getBusinessAreas());
 
+//                for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
+//                    businessProfileCategory.setBusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId()));
+//                    businessProfileCategory.setBusinessProfile(businessProfileObj);
+//                }
                 HashSet<BusinessProfileCategory> profileCategories = new HashSet<>(businessProfile.getBusinessProfileCategories());
                 profileCategories.retainAll(businessProfileObj.getBusinessProfileCategories());
                 Set<BusinessProfileCategory> profileCategorySetRemove = new HashSet<>(businessProfileObj.getBusinessProfileCategories());
                 profileCategorySetRemove.removeAll(profileCategories);
-                businessProfile.getBusinessProfileCategories().removeAll(profileCategories);
-                businessProfileObj.setBusinessProfileCategories(businessProfile.getBusinessProfileCategories());
+                Set<BusinessProfileCategory> profileCategorySetAdd = new HashSet<>(businessProfile.getBusinessProfileCategories());
+                profileCategorySetAdd.removeAll(profileCategories);
+                businessProfileObj.setBusinessProfileCategories(profileCategorySetAdd);
+                addBusinessProfileCategories(businessProfileObj);
+
+                HashSet<DbayUserImg> dbayUserImgs = new HashSet<>(businessProfile.getDbayUser().getDbayUserImgs());
+                dbayUserImgs.retainAll(businessProfileObj.getDbayUser().getDbayUserImgs());
+                Set<DbayUserImg> dbayUserImgsSetRemove = new HashSet<>(businessProfileObj.getDbayUser().getDbayUserImgs());
+                dbayUserImgsSetRemove.removeAll(dbayUserImgs);
+                Set<DbayUserImg> dbayUserImgsSetAdd = new HashSet<>(businessProfile.getDbayUser().getDbayUserImgs());
+                dbayUserImgsSetAdd.removeAll(dbayUserImgs);
+                businessProfileObj.getDbayUser().setDbayUserImgs(dbayUserImgsSetAdd);
+                addImagesToBusinessProfile(businessProfileObj.getDbayUser(), files);
+
+//                HashSet<BusinessProfileCategory> profileCategories = new HashSet<>(businessProfile.getBusinessProfileCategories());
+//                profileCategories.retainAll(businessProfileObj.getBusinessProfileCategories());
+//                Set<BusinessProfileCategory> profileCategorySetRemove = new HashSet<>(businessProfileObj.getBusinessProfileCategories());
+//                profileCategorySetRemove.removeAll(profileCategories);
+//                businessProfile.getBusinessProfileCategories().removeAll(profileCategories);
+//                businessProfileObj.setBusinessProfileCategories(businessProfile.getBusinessProfileCategories());
 
                 if (businessAreaSetRemove.size() > 0) {
                     businessAreaR.deleteAll(businessAreaSetRemove);
@@ -115,16 +140,69 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 if (profileCategorySetRemove.size() > 0) {
                     businessProfileCategoryR.deleteAll(profileCategorySetRemove);
                 }
-                dbayUserR.save(businessProfileObj.getUser());
+                if (dbayUserImgsSetRemove.size() > 0) {
+                    dbayUserImgR.deleteAll(dbayUserImgsSetRemove);
+                }
+                dbayUserR.save(businessProfileObj.getDbayUser());
                 businessProfileR.save(businessProfileObj);
                 businessProfileObj.getBusinessAreas().addAll(businessAreas);
                 businessProfileObj.getBusinessProfileCategories().addAll(profileCategories);
-                return new BusinessProfileDTO(businessProfileObj, businessProfileObj.getUser(), true, true);
+                return new BusinessProfileDTO(businessProfileObj, businessProfileObj.getDbayUser(), true, true, true);
             }
             return null;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
+        }
+    }
+
+    private void addBusinessAreas(BusinessProfile businessProfile) {
+        for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
+            businessArea.setBusinessAreaId(new BusinessAreaPK(businessProfile.getBusinessProId(), businessArea.getTown().getTownId()));
+            businessArea.setBusinessProfile(businessProfile);
+        }
+    }
+
+    private void addBusinessProfileCategories(BusinessProfile businessProfile) {
+        for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
+            businessProfileCategory.setBusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId()));
+            businessProfileCategory.setBusinessProfile(businessProfile);
+        }
+    }
+
+    private void addImagesToBusinessProfile(DbayUser dbayUser, MultipartFile[] files) {
+        try {
+//            Set<ItemImg> itemImgs = new HashSet<>();
+            for (DbayUserImg dbayUserImg : dbayUser.getDbayUserImgs()) {
+                dbayUserImg.setDbayUser(dbayUser);
+            }
+            LocalDateTime localDateTime = LocalDateTime.now();
+            String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+            int i = 0;
+//            String filePath = "C:\\xampp\\htdocs\\Dbay";
+            String filePathCur = filePath + "\\business_pro";
+            for (MultipartFile file : files) {
+                DbayUserImg businessProfileImg = new DbayUserImg();
+                businessProfileImg.setUserImgId("BPIMG" + ++i + format);
+//                itemImg.setItemImg(file.getBytes());
+                Path root = Paths.get(filePathCur);
+                if (!Files.exists(root)) {
+                    Files.createDirectories(Paths.get(filePathCur));
+                }
+                try {
+                    Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
+                } catch (FileAlreadyExistsException e) {
+                    e.printStackTrace();
+                }
+                businessProfileImg.setUserImgName("business_pro/" + StringUtils.cleanPath(file.getOriginalFilename()));
+//                itemImg.setItemImgPath("C:\\xampp\\htdocs\\Dbay\\" + itemImg.getItemImgName());
+                businessProfileImg.setUserImgType(file.getContentType());
+                businessProfileImg.setDbayUser(dbayUser);
+                dbayUser.getDbayUserImgs().add(businessProfileImg);
+            }
+//            item.setItemImgs(itemImgs);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

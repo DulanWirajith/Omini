@@ -23,8 +23,8 @@ export class BusinessAccountService {
   //   this.breadCrumbSub.next(txt)
   // }
 
-  updateBusinessProfile(businessReg): Observable<any> {
-    return this.http.put<any>(environment.backend_url + 'business_profile/updateBusinessProfile/' + businessReg.businessProId, businessReg);
+  updateBusinessProfile(businessReg, businessProId): Observable<any> {
+    return this.http.put<any>(environment.backend_url + 'business_profile/updateBusinessProfile/' + businessProId, businessReg);
   }
 
   getBusinessProfile(businessProfileId): Observable<any> {
@@ -85,18 +85,25 @@ export class BusinessAccountService {
       country: "",
       district: "",
       town: {
-        townId: ""
+        townId: "",
+        district: {
+          country: {
+            name: ""
+          }
+        }
       },
       businessAreas: [],
       businessProfileCategories: [],
-      user: {
+      dbayUser: {
         username: "",
         cPassword: "",
         password: "",
         passwordC: "",
         email: "",
         verificationCode: "",
-        twoFactorAuth: false
+        twoFactorAuth: false,
+        dbayUserImgs: [],
+        dbayUserImgsRaw: []
       }
     }
   }

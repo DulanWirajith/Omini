@@ -20,6 +20,8 @@ public class ItemFeature extends DateTime {
     @Id
     private String itemFeatureId;
     private String name;
+//    @Lob
+    @Column(columnDefinition = "TEXT")
     private String description;
     private boolean confirmed;
 

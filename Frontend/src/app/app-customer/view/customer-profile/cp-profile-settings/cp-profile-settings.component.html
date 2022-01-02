@@ -41,8 +41,8 @@
                 <div class="password-toggle">
                   <input class="form-control" [type]="passwordView.curView?'text':'password'"
                          id="account-password-current"
-                         placeholder="Enter current password" [required]="customerProfile.user.password!==''"
-                         [(ngModel)]="customerProfile.user.cPassword" #curPassword="ngModel" name="curPassword">
+                         placeholder="Enter current password" [required]="customerProfile.dbayUser.password!==''"
+                         [(ngModel)]="customerProfile.dbayUser.cPassword" #curPassword="ngModel" name="curPassword">
                   <label class="password-toggle-btn" aria-label="Show/hide password">
                     <input class="password-toggle-check" type="checkbox">
                     <span class="password-toggle-indicator" id="password-toggle-indicator1"></span>
@@ -60,8 +60,8 @@
                 <div class="password-toggle">
                   <input class="form-control" [type]="passwordView.newView?'text':'password'" id="account-password-new"
                          placeholder="Enter new password"
-                         [(ngModel)]="customerProfile.user.password" #newPassword="ngModel" name="password"
-                         appConfirmPassword [password]="customerProfile.user.passwordC">
+                         [(ngModel)]="customerProfile.dbayUser.password" #newPassword="ngModel" name="password"
+                         appConfirmPassword [password]="customerProfile.dbayUser.passwordC">
                   <label class="password-toggle-btn" aria-label="Show/hide password">
                     <input class="password-toggle-check" type="checkbox">
                     <span class="password-toggle-indicator" id="password-toggle-indicator2"></span>
@@ -76,8 +76,8 @@
                 <div class="password-toggle">
                   <input class="form-control" type="password" id="account-password-confirm"
                          placeholder="Confirm new password"
-                         [(ngModel)]="customerProfile.user.passwordC" #confNewPassword="ngModel" name="passwordC"
-                         appConfirmPassword [password]="customerProfile.user.password">
+                         [(ngModel)]="customerProfile.dbayUser.passwordC" #confNewPassword="ngModel" name="passwordC"
+                         appConfirmPassword [password]="customerProfile.dbayUser.password">
                   <label class="password-toggle-btn" aria-label="Show/hide password">
                     <input class="password-toggle-check" type="checkbox">
                     <span class="password-toggle-indicator" id="password-toggle-indicator3"></span>

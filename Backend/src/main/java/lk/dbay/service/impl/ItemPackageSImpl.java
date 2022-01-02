@@ -6,6 +6,7 @@ import lk.dbay.entity.*;
 import lk.dbay.repository.*;
 import lk.dbay.service.ItemPackageS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,8 @@ public class ItemPackageSImpl implements ItemPackageS {
     private ItemPackageFeatureR itemPackageFeatureR;
     @Autowired
     private ItemPackageItemPackageFeatureR itemPackageItemPackageFeatureR;
+    @Value("${image.path}")
+    private String filePath;
 
     @Override
     @Transactional
@@ -150,20 +153,20 @@ public class ItemPackageSImpl implements ItemPackageS {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             int i = 0;
-            String filePath = "C:\\xampp\\htdocs\\Dbay";
+            String filePathCur = filePath + "\\package";
             for (MultipartFile file : files) {
                 ItemPackageImg itemPackageImg = new ItemPackageImg();
                 itemPackageImg.setItemPackageImgId("ITPKGIMG" + ++i + format);
-                Path root = Paths.get(filePath);
-//                if (!Files.exists(root)) {
-////                    Files.createDirectories(Paths.get(filePath));
-//                }
+                Path root = Paths.get(filePathCur);
+                if (!Files.exists(root)) {
+                    Files.createDirectories(Paths.get(filePathCur));
+                }
                 try {
                     Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
                 } catch (FileAlreadyExistsException e) {
                     e.printStackTrace();
                 }
-                itemPackageImg.setItemPackageImgName(StringUtils.cleanPath(file.getOriginalFilename()));
+                itemPackageImg.setItemPackageImgName("package/" + StringUtils.cleanPath(file.getOriginalFilename()));
                 itemPackageImg.setItemPackageImgType(file.getContentType());
                 itemPackageImg.setItemPackage(itemPackage);
                 itemPackage.getItemPackageImgs().add(itemPackageImg);

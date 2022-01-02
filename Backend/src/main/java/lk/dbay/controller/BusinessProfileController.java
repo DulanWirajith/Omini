@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
 @RestController
@@ -19,9 +20,9 @@ public class BusinessProfileController {
     private BusinessProfileS businessProfileS;
 
     @PostMapping(value = "/addBusinessProfile")
-    public ResponseEntity addBusinessProfile(@RequestBody BusinessProfile businessProfile) {
+    public ResponseEntity addBusinessProfile(@RequestPart("businessProfile") BusinessProfile businessProfile, @RequestParam("imageFile") MultipartFile[] files) {
         try {
-            BusinessProfileDTO businessProfileDTO = businessProfileS.addBusinessProfile(businessProfile);
+            BusinessProfileDTO businessProfileDTO = businessProfileS.addBusinessProfile(businessProfile, files);
             if (businessProfileDTO != null) {
                 return ResponseEntity.ok(businessProfileDTO);
             } else {
@@ -36,9 +37,9 @@ public class BusinessProfileController {
     }
 
     @PutMapping(value = "/updateBusinessProfile/{businessProfileId}")
-    public ResponseEntity updateBusinessProfile(@RequestBody BusinessProfile businessProfile, @PathVariable String businessProfileId) {
+    public ResponseEntity updateBusinessProfile(@RequestPart("businessProfile") BusinessProfile businessProfile, @RequestParam("imageFile") MultipartFile[] files, @PathVariable String businessProfileId) {
         try {
-            BusinessProfileDTO businessProfileDTO = businessProfileS.updateBusinessProfile(businessProfile, businessProfileId);
+            BusinessProfileDTO businessProfileDTO = businessProfileS.updateBusinessProfile(businessProfile, files, businessProfileId);
             if (businessProfileDTO != null) {
                 return ResponseEntity.ok(businessProfileDTO);
             } else {

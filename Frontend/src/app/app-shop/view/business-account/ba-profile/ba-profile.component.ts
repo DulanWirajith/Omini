@@ -1,13 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BusinessAccountService} from "../../../_service/business-account.service";
-import * as $ from 'jquery';
+import * as $ from "jquery";
+import {environment} from "../../../../../environments/environment";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-sp-profile-settings',
-  templateUrl: './sp-profile-settings.component.html',
-  styleUrls: ['./sp-profile-settings.component.css']
+  selector: 'app-ba-profile',
+  templateUrl: './ba-profile.component.html',
+  styleUrls: ['./ba-profile.component.css']
 })
-export class SpProfileSettingsComponent implements OnInit {
+export class BaProfileComponent implements OnInit {
 
   businessProfile;
   businessCategories = [];
@@ -18,14 +20,28 @@ export class SpProfileSettingsComponent implements OnInit {
     cView: false,
     toggleView: false
   };
+  countries;
+  districts;
+  towns;
+  pondOptions = {
+    class: 'my-filepond',
+    multiple: true,
+    // labelIdle: '<div class="btn btn-primary mt-3 mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos</div></br>or drag them in',
+    labelIdle:
+      '<div class="btn" style="margin-left: 0px;width: 100%">' +
+      '<i class="fi-camera-plus" style="font-size: 30px;margin-right: 20px"></i>Upload images</div></br>or drag them in',
+    acceptedFileTypes: 'image/jpeg, image/png'
+  };
+  @ViewChild('imageInput') imageInput: any;
 
-  constructor(private businessAccountService: BusinessAccountService) {
+  constructor(private businessAccountService: BusinessAccountService, private sanitizer: DomSanitizer) {
     this.businessProfile = businessAccountService.getNewBusinessProfile();
   }
 
   ngOnInit(): void {
     this.togglePasswordBtn();
     this.getBusinessProfile();
+    this.getCountries();
     this.getTownsWIthDistrict();
     this.getBusinessCategories();
   }
@@ -36,9 +52,30 @@ export class SpProfileSettingsComponent implements OnInit {
         businessProfile.dbayUser.password = '';
         businessProfile.dbayUser.passwordC = '';
         businessProfile.dbayUser.cPassword = '';
-        //console.log(businessProfile)
+        businessProfile.dbayUser.dbayUserImgsRaw = [];
+        console.log(businessProfile)
         this.businessProfile = businessProfile;
+        this.getDistricts(businessProfile.town.district.country.countryId)
+        this.getTowns(businessProfile.town.district.districtId)
       }
+    })
+  }
+
+  getCountries() {
+    this.businessAccountService.getCountries().subscribe((countries) => {
+      this.countries = countries;
+    })
+  }
+
+  getDistricts(countryId) {
+    this.businessAccountService.getDistricts(countryId).subscribe((districts) => {
+      this.districts = districts;
+    })
+  }
+
+  getTowns(districtId) {
+    this.businessAccountService.getTowns(districtId).subscribe((towns) => {
+      this.towns = towns;
     })
   }
 
@@ -117,12 +154,41 @@ export class SpProfileSettingsComponent implements OnInit {
       this.businessProfile.businessAreas = businessAreas;
     }
     //console.log(this.businessProfile)
-    // this.businessAccountService.updateBusinessProfile(this.businessProfile).subscribe((businessProfile) => {
-    //   // //console.log(businessProfile)
-    //   businessProfile.dbayUser.password = '';
-    //   businessProfile.dbayUser.passwordC = '';
-    //   businessProfile.dbayUser.cPassword = '';
-    //   this.businessProfile = businessProfile;
-    // })
+    const uploadImageData = new FormData();
+    for (let dbayUserImg of this.businessProfile.dbayUser.dbayUserImgsRaw) {
+      uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
+    }
+    uploadImageData.append('businessProfile', new Blob([JSON.stringify(this.businessProfile)],
+      {
+        type: "application/json"
+      }));
+    this.businessAccountService.updateBusinessProfile(uploadImageData, this.businessProfile.businessProId).subscribe((businessProfile) => {
+      // //console.log(businessProfile)
+      businessProfile.dbayUser.password = '';
+      businessProfile.dbayUser.passwordC = '';
+      businessProfile.dbayUser.cPassword = '';
+      businessProfile.dbayUser.dbayUserImgsRaw = [];
+      this.businessProfile = businessProfile;
+      this.imageInput.removeFiles();
+      // this.businessProfile.dbayUser.dbayUserImgs = this.businessProfile.dbayUser.dbayUserImgs.concat(businessProfile.dbayUser.dbayUserImgs);
+    })
+  }
+
+  pondHandleAddFile(event) {
+    this.businessProfile.dbayUser.dbayUserImgsRaw.push(event.file.file);
+  }
+
+  pondHandlerRemoveFile(event) {
+    for (let i = 0; i < this.businessProfile.dbayUser.dbayUserImgsRaw.length; i++) {
+      if (this.businessProfile.dbayUser.dbayUserImgsRaw[i].name === event.file.file.name) {
+        this.businessProfile.dbayUser.dbayUserImgsRaw.splice(i, 1);
+      }
+    }
+  }
+
+  getImageSrc(userImg) {
+    // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
+    // return this.sanitizer.bypassSecurityTrustUrl(imageData);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + userImg.userImgName);
   }
 }

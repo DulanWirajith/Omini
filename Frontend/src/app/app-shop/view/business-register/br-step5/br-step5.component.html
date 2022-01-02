@@ -22,7 +22,7 @@
         >
         <input class="form-control form-control-lg" type="text" id="biz-verificationcode" value=""
                placeholder="Enter Verification Code" required
-               [(ngModel)]="businessProfile.user.verificationCode" #verificationCode="ngModel" name="verificationCode">
+               [(ngModel)]="businessProfile.dbayUser.verificationCode" #verificationCode="ngModel" name="verificationCode">
         <div *ngIf="(verificationCode.touched || brForm4.submitted) && verificationCode.errors?.required"
              class="validErr">
           Verification Code is required
