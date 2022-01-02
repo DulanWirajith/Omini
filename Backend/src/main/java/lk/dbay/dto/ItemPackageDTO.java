@@ -23,6 +23,7 @@ public class ItemPackageDTO extends DateTimeDTO {
     private String discountType;
     private List<ItemItemPackageDTO> itemItemPackages;
     private List<ItemPackageImgDTO> itemPackageImgs;
+    private List<ItemPackageItemPackageFeatureDTO> itemPackageItemPackageFeatures;
     private BusinessProfileCategoryDTO businessProfileCategory;
 
 
@@ -44,7 +45,7 @@ public class ItemPackageDTO extends DateTimeDTO {
         }
     }
 
-    public ItemPackageDTO(@NonNull ItemPackage itemPackage, @NonNull BusinessProfileCategory businessProfileCategory, @NonNull Set<ItemItemPackage> itemItemPackages, @NonNull Set<ItemPackageImg> itemPackageImgs, boolean needImage) {
+    public ItemPackageDTO(@NonNull ItemPackage itemPackage, @NonNull BusinessProfileCategory businessProfileCategory, @NonNull Set<ItemItemPackage> itemItemPackages, @NonNull Set<ItemPackageItemPackageFeature> itemPackageItemPackageFeatures, @NonNull Set<ItemPackageImg> itemPackageImgs, boolean needImage) {
         this(itemPackage);
         this.itemItemPackages = new ArrayList<>();
         this.businessProfileCategory = new BusinessProfileCategoryDTO(businessProfileCategory.getBusinessProfile(), businessProfileCategory.getBusinessCategory());
@@ -54,6 +55,10 @@ public class ItemPackageDTO extends DateTimeDTO {
         this.itemPackageImgs = new ArrayList<>();
         for (ItemPackageImg itemPackageImg : itemPackageImgs) {
             this.itemPackageImgs.add(new ItemPackageImgDTO(itemPackageImg));
+        }
+        this.itemPackageItemPackageFeatures = new ArrayList<>();
+        for (ItemPackageItemPackageFeature itemPackageItemPackageFeature : itemPackageItemPackageFeatures) {
+            this.itemPackageItemPackageFeatures.add(new ItemPackageItemPackageFeatureDTO(itemPackageItemPackageFeature.getItemPackage(), itemPackageItemPackageFeature.getItemPackageFeature()));
         }
     }
 }

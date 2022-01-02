@@ -15,11 +15,12 @@ export class BaManagePackageComponent implements OnInit {
 
   itemPackage;
   itemPackages = [];
+  itemPackageFeatures = [];
   items = [];
   itemPackageItemPackageFeatures = [];
   itemPackageItemPackageFeature;
   newPackageFeature;
-  newPackageFeaturesTemp;
+  newPackageFeaturesTemp = [];
   isNewFeature;
   itemPackageFeature;
   // item;
@@ -27,13 +28,13 @@ export class BaManagePackageComponent implements OnInit {
   // imgUrl;
   // itemsAdded;
   itemsToAdd = [];
-  itemsToAddE = [];
   businessCategories = [];
   // isNewPackage = false;
   businessProfileCategory;
   // itemPkgImgs = [];
   // itemPkgImgsE = [];
   @ViewChild('baManageFormPackage', {static: true}) public baManageFormPackage: NgForm;
+  @ViewChild('baManageFormPackageFeature', {static: true}) public baManageFormPackageFeature: NgForm;
   @ViewChild('baManageFormPackageExs', {static: true}) public baManageFormPackageExs: NgForm;
   @ViewChild('imageInput') imageInput: any;
 
@@ -93,12 +94,13 @@ export class BaManagePackageComponent implements OnInit {
       }
     );
     this.newPackageFeature = '';
-    this.baManageFormPackageExs.resetForm()
+    this.baManageFormPackageFeature.resetForm()
+    console.log(this.newPackageFeaturesTemp)
   }
 
   addNewPackageFeature() {
     for (let itemPackageFeature of this.newPackageFeaturesTemp) {
-      this.itemPackageFeature.itemItemFeatures.push({
+      this.itemPackage.itemPackageItemPackageFeatures.push({
         itemPackage: {itemPackageId: this.itemPackage.itemPackageId},
         itemPackageFeature: itemPackageFeature
       })
@@ -120,12 +122,24 @@ export class BaManagePackageComponent implements OnInit {
       businessProId: "B321"
     };
 
-    let itemItemPackages = [];
+    // let itemItemPackages = [];
     for (let i = 0; i < this.itemPackage.itemItemPackages.length; i++) {
       if (this.itemPackage.itemItemPackages[i].itemPackage === undefined) {
         this.itemPackage.itemItemPackages[i] = {
           name: this.itemPackage.itemItemPackages[i].itemTitle,
           item: this.itemPackage.itemItemPackages[i],
+          itemPackage: {
+            itemPackageId: this.itemPackage.itemPackageId
+          }
+        }
+      }
+    }
+
+    for (let i = 0; i < this.itemPackage.itemPackageItemPackageFeatures.length; i++) {
+      if (this.itemPackage.itemPackageItemPackageFeatures[i].itemPackageFeature === undefined) {
+        this.itemPackage.itemPackageItemPackageFeatures[i] = {
+          name: this.itemPackage.itemItemPackages[i].itemTitle,
+          itemPackageFeature: this.itemPackage.itemPackageItemPackageFeatures[i],
           itemPackage: {
             itemPackageId: this.itemPackage.itemPackageId
           }
@@ -146,6 +160,7 @@ export class BaManagePackageComponent implements OnInit {
     this.itemService.addPackage(uploadImageData).subscribe((itemPackage) => {
       this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
       this.itemPackage.itemItemPackages = [];
+      this.itemPackage.itemPackageItemPackageFeatures = [];
       // this.item = undefined;
 
       this.itemPackages.push(itemPackage)
@@ -154,38 +169,6 @@ export class BaManagePackageComponent implements OnInit {
     })
   }
 
-  onSubmitE(itemPackageE, imageInput) {
-    itemPackageE.businessProfileCategory.businessProfile = {
-      businessProId: "B321"
-    };
-    for (let i = 0; i < itemPackageE.itemItemPackages.length; i++) {
-      // console.log(itemPackageE.itemItemPackages[i].itemPackage)
-      if (itemPackageE.itemItemPackages[i].itemPackage === undefined) {
-        itemPackageE.itemItemPackages[i] = {
-          item: itemPackageE.itemItemPackages[i],
-          itemPackage: {
-            itemPackageId: itemPackageE.itemPackageId
-          }
-        }
-      }
-    }
-    console.log(itemPackageE)
-    const uploadImageData = new FormData();
-    for (let itemImg of itemPackageE.itemPkgImgs) {
-      uploadImageData.append('imageFile', itemImg, itemImg.name);
-    }
-    uploadImageData.append('package', new Blob([JSON.stringify(itemPackageE)],
-      {
-        type: "application/json"
-      }));
-    this.itemService.updatePackage(uploadImageData, itemPackageE.itemPackageId).subscribe((itemPackageR) => {
-      // this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
-      // this.itemPackage.itemItemPackages = [];
-      // this.item = undefined;
-      imageInput.removeFiles();
-      itemPackageE.itemPackageImgs = itemPackageE.itemPackageImgs.concat(itemPackageR.itemPackageImgs);
-    })
-  }
 
   getItemPackagesOrdered() {
     if (this.businessProfileCategory !== null) {
@@ -206,33 +189,21 @@ export class BaManagePackageComponent implements OnInit {
     }
   }
 
-  getItems(val, itemPackage?) {
-    if (val === 'n') {
-      if (this.itemPackage.businessProfileCategory !== null) {
-        this.itemService.getItemsBusinessCategory("B321", this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
-          // console.log(items)
-          this.itemsToAdd = items;
-        })
-      }
-    } else if (val === 'e') {
-      if (this.businessProfileCategory !== null) {
-        this.itemService.getItemsBusinessCategory("B321", this.businessProfileCategory.businessCategoryId).subscribe((items) => {
-          // console.log(items)
-          this.itemsToAddE = items;
-          if (itemPackage !== undefined) {
-            if (itemPackage.businessProfileCategory.businessCategory.businessCategoryId === itemPackage.tempBusinessCategory.businessCategoryId) {
-              // console.log(itemPackage.tempItems)
-              itemPackage.itemItemPackages = itemPackage.tempItems;
-            } else {
-              itemPackage.itemItemPackages = [];
-            }
-            // itemPackage.items = [];
-            // for (let item of itemPackage.itemItemPackages) {
-            //   itemPackage.items.push(item.item);
-            // }
-          }
-        })
-      }
+  getItems() {
+    if (this.itemPackage.businessProfileCategory.businessCategory !== undefined) {
+      this.itemService.getItemsBusinessCategory("B321", this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+        // console.log(items)
+        this.itemsToAdd = items;
+      })
+    }
+  }
+
+  getItemPackageFeatures() {
+    if (this.itemPackage.businessProfileCategory !== undefined) {
+      this.itemService.getItemPackageFeatures(this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemPackageFeatures) => {
+        // console.log(items)
+        this.itemPackageFeatures = itemPackageFeatures;
+      })
     }
   }
 

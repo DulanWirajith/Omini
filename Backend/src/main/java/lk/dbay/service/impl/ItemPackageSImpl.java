@@ -189,7 +189,7 @@ public class ItemPackageSImpl implements ItemPackageS {
         Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(itemPackageId);
         if (itemPackageOptional.isPresent()) {
             ItemPackage itemPackage = itemPackageOptional.get();
-            return new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemItemPackages(), itemPackage.getItemPackageImgs(), true);
+            return new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemItemPackages(), itemPackage.getItemPackageItemPackageFeatures(), itemPackage.getItemPackageImgs(), true);
         }
         return null;
     }

@@ -185,7 +185,7 @@
             [searchWhileComposing]="true"
             name="businessProfileCategories"
             #businessProfileCategories="ngModel" required
-            (change)="getItems('n')"
+            (change)="getItems();getItemPackageFeatures()"
             [(ngModel)]="itemPackage.businessProfileCategory.businessCategory">
           </ng-select>
           <div
@@ -289,7 +289,7 @@
               <div style="width: 100%">
                 <div>
                   <ng-select
-                    [items]="itemPackageItemPackageFeatures"
+                    [items]="itemPackageFeatures"
                     bindLabel="name"
                     placeholder="Select Feature"
                     dropdownPosition="auto"
@@ -321,6 +321,14 @@
             </div>
           </form>
 
+        </div>
+      </div>
+      <div class="row">
+        <div class="d-flex flex-wrap mb-4">
+                <span *ngFor="let itemPackageFeature of itemPackage.itemPackageItemPackageFeatures;let j = index"
+                      class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemPackageFeature.itemPackageFeature.name}}
+                  <i class="fi-x fs-xs ms-2" (click)="itemPackage.itemPackageItemPackageFeatures.splice(i,1)" style="cursor: pointer"></i>
+                </span>
         </div>
       </div>
       <div class="row">
@@ -414,7 +422,7 @@
       dropdownPosition="auto"
       [multiple]="false"
       [searchWhileComposing]="true"
-      (change)="getItemPackagesOrdered();getItems('e')"
+      (change)="getItemPackagesOrdered();getItems()"
       [(ngModel)]="businessProfileCategory">
     </ng-select>
     <!-- <div class="invalid-tooltip">
@@ -449,8 +457,8 @@
           <i class="fi-alert-circle me-2 me-sm-3 lead"></i>
           <div>It takes few minutes to review your feature.Then we will add it into your item.</div>
         </div>
-        <form class="tab-pane fade show active" autocomplete="off" id="add-feature-e" #baManageFormItemFeature="ngForm"
-              (ngSubmit)="baManageFormItemFeature.form.valid && addFeatureTemp()" novalidate>
+        <form class="tab-pane fade show active" autocomplete="off" id="add-feature-e" #baManageFormPackageFeature="ngForm"
+              (ngSubmit)="baManageFormPackageFeature.form.valid && addFeatureTemp()" novalidate>
           <div class="mb-3">
             <label class="form-label" for="feature">Feature</label>
             <div style="display: flex">
@@ -462,7 +470,7 @@
               </button>
             </div>
           </div>
-          <div *ngIf="(newFeatureE.touched || baManageFormItemFeature.submitted) && newFeatureE.errors?.required"
+          <div *ngIf="(newFeatureE.touched || baManageFormPackageFeature.submitted) && newFeatureE.errors?.required"
                class="validErr" style="margin-bottom: 10px">
             Item Feature is required
           </div>
