@@ -43,16 +43,16 @@
                 <div class="col-12" *ngIf="_album?.length > 3">
                   <div class="row g-2 g-md-3">
                     <ng-container *ngFor="let items of _album; let i=index;">
-                      <ng-container *ngIf="_album?.length ===4">
-                        <div class="col" *ngIf="i>3">
-                          <p class="gallery-item rounded rounded-md-3" (click)="open(i)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
+                      <ng-container *ngIf="_album?.length ===4 && i+1>3">
+                        <div class="col-3">
+                          <p class="gallery-item rounded-1 rounded-md-2" (click)="open(i)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
                             <img [src]="getAlbumSrc(i)"   alt="Gallery thumbnail">
                           </p>
                         </div>
                       </ng-container>
-                      <ng-container *ngIf="_album?.length > 4">
-                        <div class="col" *ngIf="i>3">
-                          <p class="gallery-item rounded rounded-md-3" (click)="open(i)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
+                      <ng-container *ngIf="_album?.length > 4 && i+1>3">
+                        <div class="col">
+                          <p class="gallery-item rounded-1 rounded-md-2" (click)="open(i)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
                             <img [src]="getAlbumSrc(i)"   alt="Gallery thumbnail">
                           </p>
                         </div>
