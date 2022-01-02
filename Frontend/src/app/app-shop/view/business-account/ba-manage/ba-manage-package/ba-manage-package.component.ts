@@ -190,12 +190,15 @@ export class BaManagePackageComponent implements OnInit {
   }
 
   getItems() {
-    if (this.itemPackage.businessProfileCategory.businessCategory !== undefined) {
+    // if (val === 'item') {
+      // if (this.itemPackage.businessProfileCategory.businessCategory !== undefined) {
       this.itemService.getItemsBusinessCategory("B321", this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAdd = items;
+        this.itemPackage.itemItemPackages = [];
       })
-    }
+      // }
+    // }
   }
 
   getItemPackageFeatures() {

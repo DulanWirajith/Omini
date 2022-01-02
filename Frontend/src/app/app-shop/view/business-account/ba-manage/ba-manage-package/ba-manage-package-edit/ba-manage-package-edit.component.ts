@@ -125,24 +125,25 @@ export class BaManagePackageEditComponent implements OnInit {
   }
 
   getItems(itemPackage?) {
-    if (this.businessProfileCategory !== undefined) {
-      this.itemService.getItemsBusinessCategory("B321", this.businessProfileCategory.businessCategoryId).subscribe((items) => {
-        // console.log(items)
-        this.itemsToAdd = items;
-        if (itemPackage !== undefined) {
-          if (itemPackage.businessProfileCategory.businessCategory.businessCategoryId === itemPackage.tempBusinessCategory.businessCategoryId) {
-            // console.log(itemPackage.tempItems)
-            itemPackage.itemItemPackages = itemPackage.tempItems;
-          } else {
-            itemPackage.itemItemPackages = [];
-          }
-          // itemPackage.items = [];
-          // for (let item of itemPackage.itemItemPackages) {
-          //   itemPackage.items.push(item.item);
-          // }
+    console.log(this.businessProfileCategory)
+    // if (this.businessProfileCategory !== undefined) {
+    this.itemService.getItemsBusinessCategory("B321", itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+      // console.log(items)
+      this.itemsToAdd = items;
+      if (itemPackage !== undefined) {
+        if (itemPackage.businessProfileCategory.businessCategory.businessCategoryId === itemPackage.tempBusinessCategory.businessCategoryId) {
+          // console.log(itemPackage.tempItems)
+          itemPackage.itemItemPackages = itemPackage.tempItems;
+        } else {
+          itemPackage.itemItemPackages = [];
         }
-      })
-    }
+        // itemPackage.items = [];
+        // for (let item of itemPackage.itemItemPackages) {
+        //   itemPackage.items.push(item.item);
+        // }
+      }
+    })
+    // }
   }
 
   getItemPackageFeatures(itemPackage) {
