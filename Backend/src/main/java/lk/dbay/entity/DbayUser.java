@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -35,4 +36,7 @@ public class DbayUser extends DateTime {
     @ManyToOne
     private DbayUser confirmedBy;
     private LocalDateTime confirmedAt;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "dbayUser")
+    private Set<DbayUserImg> dbayUserImgs;
 }

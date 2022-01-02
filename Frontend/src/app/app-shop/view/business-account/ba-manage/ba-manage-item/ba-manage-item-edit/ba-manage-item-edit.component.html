@@ -425,8 +425,9 @@
               <!--<div class="col-md-4 mb-4" *ngFor='let url of imagesE'>-->
               <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->
               <!--</div>-->
-              <div class="col-md-4 mb-4" *ngFor='let itemImg of item.itemImgs;let j = index'>
-                <div style="position: relative" class="delImgT">
+              <div class="col-md-6 mb-6" *ngFor='let itemImg of item.itemImgs;let j = index'>
+                <div style="position: relative;display: flex;justify-content: center;border: 1px solid #efefef;margin-bottom: 20px"
+                     class="delImgT">
                   <img [src]="getImageSrc(itemImg)" style="margin: 3px;height: 200px;width: 300px">
                   <span class="delImg">
                     <i class="fi-trash"

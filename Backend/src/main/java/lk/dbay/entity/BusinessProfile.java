@@ -46,7 +46,7 @@ public class BusinessProfile extends DateTime {
     private Town town;
 
     @OneToOne(optional = false)
-    private DbayUser user;
+    private DbayUser dbayUser;
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "businessProfile")
     private Set<BusinessArea> businessAreas;

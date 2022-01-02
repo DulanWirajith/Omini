@@ -23,7 +23,7 @@ export class CustomerAccountService {
       contactNumber: "",
       customerAddress: "",
       gender: "",
-      user: {
+      dbayUser: {
         username: "",
         cPassword: "",
         password: "",

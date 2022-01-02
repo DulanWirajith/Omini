@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AppShopComponent } from './app-shop.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AppShopComponent} from './app-shop.component';
 import {HeaderComponent} from "../view/header/header.component";
 import {BusinessRegisterComponent} from "./view/business-register/business-register.component";
 import {BusinessAccountComponent} from "./view/business-account/business-account.component";
@@ -8,6 +8,8 @@ import {BaMonitorComponent} from "./view/business-account/ba-monitor/ba-monitor.
 import {BaManageComponent} from "./view/business-account/ba-manage/ba-manage.component";
 import {SpProfileSettingsComponent} from "./view/shop-profile/sp-profile-settings/sp-profile-settings.component";
 import {ShopProfileComponent} from "./view/shop-profile/shop-profile.component";
+import {BaOrderComponent} from "./view/business-account/ba-order/ba-order.component";
+import {BaProfileComponent} from "./view/business-account/ba-profile/ba-profile.component";
 
 const routes: Routes = [
   // {
@@ -34,6 +36,18 @@ const routes: Routes = [
       {
         path: 'ba_manage',
         component: BaManageComponent,
+      },
+      {
+        path: 'ba_order',
+        component: BaOrderComponent,
+      },
+      {
+        path: 'ba_order_history',
+        component: BaManageComponent,
+      },
+      {
+        path: 'ba_profile',
+        component: BaProfileComponent,
       }
     ]
   },
@@ -53,4 +67,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AppShopRoutingModule { }
+export class AppShopRoutingModule {
+}

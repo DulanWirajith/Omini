@@ -12,7 +12,7 @@
           <div class="d-flex align-items-center justify-content-between">
             <div class="pe-2">
               <label class="form-label fw-bold">User Name</label>
-              <div id="username-value">{{businessProfile.user.username}}</div>
+              <div id="username-value">{{businessProfile.dbayUser.username}}</div>
             </div>
             <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#username-collapse"
                                                                         data-bs-toggle="collapse"><i
@@ -22,7 +22,7 @@
           <div class="collapse" id="username-collapse" data-bs-parent="#auth-info">
             <input class="form-control mt-3" type="text" data-bs-binded-element="#username-value"
                    data-bs-unset-value="Not specified" required
-                   [(ngModel)]="businessProfile.user.username" #username="ngModel" name="username">
+                   [(ngModel)]="businessProfile.dbayUser.username" #username="ngModel" name="username">
           </div>
           <div *ngIf="(username.touched || spProfileForm.submitted) && username.errors?.required"
                class="validErr">
@@ -61,8 +61,8 @@
                 <div class="password-toggle">
                   <input class="form-control" [type]="passwordView.curView?'text':'password'"
                          id="account-password-current"
-                         placeholder="Enter current password" [required]="businessProfile.user.password!==''"
-                         [(ngModel)]="businessProfile.user.cPassword" #curPassword="ngModel" name="curPassword">
+                         placeholder="Enter current password" [required]="businessProfile.dbayUser.password!==''"
+                         [(ngModel)]="businessProfile.dbayUser.cPassword" #curPassword="ngModel" name="curPassword">
                   <label class="password-toggle-btn" aria-label="Show/hide password">
                     <input class="password-toggle-check" type="checkbox">
                     <span class="password-toggle-indicator" id="password-toggle-indicator1"></span>
@@ -80,8 +80,8 @@
                 <div class="password-toggle">
                   <input class="form-control" [type]="passwordView.newView?'text':'password'" id="account-password-new"
                          placeholder="Enter new password"
-                         [(ngModel)]="businessProfile.user.password" #newPassword="ngModel" name="password"
-                         appConfirmPassword [password]="businessProfile.user.passwordC">
+                         [(ngModel)]="businessProfile.dbayUser.password" #newPassword="ngModel" name="password"
+                         appConfirmPassword [password]="businessProfile.dbayUser.passwordC">
                   <label class="password-toggle-btn" aria-label="Show/hide password">
                     <input class="password-toggle-check" type="checkbox">
                     <span class="password-toggle-indicator" id="password-toggle-indicator2"></span>
@@ -96,8 +96,8 @@
                 <div class="password-toggle">
                   <input class="form-control" type="password" id="account-password-confirm"
                          placeholder="Confirm new password"
-                         [(ngModel)]="businessProfile.user.passwordC" #confNewPassword="ngModel" name="passwordC"
-                         appConfirmPassword [password]="businessProfile.user.password">
+                         [(ngModel)]="businessProfile.dbayUser.passwordC" #confNewPassword="ngModel" name="passwordC"
+                         appConfirmPassword [password]="businessProfile.dbayUser.password">
                   <label class="password-toggle-btn" aria-label="Show/hide password">
                     <input class="password-toggle-check" type="checkbox">
                     <span class="password-toggle-indicator" id="password-toggle-indicator3"></span>
@@ -462,7 +462,7 @@
           <div class="d-flex align-items-center justify-content-between">
             <div class="pe-2">
               <label class="form-label fw-bold">Two-factor authentication</label>
-              <div id="auth-value">{{businessProfile.user.twoFactorAuth?'Active':'Inactive'}}</div>
+              <div id="auth-value">{{businessProfile.dbayUser.twoFactorAuth?'Active':'Inactive'}}</div>
             </div>
             <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0" href="#auth-collapse"
                                                                         data-bs-toggle="collapse"><i
@@ -471,7 +471,7 @@
           </div>
           <div class="collapse" id="auth-collapse" data-bs-parent="#account-settings">
             <select class="form-select mt-3" data-bs-binded-element="#auth-value" name="accAuth"
-                    [(ngModel)]="businessProfile.user.twoFactorAuth">
+                    [(ngModel)]="businessProfile.dbayUser.twoFactorAuth">
               <!--<option value="" disabled>Enable / disbale two-factor authentication</option>-->
               <option [value]="true">Enable</option>
               <option [value]="false" selected>Disable</option>

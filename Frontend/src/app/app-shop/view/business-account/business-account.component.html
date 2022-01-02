@@ -83,14 +83,26 @@
               (click)="breadCrumbTxt='Manage'"
             ><i class="fi-shop opacity-60 me-2"></i>Manage</a
             >
-            <a class="card-nav-link" href="./business-account-order.html"
+            <a
+              class="card-nav-link"
+              [routerLinkActive]="'active'"
+              [routerLink]="'/shop/business_account/ba_order'"
+              (click)="breadCrumbTxt='Order'"
             ><i class="fi-shopping-bag opacity-60 me-2"></i>Order
               <span class="badge rounded-pill bg-primary">10</span>
             </a>
-            <a class="card-nav-link" href="./business-account-order-history.html"
+            <a
+              class="card-nav-link"
+              [routerLinkActive]="'active'"
+              [routerLink]="'/shop/business_account/ba_order_history'"
+              (click)="breadCrumbTxt='Order History'"
             ><i class="fi-clock opacity-60 me-2"></i>Order History</a
             >
-            <a class="card-nav-link" href="./business-account-profile.html"
+            <a
+              class="card-nav-link"
+              [routerLinkActive]="'active'"
+              [routerLink]="'/shop/business_account/ba_profile'"
+              (click)="breadCrumbTxt='Profile'"
             ><i class="fi-user opacity-60 me-2"></i>Profile</a
             >
             <a class="card-nav-link" href="./business-account-review.html"

@@ -11,6 +11,7 @@ import lk.dbay.repository.ItemR;
 import lk.dbay.service.ItemS;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,8 @@ public class ItemSImpl implements ItemS {
     private ItemImgR itemImgR;
     @Autowired
     private ItemItemFeatureR itemItemFeatureR;
+    @Value("${image.path}")
+    private String filePath;
 
     @Override
     @Transactional
@@ -122,21 +125,22 @@ public class ItemSImpl implements ItemS {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             int i = 0;
-            String filePath = "C:\\xampp\\htdocs\\Dbay";
+//            String filePath = "C:\\xampp\\htdocs\\Dbay";
+            String filePathCur = filePath + "\\item";
             for (MultipartFile file : files) {
                 ItemImg itemImg = new ItemImg();
                 itemImg.setItemImgId("ITIMG" + ++i + format);
 //                itemImg.setItemImg(file.getBytes());
-                Path root = Paths.get(filePath);
-//                if (!Files.exists(root)) {
-////                    Files.createDirectories(Paths.get(filePath));
-//                }
+                Path root = Paths.get(filePathCur);
+                if (!Files.exists(root)) {
+                    Files.createDirectories(Paths.get(filePathCur));
+                }
                 try {
                     Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
                 } catch (FileAlreadyExistsException e) {
                     e.printStackTrace();
                 }
-                itemImg.setItemImgName(StringUtils.cleanPath(file.getOriginalFilename()));
+                itemImg.setItemImgName("item/" + StringUtils.cleanPath(file.getOriginalFilename()));
 //                itemImg.setItemImgPath("C:\\xampp\\htdocs\\Dbay\\" + itemImg.getItemImgName());
                 itemImg.setItemImgType(file.getContentType());
                 itemImg.setItem(item);

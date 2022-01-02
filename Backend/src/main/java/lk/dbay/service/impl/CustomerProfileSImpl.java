@@ -30,12 +30,12 @@ public class CustomerProfileSImpl implements CustomerProfileS {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
             customerProfile.setCustomerProId("C" + format);
-            customerProfile.getUser().setUserId("U" + format);
-            customerProfile.getUser().setRole("C");
+            customerProfile.getDbayUser().setUserId("U" + format);
+            customerProfile.getDbayUser().setRole("C");
 
-            dbayUserR.save(customerProfile.getUser());
+            dbayUserR.save(customerProfile.getDbayUser());
             customerProfileR.save(customerProfile);
-            return new CustomerProfileDTO(customerProfile, new DbayUserDTO(customerProfile.getUser()));
+            return new CustomerProfileDTO(customerProfile, new DbayUserDTO(customerProfile.getDbayUser()));
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
@@ -47,7 +47,7 @@ public class CustomerProfileSImpl implements CustomerProfileS {
         Optional<CustomerProfile> customerProfileOptional = customerProfileR.findById(customerProfileId);
         if (customerProfileOptional.isPresent()) {
             CustomerProfile customerProfile = customerProfileOptional.get();
-            return new CustomerProfileDTO(customerProfile, new DbayUserDTO(customerProfile.getUser()));
+            return new CustomerProfileDTO(customerProfile, new DbayUserDTO(customerProfile.getDbayUser()));
         }
         return null;
     }
@@ -62,15 +62,15 @@ public class CustomerProfileSImpl implements CustomerProfileS {
                 customerProfileObj.setContactNumber(customerProfile.getContactNumber());
                 customerProfileObj.setCustomerAddress(customerProfile.getCustomerAddress());
                 customerProfileObj.setGender(customerProfile.getGender());
-                customerProfileObj.getUser().setUsername(customerProfile.getUser().getUsername());
-                customerProfileObj.getUser().setTwoFactorAuth(customerProfile.getUser().isTwoFactorAuth());
-                if (!customerProfile.getUser().getPassword().equals("")) {
-                    customerProfileObj.getUser().setPassword(customerProfile.getUser().getPassword());
+                customerProfileObj.getDbayUser().setUsername(customerProfile.getDbayUser().getUsername());
+                customerProfileObj.getDbayUser().setTwoFactorAuth(customerProfile.getDbayUser().isTwoFactorAuth());
+                if (!customerProfile.getDbayUser().getPassword().equals("")) {
+                    customerProfileObj.getDbayUser().setPassword(customerProfile.getDbayUser().getPassword());
                 }
 
-                dbayUserR.save(customerProfileObj.getUser());
+                dbayUserR.save(customerProfileObj.getDbayUser());
                 customerProfileR.save(customerProfileObj);
-                return new CustomerProfileDTO(customerProfileObj, new DbayUserDTO(customerProfileObj.getUser()));
+                return new CustomerProfileDTO(customerProfileObj, new DbayUserDTO(customerProfileObj.getDbayUser()));
             }
             return null;
         } catch (Exception e) {

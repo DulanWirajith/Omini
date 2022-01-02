@@ -21,6 +21,8 @@ public class ItemCategory extends DateTime {
     @Id
     private String itemCategoryId;
     private String name;
+    //    @Lob
+    @Column(columnDefinition = "TEXT")
     private String description;
     private boolean confirmed;
 

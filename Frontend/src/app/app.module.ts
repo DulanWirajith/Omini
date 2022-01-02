@@ -25,9 +25,9 @@ registerPlugin(FilePondPluginFileValidateType, FilepondPluginImageEdit, Filepond
 
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
-import {AppShopModule} from "./app-shop/app-shop.module";
-import {AppCustomerModule} from "./app-customer/app-customer.module";
-import { BaManagePackageEditComponent } from './app-shop/view/business-account/ba-manage/ba-manage-package/ba-manage-package-edit/ba-manage-package-edit.component';
+import { BaProfileComponent } from './app-shop/view/business-account/ba-profile/ba-profile.component';
+import { BaOrderHistoryComponent } from './app-shop/view/business-account/ba-order-history/ba-order-history.component';
+import { BaOrderComponent } from './app-shop/view/business-account/ba-order/ba-order.component';
 
 @NgModule({
   declarations: [

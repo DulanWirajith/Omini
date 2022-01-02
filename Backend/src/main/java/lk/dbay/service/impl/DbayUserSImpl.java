@@ -110,9 +110,9 @@ public class DbayUserSImpl implements DbayUserS {
     public boolean signOut(String id) throws Exception {
         DbayUserDTO userDTO = new DbayUserDTO();
         userDTO.setUserId(id + "");
-        DbayUserDTO user = jwtCache.getUser(userDTO);
-        if (user != null) {
-            return jwtCache.removeUser(user);
+        DbayUserDTO dbayUser = jwtCache.getUser(userDTO);
+        if (dbayUser != null) {
+            return jwtCache.removeUser(dbayUser);
         }
         return false;
     }
@@ -132,11 +132,11 @@ public class DbayUserSImpl implements DbayUserS {
     }
 
     @Override
-    public boolean resetPassword(DbayUser user) throws Exception {
-        DbayUser userByEmail = dbayUserR.findByEmail(user.getEmail());
-        if (userByEmail != null && user.getVerificationCode() != null && !user.getVerificationCode().equals("") && userByEmail.getVerificationCode().equals(user.getVerificationCode())) {
+    public boolean resetPassword(DbayUser dbayUser) throws Exception {
+        DbayUser userByEmail = dbayUserR.findByEmail(dbayUser.getEmail());
+        if (userByEmail != null && dbayUser.getVerificationCode() != null && !dbayUser.getVerificationCode().equals("") && userByEmail.getVerificationCode().equals(dbayUser.getVerificationCode())) {
             userByEmail.setVerificationCode(null);
-            userByEmail.setPassword(user.getPassword());
+            userByEmail.setPassword(dbayUser.getPassword());
             dbayUserR.save(userByEmail);
             return true;
         } else {
@@ -145,13 +145,13 @@ public class DbayUserSImpl implements DbayUserS {
     }
 
     @Override
-    public boolean resetOldPassword(DbayUserDTO user) throws Exception {
-        Optional<DbayUser> userOptional = dbayUserR.findById(user.getUserId());
+    public boolean resetOldPassword(DbayUserDTO dbayUser) throws Exception {
+        Optional<DbayUser> userOptional = dbayUserR.findById(dbayUser.getUserId());
         if (userOptional.isPresent()) {
             DbayUser userObj = userOptional.get();
-            if (user.getOldPassword().equals(userObj.getPassword())) {
+            if (dbayUser.getOldPassword().equals(userObj.getPassword())) {
                 userObj.setVerificationCode(null);
-                userObj.setPassword(user.getPassword());
+                userObj.setPassword(dbayUser.getPassword());
                 dbayUserR.save(userObj);
                 return true;
             } else {
@@ -168,18 +168,18 @@ public class DbayUserSImpl implements DbayUserS {
     }
 
     @Override
-    public DbayUserDTO addClassUser(DbayUser user) throws Exception {
+    public DbayUserDTO addClassUser(DbayUser dbayUser) throws Exception {
         try {
             String verifyCode = (new Random().nextInt(89999999) + 10000001) + "";
-            user.setVerificationCode(verifyCode);
-            dbayUserR.save(user);
-            String emailTxt = "Hello " + user.getUsername() + ", " +
+            dbayUser.setVerificationCode(verifyCode);
+            dbayUserR.save(dbayUser);
+            String emailTxt = "Hello " + dbayUser.getUsername() + ", " +
                     "\nYou are now new user to the system" +
                     "\nUse below link to set your password\n\n" +
-                    "\n" + emailLink + "?email=" + user.getEmail() + "&verify=" + verifyCode;
-            sendEmailSMTP.sendEmail(user.getEmail(), "YEWOI(Dbay) New " + user.getRole(), emailTxt);
+                    "\n" + emailLink + "?email=" + dbayUser.getEmail() + "&verify=" + verifyCode;
+            sendEmailSMTP.sendEmail(dbayUser.getEmail(), "YEWOI(Dbay) New " + dbayUser.getRole(), emailTxt);
 //            System.out.println(123);
-            return new DbayUserDTO(user);
+            return new DbayUserDTO(dbayUser);
         } catch (DataIntegrityViolationException ex) {
             ex.printStackTrace();
             throw new Exception(ex.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again");
@@ -187,16 +187,16 @@ public class DbayUserSImpl implements DbayUserS {
     }
 
     @Override
-    public DbayUserDTO updateClassUser(DbayUser user) throws Exception {
+    public DbayUserDTO updateClassUser(DbayUser dbayUser) throws Exception {
         try {
-            Optional<DbayUser> userOptional = dbayUserR.findById(user.getUserId());
+            Optional<DbayUser> userOptional = dbayUserR.findById(dbayUser.getUserId());
             if (userOptional.isPresent()) {
                 DbayUser userObj = userOptional.get();
-//                userObj.setFirstName(user.getFirstName());
-//                userObj.setLastName(user.getLastName());
-                userObj.setUsername(user.getUsername());
-                userObj.setEmail(user.getEmail());
-                userObj.setRole(user.getRole());
+//                userObj.setFirstName(dbayUser.getFirstName());
+//                userObj.setLastName(dbayUser.getLastName());
+                userObj.setUsername(dbayUser.getUsername());
+                userObj.setEmail(dbayUser.getEmail());
+                userObj.setRole(dbayUser.getRole());
                 dbayUserR.save(userObj);
                 return new DbayUserDTO(userObj);
             }

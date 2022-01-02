@@ -17,7 +17,7 @@ public class CustomerProfileDTO extends DateTimeDTO {
     private String customerAddress;
     private String gender;
 
-    private DbayUserDTO user;
+    private DbayUserDTO dbayUser;
     private TownDTO town;
 
     public CustomerProfileDTO(@NonNull CustomerProfile customerProfile) {
@@ -28,8 +28,8 @@ public class CustomerProfileDTO extends DateTimeDTO {
         this.gender = customerProfile.getGender();
     }
 
-    public CustomerProfileDTO(@NonNull CustomerProfile customerProfile, @NonNull DbayUserDTO user) {
+    public CustomerProfileDTO(@NonNull CustomerProfile customerProfile, @NonNull DbayUserDTO dbayUser) {
         this(customerProfile);
-        this.user = user;
+        this.dbayUser = dbayUser;
     }
 }

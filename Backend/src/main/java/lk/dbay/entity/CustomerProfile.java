@@ -26,7 +26,7 @@ public class CustomerProfile extends DateTime {
     private String gender;
 
     @OneToOne(optional = false)
-    private DbayUser user;
+    private DbayUser dbayUser;
     @ManyToOne(optional = false)
     private Town town;
 }
