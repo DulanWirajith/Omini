@@ -1,0 +1,814 @@
+<button class="btn btn-icon btn-light rounded-circle shadow position-fixed top-50 end-0 translate-middle-y me-3"
+        type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="cart" style="z-index: 1035;">
+  <div
+    class="d-flex align-items-center justify-content-center position-absolute top-0 start-0 w-100 h-100 rounded-circle"
+    data-bs-toggle="offcanvas" data-bs-target="#cart-viewer">
+    <i class="fi-cart"></i>
+  </div>
+</button>
+<div class="offcanvas offcanvas-end" id="cart-viewer" style="width: 50rem;">
+  <div class="offcanvas-header d-block">
+    <div class="d-flex justify-content-between mb-2">
+      <div class="pe-3">
+        <div class="d-flex align-items-center mb-2">
+          <a class="btn btn-icon btn-primary btn-md shadow-sm rounded-circle me-2 mb-0" href="#">
+            <i class="fi-cart"></i></a>
+          <!-- <img class="rounded-circle me-1" src="../../../../assets/img/37.png" width="48" alt="Avatar"> -->
+          <div class="ps-2">
+            <h6 class="fs-base mb-0">OrderId</h6>
+            <div class="text-muted fw-normal fs-sm">Sent to 3 Shops</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
+      </div>
+    </div>
+    <div class="section-second mb-3">
+      <div class="list-group list-group-horizontal-sm">
+        <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+           title="Items Count" data-bs-original-title="Items Count" aria-label="Items Count">
+          <div class="bg-teal rounded text-center p-2"><i class="fi-list d-block h5 text-light mb-0 mx-center"></i>
+            <span class="fs-xs h4 text-light">5</span>
+          </div>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+           title="Total Price" data-bs-original-title="Total Price" aria-label="Total Price">
+          <div class="bg-teal rounded text-center p-2">
+            <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i><span
+            class="fs-xs h4 text-light">LKR 2500</span>
+          </div>
+        </a>
+        <a href="#cart-item-list" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart-item-list"
+           class="list-group-item list-group-item-action text-center">
+          <div class="bg-teal rounded text-center p-2">
+            <i class="fi-eye-on d-block h5 text-light mb-0 mx-center"></i>
+            <span class="fs-xs h4 text-light">view</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas-body">
+    <div class="collapse mb-3" id="cart-item-list">
+      <div class="card card-body mb-2">
+        <!--order for shop-->
+        <blockquote class="">
+          <div class="d-flex justify-content-between mb-2">
+            <div class="pe-3">
+              <div class="d-flex align-items-center mb-2">
+                <img class="rounded-circle me-1" src="../../../../../assets/img/37.png" width="48" alt="Avatar">
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">Ralph Edwards</h6>
+                  <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-muted fs-sm mt-1"><a
+                class="btn btn-icon btn-danger btn-sm shadow-sm rounded-circle me-2 mb-0" href="#"
+                data-bs-toggle="tooltip" title="Remove order." data-bs-original-title="Remove order."
+                aria-label="Remove order.">
+                <i class="fi-trash"></i></a></div>
+            </div>
+          </div>
+          <div class="section-second mb-3">
+            <div class="list-group list-group-horizontal-sm">
+              <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                 title="Items Count" data-bs-original-title="Items Count" aria-label="Items Count">
+                <div class="bg-darkslategrey rounded text-center p-2"><i
+                  class="fi-list d-block h5 text-light mb-0 mx-center"></i>
+                  <span class="fs-xs h4 text-light">5</span>
+                </div>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                 title="Total Price" data-bs-original-title="Total Price" aria-label="Total Price">
+                <div class="bg-darkslategrey rounded text-center p-2">
+                  <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i><span
+                  class="fs-xs h4 text-light">LKR 2500</span>
+                </div>
+              </a>
+              <a href="#cart-item-list-2" data-bs-toggle="collapse" aria-expanded="false"
+                 aria-controls="cart-item-list-2" class="list-group-item list-group-item-action text-center">
+                <div class="bg-darkslategrey rounded text-center p-2">
+                  <i class="fi-eye-on d-block h5 text-light mb-0 mx-center"></i>
+                  <span class="fs-xs h4 text-light">view</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="collapse mb-1" id="cart-item-list-2">
+            <div class="card card-body border-none">
+              <!--Order detail card 1-->
+              <div class="order-detail-card mb-3">
+                <div class="d-flex align-items-center justify-content-between pb-1">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <button type="button" class="btn btn-outline-primary btn-icon btn-xxs" style="margin-top: 3px;">
+                      <i class="fi-x"></i>
+                    </button>
+                    <h3 class="h6 mb-2 fs-base">
+                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">Item
+                        Name</a>
+                    </h3>
+                  </div>
+                  <span class="badge rounded-pill bg-info"> Item </span>
+                </div>
+                <div class="order-detail-card-ss mb-3">
+                  <div class="list-group list-group-horizontal-sm">
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">2</span>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Discount" data-bs-original-title="Discount" aria-label="Discount">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">LKR 20</span>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Price" data-bs-original-title="Price" aria-label="Price">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">LKR 500</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+              <!--Order detail card 2-->
+              <div class="order-detail-card mb-3">
+                <div class="d-flex align-items-center justify-content-between pb-1">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <button type="button" class="btn btn-outline-primary btn-icon btn-xxs" style="margin-top: 3px;">
+                      <i class="fi-x"></i>
+                    </button>
+                    <h3 class="h6 mb-2 fs-base">
+                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#package-viewer">Package
+                        Name</a>
+                    </h3>
+                  </div>
+                  <span class="badge rounded-pill bg-success"> Package </span>
+                </div>
+                <div class="order-detail-card-ss mb-3">
+                  <div class="list-group list-group-horizontal-sm">
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">1</span>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Discount" data-bs-original-title="Discount" aria-label="Discount">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i><span
+                        class="fs-xs h4 text-light">LKR 250</span>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Price" data-bs-original-title="Price" aria-label="Price">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">LKR 2000</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </blockquote>
+      </div>
+      <div class="card card-body mb-2">
+        <!--order for shop-->
+        <blockquote class="">
+          <div class="d-flex justify-content-between mb-2">
+            <div class="pe-3">
+              <div class="d-flex align-items-center mb-2">
+                <img class="rounded-circle me-1" src="../../../../../assets/img/37.png" width="48" alt="Avatar">
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">Ralph Edwards</h6>
+                  <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-muted fs-sm mt-1">
+                <a class="btn btn-icon btn-danger btn-sm shadow-sm rounded-circle me-2 mb-0" href="#"
+                   data-bs-toggle="tooltip" title="Remove order." data-bs-original-title="Remove order."
+                   aria-label="Remove order.">
+                  <i class="fi-trash"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="section-second mb-3">
+            <div class="list-group list-group-horizontal-sm">
+              <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                 title="Items Count" data-bs-original-title="Items Count" aria-label="Items Count">
+                <div class="bg-darkslategrey rounded text-center p-2"><i
+                  class="fi-list d-block h5 text-light mb-0 mx-center"></i>
+                  <span class="fs-xs h4 text-light">5</span>
+                </div>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                 title="Total Price" data-bs-original-title="Total Price" aria-label="Total Price">
+                <div class="bg-darkslategrey rounded text-center p-2">
+                  <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i><span
+                  class="fs-xs h4 text-light">LKR 2500</span>
+                </div>
+              </a>
+              <a href="#card-item-list-3" data-bs-toggle="collapse" aria-expanded="false"
+                 aria-controls="card-item-list-3" class="list-group-item list-group-item-action text-center">
+                <div class="bg-darkslategrey rounded text-center p-2">
+                  <i class="fi-eye-on d-block h5 text-light mb-0 mx-center"></i>
+                  <span class="fs-xs h4 text-light">view</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="collapse mb-1" id="card-item-list-3">
+            <div class="card card-body border-none">
+              <!--Order detail card 1-->
+              <div class="order-detail-card mb-3">
+                <div class="d-flex align-items-center justify-content-between pb-1">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <button type="button" class="btn btn-outline-primary btn-icon btn-xxs" style="margin-top: 3px;">
+                      <i class="fi-x"></i>
+                    </button>
+                    <h3 class="h6 mb-2 fs-base">
+                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">Item
+                        Name</a>
+                    </h3>
+                  </div>
+                  <span class="badge rounded-pill bg-info"> Item </span>
+                </div>
+                <div class="order-detail-card-ss mb-3">
+                  <div class="list-group list-group-horizontal-sm">
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">2</span>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Discount" data-bs-original-title="Discount" aria-label="Discount">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">LKR 20</span>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Price" data-bs-original-title="Price" aria-label="Price">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">LKR 500</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+              <!--Order detail card 2-->
+              <div class="order-detail-card mb-3">
+                <div class="d-flex align-items-center justify-content-between pb-1">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <button type="button" class="btn btn-outline-primary btn-icon btn-xxs" style="margin-top: 3px;">
+                      <i class="fi-x"></i>
+                    </button>
+                    <h3 class="h6 mb-2 fs-base">
+                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#package-viewer">Package
+                        Name</a>
+                    </h3>
+                  </div>
+                  <span class="badge rounded-pill bg-success"> Package </span>
+                </div>
+                <div class="order-detail-card-ss mb-3">
+                  <div class="list-group list-group-horizontal-sm">
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">1</span>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Discount" data-bs-original-title="Discount" aria-label="Discount">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i><span
+                        class="fs-xs h4 text-light">LKR 250</span>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
+                       title="Price" data-bs-original-title="Price" aria-label="Price">
+                      <div class="bg-dark rounded text-center p-2">
+                        <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
+                        <span class="fs-xs h4 text-light">LKR 2000</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas-footer justify-content-end border-top">
+    <button class="btn btn-light-primary btn-sm">
+      <i class="fi-trash"></i> Clear Cart
+    </button>
+    <button class="btn btn-light-primary btn-sm">
+      <i class="fi-check-circle"></i> Place Order
+    </button>
+  </div>
+</div>
+<!--Item side viewer-->
+<div class="offcanvas offcanvas-end" id="fi-item-viewer" style="width:50rem;">
+  <div class="offcanvas-header d-block border-bottom">
+    <div class="d-flex align-items-center justify-content-between">
+      <h2 class="h5 mb-0">Item Name xxxxxxxxxxxxxx</h2>
+      <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+  </div>
+  <div class="offcanvas-body">
+    <!-- Tabs content-->
+    <div class="tab-content">
+      <!-- Item View-->
+      <div class="tab-pane fade show active" id="item-view" role="tabpanel">
+        <div class="row">
+          <div class="row g-2 g-md-3 gallery" data-thumbnails="true" style="min-width: 30rem;">
+            <div class="col-8"><a class="gallery-item rounded rounded-md-3"
+                                  href="../../../../../assets/img/catalog/01.jpg"
+                                  data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Kids bed&lt;/h6&gt;"><img
+              src="../../../../../assets/img/catalog/01.jpg" alt="Gallery thumbnail"></a></div>
+            <div class="col-4"><a class="gallery-item rounded rounded-md-3 mb-2 mb-md-3"
+                                  href="../../../../../assets/img/catalog/02.jpg"
+                                  data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Kids bed&lt;/h6&gt;"><img
+              src="../../../../../assets/img/catalog/02.jpg" alt="Gallery thumbnail"></a>
+              <a class="gallery-item rounded rounded-md-3" href="../../../../../assets/img/catalog/03.jpg"
+                 data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;"><img
+                src="../../../../../assets/img/catalog/03.jpg" alt="Gallery thumbnail"></a></div>
+            <div class="col-12">
+              <div class="row g-2 g-md-3">
+                <div class="col"><a class="gallery-item rounded-1 rounded-md-2"
+                                    href="../../../../../assets/img/catalog/03.jpg"
+                                    data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;"><img
+                  src="../../../../../assets/img/catalog/03.jpg" alt="Gallery thumbnail"></a></div>
+                <div class="col"><a class="gallery-item rounded-1 rounded-md-2"
+                                    href="../../../../../assets/img/catalog/04.jpg"
+                                    data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;King size bed&lt;/h6&gt;"><img
+                  src="../../../../../assets/img/catalog/04.jpg" alt="Gallery thumbnail"></a></div>
+                <div class="col"><a class="gallery-item rounded-1 rounded-md-2"
+                                    href="../../../../../assets/img/catalog/05.jpg"
+                                    data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Towels&lt;/h6&gt;"><img
+                  src="../../../../../assets/img/catalog/05.jpg" alt="Gallery thumbnail"></a></div>
+                <div class="col"><a class="gallery-item rounded-1 rounded-md-2"
+                                    href="../../../../../assets/img/catalog/06.jpg"
+                                    data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Bathroom&lt;/h6&gt;"><img
+                  src="../../../../../assets/img/catalog/06.jpg" alt="Gallery thumbnail"></a></div>
+                <div class="col"><a class="gallery-item more-item rounded-1 rounded-md-2"
+                                    href="../../../../../assets/img/catalog/07.jpg"
+                                    data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Bathroom&lt;/h6&gt;"><img
+                  src="../../../../../assets/img/catalog/07.jpg" alt="Gallery thumbnail"><span
+                  class="gallery-item-caption fs-base">+5 <span
+                  class='d-none d-md-inline'>photos</span></span></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rowg-3  mt-4">
+          <h3 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Information</h3>
+        </div>
+        <div class="row g-2">
+          <div class="col me-sm-1">
+            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
+              <i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>
+              <span class="fs-xs text-light fw-bold">1 Packet</span>
+            </div>
+          </div>
+          <div class="col me-sm-1">
+            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
+              <i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>
+              <span class="fs-xs text-light fw-bold">20%</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
+              <i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>
+              <span class="fs-xs text-light fw-bold">LKR 2000</span>
+            </div>
+          </div>
+        </div>
+        <div class="row cols-md-12 mt-3">
+          <p class="mb-2 fs-sm text-dark fw-bold">Overview </p>
+          <div class="col">
+            <p class="mb-2 fs-sm text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
+              consequuntur laudantium inventore dignissimos ipsum. Error sint perferendis dolores eligendi animi alias
+              excepturi aut aliquid, molestiae recusandae atque, quo iusto rem! </p>
+          </div>
+        </div>
+
+        <div class="row cols-md-12 mt-2">
+          <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
+          <div class="col-sm-6 col-md-4 col-xl-3">
+            <span
+              class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
+              class="fi-info-square me-2"></i> User Interface</span>
+          </div>
+          <div class="col-sm-6 col-md-4 col-xl-3">
+            <span
+              class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
+              class="fi-info-square me-2"></i> Typography</span>
+          </div>
+          <div class="col-sm-6 col-md-4 col-xl-3">
+            <span
+              class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
+              class="fi-info-square me-2"></i> User Experience</span>
+          </div>
+          <div class="col-sm-6 col-md-4 col-xl-3">
+            <span
+              class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
+              class="fi-info-square me-2"></i> User Interface</span>
+          </div>
+          <div class="col-sm-6 col-md-4 col-xl-3">
+            <span
+              class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
+              class="fi-info-square me-2"></i> Typography</span>
+          </div>
+          <div class="col-sm-6 col-md-4 col-xl-3">
+            <span
+              class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
+              class="fi-info-square me-2"></i> User Experience</span>
+          </div>
+        </div>
+      </div>
+      <!--Item Review-->
+      <div class="tab-pane fade" id="item-review" role="tabpanel">
+        <div class="card card-body">
+          <!-- Reviews-->
+          <div class="mb-4 pb-4 border-bottom">
+            <h3 class="h4 pb-3"><i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9 (4 reviews)
+            </h3>
+            <div
+              class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
+              <a class="btn btn-outline-primary mb-sm-0 mb-3" href="#add-review" data-bs-toggle="collapse" role="button"
+                 aria-expanded="false" aria-controls="add-review"><i class="fi-edit me-1"></i>Add review</a>
+              <div class="d-flex align-items-center ms-sm-4">
+                <label class="me-2 pe-1 text-nowrap" for="reviews-sorting"><i
+                  class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:</label>
+                <select class="form-select" id="reviews-sorting">
+                  <option>Newest</option>
+                  <option>Oldest</option>
+                  <option>Popular</option>
+                  <option>High rating</option>
+                  <option>Low rating</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!--add Review-->
+          <div class="collapse mb-4 pb-4" id="add-review">
+            <div class="card card-body">
+              <form class="needs-validation" novalidate>
+                <div class="mb-3">
+                  <label class="form-label" for="review-rating">Rating <span class='text-danger'>*</span></label>
+                  <select class="form-control form-select" id="review-rating" required>
+                    <option value="" selected disabled hidden>Choose rating</option>
+                    <option value="5 stars">5 stars</option>
+                    <option value="4 stars">4 stars</option>
+                    <option value="3 stars">3 stars</option>
+                    <option value="2 stars">2 stars</option>
+                    <option value="1 star">1 star</option>
+                  </select>
+                  <div class="invalid-feedback">Please rate the property.</div>
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="review-text">Review <span class='text-danger'>*</span></label>
+                  <textarea class="form-control" id="review-text" rows="5" placeholder="Your review message"
+                            required></textarea>
+                  <div class="invalid-feedback">Please write your review.</div>
+                </div>
+                <button class="btn btn-success d-block w-100 mb-4" type="submit">Submit a review</button>
+              </form>
+            </div>
+          </div>
+          <!-- Review-->
+          <div class="mb-4 pb-4 border-bottom">
+            <div class="d-flex justify-content-between mb-3">
+              <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
+                                                               src="../../../../../assets/img/37.png"
+                                                               width="48" alt="Avatar">
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">Annette Black</h6><span class="star-rating"><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i></span>
+                </div>
+              </div>
+              <span class="text-muted fs-sm">Jan 17, 2021</span>
+            </div>
+            <p>Elementum ut quam tincidunt egestas vitae elit, hendrerit. Ullamcorper nulla amet lobortis elit, nibh
+              condimentum enim. Aliquam felis nisl tellus sodales lectus dictum tristique proin vitae. Odio fermentum
+              viverra tortor quis.</p>
+            <div class="d-flex align-items-center">
+              <button class="btn-like" type="button"><i class="fi-like"></i><span>(3)</span></button>
+              <div class="border-end me-1">&nbsp;</div>
+              <button class="btn-dislike" type="button"><i class="fi-dislike"></i><span>(0)</span></button>
+            </div>
+          </div>
+          <!-- Review-->
+          <div class="mb-4 pb-4 border-bottom">
+            <div class="d-flex justify-content-between mb-3">
+              <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
+                                                               src="../../../../../assets/img/37.png"
+                                                               width="48" alt="Avatar">
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">Darrell Steward</h6><span class="star-rating"><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star"></i><i
+                  class="star-rating-icon fi-star"></i></span>
+                </div>
+              </div>
+              <span class="text-muted fs-sm">Dec 1, 2020</span>
+            </div>
+            <p>Vel dictum nunc ut tristique. Egestas diam amet, ut proin hendrerit. Dui accumsan at phasellus tempus
+              consequat dignissim.</p>
+            <div class="d-flex align-items-center">
+              <button class="btn-like" type="button"><i class="fi-like"></i><span>(0)</span></button>
+              <div class="border-end me-1">&nbsp;</div>
+              <button class="btn-dislike" type="button"><i class="fi-dislike"></i><span>(1)</span></button>
+            </div>
+          </div>
+          <!-- Review-->
+          <div class="mb-4 pb-4 border-bottom">
+            <div class="d-flex justify-content-between mb-3">
+              <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
+                                                               src="../../../../../assets/img/37.png"
+                                                               width="48" alt="Avatar">
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">Floyd Miles</h6><span class="star-rating"><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i></span>
+                </div>
+              </div>
+              <span class="text-muted fs-sm">Oct  28, 2020</span>
+            </div>
+            <p>Viverra nunc blandit sapien non imperdiet sit. Purus tempus elementum aliquam eu urna. A aenean duis non
+              egestas at libero porttitor integer eget. Sed dictum lobortis laoreet gravida.</p>
+            <div class="d-flex align-items-center">
+              <button class="btn-like" type="button"><i class="fi-like"></i><span>(2)</span></button>
+              <div class="border-end me-1">&nbsp;</div>
+              <button class="btn-dislike" type="button"><i class="fi-dislike"></i><span>(1)</span></button>
+            </div>
+          </div>
+          <!-- Review-->
+          <div class="mb-4 pb-4 border-bottom">
+            <div class="d-flex justify-content-between mb-3">
+              <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
+                                                               src="../../../../../assets/img/37.png"
+                                                               width="48" alt="Avatar">
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">Ralph Edwards</h6><span class="star-rating"><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i
+                  class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star"></i></span>
+                </div>
+              </div>
+              <span class="text-muted fs-sm">Sep 14, 2020</span>
+            </div>
+            <p>Elementum nisl, egestas nam consectetur nisl, at pellentesque cras. Non sed ac vivamus dolor dignissim
+              ut. Nisl sapien blandit pulvinar sagittis donec sociis ipsum arcu est. Tempus, rutrum morbi scelerisque
+              tempor mi. Etiam urna, cras bibendum leo nec faucibus velit. Tempor lectus dignissim at auctor integer
+              neque quam amet.</p>
+            <div class="d-flex align-items-center">
+              <button class="btn-like" type="button"><i class="fi-like"></i><span>(0)</span></button>
+              <div class="border-end me-1">&nbsp;</div>
+              <button class="btn-dislike" type="button"><i class="fi-dislike"></i><span>(0)</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas-footer border-top" style="display: block;">
+    <ul class="nav nav-tabs justify-content-end" role="tablist">
+      <li class="nav-item me-2">
+        <button class="btn btn-icon btn-success btn-lg text-light shadow-sm rounded-circle" type="button"
+                data-bs-toggle="tooltip" title="Add to Cart">
+          <i class="fi-cart"></i></button>
+      </li>
+      <li class="nav-item me-2">
+        <a class="btn btn-md btn-outline-info" href="#item-view" data-bs-toggle="tab" role="tab"><i
+          class="fi-arrow-back fs-lg me-2"></i>Back</a>
+      </li>
+      <li class="nav-item me-2">
+        <a class="btn btn-md btn-outline-primary" href="#item-review" data-bs-toggle="tab" role="tab"><i
+          class="fi-star fs-lg me-2"></i>Reviews</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<main class="page-wrapper">
+
+  <!--Header-->
+  <header
+    class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+    data-scroll-header=""
+  >
+    <div class="container">
+      <a class="navbar-brand me-3 me-xl-4" href="real-estate-home.html"
+      ><img
+        class="d-block"
+        src="https://finder.createx.studio/img/logo/logo-light.svg"
+        width="116"
+        alt="Finder"
+      /></a>
+      <button
+        class="navbar-toggler ms-auto"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="dropdown order-lg-3">
+        <a href="#" class="d-inline-block py-1" data-bs-toggle="dropdown">
+          <img class="rounded-circle" src="../../../../../assets/img/37.png" width="40" alt="User">
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <div class="d-flex align-items-start border-bottom px-3 py-1 mb-2" style="width: 16rem;">
+            <img class="rounded-circle" src="../../../../../assets/img/37.png" width="48" alt="User">
+            <div class="ps-2">
+              <h6 class="fs-base mb-0">Customer name</h6>
+
+              <div class="fs-xs py-2">(302) 555-0107<br>email</div>
+            </div>
+          </div>
+          <a href="./client-account-order.html" class="dropdown-item">
+            <i class="fi-user opacity-60 me-2"></i>
+            Account
+          </a>
+          <a href="#" class="dropdown-item">
+            <i class="fi-cart opacity-60 me-2"></i>
+            Cart
+          </a>
+          <!-- <a href="#" class="dropdown-item">
+            <i class="fi-lock opacity-60 me-2"></i>
+            Password & Security
+          </a>
+          <a href="#" class="dropdown-item">
+            <i class="fi-list opacity-60 me-2"></i>
+            My Listings
+          </a>
+          <a href="#" class="dropdown-item">
+            <i class="fi-heart opacity-60 me-2"></i>
+            Wishlist
+          </a>
+          <a href="#" class="dropdown-item">
+            <i class="fi-star opacity-60 me-2"></i>
+            Reviews
+          </a>
+          <a href="#" class="dropdown-item">
+            <i class="fi-bell opacity-60 me-2"></i>
+            Notifications
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">Help</a> -->
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">Sign Out</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page container-->
+  <div class="container-fluid mt-5 pt-5 p-0">
+    <div class="row g-0 mt-n3">
+      <!-- Filters sidebar (Offcanvas on mobile)-->
+      <aside class="col-lg-4 col-xl-3 border-top-lg border-end-lg shadow-sm px-3 px-xl-4 px-xxl-5 pt-lg-2">
+        <div class="offcanvas offcanvas-start offcanvas-collapse" id="filters-sidebar">
+          <div class="offcanvas-header d-flex d-lg-none align-items-center">
+            <h2 class="h5 mb-0">Filters</h2>
+            <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
+          </div>
+          <!-- Search form-->
+          <div class="offcanvas-header d-block border-bottom pt-0 pt-lg-4 px-lg-0">
+            <form class="form-group mb-lg-2 rounded-pill">
+              <div class="input-group"><span class="input-group-text text-muted"><i class="fi-search"></i></span>
+                <input class="form-control" type="text" placeholder="Search...">
+              </div>
+              <button class="btn btn-primary rounded-pill d-lg-inline-block d-none" type="button">Search</button>
+              <button class="btn btn-icon btn-primary rounded-circle flex-shrink-0 d-lg-none d-inline-flex"
+                      type="button"><i class="fi-search mt-n2"></i></button>
+            </form>
+          </div>
+          <!-- Nav tabs-->
+          <div class="offcanvas-header d-block border-bottom py-lg-4 py-3 px-lg-0">
+            <ul class="nav nav-pills nav-fill" role="tablist">
+              <li class="nav-item"><a class="nav-link d-flex align-items-center active" href="#filters"
+                                      data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>Item</a></li>
+              <li class="nav-item"><a class="nav-link d-flex align-items-center" href="#filters" data-bs-toggle="tab"
+                                      role="tab"><i class="fi-shop me-2"></i>Shop</a></li>
+            </ul>
+          </div>
+          <div class="offcanvas-body py-lg-4">
+            <!-- Tabs content-->
+            <div class="tab-content">
+              <!-- Filters-->
+              <div class="tab-pane fade show active" id="filters" role="tabpanel">
+                <div class="pb-4 mb-2">
+                  <h3 class="h6">Location</h3>
+                  <select class="form-select mb-2">
+                    <option value="" selected disabled>Choose district</option>
+                    <option value="Berlin">Berlin</option>
+                    <option value="Hamburg">Hamburg</option>
+                    <option value="Munich">Munich</option>
+                    <option value="Koln">Koln</option>
+                    <option value="Frankfurt am Main">Frankfurt am Main</option>
+                  </select>
+                  <select class="form-select">
+                    <option value="" selected disabled>Choose town</option>
+                    <option value="Berlin-Mitte">Berlin-Mitte</option>
+                    <option value="Charlottenburg">Charlottenburg</option>
+                    <option value="Prenzlauer Berg">Prenzlauer Berg</option>
+                    <option value="Friedrichshain">Friedrichshain</option>
+                    <option value="Kreuzberg">Kreuzberg</option>
+                  </select>
+                </div>
+                <div class="pb-4 mb-2">
+                  <h3 class="h6">Shop Type</h3>
+                  <div class="dropdown mb-sm-0 mb-3" data-bs-toggle="select">
+                    <button
+                      class="btn btn-outline-secondary d-flex align-items-center w-100 px-4 fw-normal text-start dropdown-toggle"
+                      style="background-color: white;" type="button" data-bs-toggle="dropdown"><i
+                      class="fi-list me-2 text-muted"></i><span
+                      class="dropdown-toggle-label d-block w-100">All Shops</span></button>
+                    <input type="hidden">
+                    <ul class="dropdown-menu w-100">
+                      <li><a class="dropdown-item" href="#"><i class="fi-bed fs-lg opacity-60"></i><span
+                        class="dropdown-item-label">Accomodation</span></a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fi-cafe me-2 fs-lg opacity-60"></i><span
+                        class="dropdown-item-label">Food &amp; Drink</span></a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fi-shopping-bag me-2 fs-lg opacity-60"></i><span
+                        class="dropdown-item-label">Shopping</span></a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fi-museum me-2 fs-lg opacity-60"></i><span
+                        class="dropdown-item-label">Art &amp; History</span></a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fi-entertainment me-2 fs-lg opacity-60"></i><span
+                        class="dropdown-item-label">Entertainment</span></a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fi-meds me-2 fs-lg opacity-60"></i><span
+                        class="dropdown-item-label">Medicine</span></a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fi-makeup me-2 fs-lg opacity-60"></i><span
+                        class="dropdown-item-label">Beauty</span></a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fi-car me-2 fs-lg opacity-60"></i><span
+                        class="dropdown-item-label">Auto Service</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="border-top py-4">
+                  <button class="btn btn-outline-primary rounded-pill" type="button"><i
+                    class="fi-rotate-right me-2"></i>Reset filters
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <!-- Page content-->
+      <div class="col-lg-8 col-xl-9 position-relative overflow-hidden pb-5 pt-4 px-3 px-xl-4 px-xxl-5">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+
+</main>
+<!-- Filters sidebar toggle button (mobile)-->
+<button class="btn btn-primary btn-sm w-100 rounded-0 fixed-bottom d-lg-none" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#filters-sidebar"><i class="fi-filter me-2"></i>Filters
+</button>
+<!-- Back to top button-->
+<a class="btn-scroll-top" href="#top" data-scroll><span
+  class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon fi-chevron-up"> </i></a>

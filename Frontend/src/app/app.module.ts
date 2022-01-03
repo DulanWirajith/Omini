@@ -28,6 +28,10 @@ import {HttpClientModule} from "@angular/common/http";
 import { BaProfileComponent } from './app-shop/view/business-account/ba-profile/ba-profile.component';
 import { BaOrderHistoryComponent } from './app-shop/view/business-account/ba-order-history/ba-order-history.component';
 import { BaOrderComponent } from './app-shop/view/business-account/ba-order/ba-order.component';
+import { ItemShopSearchComponent } from './app-customer/view/item-shop-search/item-shop-search.component';
+import { ItemSearchResultComponent } from './app-customer/view/search-result/item-search-result/item-search-result.component';
+import { CustomerAccountComponent } from './app-customer/view/customer-account/customer-account.component';
+import { SearchResultComponent } from './app-customer/view/search-result/search-result.component';
 
 @NgModule({
   declarations: [

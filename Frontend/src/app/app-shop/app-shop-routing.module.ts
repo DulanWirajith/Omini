@@ -19,48 +19,50 @@ const routes: Routes = [
   // },
   {
     path: 'header',
-    component: HeaderComponent,
-  },
-  {
-    path: 'business_register',
-    component: BusinessRegisterComponent,
-  },
-  {
-    path: 'business_account',
-    component: BusinessAccountComponent,
+    component: AppShopComponent,
     children: [
       {
-        path: 'ba_monitor',
-        component: BaMonitorComponent,
+        path: 'business_register',
+        component: BusinessRegisterComponent,
       },
       {
-        path: 'ba_manage',
-        component: BaManageComponent,
+        path: 'business_account',
+        component: BusinessAccountComponent,
+        children: [
+          {
+            path: 'ba_monitor',
+            component: BaMonitorComponent,
+          },
+          {
+            path: 'ba_manage',
+            component: BaManageComponent,
+          },
+          {
+            path: 'ba_order',
+            component: BaOrderComponent,
+          },
+          {
+            path: 'ba_order_history',
+            component: BaManageComponent,
+          },
+          {
+            path: 'ba_profile',
+            component: BaProfileComponent,
+          }
+        ]
       },
       {
-        path: 'ba_order',
-        component: BaOrderComponent,
-      },
-      {
-        path: 'ba_order_history',
-        component: BaManageComponent,
-      },
-      {
-        path: 'ba_profile',
-        component: BaProfileComponent,
+        path: 'shop_profile',
+        component: ShopProfileComponent,
+        children: [
+          {
+            path: 'profile_settings',
+            component: SpProfileSettingsComponent,
+          }
+        ]
       }
     ]
   },
-  {
-    path: 'shop_profile',
-    component: ShopProfileComponent,
-    children: [
-      {
-        path: 'profile_settings',
-        component: SpProfileSettingsComponent,
-      }
-    ]
-  }
 ];
 
 @NgModule({
