@@ -28,47 +28,86 @@
                 (ngSubmit)="itemShopSearch.form.valid && searchItem()"
                 novalidate>
 
-            <div class="input-group input-group-lg border-end-md"><span
-              class="input-group-text text-muted rounded-pill ps-3"><i class="fi-search"></i></span>
-              <input class="form-control" type="text" placeholder="What are you looking for?" [(ngModel)]="txt"
-                     name="txt" required>
-            </div>
+            <!--<div class="input-group input-group-lg border-end-md"><span-->
+              <!--class="input-group-text text-muted rounded-pill ps-3"><i class="fi-search"></i></span>-->
+              <!--<input class="form-control" type="text" placeholder="What are you looking for?" [(ngModel)]="txt"-->
+                     <!--name="txt" required>-->
+            <!--</div>-->
             <hr class="d-md-none my-2">
-            <div class="d-sm-flex">
-              <div class="dropdown w-100 mb-sm-0 mb-3" data-bs-toggle="select">
-                <button class="btn btn-link btn-lg dropdown-toggle ps-2 ps-sm-3" type="button"
-                        data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">
+            <div class="dropdown mb-sm-0 mb-3 border-end-md" data-bs-toggle="select">
+              <button class="btn btn-link btn-lg dropdown-toggle ps-2 ps-sm-3" type="button"
+                      data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">
                   {{categorySelected===undefined ? 'All categories':categorySelected.name}}
                 </span>
-                </button>
-                <input type="hidden">
-                <!--<ul class="dropdown-menu">-->
-                <!--<li (click)="category=''"><a class="dropdown-item"><i class="fi-bed fs-lg opacity-60 me-2"></i><span-->
-                <!--class="dropdown-item-label">Accommodation</span></a></li>-->
-                <!--<li><a class="dropdown-item"><i class="fi-cafe fs-lg opacity-60 me-2"></i><span-->
-                <!--class="dropdown-item-label">Food &amp; Drink</span></a></li>-->
-                <!--<li><a class="dropdown-item"><i class="fi-shopping-bag fs-lg opacity-60 me-2"></i><span-->
-                <!--class="dropdown-item-label">Shopping</span></a></li>-->
-                <!--<li><a class="dropdown-item"><i class="fi-museum fs-lg opacity-60 me-2"></i><span-->
-                <!--class="dropdown-item-label">Art &amp; History</span></a></li>-->
-                <!--<li><a class="dropdown-item"><i class="fi-entertainment fs-lg opacity-60 me-2"></i><span-->
-                <!--class="dropdown-item-label">Entertainment</span></a></li>-->
-                <!--<li><a class="dropdown-item"><i class="fi-meds fs-lg opacity-60 me-2"></i><span-->
-                <!--class="dropdown-item-label">Medicine</span></a></li>-->
-                <!--<li><a class="dropdown-item"><i class="fi-makeup fs-lg opacity-60 me-2"></i><span-->
-                <!--class="dropdown-item-label">Beauty</span></a></li>-->
-                <!--<li><a class="dropdown-item"><i class="fi-car fs-lg opacity-60 me-2"></i><span-->
-                <!--class="dropdown-item-label">Car Rental</span></a></li>-->
-                <!--</ul>-->
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" (click)="categorySelected=undefined"><i class="fi-list me-2"></i><span
-                    class="dropdown-item-label">All Categories</span></a></li>
-                  <li *ngFor="let category of businessCategories" (click)="categorySelected=category">
-                    <a class="dropdown-item"><i class="fi-list me-2"></i><span
-                      class="dropdown-item-label">{{category.name}}</span></a>
-                  </li>
-                </ul>
+              </button>
+              <input type="hidden">
+              <!--<ul class="dropdown-menu">-->
+              <!--<li (click)="category=''"><a class="dropdown-item"><i class="fi-bed fs-lg opacity-60 me-2"></i><span-->
+              <!--class="dropdown-item-label">Accommodation</span></a></li>-->
+              <!--<li><a class="dropdown-item"><i class="fi-cafe fs-lg opacity-60 me-2"></i><span-->
+              <!--class="dropdown-item-label">Food &amp; Drink</span></a></li>-->
+              <!--<li><a class="dropdown-item"><i class="fi-shopping-bag fs-lg opacity-60 me-2"></i><span-->
+              <!--class="dropdown-item-label">Shopping</span></a></li>-->
+              <!--<li><a class="dropdown-item"><i class="fi-museum fs-lg opacity-60 me-2"></i><span-->
+              <!--class="dropdown-item-label">Art &amp; History</span></a></li>-->
+              <!--<li><a class="dropdown-item"><i class="fi-entertainment fs-lg opacity-60 me-2"></i><span-->
+              <!--class="dropdown-item-label">Entertainment</span></a></li>-->
+              <!--<li><a class="dropdown-item"><i class="fi-meds fs-lg opacity-60 me-2"></i><span-->
+              <!--class="dropdown-item-label">Medicine</span></a></li>-->
+              <!--<li><a class="dropdown-item"><i class="fi-makeup fs-lg opacity-60 me-2"></i><span-->
+              <!--class="dropdown-item-label">Beauty</span></a></li>-->
+              <!--<li><a class="dropdown-item"><i class="fi-car fs-lg opacity-60 me-2"></i><span-->
+              <!--class="dropdown-item-label">Car Rental</span></a></li>-->
+              <!--</ul>-->
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" (click)="categorySelected=undefined"><i class="fi-list me-2"></i><span
+                  class="dropdown-item-label">All Categories</span></a></li>
+                <li *ngFor="let category of businessCategories" (click)="categorySelected=category">
+                  <a class="dropdown-item"><i class="fi-list me-2"></i><span
+                    class="dropdown-item-label">{{category.name}}</span></a>
+                </li>
+              </ul>
+            </div>
+            <div class="d-sm-flex" style="width: 100%">
+              <div class="input-group input-group-lg border-end-md"><span
+                class="input-group-text text-muted rounded-pill ps-3"><i class="fi-search"></i></span>
+                <input style="margin-top: 5px" class="form-control" type="text" placeholder="What are you looking for?" [(ngModel)]="txt"
+                       name="txt" required>
               </div>
+              <!--<div class="dropdown w-100 mb-sm-0 mb-3" data-bs-toggle="select">-->
+                <!--<button class="btn btn-link btn-lg dropdown-toggle ps-2 ps-sm-3" type="button"-->
+                        <!--data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">-->
+                  <!--{{categorySelected===undefined ? 'All categories':categorySelected.name}}-->
+                <!--</span>-->
+                <!--</button>-->
+                <!--<input type="hidden">-->
+                <!--&lt;!&ndash;<ul class="dropdown-menu">&ndash;&gt;-->
+                <!--&lt;!&ndash;<li (click)="category=''"><a class="dropdown-item"><i class="fi-bed fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="dropdown-item-label">Accommodation</span></a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-cafe fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="dropdown-item-label">Food &amp; Drink</span></a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-shopping-bag fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="dropdown-item-label">Shopping</span></a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-museum fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="dropdown-item-label">Art &amp; History</span></a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-entertainment fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="dropdown-item-label">Entertainment</span></a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-meds fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="dropdown-item-label">Medicine</span></a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-makeup fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="dropdown-item-label">Beauty</span></a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-car fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="dropdown-item-label">Car Rental</span></a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                <!--<ul class="dropdown-menu">-->
+                  <!--<li><a class="dropdown-item" (click)="categorySelected=undefined"><i class="fi-list me-2"></i><span-->
+                    <!--class="dropdown-item-label">All Categories</span></a></li>-->
+                  <!--<li *ngFor="let category of businessCategories" (click)="categorySelected=category">-->
+                    <!--<a class="dropdown-item"><i class="fi-list me-2"></i><span-->
+                      <!--class="dropdown-item-label">{{category.name}}</span></a>-->
+                  <!--</li>-->
+                <!--</ul>-->
+              <!--</div>-->
               <button class="btn btn-primary btn-lg rounded-pill w-100 w-md-auto ms-sm-3" type="submit">Search</button>
             </div>
           </form>
