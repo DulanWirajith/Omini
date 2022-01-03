@@ -37,8 +37,7 @@ import { BaOrderComponent } from './app-shop/view/business-account/ba-order/ba-o
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    HttpClientModule,
-    LightboxModule
+    HttpClientModule
     // NgbModule
     // AppShopModule,
     // AppCustomerModule

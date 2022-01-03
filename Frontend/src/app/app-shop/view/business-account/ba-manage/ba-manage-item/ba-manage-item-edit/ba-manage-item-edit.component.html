@@ -28,16 +28,19 @@
               <div class="row g-2 g-md-3 gallery" style="min-width: 30rem;">
 
                 <div class="col-8">
-                  <p class="gallery-item rounded rounded-md-3" (click)="open(firstImg)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>" style="height: 100%;">
-                    <img [src]="getAlbumSrc(firstImg)"   alt="Gallery thumbnail">
+                  <p class="gallery-item rounded rounded-md-3" (click)="open(firstImg)"
+                     data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>" style="height: 100%;">
+                    <img [src]="getAlbumSrc(firstImg)" alt="Gallery thumbnail">
                   </p>
                 </div>
                 <div class="col-4">
-                  <p class="gallery-item rounded rounded-md-3 mb-2 mb-md-3" (click)="open(secondImg)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
-                    <img [src]="getAlbumSrc(secondImg)"   alt="Gallery thumbnail">
+                  <p class="gallery-item rounded rounded-md-3 mb-2 mb-md-3" (click)="open(secondImg)"
+                     data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
+                    <img [src]="getAlbumSrc(secondImg)" alt="Gallery thumbnail">
                   </p>
-                  <p class="gallery-item rounded rounded-md-3" (click)="open(thirdImg)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
-                    <img [src]="getAlbumSrc(thirdImg)"   alt="Gallery thumbnail">
+                  <p class="gallery-item rounded rounded-md-3" (click)="open(thirdImg)"
+                     data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
+                    <img [src]="getAlbumSrc(thirdImg)" alt="Gallery thumbnail">
                   </p>
                 </div>
                 <div class="col-12" *ngIf="_album?.length > 3">
@@ -45,15 +48,17 @@
                     <ng-container *ngFor="let items of _album; let i=index;">
                       <ng-container *ngIf="_album?.length ===4 && i+1>3">
                         <div class="col-3">
-                          <p class="gallery-item rounded-1 rounded-md-2" (click)="open(i)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
-                            <img [src]="getAlbumSrc(i)"   alt="Gallery thumbnail">
+                          <p class="gallery-item rounded-1 rounded-md-2" (click)="open(i)"
+                             data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
+                            <img [src]="getAlbumSrc(i)" alt="Gallery thumbnail">
                           </p>
                         </div>
                       </ng-container>
                       <ng-container *ngIf="_album?.length > 4 && i+1>3">
                         <div class="col">
-                          <p class="gallery-item rounded-1 rounded-md-2" (click)="open(i)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
-                            <img [src]="getAlbumSrc(i)"   alt="Gallery thumbnail">
+                          <p class="gallery-item rounded-1 rounded-md-2" (click)="open(i)"
+                             data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
+                            <img [src]="getAlbumSrc(i)" alt="Gallery thumbnail">
                           </p>
                         </div>
                       </ng-container>
@@ -63,7 +68,7 @@
                         </p>
                       </div> -->
                     </ng-container>
-                    
+
                     <!-- <div class="col">
                       <p class="gallery-item rounded-1 rounded-md-2" (click)="open(thirdImg)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
                         <img [src]="getAlbumSrc(thirdImg)"   alt="Gallery thumbnail">
@@ -82,7 +87,7 @@
                   </p>
                 </div> -->
 
-          
+
                 <!-- <div class="col" *ngFor="let itemImg of item.itemImgs">
                   <a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/03.jpg"
                      data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;">
@@ -101,33 +106,57 @@
         <div class="rowg-3  mt-4">
           <h3 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Information</h3>
         </div>
-        <div class="row g-2">
-          <div class="col me-sm-1">
-            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-              <i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>
-              <span class="fs-xs text-light fw-bold">{{item.itemQty}}</span>
-            </div>
-          </div>
-          <div class="col me-sm-1">
-            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-              <i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>
-              <span class="fs-xs text-light fw-bold">{{item.itemDiscount}}</span>
+        <!--<div class="row g-2">-->
+        <!--<div class="col me-sm-1">-->
+        <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
+        <!--<i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>-->
+        <!--<span class="fs-xs text-light fw-bold">{{item.itemQty}}</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col me-sm-1">-->
+        <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
+        <!--<i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>-->
+        <!--<span class="fs-xs text-light fw-bold">{{item.itemDiscount}}</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col">-->
+        <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
+        <!--<i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>-->
+        <!--<span class="fs-xs text-light fw-bold">LKR {{item.itemPrice}}</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="row cols-md-4 col-info">
+          <div class="col">
+            <div style="background-color: rgba(229,154,3,0.44)">
+              <span class="mb-2 fs-sm text-dark fw-bold">Quantity </span>
+              <div class="fs-sm fw-bold" style="color: #b97800">{{item.itemQty}}</div>
             </div>
           </div>
           <div class="col">
-            <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-              <i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>
-              <span class="fs-xs text-light fw-bold">LKR {{item.itemPrice}}</span>
+            <div style="background-color: rgba(229,66,5,0.44)">
+              <span class="mb-2 fs-sm text-dark fw-bold">Discount </span>
+              <div class="fs-sm fw-bold" style="color: #b94701">
+                {{item.itemDiscountType==='None' ? 'N/A' :
+                item.itemDiscountType==='Cash' ? ('LKR '+item.itemDiscount) :
+                item.itemDiscountType==='Percentage' ? (item.itemDiscount + '%') : ''}}
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div style="background-color: rgba(229,101,2,0.44)">
+              <span class="mb-2 fs-sm text-dark fw-bold">Price </span>
+              <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR '+item.itemPrice}}</div>
             </div>
           </div>
         </div>
 
         <div class="row cols-md-12 mt-3">
           <p class="mb-2 fs-sm text-dark fw-bold">Overview </p>
-            <div class="col">
-              <p class="mb-2 fs-sm text-muted">{{item.itemDescription}} </p>
-            </div>
-         </div>
+          <div class="col">
+            <p class="mb-2 fs-sm text-muted">{{item.itemDescription}} </p>
+          </div>
+        </div>
 
         <div class="row cols-md-12 mt-2">
           <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
@@ -426,8 +455,9 @@
               <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->
               <!--</div>-->
               <div class="col-md-6 mb-6" *ngFor='let itemImg of item.itemImgs;let j = index'>
-                <div style="position: relative;display: flex;justify-content: center;border: 1px solid #efefef;margin-bottom: 20px"
-                     class="delImgT">
+                <div
+                  style="position: relative;display: flex;justify-content: center;border: 1px solid #efefef;margin-bottom: 20px"
+                  class="delImgT">
                   <img [src]="getImageSrc(itemImg)" style="margin: 3px;height: 200px;width: 300px">
                   <span class="delImg">
                     <i class="fi-trash"
