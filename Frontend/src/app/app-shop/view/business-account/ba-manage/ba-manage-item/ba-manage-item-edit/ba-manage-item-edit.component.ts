@@ -4,7 +4,7 @@ import {ItemService} from "../../../../../_service/item.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {NgForm} from "@angular/forms";
 import {environment} from "../../../../../../../environments/environment";
-import { Lightbox } from 'ngx-lightbox';
+import {Lightbox} from 'ngx-lightbox';
 
 @Component({
   selector: 'app-ba-manage-item-edit',
@@ -30,57 +30,58 @@ export class BaManageItemEditComponent implements OnInit {
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   _album: [];
-  lightbox;
+  // lightbox;
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer,private _lightbox: Lightbox) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox) {
     this.item = this.itemService.getNewItem();
-    this.lightbox=_lightbox;
+    // this.lightbox = _lightbox;
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
     itemService.itemSub.subscribe((item) => {
       this.item = item;
       this.getAlbum(this.item);
-
     })
     itemService.itemFeaturesSub.subscribe((itemFeatures) => {
       this.itemFeatures = itemFeatures;
     })
   }
+
   open(index: number): void {
     // open lightbox
     this.lightbox.open(this._album, index);
   }
+
   close(): void {
     // close lightbox programmatically
     this.lightbox.close();
   }
 
-  getAlbum(imageList){
-    var promises=[];
+  getAlbum(imageList) {
+    let promises = [];
     imageList.itemImgs.forEach(element => {
       promises.push(this.setAlbum(element));
     });
-    Promise.all(promises).then((result:[])=>{
-      this._album=result;
+    Promise.all(promises).then((result: []) => {
+      this._album = result;
       console.log(this._album);
     });
   }
 
-  setAlbum(img){
-    return new Promise((resolve,reject)=>{
+  setAlbum(img) {
+    return new Promise((resolve, reject) => {
       resolve({
-        src:this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemImgName),
-        caption:img.itemImgId,
-        thumb:this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemImgName)
+        src: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemImgName),
+        caption: img.itemImgId,
+        thumb: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemImgName)
       })
     });
   }
 
-  getAlbumSrc(imgNo){
-      let albumImgSrc;
-      albumImgSrc=this._album[imgNo]['thumb'];
-      return albumImgSrc ;
+  getAlbumSrc(imgNo) {
+    let albumImgSrc;
+    albumImgSrc = this._album[imgNo]['thumb'];
+    return albumImgSrc;
   }
 
   ngOnInit(): void {
@@ -170,10 +171,11 @@ export class BaManageItemEditComponent implements OnInit {
     }
   }
 
-  firstImg=0;
-  secondImg=1;
-  thirdImg=2;
-  getIndex(value){
+  firstImg = 0;
+  secondImg = 1;
+  thirdImg = 2;
+
+  getIndex(value) {
     return value;
   }
 }

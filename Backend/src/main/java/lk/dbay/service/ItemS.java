@@ -23,4 +23,6 @@ public interface ItemS {
     ItemDTO getItemSelected(String itemId);
 
     boolean setItemAvailable(String itemId);
+
+    List<ItemDTO> getItemsBySearch(String txt, String category);
 }

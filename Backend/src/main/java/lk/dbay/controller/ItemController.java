@@ -80,6 +80,11 @@ public class ItemController {
         return ResponseEntity.ok(itemS.getItemSelected(itemId));
     }
 
+    @GetMapping(value = "/getItemsBySearch/{txt}/{category}")
+    public ResponseEntity getItemsBySearch(@PathVariable String txt, @PathVariable String category) {
+        return ResponseEntity.ok(itemS.getItemsBySearch(txt, category));
+    }
+
 //    @GetMapping(value = "/itemImg/{id}")
 //    public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {
 //

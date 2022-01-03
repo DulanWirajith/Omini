@@ -32,6 +32,8 @@ import { ItemShopSearchComponent } from './app-customer/view/item-shop-search/it
 import { ItemSearchResultComponent } from './app-customer/view/search-result/item-search-result/item-search-result.component';
 import { CustomerAccountComponent } from './app-customer/view/customer-account/customer-account.component';
 import { SearchResultComponent } from './app-customer/view/search-result/search-result.component';
+import {RouterModule} from "@angular/router";
+import { ItemSearchResultViewComponent } from './app-customer/view/search-result/item-search-result/item-search-result-view/item-search-result-view.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { SearchResultComponent } from './app-customer/view/search-result/search-
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
     // NgbModule
     // AppShopModule,
     // AppCustomerModule

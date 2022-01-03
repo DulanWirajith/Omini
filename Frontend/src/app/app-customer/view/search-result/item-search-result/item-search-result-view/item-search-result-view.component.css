@@ -1,0 +1,43 @@
+.col-info > div > div {
+  border-radius: 10px;
+  padding: 8px 15px 0px 15px;
+  display: flex
+}
+
+.col-info > div > div > div {
+  margin-left: 40px;
+  text-align: center;
+  line-height: 2;
+  width: 100%
+}
+
+.col-info > div > div > span {
+  line-height: 2;
+}
+
+.gal-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gal-container img {
+  width: 23%;
+  /* height: 200px; */
+  object-fit: cover;
+}
+
+.g-overlay {
+  min-width: 320px;
+}
+
+/* .gallery-item{
+  height: 220px !important;
+} */
+
+/* img {
+  width: 150px;
+} */
+
+.lightbox-example, .gallerize-example {
+  margin: 2em;
+}

@@ -22,15 +22,15 @@
   </div>
   <hr class="d-none d-sm-block w-100 mx-4">
   <div class="d-none d-sm-flex align-items-center flex-shrink-0 text-muted"><i class="fi-check-circle me-2"></i><span
-    class="fs-sm mt-n1">6 results</span></div>
+    class="fs-sm mt-n1">{{items.length>1 ? items.length+' results':items.length+' result'}}</span></div>
 </div>
 <!-- Catalog grid-->
 <div class="row row-cols-xl-3 row-cols-sm-2 row-cols-1 gy-4 gx-3 gx-xxl-4 py-4">
   <!-- Item-->
 
-  <div class="col-sm-12 col-md-6 col-xl-4">
+  <div class="col-sm-12 col-md-6 col-xl-4" *ngFor="let item of items">
     <div class="card shadow-sm card-hover border-0 h-100">
-      <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
+      <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"></a>
         <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
           class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
                                                             style="margin-bottom: 0px;"><i
@@ -40,32 +40,63 @@
                   data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"><i
             class="fi-heart"></i></button>
         </div>
-        <div class="tns-carousel-inner"><img src="../../../../../assets/img/catalog/07.jpg" alt="Image"><img
-          src="../../../../../assets/img/catalog/07.jpg" alt="Image"></div>
+        <!--<div class="tns-carousel-inner"><img src="../../../../../assets/img/catalog/07.jpg" alt="Image"><img-->
+        <!--src="../../../../../assets/img/catalog/07.jpg" alt="Image"></div>-->
+        <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+          <mdb-carousel-item *ngFor="let image of item.itemImgs">
+            <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
+            <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
+                 alt="First slide">
+          </mdb-carousel-item>
+        </mdb-carousel>
       </div>
-      <div class="card-body position-relative pb-3">
+      <div class="card-body position-relative pb-3" (click)="getItemSelected(item)">
         <h3 class="h6 mb-2 fs-base"><a class="nav-link" href="#" data-bs-toggle="offcanvas"
-                                       data-bs-target="#fi-item-viewer">Item Name</a></h3>
+                                       data-bs-target="#fi-item-viewer">{{item.itemTitle}}</a></h3>
         <div class="border-top border-light pt-0 mb-2">
-          <div class="row g-2">
-            <div class="col me-sm-1">
-              <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                <i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>
-                <span class="fs-xs text-light fw-bold">1 Packet</span>
+          <!--<div class="row g-2">-->
+          <!--<div class="col me-sm-1">-->
+          <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
+          <!--<i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>-->
+          <!--<span class="fs-xs text-light fw-bold">1 Packet</span>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col me-sm-1">-->
+          <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
+          <!--<i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>-->
+          <!--<span class="fs-xs text-light fw-bold">20%</span>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col">-->
+          <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
+          <!--<i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>-->
+          <!--<span class="fs-xs text-light fw-bold">LKR 2000</span>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="row cols-sm-2 row-cols-md-12"
+               style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
+            <div class="col" style="padding: 0px">
+              <div style="border-right: 1px solid #d3d3d3">
+                <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                  Quantity </p>
+                <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.itemQty}}</p>
               </div>
             </div>
-            <div class="col me-sm-1">
-              <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                <i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>
-                <span class="fs-xs text-light fw-bold">20%</span>
-              </div>
+            <div class="col" style="padding: 0px">
+              <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                Discount </p>
+              <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
+                {{item.itemDiscountType==='None' ? 'N/A' :
+                item.itemDiscountType==='Cash' ? ('LKR '+item.itemDiscount) :
+                item.itemDiscountType==='Percentage' ? (item.itemDiscount + '%') : ''}}
+              </p>
+              <!--<p *ngIf="item.itemDiscountType==='None'" class="mb-2 fs-sm text-primary fw-bold">N/A</p>-->
+              <!--<p *ngIf="item.itemDiscountType==='Cash'" class="mb-2 fs-sm text-primary fw-bold">{{"LKR " + item.itemDiscount}}</p>-->
+              <!--<p *ngIf="item.itemDiscountType==='Percentage'" class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount + "%"}}</p>-->
             </div>
-            <div class="col">
-              <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                <i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>
-                <span class="fs-xs text-light fw-bold">LKR 2000</span>
-              </div>
-            </div>
+          </div>
+          <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR {{item.itemPrice}}
           </div>
         </div>
       </div>

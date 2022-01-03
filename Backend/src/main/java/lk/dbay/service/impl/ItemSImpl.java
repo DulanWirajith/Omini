@@ -9,10 +9,8 @@ import lk.dbay.repository.ItemImgR;
 import lk.dbay.repository.ItemItemFeatureR;
 import lk.dbay.repository.ItemR;
 import lk.dbay.service.ItemS;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +21,6 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -234,5 +231,20 @@ public class ItemSImpl implements ItemS {
             return item.isItemAvailable();
         }
         return false;
+    }
+
+    @Override
+    public List<ItemDTO> getItemsBySearch(String txt, String category) {
+        List<Item> itemsBySearch;
+        if (category.equals("no")) {
+            itemsBySearch = itemR.getItemsBySearch("%" + txt + "%");
+        } else {
+            itemsBySearch = itemR.getItemsBySearch("%" + txt + "%", category);
+        }
+        List<ItemDTO> itemDTOS = new ArrayList<>();
+        for (Item item : itemsBySearch) {
+            itemDTOS.add(new ItemDTO(item, true));
+        }
+        return itemDTOS;
     }
 }

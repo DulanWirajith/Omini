@@ -9,8 +9,9 @@
         <img class="d-block mx-auto" src="../../../../assets/img/hero-img.jpg" width="746" alt="Hero image">
       </div>
       <div class="col-lg-5 order-lg-1 pe-lg-0">
-        <h1 class="display-5 mb-4 me-lg-n5 text-lg-start text-center mb-4"><span class="">exploring</span><br><span
-          class="dropdown d-inline-block"><a class="dropdown-toggle text-decoration-none" href="#"
+        <h1 class="display-5 mb-4 me-lg-n5 text-lg-start text-center mb-4"><span style="line-height: 1.4">exploring</span><br>
+          <span class="dropdown d-inline-block">
+          <a class="dropdown-toggle text-decoration-none" href="#"
                                              style="padding: 0; background: white;" role="button"
                                              data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ambalangoda <small
           class="fs-sm">Galle</small></a><span class="dropdown-menu dropdown-menu-end my-1"><a
@@ -22,38 +23,53 @@
           partners and local experts.</p>
         <!-- Search form-->
         <div class="me-lg-n5">
-          <form class="form-group d-block d-md-flex position-relative rounded-md-pill me-lg-n5">
+
+          <form class="form-group d-block d-md-flex position-relative rounded-md-pill me-lg-n5" #itemShopSearch="ngForm"
+                (ngSubmit)="itemShopSearch.form.valid && searchItem()"
+                novalidate>
+
             <div class="input-group input-group-lg border-end-md"><span
               class="input-group-text text-muted rounded-pill ps-3"><i class="fi-search"></i></span>
-              <input class="form-control" type="text" placeholder="What are you looking for?">
+              <input class="form-control" type="text" placeholder="What are you looking for?" [(ngModel)]="txt"
+                     name="txt" required>
             </div>
             <hr class="d-md-none my-2">
             <div class="d-sm-flex">
               <div class="dropdown w-100 mb-sm-0 mb-3" data-bs-toggle="select">
                 <button class="btn btn-link btn-lg dropdown-toggle ps-2 ps-sm-3" type="button"
-                        data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">All categories</span>
+                        data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">
+                  {{categorySelected===undefined ? 'All categories':categorySelected.name}}
+                </span>
                 </button>
                 <input type="hidden">
+                <!--<ul class="dropdown-menu">-->
+                <!--<li (click)="category=''"><a class="dropdown-item"><i class="fi-bed fs-lg opacity-60 me-2"></i><span-->
+                <!--class="dropdown-item-label">Accommodation</span></a></li>-->
+                <!--<li><a class="dropdown-item"><i class="fi-cafe fs-lg opacity-60 me-2"></i><span-->
+                <!--class="dropdown-item-label">Food &amp; Drink</span></a></li>-->
+                <!--<li><a class="dropdown-item"><i class="fi-shopping-bag fs-lg opacity-60 me-2"></i><span-->
+                <!--class="dropdown-item-label">Shopping</span></a></li>-->
+                <!--<li><a class="dropdown-item"><i class="fi-museum fs-lg opacity-60 me-2"></i><span-->
+                <!--class="dropdown-item-label">Art &amp; History</span></a></li>-->
+                <!--<li><a class="dropdown-item"><i class="fi-entertainment fs-lg opacity-60 me-2"></i><span-->
+                <!--class="dropdown-item-label">Entertainment</span></a></li>-->
+                <!--<li><a class="dropdown-item"><i class="fi-meds fs-lg opacity-60 me-2"></i><span-->
+                <!--class="dropdown-item-label">Medicine</span></a></li>-->
+                <!--<li><a class="dropdown-item"><i class="fi-makeup fs-lg opacity-60 me-2"></i><span-->
+                <!--class="dropdown-item-label">Beauty</span></a></li>-->
+                <!--<li><a class="dropdown-item"><i class="fi-car fs-lg opacity-60 me-2"></i><span-->
+                <!--class="dropdown-item-label">Car Rental</span></a></li>-->
+                <!--</ul>-->
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#"><i class="fi-bed fs-lg opacity-60 me-2"></i><span
-                    class="dropdown-item-label">Accomodation</span></a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fi-cafe fs-lg opacity-60 me-2"></i><span
-                    class="dropdown-item-label">Food &amp; Drink</span></a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fi-shopping-bag fs-lg opacity-60 me-2"></i><span
-                    class="dropdown-item-label">Shopping</span></a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fi-museum fs-lg opacity-60 me-2"></i><span
-                    class="dropdown-item-label">Art &amp; History</span></a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fi-entertainment fs-lg opacity-60 me-2"></i><span
-                    class="dropdown-item-label">Entertainment</span></a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fi-meds fs-lg opacity-60 me-2"></i><span
-                    class="dropdown-item-label">Medicine</span></a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fi-makeup fs-lg opacity-60 me-2"></i><span
-                    class="dropdown-item-label">Beauty</span></a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fi-car fs-lg opacity-60 me-2"></i><span
-                    class="dropdown-item-label">Car Rental</span></a></li>
+                  <li><a class="dropdown-item" (click)="categorySelected=undefined"><i class="fi-list me-2"></i><span
+                    class="dropdown-item-label">All Categories</span></a></li>
+                  <li *ngFor="let category of businessCategories" (click)="categorySelected=category">
+                    <a class="dropdown-item"><i class="fi-list me-2"></i><span
+                      class="dropdown-item-label">{{category.name}}</span></a>
+                  </li>
                 </ul>
               </div>
-              <button class="btn btn-primary btn-lg rounded-pill w-100 w-md-auto ms-sm-3" type="button">Search</button>
+              <button class="btn btn-primary btn-lg rounded-pill w-100 w-md-auto ms-sm-3" type="submit">Search</button>
             </div>
           </form>
         </div>

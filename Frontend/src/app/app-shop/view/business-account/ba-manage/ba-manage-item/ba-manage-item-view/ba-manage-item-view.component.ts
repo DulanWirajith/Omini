@@ -18,7 +18,8 @@ export class BaManageItemViewComponent implements OnInit {
   @Input() itemViewerId;
   showNavigationArrows = true;
   showNavigationIndicators = false;
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer,private config: NgbCarouselConfig) {
+
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private config: NgbCarouselConfig) {
     config.showNavigationArrows = true;
     config.showNavigationIndicators = true;
   }

@@ -10,6 +10,7 @@ import {ItemShopSearchComponent} from "./view/item-shop-search/item-shop-search.
 import {ItemSearchResultComponent} from "./view/search-result/item-search-result/item-search-result.component";
 import {CustomerAccountComponent} from "./view/customer-account/customer-account.component";
 import {SearchResultComponent} from "./view/search-result/search-result.component";
+import {ItemSearchResultViewComponent} from "./view/search-result/item-search-result/item-search-result-view/item-search-result-view.component";
 
 const components = [
   CustomerProfileComponent,
@@ -17,7 +18,8 @@ const components = [
   ItemShopSearchComponent,
   ItemSearchResultComponent,
   CustomerAccountComponent,
-  SearchResultComponent
+  SearchResultComponent,
+  ItemSearchResultViewComponent
 ];
 
 @NgModule({
