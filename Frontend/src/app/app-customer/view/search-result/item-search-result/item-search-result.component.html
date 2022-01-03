@@ -6,6 +6,25 @@
   </ol>
 </nav>
 
+<div class="offcanvas-header d-block py-lg-4 py-3 px-lg-0" style="width: 500px">
+  <ul class="nav nav-pills nav-fill" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center active" href="#filters" style="justify-content: center"
+         data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>
+        <span style="border-right: 1px solid #b9b9b9;padding-right: 20px">Item</span>
+        <span class="" style="margin-left: 20px;font-size: 16px">{{items.length>1 ? items.length+' results':items.length+' result'}}</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center" href="#filters" style="justify-content: center"
+         data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>
+        <span style="border-right: 1px solid #b9b9b9;padding-right: 20px">Package</span>
+        <span class="" style="margin-left: 20px;font-size: 16px">{{items.length>1 ? items.length+' results':items.length+' result'}}</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
 <!-- Sorting-->
 <div class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch my-2">
   <div class="d-flex align-items-center flex-shrink-0">
