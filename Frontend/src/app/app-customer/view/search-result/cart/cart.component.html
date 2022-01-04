@@ -81,7 +81,7 @@
             </div>
             <div>
               <div class="text-muted fs-sm mt-1"><a
-                class="btn btn-icon btn-danger btn-sm shadow-sm rounded-circle me-2 mb-0" href="#"
+                class="btn btn-icon btn-danger btn-sm shadow-sm rounded-circle" href="#"
                 data-bs-toggle="tooltip" title="Remove order." data-bs-original-title="Remove order."
                 aria-label="Remove order.">
                 <i class="fi-trash"></i></a></div>
@@ -104,7 +104,7 @@
             <div class="col-1">
               <button
                 class="btnView btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
-                type="button" data-bs-toggle="collapse"
+                type="button" data-bs-toggle="collapse" style="background-color: #af7602"
                 aria-expanded="true"
                 href="#cart-item-list-2">
                 <i class="fi-eye-on"></i>
@@ -112,23 +112,28 @@
             </div>
           </div>
           <div class="collapse mb-1" id="cart-item-list-2">
-            <div class="card card-body border-none">
+            <div class="card card-body border-none" style="padding-right: 5px">
               <!--Order detail card 1-->
-              <div class="order-detail-card mb-3" style="border-bottom: 1px solid #c1c1c1;padding: 10px 0px 5px 0px">
+              <div class="order-detail-card mb-3" style="border-bottom: 1px solid #c1c1c1;border-top: 1px solid #c1c1c1;padding: 10px 0px 5px 0px">
                 <div class="d-flex align-items-center justify-content-between pb-1">
                   <div class="d-flex justify-content-between align-items-start">
-                    <button type="button" class="btn btn-outline-primary btn-icon btn-xxs"
-                            style="margin-top: 3px;border-width: 2px">
-                      <i class="fi-x" style="font-weight: bold"></i>
-                    </button>
+                    <!--<button type="button" class="btn btn-outline-primary btn-icon btn-xxs"-->
+                            <!--style="margin-top: 3px;border-width: 2px">-->
+                      <!--<i class="fi-x" style="font-weight: bold"></i>-->
+                    <!--</button>-->
                     <h3 class="h6 mb-2 fs-base">
                       <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer"
-                         style="font-weight: bold">
+                         style="font-weight: bold;padding-left: 10px">
                         Item Name
                       </a>
                     </h3>
+                    <span class="badge rounded-pill bg-info" style="margin-top: 5px"> Item </span>
                   </div>
-                  <span class="badge rounded-pill bg-info"> Item </span>
+                  <button type="button" class="btn btn-outline-primary btn-icon btn-xxs"
+                          style="margin-top: 3px;border-width: 2px">
+                    <i class="fi-x" style="font-weight: bold"></i>
+                  </button>
+                  <!--<span class="badge rounded-pill bg-info"> Item </span>-->
                 </div>
                 <div class="order-detail-card-ss mb-3">
                   <!--<div class="list-group list-group-horizontal-sm">-->
@@ -187,21 +192,21 @@
 
               </div>
               <!--Order detail card 2-->
-              <div class="order-detail-card mb-3" style="border-bottom: 1px solid #c1c1c1;padding: 10px 0px 5px 0px">
+              <div class="order-detail-card mb-3" style="">
                 <div class="d-flex align-items-center justify-content-between pb-1">
                   <div class="d-flex justify-content-between align-items-start">
-                    <button type="button" class="btn btn-outline-primary btn-icon btn-xxs"
-                            style="margin-top: 3px;border-width: 2px">
-                      <i class="fi-x" style="font-weight: bold"></i>
-                    </button>
                     <h3 class="h6 mb-2 fs-base">
                       <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer"
-                         style="font-weight: bold">
+                         style="font-weight: bold;padding-left: 10px">
                         Package Name
                       </a>
                     </h3>
+                    <span class="badge rounded-pill bg-success" style="margin-top: 5px"> Package </span>
                   </div>
-                  <span class="badge rounded-pill bg-success"> Package </span>
+                  <button type="button" class="btn btn-outline-primary btn-icon btn-xxs"
+                          style="margin-top: 3px;border-width: 2px">
+                    <i class="fi-x" style="font-weight: bold"></i>
+                  </button>
                 </div>
                 <div class="order-detail-card-ss mb-3">
                   <!--<div class="list-group list-group-horizontal-sm">-->
