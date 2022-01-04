@@ -12,6 +12,7 @@ import {SearchResultComponent} from "./view/search-result/search-result.componen
 import {ItemSearchResultViewComponent} from "./view/search-result/item-package-search-result/item-search-result-view/item-search-result-view.component";
 import {ItemPackageSearchResultComponent} from "./view/search-result/item-package-search-result/item-package-search-result.component";
 import {ItemSearchResultDetailViewComponent} from "./view/search-result/item-package-search-result/item-search-result-detail-view/item-search-result-detail-view.component";
+import {CartComponent} from "./view/search-result/cart/cart.component";
 
 const components = [
   CustomerProfileComponent,
@@ -21,7 +22,8 @@ const components = [
   SearchResultComponent,
   ItemSearchResultViewComponent,
   ItemPackageSearchResultComponent,
-  ItemSearchResultDetailViewComponent
+  ItemSearchResultDetailViewComponent,
+  CartComponent
 ];
 
 @NgModule({

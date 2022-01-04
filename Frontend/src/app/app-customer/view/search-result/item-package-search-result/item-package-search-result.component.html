@@ -6,23 +6,27 @@
   </ol>
 </nav>
 
-<div class="offcanvas-header d-block py-lg-4 py-3 px-lg-0" style="width: 500px">
-  <ul class="nav nav-pills nav-fill" role="tablist">
-    <li class="nav-item">
-      <a id="a-item-filters" class="nav-link d-flex align-items-center active" href="#item-filters" style="justify-content: center"
-         data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>
-        <span style="border-right: 1px solid #b9b9b9;padding-right: 20px">Items</span>
-        <span class="" style="margin-left: 20px;font-size: 16px">{{items.length>1 ? items.length+' results':items.length+' result'}}</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a id="a-package-filters" class="nav-link d-flex align-items-center" href="#package-filters" style="justify-content: center"
-         data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>
-        <span style="border-right: 1px solid #b9b9b9;padding-right: 20px">Packages</span>
-        <span class="" style="margin-left: 20px;font-size: 16px">{{itemPackages.length>1 ? itemPackages.length+' results':itemPackages.length+' result'}}</span>
-      </a>
-    </li>
-  </ul>
+<div class="row">
+  <div class="col-md-5 col-sm-12 offcanvas-header d-block py-lg-4 py-3 px-lg-0">
+    <ul class="nav nav-pills nav-fill" role="tablist">
+      <li class="nav-item" style="padding-bottom: 10px">
+        <a id="a-item-filters" class="nav-link d-flex align-items-center active" href="#item-filters"
+           style="justify-content: center"
+           data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>
+          <span style="border-right: 1px solid #b9b9b9;padding-right: 20px">Items</span>
+          <span class="" style="margin-left: 20px;font-size: 16px">{{items.length>1 ? items.length+' results':items.length+' result'}}</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a id="a-package-filters" class="nav-link d-flex align-items-center" href="#package-filters"
+           style="justify-content: center"
+           data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>
+          <span style="border-right: 1px solid #b9b9b9;padding-right: 20px">Packages</span>
+          <span class="" style="margin-left: 20px;font-size: 16px">{{itemPackages.length>1 ? itemPackages.length+' results':itemPackages.length+' result'}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <!-- Sorting-->

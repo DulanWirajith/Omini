@@ -35,6 +35,7 @@ import {RouterModule} from "@angular/router";
 import { ItemSearchResultViewComponent } from './app-customer/view/search-result/item-package-search-result/item-search-result-view/item-search-result-view.component';
 import { ItemPackageSearchResultComponent } from './app-customer/view/search-result/item-package-search-result/item-package-search-result.component';
 import { ItemSearchResultDetailViewComponent } from './app-customer/view/search-result/item-package-search-result/item-search-result-detail-view/item-search-result-detail-view.component';
+import { CartComponent } from './app-customer/view/search-result/cart/cart.component';
 
 @NgModule({
   declarations: [
