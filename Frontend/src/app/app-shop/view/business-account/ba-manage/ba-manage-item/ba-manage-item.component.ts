@@ -66,7 +66,7 @@ export class BaManageItemComponent implements OnInit {
       businessProId: "B321"
     };
 
-    console.log(this.item)
+    //console.log(this.item)
     const uploadImageData = new FormData();
     for (let itemImg of this.item.itemImgsRaw) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
@@ -93,7 +93,7 @@ export class BaManageItemComponent implements OnInit {
           businessCategory: undefined
         }
       }
-      console.log(this.items)
+      //console.log(this.items)
     })
   }
 

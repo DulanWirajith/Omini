@@ -43,7 +43,8 @@ export class BaManagePackageEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.btnCreateFeature();
+    // this.btnCreateFeature();
+    this.toggleCategoryBtn();
   }
 
   onSubmit(itemPackage) {
@@ -72,7 +73,7 @@ export class BaManagePackageEditComponent implements OnInit {
         }
       }
     }
-    console.log(itemPackage)
+    //console.log(itemPackage)
     const uploadImageData = new FormData();
     for (let itemImg of itemPackage.itemPkgImgs) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
@@ -121,11 +122,11 @@ export class BaManagePackageEditComponent implements OnInit {
     }
     this.isNewFeature = false;
     this.newPackageFeaturesTemp = [];
-    console.log(this.itemPackageCur)
+    //console.log(this.itemPackageCur)
   }
 
   getItems(itemPackage?) {
-    console.log(this.businessProfileCategory)
+    //console.log(this.businessProfileCategory)
     // if (this.businessProfileCategory !== undefined) {
     this.itemService.getItemsBusinessCategory("B321", itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
       // console.log(items)
@@ -155,11 +156,48 @@ export class BaManagePackageEditComponent implements OnInit {
     }
   }
 
-  btnCreateFeature() {
+  toggleCategoryBtn() {
     let that = this;
+    $(document).on('click', '.btnEdit', function () {
+      if (!$(this, '.accordionEdit').hasClass('show')) {
+        that.getItemPackageSelected(that, this);
+      }
+    })
+    $(document).on('click', '.btnView', function () {
+      if (!$(this, '.accordionView').hasClass('show')) {
+        that.getItemPackageSelected(that, this);
+      }
+    })
     $(document).on('click', '.createFeature', function () {
       that.itemPackageCur = that.itemPackages[$(this).val()];
     })
+  }
+
+  getItemPackageSelected(that, obj) {
+    let index: any = that.itemPackages.findIndex(itemPackage => {
+      return itemPackage.itemPackageId === $(obj).val()
+    })
+    //console.log($(obj).val())
+    if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
+      that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
+        // that.categories[index] = category;
+        Object.assign(that.itemPackages[index], itemPackage)
+        that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
+        that.itemPackages[index].items = [];
+        for (let item of itemPackage.itemItemPackages) {
+          that.itemPackages[index].items.push(item.item);
+        }
+        that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
+        // console.log(that.itemPackages[index])
+        // for (let i = 0; i < that.categories.length; i++) {
+        //   if (that.categories[i].itemCategoryId === $(obj).val()) {
+        //     // console.log(category)
+        //     that.categoryE = category;
+        //     that.categories[i].items = category.items;
+        //   }
+        // }
+      })
+    }
   }
 
   getImageSrc(itemPackageImg) {

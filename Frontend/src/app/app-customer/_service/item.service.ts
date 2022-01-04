@@ -10,17 +10,24 @@ import {CommonService} from "../../_service/common.service";
 export class ItemService {
 
   itemSub = new Subject<any>();
-  searchedItems = [];
+  searchedItemPackages = {
+    items: [],
+    itemPackages: []
+  };
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
-  getItemsBySearch(txt, category): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemsBySearch/' + txt + '/' + category);
+  getItemsPackagesBySearch(txt, category): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/getItemsPackagesBySearch/' + txt + '/' + category);
   }
 
   getItemSelected(itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  }
+
+  getItemPackageSelected(itemPackageId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
   }
 
   getNewItem() {

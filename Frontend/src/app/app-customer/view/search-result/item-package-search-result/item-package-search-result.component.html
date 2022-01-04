@@ -1,0 +1,156 @@
+<!-- Breadcrumb-->
+<nav class="mb-3 pt-md-2" aria-label="Breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="'/customer/header/item_shop_search'">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Find item</li>
+  </ol>
+</nav>
+
+<div class="offcanvas-header d-block py-lg-4 py-3 px-lg-0" style="width: 500px">
+  <ul class="nav nav-pills nav-fill" role="tablist">
+    <li class="nav-item">
+      <a id="a-item-filters" class="nav-link d-flex align-items-center active" href="#item-filters" style="justify-content: center"
+         data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>
+        <span style="border-right: 1px solid #b9b9b9;padding-right: 20px">Items</span>
+        <span class="" style="margin-left: 20px;font-size: 16px">{{items.length>1 ? items.length+' results':items.length+' result'}}</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a id="a-package-filters" class="nav-link d-flex align-items-center" href="#package-filters" style="justify-content: center"
+         data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>
+        <span style="border-right: 1px solid #b9b9b9;padding-right: 20px">Packages</span>
+        <span class="" style="margin-left: 20px;font-size: 16px">{{itemPackages.length>1 ? itemPackages.length+' results':itemPackages.length+' result'}}</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- Sorting-->
+<div class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch my-2">
+  <div class="d-flex align-items-center flex-shrink-0">
+    <label class="fs-sm me-2 pe-1 text-nowrap" for="sortby"><i class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort
+      by:</label>
+    <select class="form-select form-select-sm" id="sortby">
+      <option>Newest</option>
+      <option>Popularity</option>
+      <option>Low - High Price</option>
+      <option>High - Low Price</option>
+      <option>High rating</option>
+      <option>Average Rating</option>
+    </select>
+  </div>
+  <hr class="d-none d-sm-block w-100 mx-4">
+  <div class="d-none d-sm-flex align-items-center flex-shrink-0 text-muted"><i class="fi-check-circle me-2"></i><span
+    class="fs-sm mt-n1">{{itemCount>1 ? itemCount+' results':itemCount+' result'}}</span></div>
+</div>
+<!-- Catalog grid-->
+<div class="offcanvas-body py-lg-4">
+  <!-- Tabs content-->
+  <div class="tab-content">
+
+    <div class="tab-pane fade show active" id="item-filters" role="tabpanel">
+      <div class="">
+        <!-- Item-->
+
+        <app-item-search-result-view [items]="items"></app-item-search-result-view>
+
+        <!-- Pagination-->
+        <!-- <nav class="border-top pb-md-4 pt-4" aria-label="Pagination">
+          <ul class="pagination mb-1">
+            <li class="page-item d-sm-none"><span class="page-link page-link-static">1 / 5</span></li>
+            <li class="page-item active d-none d-sm-block" aria-current="page"><span class="page-link">1<span class="visually-hidden">(current)</span></span></li>
+            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">2</a></li>
+            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>
+            <li class="page-item d-none d-sm-block">...</li>
+            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">8</a></li>
+            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><i class="fi-chevron-right"></i></a></li>
+          </ul>
+        </nav> -->
+      </div>
+    </div>
+
+    <div class="tab-pane fade show" id="package-filters" role="tabpanel">
+      <div class="">
+        <!--<div class="row row-cols-xl-3 row-cols-sm-2 row-cols-1 gy-4 gx-3 gx-xxl-4 py-4">-->
+        <div class="row g-4 py-1" style="padding-right: 50px;padding-left: 50px">
+          <!-- Accordion basic -->
+          <div class="accordion" id="package-list">
+
+            <!-- Accordion item -->
+            <div class="accordion-item mb-2" *ngFor="let itemPackage of itemPackages;let i = index"
+                 [ngStyle]="{'margin-top':i>0 ? '30px':'0px'}">
+              <div class="accordion-header" id="">
+                <div class="card bg-position-center border-0 overflow-hidden"
+                     style="height: 350px; background-size: cover;">
+
+                  <div class="tns-carousel-wrapper card-img-top card-img-hover">
+                    <span class="img-gradient-overlay"></span>
+                    <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                      class="d-table badge bg-info">{{itemPackage.name}}</span></div>
+
+                    <div class="card-footer border-0 pt-5 pb-4 gy-3 w-100 position-absolute bottom-0 end-0">
+                      <div class="d-sm-flex justify-content-between align-items-end">
+                        <a class="text-decoration-none text-light pe-2">
+                          <!-- <div class="fs-sm text-uppercase pt-2 mb-1">Available</div> -->
+                          <h3 class="h5 text-light mb-1">{{itemPackage.name}}</h3>
+                          <div class="fs-sm opacity-70">
+                            <i class="fi-bookmark me-1"></i>
+                            {{itemPackage.description}}
+                          </div>
+                        </a>
+                        <div class="btn-group ms-n2 ms-sm-5 mt-3 justify-content-end">
+                          <a class="btn btn-primary px-3">LKR {{itemPackage.price}}</a>
+                          <button
+                            class="btnView btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
+                            type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#ipsr-package' + i"
+                            aria-expanded="true"
+                            aria-controls="packageOne" value="{{itemPackage.itemPackageId}}">
+                            <i class="fi-eye-on"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                      <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                              data-bs-toggle="tooltip" data-bs-placement="left" title="remove item">
+                        <i class="fi-trash" style="font-size: 20px"></i>
+                      </button>
+                    </div>
+                    <div style="height: 350px; background-size: cover;">
+                      <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+                        <mdb-carousel-item *ngFor="let image of itemPackage.itemPackageImgs">
+                          <span
+                            style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
+                          <img style="max-height:350px;height: 350px" class="d-block w-100"
+                               [src]="getPackageImageSrc(image)" alt="First slide">
+                        </mdb-carousel-item>
+                      </mdb-carousel>
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+              <div class="accordionView accordion-collapse collapse" aria-labelledby="headingOne"
+                   data-bs-parent="#package-list"
+                   id="ipsr-package{{i}}" style="margin-top: 10px">
+                <div class="accordion-body">
+
+                  <app-item-search-result-view [items]="itemPackage.items"></app-item-search-result-view>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<app-item-search-result-detail-view></app-item-search-result-detail-view>

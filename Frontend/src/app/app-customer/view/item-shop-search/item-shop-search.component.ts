@@ -23,15 +23,15 @@ export class ItemShopSearchComponent implements OnInit {
 
   searchItem() {
     if (this.categorySelected !== undefined) {
-      this.itemService.getItemsBySearch(this.txt, this.categorySelected.businessCategoryId).subscribe((items) => {
-        this.itemService.searchedItems = items;
-        this.router.navigate(['/customer/header/search_result/item_search_result'])
+      this.itemService.getItemsPackagesBySearch(this.txt, this.categorySelected.businessCategoryId).subscribe((searchedItemPackages) => {
+        this.itemService.searchedItemPackages = searchedItemPackages;
+        this.router.navigate(['/customer/header/search_result/item_package_search_result'])
         // console.log(items)
       })
     } else {
-      this.itemService.getItemsBySearch(this.txt, 'no').subscribe((items) => {
-        this.itemService.searchedItems = items;
-        this.router.navigate(['/customer/header/search_result/item_search_result'])
+      this.itemService.getItemsPackagesBySearch(this.txt, 'no').subscribe((searchedItemPackages) => {
+        this.itemService.searchedItemPackages = searchedItemPackages;
+        this.router.navigate(['/customer/header/search_result/item_package_search_result'])
         // console.log(items)
       })
     }

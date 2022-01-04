@@ -1,22 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {ItemService} from "../../../_service/item.service";
-import {environment} from "../../../../../environments/environment";
+import {Component, Input, OnInit} from '@angular/core';
+import {ItemService} from "../../../../_service/item.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {Lightbox} from "ngx-lightbox";
+import {environment} from "../../../../../../environments/environment";
 
 @Component({
-  selector: 'app-item-search-result',
-  templateUrl: './item-search-result.component.html',
-  styleUrls: ['./item-search-result.component.css']
+  selector: 'app-item-search-result-view',
+  templateUrl: './item-search-result-view.component.html',
+  styleUrls: ['./item-search-result-view.component.css']
 })
-export class ItemSearchResultComponent implements OnInit {
+export class ItemSearchResultViewComponent implements OnInit {
 
-  items;
+  @Input() items;
 
-  constructor(private itemService: ItemService, private sanitizer: DomSanitizer) {
+  constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox) {
+
   }
 
   ngOnInit(): void {
-    this.items = this.itemService.searchedItems;
   }
 
   getItemSelected(item) {
@@ -44,7 +45,7 @@ export class ItemSearchResultComponent implements OnInit {
         this.items[index] = item;
         // this.itemService.itemFeaturesSub.next(item.itemFeatures);
         this.itemService.itemSub.next(this.items[index]);
-        console.log(this.items[index])
+        //console.log(this.items[index])
       })
     } else {
       this.itemService.itemSub.next(this.items[index]);
@@ -56,4 +57,5 @@ export class ItemSearchResultComponent implements OnInit {
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemImg.itemImgName);
   }
+
 }

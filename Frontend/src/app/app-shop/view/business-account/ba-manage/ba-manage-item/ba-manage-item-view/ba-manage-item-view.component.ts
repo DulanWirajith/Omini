@@ -65,7 +65,7 @@ export class BaManageItemViewComponent implements OnInit {
         this.items[index] = item;
         this.itemService.itemFeaturesSub.next(item.itemFeatures);
         this.itemService.itemSub.next(this.items[index]);
-        console.log(this.items[index])
+        //console.log(this.items[index])
       })
     } else {
       this.itemService.itemSub.next(this.items[index]);

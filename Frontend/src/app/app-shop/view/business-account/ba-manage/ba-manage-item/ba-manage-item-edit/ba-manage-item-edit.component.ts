@@ -64,7 +64,7 @@ export class BaManageItemEditComponent implements OnInit {
     });
     Promise.all(promises).then((result: []) => {
       this._album = result;
-      console.log(this._album);
+      //console.log(this._album);
     });
   }
 
@@ -98,7 +98,7 @@ export class BaManageItemEditComponent implements OnInit {
     // for (let item of this.item.itemItemFeatures) {
     //   item.name = item.item.itemTitle;
     // }
-    console.log(this.item)
+    //console.log(this.item)
     const uploadImageData = new FormData();
     for (let itemImg of this.item.itemImgsRaw) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);

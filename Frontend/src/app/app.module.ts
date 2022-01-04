@@ -29,11 +29,12 @@ import { BaProfileComponent } from './app-shop/view/business-account/ba-profile/
 import { BaOrderHistoryComponent } from './app-shop/view/business-account/ba-order-history/ba-order-history.component';
 import { BaOrderComponent } from './app-shop/view/business-account/ba-order/ba-order.component';
 import { ItemShopSearchComponent } from './app-customer/view/item-shop-search/item-shop-search.component';
-import { ItemSearchResultComponent } from './app-customer/view/search-result/item-search-result/item-search-result.component';
 import { CustomerAccountComponent } from './app-customer/view/customer-account/customer-account.component';
 import { SearchResultComponent } from './app-customer/view/search-result/search-result.component';
 import {RouterModule} from "@angular/router";
-import { ItemSearchResultViewComponent } from './app-customer/view/search-result/item-search-result/item-search-result-view/item-search-result-view.component';
+import { ItemSearchResultViewComponent } from './app-customer/view/search-result/item-package-search-result/item-search-result-view/item-search-result-view.component';
+import { ItemPackageSearchResultComponent } from './app-customer/view/search-result/item-package-search-result/item-package-search-result.component';
+import { ItemSearchResultDetailViewComponent } from './app-customer/view/search-result/item-package-search-result/item-search-result-detail-view/item-search-result-detail-view.component';
 
 @NgModule({
   declarations: [

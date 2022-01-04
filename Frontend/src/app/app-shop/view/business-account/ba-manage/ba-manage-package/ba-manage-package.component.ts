@@ -59,7 +59,7 @@ export class BaManagePackageComponent implements OnInit {
     // this.getBusinessCategories();
     //console.log(9)
     this.businessCategories = this.businessAccountService.businessCategories;
-    this.toggleCategoryBtn();
+    // this.toggleCategoryBtn();
   }
 
   // getBusinessCategories() {
@@ -95,7 +95,7 @@ export class BaManagePackageComponent implements OnInit {
     );
     this.newPackageFeature = '';
     this.baManageFormPackageFeature.resetForm()
-    console.log(this.newPackageFeaturesTemp)
+    //console.log(this.newPackageFeaturesTemp)
   }
 
   addNewPackageFeature() {
@@ -148,7 +148,7 @@ export class BaManagePackageComponent implements OnInit {
     }
 
     // this.itemPackage.itemItemPackages = itemItemPackages;
-    console.log(this.itemPackage)
+    //console.log(this.itemPackage)
     const uploadImageData = new FormData();
     for (let itemImg of this.itemPackage.itemPkgImgs) {
       uploadImageData.append('imageFile', itemImg, itemImg.name);
@@ -217,46 +217,46 @@ export class BaManagePackageComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
   }
 
-  toggleCategoryBtn() {
-    let that = this;
-    $(document).on('click', '.btnEdit', function () {
-      if (!$(this, '.accordionEdit').hasClass('show')) {
-        that.getItemPackageSelected(that, this);
-      }
-    })
-    $(document).on('click', '.btnView', function () {
-      if (!$(this, '.accordionView').hasClass('show')) {
-        that.getItemPackageSelected(that, this);
-      }
-    })
-  }
-
-  getItemPackageSelected(that, obj) {
-    let index: any = that.itemPackages.findIndex(itemPackage => {
-      return itemPackage.itemPackageId === $(obj).val()
-    })
-    console.log($(obj).val())
-    if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
-      that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
-        // that.categories[index] = category;
-        Object.assign(that.itemPackages[index], itemPackage)
-        that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
-        that.itemPackages[index].items = [];
-        for (let item of itemPackage.itemItemPackages) {
-          that.itemPackages[index].items.push(item.item);
-        }
-        that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
-        // console.log(that.itemPackages[index])
-        // for (let i = 0; i < that.categories.length; i++) {
-        //   if (that.categories[i].itemCategoryId === $(obj).val()) {
-        //     // console.log(category)
-        //     that.categoryE = category;
-        //     that.categories[i].items = category.items;
-        //   }
-        // }
-      })
-    }
-  }
+  // toggleCategoryBtn() {
+  //   let that = this;
+  //   $(document).on('click', '.btnEdit', function () {
+  //     if (!$(this, '.accordionEdit').hasClass('show')) {
+  //       that.getItemPackageSelected(that, this);
+  //     }
+  //   })
+  //   $(document).on('click', '.btnView', function () {
+  //     if (!$(this, '.accordionView').hasClass('show')) {
+  //       that.getItemPackageSelected(that, this);
+  //     }
+  //   })
+  // }
+  //
+  // getItemPackageSelected(that, obj) {
+  //   let index: any = that.itemPackages.findIndex(itemPackage => {
+  //     return itemPackage.itemPackageId === $(obj).val()
+  //   })
+  //   //console.log($(obj).val())
+  //   if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
+  //     that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
+  //       // that.categories[index] = category;
+  //       Object.assign(that.itemPackages[index], itemPackage)
+  //       that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
+  //       that.itemPackages[index].items = [];
+  //       for (let item of itemPackage.itemItemPackages) {
+  //         that.itemPackages[index].items.push(item.item);
+  //       }
+  //       that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
+  //       // console.log(that.itemPackages[index])
+  //       // for (let i = 0; i < that.categories.length; i++) {
+  //       //   if (that.categories[i].itemCategoryId === $(obj).val()) {
+  //       //     // console.log(category)
+  //       //     that.categoryE = category;
+  //       //     that.categories[i].items = category.items;
+  //       //   }
+  //       // }
+  //     })
+  //   }
+  // }
 
   // setItems(itemPackage, items) {
   //   // this.items = [];

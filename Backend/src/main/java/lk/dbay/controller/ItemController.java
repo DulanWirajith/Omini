@@ -1,13 +1,11 @@
 package lk.dbay.controller;
 
 import lk.dbay.dto.ItemDTO;
-import lk.dbay.dto.ItemImgDTO;
 import lk.dbay.entity.Item;
 import lk.dbay.service.ItemS;
 import lk.dbay.util.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -80,9 +78,9 @@ public class ItemController {
         return ResponseEntity.ok(itemS.getItemSelected(itemId));
     }
 
-    @GetMapping(value = "/getItemsBySearch/{txt}/{category}")
-    public ResponseEntity getItemsBySearch(@PathVariable String txt, @PathVariable String category) {
-        return ResponseEntity.ok(itemS.getItemsBySearch(txt, category));
+    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}")
+    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category) {
+        return ResponseEntity.ok(itemS.getItemsPackagesBySearch(txt, category));
     }
 
 //    @GetMapping(value = "/itemImg/{id}")

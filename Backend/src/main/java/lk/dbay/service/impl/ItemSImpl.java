@@ -3,11 +3,9 @@ package lk.dbay.service.impl;
 import lk.dbay.dto.ItemDTO;
 import lk.dbay.dto.ItemFeatureDTO;
 import lk.dbay.dto.ItemImgDTO;
+import lk.dbay.dto.ItemItemPackageDTO;
 import lk.dbay.entity.*;
-import lk.dbay.repository.ItemFeatureR;
-import lk.dbay.repository.ItemImgR;
-import lk.dbay.repository.ItemItemFeatureR;
-import lk.dbay.repository.ItemR;
+import lk.dbay.repository.*;
 import lk.dbay.service.ItemS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +28,8 @@ public class ItemSImpl implements ItemS {
 
     @Autowired
     private ItemR itemR;
+    @Autowired
+    private ItemPackageR itemPackageR;
     @Autowired
     private ItemFeatureR itemFeatureR;
     @Autowired
@@ -234,17 +234,16 @@ public class ItemSImpl implements ItemS {
     }
 
     @Override
-    public List<ItemDTO> getItemsBySearch(String txt, String category) {
+    public ItemItemPackageDTO getItemsPackagesBySearch(String txt, String category) {
         List<Item> itemsBySearch;
+        List<ItemPackage> itemPackagesBySearch;
         if (category.equals("no")) {
             itemsBySearch = itemR.getItemsBySearch("%" + txt + "%");
+            itemPackagesBySearch = itemPackageR.getItemPackagesBySearch("%" + txt + "%");
         } else {
             itemsBySearch = itemR.getItemsBySearch("%" + txt + "%", category);
+            itemPackagesBySearch = itemPackageR.getItemPackagesBySearch("%" + txt + "%", category);
         }
-        List<ItemDTO> itemDTOS = new ArrayList<>();
-        for (Item item : itemsBySearch) {
-            itemDTOS.add(new ItemDTO(item, true));
-        }
-        return itemDTOS;
+        return new ItemItemPackageDTO(itemsBySearch, itemPackagesBySearch, true);
     }
 }

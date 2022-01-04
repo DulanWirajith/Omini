@@ -2,6 +2,7 @@ package lk.dbay.service;
 
 import lk.dbay.dto.ItemDTO;
 import lk.dbay.dto.ItemImgDTO;
+import lk.dbay.dto.ItemItemPackageDTO;
 import lk.dbay.entity.Item;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,5 +25,5 @@ public interface ItemS {
 
     boolean setItemAvailable(String itemId);
 
-    List<ItemDTO> getItemsBySearch(String txt, String category);
+    ItemItemPackageDTO getItemsPackagesBySearch(String txt, String category);
 }

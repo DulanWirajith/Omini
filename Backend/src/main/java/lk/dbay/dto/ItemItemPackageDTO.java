@@ -14,6 +14,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,10 +27,24 @@ public class ItemItemPackageDTO extends DateTimeDTO {
     private String name;
     private ItemDTO item;
     private ItemPackageDTO itemPackage;
+    private List<ItemDTO> items;
+    private List<ItemPackageDTO> itemPackages;
 
     public ItemItemPackageDTO(Item item, ItemPackage itemPackage, boolean needImage) {
         this.name = item.getItemTitle();
         this.item = new ItemDTO(item, needImage);
         this.itemPackage = new ItemPackageDTO(itemPackage);
+    }
+
+    public ItemItemPackageDTO(List<Item> items, List<ItemPackage> itemPackages, boolean needImage) {
+        this.items = new ArrayList<>();
+        this.itemPackages = new ArrayList<>();
+        for (Item item : items) {
+            this.items.add(new ItemDTO(item, needImage));
+        }
+        for (ItemPackage itemPackage : itemPackages) {
+            this.itemPackages.add(new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs()));
+        }
+
     }
 }

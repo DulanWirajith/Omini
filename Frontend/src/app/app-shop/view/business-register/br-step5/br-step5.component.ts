@@ -46,7 +46,7 @@ export class BrStep5Component implements OnInit {
       })
     }
     this.businessProfile.businessAreas = businessAreas;
-    console.log(this.businessProfile)
+    //console.log(this.businessProfile)
     const uploadImageData = new FormData();
     for (let dbayUserImg of this.businessProfile.dbayUser.dbayUserImgsRaw) {
       uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);

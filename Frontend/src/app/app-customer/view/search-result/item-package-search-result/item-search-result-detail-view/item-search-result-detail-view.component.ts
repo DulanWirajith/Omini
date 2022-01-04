@@ -5,11 +5,11 @@ import {Lightbox} from "ngx-lightbox";
 import {environment} from "../../../../../../environments/environment";
 
 @Component({
-  selector: 'app-item-search-result-view',
-  templateUrl: './item-search-result-view.component.html',
-  styleUrls: ['./item-search-result-view.component.css']
+  selector: 'app-item-search-result-detail-view',
+  templateUrl: './item-search-result-detail-view.component.html',
+  styleUrls: ['./item-search-result-detail-view.component.css']
 })
-export class ItemSearchResultViewComponent implements OnInit {
+export class ItemSearchResultDetailViewComponent implements OnInit {
 
   item;
   _album: [];
@@ -50,7 +50,7 @@ export class ItemSearchResultViewComponent implements OnInit {
     });
     Promise.all(promises).then((result: []) => {
       this._album = result;
-      console.log(this._album);
+      //console.log(this._album);
     });
   }
 
