@@ -18,6 +18,7 @@ public class ItemPackageDTO extends DateTimeDTO {
     private String itemPackageId;
     private String name;
     private String description;
+    private int itemPackageCount;
     private double price;
     private double discount;
     private String discountType;

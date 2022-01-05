@@ -14,8 +14,10 @@ public class BusinessCategoryDTO extends DateTimeDTO {
     private String businessCategoryId;
     private String name;
 
-    public BusinessCategoryDTO(@NonNull BusinessCategory businessCategory) {
-        this.businessCategoryId = businessCategory.getBusinessCategoryId();
-        this.name = businessCategory.getName();
+    public BusinessCategoryDTO(BusinessCategory businessCategory) {
+        if (businessCategory != null) {
+            this.businessCategoryId = businessCategory.getBusinessCategoryId();
+            this.name = businessCategory.getName();
+        }
     }
 }

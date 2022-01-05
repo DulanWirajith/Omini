@@ -15,8 +15,10 @@ public class CountryDTO extends DateTimeDTO {
     private String countryId;
     private String name;
 
-    public CountryDTO(@NonNull Country country) {
-        this.countryId = country.getCountryId();
-        this.name = country.getName();
+    public CountryDTO(Country country) {
+        if (country != null) {
+            this.countryId = country.getCountryId();
+            this.name = country.getName();
+        }
     }
 }

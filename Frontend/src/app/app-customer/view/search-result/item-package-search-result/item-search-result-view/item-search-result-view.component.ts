@@ -3,6 +3,8 @@ import {ItemService} from "../../../../_service/item.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {Lightbox} from "ngx-lightbox";
 import {environment} from "../../../../../../environments/environment";
+import {ShopCartService} from "../../../../_service/shop-cart.service";
+
 
 @Component({
   selector: 'app-item-search-result-view',
@@ -11,13 +13,21 @@ import {environment} from "../../../../../../environments/environment";
 })
 export class ItemSearchResultViewComponent implements OnInit {
 
-  @Input() items;
+  @Input() items = [];
 
-  constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox) {
+  // shopCartItems = [];
 
+  constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
   }
 
   ngOnInit(): void {
+
+  }
+
+  addToCart(item) {
+    // console.log(item)
+    // console.log(5)
+    this.shopCartService.shopCartSub.next(item);
   }
 
   getItemSelected(item) {

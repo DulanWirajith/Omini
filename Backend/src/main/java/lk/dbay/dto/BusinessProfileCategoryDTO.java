@@ -17,9 +17,13 @@ public class BusinessProfileCategoryDTO extends DateTimeDTO {
 
     private BusinessCategoryDTO businessCategory;
 
-    public BusinessProfileCategoryDTO(@NonNull BusinessProfile businessProfile, @NonNull BusinessCategory businessCategory) {
-        this.name = businessCategory.getName();
-        this.businessProfile = new BusinessProfileDTO(businessProfile);
-        this.businessCategory = new BusinessCategoryDTO(businessCategory);
+    public BusinessProfileCategoryDTO(BusinessProfile businessProfile, BusinessCategory businessCategory) {
+        if (businessProfile != null) {
+            this.businessProfile = new BusinessProfileDTO(businessProfile);
+        }
+        if (businessCategory != null) {
+            this.name = businessCategory.getName();
+            this.businessCategory = new BusinessCategoryDTO(businessCategory);
+        }
     }
 }

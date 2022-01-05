@@ -20,12 +20,14 @@ public class CustomerProfileDTO extends DateTimeDTO {
     private DbayUserDTO dbayUser;
     private TownDTO town;
 
-    public CustomerProfileDTO(@NonNull CustomerProfile customerProfile) {
-        this.customerProId = customerProfile.getCustomerProId();
-        this.customerName = customerProfile.getCustomerName();
-        this.contactNumber = customerProfile.getContactNumber();
-        this.customerAddress = customerProfile.getCustomerAddress();
-        this.gender = customerProfile.getGender();
+    public CustomerProfileDTO(CustomerProfile customerProfile) {
+        if (customerProfile != null) {
+            this.customerProId = customerProfile.getCustomerProId();
+            this.customerName = customerProfile.getCustomerName();
+            this.contactNumber = customerProfile.getContactNumber();
+            this.customerAddress = customerProfile.getCustomerAddress();
+            this.gender = customerProfile.getGender();
+        }
     }
 
     public CustomerProfileDTO(@NonNull CustomerProfile customerProfile, @NonNull DbayUserDTO dbayUser) {

@@ -17,13 +17,17 @@ public class DistrictDTO extends DateTimeDTO {
     private String name;
     private CountryDTO country;
 
-    public DistrictDTO(@NonNull District district) {
-        this.districtId = district.getDistrictId();
-        this.name = district.getName();
+    public DistrictDTO(District district) {
+        if (district != null) {
+            this.districtId = district.getDistrictId();
+            this.name = district.getName();
+        }
     }
 
-    public DistrictDTO(@NonNull District district, @NonNull Country country) {
+    public DistrictDTO(District district, Country country) {
         this(district);
-        this.country = new CountryDTO(country);
+        if (country != null) {
+            this.country = new CountryDTO(country);
+        }
     }
 }

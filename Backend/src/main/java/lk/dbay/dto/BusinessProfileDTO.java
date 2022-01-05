@@ -35,48 +35,56 @@ public class BusinessProfileDTO extends DateTimeDTO {
     private List<BusinessAreaDTO> businessAreas;
     private List<BusinessProfileCategoryDTO> businessProfileCategories;
 
-    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile) {
-        this.businessProId = businessProfile.getBusinessProId();
-        this.businessName = businessProfile.getBusinessName();
-        this.businessEmail = businessProfile.getBusinessEmail();
-        this.businessAddress = businessProfile.getBusinessAddress();
-        this.contactNumber1 = businessProfile.getContactNumber1();
-        this.contactNumber2 = businessProfile.getContactNumber2();
-        this.contactNumber3 = businessProfile.getContactNumber3();
-        this.businessRegistrationCode = businessProfile.getBusinessRegistrationCode();
-        this.businessOwner = businessProfile.getBusinessOwner();
-        this.businessOwnerNic = businessProfile.getBusinessOwnerNic();
-        this.socialFb = businessProfile.getSocialFb();
-        this.socialInsta = businessProfile.getSocialInsta();
-        this.socialTwitter = businessProfile.getSocialTwitter();
-        this.socialLinkedIn = businessProfile.getSocialLinkedIn();
-        this.proViewCount = businessProfile.getProViewCount();
-        this.contactViewCount = businessProfile.getContactViewCount();
+    public BusinessProfileDTO(BusinessProfile businessProfile) {
+        if (businessProfile != null) {
+            this.businessProId = businessProfile.getBusinessProId();
+            this.businessName = businessProfile.getBusinessName();
+            this.businessEmail = businessProfile.getBusinessEmail();
+            this.businessAddress = businessProfile.getBusinessAddress();
+            this.contactNumber1 = businessProfile.getContactNumber1();
+            this.contactNumber2 = businessProfile.getContactNumber2();
+            this.contactNumber3 = businessProfile.getContactNumber3();
+            this.businessRegistrationCode = businessProfile.getBusinessRegistrationCode();
+            this.businessOwner = businessProfile.getBusinessOwner();
+            this.businessOwnerNic = businessProfile.getBusinessOwnerNic();
+            this.socialFb = businessProfile.getSocialFb();
+            this.socialInsta = businessProfile.getSocialInsta();
+            this.socialTwitter = businessProfile.getSocialTwitter();
+            this.socialLinkedIn = businessProfile.getSocialLinkedIn();
+            this.proViewCount = businessProfile.getProViewCount();
+            this.contactViewCount = businessProfile.getContactViewCount();
+        }
     }
 
-    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUser dbayUser) {
+    public BusinessProfileDTO(BusinessProfile businessProfile, DbayUser dbayUser) {
         this(businessProfile);
-        this.dbayUser = new DbayUserDTO(dbayUser);
-    }
-
-    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUser dbayUser, boolean needAreas, boolean needCategories, boolean needImages) {
-        this(businessProfile);
-        if (needImages) {
-            this.dbayUser = new DbayUserDTO(dbayUser, dbayUser.getDbayUserImgs());
-        } else {
+        if (dbayUser != null) {
             this.dbayUser = new DbayUserDTO(dbayUser);
         }
-        this.town = new TownDTO(businessProfile.getTown(), businessProfile.getTown().getDistrict(), businessProfile.getTown().getDistrict().getCountry());
-        if (needAreas) {
-            businessAreas = new ArrayList<>();
-            for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
-                businessAreas.add(new BusinessAreaDTO(new BusinessProfileDTO(businessProfile), new TownDTO(businessArea.getTown())));
+    }
+
+    public BusinessProfileDTO(BusinessProfile businessProfile, DbayUser dbayUser, boolean needAreas, boolean needCategories, boolean needImages) {
+        this(businessProfile);
+        if (dbayUser != null) {
+            if (needImages) {
+                this.dbayUser = new DbayUserDTO(dbayUser, dbayUser.getDbayUserImgs());
+            } else {
+                this.dbayUser = new DbayUserDTO(dbayUser);
             }
         }
-        if (needCategories) {
-            businessProfileCategories = new ArrayList<>();
-            for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
-                businessProfileCategories.add(new BusinessProfileCategoryDTO(businessProfile, businessProfileCategory.getBusinessCategory()));
+        if (businessProfile != null) {
+            this.town = new TownDTO(businessProfile.getTown(), businessProfile.getTown().getDistrict(), businessProfile.getTown().getDistrict().getCountry());
+            if (needAreas) {
+                businessAreas = new ArrayList<>();
+                for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
+                    businessAreas.add(new BusinessAreaDTO(new BusinessProfileDTO(businessProfile), new TownDTO(businessArea.getTown())));
+                }
+            }
+            if (needCategories) {
+                businessProfileCategories = new ArrayList<>();
+                for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
+                    businessProfileCategories.add(new BusinessProfileCategoryDTO(businessProfile, businessProfileCategory.getBusinessCategory()));
+                }
             }
         }
     }

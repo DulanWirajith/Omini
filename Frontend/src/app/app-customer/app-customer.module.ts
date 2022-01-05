@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {AppCustomerRoutingModule} from './app-customer-routing.module';
@@ -12,7 +12,8 @@ import {SearchResultComponent} from "./view/search-result/search-result.componen
 import {ItemSearchResultViewComponent} from "./view/search-result/item-package-search-result/item-search-result-view/item-search-result-view.component";
 import {ItemPackageSearchResultComponent} from "./view/search-result/item-package-search-result/item-package-search-result.component";
 import {ItemSearchResultDetailViewComponent} from "./view/search-result/item-package-search-result/item-search-result-detail-view/item-search-result-detail-view.component";
-import {CartComponent} from "./view/search-result/cart/cart.component";
+import {ShopCartComponent} from "./view/search-result/shop-cart/shop-cart.component";
+import {ShopCartService} from "./_service/shop-cart.service";
 
 const components = [
   CustomerProfileComponent,
@@ -23,7 +24,7 @@ const components = [
   ItemSearchResultViewComponent,
   ItemPackageSearchResultComponent,
   ItemSearchResultDetailViewComponent,
-  CartComponent
+  ShopCartComponent
 ];
 
 @NgModule({
@@ -35,7 +36,16 @@ const components = [
   imports: [
     SharedModule,
     AppCustomerRoutingModule
+  ],
+  providers: [
+    // ShopCartService
   ]
 })
 export class AppCustomerModule {
+  // static forRoot(): ModuleWithProviders<AppCustomerModule> {
+  //   return {
+  //     ngModule: AppCustomerModule,
+  //     providers: [ShopCartService]
+  //   }
+  // }
 }

@@ -35,6 +35,7 @@ export class ItemService {
       itemId: "",
       itemTitle: "",
       itemQty: 1,
+      itemCount: 0,
       itemDiscount: "",
       itemDiscountType: "None",
       itemPrice: "",
@@ -43,7 +44,9 @@ export class ItemService {
       itemImgsRaw: [],
       itemAvailable: false,
       businessProfileCategory: {
-        businessProfile: undefined,
+        businessProfile: {
+          businessProfile: undefined
+        },
         businessCategory: undefined
       },
       itemItemFeatures: [],

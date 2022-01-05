@@ -40,10 +40,14 @@ public class ItemItemPackageDTO extends DateTimeDTO {
         this.items = new ArrayList<>();
         this.itemPackages = new ArrayList<>();
         for (Item item : items) {
-            this.items.add(new ItemDTO(item, needImage));
+            ItemDTO itemDTO = new ItemDTO(item, needImage);
+            itemDTO.setBusinessProfileCategory(new BusinessProfileCategoryDTO(item.getBusinessProfileCategory().getBusinessProfile(), null));
+            this.items.add(itemDTO);
         }
         for (ItemPackage itemPackage : itemPackages) {
-            this.itemPackages.add(new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs()));
+            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs());
+            itemPackageDTO.setBusinessProfileCategory(new BusinessProfileCategoryDTO(itemPackage.getBusinessProfileCategory().getBusinessProfile(), null));
+            this.itemPackages.add(itemPackageDTO);
         }
 
     }

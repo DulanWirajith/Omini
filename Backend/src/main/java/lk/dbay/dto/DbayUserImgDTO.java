@@ -27,10 +27,12 @@ public class DbayUserImgDTO extends DateTimeDTO {
     //    private String itemImgPath;
     private boolean thumbnail;
 
-    public DbayUserImgDTO(@NonNull DbayUserImg dbayUserImg) {
-        this.userImgId = dbayUserImg.getUserImgId();
-        this.userImgName = dbayUserImg.getUserImgName();
-        this.userImgType = dbayUserImg.getUserImgType();
-        this.thumbnail = dbayUserImg.isThumbnail();
+    public DbayUserImgDTO(DbayUserImg dbayUserImg) {
+        if (dbayUserImg != null) {
+            this.userImgId = dbayUserImg.getUserImgId();
+            this.userImgName = dbayUserImg.getUserImgName();
+            this.userImgType = dbayUserImg.getUserImgType();
+            this.thumbnail = dbayUserImg.isThumbnail();
+        }
     }
 }

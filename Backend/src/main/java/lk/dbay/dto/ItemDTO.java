@@ -19,6 +19,7 @@ public class ItemDTO extends DateTimeDTO {
     private String itemTitle;
     private String name;
     private int itemQty;
+    private int itemCount;
     private double itemPrice;
     private String itemDescription;
     private double itemDiscount;

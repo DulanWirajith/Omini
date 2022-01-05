@@ -8,7 +8,8 @@
           <!-- <img class="rounded-circle me-1" src="../../../../assets/img/37.png" width="48" alt="Avatar"> -->
           <div class="ps-2">
             <h6 class="fs-base mb-0">OrderId</h6>
-            <div class="text-muted fw-normal fs-sm">Sent to 3 Shops</div>
+            <div class="text-muted fw-normal fs-sm">Sent to {{shopCart.length}} {{shopCart.length>1?'Shops':'Shop'}}
+            </div>
           </div>
         </div>
       </div>
@@ -66,7 +67,7 @@
   </div>
   <div class="offcanvas-body">
     <div class="collapse mb-3 show" id="cart-item-list">
-      <div class="card card-body mb-2" style="padding-bottom: 5px;border-color: #c1c1c1">
+      <div class="card card-body mb-2" style="padding-bottom: 5px;border-color: #c1c1c1" *ngFor="let shop of shopCart">
         <!--order for shop-->
         <blockquote class="">
           <div class="d-flex justify-content-between mb-2">
@@ -74,7 +75,7 @@
               <div class="d-flex align-items-center mb-2">
                 <img class="rounded-circle me-1" src="../../../../../assets/img/37.png" width="48" alt="Avatar">
                 <div class="ps-2">
-                  <h6 class="fs-base mb-0">Ralph Edwards</h6>
+                  <h6 class="fs-base mb-0">{{shop.shop.businessName}}</h6>
                   <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
                 </div>
               </div>
@@ -112,19 +113,22 @@
             </div>
           </div>
           <div class="collapse mb-1" id="cart-item-list-2">
-            <div class="card card-body border-none" style="padding-right: 5px">
+            <div class="card card-body border-none" style="padding-right: 5px;padding-bottom: 0px">
               <!--Order detail card 1-->
-              <div class="order-detail-card mb-3" style="border-bottom: 1px solid #c1c1c1;border-top: 1px solid #c1c1c1;padding: 10px 0px 5px 0px">
+              <div class="order-detail-card"
+                   style="border-top: 1px solid #c1c1c1;padding: 10px 0px 5px 0px;margin-bottom: 0px"
+                   [ngStyle]="{'border-top-width':first?'1px':'1px'}"
+                   *ngFor="let item of shop.items;let first = first;let last = last">
                 <div class="d-flex align-items-center justify-content-between pb-1">
                   <div class="d-flex justify-content-between align-items-start">
                     <!--<button type="button" class="btn btn-outline-primary btn-icon btn-xxs"-->
-                            <!--style="margin-top: 3px;border-width: 2px">-->
-                      <!--<i class="fi-x" style="font-weight: bold"></i>-->
+                    <!--style="margin-top: 3px;border-width: 2px">-->
+                    <!--<i class="fi-x" style="font-weight: bold"></i>-->
                     <!--</button>-->
                     <h3 class="h6 mb-2 fs-base">
                       <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer"
                          style="font-weight: bold;padding-left: 10px">
-                        Item Name
+                        {{item.itemTitle}}
                       </a>
                     </h3>
                     <span class="badge rounded-pill bg-info" style="margin-top: 5px"> Item </span>
@@ -150,18 +154,18 @@
                         <div class="col-12" style="margin-top: 10px">
                           <div style="background-color: rgba(229,66,5,0.44)">
                             <div class="mb-2 fs-sm text-dark fw-bold">Discount</div>
-                            <div class="fs-sm fw-bold" style="color: #b94701">
-                              3
-                            </div>
+                            <div class="fs-sm fw-bold" style="color: #b94701">3</div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-7" style="display: grid;justify-content: center;align-content: center">
                       <div style="display: flex">
-                        <div><i class="fi-minus-square" style="font-size: 40px"></i></div>
-                        <div style="padding-left: 30px;padding-right: 30px;font-weight: bold;font-size: 25px">2</div>
-                        <div><i class="fi-plus-square" style="font-size: 40px"></i></div>
+                        <div><i class="fi-minus-square" style="font-size: 35px" (click)="itemCountDec(item)"></i></div>
+                        <div style="padding-left: 30px;padding-right: 30px;font-weight: bold;font-size: 20px;padding-top: 2px">
+                          {{item.itemCount}}
+                        </div>
+                        <div><i class="fi-plus-square" style="font-size: 35px" (click)="itemCountInc(item)"></i></div>
                       </div>
                     </div>
                     <!--</div>-->
@@ -192,78 +196,78 @@
 
               </div>
               <!--Order detail card 2-->
-              <div class="order-detail-card mb-3" style="">
-                <div class="d-flex align-items-center justify-content-between pb-1">
-                  <div class="d-flex justify-content-between align-items-start">
-                    <h3 class="h6 mb-2 fs-base">
-                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer"
-                         style="font-weight: bold;padding-left: 10px">
-                        Package Name
-                      </a>
-                    </h3>
-                    <span class="badge rounded-pill bg-success" style="margin-top: 5px"> Package </span>
-                  </div>
-                  <button type="button" class="btn btn-outline-primary btn-icon btn-xxs"
-                          style="margin-top: 3px;border-width: 2px">
-                    <i class="fi-x" style="font-weight: bold"></i>
-                  </button>
-                </div>
-                <div class="order-detail-card-ss mb-3">
-                  <!--<div class="list-group list-group-horizontal-sm">-->
-                  <div class="row cols-md-4" style="padding-top: 10px">
-                    <!--<div class="col-12">-->
-                    <div class="col-5">
-                      <div class="row col-info">
-                        <div class="col-12">
-                          <div style="background-color: rgba(229,101,2,0.44)">
-                            <div class="mb-2 fs-sm text-dark fw-bold">Price</div>
-                            <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR '+4}}</div>
-                          </div>
-                        </div>
-                        <div class="col-12" style="margin-top: 10px">
-                          <div style="background-color: rgba(229,66,5,0.44)">
-                            <div class="mb-2 fs-sm text-dark fw-bold">Discount</div>
-                            <div class="fs-sm fw-bold" style="color: #b94701">
-                              3
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-7" style="display: grid;justify-content: center;align-content: center">
-                      <div style="display: flex">
-                        <div><i class="fi-minus-square" style="font-size: 40px"></i></div>
-                        <div style="padding-left: 30px;padding-right: 30px;font-weight: bold;font-size: 25px">2</div>
-                        <div><i class="fi-plus-square" style="font-size: 40px"></i></div>
-                      </div>
-                    </div>
-                    <!--</div>-->
-                  </div>
-                  <!--<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"-->
-                  <!--title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">-->
-                  <!--<div class="bg-dark rounded text-center p-2">-->
-                  <!--<i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>-->
-                  <!--<span class="fs-xs h4 text-light">2</span>-->
-                  <!--</div>-->
-                  <!--</a>-->
-                  <!--<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"-->
-                  <!--title="Discount" data-bs-original-title="Discount" aria-label="Discount">-->
-                  <!--<div class="bg-dark rounded text-center p-2">-->
-                  <!--<i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>-->
-                  <!--<span class="fs-xs h4 text-light">LKR 20</span>-->
-                  <!--</div>-->
-                  <!--</a>-->
-                  <!--<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"-->
-                  <!--title="Price" data-bs-original-title="Price" aria-label="Price">-->
-                  <!--<div class="bg-dark rounded text-center p-2">-->
-                  <!--<i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>-->
-                  <!--<span class="fs-xs h4 text-light">LKR 500</span>-->
-                  <!--</div>-->
-                  <!--</a>-->
-                </div>
-                <!--</div>-->
+              <!--<div class="order-detail-card mb-3" style="">-->
+              <!--<div class="d-flex align-items-center justify-content-between pb-1">-->
+              <!--<div class="d-flex justify-content-between align-items-start">-->
+              <!--<h3 class="h6 mb-2 fs-base">-->
+              <!--<a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer"-->
+              <!--style="font-weight: bold;padding-left: 10px">-->
+              <!--Package Name-->
+              <!--</a>-->
+              <!--</h3>-->
+              <!--<span class="badge rounded-pill bg-success" style="margin-top: 5px"> Package </span>-->
+              <!--</div>-->
+              <!--<button type="button" class="btn btn-outline-primary btn-icon btn-xxs"-->
+              <!--style="margin-top: 3px;border-width: 2px">-->
+              <!--<i class="fi-x" style="font-weight: bold"></i>-->
+              <!--</button>-->
+              <!--</div>-->
+              <!--<div class="order-detail-card-ss mb-3">-->
+              <!--&lt;!&ndash;<div class="list-group list-group-horizontal-sm">&ndash;&gt;-->
+              <!--<div class="row cols-md-4" style="padding-top: 10px">-->
+              <!--&lt;!&ndash;<div class="col-12">&ndash;&gt;-->
+              <!--<div class="col-5">-->
+              <!--<div class="row col-info">-->
+              <!--<div class="col-12">-->
+              <!--<div style="background-color: rgba(229,101,2,0.44)">-->
+              <!--<div class="mb-2 fs-sm text-dark fw-bold">Price</div>-->
+              <!--<div class="fs-sm fw-bold" style="color: #b96802">{{'LKR '+4}}</div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-12" style="margin-top: 10px">-->
+              <!--<div style="background-color: rgba(229,66,5,0.44)">-->
+              <!--<div class="mb-2 fs-sm text-dark fw-bold">Discount</div>-->
+              <!--<div class="fs-sm fw-bold" style="color: #b94701">-->
+              <!--3-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-7" style="display: grid;justify-content: center;align-content: center">-->
+              <!--<div style="display: flex">-->
+              <!--<div><i class="fi-minus-square" style="font-size: 40px"></i></div>-->
+              <!--<div style="padding-left: 30px;padding-right: 30px;font-weight: bold;font-size: 25px">2</div>-->
+              <!--<div><i class="fi-plus-square" style="font-size: 40px"></i></div>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"&ndash;&gt;-->
+              <!--&lt;!&ndash;title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">&ndash;&gt;-->
+              <!--&lt;!&ndash;<div class="bg-dark rounded text-center p-2">&ndash;&gt;-->
+              <!--&lt;!&ndash;<i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span class="fs-xs h4 text-light">2</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--&lt;!&ndash;</a>&ndash;&gt;-->
+              <!--&lt;!&ndash;<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"&ndash;&gt;-->
+              <!--&lt;!&ndash;title="Discount" data-bs-original-title="Discount" aria-label="Discount">&ndash;&gt;-->
+              <!--&lt;!&ndash;<div class="bg-dark rounded text-center p-2">&ndash;&gt;-->
+              <!--&lt;!&ndash;<i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span class="fs-xs h4 text-light">LKR 20</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--&lt;!&ndash;</a>&ndash;&gt;-->
+              <!--&lt;!&ndash;<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"&ndash;&gt;-->
+              <!--&lt;!&ndash;title="Price" data-bs-original-title="Price" aria-label="Price">&ndash;&gt;-->
+              <!--&lt;!&ndash;<div class="bg-dark rounded text-center p-2">&ndash;&gt;-->
+              <!--&lt;!&ndash;<i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span class="fs-xs h4 text-light">LKR 500</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--&lt;!&ndash;</a>&ndash;&gt;-->
+              <!--</div>-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-              </div>
+              <!--</div>-->
 
             </div>
           </div>

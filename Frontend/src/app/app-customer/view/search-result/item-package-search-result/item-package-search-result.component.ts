@@ -5,6 +5,7 @@ import {Lightbox} from "ngx-lightbox";
 import {environment} from "../../../../../environments/environment";
 import * as $ from "jquery";
 import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
+import {ShopCartService} from "../../../_service/shop-cart.service";
 
 @Component({
   selector: 'app-item-package-search-result',
@@ -16,10 +17,18 @@ export class ItemPackageSearchResultComponent implements OnInit {
   items = [];
   itemPackages = [];
   itemCount = 0;
+  shopCart;
 
-  constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private config: NgbCarouselConfig) {
-    config.showNavigationArrows = true;
-    config.showNavigationIndicators = true;
+  constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService) {
+    // config.showNavigationArrows = true;
+    // config.showNavigationIndicators = true;
+    this.shopCartService.shopCartItemsSub.observers = [];
+    this.shopCartService.shopCartItemsSub.subscribe((item) => {
+      let itemObj: any = this.items.find(itemObj => {
+        return itemObj.itemId === item.itemId
+      })
+      itemObj.itemCount = item.itemCount;
+    })
   }
 
   ngOnInit(): void {
@@ -27,6 +36,28 @@ export class ItemPackageSearchResultComponent implements OnInit {
     this.itemCount = this.items.length;
     this.itemPackages = this.itemService.searchedItemPackages.itemPackages;
     this.toggleBtns();
+    this.initShopCart();
+  }
+
+  initShopCart() {
+    this.shopCart = this.shopCartService.shopCart;
+    // if (this.items !== undefined) {
+    for (let cart of this.shopCart) {
+      for (let item of cart.items) {
+        let itemObj: any = this.items.find(itemObj => {
+          return itemObj.itemId === item.itemId
+        })
+        itemObj.itemCount = item.itemCount;
+      }
+    }
+    // this.shopCartService.shopCartItemsSub.observers = [];
+    // this.shopCartService.shopCartItemsSub.subscribe((item) => {
+    //   let itemObj: any = this.items.find(itemObj => {
+    //     return itemObj.itemId === item.itemId
+    //   })
+    //   itemObj.itemCount = item.itemCount;
+    // })
+    // }
   }
 
   toggleBtns() {
