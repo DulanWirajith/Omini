@@ -23,7 +23,18 @@ export class ShopCartComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(7)
+    this.initShopCart();
+  }
+
+  initShopCart() {
     this.shopCart = this.shopCartService.shopCart;
+    if (this.shopCart.length === 0) {
+      this.shopCartService.getCart('U20220102233339').subscribe((shopCart) => {
+        this.shopCart = JSON.parse(shopCart.cartTxt);
+        this.shopCartService.shopCart = this.shopCart;
+        this.shopCartService.initShopCartSub.next(this.shopCart)
+      })
+    }
   }
 
   addToCart(item) {
@@ -51,6 +62,7 @@ export class ShopCartComponent implements OnInit {
         }
       }
       this.shopCartService.shopCart = this.shopCart;
+      this.cartDB();
       console.log(this.shopCart)
     }
     // console.log(this.shopCart.length)
@@ -60,6 +72,7 @@ export class ShopCartComponent implements OnInit {
     if (item.itemQty > item.itemCount) {
       item.itemCount++;
       this.shopCartService.shopCartItemsSub.next(item);
+      this.cartDB();
     }
   }
 
@@ -67,6 +80,14 @@ export class ShopCartComponent implements OnInit {
     if (item.itemCount > 1) {
       item.itemCount--;
       this.shopCartService.shopCartItemsSub.next(item);
+      this.cartDB();
     }
+  }
+
+  cartDB() {
+    this.shopCartService.addCart({
+      cartTxt: JSON.stringify(this.shopCart),
+      cartId: 'U20220102233339'
+    }).subscribe();
   }
 }

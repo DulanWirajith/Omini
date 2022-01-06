@@ -27,7 +27,14 @@ export class ItemPackageSearchResultComponent implements OnInit {
       let itemObj: any = this.items.find(itemObj => {
         return itemObj.itemId === item.itemId
       })
-      itemObj.itemCount = item.itemCount;
+      if (itemObj !== undefined) {
+        itemObj.itemCount = item.itemCount;
+      }
+    })
+    this.shopCartService.shopCartSub.observers = [];
+    this.shopCartService.initShopCartSub.subscribe((shopCart) => {
+      this.shopCart = shopCart;
+      this.setShopCart();
     })
   }
 
@@ -41,15 +48,17 @@ export class ItemPackageSearchResultComponent implements OnInit {
 
   initShopCart() {
     this.shopCart = this.shopCartService.shopCart;
+    // if (this.shopCart.length === 0) {
+    //   this.shopCartService.getCart('U20220102233339').subscribe((shopCart) => {
+    //     this.shopCart = JSON.parse(shopCart.cartTxt);
+    //     this.shopCartService.shopCart = this.shopCart;
+    //     this.setShopCart();
+    //   })
+    // } else {
+    this.setShopCart();
+    // }
     // if (this.items !== undefined) {
-    for (let cart of this.shopCart) {
-      for (let item of cart.items) {
-        let itemObj: any = this.items.find(itemObj => {
-          return itemObj.itemId === item.itemId
-        })
-        itemObj.itemCount = item.itemCount;
-      }
-    }
+
     // this.shopCartService.shopCartItemsSub.observers = [];
     // this.shopCartService.shopCartItemsSub.subscribe((item) => {
     //   let itemObj: any = this.items.find(itemObj => {
@@ -58,6 +67,20 @@ export class ItemPackageSearchResultComponent implements OnInit {
     //   itemObj.itemCount = item.itemCount;
     // })
     // }
+  }
+
+  setShopCart() {
+    console.log(this.shopCart)
+    for (let cart of this.shopCart) {
+      for (let item of cart.items) {
+        let itemObj: any = this.items.find(itemObj => {
+          return itemObj.itemId === item.itemId
+        })
+        if (itemObj !== undefined) {
+          itemObj.itemCount = item.itemCount;
+        }
+      }
+    }
   }
 
   toggleBtns() {

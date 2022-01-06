@@ -3,6 +3,7 @@ package lk.dbay.service.impl;
 import lk.dbay.dto.BusinessProfileDTO;
 import lk.dbay.dto.CustomerProfileDTO;
 import lk.dbay.dto.DbayUserDTO;
+import lk.dbay.dto.ShopCartDTO;
 import lk.dbay.entity.*;
 import lk.dbay.repository.*;
 import lk.dbay.service.BusinessProfileS;
@@ -23,6 +24,8 @@ public class CustomerProfileSImpl implements CustomerProfileS {
     private CustomerProfileR customerProfileR;
     @Autowired
     private DbayUserR dbayUserR;
+    @Autowired
+    private ShopCartR shopCartR;
 
     @Override
     public CustomerProfileDTO addCustomerProfile(CustomerProfile customerProfile) throws Exception {
@@ -77,5 +80,19 @@ public class CustomerProfileSImpl implements CustomerProfileS {
             e.printStackTrace();
             throw new Exception("Something went wrong");
         }
+    }
+
+    @Override
+    public ShopCartDTO addCart(ShopCart shopCart) {
+        return new ShopCartDTO(shopCartR.save(shopCart));
+    }
+
+    @Override
+    public ShopCartDTO getCart(String cartId) {
+        Optional<ShopCart> optionalShopCart = shopCartR.findById(cartId);
+        if (optionalShopCart.isPresent()) {
+            return new ShopCartDTO(optionalShopCart.get());
+        }
+        return null;
     }
 }

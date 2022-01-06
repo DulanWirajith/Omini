@@ -2,8 +2,11 @@ package lk.dbay.controller;
 
 import lk.dbay.dto.BusinessProfileDTO;
 import lk.dbay.dto.CustomerProfileDTO;
+import lk.dbay.dto.ShopCartDTO;
 import lk.dbay.entity.BusinessProfile;
 import lk.dbay.entity.CustomerProfile;
+import lk.dbay.entity.DbayUser;
+import lk.dbay.entity.ShopCart;
 import lk.dbay.service.BusinessProfileS;
 import lk.dbay.service.CustomerProfileS;
 import lk.dbay.util.CommonConstants;
@@ -58,5 +61,27 @@ public class CustomerProfileController {
     @GetMapping(value = "/getCustomerProfile/{customerProfileId}")
     public ResponseEntity getCustomerProfile(@PathVariable String customerProfileId) {
         return ResponseEntity.ok(customerProfileS.getCustomerProfile(customerProfileId));
+    }
+
+    @PostMapping(value = "/addCart")
+    public ResponseEntity addCart(@RequestBody ShopCart shopCart) {
+        try {
+            ShopCartDTO shopCartDTO = customerProfileS.addCart(shopCart);
+            if (shopCartDTO != null) {
+                return ResponseEntity.ok(shopCartDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/getCart/{cartId}")
+    public ResponseEntity getCart(@PathVariable String cartId) {
+        return ResponseEntity.ok(customerProfileS.getCart(cartId));
     }
 }

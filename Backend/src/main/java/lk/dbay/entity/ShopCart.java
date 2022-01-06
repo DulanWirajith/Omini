@@ -22,6 +22,6 @@ public class ShopCart extends DateTime {
     @Column(columnDefinition = "TEXT")
     private String cartTxt;
 
-    @ManyToOne(optional = false)
-    private DbayUser dbayUser;
+//    @ManyToOne(optional = false)
+//    private DbayUser dbayUser;
 }
