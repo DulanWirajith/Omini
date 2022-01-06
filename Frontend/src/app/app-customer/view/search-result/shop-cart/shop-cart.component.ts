@@ -11,13 +11,13 @@ export class ShopCartComponent implements OnInit {
   shopCart = [];
 
   constructor(private shopCartService: ShopCartService) {
-    // console.log(this.shopCartService.shopCartSub.observers.length)
     // this.shopCart = [];
     // if (this.shopCartService.shopCartSub.observers.length === 0) {
-    this.shopCartService.shopCartSub.observers = [];
+    // this.shopCartService.shopCartSub.observers = [];
     this.shopCartService.shopCartSub.subscribe((item) => {
       this.addToCart(item);
     })
+    //console.log(this.shopCartService.shopCartSub.observers.length)
     // }
   }
 
@@ -38,6 +38,7 @@ export class ShopCartComponent implements OnInit {
   }
 
   addToCart(item) {
+    //console.log(item)
     if (item.itemQty > item.itemCount) {
       // console.log(item.businessProfileCategory.businessProfile.businessProId)
       let indexShop: any = this.shopCart.findIndex(shopCart => {
@@ -63,7 +64,7 @@ export class ShopCartComponent implements OnInit {
       }
       this.shopCartService.shopCart = this.shopCart;
       this.cartDB();
-      console.log(this.shopCart)
+      //console.log(this.shopCart)
     }
     // console.log(this.shopCart.length)
   }
@@ -82,6 +83,21 @@ export class ShopCartComponent implements OnInit {
       this.shopCartService.shopCartItemsSub.next(item);
       this.cartDB();
     }
+  }
+
+  removeItem(shopIndex, shopItem, itemIndex?) {
+    if (shopItem === 'shop') {
+      for (let item of this.shopCart[shopIndex].items) {
+        item.itemCount = 0;
+        this.shopCartService.shopCartItemsSub.next(item);
+      }
+      this.shopCart.splice(shopIndex, 1);
+    } else {
+      this.shopCart[shopIndex].items[itemIndex].itemCount = 0;
+      this.shopCartService.shopCartItemsSub.next(this.shopCart[shopIndex].items[itemIndex]);
+      this.shopCart[shopIndex].items.splice(itemIndex, 1);
+    }
+    this.cartDB();
   }
 
   cartDB() {

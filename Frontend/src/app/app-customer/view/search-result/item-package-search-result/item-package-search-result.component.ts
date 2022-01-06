@@ -31,7 +31,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
         itemObj.itemCount = item.itemCount;
       }
     })
-    this.shopCartService.shopCartSub.observers = [];
+    this.shopCartService.initShopCartSub.observers = [];
     this.shopCartService.initShopCartSub.subscribe((shopCart) => {
       this.shopCart = shopCart;
       this.setShopCart();
@@ -70,7 +70,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
   }
 
   setShopCart() {
-    console.log(this.shopCart)
+    //console.log(this.shopCart)
     for (let cart of this.shopCart) {
       for (let item of cart.items) {
         let itemObj: any = this.items.find(itemObj => {

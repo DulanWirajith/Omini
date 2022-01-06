@@ -26,7 +26,7 @@ export class ItemSearchResultViewComponent implements OnInit {
 
   addToCart(item) {
     // console.log(item)
-    // console.log(5)
+    //console.log(this.shopCartService.shopCartSub)
     this.shopCartService.shopCartSub.next(item);
   }
 
