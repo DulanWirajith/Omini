@@ -106,4 +106,8 @@ export class ShopCartComponent implements OnInit {
       cartId: 'U20220102233339'
     }).subscribe();
   }
+
+  placeOrder(){
+
+  }
 }

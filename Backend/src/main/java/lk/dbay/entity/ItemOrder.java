@@ -23,6 +23,7 @@ public class ItemOrder extends DateTime {
     private LocalDateTime orderDate;
     private double amount;
     private double discount;
+    private int qty;
     private String status;
     private String contactNumber;
     private LocalDateTime receivedTime;

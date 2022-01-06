@@ -21,6 +21,7 @@ public class CommonConstants {
     public static final String BUSINESS_AREA = "/business_area";
     public static final String TOWN = "/town";
     public static final String ITEM = "/item";
+    public static final String ITEM_ORDER = "/item_order";
 
     //    Crud
     public static final String ADD = "/add";
