@@ -18,16 +18,19 @@ public class TownDTO extends DateTimeDTO {
     private DistrictDTO district;
 
     public TownDTO(@NonNull Town town) {
-        this.townId = town.getTownId();
-        if (town.getDistrict() != null) {
-            this.name = town.getDistrict().getName() + "-" + town.getName();
-        } else {
-            this.name = town.getName();
+        if (town != null) {
+            this.townId = town.getTownId();
+            if (town.getDistrict() != null) {
+                this.name = town.getDistrict().getName() + "-" + town.getName();
+            } else {
+                this.name = town.getName();
+            }
         }
     }
 
-    public TownDTO(@NonNull Town town, @NonNull District district, @NonNull Country country) {
+    public TownDTO(Town town, District district, Country country) {
         this(town);
-        this.district = new DistrictDTO(district, country);
+        if (district != null && country != null)
+            this.district = new DistrictDTO(district, country);
     }
 }

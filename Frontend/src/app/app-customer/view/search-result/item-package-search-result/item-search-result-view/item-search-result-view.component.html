@@ -20,9 +20,10 @@
           </mdb-carousel-item>
         </mdb-carousel>
       </div>
-      <div class="card-body position-relative pb-3" (click)="getItemSelected(item)">
-        <h3 class="h6 mb-2 fs-base"><a class="nav-link" href="#" data-bs-toggle="offcanvas"
-                                       data-bs-target="#fi-item-viewer" style="font-weight: bold;padding: 0px">{{item.itemTitle}}</a>
+      <div class="position-relative" (click)="getItemSelected(item)" style="margin: 15px 15px 0px 15px">
+        <h3 class="h6 fs-base" style="margin-bottom: 0px">
+          <a class="nav-link" href="#" data-bs-toggle="offcanvas"
+             data-bs-target="#fi-item-viewer" style="font-weight: bold;padding: 0px">{{item.itemTitle}}</a>
         </h3>
         <div class="border-top border-light pt-0 mb-2">
 
@@ -45,8 +46,10 @@
               </p>
             </div>
           </div>
-          <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR
-            {{item.itemPrice}}
+          <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>
+            <span *ngIf="item.itemDiscountType==='None'">LKR {{item.itemPrice}}</span>
+            <span *ngIf="item.itemDiscountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.itemPrice}}</span>
+            <span *ngIf="item.itemDiscountType!=='None'" style="margin-left: 10px">LKR {{calcDiscount(item)}}</span>
           </div>
         </div>
       </div>
@@ -74,7 +77,8 @@
             </div>
           </div>
           <div style="display: flex">
-            <button style="background-color: #FD5631" class="btn btn-icon btn-light-primary btn-sm text-primary rounded-circle"
+            <button style="background-color: #06A773"
+                    class="btn btn-icon btn-sm text-primary rounded-circle"
                     type="button" data-bs-toggle="tooltip" title="Add to Cart" (click)="addToCart(item)">
               <i class="fi-cart" style="color: white"></i></button>
             <div *ngIf="item.itemCount>0"

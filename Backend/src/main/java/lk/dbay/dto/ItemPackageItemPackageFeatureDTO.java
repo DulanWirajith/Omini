@@ -29,8 +29,11 @@ public class ItemPackageItemPackageFeatureDTO extends DateTimeDTO {
     private ItemPackageFeatureDTO itemPackageFeature;
 
     public ItemPackageItemPackageFeatureDTO(ItemPackage itemPackage, ItemPackageFeature itemPackageFeature) {
-        this.name = itemPackageFeature.getName();
-        this.itemPackage = new ItemPackageDTO(itemPackage);
-        this.itemPackageFeature = new ItemPackageFeatureDTO(itemPackageFeature);
+        if (itemPackage != null)
+            this.itemPackage = new ItemPackageDTO(itemPackage);
+        if (itemPackageFeature != null) {
+            this.name = itemPackageFeature.getName();
+            this.itemPackageFeature = new ItemPackageFeatureDTO(itemPackageFeature);
+        }
     }
 }

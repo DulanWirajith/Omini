@@ -30,6 +30,15 @@ export class ItemSearchResultViewComponent implements OnInit {
     this.shopCartService.shopCartSub.next(item);
   }
 
+  calcDiscount(item) {
+    if (item.itemDiscountType === 'Cash') {
+      return item.itemPrice - item.itemDiscountType;
+    } else if (item.itemDiscountType === 'Percentage') {
+      return item.itemPrice * ((100 - item.itemDiscount) / 100);
+    }
+    return '';
+  }
+
   getItemSelected(item) {
     // console.log(item.itemId)
     let index: any = this.items.findIndex(itemObj => {
@@ -52,6 +61,7 @@ export class ItemSearchResultViewComponent implements OnInit {
         // } else if (item.itemDiscountType === "Percentage") {
         //   item.itemDiscountView = item.itemDiscount + "%";
         // }
+        item.itemCount = this.items[index].itemCount;
         this.items[index] = item;
         // this.itemService.itemFeaturesSub.next(item.itemFeatures);
         this.itemService.itemSub.next(this.items[index]);

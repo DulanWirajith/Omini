@@ -17,8 +17,10 @@ public class ItemPackageFeatureDTO extends DateTimeDTO {
     private String description;
 
     public ItemPackageFeatureDTO(@NonNull ItemPackageFeature itemPackageFeature) {
-        this.itemPackageFeatureId = itemPackageFeature.getItemPackageFeatureId();
-        this.name = itemPackageFeature.getName();
-        this.description = itemPackageFeature.getDescription();
+        if (itemPackageFeature != null) {
+            this.itemPackageFeatureId = itemPackageFeature.getItemPackageFeatureId();
+            this.name = itemPackageFeature.getName();
+            this.description = itemPackageFeature.getDescription();
+        }
     }
 }

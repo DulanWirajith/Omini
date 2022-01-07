@@ -26,6 +26,10 @@ export class ShopCartService {
     return this.http.get<any>(environment.backend_url + 'customer_profile/getCart/' + cartId);
   }
 
+  addOrder(order) {
+    return this.http.post<any>(environment.backend_url + 'item_order/addOrder', order);
+  }
+
   // getNewShopCart(){
   //   return {
   //     shop: "",

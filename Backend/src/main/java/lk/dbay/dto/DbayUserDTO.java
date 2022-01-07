@@ -69,13 +69,22 @@ public class DbayUserDTO extends DateTimeDTO {
         }
     }
 
-    public DbayUserDTO(DbayUser dbayUser, Set<DbayUserImg> dbayUserImgs) {
-        this(dbayUser);
+    public void setDbayUserImgs(DbayUser dbayUser) {
         if (dbayUserImgs != null) {
             this.dbayUserImgs = new ArrayList<>();
-            for (DbayUserImg dbayUserImg : dbayUserImgs) {
+            for (DbayUserImg dbayUserImg : dbayUser.getDbayUserImgs()) {
                 this.dbayUserImgs.add(new DbayUserImgDTO(dbayUserImg));
             }
         }
     }
+
+//    public DbayUserDTO(DbayUser dbayUser, Set<DbayUserImg> dbayUserImgs) {
+//        this(dbayUser);
+////        if (dbayUserImgs != null) {
+////            this.dbayUserImgs = new ArrayList<>();
+////            for (DbayUserImg dbayUserImg : dbayUserImgs) {
+////                this.dbayUserImgs.add(new DbayUserImgDTO(dbayUserImg));
+////            }
+////        }
+//    }
 }

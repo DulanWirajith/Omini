@@ -56,38 +56,70 @@ public class BusinessProfileDTO extends DateTimeDTO {
         }
     }
 
-    public BusinessProfileDTO(BusinessProfile businessProfile, DbayUser dbayUser) {
-        this(businessProfile);
-        if (dbayUser != null) {
-            this.dbayUser = new DbayUserDTO(dbayUser);
+    public void setDbayUser(BusinessProfile businessProfile, boolean needImages) {
+        if (businessProfile.getDbayUser() != null) {
+            if (needImages) {
+                DbayUserDTO dbayUserDTO = new DbayUserDTO(businessProfile.getDbayUser());
+                dbayUserDTO.setDbayUserImgs(businessProfile.getDbayUser());
+                this.dbayUser = dbayUserDTO;
+            } else {
+                this.dbayUser = new DbayUserDTO(businessProfile.getDbayUser());
+            }
         }
     }
 
-    public BusinessProfileDTO(BusinessProfile businessProfile, DbayUser dbayUser, boolean needAreas, boolean needCategories, boolean needImages) {
-        this(businessProfile);
-        if (dbayUser != null) {
-            if (needImages) {
-                this.dbayUser = new DbayUserDTO(dbayUser, dbayUser.getDbayUserImgs());
-            } else {
-                this.dbayUser = new DbayUserDTO(dbayUser);
-            }
-        }
-        if (businessProfile != null) {
+    public void setTown(BusinessProfile businessProfile) {
+        if (businessProfile.getTown() != null) {
             this.town = new TownDTO(businessProfile.getTown(), businessProfile.getTown().getDistrict(), businessProfile.getTown().getDistrict().getCountry());
-            if (needAreas) {
-                businessAreas = new ArrayList<>();
-                for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
-                    businessAreas.add(new BusinessAreaDTO(new BusinessProfileDTO(businessProfile), new TownDTO(businessArea.getTown())));
-                }
-            }
-            if (needCategories) {
-                businessProfileCategories = new ArrayList<>();
-                for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
-                    businessProfileCategories.add(new BusinessProfileCategoryDTO(businessProfile, businessProfileCategory.getBusinessCategory()));
-                }
-            }
         }
     }
+
+    public void setBusinessAreas(BusinessProfile businessProfile) {
+        businessAreas = new ArrayList<>();
+        for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
+            businessAreas.add(new BusinessAreaDTO(new BusinessProfileDTO(businessProfile), new TownDTO(businessArea.getTown())));
+        }
+    }
+
+    public void setBusinessProfileCategories(BusinessProfile businessProfile) {
+        businessProfileCategories = new ArrayList<>();
+        for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
+            businessProfileCategories.add(new BusinessProfileCategoryDTO(businessProfile, businessProfileCategory.getBusinessCategory()));
+        }
+    }
+
+//    public BusinessProfileDTO(BusinessProfile businessProfile, DbayUser dbayUser) {
+//        this(businessProfile);
+//        if (dbayUser != null) {
+//            this.dbayUser = new DbayUserDTO(dbayUser);
+//        }
+//    }
+
+//    public BusinessProfileDTO(BusinessProfile businessProfile, DbayUser dbayUser, boolean needAreas, boolean needCategories, boolean needImages) {
+////        this(businessProfile);
+////        if (dbayUser != null) {
+////            if (needImages) {
+////                this.dbayUser = new DbayUserDTO(dbayUser, dbayUser.getDbayUserImgs());
+////            } else {
+////                this.dbayUser = new DbayUserDTO(dbayUser);
+////            }
+////        }
+//        if (businessProfile != null) {
+////            this.town = new TownDTO(businessProfile.getTown(), businessProfile.getTown().getDistrict(), businessProfile.getTown().getDistrict().getCountry());
+//            if (needAreas) {
+////                businessAreas = new ArrayList<>();
+////                for (BusinessArea businessArea : businessProfile.getBusinessAreas()) {
+////                    businessAreas.add(new BusinessAreaDTO(new BusinessProfileDTO(businessProfile), new TownDTO(businessArea.getTown())));
+////                }
+//            }
+//            if (needCategories) {
+////                businessProfileCategories = new ArrayList<>();
+////                for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
+////                    businessProfileCategories.add(new BusinessProfileCategoryDTO(businessProfile, businessProfileCategory.getBusinessCategory()));
+////                }
+//            }
+//        }
+//    }
 
 //    public BusinessProfileDTO(@NonNull BusinessProfile businessProfile, @NonNull DbayUserDTO user, @NonNull List<BusinessAreaDTO> businessAreas, @NonNull List<BusinessProfileCategoryDTO> businessProfileCategories) {
 //        this(businessProfile);

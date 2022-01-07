@@ -52,7 +52,10 @@ public class ItemPackageSImpl implements ItemPackageS {
             addFeaturesToItemPackage(itemPackage);
             addImagesToItemPackage(itemPackage, files);
             itemPackageR.save(itemPackage);
-            return new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs());
+            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
+            itemPackageDTO.setBusinessProfileCategory(itemPackage);
+            itemPackageDTO.setItemPackageImgs(itemPackage);
+            return itemPackageDTO;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
@@ -117,7 +120,10 @@ public class ItemPackageSImpl implements ItemPackageS {
                 }
 
                 itemPackageR.save(itemPackageObj);
-                return new ItemPackageDTO(itemPackageObj, itemPackageObj.getBusinessProfileCategory(), itemPackageObj.getItemPackageImgs());
+                ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
+                itemPackageDTO.setBusinessProfileCategory(itemPackage);
+                itemPackageDTO.setItemPackageImgs(itemPackage);
+                return itemPackageDTO;
             }
             return null;
         } catch (Exception e) {
@@ -182,7 +188,10 @@ public class ItemPackageSImpl implements ItemPackageS {
         List<ItemPackage> itemPackageList = itemPackageR.getItemPackagesOrdered(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
         List<ItemPackageDTO> itemPackageDTOS = new ArrayList<>();
         for (ItemPackage itemPackage : itemPackageList) {
-            itemPackageDTOS.add(new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs()));
+            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
+            itemPackageDTO.setBusinessProfileCategory(itemPackage);
+            itemPackageDTO.setItemPackageImgs(itemPackage);
+            itemPackageDTOS.add(itemPackageDTO);
         }
         return itemPackageDTOS;
     }
@@ -192,7 +201,12 @@ public class ItemPackageSImpl implements ItemPackageS {
         Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(itemPackageId);
         if (itemPackageOptional.isPresent()) {
             ItemPackage itemPackage = itemPackageOptional.get();
-            return new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemItemPackages(), itemPackage.getItemPackageItemPackageFeatures(), itemPackage.getItemPackageImgs(), true);
+            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
+            itemPackageDTO.setBusinessProfileCategory(itemPackage);
+            itemPackageDTO.setItemItemPackages(itemPackage, true);
+            itemPackageDTO.setItemPackageItemPackageFeatures(itemPackage);
+            itemPackageDTO.setItemPackageImgs(itemPackage);
+            return itemPackageDTO;
         }
         return null;
     }

@@ -47,7 +47,9 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             addImagesToBusinessProfile(businessProfile.getDbayUser(), files);
             dbayUserR.save(businessProfile.getDbayUser());
             businessProfileR.save(businessProfile);
-            return new BusinessProfileDTO(businessProfile, businessProfile.getDbayUser());
+            BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
+            businessProfileDTO.setDbayUser(businessProfile, false);
+            return businessProfileDTO;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
@@ -59,7 +61,11 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(businessProfileId);
         if (businessProfileOptional.isPresent()) {
             BusinessProfile businessProfile = businessProfileOptional.get();
-            return new BusinessProfileDTO(businessProfile, businessProfile.getDbayUser(), true, true, true);
+            BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
+            businessProfileDTO.setDbayUser(businessProfile, true);
+            businessProfileDTO.setBusinessAreas(businessProfile);
+            businessProfileDTO.setBusinessProfileCategories(businessProfile);
+            return businessProfileDTO;
         }
         return null;
     }
@@ -147,7 +153,11 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessProfileR.save(businessProfileObj);
                 businessProfileObj.getBusinessAreas().addAll(businessAreas);
                 businessProfileObj.getBusinessProfileCategories().addAll(profileCategories);
-                return new BusinessProfileDTO(businessProfileObj, businessProfileObj.getDbayUser(), true, true, true);
+                BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
+                businessProfileDTO.setDbayUser(businessProfile, true);
+                businessProfileDTO.setBusinessAreas(businessProfile);
+                businessProfileDTO.setBusinessProfileCategories(businessProfile);
+                return businessProfileDTO;
             }
             return null;
         } catch (Exception e) {

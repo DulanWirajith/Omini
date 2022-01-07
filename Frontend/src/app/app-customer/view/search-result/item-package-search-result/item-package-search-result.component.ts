@@ -109,7 +109,10 @@ export class ItemPackageSearchResultComponent implements OnInit {
         Object.assign(that.itemPackages[index], itemPackage)
         that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
         that.itemPackages[index].items = [];
+        // console.log(that.itemPackages[index])
         for (let item of itemPackage.itemItemPackages) {
+          // console.log(item.item)
+          item.item.businessProfileCategory=that.itemPackages[index].businessProfileCategory;
           that.itemPackages[index].items.push(item.item);
         }
         that.itemPackages[index].tempItems = itemPackage.itemItemPackages;

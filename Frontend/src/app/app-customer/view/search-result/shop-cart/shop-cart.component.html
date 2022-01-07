@@ -71,7 +71,7 @@
             <div class="col-5">
               <div style="background-color: rgba(229,154,3,0.44)">
                 <div class="mb-2 fs-sm text-dark fw-bold">Quantity</div>
-                <div class="fs-sm fw-bold" style="color: #b97800">2</div>
+                <div class="fs-sm fw-bold" style="color: #b97800">{{shop.itemCount}}</div>
               </div>
             </div>
 
@@ -92,10 +92,10 @@
             </div>
           </div>
           <div class="collapse mb-1" id="cart-item-list-2">
-            <div class="card card-body border-none" style="padding-right: 5px;padding-bottom: 0px">
+            <div class="card card-body border-none" style="padding: 15px 5px 0px 5px">
               <!--Order detail card 1-->
               <div class="order-detail-card"
-                   style="border-top: 1px solid #c1c1c1;padding: 10px 0px 5px 0px;margin-bottom: 0px"
+                   style="border-top: 1px solid #c1c1c1;padding: 5px 0px 5px 0px;margin-bottom: 0px"
                    [ngStyle]="{'border-top-width':first?'1px':'1px'}"
                    *ngFor="let item of shop.items;let first = first;let last = last;let j=index">
                 <div class="d-flex align-items-center justify-content-between pb-1">
@@ -123,31 +123,61 @@
                   <div class="row cols-md-4" style="padding-top: 10px">
                     <!--<div class="col-12">-->
                     <div class="col-5">
-                      <div class="row col-info">
-                        <div class="col-12">
-                          <div style="background-color: rgba(229,101,2,0.44)">
-                            <div class="mb-2 fs-sm text-dark fw-bold">Price</div>
-                            <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR '+4}}</div>
-                          </div>
+                      <!--<div class="row col-info">-->
+                        <!--<div class="col-12">-->
+                          <!--<div style="background-color: rgba(229,101,2,0.44)">-->
+                            <!--<div class="mb-2 fs-sm text-dark fw-bold">Price</div>-->
+                            <!--<div class="fs-sm fw-bold" style="color: #b96802">{{'LKR '+item.itemPrice}}</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-12" style="margin-top: 10px">-->
+                          <!--<div style="background-color: rgba(229,66,5,0.44)">-->
+                            <!--<div class="mb-2 fs-sm text-dark fw-bold">Discount</div>-->
+                            <!--<div class="fs-sm fw-bold" style="color: #b94701">{{item.itemPrice}}</div>-->
+                            <!--<span *ngIf="item.itemDiscountType==='None'">LKR {{item.itemPrice}}</span>-->
+                            <!--<span *ngIf="item.itemDiscountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.itemPrice}}</span>-->
+                            <!--<span *ngIf="item.itemDiscountType!=='None'" style="margin-left: 10px">LKR {{calcDiscount(item)}}</span>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <div class="border-top border-light pt-0 mb-2">
+                        <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
+                          <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
+                          <span *ngIf="item.itemDiscountType==='None'">LKR {{item.itemPrice * item.itemCount}}</span>
+                          <span *ngIf="item.itemDiscountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.itemPrice * item.itemCount}}</span>
+                          <span *ngIf="item.itemDiscountType!=='None'" style="margin-left: 10px">LKR {{calcDiscount(item)}}</span>
                         </div>
-                        <div class="col-12" style="margin-top: 10px">
-                          <div style="background-color: rgba(229,66,5,0.44)">
-                            <div class="mb-2 fs-sm text-dark fw-bold">Discount</div>
-                            <div class="fs-sm fw-bold" style="color: #b94701">3</div>
+                        <div class="row cols-sm-2 row-cols-md-12"
+                             style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 0px;margin-bottom: 20px;font-size: 15px">
+                          <div class="col" style="padding: 0px">
+                            <div style="border-right: 1px solid #d3d3d3">
+                              <p class="mb-1" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                                Quantity </p>
+                              <p class="mb-2 fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.itemQty}}</p>
+                            </div>
+                          </div>
+                          <div class="col" style="padding: 0px">
+                            <p class="mb-1" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                              Discount </p>
+                            <p class="mb-2 text-primary fw-bold" style="text-align: center">
+                              {{item.itemDiscountType==='None' ? 'N/A' :
+                              item.itemDiscountType==='Cash' ? ('LKR '+item.itemDiscount) :
+                              item.itemDiscountType==='Percentage' ? (item.itemDiscount + '%') : ''}}
+                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-7" style="display: grid;justify-content: center;align-content: center">
-                      <div style="display: flex">
+                      <div style="display: flex;margin-top: 25px">
                         <div><i class="fi-minus-square" style="font-size: 35px;cursor: pointer"
-                                (click)="itemCountDec(item)"></i></div>
+                                (click)="itemCountDec(shop,item)"></i></div>
                         <div
                           style="padding-left: 30px;padding-right: 30px;font-weight: bold;font-size: 20px;padding-top: 2px">
                           {{item.itemCount}}
                         </div>
                         <div><i class="fi-plus-square" style="font-size: 35px;cursor: pointer"
-                                (click)="itemCountInc(item)"></i></div>
+                                (click)="itemCountInc(shop,item)"></i></div>
                       </div>
                     </div>
                     <!--</div>-->

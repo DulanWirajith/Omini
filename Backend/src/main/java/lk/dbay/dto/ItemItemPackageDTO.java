@@ -31,9 +31,12 @@ public class ItemItemPackageDTO extends DateTimeDTO {
     private List<ItemPackageDTO> itemPackages;
 
     public ItemItemPackageDTO(Item item, ItemPackage itemPackage, boolean needImage) {
-        this.name = item.getItemTitle();
-        this.item = new ItemDTO(item, needImage);
-        this.itemPackage = new ItemPackageDTO(itemPackage);
+        if (item != null) {
+            this.name = item.getItemTitle();
+            this.item = new ItemDTO(item, needImage);
+        }
+        if (itemPackage != null)
+            this.itemPackage = new ItemPackageDTO(itemPackage);
     }
 
     public ItemItemPackageDTO(List<Item> items, List<ItemPackage> itemPackages, boolean needImage) {
@@ -41,12 +44,15 @@ public class ItemItemPackageDTO extends DateTimeDTO {
         this.itemPackages = new ArrayList<>();
         for (Item item : items) {
             ItemDTO itemDTO = new ItemDTO(item, needImage);
-            itemDTO.setBusinessProfileCategory(new BusinessProfileCategoryDTO(item.getBusinessProfileCategory().getBusinessProfile(), null));
+            item.getBusinessProfileCategory().setBusinessCategory(null);
+            itemDTO.setBusinessProfileCategory(item);
             this.items.add(itemDTO);
         }
         for (ItemPackage itemPackage : itemPackages) {
-            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage, itemPackage.getBusinessProfileCategory(), itemPackage.getItemPackageImgs());
-            itemPackageDTO.setBusinessProfileCategory(new BusinessProfileCategoryDTO(itemPackage.getBusinessProfileCategory().getBusinessProfile(), null));
+            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
+            itemPackageDTO.setBusinessProfileCategory(itemPackage);
+            itemPackageDTO.setItemPackageImgs(itemPackage);
+//            itemPackageDTO.setBusinessProfileCategory(new BusinessProfileCategoryDTO(itemPackage.getBusinessProfileCategory().getBusinessProfile(), null));
             this.itemPackages.add(itemPackageDTO);
         }
 

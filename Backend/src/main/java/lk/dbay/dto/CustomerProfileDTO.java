@@ -2,6 +2,7 @@ package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.CustomerProfile;
+import lk.dbay.entity.DbayUser;
 import lombok.*;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -30,8 +31,14 @@ public class CustomerProfileDTO extends DateTimeDTO {
         }
     }
 
-    public CustomerProfileDTO(@NonNull CustomerProfile customerProfile, @NonNull DbayUserDTO dbayUser) {
-        this(customerProfile);
-        this.dbayUser = dbayUser;
+    public void setDbayUser(CustomerProfile customerProfile) {
+        if (customerProfile.getDbayUser() != null) {
+            this.dbayUser = new DbayUserDTO(customerProfile.getDbayUser());
+        }
     }
+
+//    public CustomerProfileDTO(@NonNull CustomerProfile customerProfile, @NonNull DbayUserDTO dbayUser) {
+//        this(customerProfile);
+//        this.dbayUser = dbayUser;
+//    }
 }

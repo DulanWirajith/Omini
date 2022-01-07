@@ -214,8 +214,10 @@ public class ItemSImpl implements ItemS {
             for (ItemFeature itemFeature : itemFeatureRAll) {
                 itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
             }
-            ItemDTO itemDTO = new ItemDTO(item, true, item.getBusinessProfileCategory(), item.getItemItemFeatures());
-            itemDTO.setItemFeatures(itemFeatureDTOS);
+            ItemDTO itemDTO = new ItemDTO(item, true);
+            itemDTO.setBusinessProfileCategory(item);
+            itemDTO.setItemItemFeatures(item);
+            itemDTO.setItemFeatures(item);
             return itemDTO;
         }
         return null;

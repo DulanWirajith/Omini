@@ -25,10 +25,12 @@ public class ItemPackageImgDTO extends DateTimeDTO {
     private String itemPackageImgType;
     private boolean thumbnail;
 
-    public ItemPackageImgDTO(@NonNull ItemPackageImg itemPackageImg) {
-        this.itemPackageImgId = itemPackageImg.getItemPackageImgId();
-        this.itemPackageImgName = itemPackageImg.getItemPackageImgName();
-        this.itemPackageImgType = itemPackageImg.getItemPackageImgType();
-        this.thumbnail = itemPackageImg.isThumbnail();
+    public ItemPackageImgDTO(ItemPackageImg itemPackageImg) {
+        if (itemPackageImg != null) {
+            this.itemPackageImgId = itemPackageImg.getItemPackageImgId();
+            this.itemPackageImgName = itemPackageImg.getItemPackageImgName();
+            this.itemPackageImgType = itemPackageImg.getItemPackageImgType();
+            this.thumbnail = itemPackageImg.isThumbnail();
+        }
     }
 }

@@ -38,7 +38,9 @@ public class CustomerProfileSImpl implements CustomerProfileS {
 
             dbayUserR.save(customerProfile.getDbayUser());
             customerProfileR.save(customerProfile);
-            return new CustomerProfileDTO(customerProfile, new DbayUserDTO(customerProfile.getDbayUser()));
+            CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
+            customerProfileDTO.setDbayUser(customerProfile);
+            return customerProfileDTO;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
@@ -50,7 +52,9 @@ public class CustomerProfileSImpl implements CustomerProfileS {
         Optional<CustomerProfile> customerProfileOptional = customerProfileR.findById(customerProfileId);
         if (customerProfileOptional.isPresent()) {
             CustomerProfile customerProfile = customerProfileOptional.get();
-            return new CustomerProfileDTO(customerProfile, new DbayUserDTO(customerProfile.getDbayUser()));
+            CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
+            customerProfileDTO.setDbayUser(customerProfile);
+            return customerProfileDTO;
         }
         return null;
     }
@@ -73,7 +77,9 @@ public class CustomerProfileSImpl implements CustomerProfileS {
 
                 dbayUserR.save(customerProfileObj.getDbayUser());
                 customerProfileR.save(customerProfileObj);
-                return new CustomerProfileDTO(customerProfileObj, new DbayUserDTO(customerProfileObj.getDbayUser()));
+                CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
+                customerProfileDTO.setDbayUser(customerProfile);
+                return customerProfileDTO;
             }
             return null;
         } catch (Exception e) {

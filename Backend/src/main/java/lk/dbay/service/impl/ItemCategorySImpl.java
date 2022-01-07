@@ -103,7 +103,10 @@ public class ItemCategorySImpl implements ItemCategoryS {
         Optional<ItemCategory> itemCategoryOptional = itemCategoryR.findById(categoryId);
         if (itemCategoryOptional.isPresent()) {
             ItemCategory itemCategory = itemCategoryOptional.get();
-            return new ItemCategoryDTO(itemCategory, itemCategory.getBusinessProfileCategory(), itemCategory.getItems(), true);
+            ItemCategoryDTO itemCategoryDTO = new ItemCategoryDTO(itemCategory);
+            itemCategoryDTO.setBusinessProfileCategory(itemCategory);
+            itemCategoryDTO.setItems(itemCategory, true);
+            return itemCategoryDTO;
         }
         return null;
     }
