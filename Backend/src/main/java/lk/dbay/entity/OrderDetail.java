@@ -38,6 +38,7 @@ public class OrderDetail extends DateTime {
     @ManyToOne
     private Item item;
 
+
 //    @ManyToOne
 //    private ItemCategory itemCategory;
 }

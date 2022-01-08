@@ -3,7 +3,9 @@ package lk.dbay.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.*;
 import lombok.*;
+import lombok.experimental.Tolerate;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ public class ItemOrderDTO extends DateTimeDTO {
     private String contactNumber;
     private LocalDateTime receivedTime;
     private CustomerProfileDTO customerProfile;
+    private List<OrderDetailDTO> orderDetails;
 
     public ItemOrderDTO(ItemOrder itemOrder) {
         if (itemOrder != null) {
@@ -36,6 +39,26 @@ public class ItemOrderDTO extends DateTimeDTO {
             this.status = itemOrder.getStatus();
             this.contactNumber = itemOrder.getContactNumber();
             this.receivedTime = itemOrder.getReceivedTime();
+        }
+    }
+
+    public void setCustomerProfile(ItemOrder itemOrder) {
+        if (itemOrder != null && itemOrder.getCustomerProfile() != null) {
+            this.customerProfile = new CustomerProfileDTO(itemOrder.getCustomerProfile());
+        }
+    }
+
+//    public void setOrderDetails(List<OrderDetailDTO> orderDetails) {
+//        this.orderDetails = orderDetails;
+//    }
+
+    @Tolerate
+    public void setOrderDetails(ItemOrder itemOrder) {
+        if (itemOrder != null) {
+            this.orderDetails = new ArrayList<>();
+            for (OrderDetail orderDetail : itemOrder.getOrderDetails()) {
+                this.orderDetails.add(new OrderDetailDTO(orderDetail));
+            }
         }
     }
 }

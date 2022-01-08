@@ -1,16 +1,13 @@
 package lk.dbay.service;
 
-import lk.dbay.dto.ItemDTO;
-import lk.dbay.dto.ItemImgDTO;
-import lk.dbay.dto.ItemItemPackageDTO;
-import lk.dbay.dto.ItemOrderDTO;
-import lk.dbay.entity.Item;
-import lk.dbay.entity.ItemOrder;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
+import lk.dbay.dto.*;
+import lk.dbay.entity.OrderDetail;
 
 public interface ItemOrderS {
 
-    ItemOrderDTO addOrder(ItemOrder itemOrder);
+    OrderDetailDTO addOrderDetail(OrderDetail orderDetail);
+
+    ItemOrderDTO getInCompletedOrder(String customerId);
+
+    OrderDetailDTO updateOrderDetail(OrderDetail orderDetail);
 }

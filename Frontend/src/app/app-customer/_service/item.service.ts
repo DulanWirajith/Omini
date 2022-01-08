@@ -33,6 +33,7 @@ export class ItemService {
   getNewItem() {
     return {
       itemId: "",
+      orderDetailId: '',
       itemTitle: "",
       itemQty: 1,
       itemCount: 0,

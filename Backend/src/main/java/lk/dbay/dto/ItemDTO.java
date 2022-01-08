@@ -3,6 +3,7 @@ package lk.dbay.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.*;
 import lombok.*;
+import lombok.experimental.Tolerate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,7 @@ public class ItemDTO extends DateTimeDTO {
             this.itemCategory = new ItemCategoryDTO(item.getItemCategory());
     }
 
+    @Tolerate
     public void setBusinessProfileCategory(Item item) {
         if (item.getBusinessProfileCategory() != null)
             this.businessProfileCategory = new BusinessProfileCategoryDTO(item.getBusinessProfileCategory().getBusinessProfile(), item.getBusinessProfileCategory().getBusinessCategory());

@@ -29,12 +29,18 @@ export class ItemPackageSearchResultComponent implements OnInit {
       })
       if (itemObj !== undefined) {
         itemObj.itemCount = item.itemCount;
+        console.log(item)
+        // itemObj.orderDetailId = item.orderDetailId;
       }
     })
-    this.shopCartService.initShopCartSub.observers = [];
-    this.shopCartService.initShopCartSub.subscribe((shopCart) => {
-      this.shopCart = shopCart;
-      this.setShopCart();
+    // this.shopCartService.initShopCartSub.observers = [];
+    this.shopCartService.initShopCartSub.subscribe((orderDetails) => {
+      // this.shopCart = shopCart;
+      // for (let orderDetail of orderDetails) {
+        //console.log(orderDetails)
+      //   console.log(orderDetail.item.itemCount)
+      // }
+      this.setShopCart(orderDetails);
     })
   }
 
@@ -47,7 +53,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
   }
 
   initShopCart() {
-    this.shopCart = this.shopCartService.shopCart;
+    // this.shopCart = this.shopCartService.shopCart;
     // if (this.shopCart.length === 0) {
     //   this.shopCartService.getCart('U20220102233339').subscribe((shopCart) => {
     //     this.shopCart = JSON.parse(shopCart.cartTxt);
@@ -55,7 +61,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
     //     this.setShopCart();
     //   })
     // } else {
-    this.setShopCart();
+    this.setShopCart(this.shopCartService.orderDetails);
     // }
     // if (this.items !== undefined) {
 
@@ -69,18 +75,23 @@ export class ItemPackageSearchResultComponent implements OnInit {
     // }
   }
 
-  setShopCart() {
-    //console.log(this.shopCart)
-    for (let cart of this.shopCart) {
-      for (let item of cart.items) {
-        let itemObj: any = this.items.find(itemObj => {
-          return itemObj.itemId === item.itemId
-        })
-        if (itemObj !== undefined) {
-          itemObj.itemCount = item.itemCount;
-        }
+  setShopCart(orderDetails) {
+    // for (let cart of this.shopCart) {
+    // console.log(orderDetails)
+    for (let orderDetail of orderDetails) {
+      let itemObj: any = this.items.find(itemObj => {
+        return itemObj.itemId === orderDetail.item.itemId
+      })
+      if (itemObj !== undefined) {
+        // console.log(orderDetail.item.itemCount)
+        // console.log(orderDetail.item)
+        itemObj.itemCount = orderDetail.item.itemCount;
+        // console.log(7)
+        // console.log(itemObj)
+        // console.log(orderDetail.item.itemCount)
       }
     }
+    // }
   }
 
   toggleBtns() {
@@ -112,7 +123,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
         // console.log(that.itemPackages[index])
         for (let item of itemPackage.itemItemPackages) {
           // console.log(item.item)
-          item.item.businessProfileCategory=that.itemPackages[index].businessProfileCategory;
+          item.item.businessProfileCategory = that.itemPackages[index].businessProfileCategory;
           that.itemPackages[index].items.push(item.item);
         }
         that.itemPackages[index].tempItems = itemPackage.itemItemPackages;

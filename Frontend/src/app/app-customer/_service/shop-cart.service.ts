@@ -12,6 +12,7 @@ export class ShopCartService {
 
   shopCartSub = new Subject<any>();
   shopCart = [];
+  orderDetails = [];
   shopCartItemsSub = new Subject<any>();
   initShopCartSub = new Subject<any>();
 
@@ -26,14 +27,44 @@ export class ShopCartService {
     return this.http.get<any>(environment.backend_url + 'customer_profile/getCart/' + cartId);
   }
 
-  addOrder(order) {
-    return this.http.post<any>(environment.backend_url + 'item_order/addOrder', order);
+  addOrderDetail(order) {
+    return this.http.post<any>(environment.backend_url + 'item_order/addOrderDetail', order);
   }
 
-  // getNewShopCart(){
-  //   return {
-  //     shop: "",
-  //     items: []
-  //   }
-  // }
+  updateOrderDetail(orderDetail) {
+    return this.http.put<any>(environment.backend_url + 'item_order/updateOrderDetail', orderDetail);
+  }
+
+  getOrder(customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_order/getIncOrder/' + customerId);
+  }
+
+  getNewItemOrder() {
+    return {
+      orderId: '',
+      // orderDate: '',
+      amount: 0,
+      discount: 0,
+      qty: 0,
+      status: '',
+      // receivedTime: '',
+      customerProfile: {
+        customerProId: ''
+      },
+      orderDetails: []
+    }
+  }
+
+  getNewOrderDetail() {
+    return {
+      orderDetailId: '',
+      quantity: 0,
+      price: 0,
+      discount: 0,
+      orderDetailType: '',
+      itemOrder: undefined,
+      itemPackage: undefined,
+      item: undefined
+    }
+  }
 }
