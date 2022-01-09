@@ -81,9 +81,9 @@
                     class="btn btn-icon btn-sm text-primary rounded-circle"
                     type="button" data-bs-toggle="tooltip" title="Add to Cart" (click)="addToCart(item)">
               <i class="fi-cart" style="color: white"></i></button>
-            <div *ngIf="item.itemCount>0"
+            <div *ngIf="item.orderDetail.quantity>0"
                  style="padding: 2px 5px 2px 5px;color: #1b945b;margin-top: 4px;margin-left: 8px;font-weight: bold">
-              {{item.itemCount}}
+              {{item.orderDetail.quantity}}
             </div>
           </div>
         </div>

@@ -46,6 +46,7 @@ public class ItemItemPackageDTO extends DateTimeDTO {
             ItemDTO itemDTO = new ItemDTO(item, needImage);
             item.getBusinessProfileCategory().setBusinessCategory(null);
             itemDTO.setBusinessProfileCategory(item);
+            itemDTO.setOrderDetail(new OrderDetailDTO());
             this.items.add(itemDTO);
         }
         for (ItemPackage itemPackage : itemPackages) {

@@ -31,12 +31,16 @@ export class ShopCartService {
     return this.http.post<any>(environment.backend_url + 'item_order/addOrderDetail', order);
   }
 
-  updateOrderDetail(orderDetail) {
-    return this.http.put<any>(environment.backend_url + 'item_order/updateOrderDetail', orderDetail);
+  updateOrderDetail(updateType, orderDetail) {
+    return this.http.put<any>(environment.backend_url + 'item_order/updateOrderDetail/' + updateType, orderDetail);
   }
 
   getOrder(customerId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_order/getIncOrder/' + customerId);
+  }
+
+  placeOrder(orderId) {
+    return this.http.post<any>(environment.backend_url + 'item_order/placeOrder', orderId);
   }
 
   getNewItemOrder() {

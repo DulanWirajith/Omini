@@ -31,6 +31,7 @@ public class ItemDTO extends DateTimeDTO {
     private List<ItemItemFeatureDTO> itemItemFeatures;
     private List<ItemFeatureDTO> itemFeatures;
     private List<ItemImgDTO> itemImgs;
+    private OrderDetailDTO orderDetail;
 
 //    private byte[] itemImg;
 //    private String itemImgName;

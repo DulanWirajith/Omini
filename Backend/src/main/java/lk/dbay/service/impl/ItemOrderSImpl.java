@@ -6,6 +6,7 @@ import lk.dbay.repository.*;
 import lk.dbay.service.ItemOrderS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +19,8 @@ public class ItemOrderSImpl implements ItemOrderS {
     private ItemOrderR itemOrderR;
     @Autowired
     private OrderDetailR orderDetailR;
+    @Autowired
+    private ItemR itemR;
 
     @Override
     public OrderDetailDTO addOrderDetail(OrderDetail orderDetail) {
@@ -108,16 +111,55 @@ public class ItemOrderSImpl implements ItemOrderS {
     }
 
     @Override
-    public OrderDetailDTO updateOrderDetail(OrderDetail orderDetail) {
+    public OrderDetailDTO updateOrderDetail(OrderDetail orderDetail, String updateType) {
         Optional<OrderDetail> orderDetailOptional = orderDetailR.findById("ODD" + orderDetail.getItemOrder().getOrderId() + orderDetail.getItem().getItemId());
         if (orderDetailOptional.isPresent()) {
             OrderDetail orderDetailObj = orderDetailOptional.get();
-            orderDetailObj.setQuantity(orderDetail.getQuantity());
+            if (updateType.equals("inc")) {
+                orderDetailObj.setQuantity(orderDetail.getQuantity() + 1);
+            } else if (updateType.equals("dec")) {
+                orderDetailObj.setQuantity(orderDetail.getQuantity() - 1);
+            }
             orderDetailR.save(orderDetailObj);
             OrderDetailDTO orderDetailDTO = new OrderDetailDTO(orderDetailObj);
             orderDetailDTO.setItemOrder(orderDetailObj);
             orderDetailDTO.setItemPackage(orderDetailObj);
             return orderDetailDTO;
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public ItemOrderDTO placeOrder(ItemOrder itemOrder) throws Exception {
+        Optional<ItemOrder> itemOrderOptional = itemOrderR.findById(itemOrder.getOrderId());
+        if (itemOrderOptional.isPresent()) {
+            ItemOrder itemOrderObj = itemOrderOptional.get();
+            itemOrderObj.setStatus("Pending");
+            itemOrderR.save(itemOrderObj);
+            List<Item> items = new ArrayList<>();
+            String itemsNotAvailable = "";
+            for (OrderDetail orderDetail : itemOrder.getOrderDetails()) {
+                Optional<Item> itemOptional = itemR.findById(orderDetail.getItem().getItemId());
+                if (itemOptional.isPresent()) {
+                    Item item = itemOptional.get();
+                    int itemQty = item.getItemQty() - orderDetail.getQuantity();
+                    if (itemQty > 0) {
+                        item.setItemQty(itemQty);
+                        items.add(item);
+                    } else {
+                        itemsNotAvailable += item.getItemTitle() + ", ";
+                    }
+                }
+            }
+            if (!itemsNotAvailable.equals("")) {
+                throw new Exception(itemsNotAvailable + " not available in stock now.");
+            }
+            if (items.size() > 0) {
+                itemR.saveAll(items);
+            }
+            itemR.saveAll(items);
+            return new ItemOrderDTO(itemOrderObj);
         }
         return null;
     }

@@ -17,7 +17,9 @@ export class ItemPackageSearchResultComponent implements OnInit {
   items = [];
   itemPackages = [];
   itemCount = 0;
-  shopCart;
+  orderDetails = [];
+
+  // shopCart;
 
   constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService) {
     // config.showNavigationArrows = true;
@@ -28,8 +30,9 @@ export class ItemPackageSearchResultComponent implements OnInit {
         return itemObj.itemId === item.itemId
       })
       if (itemObj !== undefined) {
-        itemObj.itemCount = item.itemCount;
-        console.log(item)
+        itemObj.orderDetail.quantity = item.orderDetail.quantity;
+        // itemObj.itemCount = item.itemCount;
+        //console.log(item)
         // itemObj.orderDetailId = item.orderDetailId;
       }
     })
@@ -37,15 +40,17 @@ export class ItemPackageSearchResultComponent implements OnInit {
     this.shopCartService.initShopCartSub.subscribe((orderDetails) => {
       // this.shopCart = shopCart;
       // for (let orderDetail of orderDetails) {
-        //console.log(orderDetails)
+      //console.log(orderDetails)
       //   console.log(orderDetail.item.itemCount)
       // }
-      this.setShopCart(orderDetails);
+      this.orderDetails = orderDetails;
+      // this.setShopCart(orderDetails);
     })
   }
 
   ngOnInit(): void {
     this.items = this.itemService.searchedItemPackages.items;
+    // console.log(this.items)
     this.itemCount = this.items.length;
     this.itemPackages = this.itemService.searchedItemPackages.itemPackages;
     this.toggleBtns();
@@ -85,7 +90,8 @@ export class ItemPackageSearchResultComponent implements OnInit {
       if (itemObj !== undefined) {
         // console.log(orderDetail.item.itemCount)
         // console.log(orderDetail.item)
-        itemObj.itemCount = orderDetail.item.itemCount;
+        itemObj.orderDetail.quantity = orderDetail.quantity;
+        // itemObj.itemCount = orderDetail.item.itemCount;
         // console.log(7)
         // console.log(itemObj)
         // console.log(orderDetail.item.itemCount)
@@ -139,37 +145,37 @@ export class ItemPackageSearchResultComponent implements OnInit {
     }
   }
 
-  getItemSelected(item) {
-    // console.log(item.itemId)
-    let index: any = this.items.findIndex(itemObj => {
-      return itemObj.itemId === item.itemId
-    })
-    // console.log(this.items[index])
-    if (this.items[index].itemItemFeatures === undefined) {
-      this.itemService.getItemSelected(item.itemId).subscribe((item) => {
-        // Object.assign(this.items[index], item)
-        // item.itemImgsRaw = [];
-        // item.itemItemFeatures = [];
-        // item.businessProfileCategory = {
-        //   businessProfile: undefined,
-        //   businessCategory: undefined
-        // }
-        // if (item.itemDiscountType === "None") {
-        //   item.itemDiscountView = "N/A";
-        // } else if (item.itemDiscountType === "Cash") {
-        //   item.itemDiscountView = "LKR " + item.itemDiscount;
-        // } else if (item.itemDiscountType === "Percentage") {
-        //   item.itemDiscountView = item.itemDiscount + "%";
-        // }
-        this.items[index] = item;
-        // this.itemService.itemFeaturesSub.next(item.itemFeatures);
-        this.itemService.itemSub.next(this.items[index]);
-        //console.log(this.items[index])
-      })
-    } else {
-      this.itemService.itemSub.next(this.items[index]);
-    }
-  }
+  // getItemSelected(item) {
+  //   // console.log(item.itemId)
+  //   let index: any = this.items.findIndex(itemObj => {
+  //     return itemObj.itemId === item.itemId
+  //   })
+  //   // console.log(this.items[index])
+  //   if (this.items[index].itemItemFeatures === undefined) {
+  //     this.itemService.getItemSelected(item.itemId).subscribe((item) => {
+  //       // Object.assign(this.items[index], item)
+  //       // item.itemImgsRaw = [];
+  //       // item.itemItemFeatures = [];
+  //       // item.businessProfileCategory = {
+  //       //   businessProfile: undefined,
+  //       //   businessCategory: undefined
+  //       // }
+  //       // if (item.itemDiscountType === "None") {
+  //       //   item.itemDiscountView = "N/A";
+  //       // } else if (item.itemDiscountType === "Cash") {
+  //       //   item.itemDiscountView = "LKR " + item.itemDiscount;
+  //       // } else if (item.itemDiscountType === "Percentage") {
+  //       //   item.itemDiscountView = item.itemDiscount + "%";
+  //       // }
+  //       this.items[index] = item;
+  //       // this.itemService.itemFeaturesSub.next(item.itemFeatures);
+  //       this.itemService.itemSub.next(this.items[index]);
+  //       //console.log(this.items[index])
+  //     })
+  //   } else {
+  //     this.itemService.itemSub.next(this.items[index]);
+  //   }
+  // }
 
   getImageSrc(itemImg) {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;

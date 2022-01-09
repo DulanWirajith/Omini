@@ -43,10 +43,10 @@ public class ItemOrderController {
         return ResponseEntity.ok(itemOrderS.getInCompletedOrder(customerId));
     }
 
-    @PutMapping(value = "/updateOrderDetail")
-    public ResponseEntity updateOrderDetail(@RequestBody OrderDetail orderDetail) {
+    @PutMapping(value = "/updateOrderDetail/{updateType}")
+    public ResponseEntity updateOrderDetail(@RequestBody OrderDetail orderDetail, @PathVariable String updateType) {
         try {
-            OrderDetailDTO orderDetailDTO = itemOrderS.updateOrderDetail(orderDetail);
+            OrderDetailDTO orderDetailDTO = itemOrderS.updateOrderDetail(orderDetail, updateType);
             if (orderDetailDTO != null) {
                 return ResponseEntity.ok(orderDetailDTO);
             } else {
@@ -58,5 +58,21 @@ public class ItemOrderController {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping(value = "/placeOrder")
+    public ResponseEntity placeOrder(@RequestBody ItemOrder itemOrder) {
+        try {
+            ItemOrderDTO itemOrderDTO = itemOrderS.placeOrder(itemOrder);
+            if (itemOrderDTO != null) {
+                return ResponseEntity.ok(itemOrderDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+//        return ResponseEntity.ok(itemOrderS.placeOrder(itemOrder));
     }
 }

@@ -120,3 +120,29 @@ SELECT `item_item_feature`.`item_feature_id`,
 FROM `dbay`.`item_item_feature`;
 
 UPDATE `dbay`.`item_feature` SET `confirmed` = true WHERE (`item_feature_id` = 'ITF20211208230630');
+
+SELECT `item_order`.`order_id`,
+    `item_order`.`created_at`,
+    `item_order`.`updated_at`,
+    `item_order`.`amount`,
+    `item_order`.`contact_number`,
+    `item_order`.`discount`,
+    `item_order`.`order_date`,
+    `item_order`.`received_time`,
+    `item_order`.`status`,
+    `item_order`.`customer_profile_customer_pro_id`,
+    `item_order`.`qty`
+FROM `dbay`.`item_order`;
+
+
+SELECT `order_detail`.`order_detail_id`,
+    `order_detail`.`created_at`,
+    `order_detail`.`updated_at`,
+    `order_detail`.`discount`,
+    `order_detail`.`price`,
+    `order_detail`.`quantity`,
+    `order_detail`.`item_item_id`,
+    `order_detail`.`item_order_order_id`,
+    `order_detail`.`item_package_item_package_id`,
+    `order_detail`.`order_detail_type`
+FROM `dbay`.`order_detail`;

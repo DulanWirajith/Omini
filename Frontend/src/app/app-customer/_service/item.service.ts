@@ -3,6 +3,7 @@ import {Observable, Subject} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {CommonService} from "../../_service/common.service";
+import {ShopCartService} from "./shop-cart.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ItemService {
     itemPackages: []
   };
 
-  constructor(private http: HttpClient, private commonService: CommonService) {
+  constructor(private http: HttpClient, private commonService: CommonService, private shopCartService: ShopCartService) {
   }
 
   getItemsPackagesBySearch(txt, category): Observable<any> {
@@ -53,6 +54,7 @@ export class ItemService {
       itemItemFeatures: [],
       isNewItem: false,
       isUpdateItem: false,
+      orderDetail: undefined
     }
   }
 }

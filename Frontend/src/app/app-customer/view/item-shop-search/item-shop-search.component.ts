@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CustomerAccountService} from "../../_service/customer-account.service";
 import {ItemService} from "../../_service/item.service";
 import {Router} from "@angular/router";
+import {ShopCartService} from "../../_service/shop-cart.service";
 
 @Component({
   selector: 'app-item-shop-search',
@@ -14,7 +15,7 @@ export class ItemShopSearchComponent implements OnInit {
   txt;
   businessCategories = [];
 
-  constructor(private customerAccountService: CustomerAccountService, private itemService: ItemService, private router: Router) {
+  constructor(private customerAccountService: CustomerAccountService, private itemService: ItemService, private router: Router, private shopCartService: ShopCartService) {
   }
 
   ngOnInit(): void {
@@ -24,6 +25,10 @@ export class ItemShopSearchComponent implements OnInit {
   searchItem() {
     if (this.categorySelected !== undefined) {
       this.itemService.getItemsPackagesBySearch(this.txt, this.categorySelected.businessCategoryId).subscribe((searchedItemPackages) => {
+        // console.log(searchedItemPackages)
+        // for (let i = 0; i < searchedItemPackages.items.length; i++) {
+        //   searchedItemPackages.items[i].orderDetail = this.shopCartService.getNewOrderDetail();
+        // }
         this.itemService.searchedItemPackages = searchedItemPackages;
         this.router.navigate(['customer/header/search_result/item_package_search_result'])
         // console.log(items)
