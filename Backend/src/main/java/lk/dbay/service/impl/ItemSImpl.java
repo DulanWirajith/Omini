@@ -1,9 +1,6 @@
 package lk.dbay.service.impl;
 
-import lk.dbay.dto.ItemDTO;
-import lk.dbay.dto.ItemFeatureDTO;
-import lk.dbay.dto.ItemImgDTO;
-import lk.dbay.dto.ItemItemPackageDTO;
+import lk.dbay.dto.*;
 import lk.dbay.entity.*;
 import lk.dbay.repository.*;
 import lk.dbay.service.ItemS;
@@ -66,12 +63,12 @@ public class ItemSImpl implements ItemS {
             Optional<Item> itemOptional = itemR.findById(itemId);
             if (itemOptional.isPresent()) {
                 Item itemObj = itemOptional.get();
-                itemObj.setItemTitle(item.getItemTitle());
-                itemObj.setItemQty(item.getItemQty());
-                itemObj.setItemPrice(item.getItemPrice());
-                itemObj.setItemDescription(item.getItemDescription());
-                itemObj.setItemDiscount(item.getItemDiscount());
-                itemObj.setItemDiscountType(item.getItemDiscountType());
+                itemObj.setName(item.getName());
+                itemObj.setQuantity(item.getQuantity());
+                itemObj.setPrice(item.getPrice());
+                itemObj.setDescription(item.getDescription());
+                itemObj.setDiscount(item.getDiscount());
+                itemObj.setDiscountType(item.getDiscountType());
                 itemObj.setBusinessProfileCategory(item.getBusinessProfileCategory());
                 itemObj.getBusinessProfileCategory().setBusinessProfileCategoryId(
                         new BusinessProfileCategoryPK(itemObj.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(), itemObj.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId())
@@ -218,6 +215,7 @@ public class ItemSImpl implements ItemS {
             itemDTO.setBusinessProfileCategory(item);
             itemDTO.setItemItemFeatures(item);
             itemDTO.setItemFeatures(item);
+//            itemDTO.setOrderDetail(new OrderDetailDTO());
             return itemDTO;
         }
         return null;
@@ -228,9 +226,9 @@ public class ItemSImpl implements ItemS {
         Optional<Item> itemOptional = itemR.findById(itemId);
         if (itemOptional.isPresent()) {
             Item item = itemOptional.get();
-            item.setItemAvailable(!item.isItemAvailable());
+            item.setAvailable(!item.isAvailable());
             itemR.save(item);
-            return item.isItemAvailable();
+            return item.isAvailable();
         }
         return false;
     }

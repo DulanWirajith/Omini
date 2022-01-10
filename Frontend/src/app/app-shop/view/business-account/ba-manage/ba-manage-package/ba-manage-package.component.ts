@@ -126,7 +126,7 @@ export class BaManagePackageComponent implements OnInit {
     for (let i = 0; i < this.itemPackage.itemItemPackages.length; i++) {
       if (this.itemPackage.itemItemPackages[i].itemPackage === undefined) {
         this.itemPackage.itemItemPackages[i] = {
-          name: this.itemPackage.itemItemPackages[i].itemTitle,
+          name: this.itemPackage.itemItemPackages[i].name,
           item: this.itemPackage.itemItemPackages[i],
           itemPackage: {
             itemPackageId: this.itemPackage.itemPackageId
@@ -138,7 +138,7 @@ export class BaManagePackageComponent implements OnInit {
     for (let i = 0; i < this.itemPackage.itemPackageItemPackageFeatures.length; i++) {
       if (this.itemPackage.itemPackageItemPackageFeatures[i].itemPackageFeature === undefined) {
         this.itemPackage.itemPackageItemPackageFeatures[i] = {
-          name: this.itemPackage.itemItemPackages[i].itemTitle,
+          name: this.itemPackage.itemItemPackages[i].name,
           itemPackageFeature: this.itemPackage.itemPackageItemPackageFeatures[i],
           itemPackage: {
             itemPackageId: this.itemPackage.itemPackageId

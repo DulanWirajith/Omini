@@ -2,7 +2,7 @@
 <div class="offcanvas offcanvas-end" id="item-viewer" style="width:50rem;">
   <div class="offcanvas-header d-block border-bottom">
     <div class="d-flex align-items-center justify-content-between">
-      <h2 class="h5 mb-0">{{item.itemTitle}}</h2>
+      <h2 class="h5 mb-0">{{item.name}}</h2>
       <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
     </div>
 
@@ -137,16 +137,16 @@
             <div style="background-color: rgba(229,66,5,0.44)">
               <span class="mb-2 fs-sm text-dark fw-bold">Discount </span>
               <div class="fs-sm fw-bold" style="color: #b94701">
-                {{item.itemDiscountType==='None' ? 'N/A' :
-                item.itemDiscountType==='Cash' ? ('LKR '+item.itemDiscount) :
-                item.itemDiscountType==='Percentage' ? (item.itemDiscount + '%') : ''}}
+                {{item.discountType==='None' ? 'N/A' :
+                item.discountType==='Cash' ? ('LKR '+item.discount) :
+                item.discountType==='Percentage' ? (item.discount + '%') : ''}}
               </div>
             </div>
           </div>
           <div class="col">
             <div style="background-color: rgba(229,101,2,0.44)">
               <span class="mb-2 fs-sm text-dark fw-bold">Price </span>
-              <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR '+item.itemPrice}}</div>
+              <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR '+item.price}}</div>
             </div>
           </div>
         </div>
@@ -154,7 +154,7 @@
         <div class="row cols-md-12 mt-3">
           <p class="mb-2 fs-sm text-dark fw-bold">Overview </p>
           <div class="col">
-            <p class="mb-2 fs-sm text-muted">{{item.itemDescription}} </p>
+            <p class="mb-2 fs-sm text-muted">{{item.description}} </p>
           </div>
         </div>
 
@@ -188,7 +188,7 @@
                   type="text"
                   placeholder="Title"
                   required
-                  [(ngModel)]="item.itemTitle" #itemTitleE="ngModel" name="itemTitle"
+                  [(ngModel)]="item.name" #itemTitleE="ngModel" name="itemTitle"
                 />
                 <div *ngIf="(itemTitleE.touched || baManageFormItemE.submitted) && itemTitleE.errors?.required"
                      class="validErr">
@@ -236,7 +236,7 @@
                 </a>
                 <select
                   class="form-select"
-                  [(ngModel)]="item.itemDiscountType" #itemDiscountTypeE="ngModel" name="itemDiscountType"
+                  [(ngModel)]="item.discountType" #itemDiscountTypeE="ngModel" name="itemDiscountType"
                 >
                   <option value="None">None</option>
                   <option value="Cash">Cash</option>
@@ -248,7 +248,7 @@
                   Discount type is required
                 </div>
               </div>
-              <div class="col-md-4 mb-3" *ngIf="item.itemDiscountType!=='None'">
+              <div class="col-md-4 mb-3" *ngIf="item.discountType!=='None'">
                 <label class="form-label" for="validationTooltip04"
                 >Discount</label
                 >
@@ -261,7 +261,7 @@
                   type="number"
                   placeholder="Discount"
                   required
-                  [(ngModel)]="item.itemDiscount" #itemDiscountE="ngModel" name="itemDiscount"
+                  [(ngModel)]="item.discount" #itemDiscountE="ngModel" name="discount"
                 />
                 <div *ngIf="(itemDiscountE.touched || baManageFormItemE.submitted) && itemDiscountE.errors?.required"
                      class="validErr">
@@ -288,7 +288,7 @@
                 <div class="input-group">
                   <span class="input-group-text fs-lg py-1">LKR</span>
                   <input type="number" class="form-control" placeholder="Amount"
-                         required [(ngModel)]="item.itemPrice" #itemPriceE="ngModel" name="itemPrice">
+                         required [(ngModel)]="item.price" #itemPriceE="ngModel" name="itemPrice">
                   <!--<span class="input-group-text">.00</span>-->
                 </div>
                 <div *ngIf="(itemPriceE.touched || baManageFormItemE.submitted) && itemPriceE.errors?.required"
@@ -415,7 +415,7 @@
                    aria-label="Small description about your item."><i class="fi-help"></i>
                 </a>
                 <textarea class="form-control" rows="5" placeholder="Description"
-                          [(ngModel)]="item.itemDescription" name="itemDescription"></textarea>
+                          [(ngModel)]="item.description" name="itemDescription"></textarea>
                 <div class="invalid-tooltip">
                   Please fill item discount
                 </div>

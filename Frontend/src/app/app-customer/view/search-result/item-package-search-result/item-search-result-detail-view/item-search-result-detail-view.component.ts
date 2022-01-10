@@ -34,10 +34,10 @@ export class ItemSearchResultDetailViewComponent implements OnInit {
   }
 
   calcDiscount(item) {
-    if (item.itemDiscountType === 'Cash') {
-      return item.itemPrice - item.itemDiscountType;
-    } else if (item.itemDiscountType === 'Percentage') {
-      return item.itemPrice * ((100 - item.itemDiscount) / 100);
+    if (item.discountType === 'Cash') {
+      return item.price - item.discountType;
+    } else if (item.discountType === 'Percentage') {
+      return item.price * ((100 - item.discount) / 100);
     }
     return '';
   }

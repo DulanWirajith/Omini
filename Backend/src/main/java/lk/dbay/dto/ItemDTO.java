@@ -17,14 +17,14 @@ import java.util.Set;
 public class ItemDTO extends DateTimeDTO {
 
     private String itemId;
-    private String itemTitle;
     private String name;
-    private int itemQty;
-    private int itemCount;
-    private double itemPrice;
-    private String itemDescription;
-    private double itemDiscount;
-    private String itemDiscountType;
+    private int quantity;
+    private double price;
+    private String description;
+    private double discount;
+    private String discountType;
+    private boolean confirmed;
+    private boolean available;
     private ItemCategoryDTO itemCategory;
     private boolean itemAvailable;
     private BusinessProfileCategoryDTO businessProfileCategory;
@@ -39,14 +39,15 @@ public class ItemDTO extends DateTimeDTO {
 
     public ItemDTO(Item item, boolean needImage) {
         if (item != null) {
-            this.name = item.getItemTitle();
             this.itemId = item.getItemId();
-            this.itemTitle = item.getItemTitle();
-            this.itemQty = item.getItemQty();
-            this.itemPrice = item.getItemPrice();
-            this.itemDescription = item.getItemDescription();
-            this.itemDiscountType = item.getItemDiscountType();
-            this.itemDiscount = item.getItemDiscount();
+            this.name = item.getName();
+            this.quantity = item.getQuantity();
+            this.price = item.getPrice();
+            this.description = item.getDescription();
+            this.discountType = item.getDiscountType();
+            this.discount = item.getDiscount();
+            this.confirmed = item.isConfirmed();
+            this.available = item.isAvailable();
 //        if (this.itemDiscountType.equals("None")) {
 //            this.itemDiscount = "N/A";
 //        } else if (this.itemDiscountType.equals("Cash")) {
@@ -54,7 +55,6 @@ public class ItemDTO extends DateTimeDTO {
 //        } else if (this.itemDiscountType.equals("Percentage")) {
 //            this.itemDiscount = item.getItemDiscount() + "%";
 //        }
-            this.itemAvailable = item.isItemAvailable();
             if (needImage) {
                 List<ItemImgDTO> itemImgs = new ArrayList<>();
                 for (ItemImg itemImg : item.getItemImgs()) {

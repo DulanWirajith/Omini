@@ -15,21 +15,22 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"itemTitle", "businessProId", "businessCategoryId"}, name = "ItemTitle")
+        @UniqueConstraint(columnNames = {"name", "businessProId", "businessCategoryId"}, name = "ItemTitle")
 })
 public class Item extends DateTime {
 
     @Id
     private String itemId;
-    private String itemTitle;
-    private int itemQty;
-    private double itemPrice;
+    private String name;
+    private int quantity;
+    private double price;
 //    @Lob
     @Column(columnDefinition = "TEXT")
-    private String itemDescription;
-    private double itemDiscount;
-    private String itemDiscountType;
-    private boolean itemAvailable;
+    private String description;
+    private double discount;
+    private String discountType;
+    private boolean confirmed;
+    private boolean available;
 
     @ManyToOne(optional = false)
     @JoinColumns({

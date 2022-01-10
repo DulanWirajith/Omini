@@ -97,10 +97,17 @@ public class ItemOrderSImpl implements ItemOrderS {
             List<OrderDetailDTO> orderDetailDTOS = new ArrayList<>();
             for (OrderDetail orderDetail : itemOrder.getOrderDetails()) {
                 OrderDetailDTO orderDetailDTO = new OrderDetailDTO(orderDetail);
-                ItemDTO itemDTO = new ItemDTO(orderDetail.getItem(), false);
-                BusinessProfileCategoryDTO businessProfileCategoryDTO = new BusinessProfileCategoryDTO(orderDetail.getItem().getBusinessProfileCategory().getBusinessProfile(), null);
-                itemDTO.setBusinessProfileCategory(businessProfileCategoryDTO);
-                orderDetailDTO.setItem(itemDTO);
+                if (orderDetail.getOrderDetailType().equals("Item")) {
+                    ItemDTO itemDTO = new ItemDTO(orderDetail.getItem(), false);
+                    BusinessProfileCategoryDTO businessProfileCategoryDTO = new BusinessProfileCategoryDTO(orderDetail.getItem().getBusinessProfileCategory().getBusinessProfile(), null);
+                    itemDTO.setBusinessProfileCategory(businessProfileCategoryDTO);
+                    orderDetailDTO.setItem(itemDTO);
+                } else if (orderDetail.getOrderDetailType().equals("ItemPackage")) {
+                    ItemPackageDTO itemPackageDTO = new ItemPackageDTO(orderDetail.getItemPackage());
+                    BusinessProfileCategoryDTO businessProfileCategoryDTO = new BusinessProfileCategoryDTO(orderDetail.getItemPackage().getBusinessProfileCategory().getBusinessProfile(), null);
+                    itemPackageDTO.setBusinessProfileCategory(businessProfileCategoryDTO);
+                    orderDetailDTO.setItemPackage(itemPackageDTO);
+                }
                 orderDetailDTOS.add(orderDetailDTO);
             }
 
@@ -112,7 +119,13 @@ public class ItemOrderSImpl implements ItemOrderS {
 
     @Override
     public OrderDetailDTO updateOrderDetail(OrderDetail orderDetail, String updateType) {
-        Optional<OrderDetail> orderDetailOptional = orderDetailR.findById("ODD" + orderDetail.getItemOrder().getOrderId() + orderDetail.getItem().getItemId());
+        String itemId = "";
+        if (orderDetail.getOrderDetailType().equals("Item")) {
+            itemId = orderDetail.getItem().getItemId();
+        } else if (orderDetail.getOrderDetailType().equals("ItemPackage")) {
+            itemId = orderDetail.getItemPackage().getItemPackageId();
+        }
+        Optional<OrderDetail> orderDetailOptional = orderDetailR.findById("ODD" + orderDetail.getItemOrder().getOrderId() + itemId);
         if (orderDetailOptional.isPresent()) {
             OrderDetail orderDetailObj = orderDetailOptional.get();
             if (updateType.equals("inc")) {
@@ -140,15 +153,17 @@ public class ItemOrderSImpl implements ItemOrderS {
             List<Item> items = new ArrayList<>();
             String itemsNotAvailable = "";
             for (OrderDetail orderDetail : itemOrder.getOrderDetails()) {
-                Optional<Item> itemOptional = itemR.findById(orderDetail.getItem().getItemId());
-                if (itemOptional.isPresent()) {
-                    Item item = itemOptional.get();
-                    int itemQty = item.getItemQty() - orderDetail.getQuantity();
-                    if (itemQty > 0) {
-                        item.setItemQty(itemQty);
-                        items.add(item);
-                    } else {
-                        itemsNotAvailable += item.getItemTitle() + ", ";
+                if (orderDetail.getOrderDetailType().equals("Item")) {
+                    Optional<Item> itemOptional = itemR.findById(orderDetail.getItem().getItemId());
+                    if (itemOptional.isPresent()) {
+                        Item item = itemOptional.get();
+                        int itemQty = item.getQuantity() - orderDetail.getQuantity();
+                        if (itemQty > 0) {
+                            item.setQuantity(itemQty);
+                            items.add(item);
+                        } else {
+                            itemsNotAvailable += item.getName() + ", ";
+                        }
                     }
                 }
             }

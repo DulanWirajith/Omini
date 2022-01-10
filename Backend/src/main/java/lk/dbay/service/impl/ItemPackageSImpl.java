@@ -48,6 +48,7 @@ public class ItemPackageSImpl implements ItemPackageS {
             businessProfileCategory.setBusinessProfileCategoryId(
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
+            itemPackage.setQuantity(-1);
             addItemsToItemPackage(itemPackage);
             addFeaturesToItemPackage(itemPackage);
             addImagesToItemPackage(itemPackage, files);

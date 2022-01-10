@@ -3,6 +3,7 @@ package lk.dbay.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.*;
 import lombok.*;
+import lombok.experimental.Tolerate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,25 +18,30 @@ public class ItemPackageDTO extends DateTimeDTO {
 
     private String itemPackageId;
     private String name;
-    private String description;
-    private int itemPackageCount;
+    private int quantity;
     private double price;
+    private String description;
     private double discount;
     private String discountType;
+    private boolean confirmed;
+    private boolean available;
     private List<ItemItemPackageDTO> itemItemPackages;
     private List<ItemPackageImgDTO> itemPackageImgs;
     private List<ItemPackageItemPackageFeatureDTO> itemPackageItemPackageFeatures;
     private BusinessProfileCategoryDTO businessProfileCategory;
-
+    private OrderDetailDTO orderDetail;
 
     public ItemPackageDTO(ItemPackage itemPackage) {
         if (itemPackage != null) {
             this.itemPackageId = itemPackage.getItemPackageId();
             this.name = itemPackage.getName();
+            this.quantity = itemPackage.getQuantity();
             this.description = itemPackage.getDescription();
             this.price = itemPackage.getPrice();
             this.discount = itemPackage.getDiscount();
             this.discountType = itemPackage.getDiscountType();
+            this.confirmed = itemPackage.isConfirmed();
+            this.available = itemPackage.isAvailable();
         }
     }
 
@@ -60,6 +66,7 @@ public class ItemPackageDTO extends DateTimeDTO {
         }
     }
 
+    @Tolerate
     public void setBusinessProfileCategory(ItemPackage itemPackage) {
         if (itemPackage.getBusinessProfileCategory() != null)
             this.businessProfileCategory = new BusinessProfileCategoryDTO(itemPackage.getBusinessProfileCategory().getBusinessProfile(), itemPackage.getBusinessProfileCategory().getBusinessCategory());

@@ -27,14 +27,16 @@ export class ItemSearchResultViewComponent implements OnInit {
   addToCart(item) {
     // console.log(item)
     //console.log(this.shopCartService.shopCartSub)
+    item.orderDetail.orderDetailType = 'Item';
     this.shopCartService.shopCartSub.next(item);
   }
 
   calcDiscount(item) {
-    if (item.itemDiscountType === 'Cash') {
-      return item.itemPrice - item.itemDiscountType;
-    } else if (item.itemDiscountType === 'Percentage') {
-      return item.itemPrice * ((100 - item.itemDiscount) / 100);
+    // console.log(item)
+    if (item.discountType === 'Cash') {
+      return item.price - item.discount;
+    } else if (item.discountType === 'Percentage') {
+      return item.price * ((100 - item.discount) / 100);
     }
     return '';
   }

@@ -102,9 +102,6 @@ SELECT `item`.`item_id`,
     `item`.`item_description`,
     `item`.`item_discount`,
     `item`.`item_discount_type`,
-    `item`.`item_img`,
-    `item`.`item_img_name`,
-    `item`.`item_img_type`,
     `item`.`item_price`,
     `item`.`item_qty`,
     `item`.`item_title`,
@@ -133,7 +130,6 @@ SELECT `item_order`.`order_id`,
     `item_order`.`customer_profile_customer_pro_id`,
     `item_order`.`qty`
 FROM `dbay`.`item_order`;
-
 
 SELECT `order_detail`.`order_detail_id`,
     `order_detail`.`created_at`,

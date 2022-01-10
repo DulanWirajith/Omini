@@ -34,11 +34,19 @@ export class ShopCartComponent implements OnInit {
         if (itemOrder.orderDetails !== undefined) {
           this.shopCartService.orderDetails = itemOrder.orderDetails;
           for (let orderDetail of itemOrder.orderDetails) {
-            orderDetail.item.orderDetail = JSON.parse(JSON.stringify(orderDetail));
-            orderDetail.item.orderDetail.item = {
-              itemId: orderDetail.item.itemId,
-            };
-            this.addToCart(orderDetail.item);
+            if (orderDetail.orderDetailType === 'Item') {
+              orderDetail.item.orderDetail = JSON.parse(JSON.stringify(orderDetail));
+              orderDetail.item.orderDetail.item = {
+                itemId: orderDetail.item.itemId,
+              };
+              this.addToCart(orderDetail.item);
+            } else if (orderDetail.orderDetailType === 'ItemPackage') {
+              orderDetail.itemPackage.orderDetail = JSON.parse(JSON.stringify(orderDetail));
+              orderDetail.itemPackage.orderDetail.itemPackage = {
+                itemPackageId: orderDetail.itemPackage.itemPackageId,
+              };
+              this.addToCart(orderDetail.itemPackage);
+            }
           }
           this.shopCartService.initShopCartSub.next(itemOrder.orderDetails);
         }
@@ -70,23 +78,54 @@ export class ShopCartComponent implements OnInit {
         this.shopCart[indexShop].items.push(item);
       }
       this.shopCart[indexShop].itemCount += item.orderDetail.quantity;
+      // item.orderDetail.quantity++;
       this.shopCart[indexShop].totalPrice += this.calcDiscount(item);
     }
     this.shopCartService.shopCartItemsSub.next(item);
   }
 
   addOrder(item) {
-    if (item.itemQty > item.orderDetail.quantity) {
+    console.log(item)
+    if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
       let orderDetail = item.orderDetail;
       orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
       orderDetail.itemOrder.orderDetails = [];
-      orderDetail.item = JSON.parse(JSON.stringify(item));
+      if (orderDetail.orderDetailType === 'Item') {
+        orderDetail.item = JSON.parse(JSON.stringify(item));
+      } else if (orderDetail.orderDetailType === 'ItemPackage') {
+        orderDetail.itemPackage = JSON.parse(JSON.stringify(item));
+      }
       this.shopCartService.addOrderDetail(orderDetail).subscribe((orderDetailR) => {
+        console.log(orderDetail.orderDetailId)
         orderDetail.orderDetailId = orderDetailR.orderDetailId;
         this.itemOrder.orderId = orderDetailR.itemOrder.orderId;
-        orderDetail.quantity = orderDetailR.quantity;
-
-        this.addToCart(item)
+        if (orderDetail.quantity === 0) {
+          // if (item.quantity === -1) {
+          //   orderDetail.quantity = -1;
+          // } else {
+          orderDetail.quantity = orderDetailR.quantity;
+          this.addToCart(item);
+        } else {
+          // console.log(55)
+          console.log(this.shopCart)
+          let indexShop: any = this.shopCart.findIndex(shopCart => {
+            return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
+          })
+          let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
+            return itemObj.itemId === item.itemId
+          })
+          let price = this.calcDiscount(item, true);
+          this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
+          // this.shopCart[indexShop].items[indexItem].price += price;
+          this.totalItemCount++;
+          this.shopCart[indexShop].totalPrice += price;
+          this.shopCart[indexShop].itemCount++;
+          // item.price += price;
+          // shop.totalPrice += item.price;
+          this.totalPrice += price;
+          // shop.itemCount++;
+        }
+        // }
         let indexOrderDetail: any = this.itemOrder.orderDetails.findIndex(orderDetailObj => {
           return orderDetailObj.orderDetailId === orderDetailR.orderDetailId
         })
@@ -96,18 +135,27 @@ export class ShopCartComponent implements OnInit {
         } else {
           this.itemOrder.orderDetails[indexOrderDetail] = orderDetail;
         }
-        console.log(this.itemOrder)
+        // console.log(this.itemOrder)
       })
     }
+    // console.log(item)
   }
 
   placeOrder() {
     // console.log(this.itemOrder)
     this.shopCartService.placeOrder(this.itemOrder).subscribe((reply) => {
       for (let orderDetail of this.itemOrder.orderDetails) {
-        orderDetail.item.itemQty -= orderDetail.quantity;
-        orderDetail.item.orderDetail.quantity = 0;
-        this.shopCartService.shopCartItemsSub.next(orderDetail.item);
+        if (orderDetail.orderDetailType === 'Item') {
+          orderDetail.item.quantity -= orderDetail.quantity;
+          orderDetail.item.orderDetail.quantity = 0;
+          orderDetail.orderDetailId = undefined;
+          this.shopCartService.shopCartItemsSub.next(orderDetail.item);
+        } else if (orderDetail.orderDetailType === 'ItemPackage') {
+          // orderDetail.itemPackage.quantity -= orderDetail.quantity;
+          orderDetail.itemPackage.orderDetail.quantity = 0;
+          orderDetail.orderDetailId = undefined;
+          this.shopCartService.shopCartItemsSub.next(orderDetail.itemPackage);
+        }
       }
       this.itemOrder = this.shopCartService.getNewItemOrder();
       this.itemOrder.customerProfile.customerProId = 'U20220102233339';
@@ -118,15 +166,16 @@ export class ShopCartComponent implements OnInit {
   }
 
   itemCountInc(shop, item) {
-    if (item.itemQty > item.orderDetail.quantity) {
+    if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
       let orderDetail = item.orderDetail;
       orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
       orderDetail.itemOrder.orderDetails = [];
       this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
         // console.log(orderDetailR)
         this.totalItemCount++;
-        shop.totalPrice += item.itemPrice;
-        this.totalPrice += item.itemPrice;
+        let price = this.calcDiscount(item, true);
+        shop.totalPrice += price;
+        this.totalPrice += price;
         shop.itemCount++;
         orderDetail.quantity++;
         this.shopCartService.shopCartItemsSub.next(item);
@@ -142,8 +191,9 @@ export class ShopCartComponent implements OnInit {
       this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
         // console.log(orderDetailR)
         this.totalItemCount--;
-        shop.totalPrice -= item.itemPrice;
-        this.totalPrice -= item.itemPrice;
+        let price = this.calcDiscount(item, true);
+        shop.totalPrice -= price;
+        this.totalPrice -= price;
         shop.itemCount--;
         orderDetail.quantity--;
         this.shopCartService.shopCartItemsSub.next(item);
@@ -167,13 +217,22 @@ export class ShopCartComponent implements OnInit {
     // this.cartDB();
   }
 
-  calcDiscount(item) {
+  calcDiscount(item, calcForOne = false) {
     // console.log(item)
-    if (item.itemDiscountType === 'Cash') {
-      return (item.itemPrice - item.itemDiscountType) * item.orderDetail.quantity;
-    } else if (item.itemDiscountType === 'Percentage') {
-      return (item.itemPrice * ((100 - item.itemDiscount) / 100)) * item.orderDetail.quantity;
+    if (calcForOne) {
+      if (item.discountType === 'Cash') {
+        return (item.price - item.discount);
+      } else if (item.discountType === 'Percentage') {
+        return (item.price * ((100 - item.discount) / 100));
+      }
+      return item.price;
+    } else {
+      if (item.discountType === 'Cash') {
+        return (item.price - item.discount) * item.orderDetail.quantity;
+      } else if (item.discountType === 'Percentage') {
+        return (item.price * ((100 - item.discount) / 100)) * item.orderDetail.quantity;
+      }
+      return item.price * item.orderDetail.quantity;
     }
-    return item.itemPrice * item.orderDetail.quantity;
   }
 }

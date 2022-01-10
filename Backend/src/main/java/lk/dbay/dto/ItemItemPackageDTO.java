@@ -32,7 +32,7 @@ public class ItemItemPackageDTO extends DateTimeDTO {
 
     public ItemItemPackageDTO(Item item, ItemPackage itemPackage, boolean needImage) {
         if (item != null) {
-            this.name = item.getItemTitle();
+            this.name = item.getName();
             this.item = new ItemDTO(item, needImage);
         }
         if (itemPackage != null)
@@ -51,8 +51,10 @@ public class ItemItemPackageDTO extends DateTimeDTO {
         }
         for (ItemPackage itemPackage : itemPackages) {
             ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
+            itemPackage.getBusinessProfileCategory().setBusinessCategory(null);
             itemPackageDTO.setBusinessProfileCategory(itemPackage);
             itemPackageDTO.setItemPackageImgs(itemPackage);
+            itemPackageDTO.setOrderDetail(new OrderDetailDTO());
 //            itemPackageDTO.setBusinessProfileCategory(new BusinessProfileCategoryDTO(itemPackage.getBusinessProfileCategory().getBusinessProfile(), null));
             this.itemPackages.add(itemPackageDTO);
         }

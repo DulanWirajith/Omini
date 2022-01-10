@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -21,13 +22,15 @@ public class ItemPackage extends DateTime {
     @Id
     private String itemPackageId;
     private String name;
+    private int quantity;
+    private double price;
 //    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;
-    private double price;
     private double discount;
     private String discountType;
     private boolean confirmed;
+    private boolean available;
 
 //    @Lob
 //    private byte[] itemPackageImg;
@@ -49,4 +52,17 @@ public class ItemPackage extends DateTime {
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "itemPackage")
     private Set<ItemPackageImg> itemPackageImgs;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemPackage that = (ItemPackage) o;
+        return Objects.equals(itemPackageId, that.itemPackageId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(itemPackageId);
+    }
 }

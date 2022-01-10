@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -43,6 +44,7 @@ public class OrderDetailDTO extends DateTimeDTO {
         }
     }
 
+    @Tolerate
     public void setItemPackage(OrderDetail orderDetail) {
         if (orderDetail.getItemPackage() != null) {
             this.itemPackage = new ItemPackageDTO(orderDetail.getItemPackage());

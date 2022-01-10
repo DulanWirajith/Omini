@@ -92,11 +92,11 @@ export class BaManageItemEditComponent implements OnInit {
     this.item.businessProfileCategory.businessProfile = {
       businessProId: "B321"
     };
-    if (this.item.itemDiscount === 'N/A') {
-      this.item.itemDiscount = 0;
+    if (this.item.discount === 'N/A') {
+      this.item.discount = 0;
     }
     // for (let item of this.item.itemItemFeatures) {
-    //   item.name = item.item.itemTitle;
+    //   item.name = item.item.name;
     // }
     //console.log(this.item)
     const uploadImageData = new FormData();
