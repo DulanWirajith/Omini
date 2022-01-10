@@ -19,32 +19,20 @@ export class ItemPackageSearchResultComponent implements OnInit {
   itemCount = 0;
   orderDetails = [];
 
-  // shopCart;
-
   constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService) {
-    // config.showNavigationArrows = true;
-    // config.showNavigationIndicators = true;
     this.shopCartService.shopCartItemsSub.observers = [];
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
       let itemObj: any = this.items.find(itemObj => {
         return itemObj.itemId === item.itemId
       })
       if (itemObj !== undefined) {
+        itemObj.itemQty = item.itemQty;
         itemObj.orderDetail.quantity = item.orderDetail.quantity;
-        // itemObj.itemCount = item.itemCount;
-        //console.log(item)
-        // itemObj.orderDetailId = item.orderDetailId;
       }
     })
     // this.shopCartService.initShopCartSub.observers = [];
     this.shopCartService.initShopCartSub.subscribe((orderDetails) => {
-      // this.shopCart = shopCart;
-      // for (let orderDetail of orderDetails) {
-      //console.log(orderDetails)
-      //   console.log(orderDetail.item.itemCount)
-      // }
       this.orderDetails = orderDetails;
-      // this.setShopCart(orderDetails);
     })
   }
 
@@ -54,50 +42,19 @@ export class ItemPackageSearchResultComponent implements OnInit {
     this.itemCount = this.items.length;
     this.itemPackages = this.itemService.searchedItemPackages.itemPackages;
     this.toggleBtns();
-    this.initShopCart();
-  }
-
-  initShopCart() {
-    // this.shopCart = this.shopCartService.shopCart;
-    // if (this.shopCart.length === 0) {
-    //   this.shopCartService.getCart('U20220102233339').subscribe((shopCart) => {
-    //     this.shopCart = JSON.parse(shopCart.cartTxt);
-    //     this.shopCartService.shopCart = this.shopCart;
-    //     this.setShopCart();
-    //   })
-    // } else {
     this.setShopCart(this.shopCartService.orderDetails);
-    // }
-    // if (this.items !== undefined) {
-
-    // this.shopCartService.shopCartItemsSub.observers = [];
-    // this.shopCartService.shopCartItemsSub.subscribe((item) => {
-    //   let itemObj: any = this.items.find(itemObj => {
-    //     return itemObj.itemId === item.itemId
-    //   })
-    //   itemObj.itemCount = item.itemCount;
-    // })
-    // }
   }
 
   setShopCart(orderDetails) {
-    // for (let cart of this.shopCart) {
     // console.log(orderDetails)
     for (let orderDetail of orderDetails) {
       let itemObj: any = this.items.find(itemObj => {
         return itemObj.itemId === orderDetail.item.itemId
       })
       if (itemObj !== undefined) {
-        // console.log(orderDetail.item.itemCount)
-        // console.log(orderDetail.item)
         itemObj.orderDetail.quantity = orderDetail.quantity;
-        // itemObj.itemCount = orderDetail.item.itemCount;
-        // console.log(7)
-        // console.log(itemObj)
-        // console.log(orderDetail.item.itemCount)
       }
     }
-    // }
   }
 
   toggleBtns() {
@@ -122,7 +79,6 @@ export class ItemPackageSearchResultComponent implements OnInit {
     //console.log($(obj).val())
     if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
       that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
-        // that.categories[index] = category;
         Object.assign(that.itemPackages[index], itemPackage)
         that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
         that.itemPackages[index].items = [];
@@ -133,49 +89,9 @@ export class ItemPackageSearchResultComponent implements OnInit {
           that.itemPackages[index].items.push(item.item);
         }
         that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
-        // console.log(that.itemPackages[index])
-        // for (let i = 0; i < that.categories.length; i++) {
-        //   if (that.categories[i].itemCategoryId === $(obj).val()) {
-        //     // console.log(category)
-        //     that.categoryE = category;
-        //     that.categories[i].items = category.items;
-        //   }
-        // }
       })
     }
   }
-
-  // getItemSelected(item) {
-  //   // console.log(item.itemId)
-  //   let index: any = this.items.findIndex(itemObj => {
-  //     return itemObj.itemId === item.itemId
-  //   })
-  //   // console.log(this.items[index])
-  //   if (this.items[index].itemItemFeatures === undefined) {
-  //     this.itemService.getItemSelected(item.itemId).subscribe((item) => {
-  //       // Object.assign(this.items[index], item)
-  //       // item.itemImgsRaw = [];
-  //       // item.itemItemFeatures = [];
-  //       // item.businessProfileCategory = {
-  //       //   businessProfile: undefined,
-  //       //   businessCategory: undefined
-  //       // }
-  //       // if (item.itemDiscountType === "None") {
-  //       //   item.itemDiscountView = "N/A";
-  //       // } else if (item.itemDiscountType === "Cash") {
-  //       //   item.itemDiscountView = "LKR " + item.itemDiscount;
-  //       // } else if (item.itemDiscountType === "Percentage") {
-  //       //   item.itemDiscountView = item.itemDiscount + "%";
-  //       // }
-  //       this.items[index] = item;
-  //       // this.itemService.itemFeaturesSub.next(item.itemFeatures);
-  //       this.itemService.itemSub.next(this.items[index]);
-  //       //console.log(this.items[index])
-  //     })
-  //   } else {
-  //     this.itemService.itemSub.next(this.items[index]);
-  //   }
-  // }
 
   getImageSrc(itemImg) {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
