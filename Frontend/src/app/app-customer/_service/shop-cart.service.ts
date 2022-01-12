@@ -64,6 +64,7 @@ export class ShopCartService {
       orderDetailId: '',
       quantity: 0,
       price: 0,
+      discountedPrice: 0,
       discount: 0,
       orderDetailType: '',
       itemOrder: undefined,

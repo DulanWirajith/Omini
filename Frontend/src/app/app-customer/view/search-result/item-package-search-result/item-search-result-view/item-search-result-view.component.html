@@ -49,7 +49,7 @@
           <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>
             <span *ngIf="item.discountType==='None'">LKR {{item.price}}</span>
             <span *ngIf="item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.price}}</span>
-            <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{calcDiscount(item)}}</span>
+            <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice}}</span>
           </div>
         </div>
       </div>

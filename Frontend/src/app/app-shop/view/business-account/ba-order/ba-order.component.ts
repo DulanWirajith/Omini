@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ItemService} from "../../../_service/item.service";
+import {BusinessAccountService} from "../../../_service/business-account.service";
 
 @Component({
   selector: 'app-ba-order',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaOrderComponent implements OnInit {
 
-  constructor() { }
+  itemOrders = [];
 
-  ngOnInit(): void {
+  constructor(private itemService: ItemService,private businessAccountService: BusinessAccountService) {
+    this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
+      this.getItemOrders(businessCategoryId);
+    })
   }
 
+  ngOnInit(): void {
+    // this.getItemOrders();
+  }
+
+  getItemOrders(businessCategoryId) {
+    this.itemService.getItemOrders('B321', businessCategoryId, 'Pending').subscribe((itemOrders) => {
+      this.itemOrders = itemOrders;
+    })
+  }
 }

@@ -24,6 +24,8 @@ public class Item extends DateTime {
     private String name;
     private int quantity;
     private double price;
+    @Transient
+    private double discountedPrice;
 //    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;

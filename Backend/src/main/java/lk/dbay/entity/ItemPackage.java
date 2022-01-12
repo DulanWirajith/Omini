@@ -24,7 +24,8 @@ public class ItemPackage extends DateTime {
     private String name;
     private int quantity;
     private double price;
-//    @Lob
+    private double discountedPrice;
+    //    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;
     private double discount;

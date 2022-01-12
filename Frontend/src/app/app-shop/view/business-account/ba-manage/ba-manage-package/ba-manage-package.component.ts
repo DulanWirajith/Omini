@@ -51,6 +51,10 @@ export class BaManagePackageComponent implements OnInit {
     this.itemPackage = this.itemService.getNewPackage();
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
+      // console.log(this.businessCategories)
+    })
+    this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
+      this.getItemPackagesOrdered(businessCategoryId);
     })
   }
 
@@ -170,9 +174,9 @@ export class BaManagePackageComponent implements OnInit {
   }
 
 
-  getItemPackagesOrdered() {
+  getItemPackagesOrdered(businessCategoryId) {
     if (this.businessProfileCategory !== null) {
-      this.itemService.getItemPackagesOrdered("B321", this.businessProfileCategory.businessCategoryId).subscribe((packages) => {
+      this.itemService.getItemPackagesOrdered("B321", businessCategoryId).subscribe((packages) => {
         // console.log(packages)
         this.itemPackages = packages;
         for (let itemPackage of this.itemPackages) {

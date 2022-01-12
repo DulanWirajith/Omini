@@ -54,7 +54,8 @@ export class ItemService {
       itemItemFeatures: [],
       isNewItem: false,
       isUpdateItem: false,
-      orderDetail: undefined
+      orderDetail: undefined,
+      discountedPrice: 0
     }
   }
 }

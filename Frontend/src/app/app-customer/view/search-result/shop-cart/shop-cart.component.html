@@ -149,7 +149,7 @@
                           <span *ngIf="item.discountType==='None'">LKR {{item.price * item.orderDetail.quantity}}</span>
                           <span *ngIf="item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.price * item.orderDetail.quantity}}</span>
                           <span *ngIf="item.discountType!=='None'"
-                                style="margin-left: 10px">LKR {{calcDiscount(item)}}</span>
+                                style="margin-left: 10px">LKR {{item.discountedPrice * item.orderDetail.quantity}}</span>
                         </div>
                         <div class="row cols-sm-2 row-cols-md-12"
                              style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 0px;margin-bottom: 20px;font-size: 15px">

@@ -41,7 +41,9 @@ export class BaManageItemComponent implements OnInit {
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     });
-
+    this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
+      this.getItemsOrdered(businessCategoryId);
+    })
   }
 
   ngOnInit(): void {
@@ -83,8 +85,8 @@ export class BaManageItemComponent implements OnInit {
     })
   }
 
-  getItemsOrdered() {
-    this.itemService.getItemsOrdered("B321", this.businessProfileCategory.businessCategoryId, 0, 100).subscribe((items) => {
+  getItemsOrdered(businessCategoryId) {
+    this.itemService.getItemsOrdered("B321", businessCategoryId, 0, 100).subscribe((items) => {
       this.items = items;
       for (let item of this.items) {
         item.itemImgsRaw = [];
@@ -109,25 +111,25 @@ export class BaManageItemComponent implements OnInit {
   }
 
   addFeatureTemp() {
-      this.newItemFeaturesTemp.push(
-        {
-          itemFeatureId: 0,
-          name: this.newItemFeature
-        }
-      );
-      this.newItemFeature = '';
-      this.baManageFormItemFeature.resetForm()
+    this.newItemFeaturesTemp.push(
+      {
+        itemFeatureId: 0,
+        name: this.newItemFeature
+      }
+    );
+    this.newItemFeature = '';
+    this.baManageFormItemFeature.resetForm()
   }
 
   addNewItemFeature() {
-      for (let itemFeature of this.newItemFeaturesTemp) {
-        this.item.itemItemFeatures.push({
-          item: {itemId: this.item.itemId},
-          itemFeature: itemFeature
-        })
-      }
-      this.isNewFeature = false;
-      this.newItemFeaturesTemp = [];
+    for (let itemFeature of this.newItemFeaturesTemp) {
+      this.item.itemItemFeatures.push({
+        item: {itemId: this.item.itemId},
+        itemFeature: itemFeature
+      })
+    }
+    this.isNewFeature = false;
+    this.newItemFeaturesTemp = [];
   }
 
   // @ViewChild('baManageFormItemE', {static: true}) public baManageFormItemE: NgForm;

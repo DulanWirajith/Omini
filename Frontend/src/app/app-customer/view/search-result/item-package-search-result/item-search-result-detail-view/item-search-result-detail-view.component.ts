@@ -33,14 +33,14 @@ export class ItemSearchResultDetailViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  calcDiscount(item) {
-    if (item.discountType === 'Cash') {
-      return item.price - item.discountType;
-    } else if (item.discountType === 'Percentage') {
-      return item.price * ((100 - item.discount) / 100);
-    }
-    return '';
-  }
+  // calcDiscount(item) {
+  //   if (item.discountType === 'Cash') {
+  //     return item.price - item.discountType;
+  //   } else if (item.discountType === 'Percentage') {
+  //     return item.price * ((100 - item.discount) / 100);
+  //   }
+  //   return '';
+  // }
 
   open(index: number): void {
     // open lightbox

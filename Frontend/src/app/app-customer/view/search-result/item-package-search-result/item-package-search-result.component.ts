@@ -59,14 +59,14 @@ export class ItemPackageSearchResultComponent implements OnInit {
     this.shopCartService.shopCartSub.next(itemPackage);
   }
 
-  calcDiscount(itemPackage) {
-    if (itemPackage.discountType === 'Cash') {
-      return itemPackage.price - itemPackage.discount;
-    } else if (itemPackage.discountType === 'Percentage') {
-      return itemPackage.price * ((100 - itemPackage.discount) / 100);
-    }
-    return '';
-  }
+  // calcDiscount(itemPackage) {
+  //   if (itemPackage.discountType === 'Cash') {
+  //     return itemPackage.price - itemPackage.discount;
+  //   } else if (itemPackage.discountType === 'Percentage') {
+  //     return itemPackage.price * ((100 - itemPackage.discount) / 100);
+  //   }
+  //   return '';
+  // }
 
   setShopCart(orderDetails) {
     // console.log(orderDetails)

@@ -79,6 +79,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
   }
 
+  getItemOrders(businessProfileId, businessCategoryId, orderType): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_order/getItemOrders/' + businessProfileId + '/' + businessCategoryId + '/' + orderType);
+  }
+
   getNewItem() {
     return {
       itemId: "",
@@ -91,7 +95,7 @@ export class ItemService {
       description: "",
       itemImgs: [],
       itemImgsRaw: [],
-      itemAvailable: false,
+      available: false,
       businessProfileCategory: {
         businessProfile: undefined,
         businessCategory: undefined

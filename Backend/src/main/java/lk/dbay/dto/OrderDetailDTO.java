@@ -22,6 +22,7 @@ public class OrderDetailDTO extends DateTimeDTO {
     private String orderDetailId;
     private int quantity;
     private double price;
+    private double discountedPrice;
     private double discount;
     private String orderDetailType;
     private ItemOrderDTO itemOrder;
@@ -50,6 +51,13 @@ public class OrderDetailDTO extends DateTimeDTO {
             this.itemPackage = new ItemPackageDTO(orderDetail.getItemPackage());
         }
     }
+
+//    @Tolerate
+//    public void setItem(OrderDetail orderDetail) {
+//        if (orderDetail.getItem() != null) {
+//            this.item = new ItemDTO(orderDetail.getItem(), false);
+//        }
+//    }
 
     //    @ManyToOne
 //    private ItemCategory itemCategory;

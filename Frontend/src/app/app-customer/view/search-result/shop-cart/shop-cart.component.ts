@@ -59,7 +59,7 @@ export class ShopCartComponent implements OnInit {
   addToCart(item) {
     // console.log(item)
     this.totalItemCount += item.orderDetail.quantity;
-    this.totalPrice += this.calcDiscount(item);
+    this.totalPrice += (item.discountedPrice * item.orderDetail.quantity);
     let indexShop: any = this.shopCart.findIndex(shopCart => {
       return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
     })
@@ -67,7 +67,7 @@ export class ShopCartComponent implements OnInit {
       this.shopCart.push({
         shop: item.businessProfileCategory.businessProfile,
         itemCount: item.orderDetail.quantity,
-        totalPrice: this.calcDiscount(item),
+        totalPrice: (item.discountedPrice * item.orderDetail.quantity),
         items: [item]
       });
     } else {
@@ -79,7 +79,7 @@ export class ShopCartComponent implements OnInit {
       }
       this.shopCart[indexShop].itemCount += item.orderDetail.quantity;
       // item.orderDetail.quantity++;
-      this.shopCart[indexShop].totalPrice += this.calcDiscount(item);
+      this.shopCart[indexShop].totalPrice += (item.discountedPrice * item.orderDetail.quantity);
     }
     this.shopCartService.shopCartItemsSub.next(item);
   }
@@ -89,6 +89,7 @@ export class ShopCartComponent implements OnInit {
     if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
       let orderDetail = item.orderDetail;
       orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
+      orderDetail.price = item.discountedPrice;
       orderDetail.itemOrder.orderDetails = [];
       if (orderDetail.orderDetailType === 'Item') {
         orderDetail.item = JSON.parse(JSON.stringify(item));
@@ -114,7 +115,7 @@ export class ShopCartComponent implements OnInit {
           let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
             return itemObj.itemId === item.itemId
           })
-          let price = this.calcDiscount(item, true);
+          let price = item.discountedPrice;
           this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
           // this.shopCart[indexShop].items[indexItem].price += price;
           this.totalItemCount++;
@@ -173,7 +174,7 @@ export class ShopCartComponent implements OnInit {
       this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
         // console.log(orderDetailR)
         this.totalItemCount++;
-        let price = this.calcDiscount(item, true);
+        let price = item.discountedPrice;
         shop.totalPrice += price;
         this.totalPrice += price;
         shop.itemCount++;
@@ -191,7 +192,7 @@ export class ShopCartComponent implements OnInit {
       this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
         // console.log(orderDetailR)
         this.totalItemCount--;
-        let price = this.calcDiscount(item, true);
+        let price = item.discountedPrice;
         shop.totalPrice -= price;
         this.totalPrice -= price;
         shop.itemCount--;
@@ -217,22 +218,22 @@ export class ShopCartComponent implements OnInit {
     // this.cartDB();
   }
 
-  calcDiscount(item, calcForOne = false) {
-    // console.log(item)
-    if (calcForOne) {
-      if (item.discountType === 'Cash') {
-        return (item.price - item.discount);
-      } else if (item.discountType === 'Percentage') {
-        return (item.price * ((100 - item.discount) / 100));
-      }
-      return item.price;
-    } else {
-      if (item.discountType === 'Cash') {
-        return (item.price - item.discount) * item.orderDetail.quantity;
-      } else if (item.discountType === 'Percentage') {
-        return (item.price * ((100 - item.discount) / 100)) * item.orderDetail.quantity;
-      }
-      return item.price * item.orderDetail.quantity;
-    }
-  }
+  // calcDiscount(item, calcForOne = false) {
+  //   // console.log(item)
+  //   if (calcForOne) {
+  //     if (item.discountType === 'Cash') {
+  //       return (item.price - item.discount);
+  //     } else if (item.discountType === 'Percentage') {
+  //       return (item.price * ((100 - item.discount) / 100));
+  //     }
+  //     return item.price;
+  //   } else {
+  //     if (item.discountType === 'Cash') {
+  //       return (item.price - item.discount) * item.orderDetail.quantity;
+  //     } else if (item.discountType === 'Percentage') {
+  //       return (item.price * ((100 - item.discount) / 100)) * item.orderDetail.quantity;
+  //     }
+  //     return item.price * item.orderDetail.quantity;
+  //   }
+  // }
 }

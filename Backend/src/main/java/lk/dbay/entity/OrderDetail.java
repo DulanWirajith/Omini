@@ -18,6 +18,8 @@ public class OrderDetail extends DateTime {
     private String orderDetailId;
     private int quantity;
     private double price;
+    @Transient
+    private double discountedPrice;
     private double discount;
 
     @ManyToOne(optional = false)

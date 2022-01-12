@@ -16,12 +16,12 @@ export class BaManageItemViewComponent implements OnInit {
 
   @Input() items;
   @Input() itemViewerId;
-  showNavigationArrows = true;
-  showNavigationIndicators = false;
+  // showNavigationArrows = true;
+  // showNavigationIndicators = false;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private config: NgbCarouselConfig) {
-    config.showNavigationArrows = true;
-    config.showNavigationIndicators = true;
+    // config.showNavigationArrows = true;
+    // config.showNavigationIndicators = true;
   }
 
   ngOnInit(): void {
@@ -30,7 +30,8 @@ export class BaManageItemViewComponent implements OnInit {
 
   setItemAvailable(item) {
     this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
-      item.itemAvailable = reply;
+      // console.log(reply)
+      item.available = reply;
     })
   }
 

@@ -31,15 +31,15 @@ export class ItemSearchResultViewComponent implements OnInit {
     this.shopCartService.shopCartSub.next(item);
   }
 
-  calcDiscount(item) {
-    // console.log(item)
-    if (item.discountType === 'Cash') {
-      return item.price - item.discount;
-    } else if (item.discountType === 'Percentage') {
-      return item.price * ((100 - item.discount) / 100);
-    }
-    return '';
-  }
+  // calcDiscount(item) {
+  //   // console.log(item)
+  //   if (item.discountType === 'Cash') {
+  //     return item.price - item.discount;
+  //   } else if (item.discountType === 'Percentage') {
+  //     return item.price * ((100 - item.discount) / 100);
+  //   }
+  //   return '';
+  // }
 
   getItemSelected(item) {
     // console.log(item.itemId)

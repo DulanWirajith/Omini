@@ -20,6 +20,7 @@ public class ItemPackageDTO extends DateTimeDTO {
     private String name;
     private int quantity;
     private double price;
+    private double discountedPrice;
     private String description;
     private double discount;
     private String discountType;
@@ -42,6 +43,13 @@ public class ItemPackageDTO extends DateTimeDTO {
             this.discountType = itemPackage.getDiscountType();
             this.confirmed = itemPackage.isConfirmed();
             this.available = itemPackage.isAvailable();
+            if (this.discountType.equals("Cash")) {
+                this.discountedPrice = (this.price - this.discount);
+            } else if (this.discountType.equals("Percentage")) {
+                this.discountedPrice = (this.price * ((100 - this.discount) / 100));
+            } else if (this.discountType.equals("None")) {
+                this.discountedPrice = this.price;
+            }
         }
     }
 

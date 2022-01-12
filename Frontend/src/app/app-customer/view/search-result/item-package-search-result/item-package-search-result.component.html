@@ -167,7 +167,7 @@
                               <span *ngIf="itemPackage.discountType==='None'">LKR {{itemPackage.price}}</span>
                               <span *ngIf="itemPackage.discountType!=='None'"
                                     style="text-decoration: line-through;color: red">LKR {{itemPackage.price}}</span>
-                              <span *ngIf="itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{calcDiscount(itemPackage)}}</span>
+                              <span *ngIf="itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{itemPackage.discountedPrice}}</span>
                             </div>
                           </div>
                         </div>

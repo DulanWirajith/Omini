@@ -18,6 +18,7 @@ export class BaManageCategoryComponent implements OnInit {
   itemCategory;
   categories = [];
   businessProfileCategory;
+  businessCategoryId;
   @ViewChild('baManageFormCategory', {static: true}) public baManageFormCategory: NgForm;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
@@ -26,6 +27,10 @@ export class BaManageCategoryComponent implements OnInit {
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
       // console.log(this.businessCategories)
+    })
+    this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
+      this.businessCategoryId = businessCategoryId;
+      this.getItemCategoriesOrdered(businessCategoryId);
     })
   }
 
@@ -60,8 +65,8 @@ export class BaManageCategoryComponent implements OnInit {
     })
   }
 
-  getItemCategoriesOrdered() {
-    this.itemService.getItemCategoriesOrdered("B321", this.businessProfileCategory.businessCategoryId).subscribe((categories) => {
+  getItemCategoriesOrdered(businessCategoryId) {
+    this.itemService.getItemCategoriesOrdered("B321", businessCategoryId).subscribe((categories) => {
       // console.log(categories)
       this.categories = categories;
       for (let itemCategory of this.categories) {
@@ -72,6 +77,7 @@ export class BaManageCategoryComponent implements OnInit {
         itemCategory.isUpdateCategory = false;
       }
     })
+    this.getItems('e');
   }
 
   // getBusinessCategories() {
@@ -85,10 +91,11 @@ export class BaManageCategoryComponent implements OnInit {
         this.itemsToAdd = items;
       })
     } else if (val === 'e') {
-      this.itemService.getItemsBusinessCategory("B321", this.businessProfileCategory.businessCategoryId).subscribe((items) => {
+      this.itemService.getItemsBusinessCategory("B321", this.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAddE = items;
         if (itemCategory !== undefined) {
+          // console.log(itemCategory)
           if (itemCategory.businessProfileCategory.businessCategory.businessCategoryId === itemCategory.tempBusinessCategory.businessCategoryId) {
             itemCategory.items = itemCategory.tempItems;
           } else {

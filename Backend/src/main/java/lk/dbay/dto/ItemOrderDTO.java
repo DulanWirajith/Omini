@@ -22,7 +22,7 @@ public class ItemOrderDTO extends DateTimeDTO {
     private String orderId;
     private LocalDateTime orderDate;
     private double amount;
-    private double discount;
+//    private double discount;
     private int qty;
     private String status;
     private String contactNumber;
@@ -34,9 +34,9 @@ public class ItemOrderDTO extends DateTimeDTO {
         if (itemOrder != null) {
             this.orderId = itemOrder.getOrderId();
             this.orderDate = itemOrder.getOrderDate();
-            this.amount = itemOrder.getAmount();
-            this.discount = itemOrder.getDiscount();
-            this.qty = itemOrder.getQty();
+//            this.amount = itemOrder.getAmount();
+//            this.discount = itemOrder.getDiscount();
+//            this.qty = itemOrder.getQty();
             this.status = itemOrder.getStatus();
             this.contactNumber = itemOrder.getContactNumber();
             this.receivedTime = itemOrder.getReceivedTime();

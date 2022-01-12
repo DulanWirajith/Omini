@@ -20,9 +20,9 @@ public class ItemOrder extends DateTime {
     @Id
     private String orderId;
     private LocalDateTime orderDate;
-    private double amount;
-    private double discount;
-    private int qty;
+//    private double amount;
+//    private double discount;
+//    private int qty;
     private String status;
     private String contactNumber;
     private LocalDateTime receivedTime;
