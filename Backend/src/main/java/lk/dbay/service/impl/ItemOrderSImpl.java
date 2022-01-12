@@ -30,6 +30,7 @@ public class ItemOrderSImpl implements ItemOrderS {
             ItemOrder itemOrder = orderDetail.getItemOrder();
             itemOrder.setOrderId("OD" + format);
             itemOrder.setStatus("NotFinalized");
+//            itemOrder.getBusinessProfileCategory().setBusinessProfileCategoryId(new BusinessProfileCategoryPK(itemOrder.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(), itemOrder.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId()));
             itemOrderR.save(itemOrder);
         }
         orderDetail.setQuantity(orderDetail.getQuantity() + 1);
@@ -177,5 +178,34 @@ public class ItemOrderSImpl implements ItemOrderS {
             return new ItemOrderDTO(itemOrderObj);
         }
         return null;
+    }
+
+    @Override
+    public List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId, String orderType) {
+//        List<ItemOrder> itemOrders = itemOrderR.getItemOrders(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsItems(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
+        List<OrderDetail> itemOrderDetailsItemPackages = orderDetailR.getItemOrderDetailsItemPackages(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
+//        List<ItemOrderDTO> itemOrderDTOS = new ArrayList<>();
+        Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
+        for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
+            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+        }
+        for (OrderDetail itemOrderDetail : itemOrderDetailsItemPackages) {
+            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+        }
+        for (ItemOrderDTO itemOrderDTO : itemOrderDTOS) {
+            itemOrderDTO.setOrderDetails(new ArrayList<>());
+            for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
+                if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
+                    itemOrderDTO.getOrderDetails().add(new OrderDetailDTO(itemOrderDetail));
+                }
+            }
+            for (OrderDetail itemOrderDetail : itemOrderDetailsItemPackages) {
+                if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
+                    itemOrderDTO.getOrderDetails().add(new OrderDetailDTO(itemOrderDetail));
+                }
+            }
+        }
+        return new ArrayList<>(itemOrderDTOS);
     }
 }

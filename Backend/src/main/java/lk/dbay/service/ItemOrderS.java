@@ -4,6 +4,8 @@ import lk.dbay.dto.*;
 import lk.dbay.entity.ItemOrder;
 import lk.dbay.entity.OrderDetail;
 
+import java.util.List;
+
 public interface ItemOrderS {
 
     OrderDetailDTO addOrderDetail(OrderDetail orderDetail);
@@ -13,4 +15,6 @@ public interface ItemOrderS {
     OrderDetailDTO updateOrderDetail(OrderDetail orderDetail, String updateType);
 
     ItemOrderDTO placeOrder(ItemOrder itemOrder) throws Exception;
+
+    List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId, String orderType);
 }

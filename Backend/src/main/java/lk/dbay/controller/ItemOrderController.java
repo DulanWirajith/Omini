@@ -75,4 +75,9 @@ public class ItemOrderController {
         }
 //        return ResponseEntity.ok(itemOrderS.placeOrder(itemOrder));
     }
+
+    @GetMapping("/getItemOrders/{businessProfileId}/{businessCategoryId}/{orderType}")
+    public ResponseEntity getItemOrders(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable String orderType) {
+        return ResponseEntity.ok(itemOrderS.getItemOrders(businessProfileId, businessCategoryId, orderType));
+    }
 }
