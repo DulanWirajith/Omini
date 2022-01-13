@@ -17,4 +17,6 @@ public interface ItemOrderS {
     ItemOrderDTO placeOrder(ItemOrder itemOrder) throws Exception;
 
     List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId, String orderType);
+
+    List<ItemOrderDTO> getPendingCustomerOrders(String customerId);
 }

@@ -48,6 +48,7 @@ export class BaProfileComponent implements OnInit {
 
   getBusinessProfile() {
     this.businessAccountService.getBusinessProfile("B321").subscribe((businessProfile) => {
+      console.log(businessProfile)
       if (businessProfile !== null) {
         businessProfile.dbayUser.password = '';
         businessProfile.dbayUser.passwordC = '';
@@ -134,7 +135,10 @@ export class BaProfileComponent implements OnInit {
       if (businessType.businessCategory === undefined) {
         businessTypes.push({
           name: businessType.name,
-          businessCategory: businessType
+          businessCategory: businessType,
+          businessProfile: {
+            businessProId: this.businessProfile.businessProId
+          }
         })
       }
     }
@@ -146,7 +150,10 @@ export class BaProfileComponent implements OnInit {
       if (businessArea.town === undefined) {
         businessAreas.push({
           name: businessArea.name,
-          town: businessArea
+          town: businessArea,
+          businessProfile: {
+            businessProId: this.businessProfile.businessProId
+          }
         })
       }
     }
@@ -163,15 +170,24 @@ export class BaProfileComponent implements OnInit {
         type: "application/json"
       }));
     this.businessAccountService.updateBusinessProfile(uploadImageData, this.businessProfile.businessProId).subscribe((businessProfile) => {
-      // //console.log(businessProfile)
-      businessProfile.dbayUser.password = '';
-      businessProfile.dbayUser.passwordC = '';
-      businessProfile.dbayUser.cPassword = '';
-      businessProfile.dbayUser.dbayUserImgsRaw = [];
-      this.businessProfile = businessProfile;
+      console.log(businessProfile)
+      this.businessProfile.dbayUser.password = '';
+      this.businessProfile.dbayUser.passwordC = '';
+      this.businessProfile.dbayUser.cPassword = '';
+      this.businessProfile.dbayUser.dbayUserImgsRaw = [];
+      if (businessProfile.dbayUser.dbayUserImgs.length > 0) {
+        this.businessProfile.dbayUser.dbayUserImgs = businessProfile.dbayUser.dbayUserImgs;
+      }
+      // this.businessProfile = businessProfile;
       this.imageInput.removeFiles();
       // this.businessProfile.dbayUser.dbayUserImgs = this.businessProfile.dbayUser.dbayUserImgs.concat(businessProfile.dbayUser.dbayUserImgs);
     })
+  }
+
+  setDefaultBusiness(businessProfile) {
+    if (businessProfile.businessProfileCategories.length === 1) {
+      businessProfile.defaultBusiness = businessProfile.businessProfileCategories[0].name;
+    }
   }
 
   pondHandleAddFile(event) {

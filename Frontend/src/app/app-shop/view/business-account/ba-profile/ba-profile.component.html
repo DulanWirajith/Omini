@@ -54,6 +54,29 @@
             </div>
           </div>
         </div>
+        <!-- User email-->
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="pe-2">
+              <label class="form-label fw-bold">User E-mail
+                <a href="#" class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="You can change User email."
+                   data-bs-original-title="You can change User email." aria-label="You can change User email."><i
+                  class="fi-help"></i>
+                </a>
+              </label>
+              <div id="pro-useremail-value">{{businessProfile.dbayUser.email}}</div>
+            </div>
+            <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0"
+                                                                        href="#pro-useremail-collapse"
+                                                                        data-bs-toggle="collapse"><i
+              class="fi-edit"></i></a></div>
+          </div>
+          <div class="collapse" id="pro-useremail-collapse" data-bs-parent="#auth-info">
+            <input class="form-control mt-3" type="email" data-bs-binded-element="#pro-useremail-value"
+                   data-bs-unset-value="Not specified" value="">
+          </div>
+        </div>
         <!-- User name-->
         <div class="border-bottom pb-3 mb-3">
           <div class="d-flex align-items-center justify-content-between">
@@ -505,8 +528,14 @@
             <div class="pe-2">
               <label class="form-label fw-bold">Shop type</label>
               <!-- <div id="type-value">shop type</div> -->
-              <div class="text-muted fw-normal" *ngFor="let businessCate of businessProfile.businessProfileCategories">
+              <div class="text-muted fw-normal" *ngFor="let businessCate of businessProfile.businessProfileCategories"
+                   (click)="businessProfile.defaultBusiness = businessCate.name"
+                   [ngStyle]="{'color':(businessProfile.defaultBusiness === businessCate.name)?'green':''}">
                 {{businessCate.name}}
+                <span style="margin-left: 10px;font-size: 14px;color: green;font-weight: bold"
+                      *ngIf="businessProfile.defaultBusiness === businessCate.name">
+                  <i class="fi-check" style="margin-right: 5px;font-size: 14px"></i>Set as default
+                </span>
               </div>
               <div class="text-muted fw-normal" *ngIf="businessProfile.businessProfileCategories.length===0">
                 Not specified
@@ -527,6 +556,7 @@
               [searchWhileComposing]="true"
               name="businessProfileCategories"
               #businessProfileCategories="ngModel" required
+              (change)="setDefaultBusiness(businessProfile)"
               [(ngModel)]="businessProfile.businessProfileCategories">
             </ng-select>
             <div

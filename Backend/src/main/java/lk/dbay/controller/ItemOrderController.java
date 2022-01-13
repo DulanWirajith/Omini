@@ -43,6 +43,11 @@ public class ItemOrderController {
         return ResponseEntity.ok(itemOrderS.getInCompletedOrder(customerId));
     }
 
+    @GetMapping("/getPendingCustOrders/{customerId}")
+    public ResponseEntity getPendingCustomerOrders(@PathVariable String customerId) {
+        return ResponseEntity.ok(itemOrderS.getPendingCustomerOrders(customerId));
+    }
+
     @PutMapping(value = "/updateOrderDetail/{updateType}")
     public ResponseEntity updateOrderDetail(@RequestBody OrderDetail orderDetail, @PathVariable String updateType) {
         try {

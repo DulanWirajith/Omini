@@ -2,11 +2,12 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AppCustomerComponent} from './app-customer.component';
 import {HeaderComponent} from "../view/header/header.component";
-import {CustomerProfileComponent} from "./view/customer-profile/customer-profile.component";
-import {CpProfileSettingsComponent} from "./view/customer-profile/cp-profile-settings/cp-profile-settings.component";
 import {ItemShopSearchComponent} from "./view/item-shop-search/item-shop-search.component";
 import {SearchResultComponent} from "./view/search-result/search-result.component";
 import {ItemPackageSearchResultComponent} from "./view/search-result/item-package-search-result/item-package-search-result.component";
+import {CustomerAccountComponent} from "./view/customer-account/customer-account.component";
+import {CProfileComponent} from "./view/customer-account/c-profile/c-profile.component";
+import {COrderComponent} from "./view/customer-account/c-order/c-order.component";
 
 const routes: Routes = [
   {
@@ -19,12 +20,16 @@ const routes: Routes = [
     component: AppCustomerComponent,
     children: [
       {
-        path: 'customer_profile',
-        component: CustomerProfileComponent,
+        path: 'customer_account',
+        component: CustomerAccountComponent,
         children: [
           {
-            path: 'profile_settings',
-            component: CpProfileSettingsComponent,
+            path: 'customer_profile',
+            component: CProfileComponent,
+          },
+          {
+            path: 'customer_order',
+            component: COrderComponent,
           }
         ]
       },

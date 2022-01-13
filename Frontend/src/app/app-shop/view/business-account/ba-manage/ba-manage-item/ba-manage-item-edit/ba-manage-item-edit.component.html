@@ -213,7 +213,7 @@
                   placeholder="Quantity"
                   min="1"
                   required
-                  [(ngModel)]="item.itemQty" #itemQtyE="ngModel" name="itemQty"
+                  [(ngModel)]="item.quantity" #itemQtyE="ngModel" name="itemQty"
                 />
                 <div *ngIf="(itemQtyE.touched || baManageFormItemE.submitted) && itemQtyE.errors?.required"
                      class="validErr">

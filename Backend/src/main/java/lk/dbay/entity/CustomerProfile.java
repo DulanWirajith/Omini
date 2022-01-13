@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = "contactNumber", name = "ContactNumber"),
+        @UniqueConstraint(columnNames = {"contactNumber1", "contactNumber2"}, name = "ContactNumbers"),
         @UniqueConstraint(columnNames = "customerAddress", name = "CustomerAddress")
 })
 public class CustomerProfile extends DateTime {
@@ -21,7 +21,8 @@ public class CustomerProfile extends DateTime {
     @Id
     private String customerProId;
     private String customerName;
-    private String contactNumber;
+    private String contactNumber1;
+    private String contactNumber2;
     private String customerAddress;
     private String gender;
 

@@ -13,6 +13,8 @@ public interface ItemOrderR extends JpaRepository<ItemOrder, String> {
 
     Optional<ItemOrder> getItemOrderByCustomerProfile_CustomerProIdAndStatus(String customerId, String status);
 
+    List<ItemOrder> getItemOrdersByCustomerProfile_CustomerProId(String customerId);
+
 //    @Query(value = "select distinct io from ItemOrder io inner join io.orderDetails ioo where (ioo.item.businessProfileCategory.businessProfileCategoryId=?1 or ioo.itemPackage.businessProfileCategory.businessProfileCategoryId=?1) and io.status=?2")
 //    List<ItemOrder> getItemOrders(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
 //

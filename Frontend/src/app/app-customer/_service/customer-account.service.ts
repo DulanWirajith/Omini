@@ -12,6 +12,10 @@ export class CustomerAccountService {
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
+  updateCustomerProfile(customerReg, customerProId): Observable<any> {
+    return this.http.put<any>(environment.backend_url + 'customer_profile/updateCustomerProfile/' + customerProId, customerReg);
+  }
+
   getCustomerProfile(customerProfileId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'customer_profile/getCustomerProfile/' + customerProfileId);
   }
@@ -20,13 +24,36 @@ export class CustomerAccountService {
     return this.http.get<any>(environment.backend_url + 'business_category/getBusinessCategories');
   }
 
+  getCountries(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'town/getCountries');
+  }
+
+  getDistricts(countryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'town/getDistricts/' + countryId);
+  }
+
+  getTowns(districtId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'town/getTowns/' + districtId);
+  }
+
   getNewCustomerProfile() {
     return {
       customerProId: "",
       customerName: "",
-      contactNumber: "",
+      contactNumber1: "",
+      contactNumber2: "",
       customerAddress: "",
       gender: "",
+      country: "",
+      district: "",
+      town: {
+        townId: "",
+        district: {
+          country: {
+            name: ""
+          }
+        }
+      },
       dbayUser: {
         username: "",
         cPassword: "",
@@ -34,7 +61,9 @@ export class CustomerAccountService {
         passwordC: "",
         email: "",
         verificationCode: "",
-        twoFactorAuth: false
+        twoFactorAuth: false,
+        dbayUserImgs: [],
+        dbayUserImgsRaw: []
       }
     }
   }

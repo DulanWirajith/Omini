@@ -62,7 +62,8 @@
               <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
                 <mdb-carousel-item *ngFor="let image of itemPackage.itemPackageImgs">
                   <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
-                  <img style="max-height:350px;height: 350px" class="d-block w-100" [src]="getPackageImageSrc(image)" alt="First slide">
+                  <img style="max-height:350px;height: 350px" class="d-block w-100" [src]="getPackageImageSrc(image)"
+                       alt="First slide">
                 </mdb-carousel-item>
               </mdb-carousel>
             </div>
@@ -220,7 +221,7 @@
                   [searchWhileComposing]="true"
                   name="businessProfileCategories"
                   #businessProfileCategoriesE="ngModel" required
-                  (change)="getItems(itemPackage);getItemPackageFeatures(itemPackage)"
+                  (change)="getItems(itemPackage.businessProfileCategory.businessCategory.businessCategoryId,itemPackage);getItemPackageFeatures(itemPackage.businessProfileCategory.businessCategory.businessCategoryId)"
                   [(ngModel)]="itemPackage.businessProfileCategory.businessCategory">
                 </ng-select>
                 <div
@@ -313,7 +314,8 @@
                 <a href="#new-packageFeature-edit" data-bs-toggle="modal" data-bs-dismiss="modal"
                    class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-3 fw-bold createFeature"
                    title="You can create new feature." data-bs-original-title="You can create new feature."
-                   aria-label="You can create new feature." style="padding-left: 20px;padding-top: 4px" value="{{i}}">Create Feature
+                   aria-label="You can create new feature." style="padding-left: 20px;padding-top: 4px" value="{{i}}">Create
+                  Feature
                 </a>
 
                 <form #baManageFormPackageExs="ngForm"
@@ -362,7 +364,8 @@
               <div class="d-flex flex-wrap mb-4">
                 <span *ngFor="let itemPackageFeature of itemPackage.itemPackageItemPackageFeatures;let j = index"
                       class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemPackageFeature.itemPackageFeature.name}}
-                  <i class="fi-x fs-xs ms-2" (click)="itemPackage.itemPackageItemPackageFeatures.splice(i,1)" style="cursor: pointer"></i>
+                  <i class="fi-x fs-xs ms-2" (click)="itemPackage.itemPackageItemPackageFeatures.splice(i,1)"
+                     style="cursor: pointer"></i>
                 </span>
               </div>
             </div>
@@ -461,7 +464,8 @@
   </div>
 </div>
 
-<div class="modal fade" role="dialog" id="new-packageFeature-edit" tabindex="-1" aria-hidden="true" style="z-index: 9999">
+<div class="modal fade" role="dialog" id="new-packageFeature-edit" tabindex="-1" aria-hidden="true"
+     style="z-index: 9999">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -480,7 +484,8 @@
           <i class="fi-alert-circle me-2 me-sm-3 lead"></i>
           <div>It takes few minutes to review your feature.Then we will add it into your item.</div>
         </div>
-        <form class="tab-pane fade show active" autocomplete="off" id="add-feature-e" #baManageFormPackageFeature="ngForm"
+        <form class="tab-pane fade show active" autocomplete="off" id="add-feature-e"
+              #baManageFormPackageFeature="ngForm"
               (ngSubmit)="baManageFormPackageFeature.form.valid && addFeatureTemp()" novalidate>
           <div class="mb-3">
             <label class="form-label" for="feature">Feature</label>

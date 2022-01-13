@@ -11,7 +11,10 @@ export class BusinessAccountComponent implements OnInit {
   breadCrumbTxt = 'Monitor';
   businessCategories = [];
   businessProfileCategory;
-  businessCategory;
+  businessCategory = {
+    businessCategoryId: '',
+    name: ''
+  };
 
   constructor(private businessAccountService: BusinessAccountService) {
     // businessAccountService.breadCrumbSub.subscribe((txt) => {
@@ -28,6 +31,11 @@ export class BusinessAccountComponent implements OnInit {
       this.businessCategories = businessCategories;
       this.businessAccountService.businessCategoriesSub.next(businessCategories);
       this.businessAccountService.businessCategories = businessCategories;
+      this.businessCategory = {
+        businessCategoryId: 'BC002',
+        name: 'Cake Baker'
+      }
+      this.setBusinessCategory();
     })
   }
 

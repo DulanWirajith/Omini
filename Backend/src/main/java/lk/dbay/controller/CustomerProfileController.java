@@ -15,6 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
 @RestController
@@ -42,9 +43,9 @@ public class CustomerProfileController {
     }
 
     @PutMapping(value = "/updateCustomerProfile/{customerProfileId}")
-    public ResponseEntity updateCustomerProfile(@RequestBody CustomerProfile customerProfile, @PathVariable String customerProfileId) {
+    public ResponseEntity updateCustomerProfile(@RequestPart("customerProfile") CustomerProfile customerProfile, @RequestParam("imageFile") MultipartFile[] files, @PathVariable String customerProfileId) {
         try {
-            CustomerProfileDTO customerProfileDTO = customerProfileS.updateCustomerProfile(customerProfile, customerProfileId);
+            CustomerProfileDTO customerProfileDTO = customerProfileS.updateCustomerProfile(customerProfile, files, customerProfileId);
             if (customerProfileDTO != null) {
                 return ResponseEntity.ok(customerProfileDTO);
             } else {

@@ -82,6 +82,7 @@ public class ItemPackageSImpl implements ItemPackageS {
                 businessProfileCategory.setBusinessProfileCategoryId(
                         new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
                 );
+                itemPackageObj.setBusinessProfileCategory(businessProfileCategory);
 
                 HashSet<ItemItemPackage> itemItemPackages = new HashSet<>(itemPackage.getItemItemPackages());
                 itemItemPackages.retainAll(itemPackageObj.getItemItemPackages());
@@ -123,7 +124,7 @@ public class ItemPackageSImpl implements ItemPackageS {
                 itemPackageR.save(itemPackageObj);
                 ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
                 itemPackageDTO.setBusinessProfileCategory(itemPackage);
-                itemPackageDTO.setItemPackageImgs(itemPackage);
+                itemPackageDTO.setItemPackageImgs(itemPackageObj);
                 return itemPackageDTO;
             }
             return null;

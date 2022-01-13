@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerAccountComponent implements OnInit {
 
+  breadCrumbTxt = 'Order';
+
   constructor() { }
 
   ngOnInit(): void {

@@ -145,7 +145,8 @@ export class ItemService {
       itemPkgImgs: [],
       itemPackageImgs: [],
       tempBusinessCategory: undefined,
-      tempItems: []
+      tempItems: [],
+      tempItemFeatures: []
     }
   }
 }

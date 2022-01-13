@@ -70,7 +70,7 @@ public class DbayUserDTO extends DateTimeDTO {
     }
 
     public void setDbayUserImgs(DbayUser dbayUser) {
-        if (dbayUserImgs != null) {
+        if (dbayUser.getDbayUserImgs() != null) {
             this.dbayUserImgs = new ArrayList<>();
             for (DbayUserImg dbayUserImg : dbayUser.getDbayUserImgs()) {
                 this.dbayUserImgs.add(new DbayUserImgDTO(dbayUserImg));

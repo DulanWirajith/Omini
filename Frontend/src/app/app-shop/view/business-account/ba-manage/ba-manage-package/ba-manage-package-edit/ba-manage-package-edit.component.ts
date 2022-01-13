@@ -44,6 +44,10 @@ export class BaManagePackageEditComponent implements OnInit {
 
   ngOnInit(): void {
     // this.btnCreateFeature();
+    this.businessCategories = this.businessAccountService.businessCategories;
+    // this.getItems(this.itemPackageCur)
+    this.getItems(this.businessAccountService.businessCategoryId)
+    this.getItemPackageFeatures(this.businessAccountService.businessCategoryId)
     this.toggleCategoryBtn();
   }
 
@@ -125,18 +129,20 @@ export class BaManagePackageEditComponent implements OnInit {
     //console.log(this.itemPackageCur)
   }
 
-  getItems(itemPackage?) {
+  getItems(businessCategoryId, itemPackage?) {
     //console.log(this.businessProfileCategory)
     // if (this.businessProfileCategory !== undefined) {
-    this.itemService.getItemsBusinessCategory("B321", itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+    this.itemService.getItemsBusinessCategory("B321", businessCategoryId).subscribe((items) => {
       // console.log(items)
       this.itemsToAdd = items;
       if (itemPackage !== undefined) {
         if (itemPackage.businessProfileCategory.businessCategory.businessCategoryId === itemPackage.tempBusinessCategory.businessCategoryId) {
           // console.log(itemPackage.tempItems)
           itemPackage.itemItemPackages = itemPackage.tempItems;
+          itemPackage.itemPackageItemPackageFeatures = itemPackage.tempItemFeatures;
         } else {
           itemPackage.itemItemPackages = [];
+          itemPackage.itemPackageItemPackageFeatures = [];
         }
         // itemPackage.items = [];
         // for (let item of itemPackage.itemItemPackages) {
@@ -147,13 +153,13 @@ export class BaManagePackageEditComponent implements OnInit {
     // }
   }
 
-  getItemPackageFeatures(itemPackage) {
-    if (itemPackage.businessProfileCategory !== undefined) {
-      this.itemService.getItemPackageFeatures(itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemPackageFeatures) => {
-        // console.log(items)
-        this.itemPackageFeatures = itemPackageFeatures;
-      })
-    }
+  getItemPackageFeatures(businessCategoryId) {
+    // if (itemPackage.businessProfileCategory !== undefined) {
+    this.itemService.getItemPackageFeatures(businessCategoryId).subscribe((itemPackageFeatures) => {
+      // console.log(items)
+      this.itemPackageFeatures = itemPackageFeatures;
+    })
+    // }
   }
 
   toggleCategoryBtn() {
@@ -182,6 +188,8 @@ export class BaManagePackageEditComponent implements OnInit {
       that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
         // that.categories[index] = category;
         Object.assign(that.itemPackages[index], itemPackage)
+        // that.getItems(that.itemPackages[index])
+        // that.getItemPackageFeatures(that.itemPackages[index])
         that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
         that.itemPackages[index].items = [];
         for (let item of itemPackage.itemItemPackages) {

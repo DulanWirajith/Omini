@@ -35,9 +35,11 @@ import {RouterModule} from "@angular/router";
 import {ItemSearchResultViewComponent} from './app-customer/view/search-result/item-package-search-result/item-search-result-view/item-search-result-view.component';
 import {ItemPackageSearchResultComponent} from './app-customer/view/search-result/item-package-search-result/item-package-search-result.component';
 import {ItemSearchResultDetailViewComponent} from './app-customer/view/search-result/item-package-search-result/item-search-result-detail-view/item-search-result-detail-view.component';
-import {ShopCartComponent} from './app-customer/view/search-result/shop-cart/shop-cart.component';
+import {ShopCartComponent} from './app-customer/view/shop-cart/shop-cart.component';
 import {SharedModule} from "./_shared/shared.module";
 import {AppCustomerModule} from "./app-customer/app-customer.module";
+import { CProfileComponent } from './app-customer/view/customer-account/c-profile/c-profile.component';
+import { COrderComponent } from './app-customer/view/customer-account/c-order/c-order.component';
 
 @NgModule({
   declarations: [

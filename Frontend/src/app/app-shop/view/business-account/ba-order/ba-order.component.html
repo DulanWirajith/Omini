@@ -94,7 +94,7 @@
     </div>
     <div class="row g-4 py-1">
 
-      <div class="col-md-6" *ngFor="let itemOrder of itemOrders">
+      <div class="col-md-6" *ngFor="let itemOrder of itemOrders;let j=index">
         <div class="card mb-2" style="border: 2px solid #e7e7e7">
           <blockquote class="blockquote pending-card-micon card-body">
             <div class="d-flex justify-content-between mb-2">
@@ -102,7 +102,7 @@
                 <div class="d-flex align-items-center mb-2">
                   <img class="rounded-circle me-1" src="../../../../../assets/img/37.png" width="48" alt="Avatar">
                   <div class="ps-2">
-                    <h6 class="fs-base mb-0">Ralph Edwards</h6>
+                    <h6 class="fs-base mb-0">{{itemOrder.customerProfile.customerName}}</h6>
                     <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
                   </div>
                 </div>
@@ -116,7 +116,7 @@
                 <div class="col-4">
                   <div style="background-color: rgba(229,154,3,0.35)">
                     <div class="mb-2 fs-sm fw-bold" style="color: #704900">Quantity</div>
-                    <div class="fs-sm fw-bold" style="color: #925f00">{{itemOrder.orderDetails.length}}</div>
+                    <div class="fs-sm fw-bold" style="color: #925f00">{{itemOrder.qty}}</div>
                   </div>
                 </div>
 
@@ -127,17 +127,17 @@
                   </div>
                 </div>
                 <div class="col-2" style="display: grid;align-content: center;justify-content: center">
-                  <button
+                  <a
                     class="btnView btn  btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
                     type="button" data-bs-toggle="collapse" style="background-color: #e9ad2d;color: white"
                     aria-expanded="true"
-                    href="#item-list">
+                    href="#item-list{{j}}">
                     <i class="fi-eye-on"></i>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
-            <div class="collapse mb-3" id="item-list">
+            <div class="collapse mb-3" id="item-list{{j}}">
               <div class="card card-body" style="border: 3px solid #e9ad2d">
                 <!--Order detail card 1-->
                 <div class="order-detail-card mb-3" style="margin-top: 5px"
@@ -163,7 +163,7 @@
                       </div>
                     </div>
                     <div class="col" style="padding: 0px">
-                      <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                      <p class="mb-1 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
                         Total Price </p>
                       <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
                         LKR {{orderDetail.price * orderDetail.quantity}}

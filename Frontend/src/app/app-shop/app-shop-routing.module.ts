@@ -6,8 +6,6 @@ import {BusinessRegisterComponent} from "./view/business-register/business-regis
 import {BusinessAccountComponent} from "./view/business-account/business-account.component";
 import {BaMonitorComponent} from "./view/business-account/ba-monitor/ba-monitor.component";
 import {BaManageComponent} from "./view/business-account/ba-manage/ba-manage.component";
-import {SpProfileSettingsComponent} from "./view/shop-profile/sp-profile-settings/sp-profile-settings.component";
-import {ShopProfileComponent} from "./view/shop-profile/shop-profile.component";
 import {BaOrderComponent} from "./view/business-account/ba-order/ba-order.component";
 import {BaProfileComponent} from "./view/business-account/ba-profile/ba-profile.component";
 
@@ -48,16 +46,6 @@ const routes: Routes = [
           {
             path: 'ba_profile',
             component: BaProfileComponent,
-          }
-        ]
-      },
-      {
-        path: 'shop_profile',
-        component: ShopProfileComponent,
-        children: [
-          {
-            path: 'profile_settings',
-            component: SpProfileSettingsComponent,
           }
         ]
       }

@@ -81,6 +81,7 @@ export class BusinessAccountService {
       businessRegistrationCode: "",
       businessOwner: "",
       businessOwnerNic: "",
+      defaultBusiness: "",
       socialFb: "",
       socialInsta: "",
       socialTwitter: "",

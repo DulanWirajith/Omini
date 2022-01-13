@@ -83,6 +83,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessProfileObj.setContactNumber3(businessProfile.getContactNumber3());
                 businessProfileObj.setBusinessAddress(businessProfile.getBusinessAddress());
                 businessProfileObj.setBusinessEmail(businessProfile.getBusinessEmail());
+                businessProfileObj.setDefaultBusiness(businessProfile.getDefaultBusiness());
                 businessProfileObj.setBusinessRegistrationCode(businessProfile.getBusinessRegistrationCode());
                 businessProfileObj.setBusinessOwner(businessProfile.getBusinessOwner());
                 businessProfileObj.setBusinessOwnerNic(businessProfile.getBusinessOwnerNic());
@@ -96,6 +97,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
 //                    businessArea.setBusinessAreaId(new BusinessAreaPK(businessProfile.getBusinessProId(), businessArea.getTown().getTownId()));
 //                    businessArea.setBusinessProfile(businessProfileObj);
 //                }
+//                addBusinessAreas(businessProfile);
                 HashSet<BusinessArea> businessAreas = new HashSet<>(businessProfile.getBusinessAreas());
                 businessAreas.retainAll(businessProfileObj.getBusinessAreas());
                 Set<BusinessArea> businessAreaSetRemove = new HashSet<>(businessProfileObj.getBusinessAreas());
@@ -104,7 +106,6 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessAreaSetAdd.removeAll(businessAreas);
                 businessProfileObj.setBusinessAreas(businessAreaSetAdd);
                 addBusinessAreas(businessProfileObj);
-
 //                HashSet<BusinessArea> businessAreas = new HashSet<>(businessProfile.getBusinessAreas());
 //                businessAreas.retainAll(businessProfileObj.getBusinessAreas());
 //                Set<BusinessArea> businessAreaSetRemove = new HashSet<>(businessProfileObj.getBusinessAreas());
@@ -116,6 +117,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
 //                    businessProfileCategory.setBusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId()));
 //                    businessProfileCategory.setBusinessProfile(businessProfileObj);
 //                }
+//                addBusinessProfileCategories(businessProfile);
                 HashSet<BusinessProfileCategory> profileCategories = new HashSet<>(businessProfile.getBusinessProfileCategories());
                 profileCategories.retainAll(businessProfileObj.getBusinessProfileCategories());
                 Set<BusinessProfileCategory> profileCategorySetRemove = new HashSet<>(businessProfileObj.getBusinessProfileCategories());
@@ -125,6 +127,9 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessProfileObj.setBusinessProfileCategories(profileCategorySetAdd);
                 addBusinessProfileCategories(businessProfileObj);
 
+                if (businessProfile.getDbayUser().getDbayUserImgs() == null) {
+                    businessProfile.getDbayUser().setDbayUserImgs(new HashSet<>());
+                }
                 HashSet<DbayUserImg> dbayUserImgs = new HashSet<>(businessProfile.getDbayUser().getDbayUserImgs());
                 dbayUserImgs.retainAll(businessProfileObj.getDbayUser().getDbayUserImgs());
                 Set<DbayUserImg> dbayUserImgsSetRemove = new HashSet<>(businessProfileObj.getDbayUser().getDbayUserImgs());
@@ -154,10 +159,10 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessProfileR.save(businessProfileObj);
                 businessProfileObj.getBusinessAreas().addAll(businessAreas);
                 businessProfileObj.getBusinessProfileCategories().addAll(profileCategories);
-                BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
-                businessProfileDTO.setDbayUser(businessProfile, true);
-                businessProfileDTO.setBusinessAreas(businessProfile);
-                businessProfileDTO.setBusinessProfileCategories(businessProfile);
+                BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO();
+                businessProfileDTO.setDbayUser(businessProfileObj, true);
+//                businessProfileDTO.setBusinessAreas(businessProfile);
+//                businessProfileDTO.setBusinessProfileCategories(businessProfile);
                 return businessProfileDTO;
             }
             return null;

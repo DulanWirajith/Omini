@@ -1,0 +1,421 @@
+<div class="d-flex">
+  <div class="flex-grow-1">
+    <h1 class="h2"><i class="fi-shopping-bag text-primary"></i> Order</h1>
+  </div>
+  <div class="">
+    <div class="input-group">
+      <input class="form-control" type="text" placeholder="Search....." id="following-shop-search">
+      <div class="input-group-text p-0">
+        <a class="d-block text-body px-3 py-2" href="#">
+          <i class="fi-search mt-n1"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="d-sm-flex align-items-center pb-2 pb-sm-2">
+    <div class="mt-md-n3 mb-4 w-100">
+      <a class="btn btn-outline-primary btn-lg rounded-pill w-100 d-md-none" href="#account-nav"
+         data-bs-toggle="collapse"><i class="fi-align-justify me-2"></i>Account Menu
+      </a>
+      <div class="row collapse d-md-block justify-content-between border-bottom-md" id="account-nav">
+
+        <ul class="nav nav-pills pt-4 pt-md-2 pb-md-2 w-50" role="tablist">
+          <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link active" href="#client-following-view"
+                                                          data-bs-toggle="tab" role="tab"><i
+            class="fi-building mt-n1 me-2 fs-base"></i> 10 Pending Orders</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <div class="tab-content">
+
+    <div class="tab-pane fade show active" id="client-following-view" role="tabpanel">
+      <!--client order grid-->
+      <div class="row g-4 py-1">
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm mb-2">
+            <blockquote class="blockquote co card-body">
+              <div class="d-flex justify-content-between mb-2">
+                <div class="pe-3">
+                  <div class="d-flex align-items-center mb-2">
+                    <a class="btn btn-icon btn-warning btn-md shadow-sm rounded-circle me-2 mb-0" href="#"
+                       data-bs-toggle="tooltip" title="Order still in Pending status."
+                       data-bs-original-title="Order still in Pending status."
+                       aria-label="Order still in Pending status.">
+                      <i class="fi-car"></i></a>
+                    <!-- <img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar"> -->
+                    <div class="ps-2">
+                      <h6 class="fs-base mb-0">OrderId</h6>
+                      <div class="text-muted fw-normal fs-sm">Sent to 3 Shops</div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="text-muted fs-sm mt-1">5 min ago</div>
+                </div>
+              </div>
+              <div class="section-second mb-3">
+                <div class="list-group list-group-horizontal-sm">
+                  <a href="#" class="list-group-item list-group-item-action text-center"
+                     data-bs-toggle="tooltip" title="Items Count" data-bs-original-title="Items Count"
+                     aria-label="Items Count">
+                    <div class="bg-teal rounded text-center p-2"><i
+                      class="fi-list d-block h5 text-light mb-0 mx-center"></i>
+                      <span class="fs-xs h4 text-light">5</span>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action text-center"
+                     data-bs-toggle="tooltip" title="Total Price" data-bs-original-title="Total Price"
+                     aria-label="Total Price">
+                    <div class="bg-teal rounded text-center p-2">
+                      <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i><span
+                      class="fs-xs h4 text-light">LKR 2500</span>
+                    </div>
+                  </a>
+                  <a href="#item-list" data-bs-toggle="collapse" aria-expanded="false" aria-controls="item-list"
+                     class="list-group-item list-group-item-action text-center">
+                    <div class="bg-teal rounded text-center p-2">
+                      <i class="fi-eye-on d-block h5 text-light mb-0 mx-center"></i>
+                      <span class="fs-xs h4 text-light">view</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="collapse mb-3" id="item-list">
+                <div class="card card-body mb-2">
+                  <!--order for shop-->
+                  <blockquote class="">
+                    <div class="d-flex justify-content-between mb-2">
+                      <div class="pe-3">
+                        <div class="d-flex align-items-center mb-2">
+                          <img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar">
+                          <div class="ps-2">
+                            <h6 class="fs-base mb-0">Ralph Edwards</h6>
+                            <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="text-muted fs-sm mt-1"><a
+                          class="btn btn-icon btn-success btn-md shadow-sm rounded-circle me-2 mb-0" href="#"
+                          data-bs-toggle="tooltip" title="Order is completed."
+                          data-bs-original-title="Order is completed." aria-label="Order is completed.">
+                          <i class="fi-car"></i></a></div>
+                      </div>
+                    </div>
+                    <div class="section-second mb-3">
+                      <div class="list-group list-group-horizontal-sm">
+                        <a href="#" class="list-group-item list-group-item-action text-center"
+                           data-bs-toggle="tooltip" title="Items Count" data-bs-original-title="Items Count"
+                           aria-label="Items Count">
+                          <div class="bg-darkslategrey rounded text-center p-2"><i
+                            class="fi-list d-block h5 text-light mb-0 mx-center"></i>
+                            <span class="fs-xs h4 text-light">5</span>
+                          </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action text-center"
+                           data-bs-toggle="tooltip" title="Total Price" data-bs-original-title="Total Price"
+                           aria-label="Total Price">
+                          <div class="bg-darkslategrey rounded text-center p-2">
+                            <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i><span
+                            class="fs-xs h4 text-light">LKR 2500</span>
+                          </div>
+                        </a>
+                        <a href="#item-list-2" data-bs-toggle="collapse" aria-expanded="false"
+                           aria-controls="item-list-2"
+                           class="list-group-item list-group-item-action text-center">
+                          <div class="bg-darkslategrey rounded text-center p-2">
+                            <i class="fi-eye-on d-block h5 text-light mb-0 mx-center"></i>
+                            <span class="fs-xs h4 text-light">view</span>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="collapse mb-3" id="item-list-2">
+                      <div class="card card-body">
+                        <!--Order detail card 1-->
+                        <div class="order-detail-card mb-3 border-bottom">
+                          <div class="d-flex align-items-center justify-content-between pb-1">
+                            <h3 class="h6 mb-2 fs-base">
+                              <a class="nav-link" href="#" data-bs-toggle="offcanvas"
+                                 data-bs-target="#item-viewer">Item Name</a></h3>
+                            <span class="badge rounded-pill bg-info"> Item </span>
+                          </div>
+                          <div class="order-detail-card-ss mb-3">
+                            <div class="list-group list-group-horizontal-sm">
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Quantity" data-bs-original-title="Quantity"
+                                 aria-label="Quantity">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">2</span>
+                                </div>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Discount" data-bs-original-title="Discount"
+                                 aria-label="Discount">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">LKR 20</span>
+                                </div>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Price" data-bs-original-title="Price"
+                                 aria-label="Price">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">LKR 500</span>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-center justify-content-between pb-1">
+                            <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
+                            <div class="form-check form-check-dark">
+                              <input class="form-check-input" type="checkbox" id="compare1">
+                              <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
+                            </div>
+                          </div>
+                        </div>
+                        <!--Order detail card 2-->
+                        <div class="order-detail-card mb-3 border-bottom">
+                          <div class="d-flex align-items-center justify-content-between pb-1">
+                            <h3 class="h6 mb-2 fs-base">
+                              <a class="nav-link" href="#" data-bs-toggle="offcanvas"
+                                 data-bs-target="#package-viewer">Package name</a></h3>
+                            <span class="badge rounded-pill bg-success"> Package </span>
+                          </div>
+                          <div class="order-detail-card-ss mb-3">
+                            <div class="list-group list-group-horizontal-sm">
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Quantity" data-bs-original-title="Quantity"
+                                 aria-label="Quantity">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">1</span>
+                                </div>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Discount" data-bs-original-title="Discount"
+                                 aria-label="Discount">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i><span
+                                  class="fs-xs h4 text-light">LKR 250</span>
+                                </div>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Price" data-bs-original-title="Price"
+                                 aria-label="Price">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">LKR 2000</span>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-center justify-content-between pb-1">
+                            <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
+                            <div class="form-check form-check-dark">
+                              <input class="form-check-input" type="checkbox" id="compare1">
+                              <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <footer class="d-flex justify-content-between">
+                      <a href="#"
+                         class="btn btn-icon btn-danger btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
+                         data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
+                         aria-label="Cancel Order">
+                        <i class="fi-x"></i>
+                      </a>
+                      <!-- <a href="#" class="btn btn-icon btn-light-primary btnhgreen btn-xs shadow-sm rounded-circle me-2 mb-2" data-bs-toggle="tooltip" title="Order Completed" data-bs-original-title="Order Completed" aria-label="Order Completed">
+                        <i class="fi-check"></i>
+                      </a>
+                      <a href="#" class="btn btn-icon btn-light-primary btnhblue btn-xs shadow-sm rounded-circle me-2 mb-2" data-bs-toggle="tooltip" title="Order In Progress" data-bs-original-title="Order In Progress" aria-label="Order In Progress">
+                        <i class="fi-arrow-long-right"></i>
+                      </a> -->
+                    </footer>
+                  </blockquote>
+                </div>
+                <div class="card card-body mb-2">
+                  <!--order for shop-->
+                  <blockquote class="">
+                    <div class="d-flex justify-content-between mb-2">
+                      <div class="pe-3">
+                        <div class="d-flex align-items-center mb-2">
+                          <img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar">
+                          <div class="ps-2">
+                            <h6 class="fs-base mb-0">Ralph Edwards</h6>
+                            <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="text-muted fs-sm mt-1">
+                          <a class="btn btn-icon btn-warning btn-md shadow-sm rounded-circle me-2 mb-0" href="#"
+                             data-bs-toggle="tooltip" title="Order still in Pending status."
+                             data-bs-original-title="Order still in Pending status."
+                             aria-label="Order still in Pending status.">
+                            <i class="fi-car"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="section-second mb-3">
+                      <div class="list-group list-group-horizontal-sm">
+                        <a href="#" class="list-group-item list-group-item-action text-center"
+                           data-bs-toggle="tooltip" title="Items Count" data-bs-original-title="Items Count"
+                           aria-label="Items Count">
+                          <div class="bg-darkslategrey rounded text-center p-2"><i
+                            class="fi-list d-block h5 text-light mb-0 mx-center"></i>
+                            <span class="fs-xs h4 text-light">5</span>
+                          </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action text-center"
+                           data-bs-toggle="tooltip" title="Total Price" data-bs-original-title="Total Price"
+                           aria-label="Total Price">
+                          <div class="bg-darkslategrey rounded text-center p-2">
+                            <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i><span
+                            class="fs-xs h4 text-light">LKR 2500</span>
+                          </div>
+                        </a>
+                        <a href="#item-list-3" data-bs-toggle="collapse" aria-expanded="false"
+                           aria-controls="item-list-2"
+                           class="list-group-item list-group-item-action text-center">
+                          <div class="bg-darkslategrey rounded text-center p-2">
+                            <i class="fi-eye-on d-block h5 text-light mb-0 mx-center"></i>
+                            <span class="fs-xs h4 text-light">view</span>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="collapse mb-3" id="item-list-3">
+                      <div class="card card-body">
+                        <!--Order detail card 1-->
+                        <div class="order-detail-card mb-3 border-bottom">
+                          <div class="d-flex align-items-center justify-content-between pb-1">
+                            <h3 class="h6 mb-2 fs-base">
+                              <a class="nav-link" href="#" data-bs-toggle="offcanvas"
+                                 data-bs-target="#item-viewer">Item Name</a></h3>
+                            <span class="badge rounded-pill bg-info"> Item </span>
+                          </div>
+                          <div class="order-detail-card-ss mb-3">
+                            <div class="list-group list-group-horizontal-sm">
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Quantity" data-bs-original-title="Quantity"
+                                 aria-label="Quantity">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">2</span>
+                                </div>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Discount" data-bs-original-title="Discount"
+                                 aria-label="Discount">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">LKR 20</span>
+                                </div>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Price" data-bs-original-title="Price"
+                                 aria-label="Price">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">LKR 500</span>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-center justify-content-between pb-1">
+                            <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
+                            <div class="form-check form-check-dark">
+                              <input class="form-check-input" type="checkbox" id="compare1">
+                              <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
+                            </div>
+                          </div>
+                        </div>
+                        <!--Order detail card 2-->
+                        <div class="order-detail-card mb-3 border-bottom">
+                          <div class="d-flex align-items-center justify-content-between pb-1">
+                            <h3 class="h6 mb-2 fs-base">
+                              <a class="nav-link" href="#" data-bs-toggle="offcanvas"
+                                 data-bs-target="#package-viewer">Package name</a></h3>
+                            <span class="badge rounded-pill bg-success"> Package </span>
+                          </div>
+                          <div class="order-detail-card-ss mb-3">
+                            <div class="list-group list-group-horizontal-sm">
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Quantity" data-bs-original-title="Quantity"
+                                 aria-label="Quantity">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">1</span>
+                                </div>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Discount" data-bs-original-title="Discount"
+                                 aria-label="Discount">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i><span
+                                  class="fs-xs h4 text-light">LKR 250</span>
+                                </div>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action text-center"
+                                 data-bs-toggle="tooltip" title="Price" data-bs-original-title="Price"
+                                 aria-label="Price">
+                                <div class="bg-dark rounded text-center p-2">
+                                  <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
+                                  <span class="fs-xs h4 text-light">LKR 2000</span>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-center justify-content-between pb-1">
+                            <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
+                            <div class="form-check form-check-dark">
+                              <input class="form-check-input" type="checkbox" id="compare1">
+                              <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <footer class="d-flex justify-content-between">
+                      <a href="#"
+                         class="btn btn-icon btn-danger btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
+                         data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
+                         aria-label="Cancel Order">
+                        <i class="fi-x"></i>
+                      </a>
+                    </footer>
+                  </blockquote>
+                </div>
+              </div>
+              <footer class="d-flex justify-content-end">
+                <a href="#" class="btn btn-icon btn-danger btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
+                   data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
+                   aria-label="Cancel Order">
+                  <i class="fi-x"></i>
+                </a>
+                <!-- <a href="#" class="btn btn-icon btn-light-primary btnhgreen btn-xs shadow-sm rounded-circle me-2 mb-2" data-bs-toggle="tooltip" title="Order Completed" data-bs-original-title="Order Completed" aria-label="Order Completed">
+                  <i class="fi-check"></i>
+                </a>
+                <a href="#" class="btn btn-icon btn-light-primary btnhblue btn-xs shadow-sm rounded-circle me-2 mb-2" data-bs-toggle="tooltip" title="Order In Progress" data-bs-original-title="Order In Progress" aria-label="Order In Progress">
+                  <i class="fi-arrow-long-right"></i>
+                </a> -->
+              </footer>
+            </blockquote>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

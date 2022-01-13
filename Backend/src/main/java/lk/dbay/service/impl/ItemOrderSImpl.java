@@ -200,26 +200,36 @@ public class ItemOrderSImpl implements ItemOrderS {
         }
         for (ItemOrderDTO itemOrderDTO : itemOrderDTOS) {
             itemOrderDTO.setOrderDetails(new ArrayList<>());
+            itemOrderDTO.setAmount(0);
+            itemOrderDTO.setQty(0);
             for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
                 if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
-                    itemOrderDTO.setAmount(itemOrderDetail.getPrice());
                     OrderDetailDTO orderDetailDTO = new OrderDetailDTO(itemOrderDetail);
                     orderDetailDTO.setItem(new ItemDTO(itemOrderDetail.getItem(), false));
                     orderDetailDTO.setOrderDetailType("Item");
                     itemOrderDTO.getOrderDetails().add(orderDetailDTO);
+                    itemOrderDTO.setAmount(itemOrderDTO.getAmount() + (itemOrderDetail.getPrice() * itemOrderDetail.getQuantity()));
+                    itemOrderDTO.setQty(itemOrderDTO.getQty() + itemOrderDetail.getQuantity());
+                    itemOrderDTO.setCustomerProfile(itemOrderDetail.getItemOrder());
                 }
             }
             for (OrderDetail itemOrderDetail : itemOrderDetailsItemPackages) {
                 if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
-                    itemOrderDTO.setAmount(itemOrderDetail.getPrice());
                     OrderDetailDTO orderDetailDTO = new OrderDetailDTO(itemOrderDetail);
                     orderDetailDTO.setItemPackage(new ItemPackageDTO(itemOrderDetail.getItemPackage()));
                     orderDetailDTO.setOrderDetailType("ItemPackage");
                     itemOrderDTO.getOrderDetails().add(orderDetailDTO);
+                    itemOrderDTO.setAmount(itemOrderDTO.getAmount() + (itemOrderDetail.getPrice() * itemOrderDetail.getQuantity()));
+                    itemOrderDTO.setQty(itemOrderDTO.getQty() + itemOrderDetail.getQuantity());
+                    itemOrderDTO.setCustomerProfile(itemOrderDetail.getItemOrder());
                 }
             }
-            itemOrderDTO.setQty(itemOrderDTO.getOrderDetails().size());
         }
         return new ArrayList<>(itemOrderDTOS);
+    }
+
+    @Override
+    public List<ItemOrderDTO> getPendingCustomerOrders(String customerId) {
+        return null;
     }
 }

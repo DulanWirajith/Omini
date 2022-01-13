@@ -14,7 +14,8 @@ public class CustomerProfileDTO extends DateTimeDTO {
 
     private String customerProId;
     private String customerName;
-    private String contactNumber;
+    private String contactNumber1;
+    private String contactNumber2;
     private String customerAddress;
     private String gender;
 
@@ -25,18 +26,30 @@ public class CustomerProfileDTO extends DateTimeDTO {
         if (customerProfile != null) {
             this.customerProId = customerProfile.getCustomerProId();
             this.customerName = customerProfile.getCustomerName();
-            this.contactNumber = customerProfile.getContactNumber();
+            this.contactNumber1 = customerProfile.getContactNumber1();
+            this.contactNumber2 = customerProfile.getContactNumber2();
             this.customerAddress = customerProfile.getCustomerAddress();
             this.gender = customerProfile.getGender();
         }
     }
 
-    public void setDbayUser(CustomerProfile customerProfile) {
+    public void setDbayUser(CustomerProfile customerProfile, boolean needImages) {
         if (customerProfile.getDbayUser() != null) {
-            this.dbayUser = new DbayUserDTO(customerProfile.getDbayUser());
+            if (needImages) {
+                DbayUserDTO dbayUserDTO = new DbayUserDTO(customerProfile.getDbayUser());
+                dbayUserDTO.setDbayUserImgs(customerProfile.getDbayUser());
+                this.dbayUser = dbayUserDTO;
+            } else {
+                this.dbayUser = new DbayUserDTO(customerProfile.getDbayUser());
+            }
         }
     }
 
+    public void setTown(CustomerProfile customerProfile) {
+        if (customerProfile.getTown() != null) {
+            this.town = new TownDTO(customerProfile.getTown(), customerProfile.getTown().getDistrict(), customerProfile.getTown().getDistrict().getCountry());
+        }
+    }
 //    public CustomerProfileDTO(@NonNull CustomerProfile customerProfile, @NonNull DbayUserDTO dbayUser) {
 //        this(customerProfile);
 //        this.dbayUser = dbayUser;

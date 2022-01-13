@@ -11,14 +11,16 @@ export class BaOrderComponent implements OnInit {
 
   itemOrders = [];
 
-  constructor(private itemService: ItemService,private businessAccountService: BusinessAccountService) {
+  constructor(private itemService: ItemService, private businessAccountService: BusinessAccountService) {
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
       this.getItemOrders(businessCategoryId);
     })
   }
 
   ngOnInit(): void {
-    this.getItemOrders(this.businessAccountService.businessCategoryId);
+    if (this.businessAccountService.businessCategoryId !== undefined) {
+      this.getItemOrders(this.businessAccountService.businessCategoryId);
+    }
   }
 
   getItemOrders(businessCategoryId) {

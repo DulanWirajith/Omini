@@ -41,6 +41,7 @@ public class BusinessProfile extends DateTime {
     private String socialLinkedIn;
     private int proViewCount;
     private int contactViewCount;
+    private String defaultBusiness;
 
     @ManyToOne(optional = false)
     private Town town;

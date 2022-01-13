@@ -63,7 +63,9 @@ export class BaManagePackageComponent implements OnInit {
     // this.getBusinessCategories();
     //console.log(9)
     this.businessCategories = this.businessAccountService.businessCategories;
-    this.getItemPackagesOrdered(this.businessAccountService.businessCategoryId);
+    if (this.businessAccountService.businessCategoryId !== undefined) {
+      this.getItemPackagesOrdered(this.businessAccountService.businessCategoryId);
+    }
     // this.toggleCategoryBtn();
   }
 
