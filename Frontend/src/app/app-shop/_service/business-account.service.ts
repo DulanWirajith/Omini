@@ -16,7 +16,7 @@ export class BusinessAccountService {
   businessCategoriesSub = new Subject<any>();
   // businessTypeSub = new Subject<any>();
   businessCategories;
-  businessCategory;
+  businessCategoryId;
 
   constructor(private http: HttpClient, private commonService: CommonService) {
     this.getBusinessCategoriesCom();

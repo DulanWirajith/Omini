@@ -53,7 +53,7 @@ export class BaProfileComponent implements OnInit {
         businessProfile.dbayUser.passwordC = '';
         businessProfile.dbayUser.cPassword = '';
         businessProfile.dbayUser.dbayUserImgsRaw = [];
-        //console.log(businessProfile)
+        // console.log(businessProfile)
         this.businessProfile = businessProfile;
         this.getDistricts(businessProfile.town.district.country.countryId)
         this.getTowns(businessProfile.town.district.districtId)

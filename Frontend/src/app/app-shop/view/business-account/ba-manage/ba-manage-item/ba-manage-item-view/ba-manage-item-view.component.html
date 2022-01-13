@@ -1,6 +1,6 @@
 <div class="row g-4 py-1">
   <!-- Item-->
-  <div class="col-sm-12 col-md-6 col-xl-4" *ngFor="let item of items">
+  <div class="col-sm-12 col-md-6 col-xl-5" *ngFor="let item of items">
     <div class="card shadow-sm card-hover border-0 h-100">
       <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.25)">
         <a class="img-overlay"></a>
@@ -78,7 +78,7 @@
           <div class="col" style="padding: 0px">
             <div style="border-right: 1px solid #d3d3d3">
               <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">Quantity </p>
-              <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.itemQty}}</p>
+              <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.quantity}}</p>
             </div>
           </div>
           <div class="col" style="padding: 0px">
@@ -93,7 +93,12 @@
             <!--<p *ngIf="item.itemDiscountType==='Percentage'" class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount + "%"}}</p>-->
           </div>
         </div>
-        <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>LKR {{item.price}}</div>
+        <div class="fw-bold">
+          <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
+          <span *ngIf="item.discountType==='None'">LKR {{item.price}}</span>
+          <span *ngIf="item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.price}}</span>
+          <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice}}</span>
+        </div>
       </div>
       <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
         <div class="form-check form-switch">

@@ -34,6 +34,7 @@ export class BusinessAccountComponent implements OnInit {
   setBusinessCategory() {
     // console.log(this.businessCategory)
     this.businessAccountService.businessCategorySub.next(this.businessCategory.businessCategoryId);
+    this.businessAccountService.businessCategoryId = this.businessCategory.businessCategoryId;
   }
 
   getItemsOrdered() {

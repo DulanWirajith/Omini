@@ -65,6 +65,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             businessProfileDTO.setDbayUser(businessProfile, true);
             businessProfileDTO.setBusinessAreas(businessProfile);
             businessProfileDTO.setBusinessProfileCategories(businessProfile);
+            businessProfileDTO.setTown(businessProfile);
             return businessProfileDTO;
         }
         return null;

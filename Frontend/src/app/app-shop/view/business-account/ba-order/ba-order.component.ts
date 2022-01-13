@@ -18,7 +18,7 @@ export class BaOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getItemOrders();
+    this.getItemOrders(this.businessAccountService.businessCategoryId);
   }
 
   getItemOrders(businessCategoryId) {

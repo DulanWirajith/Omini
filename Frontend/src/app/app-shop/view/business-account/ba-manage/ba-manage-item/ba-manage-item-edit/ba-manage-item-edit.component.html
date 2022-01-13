@@ -126,27 +126,30 @@
         <!--</div>-->
         <!--</div>-->
         <!--</div>-->
-        <div class="row cols-md-4 col-info">
-          <div class="col">
-            <div style="background-color: rgba(229,154,3,0.44)">
-              <span class="mb-2 fs-sm text-dark fw-bold">Quantity </span>
-              <div class="fs-sm fw-bold" style="color: #b97800">{{item.itemQty}}</div>
-            </div>
+        <div class="border-top border-light pt-0 mb-2">
+          <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
+            <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
+            <span *ngIf="item.discountType==='None'">LKR {{item.price}}</span>
+            <span *ngIf="item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.price}}</span>
+            <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice}}</span>
           </div>
-          <div class="col">
-            <div style="background-color: rgba(229,66,5,0.44)">
-              <span class="mb-2 fs-sm text-dark fw-bold">Discount </span>
-              <div class="fs-sm fw-bold" style="color: #b94701">
+          <div class="row cols-sm-2 row-cols-md-12"
+               style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 0px;margin-bottom: 20px">
+            <div class="col" style="padding: 0px">
+              <div style="border-right: 1px solid #d3d3d3">
+                <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                  Quantity </p>
+                <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.quantity}}</p>
+              </div>
+            </div>
+            <div class="col" style="padding: 0px">
+              <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                Discount </p>
+              <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
                 {{item.discountType==='None' ? 'N/A' :
                 item.discountType==='Cash' ? ('LKR '+item.discount) :
                 item.discountType==='Percentage' ? (item.discount + '%') : ''}}
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div style="background-color: rgba(229,101,2,0.44)">
-              <span class="mb-2 fs-sm text-dark fw-bold">Price </span>
-              <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR '+item.price}}</div>
+              </p>
             </div>
           </div>
         </div>
