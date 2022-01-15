@@ -96,6 +96,14 @@ export class ShopCartComponent implements OnInit {
       } else if (orderDetail.orderDetailType === 'ItemPackage') {
         orderDetail.itemPackage = JSON.parse(JSON.stringify(item));
       }
+      orderDetail.businessProfileCategory = item.businessProfileCategory;
+      //   businessProfile:{
+      //     businessProId:'B321',
+      //     businessCategory:{
+      //       businessCategoryId:this.bu
+      //     }
+      //   }
+      // }
       this.shopCartService.addOrderDetail(orderDetail).subscribe((orderDetailR) => {
         console.log(orderDetail.orderDetailId)
         orderDetail.orderDetailId = orderDetailR.orderDetailId;
@@ -171,6 +179,7 @@ export class ShopCartComponent implements OnInit {
       let orderDetail = item.orderDetail;
       orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
       orderDetail.itemOrder.orderDetails = [];
+      orderDetail.businessProfileCategory = item.businessProfileCategory;
       this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
         // console.log(orderDetailR)
         this.totalItemCount++;
@@ -189,6 +198,7 @@ export class ShopCartComponent implements OnInit {
       let orderDetail = item.orderDetail;
       orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
       orderDetail.itemOrder.orderDetails = [];
+      orderDetail.businessProfileCategory = item.businessProfileCategory;
       this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
         // console.log(orderDetailR)
         this.totalItemCount--;

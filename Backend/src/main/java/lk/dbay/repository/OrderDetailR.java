@@ -18,9 +18,18 @@ public interface OrderDetailR extends JpaRepository<OrderDetail, String> {
 //            "where (od.item.businessProfileCategory.businessProfileCategoryId=?1 or od.itemPackage.businessProfileCategory.businessProfileCategoryId=?1) and od.itemOrder.status=?2")
 //    List<OrderDetail> getItemOrderDetails(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
 
-    @Query(value = "from OrderDetail where item.businessProfileCategory.businessProfileCategoryId=?1 and itemOrder.status=?2")
-    List<OrderDetail> getItemOrderDetailsItems(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
+//    @Query(value = "from OrderDetail where item.businessProfileCategory.businessProfileCategoryId=?1 and itemOrder.status=?2")
+//    List<OrderDetail> getItemOrderDetailsItems(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
+//
+//    @Query(value = "from OrderDetail where itemPackage.businessProfileCategory.businessProfileCategoryId=?1 and itemOrder.status=?2")
+//    List<OrderDetail> getItemOrderDetailsItemPackages(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
 
-    @Query(value = "from OrderDetail where itemPackage.businessProfileCategory.businessProfileCategoryId=?1 and itemOrder.status=?2")
-    List<OrderDetail> getItemOrderDetailsItemPackages(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
+    @Query(value = "from OrderDetail where businessProfileCategory.businessProfileCategoryId=?1 and itemOrder.status=?2")
+    List<OrderDetail> getItemOrderDetails(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
+
+    @Query(value = "from OrderDetail where itemOrder.customerProfile.customerProId=?1 and itemOrder.status=?2")
+    List<OrderDetail> getPendingCustomerOrders(String customerId, String orderType);
+
+//    @Query(value = "from OrderDetail where itemPackage.itemOrder.customerProfile.customerProId=?1 and itemOrder.status=?2")
+//    List<OrderDetail> getItemOrderDetailsItemPackages(String customerId);
 }

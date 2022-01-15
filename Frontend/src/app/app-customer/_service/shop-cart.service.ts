@@ -69,7 +69,8 @@ export class ShopCartService {
       orderDetailType: '',
       itemOrder: undefined,
       itemPackage: undefined,
-      item: undefined
+      item: undefined,
+      businessProfileCategory: undefined
     }
   }
 }

@@ -44,14 +44,14 @@ public class ItemItemPackageDTO extends DateTimeDTO {
         this.itemPackages = new ArrayList<>();
         for (Item item : items) {
             ItemDTO itemDTO = new ItemDTO(item, needImage);
-            item.getBusinessProfileCategory().setBusinessCategory(null);
+//            item.getBusinessProfileCategory().setBusinessCategory(null);
             itemDTO.setBusinessProfileCategory(item);
             itemDTO.setOrderDetail(new OrderDetailDTO());
             this.items.add(itemDTO);
         }
         for (ItemPackage itemPackage : itemPackages) {
             ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
-            itemPackage.getBusinessProfileCategory().setBusinessCategory(null);
+//            itemPackage.getBusinessProfileCategory().setBusinessCategory(null);
             itemPackageDTO.setBusinessProfileCategory(itemPackage);
             itemPackageDTO.setItemPackageImgs(itemPackage);
             itemPackageDTO.setOrderDetail(new OrderDetailDTO());

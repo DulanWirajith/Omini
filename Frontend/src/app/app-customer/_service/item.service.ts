@@ -27,6 +27,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
   }
 
+  getPendingCustomerOrders(customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_order/getPendingCustomerOrders/' + customerId);
+  }
+
   getItemPackageSelected(itemPackageId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
   }

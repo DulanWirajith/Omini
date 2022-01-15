@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ItemService} from "../../../_service/item.service";
 
 @Component({
   selector: 'app-c-order',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class COrderComponent implements OnInit {
 
-  constructor() { }
+  itemOrders = [];
 
-  ngOnInit(): void {
+  constructor(private itemService: ItemService) {
   }
 
+  ngOnInit(): void {
+    this.getPendingCustomerOrders();
+  }
+
+  getPendingCustomerOrders() {
+    this.itemService.getPendingCustomerOrders('U20220102233339').subscribe((itemOrders) => {
+      this.itemOrders = itemOrders;
+    })
+  }
 }

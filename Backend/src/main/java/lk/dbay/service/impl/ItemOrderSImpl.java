@@ -35,6 +35,9 @@ public class ItemOrderSImpl implements ItemOrderS {
 //            itemOrder.getBusinessProfileCategory().setBusinessProfileCategoryId(new BusinessProfileCategoryPK(itemOrder.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(), itemOrder.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId()));
             itemOrderR.save(itemOrder);
         }
+        orderDetail.getBusinessProfileCategory().setBusinessProfileCategoryId(new BusinessProfileCategoryPK(
+                orderDetail.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(),
+                orderDetail.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId()));
         orderDetail.setQuantity(orderDetail.getQuantity() + 1);
         if (orderDetail.getItem() != null) {
             orderDetail.setOrderDetailId("ODD" + orderDetail.getItemOrder().getOrderId() + orderDetail.getItem().getItemId());
@@ -136,6 +139,9 @@ public class ItemOrderSImpl implements ItemOrderS {
             } else if (updateType.equals("dec")) {
                 orderDetailObj.setQuantity(orderDetail.getQuantity() - 1);
             }
+            orderDetail.getBusinessProfileCategory().setBusinessProfileCategoryId(new BusinessProfileCategoryPK(
+                    orderDetail.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(),
+                    orderDetail.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId()));
 //            orderDetail.getItemOrder().setQty(orderDetail.getItemOrder().getQty() + 1);
 //            orderDetail.getItemOrder().setAmount(orderDetail.getItemOrder().getAmount() + orderDetail.getDiscountedPrice());
 //            itemOrderR.save(orderDetail.getItemOrder());
@@ -188,16 +194,65 @@ public class ItemOrderSImpl implements ItemOrderS {
     @Override
     public List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId, String orderType) {
 //        List<ItemOrder> itemOrders = itemOrderR.getItemOrders(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
-        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsItems(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
-        List<OrderDetail> itemOrderDetailsItemPackages = orderDetailR.getItemOrderDetailsItemPackages(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetails(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
+//        List<OrderDetail> itemOrderDetailsItemPackages = orderDetailR.getItemOrderDetailsItemPackages(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
 //        List<ItemOrderDTO> itemOrderDTOS = new ArrayList<>();
+//        Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
+//        for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
+//            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+//        }
+//        for (OrderDetail itemOrderDetail : itemOrderDetailsItemPackages) {
+//            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+//        }
+//        for (ItemOrderDTO itemOrderDTO : itemOrderDTOS) {
+//            itemOrderDTO.setOrderDetails(new ArrayList<>());
+//            itemOrderDTO.setAmount(0);
+//            itemOrderDTO.setQty(0);
+//            for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
+//                if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
+//                    OrderDetailDTO orderDetailDTO = new OrderDetailDTO(itemOrderDetail);
+//                    orderDetailDTO.setItem(new ItemDTO(itemOrderDetail.getItem(), false));
+//                    orderDetailDTO.setOrderDetailType("Item");
+//                    itemOrderDTO.getOrderDetails().add(orderDetailDTO);
+//                    itemOrderDTO.setAmount(itemOrderDTO.getAmount() + (itemOrderDetail.getPrice() * itemOrderDetail.getQuantity()));
+//                    itemOrderDTO.setQty(itemOrderDTO.getQty() + itemOrderDetail.getQuantity());
+//                    itemOrderDTO.setCustomerProfile(itemOrderDetail.getItemOrder());
+//                }
+//            }
+//            for (OrderDetail itemOrderDetail : itemOrderDetailsItemPackages) {
+//                if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
+//                    OrderDetailDTO orderDetailDTO = new OrderDetailDTO(itemOrderDetail);
+//                    orderDetailDTO.setItemPackage(new ItemPackageDTO(itemOrderDetail.getItemPackage()));
+//                    orderDetailDTO.setOrderDetailType("ItemPackage");
+//                    itemOrderDTO.getOrderDetails().add(orderDetailDTO);
+//                    itemOrderDTO.setAmount(itemOrderDTO.getAmount() + (itemOrderDetail.getPrice() * itemOrderDetail.getQuantity()));
+//                    itemOrderDTO.setQty(itemOrderDTO.getQty() + itemOrderDetail.getQuantity());
+//                    itemOrderDTO.setCustomerProfile(itemOrderDetail.getItemOrder());
+//                }
+//            }
+//        }
+        return setItemOrders(itemOrderDetailsItems);
+    }
+
+    @Override
+    public List<ItemOrderDTO> getPendingCustomerOrders(String customerId) {
+        //        List<ItemOrder> itemOrders = itemOrderR.getItemOrders(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getPendingCustomerOrders(customerId, "Pending");
+//        List<OrderDetail> itemOrderDetailsItemPackages = orderDetailR.getItemOrderDetailsItemPackages(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
+//        List<ItemOrderDTO> itemOrderDTOS = new ArrayList<>();
+        return setItemOrders(itemOrderDetailsItems);
+    }
+
+    private List<ItemOrderDTO> setItemOrders(List<OrderDetail> itemOrderDetailsItems) {
         Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
         for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
             itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
         }
-        for (OrderDetail itemOrderDetail : itemOrderDetailsItemPackages) {
-            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
-        }
+//        if (itemOrderDetailsItemPackages != null) {
+//            for (OrderDetail itemOrderDetail : itemOrderDetailsItemPackages) {
+//                itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+//            }
+//        }
         for (ItemOrderDTO itemOrderDTO : itemOrderDTOS) {
             itemOrderDTO.setOrderDetails(new ArrayList<>());
             itemOrderDTO.setAmount(0);
@@ -205,31 +260,33 @@ public class ItemOrderSImpl implements ItemOrderS {
             for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
                 if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
                     OrderDetailDTO orderDetailDTO = new OrderDetailDTO(itemOrderDetail);
-                    orderDetailDTO.setItem(new ItemDTO(itemOrderDetail.getItem(), false));
-                    orderDetailDTO.setOrderDetailType("Item");
+                    if (itemOrderDetail.getItem() != null) {
+                        orderDetailDTO.setOrderDetailType("Item");
+                        orderDetailDTO.setItem(new ItemDTO(itemOrderDetail.getItem(), false));
+                    } else if (itemOrderDetail.getItemPackage() != null) {
+                        orderDetailDTO.setOrderDetailType("ItemPackage");
+                        orderDetailDTO.setItemPackage(new ItemPackageDTO(itemOrderDetail.getItemPackage()));
+                    }
                     itemOrderDTO.getOrderDetails().add(orderDetailDTO);
                     itemOrderDTO.setAmount(itemOrderDTO.getAmount() + (itemOrderDetail.getPrice() * itemOrderDetail.getQuantity()));
                     itemOrderDTO.setQty(itemOrderDTO.getQty() + itemOrderDetail.getQuantity());
                     itemOrderDTO.setCustomerProfile(itemOrderDetail.getItemOrder());
                 }
             }
-            for (OrderDetail itemOrderDetail : itemOrderDetailsItemPackages) {
-                if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
-                    OrderDetailDTO orderDetailDTO = new OrderDetailDTO(itemOrderDetail);
-                    orderDetailDTO.setItemPackage(new ItemPackageDTO(itemOrderDetail.getItemPackage()));
-                    orderDetailDTO.setOrderDetailType("ItemPackage");
-                    itemOrderDTO.getOrderDetails().add(orderDetailDTO);
-                    itemOrderDTO.setAmount(itemOrderDTO.getAmount() + (itemOrderDetail.getPrice() * itemOrderDetail.getQuantity()));
-                    itemOrderDTO.setQty(itemOrderDTO.getQty() + itemOrderDetail.getQuantity());
-                    itemOrderDTO.setCustomerProfile(itemOrderDetail.getItemOrder());
-                }
-            }
+//            if (itemOrderDetailsItemPackages != null) {
+//                for (OrderDetail itemOrderDetail : itemOrderDetailsItemPackages) {
+//                    if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
+//                        OrderDetailDTO orderDetailDTO = new OrderDetailDTO(itemOrderDetail);
+//                        orderDetailDTO.setItemPackage(new ItemPackageDTO(itemOrderDetail.getItemPackage()));
+//                        orderDetailDTO.setOrderDetailType("ItemPackage");
+//                        itemOrderDTO.getOrderDetails().add(orderDetailDTO);
+//                        itemOrderDTO.setAmount(itemOrderDTO.getAmount() + (itemOrderDetail.getPrice() * itemOrderDetail.getQuantity()));
+//                        itemOrderDTO.setQty(itemOrderDTO.getQty() + itemOrderDetail.getQuantity());
+//                        itemOrderDTO.setCustomerProfile(itemOrderDetail.getItemOrder());
+//                    }
+//                }
+//            }
         }
         return new ArrayList<>(itemOrderDTOS);
-    }
-
-    @Override
-    public List<ItemOrderDTO> getPendingCustomerOrders(String customerId) {
-        return null;
     }
 }

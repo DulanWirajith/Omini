@@ -43,7 +43,7 @@ public class ItemOrderController {
         return ResponseEntity.ok(itemOrderS.getInCompletedOrder(customerId));
     }
 
-    @GetMapping("/getPendingCustOrders/{customerId}")
+    @GetMapping("/getPendingCustomerOrders/{customerId}")
     public ResponseEntity getPendingCustomerOrders(@PathVariable String customerId) {
         return ResponseEntity.ok(itemOrderS.getPendingCustomerOrders(customerId));
     }

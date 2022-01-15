@@ -27,6 +27,13 @@ public class OrderDetail extends DateTime {
 
     private String orderDetailType;
 
+    @ManyToOne(optional = false)
+    @JoinColumns({
+            @JoinColumn(name = "businessProId", referencedColumnName = "businessProId", updatable = true, nullable = false),
+            @JoinColumn(name = "businessCategoryId", referencedColumnName = "businessCategoryId", updatable = true, nullable = false)
+    })
+    private BusinessProfileCategory businessProfileCategory;
+
 //    @ManyToOne
 //    @JoinColumns({
 //            @JoinColumn(name = "itemId", referencedColumnName = "itemId", updatable = false, nullable = false),
