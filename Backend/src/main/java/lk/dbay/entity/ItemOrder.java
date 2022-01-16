@@ -24,7 +24,7 @@ public class ItemOrder extends DateTime {
 //    private double discount;
 //    private int qty;
     private String status;
-    private String contactNumber;
+//    private String contactNumber;
     private LocalDateTime receivedTime;
 
 //    @ManyToOne(optional = false)

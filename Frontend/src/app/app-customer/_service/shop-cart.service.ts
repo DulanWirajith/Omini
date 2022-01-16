@@ -55,7 +55,8 @@ export class ShopCartService {
       customerProfile: {
         customerProId: ''
       },
-      orderDetails: []
+      orderDetails: [],
+      orderDate: ''
     }
   }
 

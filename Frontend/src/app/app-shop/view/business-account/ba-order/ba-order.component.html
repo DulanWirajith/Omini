@@ -95,8 +95,9 @@
     <div class="row g-4 py-1">
 
       <div class="col-md-6" *ngFor="let itemOrder of itemOrders;let j=index">
-        <div class="card mb-2" style="border: 2px solid #e7e7e7">
+        <div class="card border-0 shadow-sm mb-2">
           <blockquote class="blockquote pending-card-micon card-body">
+            <div style="margin-bottom: 15px;font-weight: bold">Order | {{itemOrder.orderId}}</div>
             <div class="d-flex justify-content-between mb-2">
               <div class="pe-3">
                 <div class="d-flex align-items-center mb-2">
@@ -208,20 +209,17 @@
               </div>
             </div>
             <footer class="d-flex justify-content-between">
-              <a href="#" class="btn btn-icon btn-light-primary btnhred btn-xs rounded-circle me-2 mb-2"
-                 style="border: 2px solid #e7e7e7"
+              <a href="#" class="btn btn-icon btn-light-primary btnhred btn-xs rounded-circle me-2 mb-2 shadow-sm"
                  data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
                  aria-label="Cancel Order">
                 <i class="fi-x" style="padding-left: 1.5px;padding-bottom: 1px"></i>
               </a>
-              <a href="#" class="btn btn-icon btn-light-primary btnhgreen btn-xs rounded-circle me-2 mb-2"
-                 style="border: 2px solid #e7e7e7"
+              <a href="#" class="btn btn-icon btn-light-primary btnhgreen btn-xs rounded-circle me-2 mb-2 shadow-sm"
                  data-bs-toggle="tooltip" title="Order Completed" data-bs-original-title="Order Completed"
                  aria-label="Order Completed">
                 <i class="fi-check"></i>
               </a>
-              <a href="#" class="btn btn-icon btn-light-primary btnhblue btn-xs rounded-circle me-2 mb-2"
-                 style="border: 2px solid #e7e7e7"
+              <a href="#" class="btn btn-icon btn-light-primary btnhblue btn-xs rounded-circle me-2 mb-2 shadow-sm"
                  data-bs-toggle="tooltip" title="Order In Progress" data-bs-original-title="Order In Progress"
                  aria-label="Order In Progress">
                 <i class="fi-arrow-long-right"></i>

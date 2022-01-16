@@ -14,9 +14,12 @@ export class BusinessAccountService {
   breadCrumbSub = new Subject<string>();
   businessCategorySub = new Subject<any>();
   businessCategoriesSub = new Subject<any>();
+  navBarSub = new Subject<any>();
   // businessTypeSub = new Subject<any>();
   businessCategories;
   businessCategoryId;
+
+  itemOrders=[];
 
   constructor(private http: HttpClient, private commonService: CommonService) {
     this.getBusinessCategoriesCom();

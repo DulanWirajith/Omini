@@ -7,6 +7,7 @@ import lombok.experimental.Tolerate;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,9 +21,9 @@ import java.util.Set;
 public class ItemOrderDTO extends DateTimeDTO {
 
     private String orderId;
-    private LocalDateTime orderDate;
+    private String orderDate;
     private double amount;
-//    private double discount;
+    //    private double discount;
     private int qty;
     private String status;
     private String contactNumber;
@@ -33,12 +34,14 @@ public class ItemOrderDTO extends DateTimeDTO {
     public ItemOrderDTO(ItemOrder itemOrder) {
         if (itemOrder != null) {
             this.orderId = itemOrder.getOrderId();
-            this.orderDate = itemOrder.getOrderDate();
+            if (itemOrder.getOrderDate() != null) {
+                this.orderDate = itemOrder.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            }
 //            this.amount = itemOrder.getAmount();
 //            this.discount = itemOrder.getDiscount();
 //            this.qty = itemOrder.getQty();
             this.status = itemOrder.getStatus();
-            this.contactNumber = itemOrder.getContactNumber();
+//            this.contactNumber = itemOrder.getContactNumber();
             this.receivedTime = itemOrder.getReceivedTime();
         }
     }

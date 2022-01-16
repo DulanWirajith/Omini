@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessAccountService} from "../../_service/business-account.service";
+import {ItemService} from "../../_service/item.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-business-account',
@@ -15,10 +17,14 @@ export class BusinessAccountComponent implements OnInit {
     businessCategoryId: '',
     name: ''
   };
+  navOrder: 0;
 
-  constructor(private businessAccountService: BusinessAccountService) {
-    // businessAccountService.breadCrumbSub.subscribe((txt) => {
-    //   this.breadCrumbTxt = txt;
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private router: Router) {
+    // businessAccountService.navBarSub.subscribe((val) => {
+    //   if (val.name === 'Order') {
+    //     this.navOrder = val.value;
+    //   }
+    //   // this.breadCrumbTxt = txt;
     // })
     this.getBusinessCategories();
   }
@@ -43,6 +49,16 @@ export class BusinessAccountComponent implements OnInit {
     // console.log(this.businessCategory)
     this.businessAccountService.businessCategorySub.next(this.businessCategory.businessCategoryId);
     this.businessAccountService.businessCategoryId = this.businessCategory.businessCategoryId;
+    this.getItemOrders()
+  }
+
+  getItemOrders() {
+    this.itemService.getItemOrders('B321', this.businessCategory.businessCategoryId, 'Pending').subscribe((itemOrders) => {
+      this.businessAccountService.itemOrders = itemOrders;
+      this.navOrder = itemOrders.length;
+      this.businessAccountService.navBarSub.next('Order');
+      // this.router.navigate(['/shop/header/business_account/ba_order'])
+    })
   }
 
   getItemsOrdered() {
