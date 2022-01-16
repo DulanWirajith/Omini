@@ -40,17 +40,26 @@ import {SharedModule} from "./_shared/shared.module";
 import {AppCustomerModule} from "./app-customer/app-customer.module";
 import { CProfileComponent } from './app-customer/view/customer-account/c-profile/c-profile.component';
 import { COrderComponent } from './app-customer/view/customer-account/c-order/c-order.component';
+import { LoginComponent } from './view/login/login.component';
+import { CustomerRegisterComponent } from './app-customer/view/customer-register/customer-register.component';
+import { CrStep1Component } from './app-customer/view/customer-register/cr-step1/cr-step1.component';
+import { CrStep2Component } from './app-customer/view/customer-register/cr-step2/cr-step2.component';
+import { CrStep3Component } from './app-customer/view/customer-register/cr-step3/cr-step3.component';
+import { CrStep4Component } from './app-customer/view/customer-register/cr-step4/cr-step4.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    // HeaderComponent
   ],
   imports: [
     BrowserModule,
-    CommonModule,
+    // CommonModule,
     AppRoutingModule,
-    HttpClientModule,
+    // HttpClientModule,
     RouterModule,
+    SharedModule
     // AppCustomerModule.forRoot()
     // NgbModule
     // AppShopModule,

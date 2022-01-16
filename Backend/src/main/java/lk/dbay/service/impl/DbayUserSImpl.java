@@ -1,7 +1,10 @@
 package lk.dbay.service.impl;
 
+import lk.dbay.dto.BusinessProfileDTO;
 import lk.dbay.dto.DbayUserDTO;
+import lk.dbay.entity.BusinessProfile;
 import lk.dbay.entity.DbayUser;
+import lk.dbay.repository.BusinessProfileR;
 import lk.dbay.repository.DbayUserR;
 import lk.dbay.security.JwtCache;
 import lk.dbay.security.JwtUtil;
@@ -40,6 +43,8 @@ public class DbayUserSImpl implements DbayUserS {
     @Autowired
     private DbayUserR dbayUserR;
     private DbayUser userByUsernameOrEmail;
+    @Autowired
+    private BusinessProfileR businessProfileR;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -93,6 +98,19 @@ public class DbayUserSImpl implements DbayUserS {
                 userDTO.setLastName(userDTOobj.getLastName());
                 userDTO.setRole(userDTOobj.getRole());
                 userDTO.setSecurityKey(0);
+
+                if (userDTOobj.getRole().equals("B")) {
+                    Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(userDTOobj.getUserId());
+                    if (businessProfileOptional.isPresent()) {
+                        BusinessProfile businessProfile = businessProfileOptional.get();
+                        BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
+                        businessProfileDTO.setDbayUser(businessProfile, true);
+                        businessProfileDTO.setBusinessAreas(businessProfile);
+                        businessProfileDTO.setBusinessProfileCategories(businessProfile);
+                        businessProfileDTO.setTown(businessProfile);
+                        userDTO.setBusinessProfile(businessProfileDTO);
+                    }
+                }
 
                 return userDTO;
             }

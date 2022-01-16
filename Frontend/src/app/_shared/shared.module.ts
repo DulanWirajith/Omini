@@ -9,10 +9,12 @@ import {MDBBootstrapModule} from "angular-bootstrap-md";
 import {HeaderComponent} from "../view/header/header.component";
 import {RouterModule} from "@angular/router";
 import { LightboxModule } from 'ngx-lightbox';
+import {LoginComponent} from "../view/login/login.component";
 
 const components = [
   HeaderComponent,
-  ConfirmPasswordDirective
+  ConfirmPasswordDirective,
+  // LoginComponent
 ]
 
 @NgModule({

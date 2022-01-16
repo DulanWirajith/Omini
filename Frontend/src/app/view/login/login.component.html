@@ -1,0 +1,71 @@
+<app-header></app-header>
+
+<section class="container py-5 mt-5 mb-lg-3">
+  <div class="row align-items-center mt-md-2 ">
+    <div class="d-flex justify-content-center">
+      <div class="row mx-0 align-items-center">
+        <div class="col-md-6 border-end-md p-4 p-sm-5">
+          <h2 class="h3 mb-4 mb-sm-5">Hey there!<br>Welcome back.</h2><img class="d-block mx-auto"
+                                                                           src="../../../assets/img/signin.svg"
+                                                                           width="344"
+                                                                           alt="Illustartion">
+          <!-- <div class="mt-4 mt-sm-5">Don't have an account? <a href="#" >Sign up here</a></div> -->
+        </div>
+        <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+          <a class="btn btn-outline-info w-100 rounded-pill mb-3" [routerLink]="'/shop/header/business_register'"><i
+            class="fi-shop fs-lg me-1"></i>Sign up as a Business</a>
+          <a class="btn btn-outline-info w-100 rounded-pill mb-3" href="./client-register-1step.html"><i
+            class="fi-user fs-lg me-1"></i>Sign up as a Customer</a>
+          <div class="d-flex align-items-center py-3 mb-3">
+            <hr class="w-100">
+            <div class="px-3">Or</div>
+            <hr class="w-100">
+          </div>
+          <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && authenticate()" novalidate>
+            <div class="mb-4">
+              <label class="form-label mb-2" for="signin-email">Email address</label>
+              <input class="form-control" type="email" id="signin-email" placeholder="Enter your email" required
+                     [(ngModel)]="user.username" #username="ngModel" name="username">
+              <div *ngIf="(username.touched || loginForm.submitted) && username.errors?.required"
+                   class="validErr">
+                Email is required
+              </div>
+            </div>
+            <div class="mb-4">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <label class="form-label mb-0" for="signin-password">Password</label><a class="fs-sm" href="#">Forgot
+                password?</a>
+              </div>
+              <div class="password-toggle">
+                <input class="form-control" type="password" id="signin-password" placeholder="Enter password" required
+                       [(ngModel)]="user.password" #password="ngModel" name="password">
+                <div *ngIf="(password.touched || loginForm.submitted) && password.errors?.required"
+                     class="validErr">
+                  Password is required
+                </div>
+                <label class="password-toggle-btn" aria-label="Show/hide password">
+                  <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                </label>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-lg w-100 rounded-pill" type="submit">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer-->
+<footer class="position-relative pb-5" style="padding-top: 3rem;">
+  <div class="d-none d-xxl-block position-absolute top-0 start-0 w-100 h-100 bg-dark"
+       style="border-top-left-radius: 1.875rem; border-top-right-radius: 1.875rem;"></div>
+  <div class="d-xxl-none position-absolute top-0 start-0 w-100 h-100 bg-dark"></div>
+  <div class="container content-overlay text-center py-md-3 py-lg-5">
+    <p class="fs-sm mb-0"><span class="text-light">&copy; All rights reserved. Made by </span>
+      <a
+        target="_blank"
+        rel="noopener">YEWOI</a>
+    </p>
+  </div>
+</footer>

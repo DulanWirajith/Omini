@@ -5,6 +5,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {NgForm} from "@angular/forms";
 import {environment} from "../../../../../../../environments/environment";
 import {Lightbox} from 'ngx-lightbox';
+import {ShopCartService} from "../../../../../../app-customer/_service/shop-cart.service";
+import {LoginService} from "../../../../../../_service/login.service";
 
 @Component({
   selector: 'app-ba-manage-item-edit',
@@ -32,7 +34,7 @@ export class BaManageItemEditComponent implements OnInit {
   _album: [];
   // lightbox;
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private loginService: LoginService) {
     this.item = this.itemService.getNewItem();
     // this.lightbox = _lightbox;
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
@@ -90,7 +92,7 @@ export class BaManageItemEditComponent implements OnInit {
 
   onSubmitE() {
     this.item.businessProfileCategory.businessProfile = {
-      businessProId: "B321"
+      businessProId: this.loginService.getUser().userId
     };
     if (this.item.discount === 'N/A') {
       this.item.discount = 0;

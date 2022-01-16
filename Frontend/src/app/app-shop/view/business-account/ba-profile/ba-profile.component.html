@@ -529,11 +529,10 @@
               <label class="form-label fw-bold">Shop type</label>
               <!-- <div id="type-value">shop type</div> -->
               <div class="text-muted fw-normal" *ngFor="let businessCate of businessProfile.businessProfileCategories"
-                   (click)="businessProfile.defaultBusiness = businessCate.name"
-                   [ngStyle]="{'color':(businessProfile.defaultBusiness === businessCate.name)?'green':''}">
+                   (click)="businessProfile.defaultBusiness = businessCate.businessCategory">
                 {{businessCate.name}}
                 <span style="margin-left: 10px;font-size: 14px;color: green;font-weight: bold"
-                      *ngIf="businessProfile.defaultBusiness === businessCate.name">
+                      *ngIf="businessProfile.defaultBusiness.name === businessCate.name">
                   <i class="fi-check" style="margin-right: 5px;font-size: 14px"></i>Set as default
                 </span>
               </div>

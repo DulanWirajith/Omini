@@ -11,8 +11,8 @@ import {BaProfileComponent} from "./view/business-account/ba-profile/ba-profile.
 
 const routes: Routes = [
   // {
-  //   path: '',
-  //   redirectTo: '/shop/business_account',
+  //   path: '/shop',
+  //   redirectTo: '/shop/header/business_account/ba_monitor',
   //   pathMatch: 'full'
   // },
   {

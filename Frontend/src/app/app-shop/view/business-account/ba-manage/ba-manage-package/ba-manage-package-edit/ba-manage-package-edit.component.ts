@@ -5,6 +5,8 @@ import {BusinessAccountService} from "../../../../../_service/business-account.s
 import {ItemService} from "../../../../../_service/item.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import * as $ from "jquery";
+import {ShopCartService} from "../../../../../../app-customer/_service/shop-cart.service";
+import {LoginService} from "../../../../../../_service/login.service";
 
 @Component({
   selector: 'app-ba-manage-package-edit',
@@ -35,7 +37,7 @@ export class BaManagePackageEditComponent implements OnInit {
     acceptedFileTypes: 'image/jpeg, image/png'
   }
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     // this.itemPackage = this.itemService.getNewPackage();
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
@@ -53,7 +55,7 @@ export class BaManagePackageEditComponent implements OnInit {
 
   onSubmit(itemPackage) {
     itemPackage.businessProfileCategory.businessProfile = {
-      businessProId: "B321"
+      businessProId: this.loginService.getUser().userId
     };
     for (let i = 0; i < itemPackage.itemItemPackages.length; i++) {
       // console.log(itemPackageE.itemItemPackages[i].itemPackage)
@@ -132,7 +134,7 @@ export class BaManagePackageEditComponent implements OnInit {
   getItems(businessCategoryId, itemPackage?) {
     //console.log(this.businessProfileCategory)
     // if (this.businessProfileCategory !== undefined) {
-    this.itemService.getItemsBusinessCategory("B321", businessCategoryId).subscribe((items) => {
+    this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, businessCategoryId).subscribe((items) => {
       // console.log(items)
       this.itemsToAdd = items;
       if (itemPackage !== undefined) {

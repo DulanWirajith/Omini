@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ShopCartService} from "../../_service/shop-cart.service";
+import {LoginService} from "../../../_service/login.service";
 
 @Component({
   selector: 'app-shop-cart',
@@ -13,7 +14,7 @@ export class ShopCartComponent implements OnInit {
   totalItemCount = 0;
   totalPrice = 0;
 
-  constructor(private shopCartService: ShopCartService) {
+  constructor(private shopCartService: ShopCartService, private loginService: LoginService) {
     this.itemOrder = this.shopCartService.getNewItemOrder();
     this.shopCartService.shopCartSub.observers = [];
     this.shopCartService.shopCartSub.subscribe((item) => {
@@ -27,7 +28,7 @@ export class ShopCartComponent implements OnInit {
   }
 
   initShopCart() {
-    this.shopCartService.getOrder('U20220102233339').subscribe((itemOrder) => {
+    this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
       // console.log(itemOrder)
       if (itemOrder !== null && itemOrder.orderId !== undefined) {
         this.itemOrder = itemOrder;
@@ -51,7 +52,7 @@ export class ShopCartComponent implements OnInit {
           this.shopCartService.initShopCartSub.next(itemOrder.orderDetails);
         }
       } else {
-        this.itemOrder.customerProfile.customerProId = 'U20220102233339';
+        this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;
       }
     })
   }
@@ -167,7 +168,7 @@ export class ShopCartComponent implements OnInit {
         }
       }
       this.itemOrder = this.shopCartService.getNewItemOrder();
-      this.itemOrder.customerProfile.customerProId = 'U20220102233339';
+      this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;
       this.shopCart = [];
       this.totalItemCount = 0;
       this.totalPrice = 0;

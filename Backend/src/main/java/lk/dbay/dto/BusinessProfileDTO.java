@@ -30,7 +30,7 @@ public class BusinessProfileDTO extends DateTimeDTO {
     private String socialLinkedIn;
     private int proViewCount;
     private int contactViewCount;
-    private String defaultBusiness;
+    private BusinessCategoryDTO defaultBusiness;
     private DbayUserDTO dbayUser;
     private TownDTO town;
     private List<BusinessAreaDTO> businessAreas;
@@ -54,7 +54,7 @@ public class BusinessProfileDTO extends DateTimeDTO {
             this.socialLinkedIn = businessProfile.getSocialLinkedIn();
             this.proViewCount = businessProfile.getProViewCount();
             this.contactViewCount = businessProfile.getContactViewCount();
-            this.defaultBusiness = businessProfile.getDefaultBusiness();
+            this.defaultBusiness = new BusinessCategoryDTO(businessProfile.getDefaultBusiness());
         }
     }
 

@@ -39,8 +39,9 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         try {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-            businessProfile.setBusinessProId("B" + businessProfile.getBusinessRegistrationCode());
             businessProfile.getDbayUser().setUserId("U" + format);
+//            businessProfile.setBusinessProId("B" + businessProfile.getBusinessRegistrationCode());
+            businessProfile.setBusinessProId(businessProfile.getDbayUser().getUserId());
             businessProfile.getDbayUser().setRole("B");
             addBusinessAreas(businessProfile);
             addBusinessProfileCategories(businessProfile);

@@ -91,7 +91,7 @@
             id="validationTooltip02"
             min="1"
             required
-            [(ngModel)]="item.itemQty" #itemQty="ngModel" name="itemQty"
+            [(ngModel)]="item.quantity" #itemQty="ngModel" name="itemQty"
           />
           <div *ngIf="(itemQty.touched || baManageFormItem.submitted) && itemQty.errors?.required"
                class="validErr">

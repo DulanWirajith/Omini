@@ -5,6 +5,8 @@ import {ItemService} from "../../../../_service/item.service";
 import {environment} from "../../../../../../environments/environment";
 import {DomSanitizer} from "@angular/platform-browser";
 import * as $ from "jquery";
+import {ShopCartService} from "../../../../../app-customer/_service/shop-cart.service";
+import {LoginService} from "../../../../../_service/login.service";
 
 
 @Component({
@@ -36,7 +38,7 @@ export class BaManageItemComponent implements OnInit {
     acceptedFileTypes: 'image/jpeg, image/png'
   }
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.item = this.itemService.getNewItem();
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
@@ -68,7 +70,7 @@ export class BaManageItemComponent implements OnInit {
 
   onSubmit() {
     this.item.businessProfileCategory.businessProfile = {
-      businessProId: "B321"
+      businessProId: this.loginService.getUser().userId
     };
 
     //console.log(this.item)
@@ -89,7 +91,7 @@ export class BaManageItemComponent implements OnInit {
   }
 
   getItemsOrdered(businessCategoryId) {
-    this.itemService.getItemsOrdered("B321", businessCategoryId, 0, 100).subscribe((items) => {
+    this.itemService.getItemsOrdered(this.loginService.getUser().userId, businessCategoryId, 0, 100).subscribe((items) => {
       this.items = items;
       for (let item of this.items) {
         item.itemImgsRaw = [];

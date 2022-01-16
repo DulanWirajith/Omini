@@ -14,6 +14,11 @@ import {ShopCartComponent} from "./view/shop-cart/shop-cart.component";
 import {ShopCartService} from "./_service/shop-cart.service";
 import {CProfileComponent} from "./view/customer-account/c-profile/c-profile.component";
 import {COrderComponent} from "./view/customer-account/c-order/c-order.component";
+import {CustomerRegisterComponent} from "./view/customer-register/customer-register.component";
+import {CrStep1Component} from "./view/customer-register/cr-step1/cr-step1.component";
+import {CrStep2Component} from "./view/customer-register/cr-step2/cr-step2.component";
+import {CrStep3Component} from "./view/customer-register/cr-step3/cr-step3.component";
+import {CrStep4Component} from "./view/customer-register/cr-step4/cr-step4.component";
 
 const components = [
   ItemShopSearchComponent,
@@ -24,7 +29,12 @@ const components = [
   ItemSearchResultDetailViewComponent,
   ShopCartComponent,
   CProfileComponent,
-  COrderComponent
+  COrderComponent,
+  CustomerRegisterComponent,
+  CrStep1Component,
+  CrStep2Component,
+  CrStep3Component,
+  CrStep4Component,
 ];
 
 @NgModule({

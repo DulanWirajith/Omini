@@ -5,6 +5,13 @@ SELECT `country`.`country_id`,
 FROM `dbay`.`country`;
 
 INSERT INTO `dbay`.`country` (`country_id`, `created_at`, `updated_at`, `name`) VALUES ('C001', '2021-11-19', '2021-11-19', 'Sri Lanka');
+INSERT INTO `dbay`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D001', '2021-11-19', '2021-11-19', 'Galle', 'C001');
+INSERT INTO `dbay`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D002', '2021-11-19', '2021-11-19', 'Matara', 'C001');
+INSERT INTO `dbay`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T001', '2021-11-19', '2021-11-19', 'Akuressa', 'D001');
+INSERT INTO `dbay`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T002', '2021-11-19', '2021-11-19', 'Karapitiya', 'D001');
+INSERT INTO `dbay`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC001', '2021-11-19', '2021-11-19', 'Juice Bar');
+INSERT INTO `dbay`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC002', '2021-11-19', '2021-11-19', 'Cake Baker');
+INSERT INTO `dbay`.`item_feature` (`item_feature_id`, `created_at`, `updated_at`, `confirmed`, `name`, `business_category_business_category_id`) VALUES ('IF1', '2020-05-05', '2020-05-05', true, 'White', 'BC001');
 
 SELECT `district`.`district_id`,
     `district`.`created_at`,
@@ -13,8 +20,6 @@ SELECT `district`.`district_id`,
     `district`.`country_country_id`
 FROM `dbay`.`district`;
 
-INSERT INTO `dbay`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D001', '2021-11-19', '2021-11-19', 'Galle', 'C001');
-INSERT INTO `dbay`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D002', '2021-11-19', '2021-11-19', 'Matara', 'C001');
 
 SELECT `town`.`town_id`,
     `town`.`created_at`,
@@ -23,8 +28,6 @@ SELECT `town`.`town_id`,
     `town`.`district_district_id`
 FROM `dbay`.`town`;
 
-INSERT INTO `dbay`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T001', '2021-11-19', '2021-11-19', 'Akuressa', 'D001');
-INSERT INTO `dbay`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T002', '2021-11-19', '2021-11-19', 'Karapitiya', 'D001');
 
 SELECT `business_category`.`business_category_id`,
     `business_category`.`created_at`,
@@ -32,8 +35,6 @@ SELECT `business_category`.`business_category_id`,
     `business_category`.`name`
 FROM `dbay`.`business_category`;
 
-INSERT INTO `dbay`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC001', '2021-11-19', '2021-11-19', 'Juice Bar');
-INSERT INTO `dbay`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC002', '2021-11-19', '2021-11-19', 'Cake Baker');
 
 SELECT `business_profile`.`business_pro_id`,
     `business_profile`.`created_at`,
@@ -54,8 +55,20 @@ SELECT `business_profile`.`business_pro_id`,
     `business_profile`.`social_linked_in`,
     `business_profile`.`social_twitter`,
     `business_profile`.`town_town_id`,
-    `business_profile`.`user_user_id`
+    `business_profile`.`dbay_user_user_id`,
+    `business_profile`.`default_business_business_category_id`
 FROM `dbay`.`business_profile`;
+
+SELECT `customer_profile`.`customer_pro_id`,
+    `customer_profile`.`created_at`,
+    `customer_profile`.`updated_at`,
+    `customer_profile`.`contact_number`,
+    `customer_profile`.`customer_address`,
+    `customer_profile`.`customer_name`,
+    `customer_profile`.`gender`,
+    `customer_profile`.`dbay_user_user_id`,
+    `customer_profile`.`town_town_id`
+FROM `dbay`.`customer_profile`;
 
 
 SELECT `dbay_user`.`user_id`,
@@ -72,6 +85,16 @@ SELECT `dbay_user`.`user_id`,
     `dbay_user`.`verification_code`,
     `dbay_user`.`confirmed_by_user_id`
 FROM `dbay`.`dbay_user`;
+
+SELECT `dbay_user_img`.`user_img_id`,
+    `dbay_user_img`.`created_at`,
+    `dbay_user_img`.`updated_at`,
+    `dbay_user_img`.`thumbnail`,
+    `dbay_user_img`.`user_img_name`,
+    `dbay_user_img`.`user_img_type`,
+    `dbay_user_img`.`dbay_user_user_id`
+FROM `dbay`.`dbay_user_img`;
+
 
 SELECT `business_area`.`business_pro_id`,
     `business_area`.`town_id`,
@@ -94,7 +117,6 @@ SELECT `item_feature`.`item_feature_id`,
     `item_feature`.`business_category_business_category_id`
 FROM `dbay`.`item_feature`;
 
-INSERT INTO `dbay`.`item_feature` (`item_feature_id`, `created_at`, `updated_at`, `confirmed`, `name`, `business_category_business_category_id`) VALUES ('IF1', '2020-05-05', '2020-05-05', true, 'White', 'BC001');
 
 SELECT `item`.`item_id`,
     `item`.`created_at`,
@@ -119,32 +141,39 @@ SELECT `item_item_feature`.`item_feature_id`,
     `item_item_feature`.`updated_at`
 FROM `dbay`.`item_item_feature`;
 
+SELECT `item_package_item_package_feature`.`item_package_feature_id`,
+    `item_package_item_package_feature`.`item_package_id`,
+    `item_package_item_package_feature`.`created_at`,
+    `item_package_item_package_feature`.`updated_at`
+FROM `dbay`.`item_package_item_package_feature`;
+
+
 UPDATE `dbay`.`item_feature` SET `confirmed` = true WHERE (`item_feature_id` = 'ITF20211208230630');
 
 SELECT `item_order`.`order_id`,
     `item_order`.`created_at`,
     `item_order`.`updated_at`,
-    `item_order`.`amount`,
     `item_order`.`contact_number`,
-    `item_order`.`discount`,
     `item_order`.`order_date`,
     `item_order`.`received_time`,
     `item_order`.`status`,
-    `item_order`.`customer_profile_customer_pro_id`,
-    `item_order`.`qty`
+    `item_order`.`customer_profile_customer_pro_id`
 FROM `dbay`.`item_order`;
 
 SELECT `order_detail`.`order_detail_id`,
     `order_detail`.`created_at`,
     `order_detail`.`updated_at`,
     `order_detail`.`discount`,
+    `order_detail`.`order_detail_type`,
     `order_detail`.`price`,
     `order_detail`.`quantity`,
+    `order_detail`.`business_category_id`,
+    `order_detail`.`business_pro_id`,
     `order_detail`.`item_item_id`,
     `order_detail`.`item_order_order_id`,
-    `order_detail`.`item_package_item_package_id`,
-    `order_detail`.`order_detail_type`
+    `order_detail`.`item_package_item_package_id`
 FROM `dbay`.`order_detail`;
+
 
 SELECT `item_package`.`item_package_id`,
     `item_package`.`created_at`,
@@ -160,6 +189,8 @@ SELECT `item_package`.`item_package_id`,
     `item_package`.`available`,
     `item_package`.`quantity`
 FROM `dbay`.`item_package`;
+
+UPDATE `dbay`.`dbay_user` SET `verification_code` = null WHERE (`user_id` = 'U20220117015555');
 
 select * from order_detail orderdetai0_ 
 cross join item item1_ 

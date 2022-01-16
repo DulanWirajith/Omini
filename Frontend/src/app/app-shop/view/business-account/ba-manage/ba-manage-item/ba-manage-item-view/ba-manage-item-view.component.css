@@ -9,3 +9,6 @@ ngb-carousel .picsum-img-wrapper > img {
 
   /*max-height: 350px;*/
 /*}*/
+.shadow-sm{
+  box-shadow: 0 0.125rem 0.125rem -0.125rem #a8a8a8, 0 0.25rem 0.75rem #a8a8a8 !important
+}

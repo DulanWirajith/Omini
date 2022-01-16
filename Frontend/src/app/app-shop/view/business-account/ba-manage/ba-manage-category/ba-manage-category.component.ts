@@ -4,6 +4,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {BusinessAccountService} from "../../../../_service/business-account.service";
 import {NgForm} from "@angular/forms";
 import * as $ from "jquery";
+import {ShopCartService} from "../../../../../app-customer/_service/shop-cart.service";
+import {LoginService} from "../../../../../_service/login.service";
 
 @Component({
   selector: 'app-ba-manage-category',
@@ -21,7 +23,7 @@ export class BaManageCategoryComponent implements OnInit {
   businessCategoryId;
   @ViewChild('baManageFormCategory', {static: true}) public baManageFormCategory: NgForm;
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.itemCategory = itemService.getNewCategory();
     // this.categoryE = itemService.getNewCategory();
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
@@ -46,7 +48,7 @@ export class BaManageCategoryComponent implements OnInit {
 
   onSubmit() {
     this.itemCategory.businessProfileCategory.businessProfile = {
-      businessProId: "B321"
+      businessProId: this.loginService.getUser().userId
     };
 
     this.itemService.addCategory(this.itemCategory).subscribe((item) => {
@@ -58,7 +60,7 @@ export class BaManageCategoryComponent implements OnInit {
 
   onSubmitE(itemCategory) {
     itemCategory.businessProfileCategory.businessProfile = {
-      businessProId: "B321"
+      businessProId: this.loginService.getUser().userId
     };
 
     this.itemService.updateCategory(itemCategory).subscribe((item) => {
@@ -69,7 +71,7 @@ export class BaManageCategoryComponent implements OnInit {
   }
 
   getItemCategoriesOrdered(businessCategoryId) {
-    this.itemService.getItemCategoriesOrdered("B321", businessCategoryId).subscribe((categories) => {
+    this.itemService.getItemCategoriesOrdered(this.loginService.getUser().userId, businessCategoryId).subscribe((categories) => {
       // console.log(categories)
       this.categories = categories;
       for (let itemCategory of this.categories) {
@@ -89,12 +91,12 @@ export class BaManageCategoryComponent implements OnInit {
 
   getItems(val, itemCategory?) {
     if (val === 'n') {
-      this.itemService.getItemsBusinessCategory("B321", this.itemCategory.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+      this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.itemCategory.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAdd = items;
       })
     } else if (val === 'e') {
-      this.itemService.getItemsBusinessCategory("B321", this.businessCategoryId).subscribe((items) => {
+      this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAddE = items;
         if (itemCategory !== undefined) {

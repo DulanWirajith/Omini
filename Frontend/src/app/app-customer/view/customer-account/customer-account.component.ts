@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-customer-account',
@@ -9,9 +10,14 @@ export class CustomerAccountComponent implements OnInit {
 
   breadCrumbTxt = 'Order';
 
-  constructor() { }
+  constructor(private router: Router) {
+  }
 
   ngOnInit(): void {
   }
 
+  signOut() {
+    localStorage.clear();
+    this.router.navigate([''])
+  }
 }

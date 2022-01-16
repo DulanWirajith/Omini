@@ -3,6 +3,8 @@ import {BusinessAccountService} from "../../../_service/business-account.service
 import * as $ from "jquery";
 import {environment} from "../../../../../environments/environment";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ShopCartService} from "../../../../app-customer/_service/shop-cart.service";
+import {LoginService} from "../../../../_service/login.service";
 
 @Component({
   selector: 'app-ba-profile',
@@ -33,8 +35,9 @@ export class BaProfileComponent implements OnInit {
     acceptedFileTypes: 'image/jpeg, image/png'
   };
   @ViewChild('imageInput') imageInput: any;
+  user;
 
-  constructor(private businessAccountService: BusinessAccountService, private sanitizer: DomSanitizer) {
+  constructor(private businessAccountService: BusinessAccountService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.businessProfile = businessAccountService.getNewBusinessProfile();
   }
 
@@ -47,19 +50,21 @@ export class BaProfileComponent implements OnInit {
   }
 
   getBusinessProfile() {
-    this.businessAccountService.getBusinessProfile("B321").subscribe((businessProfile) => {
-      console.log(businessProfile)
-      if (businessProfile !== null) {
-        businessProfile.dbayUser.password = '';
-        businessProfile.dbayUser.passwordC = '';
-        businessProfile.dbayUser.cPassword = '';
-        businessProfile.dbayUser.dbayUserImgsRaw = [];
-        // console.log(businessProfile)
-        this.businessProfile = businessProfile;
-        this.getDistricts(businessProfile.town.district.country.countryId)
-        this.getTowns(businessProfile.town.district.districtId)
-      }
-    })
+    // this.businessAccountService.getBusinessProfile(this.loginService.getUser().userId).subscribe((businessProfile) => {
+    this.user = this.loginService.getUser();
+    let businessProfile = this.user.businessProfile;
+    console.log(businessProfile)
+    if (businessProfile !== null) {
+      businessProfile.dbayUser.password = '';
+      businessProfile.dbayUser.passwordC = '';
+      businessProfile.dbayUser.cPassword = '';
+      businessProfile.dbayUser.dbayUserImgsRaw = [];
+      // console.log(businessProfile)
+      this.businessProfile = businessProfile;
+      this.getDistricts(businessProfile.town.district.country.countryId)
+      this.getTowns(businessProfile.town.district.districtId)
+    }
+    // })
   }
 
   getCountries() {
@@ -178,6 +183,11 @@ export class BaProfileComponent implements OnInit {
       if (businessProfile.dbayUser.dbayUserImgs.length > 0) {
         this.businessProfile.dbayUser.dbayUserImgs = businessProfile.dbayUser.dbayUserImgs;
       }
+      localStorage.setItem('user', JSON.stringify(this.user));
+      this.businessAccountService.navBarSub.next({
+        name: 'Business',
+        value: this.businessProfile.defaultBusiness
+      })
       // this.businessProfile = businessProfile;
       this.imageInput.removeFiles();
       // this.businessProfile.dbayUser.dbayUserImgs = this.businessProfile.dbayUser.dbayUserImgs.concat(businessProfile.dbayUser.dbayUserImgs);

@@ -5,6 +5,8 @@ import {ItemService} from "../../../../_service/item.service";
 import * as $ from "jquery";
 import {DomSanitizer} from "@angular/platform-browser";
 import {environment} from "../../../../../../environments/environment";
+import {ShopCartService} from "../../../../../app-customer/_service/shop-cart.service";
+import {LoginService} from "../../../../../_service/login.service";
 
 @Component({
   selector: 'app-ba-manage-package',
@@ -47,7 +49,7 @@ export class BaManagePackageComponent implements OnInit {
 
   // @ViewChild('baManageFormPackageItemExs', {static: true}) public baManageFormPackageItemExs: NgForm;
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.itemPackage = this.itemService.getNewPackage();
     businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
@@ -126,7 +128,7 @@ export class BaManagePackageComponent implements OnInit {
     // this.package.itemItemPackages = packageItems;
 
     this.itemPackage.businessProfileCategory.businessProfile = {
-      businessProId: "B321"
+      businessProId: this.loginService.getUser().userId
     };
 
     // let itemItemPackages = [];
@@ -179,7 +181,7 @@ export class BaManagePackageComponent implements OnInit {
 
   getItemPackagesOrdered(businessCategoryId) {
     if (this.businessProfileCategory !== null) {
-      this.itemService.getItemPackagesOrdered("B321", businessCategoryId).subscribe((packages) => {
+      this.itemService.getItemPackagesOrdered(this.loginService.getUser().userId, businessCategoryId).subscribe((packages) => {
         // console.log(packages)
         this.itemPackages = packages;
         for (let itemPackage of this.itemPackages) {
@@ -199,7 +201,7 @@ export class BaManagePackageComponent implements OnInit {
   getItems() {
     // if (val === 'item') {
       // if (this.itemPackage.businessProfileCategory.businessCategory !== undefined) {
-      this.itemService.getItemsBusinessCategory("B321", this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+      this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAdd = items;
         this.itemPackage.itemItemPackages = [];

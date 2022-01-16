@@ -46,6 +46,8 @@ public class DbayUserDTO extends DateTimeDTO {
     private List<String> privileges;
     private List<DbayUserImgDTO> dbayUserImgs;
 
+    private BusinessProfileDTO businessProfile;
+
 //    private InstituteDTO institute;
 //    private StudentDTO student;
 //    private TutorDTO tutor;
@@ -78,7 +80,7 @@ public class DbayUserDTO extends DateTimeDTO {
         }
     }
 
-//    public DbayUserDTO(DbayUser dbayUser, Set<DbayUserImg> dbayUserImgs) {
+    //    public DbayUserDTO(DbayUser dbayUser, Set<DbayUserImg> dbayUserImgs) {
 //        this(dbayUser);
 ////        if (dbayUserImgs != null) {
 ////            this.dbayUserImgs = new ArrayList<>();

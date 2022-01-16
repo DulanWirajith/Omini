@@ -10,11 +10,11 @@ import {CProfileComponent} from "./view/customer-account/c-profile/c-profile.com
 import {COrderComponent} from "./view/customer-account/c-order/c-order.component";
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'profile_settings',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: 'customer',
+  //   redirectTo: '/customer/header/customer_account/customer_order',
+  //   pathMatch: 'full'
+  // },
   {
     path: 'header',
     component: AppCustomerComponent,
