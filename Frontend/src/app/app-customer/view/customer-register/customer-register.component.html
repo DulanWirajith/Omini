@@ -1,1 +1,57 @@
-<p>customer-register works!</p>
+<div class="container mt-5 mb-md-4 py-5">
+  <!-- Page content-->
+  <div class="row justify-content-center pb-sm-2">
+    <div class="col-lg-11 col-xl-10">
+      <!-- Page title-->
+      <div class="text-center pb-4 mb-3">
+        <h1 class="h2 mb-4">Create customer resume</h1>
+        <p class="mb-4">
+          Save time by uploading a resume to prefill some of the fields
+          below. Please, use PDF format.
+        </p>
+        <button class="btn btn-primary btn-lg rounded-pill" type="button">
+          <i class="fi-upload me-2"></i>Join as a Business
+        </button>
+      </div>
+
+      <!-- Steps-->
+
+      <div class="bg-light rounded-3 py-4 px-md-4 mb-3">
+        <div class="steps pt-4 pb-1">
+          <div class="step"
+               [ngClass]="step===1 || step===2 || step===3 || step===4?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">1</span></div>
+            <div class="step-label">User Info</div>
+          </div>
+          <div class="step"
+               [ngClass]="step===2 || step===3 || step===4?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">2</span></div>
+            <div class="step-label">Personal details</div>
+          </div>
+          <div class="step"
+               [ngClass]="step===3 || step===4?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">3</span></div>
+            <div class="step-label">Location details</div>
+          </div>
+          <div class="step"
+               [ngClass]="step===4?'active':''">
+            <div class="step-progress"><span class="step-progress-start"></span><span
+              class="step-progress-end"></span><span class="step-number">4</span></div>
+            <div class="step-label">Verification</div>
+          </div>
+        </div>
+      </div>
+
+      <app-cr-step1 *ngIf="step===1"></app-cr-step1>
+      <app-cr-step2 *ngIf="step===2"></app-cr-step2>
+      <app-cr-step3 *ngIf="step===3"></app-cr-step3>
+      <app-cr-step4 *ngIf="step===4"></app-cr-step4>
+
+      <!-- Navigation-->
+      <div class="d-flex flex-column flex-sm-row bg-light rounded-3 p-4 px-md-5"><a class="btn btn-primary btn-lg rounded-pill ms-sm-auto" href="./client-register-2step.html">Next step<i class="fi-chevron-right fs-sm ms-2"></i></a></div>
+    </div>
+  </div>
+</div>

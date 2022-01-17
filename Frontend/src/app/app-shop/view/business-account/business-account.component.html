@@ -124,10 +124,10 @@
               class="card-nav-link"
               [routerLinkActive]="'active'"
               [routerLink]="'/shop/header/business_account/ba_order'"
-              (click)="breadCrumbTxt='Order';getItemOrders()"
+              (click)="breadCrumbTxt='Order'"
             ><i class="fi-shopping-bag opacity-60 me-2"></i>Order
               <span class="badge rounded-pill bg-primary" *ngIf="navOrder>0">
-                {{navOrder}}
+                {{getUser().countPendingOrders}}
               </span>
             </a>
             <a

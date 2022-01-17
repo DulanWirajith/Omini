@@ -55,22 +55,26 @@ export class BusinessAccountComponent implements OnInit {
     // console.log(this.businessCategory)
     this.businessAccountService.businessCategorySub.next(this.businessCategory.businessCategoryId);
     this.businessAccountService.businessCategoryId = this.businessCategory.businessCategoryId;
-    this.getItemOrders();
+    // this.getItemOrders();
 
   }
 
-  getItemOrders() {
-    this.itemService.getItemOrders(this.loginService.getUser().userId, this.businessCategory.businessCategoryId, 'Pending').subscribe((itemOrders) => {
-      this.businessAccountService.itemOrders = itemOrders;
-      this.navOrder = itemOrders.length;
-      this.businessAccountService.navBarSub.next('Order');
-      // this.router.navigate(['/shop/header/business_account/ba_order'])
-    })
-  }
+  // getItemOrders() {
+  // this.itemService.getItemOrders(this.loginService.getUser().userId, this.businessCategory.businessCategoryId, 'Pending').subscribe((itemOrders) => {
+  //   this.businessAccountService.itemOrders = itemOrders;
+  //   this.navOrder = itemOrders.length;
+  //   this.businessAccountService.navBarSub.next('Order');
+  //   // this.router.navigate(['/shop/header/business_account/ba_order'])
+  // })
+  // }
 
   signOut() {
     localStorage.clear();
     this.router.navigate([''])
+  }
+
+  getUser() {
+    return this.loginService.getUser();
   }
 
   getItemsOrdered() {

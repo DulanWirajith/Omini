@@ -2,10 +2,14 @@ package lk.dbay.service.impl;
 
 import lk.dbay.dto.BusinessProfileDTO;
 import lk.dbay.dto.DbayUserDTO;
+import lk.dbay.dto.ItemOrderDTO;
 import lk.dbay.entity.BusinessProfile;
+import lk.dbay.entity.BusinessProfileCategoryPK;
 import lk.dbay.entity.DbayUser;
+import lk.dbay.entity.OrderDetail;
 import lk.dbay.repository.BusinessProfileR;
 import lk.dbay.repository.DbayUserR;
+import lk.dbay.repository.OrderDetailR;
 import lk.dbay.security.JwtCache;
 import lk.dbay.security.JwtUtil;
 import lk.dbay.service.DbayUserS;
@@ -22,10 +26,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class DbayUserSImpl implements DbayUserS {
@@ -45,6 +46,8 @@ public class DbayUserSImpl implements DbayUserS {
     private DbayUser userByUsernameOrEmail;
     @Autowired
     private BusinessProfileR businessProfileR;
+    @Autowired
+    private OrderDetailR orderDetailR;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -103,12 +106,7 @@ public class DbayUserSImpl implements DbayUserS {
                     Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(userDTOobj.getUserId());
                     if (businessProfileOptional.isPresent()) {
                         BusinessProfile businessProfile = businessProfileOptional.get();
-                        BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
-                        businessProfileDTO.setDbayUser(businessProfile, true);
-                        businessProfileDTO.setBusinessAreas(businessProfile);
-                        businessProfileDTO.setBusinessProfileCategories(businessProfile);
-                        businessProfileDTO.setTown(businessProfile);
-                        userDTO.setBusinessProfile(businessProfileDTO);
+                        userDTO.setBusinessProfile(setBusiness(businessProfile));
                     }
                 }
 
@@ -122,6 +120,22 @@ public class DbayUserSImpl implements DbayUserS {
             throw new Exception("User cannot be found");
         }
         return null;
+    }
+
+    private BusinessProfileDTO setBusiness(BusinessProfile businessProfile) {
+        BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
+        businessProfileDTO.setDbayUser(businessProfile, true);
+        businessProfileDTO.setBusinessAreas(businessProfile);
+        businessProfileDTO.setBusinessProfileCategories(businessProfile);
+        businessProfileDTO.setTown(businessProfile);
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetails(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfile.getDefaultBusiness().getBusinessCategoryId()), "Pending");
+        Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
+        for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
+            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+        }
+        businessProfileDTO.setCountPendingOrders(itemOrderDTOS.size());
+        return businessProfileDTO;
+//        userDTO.setBusinessProfile(businessProfileDTO);
     }
 
     @Override

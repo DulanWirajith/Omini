@@ -30,6 +30,7 @@ public class BusinessProfileDTO extends DateTimeDTO {
     private String socialLinkedIn;
     private int proViewCount;
     private int contactViewCount;
+    private int countPendingOrders;
     private BusinessCategoryDTO defaultBusiness;
     private DbayUserDTO dbayUser;
     private TownDTO town;

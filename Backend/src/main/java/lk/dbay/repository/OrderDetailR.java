@@ -30,6 +30,9 @@ public interface OrderDetailR extends JpaRepository<OrderDetail, String> {
     @Query(value = "from OrderDetail where itemOrder.customerProfile.customerProId=?1 and itemOrder.status=?2")
     List<OrderDetail> getPendingCustomerOrders(String customerId, String orderType);
 
+//    @Query(value = "select count(orderDetailId) from OrderDetail where businessProfileCategory.businessProfileCategoryId=?1 and itemOrder.status=?2")
+//    int getPendingOrdersCount(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
+
 //    @Query(value = "from OrderDetail where itemPackage.itemOrder.customerProfile.customerProId=?1 and itemOrder.status=?2")
 //    List<OrderDetail> getItemOrderDetailsItemPackages(String customerId);
 }

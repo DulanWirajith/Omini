@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {CommonService} from "../../_service/common.service";
@@ -8,6 +8,8 @@ import {CommonService} from "../../_service/common.service";
   providedIn: 'root'
 })
 export class CustomerAccountService {
+
+  step = new Subject<number>();
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }

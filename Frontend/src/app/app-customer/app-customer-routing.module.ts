@@ -8,6 +8,8 @@ import {ItemPackageSearchResultComponent} from "./view/search-result/item-packag
 import {CustomerAccountComponent} from "./view/customer-account/customer-account.component";
 import {CProfileComponent} from "./view/customer-account/c-profile/c-profile.component";
 import {COrderComponent} from "./view/customer-account/c-order/c-order.component";
+import {BusinessRegisterComponent} from "../app-shop/view/business-register/business-register.component";
+import {CustomerRegisterComponent} from "./view/customer-register/customer-register.component";
 
 const routes: Routes = [
   // {
@@ -19,6 +21,10 @@ const routes: Routes = [
     path: 'header',
     component: AppCustomerComponent,
     children: [
+      {
+        path: 'customer_register',
+        component: CustomerRegisterComponent,
+      },
       {
         path: 'customer_account',
         component: CustomerAccountComponent,

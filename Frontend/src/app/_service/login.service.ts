@@ -33,7 +33,8 @@ export class LoginService {
       email: '',
       available: false,
       confirmed: false,
-      twoFactorAuth: ''
+      twoFactorAuth: '',
+      countPendingOrders: 0
     }
   }
 }
