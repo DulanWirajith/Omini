@@ -69,11 +69,11 @@ export class BusinessAccountComponent implements OnInit {
   // }
 
   signOut() {
-    localStorage.clear();
-    this.router.navigate([''])
+    this.loginService.signOut();
   }
 
   getUser() {
+    // console.log(this.loginService.getUser())
     return this.loginService.getUser();
   }
 

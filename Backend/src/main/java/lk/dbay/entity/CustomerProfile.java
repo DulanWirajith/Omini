@@ -20,7 +20,8 @@ public class CustomerProfile extends DateTime {
 
     @Id
     private String customerProId;
-    private String customerName;
+    private String firstName;
+    private String lastName;
     private String contactNumber1;
     private String contactNumber2;
     private String customerAddress;

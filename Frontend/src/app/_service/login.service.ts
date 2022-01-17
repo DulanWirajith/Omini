@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {CommonService} from "./common.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,14 @@ import {CommonService} from "./common.service";
 export class LoginService {
 
   user;
+  loggedIn = new Subject<any>();
 
-  constructor(private http: HttpClient, private commonService: CommonService) {
+  constructor(private http: HttpClient, private commonService: CommonService, private router: Router) {
+    // console.log(this.router.url)
+    // if (this.router.url !== '/login' && this.getUser() === null) {
+    //   localStorage.clear();
+    //   this.router.navigate(['']);
+    // }
   }
 
   authenticate(user): Observable<any> {
@@ -19,7 +26,18 @@ export class LoginService {
   }
 
   getUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    console.log(this.user)
+    if (this.user === undefined || this.user === null) {
+      this.user = JSON.parse(localStorage.getItem('user'));
+    }
+    return this.user;
+  }
+
+  signOut() {
+    localStorage.clear();
+    this.user = null;
+    // this.loggedIn.next(0);
+    this.router.navigate(['/login']);
   }
 
   getNewUser() {

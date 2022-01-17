@@ -1,1 +1,47 @@
-<p>cr-step4 works!</p>
+<form #crForm4="ngForm" (ngSubmit)="crForm4.form.valid && onSubmit()" novalidate>
+
+  <!-- Step 4: Verification-->
+  <div class="bg-light rounded-3 p-4 p-md-5 mb-3">
+    <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Verification</h2>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-sm-12">
+          <div class="alert alert-info mb-4" role="alert">
+            <div class="d-flex">
+              <i class="fi-alert-circle me-2 me-sm-3"></i>
+              <p class="fs-sm mb-1">
+                Please check your user email we have sent you a verification code...
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-10 mb-4">
+          <!-- <label class="form-label" for="cli-verificationcode">Verification code<span class='text-danger'>*</span></label> -->
+          <input class="form-control form-control-md" type="text" id="cli-verificationcode" value=""
+                 placeholder="Enter your verification code" required
+                 [(ngModel)]="customerProfile.dbayUser.verificationCode" #verificationCode="ngModel"
+                 name="verificationCode">
+          <div *ngIf="(verificationCode.touched || crForm4.submitted) && verificationCode.errors?.required"
+               class="validErr">
+            Verification Code is required
+          </div>
+        </div>
+        <div class="col-sm-2 mb-4" style="align-self: center;">
+          <button class="btn btn-primary btn-md"><i class="fi-refresh me-1"></i>Resend</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column flex-sm-row bg-light rounded-3 p-4 px-md-5">
+    <button type="button" class="btn btn-primary btn-lg rounded-pill"
+            (click)="previousPage()">
+      <i class="fi-chevron-left fs-sm"></i> Previous step
+    </button>
+    <button type="submit" class="btn btn-primary btn-lg rounded-pill ms-sm-auto">
+      Next step <i class="fi-chevron-right fs-sm ms-2"></i>
+    </button>
+  </div>
+
+</form>

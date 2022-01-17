@@ -3,6 +3,7 @@ import {CustomerAccountService} from "../../../_service/customer-account.service
 import {environment} from "../../../../../environments/environment";
 import {BusinessAccountService} from "../../../../app-shop/_service/business-account.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {LoginService} from "../../../../_service/login.service";
 
 @Component({
   selector: 'app-c-profile',
@@ -32,7 +33,7 @@ export class CProfileComponent implements OnInit {
   };
   @ViewChild('imageInput') imageInput: any;
 
-  constructor(private customerAccountService: CustomerAccountService, private sanitizer: DomSanitizer) {
+  constructor(private customerAccountService: CustomerAccountService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.customerProfile = customerAccountService.getNewCustomerProfile();
   }
 
@@ -66,7 +67,7 @@ export class CProfileComponent implements OnInit {
   }
 
   getCustomerProfile() {
-    this.customerAccountService.getCustomerProfile("U20220102233339").subscribe((customerProfile) => {
+    this.customerAccountService.getCustomerProfile(this.loginService.getUser().userId).subscribe((customerProfile) => {
       console.log(customerProfile)
       if (customerProfile !== null) {
         customerProfile.dbayUser.password = '';

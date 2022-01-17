@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: 'customer', loadChildren: () => import('./app-customer/app-customer.module').then(m => m.AppCustomerModule)},
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/customer/header/item_shop_search',
     pathMatch: 'full'
   },
 ];

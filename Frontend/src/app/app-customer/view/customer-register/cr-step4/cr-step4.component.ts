@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from "@angular/forms";
+import {CustomerAccountService} from "../../../_service/customer-account.service";
 
 @Component({
   selector: 'app-cr-step4',
@@ -7,9 +9,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrStep4Component implements OnInit {
 
-  constructor() { }
+  customerProfile;
+
+  @ViewChild('crForm4', {static: true}) public crForm4: NgForm;
+
+  constructor(private customerAccountService: CustomerAccountService) {
+    this.customerProfile = JSON.parse(JSON.stringify(customerAccountService.getNewCustomerProfile()));
+  }
 
   ngOnInit(): void {
+    if (localStorage.getItem('cr') !== null) {
+      this.customerProfile = JSON.parse(localStorage.getItem('cr'));
+    }
+  }
+
+  onSubmit() {
+    const uploadImageData = new FormData();
+    for (let dbayUserImg of this.customerProfile.dbayUser.dbayUserImgsRaw) {
+      uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
+    }
+    uploadImageData.append('customerProfile', new Blob([JSON.stringify(this.customerProfile)],
+      {
+        type: "application/json"
+      }));
+    this.customerAccountService.addCustomerProfile(uploadImageData).subscribe((reply) => {
+      localStorage.removeItem('cr');
+      this.customerAccountService.step.next(5)
+    })
+  }
+
+  previousPage() {
+    localStorage.setItem('cr', JSON.stringify(this.customerProfile));
+    this.customerAccountService.step.next(3);
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {LoginService} from "../../../../_service/login.service";
 
 @Component({
   selector: 'app-ba-monitor',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaMonitorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService: LoginService) {
+  }
 
   ngOnInit(): void {
   }
 
+  getUser() {
+    return this.loginService.getUser();
+  }
 }

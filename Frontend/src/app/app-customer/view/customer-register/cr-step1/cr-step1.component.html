@@ -1,32 +1,63 @@
 <form #crForm1="ngForm" (ngSubmit)="crForm1.form.valid && onSubmit()" novalidate>
-  
+
   <!-- Step 1: User Info-->
   <div class="bg-light rounded-3 p-4 p-md-5 mb-3">
+
     <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>User info</h2>
     <div class="row">
       <div class="col-sm-6 mb-4">
-        <label class="form-label" for="cli-un">User name <span class='text-danger'>*</span></label>
-        <input class="form-control form-control-lg" type="text" id="cli-un" value="" placeholder="Enter your user name"
-               required>
+        <label class="form-label" for="biz-un">User name <span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="text" id="biz-un" value=""
+               placeholder="Enter your user name" required
+               [(ngModel)]="customerProfile.dbayUser.username" #username="ngModel" name="username">
+        <div *ngIf="(username.touched || crForm1.submitted) && username.errors?.required" class="validErr">
+          User name is required
+        </div>
       </div>
       <div class="col-sm-6 mb-4">
-        <label class="form-label" for="cli-ue">User email <span class='text-danger'>*</span></label>
-        <input class="form-control form-control-lg" type="email" id="cli-ue" value=""
-               placeholder="Enter your user email" required>
+        <label class="form-label" for="biz-ue">User email <span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="email" id="biz-ue" value=""
+               placeholder="Enter your user email" required
+               [(ngModel)]="customerProfile.dbayUser.email" #email="ngModel" name="email">
+        <div *ngIf="(email.touched || crForm1.submitted) && email.errors?.required" class="validErr">
+          User email is required
+        </div>
       </div>
       <div class="col-sm-6 mb-4">
-        <label class="form-label" for="cli-pass">Password<span class='text-danger'>*</span></label>
-        <input class="form-control form-control-lg" type="password" id="cli-pass" value=""
-               placeholder="Enter your password" required>
+        <label class="form-label" for="biz-pass">Password <span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="password" id="biz-pass" value=""
+               placeholder="Enter your password" required
+               [(ngModel)]="customerProfile.dbayUser.password" #password="ngModel" name="password"
+               appConfirmPassword [password]="customerProfile.dbayUser.passwordC">
+        <div *ngIf="(password.touched || crForm1.submitted) && password.errors?.required" class="validErr">
+          Password is required
+        </div>
       </div>
       <div class="col-sm-6 mb-4">
-        <label class="form-label" for="cli-cpass">Confirm Password <span class='text-danger'>*</span></label>
-        <input class="form-control form-control-lg" type="password" id="cli-cpass" value=""
-               placeholder="Re-Enter your password">
+        <label class="form-label" for="biz-cpass">Confirm Password <span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="password" id="biz-cpass" value=""
+               placeholder="Re-Enter your password" required
+               [(ngModel)]="customerProfile.dbayUser.passwordC" #passwordC="ngModel" name="passwordC"
+               appConfirmPassword [password]="customerProfile.dbayUser.password">
+        <div
+          *ngIf="(passwordC.dirty || password.dirty || crForm1.submitted) && (passwordC.errors?.confirmPassword || password.errors?.confirmPassword)"
+          class="validErr">
+          Password does not match
+        </div>
+        <!--<div *ngIf="(passwordC.dirty) && passwordC.errors?.confirmPassword"-->
+        <!--class="validErr">-->
+        <!--Invalid Email Address-->
+        <!--</div>-->
       </div>
 
     </div>
 
+  </div>
+
+  <div class="d-flex flex-column flex-sm-row bg-light rounded-3 p-4 px-md-5">
+    <button type="submit" class="btn btn-primary btn-lg rounded-pill ms-sm-auto">
+      Next step <i class="fi-chevron-right fs-sm ms-2"></i>
+    </button>
   </div>
 
 </form>

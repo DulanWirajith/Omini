@@ -47,6 +47,7 @@ public class DbayUserDTO extends DateTimeDTO {
     private List<DbayUserImgDTO> dbayUserImgs;
 
     private BusinessProfileDTO businessProfile;
+    private CustomerProfileDTO customerProfile;
 
 //    private InstituteDTO institute;
 //    private StudentDTO student;
@@ -63,7 +64,7 @@ public class DbayUserDTO extends DateTimeDTO {
             this.role = dbayUser.getRole();
             this.available = dbayUser.isAvailable();
             this.confirmed = dbayUser.isConfirmed();
-            this.verificationCode = dbayUser.getVerificationCode();
+//            this.verificationCode = dbayUser.getVerificationCode();
             this.twoFactorAuth = dbayUser.isTwoFactorAuth();
 //            this.curDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 //            setCreatedAt(dbayUser.getCreatedAt());

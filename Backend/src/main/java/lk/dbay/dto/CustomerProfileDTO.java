@@ -13,7 +13,8 @@ import lombok.*;
 public class CustomerProfileDTO extends DateTimeDTO {
 
     private String customerProId;
-    private String customerName;
+    private String firstName;
+    private String lastName;
     private String contactNumber1;
     private String contactNumber2;
     private String customerAddress;
@@ -25,7 +26,8 @@ public class CustomerProfileDTO extends DateTimeDTO {
     public CustomerProfileDTO(CustomerProfile customerProfile) {
         if (customerProfile != null) {
             this.customerProId = customerProfile.getCustomerProId();
-            this.customerName = customerProfile.getCustomerName();
+            this.firstName = customerProfile.getFirstName();
+            this.lastName = customerProfile.getLastName();
             this.contactNumber1 = customerProfile.getContactNumber1();
             this.contactNumber2 = customerProfile.getContactNumber2();
             this.customerAddress = customerProfile.getCustomerAddress();

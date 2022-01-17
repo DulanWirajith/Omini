@@ -65,14 +65,14 @@
         </div>
       </div>
       <div class="col-sm-6 mb-4">
-        <label class="form-label">Town <span class='text-danger'>*</span></label>
+        <label class="form-label">Area <span class='text-danger'>*</span></label>
         <select class="form-select form-select-lg" id="biz-country" required
                 [(ngModel)]="businessProfile.town.townId" #townId="ngModel" name="townId">
           <option value="" disabled selected>Choose town</option>
           <option *ngFor="let town of towns" [value]="town.townId">{{town.name}}</option>
         </select>
         <div *ngIf="(townId.touched || brForm2.submitted) && townId.errors?.required" class="validErr">
-          Town is required
+          Area is required
         </div>
       </div>
       <div class="col-sm-12">

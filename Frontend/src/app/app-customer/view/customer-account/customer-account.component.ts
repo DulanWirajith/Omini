@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {LoginService} from "../../../_service/login.service";
 
 @Component({
   selector: 'app-customer-account',
@@ -10,14 +11,17 @@ export class CustomerAccountComponent implements OnInit {
 
   breadCrumbTxt = 'Order';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private loginService: LoginService) {
   }
 
   ngOnInit(): void {
   }
 
   signOut() {
-    localStorage.clear();
-    this.router.navigate([''])
+    this.loginService.signOut();
+  }
+
+  getUser() {
+    return this.loginService.getUser();
   }
 }

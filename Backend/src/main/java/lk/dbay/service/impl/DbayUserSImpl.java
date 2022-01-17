@@ -1,13 +1,12 @@
 package lk.dbay.service.impl;
 
 import lk.dbay.dto.BusinessProfileDTO;
+import lk.dbay.dto.CustomerProfileDTO;
 import lk.dbay.dto.DbayUserDTO;
 import lk.dbay.dto.ItemOrderDTO;
-import lk.dbay.entity.BusinessProfile;
-import lk.dbay.entity.BusinessProfileCategoryPK;
-import lk.dbay.entity.DbayUser;
-import lk.dbay.entity.OrderDetail;
+import lk.dbay.entity.*;
 import lk.dbay.repository.BusinessProfileR;
+import lk.dbay.repository.CustomerProfileR;
 import lk.dbay.repository.DbayUserR;
 import lk.dbay.repository.OrderDetailR;
 import lk.dbay.security.JwtCache;
@@ -47,6 +46,8 @@ public class DbayUserSImpl implements DbayUserS {
     @Autowired
     private BusinessProfileR businessProfileR;
     @Autowired
+    private CustomerProfileR customerProfileR;
+    @Autowired
     private OrderDetailR orderDetailR;
 
     @Override
@@ -80,7 +81,7 @@ public class DbayUserSImpl implements DbayUserS {
                 userByUsernameOrEmail.setUpdatedAt(null);
 //                userObj.getPharmacy().setUpdatedAt(null);
                 DbayUserDTO userDTOobj = new DbayUserDTO(userByUsernameOrEmail);
-                userDTOobj.setSecurityKey(dbayUser.hashCode());
+//                userDTOobj.setSecurityKey(dbayUser.hashCode());
 
 //                List<String> userPrivileges = new ArrayList<>();
 //                for (UserPrivilege userPrivilege : userObj.getUserPrivileges()) {
@@ -90,27 +91,33 @@ public class DbayUserSImpl implements DbayUserS {
 
                 userDTOobj.setToken(jwtGenerator.generate(userDTOobj));
 
-                jwtCache.setUser(userDTOobj);
+//                jwtCache.setUser(userDTOobj);
 
-                DbayUserDTO userDTO = new DbayUserDTO();
+//                DbayUserDTO userDTO = new DbayUserDTO();
 //                userDTO.setCurDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
-                userDTO.setToken(userDTOobj.getToken());
-                userDTO.setUserId(userDTOobj.getUserId());
-                userDTO.setUsername(userDTOobj.getUsername());
-                userDTO.setFirstName(userDTOobj.getFirstName());
-                userDTO.setLastName(userDTOobj.getLastName());
-                userDTO.setRole(userDTOobj.getRole());
-                userDTO.setSecurityKey(0);
+//                userDTO.setToken(userDTOobj.getToken());
+//                userDTO.setUserId(userDTOobj.getUserId());
+//                userDTO.setUsername(userDTOobj.getUsername());
+//                userDTO.setFirstName(userDTOobj.getFirstName());
+//                userDTO.setLastName(userDTOobj.getLastName());
+//                userDTO.setRole(userDTOobj.getRole());
+//                userDTO.setSecurityKey(0);
 
                 if (userDTOobj.getRole().equals("B")) {
                     Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(userDTOobj.getUserId());
                     if (businessProfileOptional.isPresent()) {
                         BusinessProfile businessProfile = businessProfileOptional.get();
-                        userDTO.setBusinessProfile(setBusiness(businessProfile));
+                        userDTOobj.setBusinessProfile(setBusiness(businessProfile));
+                    }
+                } else if (userDTOobj.getRole().equals("C")) {
+                    Optional<CustomerProfile> customerProfileOptional = customerProfileR.findById(userDTOobj.getUserId());
+                    if (customerProfileOptional.isPresent()) {
+                        CustomerProfile customerProfile = customerProfileOptional.get();
+                        userDTOobj.setCustomerProfile(setCustomer(customerProfile));
                     }
                 }
 
-                return userDTO;
+                return userDTOobj;
             }
         } catch (BadCredentialsException e) {
             e.printStackTrace();
@@ -124,7 +131,7 @@ public class DbayUserSImpl implements DbayUserS {
 
     private BusinessProfileDTO setBusiness(BusinessProfile businessProfile) {
         BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
-        businessProfileDTO.setDbayUser(businessProfile, true);
+//        businessProfileDTO.setDbayUser(businessProfile, true);
         businessProfileDTO.setBusinessAreas(businessProfile);
         businessProfileDTO.setBusinessProfileCategories(businessProfile);
         businessProfileDTO.setTown(businessProfile);
@@ -136,6 +143,12 @@ public class DbayUserSImpl implements DbayUserS {
         businessProfileDTO.setCountPendingOrders(itemOrderDTOS.size());
         return businessProfileDTO;
 //        userDTO.setBusinessProfile(businessProfileDTO);
+    }
+
+    private CustomerProfileDTO setCustomer(CustomerProfile customerProfile) {
+        CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
+//        customerProfileDTO.setDbayUser(customerProfile, true);
+        return customerProfileDTO;
     }
 
     @Override

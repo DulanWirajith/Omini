@@ -20,12 +20,13 @@ export class LoginComponent implements OnInit {
 
   authenticate() {
     this.loginService.authenticate(this.user).subscribe((user) => {
-      console.log(user)
+      // console.log(user)
       localStorage.setItem('user', JSON.stringify(user));
+      // this.loginService.loggedIn.next(1);
       if (user.role === 'B') {
         this.router.navigate(['/shop/header/business_account/ba_monitor'])
       } else if (user.role === 'C') {
-        this.router.navigate(['/customer/header/customer_account/customer_order'])
+        this.router.navigate(['/customer/header/item_shop_search'])
       }
     })
   }

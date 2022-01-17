@@ -34,7 +34,7 @@
             alt="Annette Black"
           />
           <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
-            <h2 class="fs-lg mb-0">Business Name</h2>
+            <h2 class="fs-lg mb-0">{{getUser().businessProfile.businessName}}</h2>
             <span class="star-rating"
             ><i class="star-rating-icon fi-star-filled active"></i
             ><i class="star-rating-icon fi-star-filled active"></i
@@ -54,7 +54,7 @@
                   class="nav-link fw-normal p-0"
                   href="mailto:annette_black@email.com"
                 ><i class="fi-mail opacity-60 me-2"></i
-                >annette_black@email.com</a
+                >{{getUser().businessProfile.businessEmail}}</a
                 >
               </li>
             </ul>
@@ -126,8 +126,8 @@
               [routerLink]="'/shop/header/business_account/ba_order'"
               (click)="breadCrumbTxt='Order'"
             ><i class="fi-shopping-bag opacity-60 me-2"></i>Order
-              <span class="badge rounded-pill bg-primary" *ngIf="navOrder>0">
-                {{getUser().countPendingOrders}}
+              <span class="badge rounded-pill bg-primary" *ngIf="getUser().businessProfile.countPendingOrders>0">
+                {{getUser().businessProfile.countPendingOrders}}
               </span>
             </a>
             <a

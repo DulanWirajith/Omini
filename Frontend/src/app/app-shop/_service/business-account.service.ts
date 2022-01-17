@@ -3,6 +3,8 @@ import {Observable, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {CommonService} from "../../_service/common.service";
 import {environment} from "../../../environments/environment";
+import {Router} from "@angular/router";
+import {LoginService} from "../../_service/login.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +23,12 @@ export class BusinessAccountService {
 
   itemOrders=[];
 
-  constructor(private http: HttpClient, private commonService: CommonService) {
-    this.getBusinessCategoriesCom();
+  constructor(private http: HttpClient, private commonService: CommonService, private router: Router,private loginService:LoginService) {
+    // if (this.router.url !== '/login' && this.loginService.getUser().role !== 'B') {
+    //   localStorage.clear();
+    //   this.router.navigate(['']);
+    // }
+    // this.getBusinessCategoriesCom();
   }
 
   // setText(txt) {

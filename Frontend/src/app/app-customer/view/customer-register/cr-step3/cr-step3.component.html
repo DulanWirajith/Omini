@@ -1,1 +1,64 @@
-<p>cr-step3 works!</p>
+<form #crForm3="ngForm" (ngSubmit)="crForm3.form.valid && onSubmit()" novalidate>
+
+  <!-- Step 3: Location details-->
+  <div class="bg-light rounded-3 p-4 p-md-5 mb-3">
+    <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Location details</h2>
+    <div class="row">
+      <div class="col-sm-6 mb-4">
+        <label class="form-label" for="cli-address">Address<span class='text-danger'>*</span></label>
+        <input class="form-control form-control-lg" type="text" id="cli-address" value=""
+               placeholder="Enter your address" required [(ngModel)]="customerProfile.customerAddress"
+               #customerAddress="ngModel" name="customerAddress">
+        <div *ngIf="(customerAddress.touched || crForm3.submitted) && customerAddress.errors?.required" class="validErr">
+          Address is required
+        </div>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <label class="form-label">Country <span class='text-danger'>*</span></label>
+        <select class="form-select form-select-lg" required
+                [(ngModel)]="customerProfile.country" #country="ngModel" name="country"
+                (change)="getDistricts($event.target.value)">
+          <option value="" disabled selected>Choose country</option>
+          <option *ngFor="let country of countries" [value]="country.countryId">{{country.name}}</option>
+        </select>
+        <div *ngIf="(country.touched || crForm3.submitted) && country.errors?.required" class="validErr">
+          Country is required
+        </div>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <label class="form-label" for="biz-district">District <span class='text-danger'>*</span></label>
+        <select class="form-select form-select-lg" id="biz-district" required
+                [(ngModel)]="customerProfile.district" #district="ngModel" name="district"
+                (change)="getTowns($event.target.value)">
+          <option value="" disabled selected>Choose district</option>
+          <option *ngFor="let district of districts" [value]="district.districtId">{{district.name}}</option>
+        </select>
+        <div *ngIf="(district.touched || crForm3.submitted) && district.errors?.required" class="validErr">
+          District is required
+        </div>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <label class="form-label">Town <span class='text-danger'>*</span></label>
+        <select class="form-select form-select-lg" id="biz-country" required
+                [(ngModel)]="customerProfile.town.townId" #townId="ngModel" name="townId">
+          <option value="" disabled selected>Choose town</option>
+          <option *ngFor="let town of towns" [value]="town.townId">{{town.name}}</option>
+        </select>
+        <div *ngIf="(townId.touched || crForm3.submitted) && townId.errors?.required" class="validErr">
+          Area is required
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column flex-sm-row bg-light rounded-3 p-4 px-md-5">
+    <button type="button" class="btn btn-primary btn-lg rounded-pill"
+            (click)="previousPage()">
+      <i class="fi-chevron-left fs-sm"></i> Previous step
+    </button>
+    <button type="submit" class="btn btn-primary btn-lg rounded-pill ms-sm-auto">
+      Next step <i class="fi-chevron-right fs-sm ms-2"></i>
+    </button>
+  </div>
+
+</form>

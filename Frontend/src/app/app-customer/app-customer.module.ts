@@ -19,6 +19,7 @@ import {CrStep1Component} from "./view/customer-register/cr-step1/cr-step1.compo
 import {CrStep2Component} from "./view/customer-register/cr-step2/cr-step2.component";
 import {CrStep3Component} from "./view/customer-register/cr-step3/cr-step3.component";
 import {CrStep4Component} from "./view/customer-register/cr-step4/cr-step4.component";
+import {CrStep5Component} from "./view/customer-register/cr-step5/cr-step5.component";
 
 const components = [
   ItemShopSearchComponent,
@@ -35,6 +36,7 @@ const components = [
   CrStep2Component,
   CrStep3Component,
   CrStep4Component,
+  CrStep5Component,
 ];
 
 @NgModule({

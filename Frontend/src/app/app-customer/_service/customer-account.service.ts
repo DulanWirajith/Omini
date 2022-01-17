@@ -3,6 +3,8 @@ import {Observable, Subject} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {CommonService} from "../../_service/common.service";
+import {Router} from "@angular/router";
+import {LoginService} from "../../_service/login.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,16 @@ export class CustomerAccountService {
 
   step = new Subject<number>();
 
-  constructor(private http: HttpClient, private commonService: CommonService) {
+  constructor(private http: HttpClient, private commonService: CommonService, private router: Router,private loginService:LoginService) {
+    // console.log(this.loginService.getUser())
+    // if (this.router.url !== '/login' && this.loginService.getUser().role !== 'C') {
+    //   localStorage.clear();
+    //   this.router.navigate(['']);
+    // }
+  }
+
+  addCustomerProfile(customerReg): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'customer_profile/addCustomerProfile', customerReg);
   }
 
   updateCustomerProfile(customerReg, customerProId): Observable<any> {
@@ -41,7 +52,8 @@ export class CustomerAccountService {
   getNewCustomerProfile() {
     return {
       customerProId: "",
-      customerName: "",
+      firstName: "",
+      lastName: "",
       contactNumber1: "",
       contactNumber2: "",
       customerAddress: "",

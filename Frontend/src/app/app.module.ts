@@ -46,6 +46,7 @@ import { CrStep1Component } from './app-customer/view/customer-register/cr-step1
 import { CrStep2Component } from './app-customer/view/customer-register/cr-step2/cr-step2.component';
 import { CrStep3Component } from './app-customer/view/customer-register/cr-step3/cr-step3.component';
 import { CrStep4Component } from './app-customer/view/customer-register/cr-step4/cr-step4.component';
+import { CrStep5Component } from './app-customer/view/customer-register/cr-step5/cr-step5.component';
 
 @NgModule({
   declarations: [

@@ -43,6 +43,17 @@
       </div>
     </div>
   </div>
+  <div style="display: grid;align-content: center;justify-content: center"
+  *ngIf="getUser()===null && (getUser()!==null && getUser().role !== 'C')">
+    <span style="font-weight: bold;margin-bottom: 20px;margin-top: 20px">Please sign in to view cart</span>
+    <a
+      class="btn btn-primary btn-sm ms-2 order-lg-3"
+      [routerLink]="'/login'"
+    ><i class="fi-user me-2"></i>Sign<span class="d-none d-sm-inline">
+        in</span
+    ></a
+    >
+  </div>
   <div class="offcanvas-body">
     <div class="collapse mb-3 show" id="cart-item-list">
       <div class="card card-body mb-2" style="padding-bottom: 5px;border-color: #c1c1c1"

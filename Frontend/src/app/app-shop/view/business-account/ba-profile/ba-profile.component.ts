@@ -50,21 +50,21 @@ export class BaProfileComponent implements OnInit {
   }
 
   getBusinessProfile() {
-    // this.businessAccountService.getBusinessProfile(this.loginService.getUser().userId).subscribe((businessProfile) => {
-    this.user = this.loginService.getUser();
-    let businessProfile = this.user.businessProfile;
-    console.log(businessProfile)
-    if (businessProfile !== null) {
-      businessProfile.dbayUser.password = '';
-      businessProfile.dbayUser.passwordC = '';
-      businessProfile.dbayUser.cPassword = '';
-      businessProfile.dbayUser.dbayUserImgsRaw = [];
-      // console.log(businessProfile)
-      this.businessProfile = businessProfile;
-      this.getDistricts(businessProfile.town.district.country.countryId)
-      this.getTowns(businessProfile.town.district.districtId)
-    }
-    // })
+    this.businessAccountService.getBusinessProfile(this.loginService.getUser().userId).subscribe((businessProfile) => {
+      // this.user = this.loginService.getUser();
+      // let businessProfile = this.loginService.getUser();
+      console.log(businessProfile)
+      if (businessProfile !== null) {
+        businessProfile.dbayUser.password = '';
+        businessProfile.dbayUser.passwordC = '';
+        businessProfile.dbayUser.cPassword = '';
+        businessProfile.dbayUser.dbayUserImgsRaw = [];
+        // console.log(businessProfile)
+        this.businessProfile = businessProfile;
+        this.getDistricts(businessProfile.town.district.country.countryId)
+        this.getTowns(businessProfile.town.district.districtId)
+      }
+    })
   }
 
   getCountries() {
@@ -183,7 +183,7 @@ export class BaProfileComponent implements OnInit {
       if (businessProfile.dbayUser.dbayUserImgs.length > 0) {
         this.businessProfile.dbayUser.dbayUserImgs = businessProfile.dbayUser.dbayUserImgs;
       }
-      localStorage.setItem('user', JSON.stringify(this.user));
+      // localStorage.setItem('user', JSON.stringify(this.user));
       this.businessAccountService.navBarSub.next({
         name: 'Business',
         value: this.businessProfile.defaultBusiness

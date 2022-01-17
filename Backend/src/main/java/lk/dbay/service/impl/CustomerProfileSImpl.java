@@ -1,12 +1,9 @@
 package lk.dbay.service.impl;
 
-import lk.dbay.dto.BusinessProfileDTO;
 import lk.dbay.dto.CustomerProfileDTO;
-import lk.dbay.dto.DbayUserDTO;
 import lk.dbay.dto.ShopCartDTO;
 import lk.dbay.entity.*;
 import lk.dbay.repository.*;
-import lk.dbay.service.BusinessProfileS;
 import lk.dbay.service.CustomerProfileS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,19 +36,34 @@ public class CustomerProfileSImpl implements CustomerProfileS {
     private String filePath;
 
     @Override
-    public CustomerProfileDTO addCustomerProfile(CustomerProfile customerProfile) throws Exception {
+    public CustomerProfileDTO addCustomerProfile(CustomerProfile customerProfile, MultipartFile[] files) throws Exception {
         try {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-            customerProfile.setCustomerProId("C" + format);
             customerProfile.getDbayUser().setUserId("U" + format);
+//            customerProfile.setBusinessProId("B" + customerProfile.getBusinessRegistrationCode());
+            customerProfile.setCustomerProId(customerProfile.getDbayUser().getUserId());
             customerProfile.getDbayUser().setRole("C");
-
+//            customerProfile.setTown();
+//            addBusinessAreas(customerProfile);
+//            addBusinessProfileCategories(customerProfile);
+            addImagesToCustomerProfile(customerProfile.getDbayUser(), files);
             dbayUserR.save(customerProfile.getDbayUser());
             customerProfileR.save(customerProfile);
             CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
             customerProfileDTO.setDbayUser(customerProfile, false);
             return customerProfileDTO;
+//            LocalDateTime localDateTime = LocalDateTime.now();
+//            String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+//            customerProfile.setCustomerProId("C" + format);
+//            customerProfile.getDbayUser().setUserId("U" + format);
+//            customerProfile.getDbayUser().setRole("C");
+//
+//            dbayUserR.save(customerProfile.getDbayUser());
+//            customerProfileR.save(customerProfile);
+//            CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
+//            customerProfileDTO.setDbayUser(customerProfile, false);
+//            return customerProfileDTO;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
@@ -77,7 +89,8 @@ public class CustomerProfileSImpl implements CustomerProfileS {
             Optional<CustomerProfile> customerProfileOptional = customerProfileR.findById(customerProfileId);
             if (customerProfileOptional.isPresent()) {
                 CustomerProfile customerProfileObj = customerProfileOptional.get();
-                customerProfileObj.setCustomerName(customerProfile.getCustomerName());
+                customerProfileObj.setFirstName(customerProfile.getFirstName());
+                customerProfileObj.setLastName(customerProfile.getLastName());
                 customerProfileObj.setContactNumber1(customerProfile.getContactNumber1());
                 customerProfileObj.setContactNumber2(customerProfile.getContactNumber2());
                 customerProfileObj.setCustomerAddress(customerProfile.getCustomerAddress());
@@ -129,8 +142,8 @@ public class CustomerProfileSImpl implements CustomerProfileS {
 //            String filePath = "C:\\xampp\\htdocs\\Dbay";
             String filePathCur = filePath + "\\customer_pro";
             for (MultipartFile file : files) {
-                DbayUserImg businessProfileImg = new DbayUserImg();
-                businessProfileImg.setUserImgId("CPIMG" + ++i + format);
+                DbayUserImg customerProfileImg = new DbayUserImg();
+                customerProfileImg.setUserImgId("CPIMG" + ++i + format);
 //                itemImg.setItemImg(file.getBytes());
                 Path root = Paths.get(filePathCur);
                 if (!Files.exists(root)) {
@@ -141,11 +154,11 @@ public class CustomerProfileSImpl implements CustomerProfileS {
                 } catch (FileAlreadyExistsException e) {
                     e.printStackTrace();
                 }
-                businessProfileImg.setUserImgName("customer_pro/" + StringUtils.cleanPath(file.getOriginalFilename()));
+                customerProfileImg.setUserImgName("customer_pro/" + StringUtils.cleanPath(file.getOriginalFilename()));
 //                itemImg.setItemImgPath("C:\\xampp\\htdocs\\Dbay\\" + itemImg.getItemImgName());
-                businessProfileImg.setUserImgType(file.getContentType());
-                businessProfileImg.setDbayUser(dbayUser);
-                dbayUser.getDbayUserImgs().add(businessProfileImg);
+                customerProfileImg.setUserImgType(file.getContentType());
+                customerProfileImg.setDbayUser(dbayUser);
+                dbayUser.getDbayUserImgs().add(customerProfileImg);
             }
 //            item.setItemImgs(itemImgs);
         } catch (Exception e) {

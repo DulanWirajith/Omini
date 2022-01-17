@@ -26,9 +26,9 @@ public class CustomerProfileController {
     private CustomerProfileS customerProfileS;
 
     @PostMapping(value = "/addCustomerProfile")
-    public ResponseEntity addCustomerProfile(@RequestBody CustomerProfile customerProfile) {
+    public ResponseEntity addCustomerProfile(@RequestPart("customerProfile") CustomerProfile customerProfile, @RequestParam("imageFile") MultipartFile[] files) {
         try {
-            CustomerProfileDTO customerProfileDTO = customerProfileS.addCustomerProfile(customerProfile);
+            CustomerProfileDTO customerProfileDTO = customerProfileS.addCustomerProfile(customerProfile, files);
             if (customerProfileDTO != null) {
                 return ResponseEntity.ok(customerProfileDTO);
             } else {
