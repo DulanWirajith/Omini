@@ -111,7 +111,7 @@ export class ShopCartComponent implements OnInit {
         //   }
         // }
         this.shopCartService.addOrderDetail(orderDetail).subscribe((orderDetailR) => {
-          console.log(orderDetail.orderDetailId)
+          //console.log(orderDetail.orderDetailId)
           orderDetail.orderDetailId = orderDetailR.orderDetailId;
           this.itemOrder.orderId = orderDetailR.itemOrder.orderId;
           if (orderDetail.quantity === 0) {
@@ -122,7 +122,7 @@ export class ShopCartComponent implements OnInit {
             this.addToCart(item);
           } else {
             // console.log(55)
-            console.log(this.shopCart)
+            //console.log(this.shopCart)
             let indexShop: any = this.shopCart.findIndex(shopCart => {
               return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
             })

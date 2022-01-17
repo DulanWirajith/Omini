@@ -51,8 +51,11 @@ export class BaManageCategoryComponent implements OnInit {
       businessProId: this.loginService.getUser().userId
     };
 
-    this.itemService.addCategory(this.itemCategory).subscribe((item) => {
+    this.itemService.addCategory(this.itemCategory).subscribe((itemCategory) => {
       // this.items.push(item)
+      itemCategory.businessProfileCategory = this.itemCategory.businessProfileCategory;
+      this.categories.push(itemCategory)
+      console.log(this.categories)
       this.baManageFormCategory.resetForm(this.itemService.getNewItem());
       // this.item.itemItemFeatures = [];
     })
@@ -129,19 +132,19 @@ export class BaManageCategoryComponent implements OnInit {
     let index: any = that.categories.findIndex(itemCategory => {
       return itemCategory.itemCategoryId === $(obj).val()
     })
-    // console.log(categoryObj)that.categories[index]
     if (that.categories[index] !== undefined && that.categories[index].items === undefined) {
       that.itemService.getItemCategorySelected($(obj).val()).subscribe((itemCategory) => {
+        // console.log(itemCategory)
         // that.categories[index] = category;
         Object.assign(that.categories[index], itemCategory)
         that.categories[index].tempBusinessCategory = itemCategory.businessProfileCategory.businessCategory;
         for (let item of itemCategory.items) {
           // item.itemImgsRaw = [];
           // item.itemItemFeatures = [];
-          // item.businessProfileCategory = {
-          //   businessProfile: undefined,
-          //   businessCategory: undefined
-          // }
+          item.businessProfileCategory = {
+            businessProfile: undefined,
+            businessCategory: undefined
+          }
           // this.items.push(item.item);
         }
         that.categories[index].tempItems = itemCategory.items;

@@ -62,9 +62,9 @@ FROM `dbay`.`business_profile`;
 SELECT `customer_profile`.`customer_pro_id`,
     `customer_profile`.`created_at`,
     `customer_profile`.`updated_at`,
-    `customer_profile`.`contact_number`,
+    `customer_profile`.`contact_number1`,
     `customer_profile`.`customer_address`,
-    `customer_profile`.`customer_name`,
+    `customer_profile`.`first_name`,
     `customer_profile`.`gender`,
     `customer_profile`.`dbay_user_user_id`,
     `customer_profile`.`town_town_id`
@@ -190,7 +190,19 @@ SELECT `item_package`.`item_package_id`,
     `item_package`.`quantity`
 FROM `dbay`.`item_package`;
 
-UPDATE `dbay`.`dbay_user` SET `verification_code` = null WHERE (`user_id` = 'U20220117015555');
+UPDATE `dbay`.`dbay_user` SET `verification_code` = null WHERE (`user_id` = 'U20220117181308');
+
+SELECT `item_category`.`item_category_id`,
+    `item_category`.`created_at`,
+    `item_category`.`updated_at`,
+    `item_category`.`confirmed`,
+    `item_category`.`description`,
+    `item_category`.`name`,
+    `item_category`.`business_category_id`,
+    `item_category`.`business_pro_id`
+FROM `dbay`.`item_category`;
+
+UPDATE `dbay`.`item` SET `item_category_item_category_id` = null WHERE (`item_id` = 'ITMU2022011702041620220117021435');
 
 select * from order_detail orderdetai0_ 
 cross join item item1_ 

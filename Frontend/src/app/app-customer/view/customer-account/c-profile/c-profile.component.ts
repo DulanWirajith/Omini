@@ -68,7 +68,7 @@ export class CProfileComponent implements OnInit {
 
   getCustomerProfile() {
     this.customerAccountService.getCustomerProfile(this.loginService.getUser().userId).subscribe((customerProfile) => {
-      console.log(customerProfile)
+      //console.log(customerProfile)
       if (customerProfile !== null) {
         customerProfile.dbayUser.password = '';
         customerProfile.dbayUser.passwordC = '';
@@ -91,7 +91,7 @@ export class CProfileComponent implements OnInit {
         type: "application/json"
       }));
     this.customerAccountService.updateCustomerProfile(uploadImageData, this.customerProfile.customerProId).subscribe((customerProfile) => {
-      console.log(customerProfile)
+      //console.log(customerProfile)
       this.customerProfile.dbayUser.password = '';
       this.customerProfile.dbayUser.passwordC = '';
       this.customerProfile.dbayUser.cPassword = '';

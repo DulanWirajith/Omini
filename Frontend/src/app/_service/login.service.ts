@@ -26,7 +26,7 @@ export class LoginService {
   }
 
   getUser() {
-    console.log(this.user)
+    //console.log(this.user)
     if (this.user === undefined || this.user === null) {
       this.user = JSON.parse(localStorage.getItem('user'));
     }

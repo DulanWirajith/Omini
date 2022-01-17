@@ -29,7 +29,7 @@ export class BusinessAccountComponent implements OnInit {
     //   // this.breadCrumbTxt = txt;
     // })
     this.businessAccountService.navBarSub.subscribe((val) => {
-      console.log(val)
+      //console.log(val)
       if (val.name === 'Business') {
         this.businessCategory = val.value;
         this.setBusinessCategory();

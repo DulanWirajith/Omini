@@ -53,7 +53,7 @@ export class BaProfileComponent implements OnInit {
     this.businessAccountService.getBusinessProfile(this.loginService.getUser().userId).subscribe((businessProfile) => {
       // this.user = this.loginService.getUser();
       // let businessProfile = this.loginService.getUser();
-      console.log(businessProfile)
+      //console.log(businessProfile)
       if (businessProfile !== null) {
         businessProfile.dbayUser.password = '';
         businessProfile.dbayUser.passwordC = '';
@@ -175,7 +175,7 @@ export class BaProfileComponent implements OnInit {
         type: "application/json"
       }));
     this.businessAccountService.updateBusinessProfile(uploadImageData, this.businessProfile.businessProId).subscribe((businessProfile) => {
-      console.log(businessProfile)
+      //console.log(businessProfile)
       this.businessProfile.dbayUser.password = '';
       this.businessProfile.dbayUser.passwordC = '';
       this.businessProfile.dbayUser.cPassword = '';
