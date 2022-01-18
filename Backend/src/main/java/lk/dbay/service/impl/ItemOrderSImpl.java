@@ -39,6 +39,7 @@ public class ItemOrderSImpl implements ItemOrderS {
                 orderDetail.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(),
                 orderDetail.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId()));
         orderDetail.setQuantity(orderDetail.getQuantity() + 1);
+        orderDetail.setStatus("Pending");
         if (orderDetail.getItem() != null) {
             orderDetail.setOrderDetailId("ODD" + orderDetail.getItemOrder().getOrderId() + orderDetail.getItem().getItemId());
             orderDetail.setOrderDetailType("Item");
@@ -195,16 +196,16 @@ public class ItemOrderSImpl implements ItemOrderS {
     @Override
     public List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId, String orderType) {
         List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetails(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
-        return setItemOrders(itemOrderDetailsItems);
+        return setItemOrders(itemOrderDetailsItems, false);
     }
 
     @Override
     public List<ItemOrderDTO> getPendingCustomerOrders(String customerId) {
         List<OrderDetail> itemOrderDetailsItems = orderDetailR.getPendingCustomerOrders(customerId, "Pending");
-        return setItemOrders(itemOrderDetailsItems);
+        return setItemOrders(itemOrderDetailsItems, true);
     }
 
-    private List<ItemOrderDTO> setItemOrders(List<OrderDetail> itemOrderDetailsItems) {
+    private List<ItemOrderDTO> setItemOrders(List<OrderDetail> itemOrderDetailsItems, boolean needBusinessProfile) {
         Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
         for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
             itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
@@ -224,9 +225,16 @@ public class ItemOrderSImpl implements ItemOrderS {
                     if (itemOrderDetail.getItem() != null) {
                         orderDetailDTO.setOrderDetailType("Item");
                         orderDetailDTO.setItem(new ItemDTO(itemOrderDetail.getItem(), false));
+                        if (needBusinessProfile) {
+                            orderDetailDTO.setBusinessProfileCategory(itemOrderDetail);
+                        }
+
                     } else if (itemOrderDetail.getItemPackage() != null) {
                         orderDetailDTO.setOrderDetailType("ItemPackage");
                         orderDetailDTO.setItemPackage(new ItemPackageDTO(itemOrderDetail.getItemPackage()));
+                        if (needBusinessProfile) {
+                            orderDetailDTO.setBusinessProfileCategory(itemOrderDetail);
+                        }
                     }
                     itemOrderDTO.getOrderDetails().add(orderDetailDTO);
                     itemOrderDTO.setAmount(itemOrderDTO.getAmount() + (itemOrderDetail.getPrice() * itemOrderDetail.getQuantity()));

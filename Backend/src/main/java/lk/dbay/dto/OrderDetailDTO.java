@@ -24,10 +24,12 @@ public class OrderDetailDTO extends DateTimeDTO {
     private double price;
     private double discountedPrice;
     private double discount;
+    private String status;
     private String orderDetailType;
     private ItemOrderDTO itemOrder;
     private ItemPackageDTO itemPackage;
     private ItemDTO item;
+    private BusinessProfileCategoryDTO businessProfileCategory;
 
     public OrderDetailDTO(OrderDetail orderDetail) {
         if (orderDetail != null) {
@@ -36,6 +38,7 @@ public class OrderDetailDTO extends DateTimeDTO {
             this.price = orderDetail.getPrice();
             this.discount = orderDetail.getDiscount();
             this.orderDetailType = orderDetail.getOrderDetailType();
+            this.status = orderDetail.getStatus();
         }
     }
 
@@ -52,7 +55,13 @@ public class OrderDetailDTO extends DateTimeDTO {
         }
     }
 
-//    @Tolerate
+    public void setBusinessProfileCategory(OrderDetail orderDetail) {
+        if (orderDetail.getBusinessProfileCategory() != null) {
+            this.businessProfileCategory = new BusinessProfileCategoryDTO(orderDetail.getBusinessProfileCategory().getBusinessProfile(), orderDetail.getBusinessProfileCategory().getBusinessCategory());
+        }
+    }
+
+    //    @Tolerate
 //    public void setItem(OrderDetail orderDetail) {
 //        if (orderDetail.getItem() != null) {
 //            this.item = new ItemDTO(orderDetail.getItem(), false);

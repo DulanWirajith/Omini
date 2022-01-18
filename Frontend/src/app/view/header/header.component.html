@@ -86,13 +86,13 @@
             <h6 class="fs-base mb-0">
               {{getUser().customerProfile.firstName+' '+getUser().customerProfile.lastName}}
             </h6>
-            <div class="fs-xs py-2">(302) 555-0107<br>{{getUser().email}}</div>
+            <!--<div class="fs-xs py-2">(302) 555-0107<br>{{getUser().email}}</div>-->
           </div>
           <div class="ps-2" *ngIf="getUser().role==='B'">
             <h6 class="fs-base mb-0">
               {{getUser().businessProfile.businessName}}
             </h6>
-            <div class="fs-xs py-2">(302) 555-0107<br>{{getUser().email}}</div>
+            <!--<div class="fs-xs py-2">(302) 555-0107<br>{{getUser().email}}</div>-->
           </div>
         </div>
         <a *ngIf="getUser().role==='C'" [routerLink]="'/customer/header/customer_account/customer_profile'"
@@ -103,6 +103,10 @@
         <a *ngIf="getUser().role==='B'" [routerLink]="'/shop/header/business_account/ba_monitor'" class="dropdown-item">
           <i class="fi-user opacity-60 me-2"></i>
           Account
+        </a>
+        <a *ngIf="getUser().role==='C'" [routerLink]="'/customer/header/item_shop_search'" class="dropdown-item">
+          <i class="fi-home opacity-60 me-2"></i>
+          Home
         </a>
         <a *ngIf="getUser().role==='C'" [routerLink]="'/customer/header/item_shop_search'" class="dropdown-item">
           <i class="fi-cart opacity-60 me-2"></i>

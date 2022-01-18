@@ -37,7 +37,7 @@
     <div class="tab-pane fade show active" id="client-following-view" role="tabpanel">
       <!--client order grid-->
       <div class="row g-4 py-1">
-        <div class="col-md-6" *ngFor="let itemOrder of itemOrders;let i=index">
+        <div class="col-md-12" *ngFor="let shopItemOrder of shopItemOrders;let i=index" style="margin-bottom: 10px">
           <div class="card border-0 shadow-sm mb-2">
             <blockquote class="blockquote co card-body">
               <div class="d-flex justify-content-between mb-2">
@@ -50,8 +50,8 @@
                       <i class="fi-car"></i></a>
                     <!-- <img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar"> -->
                     <div class="ps-2">
-                      <h6 class="fs-base mb-0">{{itemOrder.orderId}}</h6>
-                      <div class="text-muted fw-normal fs-sm">{{itemOrder.orderDate}}</div>
+                      <h6 class="fs-base mb-0">{{shopItemOrder.itemOrder.orderId}}</h6>
+                      <div class="text-muted fw-normal fs-sm">{{shopItemOrder.itemOrder.orderDate}}</div>
                     </div>
                   </div>
                 </div>
@@ -64,17 +64,18 @@
                   <div class="col-4">
                     <div style="background-color: rgba(229,154,3,0.35)">
                       <div class="mb-2 fs-sm fw-bold" style="color: #704900">Quantity</div>
-                      <div class="fs-sm fw-bold" style="color: #925f00">{{itemOrder.qty}}</div>
+                      <div class="fs-sm fw-bold" style="color: #925f00">{{shopItemOrder.itemOrder.qty}}</div>
                     </div>
                   </div>
 
-                  <div class="col-6">
+                  <div class="col-7">
                     <div style="background-color: rgba(229,101,2,0.35)">
                       <div class="mb-2 fs-sm fw-bold" style="color: #703f02">Total Price</div>
-                      <div class="fs-sm fw-bold" style="color: #945302">{{'LKR ' + itemOrder.amount}}</div>
+                      <div class="fs-sm fw-bold" style="color: #945302">{{'LKR ' + shopItemOrder.itemOrder.amount}}
+                      </div>
                     </div>
                   </div>
-                  <div class="col-2" style="display: grid;align-content: center;justify-content: center">
+                  <div class="col-1" style="display: grid;align-content: center;justify-content: center">
                     <a
                       class="btnView btn  btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
                       type="button" data-bs-toggle="collapse" style="background-color: #e9ad2d;color: white"
@@ -88,69 +89,87 @@
               <div class="collapse mb-3" id="item-list{{i}}">
                 <div class="card card-body" style="border: 3px solid #e9ad2d">
                   <!--Order detail card 1-->
-                  <div class="order-detail-card mb-3" style="margin-top: 5px"
+                  <div class="order-detail-card" style="margin-bottom: 0px"
                        [ngStyle]="{'border-bottom': !last?'3px solid #177f4e':''}"
-                       *ngFor="let orderDetail of itemOrder.orderDetails;let last = last">
-                    <div class="d-flex align-items-center justify-content-between pb-1">
-                      <h3 class="h6 fs-base" style="margin-bottom: 0px">
-                        <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">
-                          {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
-                        </a></h3>
-                      <span *ngIf="orderDetail.orderDetailType==='Item'"
-                            class="badge rounded-pill bg-info"> Item </span>
-                      <span *ngIf="orderDetail.orderDetailType==='ItemPackage'" class="badge rounded-pill bg-success"> Package </span>
-                    </div>
-                    <div class="row cols-sm-2 row-cols-md-12"
-                         style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
-                      <div class="col" style="padding: 0px">
-                        <div style="border-right: 1px solid #d3d3d3">
-                          <p class="mb-1 fs-sm"
-                             style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
-                            Quantity </p>
-                          <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
-                            {{orderDetail.quantity}}</p>
+                       *ngFor="let shop of shopItemOrder.shops;let last = last">
+                    <div class="fs-sm" style="margin-top: 15px;margin-bottom: 15px">
+                      <div class="d-flex d-md-block d-lg-flex align-items-start">
+                        <img class="rounded-circle" src="../../../../../assets/img/37.png" width="48"
+                             alt="Annette Black">
+                        <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3" style="width: 30%">
+                          <div style="font-weight: bold">
+                            {{shop.shop.businessName}}
+                          </div>
+                          <div class="text-muted fw-normal fs-sm">xc</div>
+                        </div>
+                        <div style="width: 70%;display: flex;justify-content: end;margin-right: 0px">
+                          <div class="row col-info"
+                               style="width: 100%">
+                            <!--<div style="padding-top: 10px">-->
+                            <div class="col">
+                              <div style="background-color: rgba(229,154,3,0.35);margin-right: 0px">
+                                <div class="mb-2 fs-sm fw-bold" style="color: #704900">Quantity</div>
+                                <div class="fs-sm fw-bold" style="color: #925f00">{{shop.itemCount}}</div>
+                              </div>
+                            </div>
+
+                            <div class="col">
+                              <div style="background-color: rgba(229,101,2,0.35);margin-right: 0px">
+                                <div class="mb-2 fs-sm fw-bold" style="color: #703f02">Total Price</div>
+                                <div class="fs-sm fw-bold" style="color: #945302">{{'LKR ' + shop.totalPrice}}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-2" style="display: grid;align-content: center;justify-content: center">
+                              <a (click)="shop.expand?(shop.expand=false):(shop.expand=true)"
+                                 class="btnView btn  btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
+                                 type="button" data-bs-toggle="collapse" style="background-color: #e9ad2d;color: white"
+                                 aria-expanded="true">
+                                <i class="fi-eye-on"></i>
+                              </a>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div class="col" style="padding: 0px">
-                        <p class="mb-1 fs-sm"
-                           style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
-                          Total Price </p>
-                        <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
-                          LKR {{orderDetail.price * orderDetail.quantity}}
-                        </p>
-                      </div>
-                    </div>
-                    <!--<div class="order-detail-card-ss mb-3">-->
-                    <!--<div class="list-group list-group-horizontal-sm">-->
-                    <!--<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"-->
-                    <!--title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">-->
-                    <!--<div class="bg-dark rounded text-center p-2">-->
-                    <!--<i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>-->
-                    <!--<span class="fs-xs h4 text-light">2</span>-->
-                    <!--</div>-->
-                    <!--</a>-->
-                    <!--<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"-->
-                    <!--title="Discount" data-bs-original-title="Discount" aria-label="Discount">-->
-                    <!--<div class="bg-dark rounded text-center p-2">-->
-                    <!--<i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>-->
-                    <!--<span class="fs-xs h4 text-light">LKR 20</span>-->
-                    <!--</div>-->
-                    <!--</a>-->
-                    <!--<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"-->
-                    <!--title="Price" data-bs-original-title="Price" aria-label="Price">-->
-                    <!--<div class="bg-dark rounded text-center p-2">-->
-                    <!--<i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>-->
-                    <!--<span class="fs-xs h4 text-light">LKR 500</span>-->
-                    <!--</div>-->
-                    <!--</a>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <div class="d-flex align-items-center justify-content-between pb-1"
-                         [ngStyle]="{'margin-bottom': !last?'10px':'0px'}">
-                      <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
-                      <div class="form-check form-check-dark" style="margin-bottom: 0px">
-                        <input class="form-check-input" type="checkbox" id="compare1">
-                        <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
+                      <div style="width: 100%" *ngIf="shop.expand">
+
+                        <div style="text-align: right;width: 100%;font-weight: bold;margin-top: 10px">
+                          <!--{{orderDetail.status}}-->
+                        </div>
+                        <div *ngFor="let orderDetail of shop.items;let itemLast=last;let itemFirst=first"
+                             style="width: 100%;margin-bottom: 20px;padding-bottom: 20px"
+                             [ngStyle]="{'border-bottom': !itemLast?'3px solid #177f4e':'','margin-top':itemFirst?'40px':'0px'}">
+                          <div class="d-flex align-items-center justify-content-between pb-1">
+                            <h3 class="h6 fs-base" style="margin-bottom: 0px">
+                              <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">
+                                {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
+                              </a></h3>
+                            <span *ngIf="orderDetail.orderDetailType==='Item'"
+                                  class="badge rounded-pill bg-info"> Item </span>
+                            <span *ngIf="orderDetail.orderDetailType==='ItemPackage'"
+                                  class="badge rounded-pill bg-success"> Package </span>
+                          </div>
+                          <div class="row cols-sm-2 row-cols-md-12"
+                               style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
+                            <div class="col" style="padding: 0px">
+                              <div style="border-right: 1px solid #d3d3d3">
+                                <p class="mb-1 fs-sm"
+                                   style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                                  Quantity </p>
+                                <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
+                                  {{orderDetail.quantity}}</p>
+                              </div>
+                            </div>
+                            <div class="col" style="padding: 0px">
+                              <p class="mb-1 fs-sm"
+                                 style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                                Total Price </p>
+                              <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
+                                LKR {{orderDetail.price * orderDetail.quantity}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -26,6 +26,7 @@ public class OrderDetail extends DateTime {
     private ItemOrder itemOrder;
 
     private String orderDetailType;
+    private String status;
 
     @ManyToOne(optional = false)
     @JoinColumns({

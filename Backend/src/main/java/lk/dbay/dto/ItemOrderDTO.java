@@ -35,7 +35,7 @@ public class ItemOrderDTO extends DateTimeDTO {
         if (itemOrder != null) {
             this.orderId = itemOrder.getOrderId();
             if (itemOrder.getOrderDate() != null) {
-                this.orderDate = itemOrder.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                this.orderDate = itemOrder.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd / hh:mm a"));
             }
 //            this.amount = itemOrder.getAmount();
 //            this.discount = itemOrder.getDiscount();
