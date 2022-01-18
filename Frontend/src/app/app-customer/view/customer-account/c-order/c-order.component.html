@@ -87,12 +87,24 @@
                 </div>
               </div>
               <div class="collapse mb-3" id="item-list{{i}}">
-                <div class="card card-body" style="border: 3px solid #e9ad2d">
+                <div class="card card-body" style="border: 3px solid #e9ad2d;padding-top: 0px">
                   <!--Order detail card 1-->
                   <div class="order-detail-card" style="margin-bottom: 0px"
                        [ngStyle]="{'border-bottom': !last?'3px solid #177f4e':''}"
                        *ngFor="let shop of shopItemOrder.shops;let last = last">
                     <div class="fs-sm" style="margin-top: 15px;margin-bottom: 15px">
+                      <div *ngIf="shopItemOrder.itemOrder.status==='Pending'" style="margin-bottom: 15px;font-weight: bold;text-align: right;font-size: 16px;color: #c66f03">
+                        {{shopItemOrder.itemOrder.status}}
+                      </div>
+                      <div *ngIf="shopItemOrder.itemOrder.status==='Canceled'" style="margin-bottom: 15px;font-weight: bold;text-align: right;font-size: 16px;color: #943630">
+                        {{shopItemOrder.itemOrder.status}}
+                      </div>
+                      <div *ngIf="shopItemOrder.itemOrder.status==='Completed'" style="margin-bottom: 15px;font-weight: bold;text-align: right;font-size: 16px;color: #03943c">
+                        {{shopItemOrder.itemOrder.status}}
+                      </div>
+                      <div *ngIf="shopItemOrder.itemOrder.status==='In Progress'" style="margin-bottom: 15px;font-weight: bold;text-align: right;font-size: 16px;color: #0c59e6">
+                        {{shopItemOrder.itemOrder.status}}
+                      </div>
                       <div class="d-flex d-md-block d-lg-flex align-items-start">
                         <img class="rounded-circle" src="../../../../../assets/img/37.png" width="48"
                              alt="Annette Black">

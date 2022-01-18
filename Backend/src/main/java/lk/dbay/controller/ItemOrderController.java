@@ -43,9 +43,9 @@ public class ItemOrderController {
         return ResponseEntity.ok(itemOrderS.getInCompletedOrder(customerId));
     }
 
-    @GetMapping("/getPendingCustomerOrders/{customerId}")
-    public ResponseEntity getPendingCustomerOrders(@PathVariable String customerId) {
-        return ResponseEntity.ok(itemOrderS.getPendingCustomerOrders(customerId));
+    @GetMapping("/getCustomerOrders/{customerId}")
+    public ResponseEntity getCustomerOrders(@PathVariable String customerId) {
+        return ResponseEntity.ok(itemOrderS.getCustomerOrders(customerId));
     }
 
     @PutMapping(value = "/updateOrderDetail/{updateType}")
@@ -81,8 +81,13 @@ public class ItemOrderController {
 //        return ResponseEntity.ok(itemOrderS.placeOrder(itemOrder));
     }
 
-    @GetMapping("/getItemOrders/{businessProfileId}/{businessCategoryId}/{orderType}")
-    public ResponseEntity getItemOrders(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable String orderType) {
-        return ResponseEntity.ok(itemOrderS.getItemOrders(businessProfileId, businessCategoryId, orderType));
+    @GetMapping("/getItemOrders/{businessProfileId}/{businessCategoryId}")
+    public ResponseEntity getItemOrders(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+        return ResponseEntity.ok(itemOrderS.getItemOrders(businessProfileId, businessCategoryId));
+    }
+
+    @GetMapping("/changeOrderStatus/{orderId}/{status}")
+    public ResponseEntity changeOrderStatus(@PathVariable String orderId, @PathVariable String status) {
+        return ResponseEntity.ok(itemOrderS.changeOrderStatus(orderId, status));
     }
 }

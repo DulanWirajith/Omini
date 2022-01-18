@@ -135,7 +135,7 @@ public class DbayUserSImpl implements DbayUserS {
         businessProfileDTO.setBusinessAreas(businessProfile);
         businessProfileDTO.setBusinessProfileCategories(businessProfile);
         businessProfileDTO.setTown(businessProfile);
-        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetails(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfile.getDefaultBusiness().getBusinessCategoryId()), "Pending");
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsOrderType(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfile.getDefaultBusiness().getBusinessCategoryId()), "Pending");
         Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
         for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
             itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));

@@ -1,0 +1,88 @@
+<div style="margin-bottom: 15px;font-weight: bold">Order | {{itemOrder.orderId}}</div>
+<div class="d-flex justify-content-between mb-2">
+  <div class="pe-3">
+    <div class="d-flex align-items-center mb-2">
+      <img class="rounded-circle me-1" src="../../../../../assets/img/37.png" width="48" alt="Avatar">
+      <div class="ps-2">
+        <h6 class="fs-base mb-0">
+          {{itemOrder.customerProfile.firstName+' '+itemOrder.customerProfile.lastName}}</h6>
+        <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
+        <div class="text-muted fw-normal fs-sm">{{itemOrder.orderDate}}</div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="text-muted fs-sm mt-1">5 min ago</div>
+  </div>
+</div>
+<div class="section-second mb-3">
+  <div class="row cols-md-4 col-info" style="padding-top: 10px">
+    <div class="col-4">
+      <div style="background-color: rgba(229,154,3,0.35)">
+        <div class="mb-2 fs-sm fw-bold" style="color: #704900">Quantity</div>
+        <div class="fs-sm fw-bold" style="color: #925f00">{{itemOrder.qty}}</div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div style="background-color: rgba(229,101,2,0.35)">
+        <div class="mb-2 fs-sm fw-bold" style="color: #703f02">Total Price</div>
+        <div class="fs-sm fw-bold" style="color: #945302">{{'LKR ' + itemOrder.amount}}</div>
+      </div>
+    </div>
+    <div class="col-2" style="display: grid;align-content: center;justify-content: center">
+      <a
+        class="btnView btn  btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
+        type="button" data-bs-toggle="collapse" style="background-color: #e9ad2d;color: white"
+        aria-expanded="true"
+        href="#item-list{{orderIndex}}">
+        <i class="fi-eye-on"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="collapse mb-3" id="item-list{{orderIndex}}">
+  <div class="card card-body" style="border: 3px solid #e9ad2d">
+    <!--Order detail card 1-->
+    <div class="order-detail-card mb-3" style="margin-top: 5px"
+         [ngStyle]="{'border-bottom': !last?'3px solid #177f4e':''}"
+         *ngFor="let orderDetail of itemOrder.orderDetails;let last = last">
+      <div class="d-flex align-items-center justify-content-between pb-1">
+        <h3 class="h6 fs-base" style="margin-bottom: 0px">
+          <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">
+            {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
+          </a></h3>
+        <span *ngIf="orderDetail.orderDetailType==='Item'" class="badge rounded-pill bg-info"> Item </span>
+        <span *ngIf="orderDetail.orderDetailType==='ItemPackage'" class="badge rounded-pill bg-success"> Package </span>
+      </div>
+      <div class="row cols-sm-2 row-cols-md-12"
+           style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
+        <div class="col" style="padding: 0px">
+          <div style="border-right: 1px solid #d3d3d3">
+            <p class="mb-1 fs-sm"
+               style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+              Quantity </p>
+            <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
+              {{orderDetail.quantity}}</p>
+          </div>
+        </div>
+        <div class="col" style="padding: 0px">
+          <p class="mb-1 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+            Total Price </p>
+          <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
+            LKR {{orderDetail.price * orderDetail.quantity}}
+          </p>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-between pb-1"
+           [ngStyle]="{'margin-bottom': !last?'10px':'0px'}">
+        <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
+        <div class="form-check form-check-dark" style="margin-bottom: 0px">
+          <input class="form-check-input" type="checkbox" id="compare1">
+          <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -34,10 +34,11 @@
       role="tab"
       aria-controls="pending-order-tab"
       aria-selected="true"
+      style="color: black"
     >
       Pending
 
-      <span class="badge rounded-pill bg-warning">10</span>
+      <span class="badge rounded-pill bg-warning" style="font-weight: bold">{{pendingItemOrders.length}}</span>
     </a>
   </li>
   <li class="nav-item me-sm-3 mb-3">
@@ -48,10 +49,11 @@
       role="tab"
       aria-controls="inprogress-order-tab"
       aria-selected="true"
+      style="color: black"
     >
       In Progress
 
-      <span class="badge rounded-pill bg-info">2</span>
+      <span class="badge rounded-pill bg-info" style="font-weight: bold">{{inProgressItemOrders.length}}</span>
     </a>
   </li>
   <li class="nav-item me-sm-3 mb-3">
@@ -62,9 +64,10 @@
       role="tab"
       aria-controls="complete-order-tab"
       aria-selected="true"
+      style="color: black"
     >
       Complete
-      <span class="badge rounded-pill bg-success">4</span>
+      <span class="badge rounded-pill bg-success" style="font-weight: bold">{{completeItemOrders.length}}</span>
     </a>
   </li>
 </ul>
@@ -94,134 +97,27 @@
     </div>
     <div class="row g-4 py-1">
 
-      <div class="col-md-6" *ngFor="let itemOrder of itemOrders;let j=index">
+      <div class="col-md-12" *ngFor="let itemOrder of pendingItemOrders;let j=index">
         <div class="card border-0 shadow-sm mb-2">
           <blockquote class="blockquote pending-card-micon card-body">
-            <div style="margin-bottom: 15px;font-weight: bold">Order | {{itemOrder.orderId}}</div>
-            <div class="d-flex justify-content-between mb-2">
-              <div class="pe-3">
-                <div class="d-flex align-items-center mb-2">
-                  <img class="rounded-circle me-1" src="../../../../../assets/img/37.png" width="48" alt="Avatar">
-                  <div class="ps-2">
-                    <h6 class="fs-base mb-0">
-                      {{itemOrder.customerProfile.firstName+' '+itemOrder.customerProfile.lastName}}</h6>
-                    <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
-                    <div class="text-muted fw-normal fs-sm">{{itemOrder.orderDate}}</div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="text-muted fs-sm mt-1">5 min ago</div>
-              </div>
-            </div>
-            <div class="section-second mb-3">
-              <div class="row cols-md-4 col-info" style="padding-top: 10px">
-                <div class="col-4">
-                  <div style="background-color: rgba(229,154,3,0.35)">
-                    <div class="mb-2 fs-sm fw-bold" style="color: #704900">Quantity</div>
-                    <div class="fs-sm fw-bold" style="color: #925f00">{{itemOrder.qty}}</div>
-                  </div>
-                </div>
 
-                <div class="col-6">
-                  <div style="background-color: rgba(229,101,2,0.35)">
-                    <div class="mb-2 fs-sm fw-bold" style="color: #703f02">Total Price</div>
-                    <div class="fs-sm fw-bold" style="color: #945302">{{'LKR ' + itemOrder.amount}}</div>
-                  </div>
-                </div>
-                <div class="col-2" style="display: grid;align-content: center;justify-content: center">
-                  <a
-                    class="btnView btn  btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
-                    type="button" data-bs-toggle="collapse" style="background-color: #e9ad2d;color: white"
-                    aria-expanded="true"
-                    href="#item-list{{j}}">
-                    <i class="fi-eye-on"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="collapse mb-3" id="item-list{{j}}">
-              <div class="card card-body" style="border: 3px solid #e9ad2d">
-                <!--Order detail card 1-->
-                <div class="order-detail-card mb-3" style="margin-top: 5px"
-                     [ngStyle]="{'border-bottom': !last?'3px solid #177f4e':''}"
-                     *ngFor="let orderDetail of itemOrder.orderDetails;let last = last">
-                  <div class="d-flex align-items-center justify-content-between pb-1">
-                    <h3 class="h6 fs-base" style="margin-bottom: 0px">
-                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">
-                        {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
-                      </a></h3>
-                    <span *ngIf="orderDetail.orderDetailType==='Item'" class="badge rounded-pill bg-info"> Item </span>
-                    <span *ngIf="orderDetail.orderDetailType==='ItemPackage'" class="badge rounded-pill bg-success"> Package </span>
-                  </div>
-                  <div class="row cols-sm-2 row-cols-md-12"
-                       style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
-                    <div class="col" style="padding: 0px">
-                      <div style="border-right: 1px solid #d3d3d3">
-                        <p class="mb-1 fs-sm"
-                           style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
-                          Quantity </p>
-                        <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
-                          {{orderDetail.quantity}}</p>
-                      </div>
-                    </div>
-                    <div class="col" style="padding: 0px">
-                      <p class="mb-1 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
-                        Total Price </p>
-                      <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
-                        LKR {{orderDetail.price * orderDetail.quantity}}
-                      </p>
-                    </div>
-                  </div>
-                  <!--<div class="order-detail-card-ss mb-3">-->
-                  <!--<div class="list-group list-group-horizontal-sm">-->
-                  <!--<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"-->
-                  <!--title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">-->
-                  <!--<div class="bg-dark rounded text-center p-2">-->
-                  <!--<i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>-->
-                  <!--<span class="fs-xs h4 text-light">2</span>-->
-                  <!--</div>-->
-                  <!--</a>-->
-                  <!--<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"-->
-                  <!--title="Discount" data-bs-original-title="Discount" aria-label="Discount">-->
-                  <!--<div class="bg-dark rounded text-center p-2">-->
-                  <!--<i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>-->
-                  <!--<span class="fs-xs h4 text-light">LKR 20</span>-->
-                  <!--</div>-->
-                  <!--</a>-->
-                  <!--<a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"-->
-                  <!--title="Price" data-bs-original-title="Price" aria-label="Price">-->
-                  <!--<div class="bg-dark rounded text-center p-2">-->
-                  <!--<i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>-->
-                  <!--<span class="fs-xs h4 text-light">LKR 500</span>-->
-                  <!--</div>-->
-                  <!--</a>-->
-                  <!--</div>-->
-                  <!--</div>-->
-                  <div class="d-flex align-items-center justify-content-between pb-1"
-                       [ngStyle]="{'margin-bottom': !last?'10px':'0px'}">
-                    <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
-                    <div class="form-check form-check-dark" style="margin-bottom: 0px">
-                      <input class="form-check-input" type="checkbox" id="compare1">
-                      <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
-                    </div>
-                  </div>
-                </div>
+            <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('p-'+j)"></app-ba-order-view>
 
-              </div>
-            </div>
             <footer class="d-flex justify-content-between">
-              <a href="#" class="btn btn-icon btn-light-primary btnhred btn-xs rounded-circle me-2 mb-2 shadow-sm"
+              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,pendingItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhred btn-xs rounded-circle me-2 mb-2 shadow-sm"
                  data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
                  aria-label="Cancel Order">
                 <i class="fi-x" style="padding-left: 1.5px;padding-bottom: 1px"></i>
               </a>
-              <a href="#" class="btn btn-icon btn-light-primary btnhgreen btn-xs rounded-circle me-2 mb-2 shadow-sm"
+              <a (click)="changeOrderStatus(itemOrder,'Completed',j,pendingItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhgreen btn-xs rounded-circle me-2 mb-2 shadow-sm"
                  data-bs-toggle="tooltip" title="Order Completed" data-bs-original-title="Order Completed"
                  aria-label="Order Completed">
                 <i class="fi-check"></i>
               </a>
-              <a href="#" class="btn btn-icon btn-light-primary btnhblue btn-xs rounded-circle me-2 mb-2 shadow-sm"
+              <a (click)="changeOrderStatus(itemOrder,'In Progress',j,pendingItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhblue btn-xs rounded-circle me-2 mb-2 shadow-sm"
                  data-bs-toggle="tooltip" title="Order In Progress" data-bs-original-title="Order In Progress"
                  aria-label="Order In Progress">
                 <i class="fi-arrow-long-right"></i>
@@ -253,145 +149,27 @@
     </div>
     <div class="row g-4 py-1">
       <!--In Progress Order-->
-      <div class="col-md-6">
+      <div class="col-md-12" *ngFor="let itemOrder of inProgressItemOrders;let j=index">
         <div class="card border-0 shadow-sm mb-2">
           <blockquote class="blockquote inprogress-card-micon card-body">
-            <div class="d-flex justify-content-between mb-2">
-              <div class="pe-3">
-                <div class="d-flex align-items-center mb-2">
-                  <img class="rounded-circle me-1" src="../../../../../assets/img/37.png" width="48" alt="Avatar">
-                  <div class="ps-2">
-                    <h6 class="fs-base mb-0">Ralph Edwards</h6>
-                    <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="text-muted fs-sm mt-1">5 min ago</div>
-              </div>
-            </div>
-            <div class="section-second mb-3">
-              <div class="list-group list-group-horizontal-sm">
-                <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                   title="Items Count" data-bs-original-title="Items Count" aria-label="Items Count">
-                  <div class="bg-dark rounded text-center p-2"><i
-                    class="fi-list d-block h5 text-light mb-0 mx-center"></i>
-                    <span class="fs-xs h4 text-light">5</span>
-                  </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                   title="Total Price" data-bs-original-title="Total Price" aria-label="Total Price">
-                  <div class="bg-dark rounded text-center p-2">
-                    <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i><span class="fs-xs h4 text-light">LKR 2500</span>
-                  </div>
-                </a>
-                <a href="#item-list-ip1" data-bs-toggle="collapse" aria-expanded="false" aria-controls="item-list-ip1"
-                   class="list-group-item list-group-item-action text-center">
-                  <div class="bg-dark rounded text-center p-2">
-                    <i class="fi-eye-on d-block h5 text-light mb-0 mx-center"></i>
-                    <span class="fs-xs h4 text-light">view</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="collapse mb-3" id="item-list-ip1">
-              <div class="card card-body">
-                <!--Order detail card 1-->
-                <div class="order-detail-card mb-3 border-bottom">
-                  <div class="d-flex align-items-center justify-content-between pb-1">
-                    <h3 class="h6 mb-2 fs-base">
-                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">Item
-                        Name</a></h3>
-                    <span class="badge rounded-pill bg-info"> Item </span>
-                  </div>
-                  <div class="order-detail-card-ss mb-3">
-                    <div class="list-group list-group-horizontal-sm">
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">2</span>
-                        </div>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Discount" data-bs-original-title="Discount" aria-label="Discount">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">LKR 20</span>
-                        </div>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Price" data-bs-original-title="Price" aria-label="Price">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">LKR 500</span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between pb-1">
-                    <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
-                    <div class="form-check form-check-dark">
-                      <input class="form-check-input" type="checkbox" id="compare1">
-                      <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
-                    </div>
-                  </div>
-                </div>
-                <!--Order detail card 2-->
-                <div class="order-detail-card mb-3 border-bottom">
-                  <div class="d-flex align-items-center justify-content-between pb-1">
-                    <h3 class="h6 mb-2 fs-base">
-                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">Package
-                        name</a></h3>
-                    <span class="badge rounded-pill bg-success"> Package </span>
-                  </div>
-                  <div class="order-detail-card-ss mb-3">
-                    <div class="list-group list-group-horizontal-sm">
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">1</span>
-                        </div>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Discount" data-bs-original-title="Discount" aria-label="Discount">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i><span
-                          class="fs-xs h4 text-light">LKR 250</span>
-                        </div>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Price" data-bs-original-title="Price" aria-label="Price">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">LKR 2000</span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between pb-1">
-                    <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
-                    <div class="form-check form-check-dark">
-                      <input class="form-check-input" type="checkbox" id="compare1">
-                      <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('ip-'+j)"></app-ba-order-view>
+
             <footer class="d-flex justify-content-between">
-              <a href="#" class="btn btn-icon btn-light-primary btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
+              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,inProgressItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
                  data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
                  aria-label="Cancel Order">
                 <i class="fi-x"></i>
               </a>
-              <a href="#" class="btn btn-icon btn-light-primary btnhyellow btn-xs shadow-sm rounded-circle me-2 mb-2"
+              <a (click)="changeOrderStatus(itemOrder,'Pending',j,inProgressItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhyellow btn-xs shadow-sm rounded-circle me-2 mb-2"
                  data-bs-toggle="tooltip" title="Pending Order" data-bs-original-title="Pending Order"
                  aria-label="Pending Order">
                 <i class="fi-arrow-long-left"></i>
               </a>
-              <a href="#" class="btn btn-icon btn-light-primary btnhgreen btn-xs shadow-sm rounded-circle me-2 mb-2"
+              <a (click)="changeOrderStatus(itemOrder,'Completed',j,inProgressItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhgreen btn-xs shadow-sm rounded-circle me-2 mb-2"
                  data-bs-toggle="tooltip" title="Order Completed" data-bs-original-title="Order Completed"
                  aria-label="Order Completed">
                 <i class="fi-check"></i>
@@ -424,145 +202,27 @@
     </div>
 
     <div class="row g-4 py-1">
-      <div class="col-md-6">
+      <div class="col-md-12" *ngFor="let itemOrder of completeItemOrders;let j=index">
         <div class="card border-0 shadow-sm mb-2">
           <blockquote class="blockquote complete-card-micon card-body">
-            <div class="d-flex justify-content-between mb-2">
-              <div class="pe-3">
-                <div class="d-flex align-items-center mb-2">
-                  <img class="rounded-circle me-1" src="../../../../../assets/img/37.png" width="48" alt="Avatar">
-                  <div class="ps-2">
-                    <h6 class="fs-base mb-0">Ralph Edwards</h6>
-                    <div class="text-muted fw-normal fs-sm">0765363828 | 0742213254</div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="text-muted fs-sm mt-1">5 min ago</div>
-              </div>
-            </div>
-            <div class="section-second mb-3">
-              <div class="list-group list-group-horizontal-sm">
-                <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                   title="Items Count" data-bs-original-title="Items Count" aria-label="Items Count">
-                  <div class="bg-dark rounded text-center p-2"><i
-                    class="fi-list d-block h5 text-light mb-0 mx-center"></i>
-                    <span class="fs-xs h4 text-light">5</span>
-                  </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                   title="Total Price" data-bs-original-title="Total Price" aria-label="Total Price">
-                  <div class="bg-dark rounded text-center p-2">
-                    <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i><span class="fs-xs h4 text-light">LKR 2500</span>
-                  </div>
-                </a>
-                <a href="#item-list-c1" data-bs-toggle="collapse" aria-expanded="false" aria-controls="item-list-c1"
-                   class="list-group-item list-group-item-action text-center">
-                  <div class="bg-dark rounded text-center p-2">
-                    <i class="fi-eye-on d-block h5 text-light mb-0 mx-center"></i>
-                    <span class="fs-xs h4 text-light">view</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="collapse mb-3" id="item-list-c1">
-              <div class="card card-body">
-                <!--Order detail card 1-->
-                <div class="order-detail-card mb-3 border-bottom">
-                  <div class="d-flex align-items-center justify-content-between pb-1">
-                    <h3 class="h6 mb-2 fs-base">
-                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">Item
-                        Name</a></h3>
-                    <span class="badge rounded-pill bg-info"> Item </span>
-                  </div>
-                  <div class="order-detail-card-ss mb-3">
-                    <div class="list-group list-group-horizontal-sm">
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">2</span>
-                        </div>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Discount" data-bs-original-title="Discount" aria-label="Discount">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">LKR 20</span>
-                        </div>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Price" data-bs-original-title="Price" aria-label="Price">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">LKR 500</span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between pb-1">
-                    <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
-                    <div class="form-check form-check-dark">
-                      <input class="form-check-input" type="checkbox" id="compare1">
-                      <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
-                    </div>
-                  </div>
-                </div>
-                <!--Order detail card 2-->
-                <div class="order-detail-card mb-3 border-bottom">
-                  <div class="d-flex align-items-center justify-content-between pb-1">
-                    <h3 class="h6 mb-2 fs-base">
-                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">Package
-                        name</a></h3>
-                    <span class="badge rounded-pill bg-success"> Package </span>
-                  </div>
-                  <div class="order-detail-card-ss mb-3">
-                    <div class="list-group list-group-horizontal-sm">
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Quantity" data-bs-original-title="Quantity" aria-label="Quantity">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-archive d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">1</span>
-                        </div>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Discount" data-bs-original-title="Discount" aria-label="Discount">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-precentage d-block h5 text-light mb-0 mx-center"></i><span
-                          class="fs-xs h4 text-light">LKR 250</span>
-                        </div>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action text-center" data-bs-toggle="tooltip"
-                         title="Price" data-bs-original-title="Price" aria-label="Price">
-                        <div class="bg-dark rounded text-center p-2">
-                          <i class="fi-cash d-block h5 text-light mb-0 mx-center"></i>
-                          <span class="fs-xs h4 text-light">LKR 2000</span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between pb-1">
-                    <span class="fs-md text-primary ms-2"><i class="fi-checkbox-checked-alt"></i></span>
-                    <div class="form-check form-check-dark">
-                      <input class="form-check-input" type="checkbox" id="compare1">
-                      <!-- <label class="form-check-label fs-sm" for="compare1">Compare</label> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('c-'+j)"></app-ba-order-view>
+
             <footer class="d-flex justify-content-between">
-              <a href="#" class="btn btn-icon btn-light-primary btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
+              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,completeItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
                  data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
                  aria-label="Cancel Order">
                 <i class="fi-x"></i>
               </a>
-              <a href="#" class="btn btn-icon btn-light-primary btnhyellow btn-xs shadow-sm rounded-circle me-2 mb-2"
+              <a (click)="changeOrderStatus(itemOrder,'Pending',j,completeItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhyellow btn-xs shadow-sm rounded-circle me-2 mb-2"
                  data-bs-toggle="tooltip" title="Pending Order" data-bs-original-title="Pending Order"
                  aria-label="Pending Order">
                 <i class="fi-chevrons-left"></i>
               </a>
-              <a href="#" class="btn btn-icon btn-light-primary btnhblue btn-xs shadow-sm rounded-circle me-2 mb-2"
+              <a (click)="changeOrderStatus(itemOrder,'In Progress',j,completeItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhblue btn-xs shadow-sm rounded-circle me-2 mb-2"
                  data-bs-toggle="tooltip" title="Order In Progress" data-bs-original-title="Order In Progress"
                  aria-label="Order In Progress">
                 <i class="fi-arrow-long-left"></i>

@@ -11,6 +11,9 @@ import {LoginService} from "../../../../_service/login.service";
 export class BaOrderComponent implements OnInit {
 
   itemOrders = [];
+  pendingItemOrders = [];
+  inProgressItemOrders = [];
+  completeItemOrders = [];
 
   constructor(private itemService: ItemService, private businessAccountService: BusinessAccountService, private loginService: LoginService) {
     // this.businessAccountService.navBarSub.subscribe((val) => {
@@ -34,9 +37,31 @@ export class BaOrderComponent implements OnInit {
     // this.itemService.getItemOrders('B321', businessCategoryId, 'Pending').subscribe((itemOrders) => {
     //   this.itemOrders = itemOrders;
     // })
-    this.itemService.getItemOrders(this.loginService.getUser().userId, businessCategoryId, 'Pending').subscribe((itemOrders) => {
+    this.itemService.getItemOrders(this.loginService.getUser().userId, businessCategoryId).subscribe((itemOrders) => {
       this.itemOrders = itemOrders;
+      this.pendingItemOrders = itemOrders.filter(orderObj => {
+        return orderObj.status === 'Pending';
+      });
+      this.inProgressItemOrders = itemOrders.filter(orderObj => {
+        return orderObj.status === 'In Progress';
+      });
+      this.completeItemOrders = itemOrders.filter(orderObj => {
+        return orderObj.status === 'Completed';
+      });
       // this.router.navigate(['/shop/header/business_account/ba_order'])
+    })
+  }
+
+  changeOrderStatus(itemOrder, status, index, orderList) {
+    this.itemService.changeOrderStatus(itemOrder.orderId, status).subscribe((itemOrderObj) => {
+      orderList.splice(index, 1);
+      if (itemOrderObj.status === 'Pending') {
+        this.pendingItemOrders.push(itemOrder)
+      } else if (itemOrderObj.status === 'In Progress') {
+        this.inProgressItemOrders.push(itemOrder)
+      } else if (itemOrderObj.status === 'Completed') {
+        this.completeItemOrders.push(itemOrder)
+      }
     })
   }
 }

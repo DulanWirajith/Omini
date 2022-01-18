@@ -79,8 +79,12 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
   }
 
-  getItemOrders(businessProfileId, businessCategoryId, orderType): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_order/getItemOrders/' + businessProfileId + '/' + businessCategoryId + '/' + orderType);
+  getItemOrders(businessProfileId, businessCategoryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_order/getItemOrders/' + businessProfileId + '/' + businessCategoryId);
+  }
+
+  changeOrderStatus(orderId, status): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_order/changeOrderStatus/' + orderId + '/' + status);
   }
 
   getNewItem() {

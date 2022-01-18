@@ -194,15 +194,26 @@ public class ItemOrderSImpl implements ItemOrderS {
     }
 
     @Override
-    public List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId, String orderType) {
-        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetails(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), orderType);
+    public List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId) {
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetails(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
         return setItemOrders(itemOrderDetailsItems, false);
     }
 
     @Override
-    public List<ItemOrderDTO> getPendingCustomerOrders(String customerId) {
-        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getPendingCustomerOrders(customerId, "Pending");
+    public List<ItemOrderDTO> getCustomerOrders(String customerId) {
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getCustomerOrders(customerId);
         return setItemOrders(itemOrderDetailsItems, true);
+    }
+
+    @Override
+    public ItemOrderDTO changeOrderStatus(String orderId, String status) {
+        Optional<ItemOrder> itemOrderOptional = itemOrderR.findById(orderId);
+        if (itemOrderOptional.isPresent()) {
+            ItemOrder itemOrder = itemOrderOptional.get();
+            itemOrder.setStatus(status);
+            return new ItemOrderDTO(itemOrderR.save(itemOrder));
+        }
+        return null;
     }
 
     private List<ItemOrderDTO> setItemOrders(List<OrderDetail> itemOrderDetailsItems, boolean needBusinessProfile) {

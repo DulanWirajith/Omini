@@ -23,6 +23,7 @@ import {BaManagePackageEditComponent} from "./view/business-account/ba-manage/ba
 import {BaProfileComponent} from "./view/business-account/ba-profile/ba-profile.component";
 import {BaOrderHistoryComponent} from "./view/business-account/ba-order-history/ba-order-history.component";
 import {BaOrderComponent} from "./view/business-account/ba-order/ba-order.component";
+import {BaOrderViewComponent} from "./view/business-account/ba-order/ba-order-view/ba-order-view.component";
 
 const components = [
   BusinessRegisterComponent,
@@ -43,7 +44,8 @@ const components = [
   BaManagePackageEditComponent,
   BaProfileComponent,
   BaOrderHistoryComponent,
-  BaOrderComponent
+  BaOrderComponent,
+  BaOrderViewComponent
 ];
 
 @NgModule({
