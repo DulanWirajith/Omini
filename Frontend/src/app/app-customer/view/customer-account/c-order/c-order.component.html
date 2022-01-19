@@ -44,13 +44,15 @@
                 <div class="pe-3">
                   <div class="d-flex align-items-center mb-2">
                     <!--<a class="btn btn-icon btn-warning btn-md rounded-circle me-2 mb-0" href="#"-->
-                       <!--data-bs-toggle="tooltip" title="Order still in Pending status."-->
-                       <!--data-bs-original-title="Order still in Pending status."-->
-                       <!--aria-label="Order still in Pending status.">-->
-                      <!--<i class="fi-car"></i></a>-->
-                    <i *ngIf="shopItemOrder.itemOrder.status==='Pending'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 30px;color: #e9ad2d;margin-right: 10px"></i>
-                    <i *ngIf="shopItemOrder.itemOrder.status==='In Progress'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 30px;color: #0f7ae6;margin-right: 10px"></i>
-                    <i *ngIf="shopItemOrder.itemOrder.status==='Completed'" class="fas fa-check-circle" style="margin-left: 10px;font-size: 30px;color: #03943c;margin-right: 10px"></i>
+                    <!--data-bs-toggle="tooltip" title="Order still in Pending status."-->
+                    <!--data-bs-original-title="Order still in Pending status."-->
+                    <!--aria-label="Order still in Pending status.">-->
+                    <!--<i class="fi-car"></i></a>-->
+                    <i *ngIf="shopItemOrder.itemOrder.status==='Pending'" class="fas fa-sync-alt"
+                       style="margin-left: 10px;font-size: 30px;color: #e9ad2d;margin-right: 10px"></i>
+                    <!--<i *ngIf="shopItemOrder.itemOrder.status==='In Progress'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 30px;color: #0f7ae6;margin-right: 10px"></i>-->
+                    <i *ngIf="shopItemOrder.itemOrder.status==='Completed'" class="fas fa-check-circle"
+                       style="margin-left: 10px;font-size: 30px;color: #03943c;margin-right: 10px"></i>
                     <!-- <img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar"> -->
                     <div class="ps-2">
                       <h6 class="fs-base mb-0">{{shopItemOrder.itemOrder.orderId}}</h6>
@@ -90,15 +92,15 @@
                 </div>
               </div>
               <div class="collapse mb-3" id="item-list{{i}}">
-                <div class="card card-body" style="border: 3px solid #e9ad2d;padding-top: 0px">
+                <div class="card card-body" style="border: 3px solid rgba(120,120,120,0.17);padding-top: 0px">
                   <!--Order detail card 1-->
                   <div class="order-detail-card" style="margin-bottom: 0px"
                        [ngStyle]="{'border-bottom': !last?'3px solid #177f4e':''}"
                        *ngFor="let shop of shopItemOrder.shops;let last = last">
                     <div class="fs-sm" style="margin-top: 15px;margin-bottom: 15px">
-                      <div *ngIf="shop.status==='Pending'" style="margin-bottom: 15px;text-align: right">
+                      <div *ngIf="shop.status==='Pending'" style="margin-bottom: 15px">
                         <!--<span style="background-color: #e29e08;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>-->
-                        <i class="fas fa-sync-alt" style="margin-left: 10px;font-size: 18px;color: #e9ad2d"></i>
+                        <i class="fas fa-sync-alt" style="margin-left: 16px;font-size: 20px;color: #e9ad2d"></i>
                       </div>
                       <div *ngIf="shop.status==='Canceled'" style="margin-bottom: 15px;text-align: right">
                         <span style="background-color: #943630;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>
@@ -106,9 +108,9 @@
                       <div *ngIf="shop.status==='Completed'" style="margin-bottom: 15px;text-align: right">
                         <span style="background-color: #03943c;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>
                       </div>
-                      <div *ngIf="shop.status==='In Progress'" style="margin-bottom: 15px;text-align: right">
+                      <div *ngIf="shop.status==='In Progress'" style="margin-bottom: 15px">
                         <!--<span style="background-color: #0f7ae6;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>-->
-                        <i class="fas fa-sync-alt" style="margin-left: 10px;font-size: 18px;color: #0f7ae6"></i>
+                        <i class="fas fa-sync-alt" style="margin-left: 16px;font-size: 20px;color: #0f7ae6"></i>
 
                       </div>
                       <div class="d-flex d-md-block d-lg-flex align-items-start">
@@ -155,15 +157,17 @@
                           <!--{{orderDetail.status}}-->
                         </div>
                         <div *ngFor="let orderDetail of shop.items;let itemLast=last;let itemFirst=first"
-                             style="width: 100%;margin-bottom: 20px;padding-bottom: 20px"
-                             [ngStyle]="{'border-bottom': !itemLast?'3px solid #177f4e':'','margin-top':itemFirst?'40px':'0px'}">
+                             style="border: 1px solid #c0c0c0;border-radius: 10px;padding: 15px;margin-bottom: 15px"
+                             [ngStyle]="{'margin-top':itemFirst?'30px':'0px'}">
                           <div class="d-flex align-items-center justify-content-between pb-1">
                             <h3 class="h6 fs-base" style="margin-bottom: 0px;display: flex">
                               <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">
                                 {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
                               </a>
-                              <i *ngIf="orderDetail.status==='Pending'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 18px;color: #e9ad2d"></i>
-                              <i *ngIf="orderDetail.status==='In Progress'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 18px;color: #0f7ae6"></i>
+                              <i *ngIf="orderDetail.status==='Pending'" class="fas fa-sync-alt"
+                                 style="margin-left: 10px;font-size: 18px;color: #e9ad2d"></i>
+                              <i *ngIf="orderDetail.status==='In Progress'" class="fas fa-sync-alt"
+                                 style="margin-left: 10px;font-size: 18px;color: #0f7ae6"></i>
                             </h3>
                             <span *ngIf="orderDetail.orderDetailType==='Item'"
                                   class="badge rounded-pill bg-info"> Item </span>
@@ -171,7 +175,7 @@
                                   class="badge rounded-pill bg-success"> Package </span>
                           </div>
                           <div class="row cols-sm-2 row-cols-md-12"
-                               style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
+                               style="margin-top: 10px;margin-bottom: 10px">
                             <div class="col" style="padding: 0px">
                               <div style="border-right: 1px solid #d3d3d3">
                                 <p class="mb-1 fs-sm"
@@ -190,6 +194,9 @@
                               </p>
                             </div>
                           </div>
+                          <!--<div-->
+                            <!--style="width: 100%;margin: 0px auto 20px auto;padding-bottom: 0px;border-color: rgba(120,120,120,0.49)"-->
+                            <!--[ngStyle]="{'border-bottom': !itemLast?'3px solid rgba(120,120,120,0.17)':''}"></div>-->
                         </div>
                       </div>
                     </div>

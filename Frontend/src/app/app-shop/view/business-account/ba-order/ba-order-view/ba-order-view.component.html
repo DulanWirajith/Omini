@@ -42,10 +42,10 @@
   </div>
 </div>
 <div class="collapse mb-3" id="item-list{{orderIndex}}">
-  <div class="card card-body" style="border: 3px solid #e9ad2d">
+  <div class="card card-body" style="border-width: 0px">
     <!--Order detail card 1-->
-    <div class="order-detail-card mb-3" style="margin-top: 5px"
-         [ngStyle]="{'border-bottom': !last?'3px solid #177f4e':''}"
+    <div class="order-detail-card mb-3"
+         style="border: 1px solid #c0c0c0;border-radius: 10px;padding: 15px;margin-bottom: 15px"
          *ngFor="let orderDetail of itemOrder.orderDetails;let last = last">
       <div class="d-flex align-items-center justify-content-between pb-1">
         <h3 class="h6 fs-base" style="margin-bottom: 0px">
@@ -56,13 +56,13 @@
         <span *ngIf="orderDetail.orderDetailType==='ItemPackage'" class="badge rounded-pill bg-success"> Package </span>
       </div>
       <div class="row cols-sm-2 row-cols-md-12"
-           style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
+           style="margin-top: 10px;margin-bottom: 10px">
         <div class="col" style="padding: 0px">
           <div style="border-right: 1px solid #d3d3d3">
             <p class="mb-1 fs-sm"
-               style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+               style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
               Quantity </p>
-            <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
+            <p class="mb-2 fs-sm text-primary fw-bold mx-2" style="text-align: center">
               {{orderDetail.quantity}}</p>
           </div>
         </div>

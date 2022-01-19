@@ -245,7 +245,7 @@ public class ItemOrderSImpl implements ItemOrderS {
 
 //                }
                 if (itemOrderDTO.getOrderId().equals(itemOrderDetail.getItemOrder().getOrderId())) {
-                    itemOrderDTO.setStatus(itemOrderDetail.getStatus());
+//                    itemOrderDTO.setStatus(itemOrderDetail.getStatus());
                     OrderDetailDTO orderDetailDTO = new OrderDetailDTO(itemOrderDetail);
                     if (itemOrderDetail.getItem() != null) {
                         orderDetailDTO.setOrderDetailType("Item");

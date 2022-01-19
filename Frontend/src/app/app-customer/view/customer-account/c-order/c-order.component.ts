@@ -29,6 +29,13 @@ export class COrderComponent implements OnInit {
           this.divideToShops(itemOrders[i], orderDetail, i)
         }
       }
+      for (let shopItemOrder of this.shopItemOrders) {
+        for (let shop of shopItemOrder.shops) {
+          if (shop.status === 'Pending' || shop.status === 'In Progress') {
+            shopItemOrder.itemOrder.status = 'Pending';
+          }
+        }
+      }
     })
   }
 
@@ -56,28 +63,36 @@ export class COrderComponent implements OnInit {
         return orderDetailObj.shop.businessProId === orderDetail.businessProfileCategory.businessProfile.businessProId;
       });
       // console.log(indexShop)
-      // if (indexShop === -1) {
-      //   // this.shopItemOrders.push(itemOrder)
-      //   this.shopItemOrders.push({
-      //     itemOrder: itemOrder,
-      //     shops: [{
-      //       shop: orderDetail.businessProfileCategory.businessProfile,
-      //       itemCount: orderDetail.orderDetail.quantity,
-      //       totalPrice: (orderDetail.discountedPrice * orderDetail.orderDetail.quantity),
-      //       items: [orderDetail]
-      //     }]
-      //   })
-      // } else {
-      let indexItem: any = this.shopItemOrders[index].shops[indexShop].items.findIndex(itemObj => {
-        return itemObj.orderDetailId === orderDetail.orderDetailId
-      })
-      if (indexItem === -1) {
-        this.shopItemOrders[index].shops[indexShop].items.push(orderDetail);
+      if (indexShop === -1) {
+        this.shopItemOrders[index].shops.push({
+          shop: orderDetail.businessProfileCategory.businessProfile,
+          status: orderDetail.status,
+          itemCount: orderDetail.quantity,
+          totalPrice: (orderDetail.price * orderDetail.quantity),
+          items: [orderDetail],
+          expand: false
+        })
+        //   this.shopItemOrders.push({
+        //     itemOrder: itemOrder,
+        //     shops: [{
+        //       shop: orderDetail.businessProfileCategory.businessProfile,
+        //       itemCount: orderDetail.orderDetail.quantity,
+        //       totalPrice: (orderDetail.discountedPrice * orderDetail.orderDetail.quantity),
+        //       items: [orderDetail]
+        //     }]
+        //   })
+        // }
+      } else {
+        let indexItem: any = this.shopItemOrders[index].shops[indexShop].items.findIndex(itemObj => {
+          return itemObj.orderDetailId === orderDetail.orderDetailId
+        })
+        if (indexItem === -1) {
+          this.shopItemOrders[index].shops[indexShop].items.push(orderDetail);
+        }
+        this.shopItemOrders[index].shops[indexShop].itemCount += orderDetail.quantity;
+        // item.orderDetail.quantity++;
+        this.shopItemOrders[index].shops[indexShop].totalPrice += (orderDetail.price * orderDetail.quantity);
       }
-      this.shopItemOrders[index].shops[indexShop].itemCount += orderDetail.quantity;
-      // item.orderDetail.quantity++;
-      this.shopItemOrders[index].shops[indexShop].totalPrice += (orderDetail.price * orderDetail.quantity);
-      // }
     }
     console.log(this.shopItemOrders)
     // this.shopCartService.shopCartItemsSub.next(orderDetail);
