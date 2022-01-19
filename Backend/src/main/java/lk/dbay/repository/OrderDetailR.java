@@ -24,14 +24,14 @@ public interface OrderDetailR extends JpaRepository<OrderDetail, String> {
 //    @Query(value = "from OrderDetail where itemPackage.businessProfileCategory.businessProfileCategoryId=?1 and itemOrder.status=?2")
 //    List<OrderDetail> getItemOrderDetailsItemPackages(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
 
-    @Query(value = "from OrderDetail where businessProfileCategory.businessProfileCategoryId=?1 and itemOrder.status=?2")
-    List<OrderDetail> getItemOrderDetailsOrderType(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);
+    @Query(value = "from OrderDetail where businessProfileCategory.businessProfileCategoryId=?1 and (itemOrder.status=?2 or itemOrder.status=?3)")
+    List<OrderDetail> getItemOrderDetailsOrderType(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType1, String orderType2);
 
-    @Query(value = "from OrderDetail where businessProfileCategory.businessProfileCategoryId=?1")
-    List<OrderDetail> getItemOrderDetails(BusinessProfileCategoryPK businessProfileCategoryPK);
+    @Query(value = "from OrderDetail where itemOrder.orderId=?1 and businessProfileCategory.businessProfileCategoryId=?2")
+    List<OrderDetail> changeOrderStatus(String orderId, BusinessProfileCategoryPK businessProfileCategoryPK);
 
-    @Query(value = "from OrderDetail where itemOrder.customerProfile.customerProId=?1")
-    List<OrderDetail> getCustomerOrders(String customerId);
+    @Query(value = "from OrderDetail where itemOrder.customerProfile.customerProId=?1 and (itemOrder.status=?2 or itemOrder.status=?3)")
+    List<OrderDetail> getCustomerOrderDetails(String customerId, String orderType1, String orderType2);
 
 //    @Query(value = "select count(orderDetailId) from OrderDetail where businessProfileCategory.businessProfileCategoryId=?1 and itemOrder.status=?2")
 //    int getPendingOrdersCount(BusinessProfileCategoryPK businessProfileCategoryPK, String orderType);

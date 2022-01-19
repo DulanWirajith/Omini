@@ -86,8 +86,8 @@ public class ItemOrderController {
         return ResponseEntity.ok(itemOrderS.getItemOrders(businessProfileId, businessCategoryId));
     }
 
-    @GetMapping("/changeOrderStatus/{orderId}/{status}")
-    public ResponseEntity changeOrderStatus(@PathVariable String orderId, @PathVariable String status) {
-        return ResponseEntity.ok(itemOrderS.changeOrderStatus(orderId, status));
+    @GetMapping("/changeOrderStatus/{orderId}/{businessProfileId}/{businessCategoryId}/{status}")
+    public ResponseEntity changeOrderStatus(@PathVariable String orderId, @PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable String status) {
+        return ResponseEntity.ok(itemOrderS.changeOrderStatus(orderId, businessProfileId, businessCategoryId, status));
     }
 }

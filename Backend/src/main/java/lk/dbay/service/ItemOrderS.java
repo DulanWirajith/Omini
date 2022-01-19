@@ -20,5 +20,5 @@ public interface ItemOrderS {
 
     List<ItemOrderDTO> getCustomerOrders(String customerId);
 
-    ItemOrderDTO changeOrderStatus(String orderId, String status);
+    ItemOrderDTO changeOrderStatus(String orderId, String businessProfileId, String businessCategoryId, String status);
 }

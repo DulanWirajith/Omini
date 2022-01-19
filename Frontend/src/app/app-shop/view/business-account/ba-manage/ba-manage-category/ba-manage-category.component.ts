@@ -40,8 +40,8 @@ export class BaManageCategoryComponent implements OnInit {
     // this.getBusinessCategories();
     // this.getItemCategoriesOrdered();
     this.businessCategories = this.businessAccountService.businessCategories;
-    if (this.businessAccountService.businessCategoryId !== undefined) {
-      this.getItemCategoriesOrdered(this.businessAccountService.businessCategoryId);
+    if (this.businessAccountService.businessCategory.businessCategoryId !== undefined) {
+      this.getItemCategoriesOrdered(this.businessAccountService.businessCategory.businessCategoryId);
     }
     this.toggleCategoryBtn();
   }

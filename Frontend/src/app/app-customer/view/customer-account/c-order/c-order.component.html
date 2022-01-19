@@ -43,11 +43,14 @@
               <div class="d-flex justify-content-between mb-2">
                 <div class="pe-3">
                   <div class="d-flex align-items-center mb-2">
-                    <a class="btn btn-icon btn-warning btn-md rounded-circle me-2 mb-0" href="#"
-                       data-bs-toggle="tooltip" title="Order still in Pending status."
-                       data-bs-original-title="Order still in Pending status."
-                       aria-label="Order still in Pending status.">
-                      <i class="fi-car"></i></a>
+                    <!--<a class="btn btn-icon btn-warning btn-md rounded-circle me-2 mb-0" href="#"-->
+                       <!--data-bs-toggle="tooltip" title="Order still in Pending status."-->
+                       <!--data-bs-original-title="Order still in Pending status."-->
+                       <!--aria-label="Order still in Pending status.">-->
+                      <!--<i class="fi-car"></i></a>-->
+                    <i *ngIf="shopItemOrder.itemOrder.status==='Pending'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 30px;color: #e9ad2d;margin-right: 10px"></i>
+                    <i *ngIf="shopItemOrder.itemOrder.status==='In Progress'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 30px;color: #0f7ae6;margin-right: 10px"></i>
+                    <i *ngIf="shopItemOrder.itemOrder.status==='Completed'" class="fas fa-check-circle" style="margin-left: 10px;font-size: 30px;color: #03943c;margin-right: 10px"></i>
                     <!-- <img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar"> -->
                     <div class="ps-2">
                       <h6 class="fs-base mb-0">{{shopItemOrder.itemOrder.orderId}}</h6>
@@ -93,17 +96,20 @@
                        [ngStyle]="{'border-bottom': !last?'3px solid #177f4e':''}"
                        *ngFor="let shop of shopItemOrder.shops;let last = last">
                     <div class="fs-sm" style="margin-top: 15px;margin-bottom: 15px">
-                      <div *ngIf="shopItemOrder.itemOrder.status==='Pending'" style="margin-bottom: 15px;font-weight: bold;text-align: right;font-size: 16px;color: #c66f03">
-                        {{shopItemOrder.itemOrder.status}}
+                      <div *ngIf="shop.status==='Pending'" style="margin-bottom: 15px;text-align: right">
+                        <!--<span style="background-color: #e29e08;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>-->
+                        <i class="fas fa-sync-alt" style="margin-left: 10px;font-size: 18px;color: #e9ad2d"></i>
                       </div>
-                      <div *ngIf="shopItemOrder.itemOrder.status==='Canceled'" style="margin-bottom: 15px;font-weight: bold;text-align: right;font-size: 16px;color: #943630">
-                        {{shopItemOrder.itemOrder.status}}
+                      <div *ngIf="shop.status==='Canceled'" style="margin-bottom: 15px;text-align: right">
+                        <span style="background-color: #943630;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>
                       </div>
-                      <div *ngIf="shopItemOrder.itemOrder.status==='Completed'" style="margin-bottom: 15px;font-weight: bold;text-align: right;font-size: 16px;color: #03943c">
-                        {{shopItemOrder.itemOrder.status}}
+                      <div *ngIf="shop.status==='Completed'" style="margin-bottom: 15px;text-align: right">
+                        <span style="background-color: #03943c;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>
                       </div>
-                      <div *ngIf="shopItemOrder.itemOrder.status==='In Progress'" style="margin-bottom: 15px;font-weight: bold;text-align: right;font-size: 16px;color: #0c59e6">
-                        {{shopItemOrder.itemOrder.status}}
+                      <div *ngIf="shop.status==='In Progress'" style="margin-bottom: 15px;text-align: right">
+                        <!--<span style="background-color: #0f7ae6;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>-->
+                        <i class="fas fa-sync-alt" style="margin-left: 10px;font-size: 18px;color: #0f7ae6"></i>
+
                       </div>
                       <div class="d-flex d-md-block d-lg-flex align-items-start">
                         <img class="rounded-circle" src="../../../../../assets/img/37.png" width="48"
@@ -152,10 +158,13 @@
                              style="width: 100%;margin-bottom: 20px;padding-bottom: 20px"
                              [ngStyle]="{'border-bottom': !itemLast?'3px solid #177f4e':'','margin-top':itemFirst?'40px':'0px'}">
                           <div class="d-flex align-items-center justify-content-between pb-1">
-                            <h3 class="h6 fs-base" style="margin-bottom: 0px">
+                            <h3 class="h6 fs-base" style="margin-bottom: 0px;display: flex">
                               <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">
                                 {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
-                              </a></h3>
+                              </a>
+                              <i *ngIf="orderDetail.status==='Pending'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 18px;color: #e9ad2d"></i>
+                              <i *ngIf="orderDetail.status==='In Progress'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 18px;color: #0f7ae6"></i>
+                            </h3>
                             <span *ngIf="orderDetail.orderDetailType==='Item'"
                                   class="badge rounded-pill bg-info"> Item </span>
                             <span *ngIf="orderDetail.orderDetailType==='ItemPackage'"
@@ -166,9 +175,9 @@
                             <div class="col" style="padding: 0px">
                               <div style="border-right: 1px solid #d3d3d3">
                                 <p class="mb-1 fs-sm"
-                                   style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                                   style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
                                   Quantity </p>
-                                <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
+                                <p class="mb-2 fs-sm text-primary fw-bold mx-2" style="text-align: center">
                                   {{orderDetail.quantity}}</p>
                               </div>
                             </div>

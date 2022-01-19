@@ -19,7 +19,7 @@ export class BusinessAccountService {
   navBarSub = new Subject<any>();
   // businessTypeSub = new Subject<any>();
   businessCategories;
-  businessCategoryId;
+  businessCategory;
 
   itemOrders=[];
 

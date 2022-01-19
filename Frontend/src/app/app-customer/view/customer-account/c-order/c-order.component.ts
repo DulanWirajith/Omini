@@ -24,20 +24,21 @@ export class COrderComponent implements OnInit {
     this.itemService.getCustomerOrders(this.loginService.getUser().userId).subscribe((itemOrders) => {
       // this.itemOrders = itemOrders;
       for (let i = 0; i < itemOrders.length; i++) {
-        console.log(1)
+        // console.log(1)
         for (let orderDetail of itemOrders[i].orderDetails) {
-          this.addToCart(itemOrders[i], orderDetail, i)
+          this.divideToShops(itemOrders[i], orderDetail, i)
         }
       }
     })
   }
 
-  addToCart(itemOrder, orderDetail, index) {
+  divideToShops(itemOrder, orderDetail, index) {
     if (this.shopItemOrders[index] === undefined) {
       this.shopItemOrders.push({
         itemOrder: itemOrder,
         shops: [{
           shop: orderDetail.businessProfileCategory.businessProfile,
+          status: orderDetail.status,
           itemCount: orderDetail.quantity,
           totalPrice: (orderDetail.price * orderDetail.quantity),
           items: [orderDetail],

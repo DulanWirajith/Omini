@@ -25,6 +25,7 @@ public class OrderDetailDTO extends DateTimeDTO {
     private double discountedPrice;
     private double discount;
     private String status;
+    private boolean available;
     private String orderDetailType;
     private ItemOrderDTO itemOrder;
     private ItemPackageDTO itemPackage;
@@ -39,6 +40,7 @@ public class OrderDetailDTO extends DateTimeDTO {
             this.discount = orderDetail.getDiscount();
             this.orderDetailType = orderDetail.getOrderDetailType();
             this.status = orderDetail.getStatus();
+            this.available = orderDetail.isAvailable();
         }
     }
 

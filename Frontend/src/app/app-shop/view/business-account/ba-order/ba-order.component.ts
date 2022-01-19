@@ -27,8 +27,8 @@ export class BaOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.businessAccountService.businessCategoryId !== undefined) {
-      this.getItemOrders(this.businessAccountService.businessCategoryId);
+    if (this.businessAccountService.businessCategory !== undefined) {
+      this.getItemOrders(this.businessAccountService.businessCategory.businessCategoryId);
     }
   }
 
@@ -53,7 +53,7 @@ export class BaOrderComponent implements OnInit {
   }
 
   changeOrderStatus(itemOrder, status, index, orderList) {
-    this.itemService.changeOrderStatus(itemOrder.orderId, status).subscribe((itemOrderObj) => {
+    this.itemService.changeOrderStatus(itemOrder.orderId, this.loginService.getUser().userId, this.businessAccountService.businessCategory.businessCategoryId, status).subscribe((itemOrderObj) => {
       orderList.splice(index, 1);
       if (itemOrderObj.status === 'Pending') {
         this.pendingItemOrders.push(itemOrder)
@@ -62,6 +62,8 @@ export class BaOrderComponent implements OnInit {
       } else if (itemOrderObj.status === 'Completed') {
         this.completeItemOrders.push(itemOrder)
       }
+      this.loginService.getUser().businessProfile.countPendingOrders = this.pendingItemOrders.length + this.inProgressItemOrders.length;
+      // localStorage.setItem('user',)
     })
   }
 }
