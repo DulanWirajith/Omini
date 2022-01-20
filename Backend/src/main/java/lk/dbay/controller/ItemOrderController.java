@@ -90,4 +90,9 @@ public class ItemOrderController {
     public ResponseEntity changeOrderStatus(@PathVariable String orderId, @PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable String status) {
         return ResponseEntity.ok(itemOrderS.changeOrderStatus(orderId, businessProfileId, businessCategoryId, status));
     }
+
+    @GetMapping("/acceptItem/{orderDetailId}")
+    public ResponseEntity acceptItem(@PathVariable String orderDetailId) {
+        return ResponseEntity.ok(itemOrderS.acceptItem(orderDetailId));
+    }
 }

@@ -97,4 +97,8 @@ export class COrderComponent implements OnInit {
     console.log(this.shopItemOrders)
     // this.shopCartService.shopCartItemsSub.next(orderDetail);
   }
+
+  getUser() {
+    return this.loginService.getUser();
+  }
 }

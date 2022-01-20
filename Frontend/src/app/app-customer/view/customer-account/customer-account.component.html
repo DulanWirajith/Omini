@@ -67,7 +67,9 @@
               [routerLink]="'/customer/header/customer_account/customer_order'"
               (click)="breadCrumbTxt='Order'"
             ><i class="fi-shopping-bag opacity-60 me-2"></i>Order
-              <span class="badge rounded-pill bg-primary">10</span>
+              <span class="badge rounded-pill bg-primary" *ngIf="getUser().customerProfile.countPendingOrders>0">
+                {{getUser().customerProfile.countPendingOrders}}
+              </span>
             </a>
             <a class="card-nav-link" href="./client-account-order-history.html"
             ><i class="fi-clock opacity-60 me-2"></i>Order History</a

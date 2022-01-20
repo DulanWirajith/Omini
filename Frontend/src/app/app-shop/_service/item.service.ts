@@ -87,6 +87,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item_order/changeOrderStatus/' + orderId + '/' + businessProfileId + '/' + businessCategoryId + '/' + status);
   }
 
+  acceptItem(orderDetailId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_order/acceptItem/' + orderDetailId);
+  }
+
   getNewItem() {
     return {
       itemId: "",

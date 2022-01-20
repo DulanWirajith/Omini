@@ -107,13 +107,27 @@ public class DbayUserSImpl implements DbayUserS {
                     Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(userDTOobj.getUserId());
                     if (businessProfileOptional.isPresent()) {
                         BusinessProfile businessProfile = businessProfileOptional.get();
-                        userDTOobj.setBusinessProfile(setBusiness(businessProfile));
+                        BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
+//        if (needProfile) {
+//            businessProfileDTO = new BusinessProfileDTO(businessProfile);
+//        businessProfileDTO.setDbayUser(businessProfile, true);
+                        businessProfileDTO.setBusinessAreas(businessProfile);
+                        businessProfileDTO.setBusinessProfileCategories(businessProfile);
+                        businessProfileDTO.setTown(businessProfile);
+                        userDTOobj.setBusinessProfile(businessProfileDTO);
                     }
                 } else if (userDTOobj.getRole().equals("C")) {
                     Optional<CustomerProfile> customerProfileOptional = customerProfileR.findById(userDTOobj.getUserId());
                     if (customerProfileOptional.isPresent()) {
                         CustomerProfile customerProfile = customerProfileOptional.get();
-                        userDTOobj.setCustomerProfile(setCustomer(customerProfile));
+                        CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
+                        List<OrderDetail> customerOrderDetails = orderDetailR.getCustomerOrderDetails(userDTOobj.getUserId(), "Pending", "In Progress");
+                        Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
+                        for (OrderDetail itemOrderDetail : customerOrderDetails) {
+                            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+                        }
+                        customerProfileDTO.setCountPendingOrders(itemOrderDTOS.size());
+                        userDTOobj.setCustomerProfile(customerProfileDTO);
                     }
                 }
 
@@ -129,26 +143,34 @@ public class DbayUserSImpl implements DbayUserS {
         return null;
     }
 
-    private BusinessProfileDTO setBusiness(BusinessProfile businessProfile) {
-        BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
-//        businessProfileDTO.setDbayUser(businessProfile, true);
-        businessProfileDTO.setBusinessAreas(businessProfile);
-        businessProfileDTO.setBusinessProfileCategories(businessProfile);
-        businessProfileDTO.setTown(businessProfile);
-        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsOrderType(new BusinessProfileCategoryPK(businessProfile.getBusinessProId(), businessProfile.getDefaultBusiness().getBusinessCategoryId()), "Pending", "In Progress");
-        Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
-        for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
-            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+    @Override
+    public DbayUserDTO getNavBar(String userId, String businessCategory, String userType) {
+        if (userType.equals("Business")) {
+            DbayUserDTO dbayUserDTO = new DbayUserDTO();
+//            Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(userId);
+            List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsOrderType(new BusinessProfileCategoryPK(userId, businessCategory), "Pending", "In Progress");
+            Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
+            for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
+                itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+            }
+            BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO();
+            businessProfileDTO.setCountPendingOrders(itemOrderDTOS.size());
+            dbayUserDTO.setBusinessProfile(businessProfileDTO);
+            return dbayUserDTO;
+        } else if (userType.equals("Customer")) {
+//            DbayUserDTO dbayUserDTO = new DbayUserDTO();
+////            Optional<CustomerProfile> customerProfileOptional = customerProfileR.findById(userId);
+//            List<OrderDetail> customerOrderDetails = orderDetailR.getCustomerOrderDetails(userId, "Pending", "In Progress");
+//            Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
+//            for (OrderDetail itemOrderDetail : customerOrderDetails) {
+//                itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+//            }
+//            CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO();
+//            customerProfileDTO.setCountPendingOrders(itemOrderDTOS.size());
+//            dbayUserDTO.setCustomerProfile(customerProfileDTO);
+//            return dbayUserDTO;
         }
-        businessProfileDTO.setCountPendingOrders(itemOrderDTOS.size());
-        return businessProfileDTO;
-//        userDTO.setBusinessProfile(businessProfileDTO);
-    }
-
-    private CustomerProfileDTO setCustomer(CustomerProfile customerProfile) {
-        CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
-//        customerProfileDTO.setDbayUser(customerProfile, true);
-        return customerProfileDTO;
+        return null;
     }
 
     @Override
@@ -266,4 +288,6 @@ public class DbayUserSImpl implements DbayUserS {
     public DbayUserDTO getUser(String userId) {
         return null;
     }
+
+
 }

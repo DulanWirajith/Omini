@@ -21,9 +21,9 @@ export class BusinessAccountService {
   businessCategories;
   businessCategory;
 
-  itemOrders=[];
+  itemOrders = [];
 
-  constructor(private http: HttpClient, private commonService: CommonService, private router: Router,private loginService:LoginService) {
+  constructor(private http: HttpClient, private commonService: CommonService, private router: Router, private loginService: LoginService) {
     // if (this.router.url !== '/login' && this.loginService.getUser().role !== 'B') {
     //   localStorage.clear();
     //   this.router.navigate(['']);
@@ -69,6 +69,10 @@ export class BusinessAccountService {
 
   getTowns(districtId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'town/getTowns/' + districtId);
+  }
+
+  getNavBar(userId, businessCategory): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'dbay_user/getNavBar/' + userId + '/' + businessCategory + '/Business');
   }
 
   getBusinessCategoriesCom() {

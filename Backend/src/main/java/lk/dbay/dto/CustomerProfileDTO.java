@@ -19,6 +19,7 @@ public class CustomerProfileDTO extends DateTimeDTO {
     private String contactNumber2;
     private String customerAddress;
     private String gender;
+    private int countPendingOrders;
 
     private DbayUserDTO dbayUser;
     private TownDTO town;

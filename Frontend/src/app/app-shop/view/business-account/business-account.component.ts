@@ -33,6 +33,7 @@ export class BusinessAccountComponent implements OnInit {
       if (val.name === 'Business') {
         this.businessCategory = val.value;
         this.setBusinessCategory();
+        // this.updateNavBar();
       }
     })
     this.getBusinessCategories();
@@ -47,6 +48,7 @@ export class BusinessAccountComponent implements OnInit {
       this.businessAccountService.businessCategoriesSub.next(businessCategories);
       this.businessAccountService.businessCategories = businessCategories;
       this.businessCategory = this.loginService.getUser().businessProfile.defaultBusiness;
+      // this.businessAccountService.businessCategory = this.businessCategory;
       this.setBusinessCategory();
     })
   }
@@ -55,8 +57,18 @@ export class BusinessAccountComponent implements OnInit {
     // console.log(this.businessCategory)
     this.businessAccountService.businessCategorySub.next(this.businessCategory.businessCategoryId);
     this.businessAccountService.businessCategory = this.businessCategory;
+    this.updateNavBar();
+    // this.getNavBar();
     // this.getItemOrders();
 
+  }
+
+  updateNavBar() {
+    this.businessAccountService.getNavBar(this.loginService.getUser().userId,this.businessCategory.businessCategoryId).subscribe((user) => {
+      // console.log(user.businessProfile.countPendingOrders)
+      this.loginService.getUser().businessProfile.countPendingOrders = user.businessProfile.countPendingOrders;
+      localStorage.setItem('user', JSON.stringify(this.loginService.getUser()));
+    })
   }
 
   // getItemOrders() {

@@ -21,4 +21,6 @@ public interface ItemOrderS {
     List<ItemOrderDTO> getCustomerOrders(String customerId);
 
     ItemOrderDTO changeOrderStatus(String orderId, String businessProfileId, String businessCategoryId, String status);
+
+    boolean acceptItem(String orderDetailId);
 }

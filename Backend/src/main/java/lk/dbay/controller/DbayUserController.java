@@ -113,6 +113,11 @@ public class DbayUserController {
         }
     }
 
+    @GetMapping("/getNavBar/{userId}/{businessCategory}/{userType}")
+    public ResponseEntity getNavBar(@PathVariable String userId, @PathVariable String businessCategory, @PathVariable String userType) {
+        return ResponseEntity.ok(dbayUserService.getNavBar(userId, businessCategory, userType));
+    }
+
 //    @PostMapping(value = CommonConstants.ADMIN + "/addUser")
 //    public ResponseEntity addClassUser(@RequestBody DbayUser dbayUser) {
 //        try {

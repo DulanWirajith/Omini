@@ -63,7 +63,7 @@ export class BaOrderComponent implements OnInit {
         this.completeItemOrders.push(itemOrder)
       }
       this.loginService.getUser().businessProfile.countPendingOrders = this.pendingItemOrders.length + this.inProgressItemOrders.length;
-      // localStorage.setItem('user',)
+      localStorage.setItem('user', JSON.stringify(this.loginService.getUser()))
     })
   }
 }

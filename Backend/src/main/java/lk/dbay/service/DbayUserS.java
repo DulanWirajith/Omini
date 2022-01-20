@@ -27,4 +27,6 @@ public interface DbayUserS extends UserDetailsService {
     boolean removeClassUser(String id) throws Exception;
 
     DbayUserDTO getUser(String userId);
+
+    DbayUserDTO getNavBar(String userId, String businessCategory, String userType);
 }

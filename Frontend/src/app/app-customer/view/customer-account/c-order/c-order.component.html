@@ -25,7 +25,14 @@
           <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link active" href="#client-following-view"
                                                           data-bs-toggle="tab" role="tab"><i
             class="fi-building mt-n1 me-2 fs-base"></i>
-            {{itemOrders.length}} Pending Order{{itemOrders.length>1?'s':''}}
+            {{getUser().customerProfile.countPendingOrders}}
+            Pending Order{{getUser().customerProfile.countPendingOrders>1?'s':''}}
+          </a></li>
+          <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link active" href="#client-following-view"
+                                                          data-bs-toggle="tab" role="tab"><i
+            class="fi-building mt-n1 me-2 fs-base"></i>
+            {{getUser().customerProfile.countPendingOrders}}
+            Pending Order{{getUser().customerProfile.countPendingOrders>1?'s':''}}
           </a></li>
         </ul>
       </div>
@@ -105,8 +112,8 @@
                       <div *ngIf="shop.status==='Canceled'" style="margin-bottom: 15px;text-align: right">
                         <span style="background-color: #943630;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>
                       </div>
-                      <div *ngIf="shop.status==='Completed'" style="margin-bottom: 15px;text-align: right">
-                        <span style="background-color: #03943c;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>
+                      <div *ngIf="shop.status==='Completed'" style="margin-bottom: 15px">
+                        <i class="fas fa-check-circle" style="margin-left: 16px;font-size: 20px;color: #03943c"></i>
                       </div>
                       <div *ngIf="shop.status==='In Progress'" style="margin-bottom: 15px">
                         <!--<span style="background-color: #0f7ae6;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>-->
@@ -166,8 +173,10 @@
                               </a>
                               <i *ngIf="orderDetail.status==='Pending'" class="fas fa-sync-alt"
                                  style="margin-left: 10px;font-size: 18px;color: #e9ad2d"></i>
-                              <i *ngIf="orderDetail.status==='In Progress'" class="fas fa-sync-alt"
+                              <i *ngIf="orderDetail.status==='In Progress' && !orderDetail.available" class="fas fa-sync-alt"
                                  style="margin-left: 10px;font-size: 18px;color: #0f7ae6"></i>
+                              <i *ngIf="orderDetail.status==='In Progress' && orderDetail.available" class="fas fa-check-circle"
+                                 style="margin-left: 10px;font-size: 18px;color: #03943c"></i>
                             </h3>
                             <span *ngIf="orderDetail.orderDetailType==='Item'"
                                   class="badge rounded-pill bg-info"> Item </span>

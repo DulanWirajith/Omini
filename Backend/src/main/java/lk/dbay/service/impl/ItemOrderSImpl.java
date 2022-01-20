@@ -195,7 +195,7 @@ public class ItemOrderSImpl implements ItemOrderS {
 
     @Override
     public List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId) {
-        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsOrderType(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), "Pending", "In Progress");
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetails(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
         return setItemOrders(itemOrderDetailsItems, false);
     }
 
@@ -224,6 +224,18 @@ public class ItemOrderSImpl implements ItemOrderS {
 //            return new ItemOrderDTO(itemOrderR.save(itemOrder));
 //        }
 //        return null;
+    }
+
+    @Override
+    public boolean acceptItem(String orderDetailId) {
+        Optional<OrderDetail> orderDetailOptional = orderDetailR.findById(orderDetailId);
+        if (orderDetailOptional.isPresent()) {
+            OrderDetail orderDetail = orderDetailOptional.get();
+            orderDetail.setAvailable(!orderDetail.isAvailable());
+            orderDetailR.save(orderDetail);
+            return orderDetail.isAvailable();
+        }
+        return false;
     }
 
     private List<ItemOrderDTO> setItemOrders(List<OrderDetail> itemOrderDetailsItems, boolean needBusinessProfile) {

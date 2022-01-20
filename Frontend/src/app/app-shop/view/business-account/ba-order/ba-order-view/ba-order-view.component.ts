@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ItemService} from "../../../../_service/item.service";
 
 @Component({
   selector: 'app-ba-order-view',
@@ -10,9 +11,16 @@ export class BaOrderViewComponent implements OnInit {
   @Input() itemOrder;
   @Input() orderIndex;
 
-  constructor() { }
+  constructor(private itemService: ItemService) { }
 
   ngOnInit(): void {
   }
 
+  acceptItem(orderDetailId) {
+    this.itemService.acceptItem(orderDetailId).subscribe((reply) => {
+      if(reply){
+
+      }
+    })
+  }
 }
