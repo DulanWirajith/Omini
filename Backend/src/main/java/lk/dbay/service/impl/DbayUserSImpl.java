@@ -121,12 +121,12 @@ public class DbayUserSImpl implements DbayUserS {
                     if (customerProfileOptional.isPresent()) {
                         CustomerProfile customerProfile = customerProfileOptional.get();
                         CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
-                        List<OrderDetail> customerOrderDetails = orderDetailR.getCustomerOrderDetails(userDTOobj.getUserId(), "Pending", "In Progress");
-                        Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
-                        for (OrderDetail itemOrderDetail : customerOrderDetails) {
-                            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
-                        }
-                        customerProfileDTO.setCountPendingOrders(itemOrderDTOS.size());
+//                        List<OrderDetail> customerOrderDetails = orderDetailR.getCustomerOrderDetails(userDTOobj.getUserId(), "Pending", "In Progress");
+//                        Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
+//                        for (OrderDetail itemOrderDetail : customerOrderDetails) {
+//                            itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));
+//                        }
+//                        customerProfileDTO.setCountPendingOrders(itemOrderDTOS.size());
                         userDTOobj.setCustomerProfile(customerProfileDTO);
                     }
                 }

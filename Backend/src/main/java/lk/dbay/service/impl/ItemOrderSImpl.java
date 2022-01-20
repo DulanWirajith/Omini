@@ -201,7 +201,7 @@ public class ItemOrderSImpl implements ItemOrderS {
 
     @Override
     public List<ItemOrderDTO> getCustomerOrders(String customerId) {
-        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getCustomerOrderDetails(customerId, "Pending", "In Progress");
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getCustomerOrderDetails(customerId);
         return setItemOrders(itemOrderDetailsItems, true);
     }
 

@@ -12,6 +12,9 @@ export class COrderComponent implements OnInit {
 
   itemOrders = [];
   shopItemOrders = [];
+  pendingOrders = [];
+  completedOrders = [];
+  canceledOrders = [];
 
   constructor(private itemService: ItemService, private loginService: LoginService) {
   }
@@ -36,6 +39,12 @@ export class COrderComponent implements OnInit {
           }
         }
       }
+      this.pendingOrders = this.shopItemOrders.filter(shopItemOrder => {
+        return shopItemOrder.itemOrder.status === 'Pending';
+      });
+      this.completedOrders = this.shopItemOrders.filter(shopItemOrder => {
+        return shopItemOrder.itemOrder.status === 'Completed';
+      });
     })
   }
 

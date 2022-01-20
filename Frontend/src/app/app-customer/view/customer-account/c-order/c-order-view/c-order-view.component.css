@@ -1,0 +1,55 @@
+#p > .blockquote::before {
+  color: rgba(198, 111, 3, 0.56);
+}
+
+#co > .blockquote::before {
+  color: rgba(2, 116, 9, 0.56);
+}
+
+#ca > .blockquote::before {
+  color: rgba(182, 10, 14, 0.56);
+}
+
+.col-info > div > div {
+  border-radius: 10px;
+  padding: 8px 15px 8px 15px;
+  /*display: flex*/
+}
+
+.col-info > div > div > div:nth-child(1) {
+  /*margin-left: 40px;*/
+  /*line-height: 2;*/
+  /*width: 50%;*/
+  text-align: center;
+  font-size: 14px !important;
+}
+
+.col-info > div > div > div:nth-child(2) {
+  text-align: center;
+  /*width: 50%;*/
+  /*line-height: 2;*/
+  font-size: 14px !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.125rem -0.125rem #a8a8a8, 0 0.25rem 0.75rem #a8a8a8 !important
+}
+
+.fa-sync-alt {
+  margin: auto;
+  /*border: 1px solid black;*/
+  /*width: 200px;*/
+  /*height: 100px;*/
+  /*background-color: coral;*/
+  /*color: white;*/
+  animation: mymove 2s infinite;
+}
+
+@keyframes mymove {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+

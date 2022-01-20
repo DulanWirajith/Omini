@@ -48,6 +48,7 @@ import { CrStep3Component } from './app-customer/view/customer-register/cr-step3
 import { CrStep4Component } from './app-customer/view/customer-register/cr-step4/cr-step4.component';
 import { CrStep5Component } from './app-customer/view/customer-register/cr-step5/cr-step5.component';
 import { BaOrderViewComponent } from './app-shop/view/business-account/ba-order/ba-order-view/ba-order-view.component';
+import { COrderViewComponent } from './app-customer/view/customer-account/c-order/c-order-view/c-order-view.component';
 
 @NgModule({
   declarations: [
