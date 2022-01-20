@@ -188,6 +188,8 @@ export class BaProfileComponent implements OnInit {
         name: 'Business',
         value: this.businessProfile.defaultBusiness
       })
+      this.loginService.getUser().businessProfile.defaultBusiness = this.businessProfile.defaultBusiness;
+      localStorage.setItem('user', JSON.stringify(this.loginService.getUser()))
       // this.businessProfile = businessProfile;
       this.imageInput.removeFiles();
       // this.businessProfile.dbayUser.dbayUserImgs = this.businessProfile.dbayUser.dbayUserImgs.concat(businessProfile.dbayUser.dbayUserImgs);

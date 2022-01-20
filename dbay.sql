@@ -190,7 +190,7 @@ SELECT `item_package`.`item_package_id`,
     `item_package`.`quantity`
 FROM `dbay`.`item_package`;
 
-UPDATE `dbay`.`dbay_user` SET `verification_code` = null WHERE (`user_id` = 'U20220117181308');
+UPDATE `dbay`.`dbay_user` SET `verification_code` = null WHERE (`user_id` = 'U20220120124245');
 
 SELECT `item_category`.`item_category_id`,
     `item_category`.`created_at`,

@@ -18,9 +18,9 @@ import java.util.Set;
         @UniqueConstraint(columnNames = "businessAddress", name = "BusinessAddress"),
         @UniqueConstraint(columnNames = "businessRegistrationCode", name = "BusinessRegistrationCode"),
         @UniqueConstraint(columnNames = "businessOwnerNic", name = "BusinessOwnerNic"),
-        @UniqueConstraint(columnNames = "socialFb", name = "SocialFb"),
-        @UniqueConstraint(columnNames = "socialInsta", name = "SocialInsta"),
-        @UniqueConstraint(columnNames = "socialLinkedIn", name = "SocialLinkedIn"),
+//        @UniqueConstraint(columnNames = "socialFb", name = "SocialFb"),
+//        @UniqueConstraint(columnNames = "socialInsta", name = "SocialInsta"),
+//        @UniqueConstraint(columnNames = "socialLinkedIn", name = "SocialLinkedIn"),
 })
 public class BusinessProfile extends DateTime {
 
