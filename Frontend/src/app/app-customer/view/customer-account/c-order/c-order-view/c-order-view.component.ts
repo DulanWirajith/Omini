@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LoginService} from "../../../../../_service/login.service";
 import {DatePipe} from "@angular/common";
+import {ItemGService} from "../../../../../_service/item-g.service";
 
 @Component({
   selector: 'app-c-order-view',
@@ -13,10 +14,17 @@ export class COrderViewComponent implements OnInit {
   @Input() orderIndex;
   // @Output() updateOrders = new EventEmitter();
 
-  constructor() {
+  constructor(private itemServiceG: ItemGService) {
   }
 
   ngOnInit(): void {
+  }
+
+  getItemSelected(item) {
+    this.itemServiceG.itemSub.next({
+      item: item,
+      backBtn: undefined
+    });
   }
 
   // getPreDate() {

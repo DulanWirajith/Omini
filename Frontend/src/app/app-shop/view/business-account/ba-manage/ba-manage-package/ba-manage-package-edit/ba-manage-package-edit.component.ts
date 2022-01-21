@@ -48,8 +48,10 @@ export class BaManagePackageEditComponent implements OnInit {
     // this.btnCreateFeature();
     this.businessCategories = this.businessAccountService.businessCategories;
     // this.getItems(this.itemPackageCur)
-    this.getItems(this.businessAccountService.businessCategory.businessCategoryId)
-    this.getItemPackageFeatures(this.businessAccountService.businessCategory.businessCategoryId)
+    if (this.businessAccountService.businessCategory !== undefined) {
+      this.getItems(this.businessAccountService.businessCategory.businessCategoryId)
+      this.getItemPackageFeatures(this.businessAccountService.businessCategory.businessCategoryId)
+    }
     this.toggleCategoryBtn();
   }
 

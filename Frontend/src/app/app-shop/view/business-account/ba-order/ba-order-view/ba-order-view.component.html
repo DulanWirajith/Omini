@@ -49,9 +49,12 @@
          *ngFor="let orderDetail of itemOrder.orderDetails;let last = last">
       <div class="d-flex align-items-center justify-content-between pb-1">
         <h3 class="h6 fs-base" style="margin-bottom: 0px">
-          <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">
+          <a class="nav-link" data-bs-toggle="offcanvas"
+             (click)="orderDetail.orderDetailType==='Item'?getItemSelected(orderDetail.item):''"
+             [attr.data-bs-target]="orderDetail.orderDetailType==='Item'?'#item-viewer-g':orderDetail.orderDetailType==='ItemPackage'?'#item-detail-viewer-g':''">
             {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
-          </a></h3>
+          </a>
+        </h3>
         <span *ngIf="orderDetail.orderDetailType==='Item'" class="badge rounded-pill bg-info"> Item </span>
         <span *ngIf="orderDetail.orderDetailType==='ItemPackage'" class="badge rounded-pill bg-success"> Package </span>
       </div>
@@ -78,7 +81,8 @@
         <span class="fs-md text-primary ms-2">
           <!--<i class="fi-checkbox-checked-alt"></i>-->
         </span>
-        <div *ngIf="orderDetail.status==='In Progress'" class="form-check form-check-dark" style="margin-bottom: 0px;display: flex">
+        <div *ngIf="orderDetail.status==='In Progress'" class="form-check form-check-dark"
+             style="margin-bottom: 0px;display: flex">
           <div style="font-weight: bold;margin-right: 30px;font-size: 14px">Accept</div>
           <div>
             <input class="form-check-input" type="checkbox" id="compare1"

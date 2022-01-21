@@ -71,6 +71,9 @@ export class BaOrderComponent implements OnInit {
   changeOrderStatus(itemOrder, status, index, orderList) {
     this.itemService.changeOrderStatus(itemOrder.orderId, this.loginService.getUser().userId, this.businessAccountService.businessCategory.businessCategoryId, status).subscribe((itemOrderObj) => {
       orderList.splice(index, 1);
+      for (let orderDetail of itemOrder.orderDetails) {
+        orderDetail.status = itemOrderObj.status;
+      }
       if (itemOrderObj.status === 'Pending') {
         this.pendingItemOrders.push(itemOrder)
       } else if (itemOrderObj.status === 'In Progress') {

@@ -52,7 +52,7 @@ export class BaManageItemComponent implements OnInit {
     // this.getBusinessCategories();
     // this.getItemsOrdered();
     this.businessCategories = this.businessAccountService.businessCategories;
-    if (this.businessAccountService.businessCategory.businessCategoryId !== undefined) {
+    if (this.businessAccountService.businessCategory !== undefined) {
       this.getItemsOrdered(this.businessAccountService.businessCategory.businessCategoryId);
     }
   }

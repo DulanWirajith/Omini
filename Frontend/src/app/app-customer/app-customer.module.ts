@@ -9,7 +9,6 @@ import {CustomerAccountComponent} from "./view/customer-account/customer-account
 import {SearchResultComponent} from "./view/search-result/search-result.component";
 import {ItemSearchResultViewComponent} from "./view/search-result/item-package-search-result/item-search-result-view/item-search-result-view.component";
 import {ItemPackageSearchResultComponent} from "./view/search-result/item-package-search-result/item-package-search-result.component";
-import {ItemSearchResultDetailViewComponent} from "./view/search-result/item-package-search-result/item-search-result-detail-view/item-search-result-detail-view.component";
 import {ShopCartComponent} from "./view/shop-cart/shop-cart.component";
 import {ShopCartService} from "./_service/shop-cart.service";
 import {CProfileComponent} from "./view/customer-account/c-profile/c-profile.component";
@@ -28,7 +27,6 @@ const components = [
   SearchResultComponent,
   ItemSearchResultViewComponent,
   ItemPackageSearchResultComponent,
-  ItemSearchResultDetailViewComponent,
   ShopCartComponent,
   CProfileComponent,
   COrderComponent,

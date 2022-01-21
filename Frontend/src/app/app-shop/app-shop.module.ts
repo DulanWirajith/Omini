@@ -21,7 +21,6 @@ import {BaManageItemEditComponent} from "./view/business-account/ba-manage/ba-ma
 import {SharedModule} from "../_shared/shared.module";
 import {BaManagePackageEditComponent} from "./view/business-account/ba-manage/ba-manage-package/ba-manage-package-edit/ba-manage-package-edit.component";
 import {BaProfileComponent} from "./view/business-account/ba-profile/ba-profile.component";
-import {BaOrderHistoryComponent} from "./view/business-account/ba-order-history/ba-order-history.component";
 import {BaOrderComponent} from "./view/business-account/ba-order/ba-order.component";
 import {BaOrderViewComponent} from "./view/business-account/ba-order/ba-order-view/ba-order-view.component";
 
@@ -43,7 +42,6 @@ const components = [
   BaManageItemEditComponent,
   BaManagePackageEditComponent,
   BaProfileComponent,
-  BaOrderHistoryComponent,
   BaOrderComponent,
   BaOrderViewComponent
 ];

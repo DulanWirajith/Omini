@@ -108,7 +108,8 @@
           <i class="fi-home opacity-60 me-2"></i>
           Home
         </a>
-        <a *ngIf="getUser().role==='C'" [routerLink]="'/customer/header/item_shop_search'" class="dropdown-item">
+        <a *ngIf="getUser().role==='C'" class="dropdown-item"
+        data-bs-toggle="offcanvas" data-bs-target="#cart-viewer">
           <i class="fi-cart opacity-60 me-2"></i>
           Cart
         </a>

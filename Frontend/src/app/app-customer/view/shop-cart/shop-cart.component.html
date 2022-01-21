@@ -116,7 +116,9 @@
                     <!--<i class="fi-x" style="font-weight: bold"></i>-->
                     <!--</button>-->
                     <h3 class="h6 mb-2 fs-base">
-                      <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer"
+                      <a class="nav-link" href="#" data-bs-toggle="offcanvas"
+                         (click)="item.orderDetail.orderDetailType==='Item'?getItemSelected(item):''"
+                         [attr.data-bs-target]="item.orderDetail.orderDetailType==='Item'?'#item-viewer-g':item.orderDetail.orderDetailType==='ItemPackage'?'#item-detail-viewer-g':''"
                          style="font-weight: bold;padding-left: 10px">
                         {{item.name}}
                       </a>

@@ -36,6 +36,7 @@
               class="file-uploader-grid pro-img"
               #imageInput
               [options]="pondOptions"
+              multiple="false"
               name="imageInput"
               (onaddfile)="pondHandleAddFile($event)"
               (onremovefile)="pondHandlerRemoveFile($event)">

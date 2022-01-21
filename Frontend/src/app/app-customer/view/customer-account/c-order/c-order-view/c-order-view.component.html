@@ -15,6 +15,8 @@
               <!--<i *ngIf="shopItemOrder.itemOrder.status==='In Progress'" class="fas fa-sync-alt" style="margin-left: 10px;font-size: 30px;color: #0f7ae6;margin-right: 10px"></i>-->
               <i *ngIf="shopItemOrder.itemOrder.status==='Completed'" class="fas fa-check-circle"
                  style="margin-left: 10px;font-size: 30px;color: #03943c;margin-right: 10px"></i>
+              <i *ngIf="shopItemOrder.itemOrder.status==='Canceled'" class="fas fa-times-circle"
+                 style="margin-left: 10px;font-size: 30px;color: #ff0d13;margin-right: 10px"></i>
               <!-- <img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar"> -->
               <div class="ps-2">
                 <h6 class="fs-base mb-0">{{shopItemOrder.itemOrder.orderId}}</h6>
@@ -64,8 +66,8 @@
                   <!--<span style="background-color: #e29e08;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>-->
                   <i class="fas fa-sync-alt" style="margin-left: 16px;font-size: 20px;color: #e9ad2d"></i>
                 </div>
-                <div *ngIf="shop.status==='Canceled'" style="margin-bottom: 15px;text-align: right">
-                  <span style="background-color: #943630;padding: 5px 15px 5px 15px;border-radius: 15px">{{shopItemOrder.itemOrder.status}}</span>
+                <div *ngIf="shop.status==='Canceled'" style="margin-bottom: 15px">
+                  <i class="fas fa-times-circle" style="margin-left: 16px;font-size: 20px;color: #ff0d13"></i>
                 </div>
                 <div *ngIf="shop.status==='Completed'" style="margin-bottom: 15px">
                   <i class="fas fa-check-circle" style="margin-left: 16px;font-size: 20px;color: #03943c"></i>
@@ -123,7 +125,9 @@
                        [ngStyle]="{'margin-top':itemFirst?'30px':'0px'}">
                     <div class="d-flex align-items-center justify-content-between pb-1">
                       <h3 class="h6 fs-base" style="margin-bottom: 0px;display: flex">
-                        <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#item-viewer">
+                        <a class="nav-link" data-bs-toggle="offcanvas"
+                           (click)="orderDetail.orderDetailType==='Item'?getItemSelected(orderDetail.item):''"
+                           [attr.data-bs-target]="orderDetail.orderDetailType==='Item'?'#item-viewer-g':orderDetail.orderDetailType==='ItemPackage'?'#item-detail-viewer-g':''">
                           {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
                         </a>
                         <i *ngIf="orderDetail.status==='Pending'" class="fas fa-sync-alt"
@@ -134,6 +138,10 @@
                           *ngIf="(orderDetail.status==='Completed' && orderDetail.available) || (orderDetail.status==='In Progress' && orderDetail.available)"
                           class="fas fa-check-circle"
                           style="margin-left: 10px;font-size: 18px;color: #03943c"></i>
+                        <i
+                          *ngIf="(orderDetail.status==='Canceled') || (orderDetail.status==='Completed' && !orderDetail.available)"
+                          class="fas fa-times-circle"
+                          style="margin-left: 10px;font-size: 18px;color: #ff0d13"></i>
                       </h3>
                       <span *ngIf="orderDetail.orderDetailType==='Item'"
                             class="badge rounded-pill bg-info"> Item </span>

@@ -1,5 +1,5 @@
 <!--Item side viewer-->
-<div class="offcanvas offcanvas-end" id="fi-item-viewer" style="width:50rem;">
+<div class="offcanvas offcanvas-end" id="item-viewer-g" style="width:50rem;">
   <div class="offcanvas-header d-block border-bottom">
     <div class="d-flex align-items-center justify-content-between">
       <h2 class="h5 mb-0">{{item.name}}</h2>
@@ -110,54 +110,28 @@
         <!--<div class="col me-sm-1">-->
         <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
         <!--<i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>-->
-        <!--<span class="fs-xs text-light fw-bold">{{item.quantity}}</span>-->
+        <!--<span class="fs-xs text-light fw-bold">{{item.itemQty}}</span>-->
         <!--</div>-->
         <!--</div>-->
         <!--<div class="col me-sm-1">-->
         <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
         <!--<i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>-->
-        <!--<span class="fs-xs text-light fw-bold">{{item.discount}}</span>-->
+        <!--<span class="fs-xs text-light fw-bold">{{item.itemDiscount}}</span>-->
         <!--</div>-->
         <!--</div>-->
         <!--<div class="col">-->
         <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
         <!--<i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>-->
-        <!--<span class="fs-xs text-light fw-bold">LKR {{item.price}}</span>-->
+        <!--<span class="fs-xs text-light fw-bold">LKR {{item.itemPrice}}</span>-->
         <!--</div>-->
         <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row cols-md-4 col-info">-->
-          <!--<div class="col">-->
-            <!--<div style="background-color: rgba(229,154,3,0.44)">-->
-              <!--<div class="mb-2 fs-sm text-dark fw-bold">Quantity </div>-->
-              <!--<div class="fs-sm fw-bold" style="color: #b97800">{{item.quantity}}</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="col">-->
-            <!--<div style="background-color: rgba(229,101,2,0.44)">-->
-              <!--<div class="mb-2 fs-sm text-dark fw-bold">Price </div>-->
-              <!--<div class="fs-sm fw-bold" style="color: #b96802">-->
-                <!--<div>{{'LKR '+item.price}}</div>-->
-                <!--<div>{{'LKR '+item.price}}</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="col">-->
-            <!--<div style="background-color: rgba(229,66,5,0.44)">-->
-              <!--<div class="mb-2 fs-sm text-dark fw-bold">Discount </div>-->
-              <!--<div class="fs-sm fw-bold" style="color: #b94701">-->
-                <!--{{item.discountType==='None' ? 'N/A' :-->
-                <!--item.discountType==='Cash' ? ('LKR '+item.discount) :-->
-                <!--item.discountType==='Percentage' ? (item.discount + '%') : ''}}-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
         <!--</div>-->
         <div class="border-top border-light pt-0 mb-2">
           <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
             <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
             <span *ngIf="item.discountType==='None'">LKR {{item.price}}</span>
-            <span *ngIf="item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.price}}</span>
+            <span *ngIf="item.discountType!=='None'"
+                  style="text-decoration: line-through;color: red">LKR {{item.price}}</span>
             <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice}}</span>
           </div>
           <div class="row cols-sm-2 row-cols-md-12"
@@ -199,23 +173,24 @@
         </div>
       </div>
 
+
     </div>
   </div>
-  <div class="offcanvas-footer border-top" style="display: block;">
+  <div class="offcanvas-footer border-top" style="display: block;" *ngIf="itemObj.backBtn!==undefined">
     <ul class="nav nav-tabs justify-content-end" role="tablist">
+      <!--<li class="nav-item me-2">-->
+      <!--<button class="btn btn-icon btn-success btn-lg text-light shadow-sm rounded-circle" type="button"-->
+      <!--data-bs-toggle="tooltip" title="Add to Cart">-->
+      <!--<i class="fi-cart"></i></button>-->
+      <!--</li>-->
       <li class="nav-item me-2">
-        <button class="btn btn-icon btn-success btn-lg text-light shadow-sm rounded-circle" type="button"
-                data-bs-toggle="tooltip" title="Add to Cart">
-          <i class="fi-cart"></i></button>
-      </li>
-      <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-info" href="#item-view" data-bs-toggle="tab" role="tab"><i
+        <a class="btn btn-md btn-outline-info" [attr.data-bs-target]="'#'+itemObj.backBtn" data-bs-toggle="offcanvas" role="tab"><i
           class="fi-arrow-back fs-lg me-2"></i>Back</a>
       </li>
-      <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-primary" href="#item-review" data-bs-toggle="tab" role="tab"><i
-          class="fi-star fs-lg me-2"></i>Reviews</a>
-      </li>
+      <!--<li class="nav-item me-2">-->
+      <!--<a class="btn btn-md btn-outline-primary" href="#item-review" data-bs-toggle="tab" role="tab"><i-->
+      <!--class="fi-star fs-lg me-2"></i>Reviews</a>-->
+      <!--</li>-->
     </ul>
   </div>
 </div>

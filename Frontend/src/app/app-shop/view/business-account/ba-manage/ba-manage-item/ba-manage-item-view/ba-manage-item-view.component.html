@@ -42,10 +42,11 @@
         <!--</div>-->
         <!--<img src="../../../../assets/img/catalog/06.jpg" alt="Image"></div>-->
       </div>
-      <div class="card-body position-relative pb-3" (click)="getItemSelected(item)">
+      <div class="card-body position-relative pb-3">
 
         <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
-        <h3 class="h6 mb-2 fs-base"><a class="nav-link" href="#" data-bs-toggle="offcanvas"
+        <h3 class="h6 mb-2 fs-base"><a class="nav-link" data-bs-toggle="offcanvas"
+                                       (click)="getItemSelected(item)"
                                        data-bs-target="#item-viewer">{{item.name}}</a></h3>
         <!-- <div class="d-flex align-items-center text-nowrap">
           <p class="mb-2 fs-sm text-muted">Quantity </p>

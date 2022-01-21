@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ShopCartService} from "../../_service/shop-cart.service";
 import {LoginService} from "../../../_service/login.service";
+import {ItemGService} from "../../../_service/item-g.service";
 
 @Component({
   selector: 'app-shop-cart',
@@ -14,7 +15,7 @@ export class ShopCartComponent implements OnInit {
   totalItemCount = 0;
   totalPrice = 0;
 
-  constructor(private shopCartService: ShopCartService, private loginService: LoginService) {
+  constructor(private shopCartService: ShopCartService, private loginService: LoginService, private itemServiceG: ItemGService) {
     this.itemOrder = this.shopCartService.getNewItemOrder();
     this.shopCartService.shopCartSub.observers = [];
     this.shopCartService.shopCartSub.subscribe((item) => {
@@ -235,6 +236,13 @@ export class ShopCartComponent implements OnInit {
       this.shopCart[shopIndex].items.splice(itemIndex, 1);
     }
     // this.cartDB();
+  }
+
+  getItemSelected(item) {
+    this.itemServiceG.itemSub.next({
+      item: item,
+      backBtn: 'cart-viewer'
+    });
   }
 
   getUser() {

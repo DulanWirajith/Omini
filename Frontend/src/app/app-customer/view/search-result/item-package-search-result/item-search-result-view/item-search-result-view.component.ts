@@ -4,6 +4,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {Lightbox} from "ngx-lightbox";
 import {environment} from "../../../../../../environments/environment";
 import {ShopCartService} from "../../../../_service/shop-cart.service";
+import {ItemGService} from "../../../../../_service/item-g.service";
 
 
 @Component({
@@ -17,7 +18,7 @@ export class ItemSearchResultViewComponent implements OnInit {
 
   // shopCartItems = [];
 
-  constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
+  constructor(private itemService: ItemService, private itemServiceG: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
   }
 
   ngOnInit(): void {
@@ -42,36 +43,40 @@ export class ItemSearchResultViewComponent implements OnInit {
   // }
 
   getItemSelected(item) {
+    this.itemServiceG.itemSub.next({
+      item: item,
+      backBtn: undefined
+    });
     // console.log(item.itemId)
-    let index: any = this.items.findIndex(itemObj => {
-      return itemObj.itemId === item.itemId
-    })
-    // console.log(this.items[index])
-    if (this.items[index].itemItemFeatures === undefined) {
-      this.itemService.getItemSelected(item.itemId).subscribe((item) => {
-        // Object.assign(this.items[index], item)
-        // item.itemImgsRaw = [];
-        // item.itemItemFeatures = [];
-        // item.businessProfileCategory = {
-        //   businessProfile: undefined,
-        //   businessCategory: undefined
-        // }
-        // if (item.itemDiscountType === "None") {
-        //   item.itemDiscountView = "N/A";
-        // } else if (item.itemDiscountType === "Cash") {
-        //   item.itemDiscountView = "LKR " + item.itemDiscount;
-        // } else if (item.itemDiscountType === "Percentage") {
-        //   item.itemDiscountView = item.itemDiscount + "%";
-        // }
-        item.itemCount = this.items[index].itemCount;
-        this.items[index] = item;
-        // this.itemService.itemFeaturesSub.next(item.itemFeatures);
-        this.itemService.itemSub.next(this.items[index]);
-        //console.log(this.items[index])
-      })
-    } else {
-      this.itemService.itemSub.next(this.items[index]);
-    }
+    // let index: any = this.items.findIndex(itemObj => {
+    //   return itemObj.itemId === item.itemId
+    // })
+    // // console.log(this.items[index])
+    // if (this.items[index].itemItemFeatures === undefined) {
+    //   this.itemService.getItemSelected(item.itemId).subscribe((item) => {
+    //     // Object.assign(this.items[index], item)
+    //     // item.itemImgsRaw = [];
+    //     // item.itemItemFeatures = [];
+    //     // item.businessProfileCategory = {
+    //     //   businessProfile: undefined,
+    //     //   businessCategory: undefined
+    //     // }
+    //     // if (item.itemDiscountType === "None") {
+    //     //   item.itemDiscountView = "N/A";
+    //     // } else if (item.itemDiscountType === "Cash") {
+    //     //   item.itemDiscountView = "LKR " + item.itemDiscount;
+    //     // } else if (item.itemDiscountType === "Percentage") {
+    //     //   item.itemDiscountView = item.itemDiscount + "%";
+    //     // }
+    //     item.itemCount = this.items[index].itemCount;
+    //     this.items[index] = item;
+    //     // this.itemService.itemFeaturesSub.next(item.itemFeatures);
+    //     this.itemService.itemSub.next(this.items[index]);
+    //     //console.log(this.items[index])
+    //   })
+    // } else {
+    //   this.itemService.itemSub.next(this.items[index]);
+    // }
   }
 
   getImageSrc(itemImg) {

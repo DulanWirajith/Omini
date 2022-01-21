@@ -197,7 +197,7 @@ public class ItemOrderSImpl implements ItemOrderS {
     public List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId, String status, String from, String to) {
         if (status.equals("Completed") || status.equals("Canceled")) {
             from += " 00:00:00";
-            to += " 00:00:00";
+            to += " 23:59:59";
             List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsByDate(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), status,
                     LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                     LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -215,7 +215,7 @@ public class ItemOrderSImpl implements ItemOrderS {
             aStatus = "In Progress";
         }
         from += " 00:00:00";
-        to += " 00:00:00";
+        to += " 23:59:59";
         List<OrderDetail> itemOrderDetailsItems = orderDetailR.getCustomerOrderDetails(customerId, status, aStatus,
                 LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));

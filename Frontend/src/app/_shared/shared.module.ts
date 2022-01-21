@@ -10,10 +10,14 @@ import {HeaderComponent} from "../view/header/header.component";
 import {RouterModule} from "@angular/router";
 import { LightboxModule } from 'ngx-lightbox';
 import {LoginComponent} from "../view/login/login.component";
+import {ItemDetailViewComponent} from "../view/item-detail-view/item-detail-view.component";
+import {ItemPackageDetailViewComponent} from "../view/item-package-detail-view/item-package-detail-view.component";
 
 const components = [
   HeaderComponent,
   ConfirmPasswordDirective,
+  ItemDetailViewComponent,
+  ItemPackageDetailViewComponent
   // LoginComponent
 ]
 
