@@ -35,7 +35,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
     // console.log(this.items[index])
     // if (this.items[index].itemItemFeatures === undefined) {
     this.itemService.getItemPackageSelected(itemPackage.itemPackageId).subscribe((itemPackage) => {
-      console.log(itemPackage)
+      // console.log(itemPackage)
       // Object.assign(this.items[index], item)
       // itemPackage.itemImgsRaw = [];
       // item.itemItemFeatures = [];
@@ -59,6 +59,13 @@ export class ItemPackageDetailViewComponent implements OnInit {
     // } else {
     //   this.itemService.itemSub.next(this.items[index]);
     // }
+  }
+
+  getItemSelected(item) {
+    this.itemService.itemSub.next({
+      item: item,
+      backBtn: 'item-package-viewer-g'
+    });
   }
 
   open(index: number): void {

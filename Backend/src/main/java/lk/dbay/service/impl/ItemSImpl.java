@@ -206,16 +206,16 @@ public class ItemSImpl implements ItemS {
         Optional<Item> itemOptional = itemR.findById(itemId);
         if (itemOptional.isPresent()) {
             Item item = itemOptional.get();
-            List<ItemFeature> itemFeatureRAll = itemFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId(), true);
-            List<ItemFeatureDTO> itemFeatureDTOS = new ArrayList<>();
-            for (ItemFeature itemFeature : itemFeatureRAll) {
-                itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
-            }
+//            List<ItemFeature> itemFeatureRAll = itemFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId(), true);
+//            List<ItemFeatureDTO> itemFeatureDTOS = new ArrayList<>();
+//            for (ItemFeature itemFeature : itemFeatureRAll) {
+//                itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
+//            }
             ItemDTO itemDTO = new ItemDTO(item, true);
             itemDTO.setBusinessProfileCategory(item);
             itemDTO.setItemItemFeatures(item);
             itemDTO.setItemFeatures(item);
-//            itemDTO.setOrderDetail(new OrderDetailDTO());
+            itemDTO.setOrderDetail(new OrderDetailDTO());
             return itemDTO;
         }
         return null;

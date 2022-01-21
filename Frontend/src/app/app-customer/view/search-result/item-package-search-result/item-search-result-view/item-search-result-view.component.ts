@@ -45,7 +45,8 @@ export class ItemSearchResultViewComponent implements OnInit {
   getItemSelected(item) {
     this.itemServiceG.itemSub.next({
       item: item,
-      backBtn: undefined
+      backBtn: undefined,
+      cart: item.orderDetail.quantity
     });
     // console.log(item.itemId)
     // let index: any = this.items.findIndex(itemObj => {

@@ -80,7 +80,7 @@
                 <p class="mb-1 fs-sm" style="margin-top: 20px;color: #d48f03;font-weight: bold;text-align: center">
                   Make To Order </p>
                 <!--<p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">-->
-                  <!--{{itemPackage.quantity}}</p>-->
+                <!--{{itemPackage.quantity}}</p>-->
               </div>
             </div>
             <div class="col" style="padding: 0px">
@@ -115,14 +115,15 @@
 
 
     </div>
-    <div class="row g-4 py-2">
+    <div class="row g-4 py-2" style="margin-top: 10px">
       <p class="mb-2 fs-sm text-dark fw-bold">Includes </p>
       <!--Item-->
       <div class="col-sm-12 col-md-6 col-xl-6" *ngFor="let itemItemPackage of itemPackage.itemItemPackages">
         <div class="card shadow-sm card-hover border-0 h-100">
           <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.25)">
             <a class="img-overlay"></a>
-            <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-primary cursor-point"><h4
+            <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+              class="d-table badge bg-primary cursor-point"><h4
               class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i class="fi-star fs-sm"></i> 4.5 / 5</h4></span>
             </div>
             <div class="content-overlay end-0 top-0 pt-3 pe-3">
@@ -143,9 +144,11 @@
           <div class="card-body position-relative pb-3">
 
             <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
-            <h3 class="h6 mb-2 fs-base"><a class="nav-link" data-bs-toggle="offcanvas"
-                                           (click)="getItemSelected(itemItemPackage.item)"
-                                           data-bs-target="#item-viewer">{{itemItemPackage.item.name}}</a></h3>
+            <h3 class="h6 mb-2 fs-base">
+              <a class="nav-link" data-bs-toggle="offcanvas"
+                 (click)="getItemSelected(itemItemPackage.item)"
+                 data-bs-target="#item-viewer-g"
+                 style="font-weight: bold;padding: 0px">{{itemItemPackage.item.name}}</a></h3>
             <!-- <div class="d-flex align-items-center text-nowrap">
               <p class="mb-2 fs-sm text-muted">Quantity </p>
               <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
@@ -157,12 +160,15 @@
                  style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
               <div class="col" style="padding: 0px">
                 <div style="border-right: 1px solid #d3d3d3">
-                  <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">Quantity </p>
-                  <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{itemItemPackage.item.quantity}}</p>
+                  <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                    Quantity </p>
+                  <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
+                    {{itemItemPackage.item.quantity}}</p>
                 </div>
               </div>
               <div class="col" style="padding: 0px">
-                <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">Discount </p>
+                <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                  Discount </p>
                 <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
                   {{itemItemPackage.item.discountType==='None' ? 'N/A' :
                   itemItemPackage.item.discountType==='Cash' ? ('LKR '+itemItemPackage.item.discount) :
@@ -180,22 +186,22 @@
               <span *ngIf="itemItemPackage.item.discountType!=='None'" style="margin-left: 10px">LKR {{itemItemPackage.item.discountedPrice}}</span>
             </div>
           </div>
-          <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" [checked]="itemItemPackage.item.available"
-                     (click)="setItemAvailable(item)">
-              <label *ngIf="!itemItemPackage.item.available"
-                     class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">
-                Not Available</label>
-              <label *ngIf="itemItemPackage.item.available" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
-                Available</label>
-            </div>
-            <!--<div class="form-check form-switch" *ngIf="item.itemAvailable">-->
-            <!--<input class="form-check-input" type="checkbox" checked>-->
-            <!--<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">-->
-            <!--Available</label>-->
-            <!--</div>-->
-          </div>
+          <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
+          <!--<div class="form-check form-switch">-->
+          <!--<input class="form-check-input" type="checkbox" [checked]="itemItemPackage.item.available"-->
+          <!--(click)="setItemAvailable(item)">-->
+          <!--<label *ngIf="!itemItemPackage.item.available"-->
+          <!--class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">-->
+          <!--Not Available</label>-->
+          <!--<label *ngIf="itemItemPackage.item.available" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">-->
+          <!--Available</label>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;<div class="form-check form-switch" *ngIf="item.itemAvailable">&ndash;&gt;-->
+          <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" checked>&ndash;&gt;-->
+          <!--&lt;!&ndash;<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">&ndash;&gt;-->
+          <!--&lt;!&ndash;Available</label>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--</div>-->
         </div>
       </div>
 
@@ -316,12 +322,13 @@
   <div class="offcanvas-footer border-top" style="display: block;">
     <ul class="nav nav-tabs justify-content-end" role="tablist">
       <!--<li class="nav-item me-2">-->
-      <!--<button class="btn btn-icon btn-success btn-lg text-light shadow-sm rounded-circle" type="button"-->
-      <!--data-bs-toggle="tooltip" title="Add to Cart">-->
-      <!--<i class="fi-cart"></i></button>-->
+        <!--<button class="btn btn-icon btn-success btn-lg text-light shadow-sm rounded-circle" type="button"-->
+                <!--data-bs-toggle="tooltip" title="Add to Cart">-->
+          <!--<i class="fi-cart"></i></button>-->
       <!--</li>-->
       <li class="nav-item me-2" *ngIf="itemPackageObj.backBtn!==undefined">
-        <a class="btn btn-md btn-outline-info" [attr.data-bs-target]="'#'+itemPackageObj.backBtn" data-bs-toggle="offcanvas"
+        <a class="btn btn-md btn-outline-info" [attr.data-bs-target]="'#'+itemPackageObj.backBtn"
+           data-bs-toggle="offcanvas"
            role="tab"><i
           class="fi-arrow-back fs-lg me-2"></i>Back</a>
       </li>

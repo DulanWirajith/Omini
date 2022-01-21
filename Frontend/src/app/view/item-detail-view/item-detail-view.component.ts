@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {DomSanitizer} from "@angular/platform-browser";
 import {Lightbox} from "ngx-lightbox";
 import {ItemGService} from "../../_service/item-g.service";
+import {ShopCartService} from "../../app-customer/_service/shop-cart.service";
 
 @Component({
   selector: 'app-item-detail-view',
@@ -13,16 +14,20 @@ export class ItemDetailViewComponent implements OnInit {
 
   itemObj = {
     item: undefined,
-    backBtn: undefined
+    backBtn: undefined,
+    cart: undefined,
+    orderDetail:undefined
   };
   item;
   _album: [];
 
-  constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox) {
+  constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
     this.item = this.getNewItem();
+    itemService.itemSub.observers = [];
     itemService.itemSub.subscribe((itemObj) => {
       this.itemObj = itemObj;
       this.getItemSelected(itemObj.item);
+      console.log(itemObj.item)
     })
   }
 
@@ -57,6 +62,12 @@ export class ItemDetailViewComponent implements OnInit {
     // } else {
     //   this.itemService.itemSub.next(this.items[index]);
     // }
+  }
+
+  addToCart(item) {
+    console.log(item)
+    // item.orderDetail.orderDetailType = 'Item';
+    // this.shopCartService.shopCartSub.next(item);
   }
 
   open(index: number): void {

@@ -12,6 +12,7 @@ export class COrderViewComponent implements OnInit {
 
   @Input() shopItemOrders = [];
   @Input() orderIndex;
+
   // @Output() updateOrders = new EventEmitter();
 
   constructor(private itemServiceG: ItemGService) {
@@ -21,6 +22,7 @@ export class COrderViewComponent implements OnInit {
   }
 
   getItemSelected(item) {
+    // item.orderDetail.quantity = item.quantity;
     this.itemServiceG.itemSub.next({
       item: item,
       backBtn: undefined
