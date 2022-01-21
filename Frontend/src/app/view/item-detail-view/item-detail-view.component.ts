@@ -35,7 +35,7 @@ export class ItemDetailViewComponent implements OnInit {
     // if (this.items[index].itemItemFeatures === undefined) {
     this.itemService.getItemSelected(item.itemId).subscribe((item) => {
       // Object.assign(this.items[index], item)
-      item.itemImgsRaw = [];
+      // item.itemImgsRaw = [];
       // item.itemItemFeatures = [];
       // item.businessProfileCategory = {
       //   businessProfile: undefined,

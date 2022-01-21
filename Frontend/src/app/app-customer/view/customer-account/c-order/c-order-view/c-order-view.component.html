@@ -126,8 +126,8 @@
                     <div class="d-flex align-items-center justify-content-between pb-1">
                       <h3 class="h6 fs-base" style="margin-bottom: 0px;display: flex">
                         <a class="nav-link" data-bs-toggle="offcanvas"
-                           (click)="orderDetail.orderDetailType==='Item'?getItemSelected(orderDetail.item):''"
-                           [attr.data-bs-target]="orderDetail.orderDetailType==='Item'?'#item-viewer-g':orderDetail.orderDetailType==='ItemPackage'?'#item-detail-viewer-g':''">
+                           (click)="orderDetail.orderDetailType==='Item'?getItemSelected(orderDetail.item):orderDetail.orderDetailType==='ItemPackage'?getItemPackageSelected(orderDetail.itemPackage):''"
+                           [attr.data-bs-target]="orderDetail.orderDetailType==='Item'?'#item-viewer-g':orderDetail.orderDetailType==='ItemPackage'?'#item-package-viewer-g':''">
                           {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
                         </a>
                         <i *ngIf="orderDetail.status==='Pending'" class="fas fa-sync-alt"

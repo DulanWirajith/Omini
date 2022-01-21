@@ -18,4 +18,8 @@ export class ItemGService {
   getItemSelected(itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
   }
+
+  getItemPackageSelected(itemPackageId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
+  }
 }

@@ -33,4 +33,11 @@ export class BaOrderViewComponent implements OnInit {
       backBtn: undefined
     });
   }
+
+  getItemPackageSelected(itemPackage) {
+    this.itemServiceG.itemPackageSub.next({
+      itemPackage: itemPackage,
+      backBtn: undefined
+    });
+  }
 }

@@ -2,7 +2,10 @@
 <div class="offcanvas offcanvas-end" id="item-viewer-g" style="width:50rem;">
   <div class="offcanvas-header d-block border-bottom">
     <div class="d-flex align-items-center justify-content-between">
-      <h2 class="h5 mb-0">{{item.name}}</h2>
+      <div style="display: flex">
+        <h2 class="h5 mb-0" style="margin-right: 15px">{{item.name}}</h2>
+        <span class="badge rounded-pill bg-info" style="padding-top: 7px"> Item </span>
+      </div>
       <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
     </div>
 
@@ -14,16 +17,6 @@
       <div class="tab-pane fade show active" id="item-view" role="tabpanel">
         <div class="row">
           <div class="row g-2 g-md-3 gallery" data-thumbnails="true" style="min-width: 30rem;">
-            <!--<div class="col-8"><a class="gallery-item rounded rounded-md-3" href="./asset/img/catalog/01.jpg"-->
-            <!--data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Kids bed&lt;/h6&gt;"><img-->
-            <!--src="./asset/img/catalog/01.jpg" alt="Gallery thumbnail"></a></div>-->
-            <!--<div class="col-4"><a class="gallery-item rounded rounded-md-3 mb-2 mb-md-3"-->
-            <!--href="./asset/img/catalog/02.jpg"-->
-            <!--data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Kids bed&lt;/h6&gt;"><img-->
-            <!--src="./asset/img/catalog/02.jpg" alt="Gallery thumbnail"></a>-->
-            <!--<a class="gallery-item rounded rounded-md-3" href="./asset/img/catalog/03.jpg"-->
-            <!--data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;"><img-->
-            <!--src="./asset/img/catalog/03.jpg" alt="Gallery thumbnail"></a></div>-->
             <div class="col-12" *ngIf="_album?.length > 0">
               <div class="row g-2 g-md-3 gallery" style="min-width: 30rem;">
 
@@ -62,43 +55,9 @@
                           </p>
                         </div>
                       </ng-container>
-                      <!-- <div class="col" *ngIf="i>3">
-                        <p class="gallery-item rounded rounded-md-3" (click)="open(i)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
-                          <img [src]="getAlbumSrc(i)"   alt="Gallery thumbnail">
-                        </p>
-                      </div> -->
                     </ng-container>
-
-                    <!-- <div class="col">
-                      <p class="gallery-item rounded-1 rounded-md-2" (click)="open(thirdImg)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
-                        <img [src]="getAlbumSrc(thirdImg)"   alt="Gallery thumbnail">
-                      </p>
-                    </div>
-                    <div class="col">
-                      <p class="gallery-item rounded-1 rounded-md-2" (click)="open(thirdImg)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;></h6>">
-                        <img [src]="getAlbumSrc(thirdImg)"   alt="Gallery thumbnail">
-                      </p>
-                    </div> -->
                   </div>
                 </div>
-                <!-- <div class="col-3"  *ngFor="let image of _album; let i=index">
-                  <p class="gallery-item rounded rounded-md-3 mb-2 mb-md-3" (click)="open(i)" data-sub-html="<h6 class=&quot;fs-sm text-light&quot;>Kids bed</h6>">
-                    <img [src]="image.thumb"  [lightbox]="i"  [gallery]="'anotherLightbox'" alt="Gallery thumbnail">
-                  </p>
-                </div> -->
-
-
-                <!-- <div class="col" *ngFor="let itemImg of item.itemImgs">
-                  <a class="gallery-item rounded-1 rounded-md-2" href="./asset/img/catalog/03.jpg"
-                     data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Working desk&lt;/h6&gt;">
-                    <img [src]="getImageSrc(itemImg)" alt="Gallery thumbnail">
-                  </a>
-                </div> -->
-                <!--<div class="col"><a class="gallery-item more-item rounded-1 rounded-md-2"-->
-                <!--href="./asset/img/catalog/07.jpg"-->
-                <!--data-sub-html="&lt;h6 class=&quot;fs-sm text-light&quot;&gt;Bathroom&lt;/h6&gt;"><img-->
-                <!--src="./asset/img/catalog/07.jpg" alt="Gallery thumbnail"><span class="gallery-item-caption fs-base">+5 <span-->
-                <!--class='d-none d-md-inline'>photos</span></span></a></div>-->
               </div>
             </div>
           </div>
@@ -106,26 +65,6 @@
         <div class="rowg-3  mt-4">
           <h3 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Information</h3>
         </div>
-        <!--<div class="row g-2">-->
-        <!--<div class="col me-sm-1">-->
-        <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
-        <!--<i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>-->
-        <!--<span class="fs-xs text-light fw-bold">{{item.itemQty}}</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col me-sm-1">-->
-        <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
-        <!--<i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>-->
-        <!--<span class="fs-xs text-light fw-bold">{{item.itemDiscount}}</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col">-->
-        <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
-        <!--<i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>-->
-        <!--<span class="fs-xs text-light fw-bold">LKR {{item.itemPrice}}</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
         <div class="border-top border-light pt-0 mb-2">
           <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
             <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
@@ -176,21 +115,22 @@
 
     </div>
   </div>
-  <div class="offcanvas-footer border-top" style="display: block;" *ngIf="itemObj.backBtn!==undefined">
+  <div class="offcanvas-footer border-top" style="display: block;">
     <ul class="nav nav-tabs justify-content-end" role="tablist">
       <!--<li class="nav-item me-2">-->
       <!--<button class="btn btn-icon btn-success btn-lg text-light shadow-sm rounded-circle" type="button"-->
       <!--data-bs-toggle="tooltip" title="Add to Cart">-->
       <!--<i class="fi-cart"></i></button>-->
       <!--</li>-->
-      <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-info" [attr.data-bs-target]="'#'+itemObj.backBtn" data-bs-toggle="offcanvas" role="tab"><i
+      <li class="nav-item me-2" *ngIf="itemObj.backBtn!==undefined">
+        <a class="btn btn-md btn-outline-info" [attr.data-bs-target]="'#'+itemObj.backBtn" data-bs-toggle="offcanvas"
+           role="tab"><i
           class="fi-arrow-back fs-lg me-2"></i>Back</a>
       </li>
-      <!--<li class="nav-item me-2">-->
-      <!--<a class="btn btn-md btn-outline-primary" href="#item-review" data-bs-toggle="tab" role="tab"><i-->
-      <!--class="fi-star fs-lg me-2"></i>Reviews</a>-->
-      <!--</li>-->
+      <li class="nav-item me-2">
+        <a class="btn btn-md btn-outline-primary" href="#item-review" data-bs-toggle="tab" role="tab"><i
+          class="fi-star fs-lg me-2"></i>Reviews</a>
+      </li>
     </ul>
   </div>
 </div>

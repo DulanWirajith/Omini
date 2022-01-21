@@ -245,6 +245,13 @@ export class ShopCartComponent implements OnInit {
     });
   }
 
+  getItemPackageSelected(item) {
+    this.itemServiceG.itemPackageSub.next({
+      itemPackage: item,
+      backBtn: 'cart-viewer'
+    });
+  }
+
   getUser() {
     return this.loginService.getUser();
   }

@@ -27,6 +27,13 @@ export class COrderViewComponent implements OnInit {
     });
   }
 
+  getItemPackageSelected(itemPackage) {
+    this.itemServiceG.itemPackageSub.next({
+      itemPackage: itemPackage,
+      backBtn: undefined
+    });
+  }
+
   // getPreDate() {
   //   let date = new Date();
   //   date.setDate(date.getDate() - 7);
