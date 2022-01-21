@@ -27,8 +27,8 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
   }
 
-  getCustomerOrders(customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_order/getCustomerOrders/' + customerId);
+  getCustomerOrders(customerId, status, from, to): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_order/getCustomerOrders/' + customerId + '/' + status + '/' + from + '/' + to);
   }
 
   getItemPackageSelected(itemPackageId): Observable<any> {

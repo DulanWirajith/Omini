@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ItemService} from "../../../_service/item.service";
 import {ShopCartService} from "../../../_service/shop-cart.service";
 import {LoginService} from "../../../../_service/login.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-c-order',
   templateUrl: './c-order.component.html',
-  styleUrls: ['./c-order.component.css']
+  styleUrls: ['./c-order.component.css'],
+  providers: [DatePipe]
 })
 export class COrderComponent implements OnInit {
 
@@ -16,15 +18,15 @@ export class COrderComponent implements OnInit {
   completedOrders = [];
   canceledOrders = [];
 
-  constructor(private itemService: ItemService, private loginService: LoginService) {
+  constructor(private itemService: ItemService, private loginService: LoginService, private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
-    this.getPendingCustomerOrders();
+    this.getCustomerOrders('Pending', this.getPreDate(), this.getCurDate());
   }
 
-  getPendingCustomerOrders() {
-    this.itemService.getCustomerOrders(this.loginService.getUser().userId).subscribe((itemOrders) => {
+  getCustomerOrders(status, from, to) {
+    this.itemService.getCustomerOrders(this.loginService.getUser().userId, status, from, to).subscribe((itemOrders) => {
       // this.itemOrders = itemOrders;
       for (let i = 0; i < itemOrders.length; i++) {
         // console.log(1)
@@ -32,19 +34,28 @@ export class COrderComponent implements OnInit {
           this.divideToShops(itemOrders[i], orderDetail, i)
         }
       }
-      for (let shopItemOrder of this.shopItemOrders) {
-        for (let shop of shopItemOrder.shops) {
-          if (shop.status === 'Pending' || shop.status === 'In Progress') {
-            shopItemOrder.itemOrder.status = 'Pending';
+      if (status === 'Pending') {
+        for (let shopItemOrder of this.shopItemOrders) {
+          for (let shop of shopItemOrder.shops) {
+            if (shop.status === 'Pending' || shop.status === 'In Progress') {
+              shopItemOrder.itemOrder.status = 'Pending';
+            }
           }
         }
+        this.pendingOrders = this.shopItemOrders.filter(shopItemOrder => {
+          return shopItemOrder.itemOrder.status === 'Pending';
+        });
       }
-      this.pendingOrders = this.shopItemOrders.filter(shopItemOrder => {
-        return shopItemOrder.itemOrder.status === 'Pending';
-      });
-      this.completedOrders = this.shopItemOrders.filter(shopItemOrder => {
-        return shopItemOrder.itemOrder.status === 'Completed';
-      });
+      if (status === 'Completed') {
+        this.completedOrders = this.shopItemOrders.filter(shopItemOrder => {
+          return shopItemOrder.itemOrder.status === 'Completed';
+        });
+      }
+      if (status === 'Canceled') {
+        this.canceledOrders = this.shopItemOrders.filter(shopItemOrder => {
+          return shopItemOrder.itemOrder.status === 'Canceled';
+        });
+      }
     })
   }
 
@@ -103,11 +114,21 @@ export class COrderComponent implements OnInit {
         this.shopItemOrders[index].shops[indexShop].totalPrice += (orderDetail.price * orderDetail.quantity);
       }
     }
-    console.log(this.shopItemOrders)
+    // console.log(this.shopItemOrders)
     // this.shopCartService.shopCartItemsSub.next(orderDetail);
   }
 
   getUser() {
     return this.loginService.getUser();
+  }
+
+  getPreDate() {
+    let date = new Date();
+    date.setDate(date.getDate() - 7);
+    return this.datePipe.transform(date, 'yyyy-MM-dd')
+  }
+
+  getCurDate() {
+    return this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   }
 }

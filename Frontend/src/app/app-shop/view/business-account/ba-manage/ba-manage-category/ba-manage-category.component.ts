@@ -55,7 +55,7 @@ export class BaManageCategoryComponent implements OnInit {
       // this.items.push(item)
       itemCategory.businessProfileCategory = this.itemCategory.businessProfileCategory;
       this.categories.push(itemCategory)
-      console.log(this.categories)
+      // console.log(this.categories)
       this.baManageFormCategory.resetForm(this.itemService.getNewItem());
       // this.item.itemItemFeatures = [];
     })

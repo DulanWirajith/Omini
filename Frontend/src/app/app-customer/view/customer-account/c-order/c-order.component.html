@@ -4,7 +4,7 @@
   </div>
   <div class="">
     <div class="input-group">
-      <input class="form-control" type="text" placeholder="Search....." id="following-shop-search">
+      <input class="form-control" style="height: 42px" type="text" placeholder="Search....." id="following-shop-search">
       <div class="input-group-text p-0">
         <a class="d-block text-body px-3 py-2" href="#">
           <i class="fi-search mt-n1"></i>
@@ -35,7 +35,7 @@
         <!--Pending Order{{getUser().customerProfile.countPendingOrders>1?'s':''}}-->
         <!--</a></li>-->
         <!--</ul>-->
-        <ul class="nav nav-tabs nav-fill mb-4" role="tablist">
+        <ul class="nav nav-tabs nav-fill" role="tablist" style="margin-bottom: 0px">
           <li class="nav-item me-sm-3 mb-3">
             <a
               class="nav-link text-center active"
@@ -44,10 +44,11 @@
               role="tab"
               aria-controls="pending-order-tab"
               aria-selected="true"
-              style="color: black"
+              style="color: #f48904;font-weight: bold"
+              (click)="getCustomerOrders('Pending',fromPDate.value,toPDate.value)"
             >
               Pending
-              <span class="badge rounded-pill bg-warning" style="font-weight: bold">{{pendingOrders.length}}</span>
+              <!--<span class="badge rounded-pill bg-warning" style="font-weight: bold">{{pendingOrders.length}}</span>-->
             </a>
           </li>
           <li class="nav-item me-sm-3 mb-3">
@@ -58,10 +59,11 @@
               role="tab"
               aria-controls="inprogress-order-tab"
               aria-selected="true"
-              style="color: black"
+              style="color: #03ac0e;font-weight: bold"
+              (click)="getCustomerOrders('Completed',fromCoDate.value,toCoDate.value)"
             >
               Completed
-              <span class="badge rounded-pill bg-success" style="font-weight: bold">{{completedOrders.length}}</span>
+              <!--<span class="badge rounded-pill bg-success" style="font-weight: bold">{{completedOrders.length}}</span>-->
             </a>
           </li>
           <li class="nav-item me-sm-3 mb-3">
@@ -72,10 +74,11 @@
               role="tab"
               aria-controls="complete-order-tab"
               aria-selected="true"
-              style="color: black"
+              style="color: #ff0d13;font-weight: bold"
+              (click)="getCustomerOrders('Canceled',fromCaDate.value,toCaDate.value)"
             >
               Canceled
-              <span class="badge rounded-pill bg-danger" style="font-weight: bold">{{canceledOrders.length}}</span>
+              <!--<span class="badge rounded-pill bg-danger" style="font-weight: bold">{{canceledOrders.length}}</span>-->
             </a>
           </li>
         </ul>
@@ -83,17 +86,121 @@
 
     </div>
   </div>
+
+  <!--<div class="row">-->
+  <!--<div class="col-12">-->
+
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="col-md-7 d-sm-flex align-items-center pt-4 pt-md-0">-->
+  <!--<span class="input-group-text">-->
+  <!--<i class="fi-calendar"></i>-->
+  <!--</span>-->
+  <!--<input class="form-control date-picker date-range" type="text" placeholder="From date"-->
+  <!--data-datepicker-options='{"altInput": true, "altFormat": "F j, Y", "dateFormat": "Y-m-d"}'-->
+  <!--data-linked-input="#end-date">-->
+  <!--<input class="form-control date-picker" type="text" placeholder="To date"-->
+  <!--data-datepicker-options='{"altInput": true, "altFormat": "F j, Y", "dateFormat": "Y-m-d"}' id="end-date">-->
+  <!--</div>-->
+  <!--<div class="col-sm-12 col-md-1">-->
+  <!--<button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
+  <!--<i class="fi-search"></i>-->
+  <!--</button>-->
+  <!--</div>-->
+
   <div class="tab-content">
 
     <div class="tab-pane fade show active" id="pending-order-tab" role="tabpanel">
+      <div style="display: flex;margin-bottom: 40px;justify-content: center">
+        <div style="margin-top: 25px;padding-right: 10px">
+          <span class="input-group-text">
+            <i class="fi-calendar"></i>
+          </span>
+        </div>
+        <div class="row" style="padding-left: 15px">
+          <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+            <!--<div style="margin-right: 10px">-->
+            <span style="margin-left: 10px">From Date</span>
+            <input class="form-control" type="date" [value]="getPreDate()" #fromPDate>
+            <!--</div>-->
+          </div>
+          <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+            <!--<div>-->
+            <span style="margin-left: 10px">To Date</span>
+            <input class="form-control" type="date" [value]="getCurDate()" #toPDate>
+            <!--</div>-->
+          </div>
+        </div>
+        <!--<button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
+        <div style="margin-top: 30px">
+          <i class="fi-search" style="padding: 0px 10px 0px 20px;font-weight: bold"
+             (click)="getCustomerOrders('Pending',fromPDate.value,toPDate.value)"></i>
+        </div>
+        <!--</button>-->
+      </div>
       <app-c-order-view [shopItemOrders]="pendingOrders" [orderIndex]="('p')"></app-c-order-view>
     </div>
 
     <div class="tab-pane fade show" id="complete-order-tab" role="tabpanel">
+      <div style="display: flex;margin-bottom: 40px;justify-content: center">
+        <div style="margin-top: 25px;padding-right: 10px">
+          <span class="input-group-text">
+            <i class="fi-calendar"></i>
+          </span>
+        </div>
+        <div class="row" style="padding-left: 15px">
+          <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+            <!--<div style="margin-right: 10px">-->
+            <span style="margin-left: 10px">From Date</span>
+            <input class="form-control" type="date" [value]="getPreDate()" #fromCoDate>
+            <!--</div>-->
+          </div>
+          <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+            <!--<div>-->
+            <span style="margin-left: 10px">To Date</span>
+            <input class="form-control" type="date" [value]="getCurDate()" #toCoDate>
+            <!--</div>-->
+          </div>
+        </div>
+        <!--<button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
+        <div style="margin-top: 30px">
+          <i class="fi-search" style="padding: 0px 10px 0px 20px;font-weight: bold"
+             (click)="getCustomerOrders('Completed',fromCoDate.value,toCoDate.value)"></i>
+        </div>
+        <!--</button>-->
+      </div>
       <app-c-order-view [shopItemOrders]="completedOrders" [orderIndex]="('co')"></app-c-order-view>
     </div>
 
     <div class="tab-pane fade show" id="cancel-order-tab" role="tabpanel">
+      <div style="display: flex;margin-bottom: 40px;justify-content: center">
+        <div style="margin-top: 25px;padding-right: 10px">
+          <span class="input-group-text">
+            <i class="fi-calendar"></i>
+          </span>
+        </div>
+        <div class="row" style="padding-left: 15px">
+          <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+            <!--<div style="margin-right: 10px">-->
+            <span style="margin-left: 10px">From Date</span>
+            <input class="form-control" type="date" [value]="getPreDate()" #fromCaDate>
+            <!--</div>-->
+          </div>
+          <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+            <!--<div>-->
+            <span style="margin-left: 10px">To Date</span>
+            <input class="form-control" type="date" [value]="getCurDate()" #toCaDate>
+            <!--</div>-->
+          </div>
+        </div>
+        <!--<button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
+        <div style="margin-top: 30px">
+          <i class="fi-search" style="padding: 0px 10px 0px 20px;font-weight: bold"
+             (click)="getCustomerOrders('Canceled',fromCaDate.value,toCaDate.value)"></i>
+        </div>
+        <!--</button>-->
+      </div>
       <app-c-order-view [shopItemOrders]="canceledOrders" [orderIndex]="('ca')"></app-c-order-view>
     </div>
 

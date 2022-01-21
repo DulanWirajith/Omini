@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ItemService} from "../../../_service/item.service";
 import {BusinessAccountService} from "../../../_service/business-account.service";
 import {LoginService} from "../../../../_service/login.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-ba-order',
   templateUrl: './ba-order.component.html',
-  styleUrls: ['./ba-order.component.css']
+  styleUrls: ['./ba-order.component.css'],
+  providers: [DatePipe]
 })
 export class BaOrderComponent implements OnInit {
 
@@ -14,40 +16,54 @@ export class BaOrderComponent implements OnInit {
   pendingItemOrders = [];
   inProgressItemOrders = [];
   completeItemOrders = [];
+  canceledItemOrders = [];
 
-  constructor(private itemService: ItemService, private businessAccountService: BusinessAccountService, private loginService: LoginService) {
+  constructor(private itemService: ItemService, private businessAccountService: BusinessAccountService, private loginService: LoginService, private datePipe: DatePipe) {
     // this.businessAccountService.navBarSub.subscribe((val) => {
     //   if (val === 'Order') {
     //     this.getItemOrders();
     //   }
     // })
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
-      this.getItemOrders(businessCategoryId);
+      this.getItemOrders(businessCategoryId, 'Pending', this.getPreDate(), this.getCurDate());
     })
   }
 
   ngOnInit(): void {
     if (this.businessAccountService.businessCategory !== undefined) {
-      this.getItemOrders(this.businessAccountService.businessCategory.businessCategoryId);
+      this.getItemOrders(this.businessAccountService.businessCategory.businessCategoryId, 'Pending', this.getPreDate(), this.getCurDate());
     }
   }
 
-  getItemOrders(businessCategoryId) {
+  updateItemOrders(status, from?, to?) {
+    this.getItemOrders(this.businessAccountService.businessCategory.businessCategoryId, status, from, to);
+  }
+
+  getItemOrders(businessCategoryId, status, from?, to?) {
     // this.itemOrders = this.businessAccountService.itemOrders;
     // this.itemService.getItemOrders('B321', businessCategoryId, 'Pending').subscribe((itemOrders) => {
     //   this.itemOrders = itemOrders;
     // })
-    this.itemService.getItemOrders(this.loginService.getUser().userId, businessCategoryId).subscribe((itemOrders) => {
+    this.itemService.getItemOrders(this.loginService.getUser().userId, businessCategoryId, status, from, to).subscribe((itemOrders) => {
       this.itemOrders = itemOrders;
-      this.pendingItemOrders = itemOrders.filter(orderObj => {
-        return orderObj.status === 'Pending';
-      });
-      this.inProgressItemOrders = itemOrders.filter(orderObj => {
-        return orderObj.status === 'In Progress';
-      });
-      this.completeItemOrders = itemOrders.filter(orderObj => {
-        return orderObj.status === 'Completed';
-      });
+      if (status === 'Pending' || status === 'In Progress') {
+        this.pendingItemOrders = itemOrders.filter(orderObj => {
+          return orderObj.status === 'Pending';
+        });
+        this.inProgressItemOrders = itemOrders.filter(orderObj => {
+          return orderObj.status === 'In Progress';
+        });
+      }
+      if (status === 'Completed') {
+        this.completeItemOrders = itemOrders.filter(orderObj => {
+          return orderObj.status === 'Completed';
+        });
+      }
+      if (status === 'Canceled') {
+        this.canceledItemOrders = itemOrders.filter(orderObj => {
+          return orderObj.status === 'Canceled';
+        });
+      }
       // this.router.navigate(['/shop/header/business_account/ba_order'])
     })
   }
@@ -65,5 +81,15 @@ export class BaOrderComponent implements OnInit {
       this.loginService.getUser().businessProfile.countPendingOrders = this.pendingItemOrders.length + this.inProgressItemOrders.length;
       localStorage.setItem('user', JSON.stringify(this.loginService.getUser()))
     })
+  }
+
+  getPreDate() {
+    let date = new Date();
+    date.setDate(date.getDate() - 7);
+    return this.datePipe.transform(date, 'yyyy-MM-dd')
+  }
+
+  getCurDate() {
+    return this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   }
 }

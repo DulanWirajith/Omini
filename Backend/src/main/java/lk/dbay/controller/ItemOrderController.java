@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @CrossOrigin
 @RestController
 @RequestMapping(value = CommonConstants.DOMAIN_DBAY + CommonConstants.ITEM_ORDER)
@@ -41,11 +43,6 @@ public class ItemOrderController {
     @GetMapping("/getIncOrder/{customerId}")
     public ResponseEntity getInCompletedOrder(@PathVariable String customerId) {
         return ResponseEntity.ok(itemOrderS.getInCompletedOrder(customerId));
-    }
-
-    @GetMapping("/getCustomerOrders/{customerId}")
-    public ResponseEntity getCustomerOrders(@PathVariable String customerId) {
-        return ResponseEntity.ok(itemOrderS.getCustomerOrders(customerId));
     }
 
     @PutMapping(value = "/updateOrderDetail/{updateType}")
@@ -81,9 +78,14 @@ public class ItemOrderController {
 //        return ResponseEntity.ok(itemOrderS.placeOrder(itemOrder));
     }
 
-    @GetMapping("/getItemOrders/{businessProfileId}/{businessCategoryId}")
-    public ResponseEntity getItemOrders(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
-        return ResponseEntity.ok(itemOrderS.getItemOrders(businessProfileId, businessCategoryId));
+    @GetMapping("/getItemOrders/{businessProfileId}/{businessCategoryId}/{status}/{from}/{to}")
+    public ResponseEntity getItemOrders(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable String status, @PathVariable String from, @PathVariable String to) {
+        return ResponseEntity.ok(itemOrderS.getItemOrders(businessProfileId, businessCategoryId, status, from, to));
+    }
+
+    @GetMapping("/getCustomerOrders/{customerId}/{status}/{from}/{to}")
+    public ResponseEntity getCustomerOrders(@PathVariable String customerId, @PathVariable String status, @PathVariable String from, @PathVariable String to) {
+        return ResponseEntity.ok(itemOrderS.getCustomerOrders(customerId, status, from, to));
     }
 
     @GetMapping("/changeOrderStatus/{orderId}/{businessProfileId}/{businessCategoryId}/{status}")

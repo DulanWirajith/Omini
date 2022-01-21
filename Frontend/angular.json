@@ -52,10 +52,7 @@
               "src/assets/js/jquery.min.js",
               "src/assets/js/bootstrap.bundle.min.js",
               "src/assets/js/select2.min.js",
-              "src/assets/js/simplebar.min.js",
-              "src/assets/js/smooth-scroll.polyfills.min.js",
               "src/assets/vendor/lightgallery.js/dist/js/lightgallery.min.js",
-              "src/assets/js/nouislider.min.js",
               "src/assets/vendor/lg-fullscreen.js/dist/lg-fullscreen.min.js",
               "src/assets/vendor/lg-zoom.js/dist/lg-zoom.min.js",
               "src/assets/vendor/lg-thumbnail.js/dist/lg-thumbnail.min.js",
@@ -71,8 +68,7 @@
               "src/assets/vendor/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.min.js",
               "src/assets/vendor/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.min.js",
               "src/assets/vendor/filepond/dist/filepond.min.js",
-              "src/assets/vendor/cleave.js/dist/cleave.min.js",
-              "src/assets/js/theme.min.js"
+              "src/assets/vendor/cleave.js/dist/cleave.min.js"
             ]
           },
           "configurations": {

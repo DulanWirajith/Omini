@@ -194,14 +194,31 @@ public class ItemOrderSImpl implements ItemOrderS {
     }
 
     @Override
-    public List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId) {
-        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetails(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
-        return setItemOrders(itemOrderDetailsItems, false);
+    public List<ItemOrderDTO> getItemOrders(String businessProfileId, String businessCategoryId, String status, String from, String to) {
+        if (status.equals("Completed") || status.equals("Canceled")) {
+            from += " 00:00:00";
+            to += " 00:00:00";
+            List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsByDate(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), status,
+                    LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                    LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            return setItemOrders(itemOrderDetailsItems, false);
+        } else {
+            List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsByOrderType(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), "Pending", "In Progress");
+            return setItemOrders(itemOrderDetailsItems, false);
+        }
     }
 
     @Override
-    public List<ItemOrderDTO> getCustomerOrders(String customerId) {
-        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getCustomerOrderDetails(customerId);
+    public List<ItemOrderDTO> getCustomerOrders(String customerId, String status, String from, String to) {
+        String aStatus = status;
+        if (status.equals("Pending")) {
+            aStatus = "In Progress";
+        }
+        from += " 00:00:00";
+        to += " 00:00:00";
+        List<OrderDetail> itemOrderDetailsItems = orderDetailR.getCustomerOrderDetails(customerId, status, aStatus,
+                LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         return setItemOrders(itemOrderDetailsItems, true);
     }
 

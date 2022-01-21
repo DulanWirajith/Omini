@@ -79,8 +79,8 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
   }
 
-  getItemOrders(businessProfileId, businessCategoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_order/getItemOrders/' + businessProfileId + '/' + businessCategoryId);
+  getItemOrders(businessProfileId, businessCategoryId, status, from, to): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_order/getItemOrders/' + businessProfileId + '/' + businessCategoryId + '/' + status + '/' + from + '/' + to);
   }
 
   changeOrderStatus(orderId, businessProfileId, businessCategoryId, status): Observable<any> {

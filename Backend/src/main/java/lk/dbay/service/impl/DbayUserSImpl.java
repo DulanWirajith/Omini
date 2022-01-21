@@ -148,7 +148,7 @@ public class DbayUserSImpl implements DbayUserS {
         if (userType.equals("Business")) {
             DbayUserDTO dbayUserDTO = new DbayUserDTO();
 //            Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(userId);
-            List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsOrderType(new BusinessProfileCategoryPK(userId, businessCategory), "Pending", "In Progress");
+            List<OrderDetail> itemOrderDetailsItems = orderDetailR.getItemOrderDetailsByOrderType(new BusinessProfileCategoryPK(userId, businessCategory), "Pending", "In Progress");
             Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
             for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {
                 itemOrderDTOS.add(new ItemOrderDTO(itemOrderDetail.getItemOrder()));

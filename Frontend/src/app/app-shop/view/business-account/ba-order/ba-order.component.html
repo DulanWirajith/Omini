@@ -6,7 +6,7 @@
     <div class="input-group">
       <input class="form-control" type="text" placeholder="Search....." id="order-search">
       <div class="input-group-text p-0">
-        <a class="d-block text-body px-3 py-2" href="#">
+        <a class="d-block text-body px-3 py-2">
           <i class="fi-search mt-n1"></i>
         </a>
       </div>
@@ -34,10 +34,9 @@
       role="tab"
       aria-controls="pending-order-tab"
       aria-selected="true"
-      style="color: black"
+      style="color: black;font-weight: bold"
     >
       Pending
-
       <span class="badge rounded-pill bg-warning" style="font-weight: bold">{{pendingItemOrders.length}}</span>
     </a>
   </li>
@@ -49,10 +48,9 @@
       role="tab"
       aria-controls="inprogress-order-tab"
       aria-selected="true"
-      style="color: black"
+      style="color: black;font-weight: bold"
     >
       In Progress
-
       <span class="badge rounded-pill bg-info" style="font-weight: bold">{{inProgressItemOrders.length}}</span>
     </a>
   </li>
@@ -64,10 +62,26 @@
       role="tab"
       aria-controls="complete-order-tab"
       aria-selected="true"
-      style="color: black"
+      style="color: #03ac0e;font-weight: bold"
+      (click)="updateItemOrders('Completed',preCoDate.value,curCoDate.value)"
     >
-      Complete
-      <span class="badge rounded-pill bg-success" style="font-weight: bold">{{completeItemOrders.length}}</span>
+      Completed
+      <!--<span class="badge rounded-pill bg-success" style="font-weight: bold">{{completeItemOrders.length}}</span>-->
+    </a>
+  </li>
+  <li class="nav-item me-sm-3 mb-3">
+    <a
+      class="nav-link text-center"
+      href="#cancel-order-tab"
+      data-bs-toggle="tab"
+      role="tab"
+      aria-controls="cancel-order-tab"
+      aria-selected="true"
+      style="color: #fd1407;font-weight: bold"
+      (click)="updateItemOrders('Canceled',preCaDate.value,curCaDate.value)"
+    >
+      Canceled
+      <!--<span class="badge rounded-pill bg-success" style="font-weight: bold">{{completeItemOrders.length}}</span>-->
     </a>
   </li>
 </ul>
@@ -82,7 +96,10 @@
     <div
       class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3">
       <h3 class="h4 mb-sm-0">
-        <i class="fi-archive mt-n1 me-2 lead align-middle text-warning"></i>Pending Orders</h3>
+        <i class="fi-archive mt-n1 me-2 lead align-middle text-warning"></i>Pending Orders
+        <i class="fas fa-redo" style="margin-left: 10px;color: #737373"
+           (click)="updateItemOrders('Pending')"></i></h3>
+
       <div class="d-flex align-items-center ms-sm-4">
         <label class="fs-sm me-2 pe-1 text-nowrap" for="review-sorting1"><i
           class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:</label>
@@ -201,12 +218,120 @@
       </div>
     </div>
 
+    <div style="display: flex;margin-bottom: 40px;justify-content: center">
+      <div style="margin-top: 25px;padding-right: 10px">
+          <span class="input-group-text">
+            <i class="fi-calendar"></i>
+          </span>
+      </div>
+      <div class="row" style="padding-left: 15px">
+        <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+          <!--<div style="margin-right: 10px">-->
+          <span style="margin-left: 10px">From Date</span>
+          <input class="form-control" type="date" [value]="getPreDate()" #preCoDate>
+          <!--</div>-->
+        </div>
+        <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+          <!--<div>-->
+          <span style="margin-left: 10px">To Date</span>
+          <input class="form-control" type="date" [value]="getCurDate()" #curCoDate>
+          <!--</div>-->
+        </div>
+      </div>
+      <!--<button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
+      <div style="margin-top: 30px">
+        <i class="fi-search" style="padding: 0px 10px 0px 20px;font-weight: bold"
+           (click)="updateItemOrders('Completed',preCoDate.value,curCoDate.value)"></i>
+      </div>
+      <!--</button>-->
+    </div>
+
     <div class="row g-4 py-1">
       <div class="col-md-12" *ngFor="let itemOrder of completeItemOrders;let j=index">
         <div class="card border-0 shadow-sm mb-2">
           <blockquote class="blockquote complete-card-micon card-body">
 
-            <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('c-'+j)"></app-ba-order-view>
+            <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('co-'+j)"></app-ba-order-view>
+
+            <footer class="d-flex justify-content-between">
+              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,completeItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
+                 data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
+                 aria-label="Cancel Order">
+                <i class="fi-x"></i>
+              </a>
+              <a (click)="changeOrderStatus(itemOrder,'Pending',j,completeItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhyellow btn-xs shadow-sm rounded-circle me-2 mb-2"
+                 data-bs-toggle="tooltip" title="Pending Order" data-bs-original-title="Pending Order"
+                 aria-label="Pending Order">
+                <i class="fi-chevrons-left"></i>
+              </a>
+              <a (click)="changeOrderStatus(itemOrder,'In Progress',j,completeItemOrders)"
+                 class="btn btn-icon btn-light-primary btnhblue btn-xs shadow-sm rounded-circle me-2 mb-2"
+                 data-bs-toggle="tooltip" title="Order In Progress" data-bs-original-title="Order In Progress"
+                 aria-label="Order In Progress">
+                <i class="fi-arrow-long-left"></i>
+              </a>
+
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="cancel-order-tab" role="tabpanel">
+    <div
+      class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3">
+      <h3 class="h4 mb-sm-0">
+        <i class="fi-archive mt-n1 me-2 lead align-middle text-warning"></i>Canceled Orders</h3>
+      <div class="d-flex align-items-center ms-sm-4">
+        <label class="fs-sm me-2 pe-1 text-nowrap" for="review-sorting1"><i
+          class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:</label>
+        <select class="form-select form-select-sm" id="review-sorting1">
+          <option>Newest</option>
+          <option>Oldest</option>
+          <option>Popular</option>
+          <option>High rating</option>
+          <option>Low rating</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="display: flex;margin-bottom: 40px;justify-content: center">
+      <div style="margin-top: 25px;padding-right: 10px">
+          <span class="input-group-text">
+            <i class="fi-calendar"></i>
+          </span>
+      </div>
+      <div class="row" style="padding-left: 15px">
+        <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+          <!--<div style="margin-right: 10px">-->
+          <span style="margin-left: 10px">From Date</span>
+          <input class="form-control" type="date" [value]="getPreDate()" #preCaDate>
+          <!--</div>-->
+        </div>
+        <div class="col-sm-12 col-md-6" style="padding-left: 0px">
+          <!--<div>-->
+          <span style="margin-left: 10px">To Date</span>
+          <input class="form-control" type="date" [value]="getCurDate()" #curCaDate>
+          <!--</div>-->
+        </div>
+      </div>
+      <!--<button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
+      <div style="margin-top: 30px">
+        <i class="fi-search" style="padding: 0px 10px 0px 20px;font-weight: bold"
+           (click)="updateItemOrders('Canceled',preCaDate.value,curCaDate.value)"></i>
+      </div>
+      <!--</button>-->
+    </div>
+
+    <div class="row g-4 py-1">
+      <div class="col-md-12" *ngFor="let itemOrder of canceledItemOrders;let j=index">
+        <div class="card border-0 shadow-sm mb-2" id="canceledOrders">
+          <blockquote class="blockquote complete-card-micon card-body">
+
+            <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('ca-'+j)"></app-ba-order-view>
 
             <footer class="d-flex justify-content-between">
               <a (click)="changeOrderStatus(itemOrder,'Canceled',j,completeItemOrders)"
