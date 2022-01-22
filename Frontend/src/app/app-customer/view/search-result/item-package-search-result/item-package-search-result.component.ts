@@ -26,7 +26,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
         return itemObj.itemId === item.itemId
       })
       if (itemObj !== undefined) {
-        console.log(itemObj)
+        // console.log(itemObj)
         itemObj.quantity = item.quantity;
         itemObj.orderDetail.quantity = item.orderDetail.quantity;
       }
