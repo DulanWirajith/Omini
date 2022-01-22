@@ -24,6 +24,7 @@ export class BaOrderComponent implements OnInit {
     //     this.getItemOrders();
     //   }
     // })
+    this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
       this.getItemOrders(businessCategoryId, 'Pending', this.getPreDate(), this.getCurDate());
     })

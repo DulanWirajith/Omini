@@ -39,7 +39,8 @@ export class BaManagePackageEditComponent implements OnInit {
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     // this.itemPackage = this.itemService.getNewPackage();
-    businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
+    this.businessAccountService.businessCategoriesSub.observers = [];
+    this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
   }

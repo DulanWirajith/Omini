@@ -28,6 +28,7 @@ export class BusinessAccountComponent implements OnInit {
     //   }
     //   // this.breadCrumbTxt = txt;
     // })
+    this.businessAccountService.navBarSub.observers = [];
     this.businessAccountService.navBarSub.subscribe((val) => {
       //console.log(val)
       if (val.name === 'Business') {
@@ -64,7 +65,7 @@ export class BusinessAccountComponent implements OnInit {
   }
 
   updateNavBar() {
-    this.businessAccountService.getNavBar(this.loginService.getUser().userId,this.businessCategory.businessCategoryId).subscribe((user) => {
+    this.businessAccountService.getNavBar(this.loginService.getUser().userId, this.businessCategory.businessCategoryId).subscribe((user) => {
       // console.log(user.businessProfile.countPendingOrders)
       this.loginService.getUser().businessProfile.countPendingOrders = user.businessProfile.countPendingOrders;
       localStorage.setItem('user', JSON.stringify(this.loginService.getUser()));

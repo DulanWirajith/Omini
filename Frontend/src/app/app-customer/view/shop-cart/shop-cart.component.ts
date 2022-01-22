@@ -91,73 +91,148 @@ export class ShopCartComponent implements OnInit {
   }
 
   addOrder(item) {
-    // console.log(item)
+    console.log(item.quantity + ' ' + item.orderDetail.quantity)
     if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
-      if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
-        let orderDetail = item.orderDetail;
-        orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
-        orderDetail.price = item.discountedPrice;
-        orderDetail.itemOrder.orderDetails = [];
-        if (orderDetail.orderDetailType === 'Item') {
-          orderDetail.item = JSON.parse(JSON.stringify(item));
-        } else if (orderDetail.orderDetailType === 'ItemPackage') {
-          orderDetail.itemPackage = JSON.parse(JSON.stringify(item));
-        }
-        orderDetail.businessProfileCategory = item.businessProfileCategory;
-        //   businessProfile:{
-        //     businessProId:'B321',
-        //     businessCategory:{
-        //       businessCategoryId:this.bu
-        //     }
-        //   }
-        // }
-        this.shopCartService.addOrderDetail(orderDetail).subscribe((orderDetailR) => {
-          //console.log(orderDetail.orderDetailId)
-          orderDetail.orderDetailId = orderDetailR.orderDetailId;
-          this.itemOrder.orderId = orderDetailR.itemOrder.orderId;
-          if (orderDetail.quantity === 0) {
+      if (item.orderDetail.quantity === 0) {
+        if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
+          let orderDetail = item.orderDetail;
+          orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
+          orderDetail.price = item.discountedPrice;
+          orderDetail.itemOrder.orderDetails = [];
+          if (orderDetail.orderDetailType === 'Item') {
+            orderDetail.item = JSON.parse(JSON.stringify(item));
+          } else if (orderDetail.orderDetailType === 'ItemPackage') {
+            orderDetail.itemPackage = JSON.parse(JSON.stringify(item));
+          }
+          orderDetail.businessProfileCategory = item.businessProfileCategory;
+          //   businessProfile:{
+          //     businessProId:'B321',
+          //     businessCategory:{
+          //       businessCategoryId:this.bu
+          //     }
+          //   }
+          // }
+          this.shopCartService.addOrderDetail(orderDetail).subscribe((orderDetailR) => {
+            //console.log(orderDetail.orderDetailId)
+            orderDetail.orderDetailId = orderDetailR.orderDetailId;
+            this.itemOrder.orderId = orderDetailR.itemOrder.orderId;
+            // if (orderDetail.quantity === 0) {
             // if (item.quantity === -1) {
             //   orderDetail.quantity = -1;
             // } else {
             orderDetail.quantity = orderDetailR.quantity;
             this.addToCart(item);
-          } else {
+            // } else {
             // console.log(55)
             //console.log(this.shopCart)
-            let indexShop: any = this.shopCart.findIndex(shopCart => {
-              return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
-            })
-            let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
-              return itemObj.itemId === item.itemId
-            })
-            let price = item.discountedPrice;
-            this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
-            // this.shopCart[indexShop].items[indexItem].price += price;
-            this.totalItemCount++;
-            this.shopCart[indexShop].totalPrice += price;
-            this.shopCart[indexShop].itemCount++;
-            // item.price += price;
-            // shop.totalPrice += item.price;
-            this.totalPrice += price;
+            // let indexShop: any = this.shopCart.findIndex(shopCart => {
+            //   return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
+            // })
+            // let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
+            //   return itemObj.itemId === item.itemId
+            // })
+            // let price = item.discountedPrice;
+            // this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
+            // // this.shopCart[indexShop].items[indexItem].price += price;
+            // this.totalItemCount++;
+            // this.shopCart[indexShop].totalPrice += price;
+            // this.shopCart[indexShop].itemCount++;
+            // // item.price += price;
+            // // shop.totalPrice += item.price;
+            // this.totalPrice += price;
             // shop.itemCount++;
-          }
-          // }
-          let indexOrderDetail: any = this.itemOrder.orderDetails.findIndex(orderDetailObj => {
-            return orderDetailObj.orderDetailId === orderDetailR.orderDetailId
+            // }
+            // }
+            let indexOrderDetail: any = this.itemOrder.orderDetails.findIndex(orderDetailObj => {
+              return orderDetailObj.orderDetailId === orderDetailR.orderDetailId
+            })
+            orderDetail.quantity = orderDetailR.quantity;
+            if (indexOrderDetail === -1) {
+              this.itemOrder.orderDetails.push(orderDetail);
+            } else {
+              this.itemOrder.orderDetails[indexOrderDetail] = orderDetail;
+            }
+            // console.log(this.itemOrder)
           })
-          orderDetail.quantity = orderDetailR.quantity;
-          if (indexOrderDetail === -1) {
-            this.itemOrder.orderDetails.push(orderDetail);
-          } else {
-            this.itemOrder.orderDetails[indexOrderDetail] = orderDetail;
-          }
-          // console.log(this.itemOrder)
+        }
+      } else if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
+        let indexShop: any = this.shopCart.findIndex(shopCart => {
+          return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
+        })
+        let orderDetail = item.orderDetail;
+        if (orderDetail.orderDetailType === 'Item') {
+          orderDetail.item = JSON.parse(JSON.stringify(item));
+        } else if (orderDetail.orderDetailType === 'ItemPackage') {
+          orderDetail.itemPackage = JSON.parse(JSON.stringify(item));
+        }
+        orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
+        orderDetail.itemOrder.orderDetails = [];
+        orderDetail.businessProfileCategory = item.businessProfileCategory;
+        this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
+          // console.log(orderDetailR)
+          this.totalItemCount++;
+          let price = item.discountedPrice;
+          // this.shopCart[indexShop].totalPrice += price;
+          // this.totalPrice += price;
+          // this.shopCart[indexShop].itemCount++;
+          orderDetail.quantity++;
+          this.shopCartService.shopCartItemsSub.next(item);
+
+
+          let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
+            return itemObj.itemId === item.itemId
+          })
+          this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
+          // this.shopCart[indexShop].items[indexItem].price += price;
+          this.totalItemCount++;
+          this.shopCart[indexShop].totalPrice += price;
+          this.shopCart[indexShop].itemCount++;
+          // item.price += price;
+          // shop.totalPrice += item.price;
+          this.totalPrice += price;
         })
       }
-    } else {
-
     }
     // console.log(item)
+  }
+
+  itemCountInc(shop, item) {
+    console.log(item)
+    if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
+      let orderDetail = item.orderDetail;
+      orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
+      orderDetail.itemOrder.orderDetails = [];
+      orderDetail.businessProfileCategory = item.businessProfileCategory;
+      this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
+        // console.log(orderDetailR)
+        this.totalItemCount++;
+        let price = item.discountedPrice;
+        shop.totalPrice += price;
+        this.totalPrice += price;
+        shop.itemCount++;
+        orderDetail.quantity++;
+        this.shopCartService.shopCartItemsSub.next(item);
+      })
+    }
+  }
+
+  itemCountDec(shop, item) {
+    if (item.orderDetail.quantity > 1) {
+      let orderDetail = item.orderDetail;
+      orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
+      orderDetail.itemOrder.orderDetails = [];
+      orderDetail.businessProfileCategory = item.businessProfileCategory;
+      this.shopCartService.updateOrderDetail('dec', orderDetail).subscribe((orderDetailR) => {
+        // console.log(orderDetailR)
+        this.totalItemCount--;
+        let price = item.discountedPrice;
+        shop.totalPrice -= price;
+        this.totalPrice -= price;
+        shop.itemCount--;
+        orderDetail.quantity--;
+        this.shopCartService.shopCartItemsSub.next(item);
+      })
+    }
   }
 
   placeOrder() {
@@ -184,44 +259,6 @@ export class ShopCartComponent implements OnInit {
     });
   }
 
-  itemCountInc(shop, item) {
-    if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
-      let orderDetail = item.orderDetail;
-      orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
-      orderDetail.itemOrder.orderDetails = [];
-      orderDetail.businessProfileCategory = item.businessProfileCategory;
-      this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
-        // console.log(orderDetailR)
-        this.totalItemCount++;
-        let price = item.discountedPrice;
-        shop.totalPrice += price;
-        this.totalPrice += price;
-        shop.itemCount++;
-        orderDetail.quantity++;
-        this.shopCartService.shopCartItemsSub.next(item);
-      })
-    }
-  }
-
-  itemCountDec(shop, item) {
-    if (item.orderDetail.quantity > 1) {
-      let orderDetail = item.orderDetail;
-      orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
-      orderDetail.itemOrder.orderDetails = [];
-      orderDetail.businessProfileCategory = item.businessProfileCategory;
-      this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
-        // console.log(orderDetailR)
-        this.totalItemCount--;
-        let price = item.discountedPrice;
-        shop.totalPrice -= price;
-        this.totalPrice -= price;
-        shop.itemCount--;
-        orderDetail.quantity--;
-        this.shopCartService.shopCartItemsSub.next(item);
-      })
-    }
-  }
-
   removeItem(shopIndex, shopItem, itemIndex?) {
     if (shopItem === 'shop') {
       for (let item of this.shopCart[shopIndex].items) {
@@ -241,14 +278,16 @@ export class ShopCartComponent implements OnInit {
   getItemSelected(item) {
     this.itemServiceG.itemSub.next({
       item: item,
-      backBtn: 'cart-viewer'
+      backBtn: 'cart-viewer',
+      cart: true
     });
   }
 
   getItemPackageSelected(item) {
     this.itemServiceG.itemPackageSub.next({
       itemPackage: item,
-      backBtn: 'cart-viewer'
+      backBtn: 'cart-viewer',
+      cart: true
     });
   }
 

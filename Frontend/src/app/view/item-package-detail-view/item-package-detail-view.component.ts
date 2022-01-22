@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {ItemGService} from "../../_service/item-g.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {Lightbox} from "ngx-lightbox";
+import {ShopCartService} from "../../app-customer/_service/shop-cart.service";
 
 @Component({
   selector: 'app-item-package-detail-view',
@@ -13,14 +14,16 @@ export class ItemPackageDetailViewComponent implements OnInit {
 
   itemPackageObj = {
     itemPackage: undefined,
-    backBtn: undefined
+    backBtn: undefined,
+    cart: undefined
   };
   itemPackage;
   _album: [];
 
-  constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox) {
+  constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
     this.itemPackage = this.getNewPackage();
-    itemService.itemPackageSub.subscribe((itemPackageObj) => {
+    this.itemService.itemPackageSub.observers = [];
+    this.itemService.itemPackageSub.subscribe((itemPackageObj) => {
       // console.log(itemPackageObj)
       this.itemPackageObj = itemPackageObj;
       this.getItemPackageSelected(itemPackageObj.itemPackage);
@@ -30,35 +33,19 @@ export class ItemPackageDetailViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addToCart() {
+    this.itemPackage.orderDetail.orderDetailType = 'ItemPackage';
+    this.shopCartService.shopCartSub.next(this.itemPackage);
+  }
+
   getItemPackageSelected(itemPackage) {
-    // console.log(item.itemId)
-    // console.log(this.items[index])
-    // if (this.items[index].itemItemFeatures === undefined) {
-    this.itemService.getItemPackageSelected(itemPackage.itemPackageId).subscribe((itemPackage) => {
-      // console.log(itemPackage)
-      // Object.assign(this.items[index], item)
-      // itemPackage.itemImgsRaw = [];
-      // item.itemItemFeatures = [];
-      // item.businessProfileCategory = {
-      //   businessProfile: undefined,
-      //   businessCategory: undefined
-      // }
-      // if (item.itemDiscountType === "None") {
-      //   item.itemDiscountView = "N/A";
-      // } else if (item.itemDiscountType === "Cash") {
-      //   item.itemDiscountView = "LKR " + item.itemDiscount;
-      // } else if (item.itemDiscountType === "Percentage") {
-      //   item.itemDiscountView = item.itemDiscount + "%";
-      // }
-      this.itemPackage = itemPackage;
+    this.itemService.getItemPackageSelected(itemPackage.itemPackageId).subscribe((itemPackageObj) => {
+      this.itemPackage = itemPackageObj;
+      if (itemPackage.orderDetail !== undefined) {
+        this.itemPackage.orderDetail.quantity = itemPackage.orderDetail.quantity
+      }
       this.getAlbum(this.itemPackage);
-      // this.itemService.itemFeaturesSub.next(item.itemFeatures);
-      // this.itemService.itemSub.next(this.items[index]);
-      //console.log(this.items[index])
     })
-    // } else {
-    //   this.itemService.itemSub.next(this.items[index]);
-    // }
   }
 
   getItemSelected(item) {

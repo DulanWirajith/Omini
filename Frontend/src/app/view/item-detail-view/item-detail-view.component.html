@@ -117,13 +117,13 @@
   </div>
   <div class="offcanvas-footer border-top" style="display: block;">
     <ul class="nav nav-tabs justify-content-end" role="tablist">
-      <li class="nav-item me-2" *ngIf="itemObj.orderDetail!==undefined" style="display: flex">
+      <li class="nav-item me-2" *ngIf="itemObj.cart!==undefined" style="display: flex">
         <button class="btn btn-icon btn-success btn-lg text-light shadow-sm rounded-circle" type="button"
-                data-bs-toggle="tooltip" title="Add to Cart" (click)="addToCart(item)">
+                data-bs-toggle="tooltip" title="Add to Cart" (click)="addToCart()">
           <i class="fi-cart" style="padding-top: 2px"></i></button>
-        <div *ngIf="itemObj.orderDetail!==undefined && itemObj.orderDetail.quantity>0"
+        <div *ngIf="itemObj.item.orderDetail.quantity>0"
              style="padding: 2px 5px 2px 5px;color: #1b945b;margin-top: 8px;margin-left: 8px;font-weight: bold">
-          {{itemObj.orderDetail.quantity}}
+          {{itemObj.item.orderDetail.quantity}}
         </div>
       </li>
       <li class="nav-item me-2" *ngIf="itemObj.backBtn!==undefined">

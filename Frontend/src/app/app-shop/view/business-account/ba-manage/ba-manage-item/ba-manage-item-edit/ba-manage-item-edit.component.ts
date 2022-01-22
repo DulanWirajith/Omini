@@ -32,19 +32,23 @@ export class BaManageItemEditComponent implements OnInit {
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   _album: [];
+
   // lightbox;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private loginService: LoginService) {
     this.item = this.itemService.getNewItem();
     // this.lightbox = _lightbox;
-    businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
+    this.businessAccountService.businessCategoriesSub.observers = [];
+    this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
-    itemService.itemSub.subscribe((item) => {
+    this.itemService.itemSub.observers = [];
+    this.itemService.itemSub.subscribe((item) => {
       this.item = item;
       this.getAlbum(this.item);
     })
-    itemService.itemFeaturesSub.subscribe((itemFeatures) => {
+    this.itemService.itemFeaturesSub.observers = [];
+    this.itemService.itemFeaturesSub.subscribe((itemFeatures) => {
       this.itemFeatures = itemFeatures;
     })
   }

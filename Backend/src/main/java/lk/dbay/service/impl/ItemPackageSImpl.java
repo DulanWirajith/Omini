@@ -2,6 +2,7 @@ package lk.dbay.service.impl;
 
 import lk.dbay.dto.ItemCategoryDTO;
 import lk.dbay.dto.ItemPackageDTO;
+import lk.dbay.dto.OrderDetailDTO;
 import lk.dbay.entity.*;
 import lk.dbay.repository.*;
 import lk.dbay.service.ItemPackageS;
@@ -208,6 +209,7 @@ public class ItemPackageSImpl implements ItemPackageS {
             itemPackageDTO.setItemItemPackages(itemPackage, true);
             itemPackageDTO.setItemPackageItemPackageFeatures(itemPackage);
             itemPackageDTO.setItemPackageImgs(itemPackage);
+            itemPackageDTO.setOrderDetail(new OrderDetailDTO());
             return itemPackageDTO;
         }
         return null;

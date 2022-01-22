@@ -106,12 +106,12 @@ public class ItemOrderSImpl implements ItemOrderS {
                 OrderDetailDTO orderDetailDTO = new OrderDetailDTO(orderDetail);
                 if (orderDetail.getOrderDetailType().equals("Item")) {
                     ItemDTO itemDTO = new ItemDTO(orderDetail.getItem(), false);
-                    BusinessProfileCategoryDTO businessProfileCategoryDTO = new BusinessProfileCategoryDTO(orderDetail.getItem().getBusinessProfileCategory().getBusinessProfile(), null);
+                    BusinessProfileCategoryDTO businessProfileCategoryDTO = new BusinessProfileCategoryDTO(orderDetail.getItem().getBusinessProfileCategory().getBusinessProfile(), orderDetail.getItem().getBusinessProfileCategory().getBusinessCategory());
                     itemDTO.setBusinessProfileCategory(businessProfileCategoryDTO);
                     orderDetailDTO.setItem(itemDTO);
                 } else if (orderDetail.getOrderDetailType().equals("ItemPackage")) {
                     ItemPackageDTO itemPackageDTO = new ItemPackageDTO(orderDetail.getItemPackage());
-                    BusinessProfileCategoryDTO businessProfileCategoryDTO = new BusinessProfileCategoryDTO(orderDetail.getItemPackage().getBusinessProfileCategory().getBusinessProfile(), null);
+                    BusinessProfileCategoryDTO businessProfileCategoryDTO = new BusinessProfileCategoryDTO(orderDetail.getItemPackage().getBusinessProfileCategory().getBusinessProfile(), orderDetail.getItemPackage().getBusinessProfileCategory().getBusinessCategory());
                     itemPackageDTO.setBusinessProfileCategory(businessProfileCategoryDTO);
                     orderDetailDTO.setItemPackage(itemPackageDTO);
                 }

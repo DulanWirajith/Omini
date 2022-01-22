@@ -51,10 +51,12 @@ export class BaManagePackageComponent implements OnInit {
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.itemPackage = this.itemService.getNewPackage();
-    businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
+    this.businessAccountService.businessCategoriesSub.observers = [];
+    this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
       // console.log(this.businessCategories)
     })
+    this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
       this.getItemPackagesOrdered(businessCategoryId);
     })
@@ -200,13 +202,13 @@ export class BaManagePackageComponent implements OnInit {
 
   getItems() {
     // if (val === 'item') {
-      // if (this.itemPackage.businessProfileCategory.businessCategory !== undefined) {
-      this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
-        // console.log(items)
-        this.itemsToAdd = items;
-        this.itemPackage.itemItemPackages = [];
-      })
-      // }
+    // if (this.itemPackage.businessProfileCategory.businessCategory !== undefined) {
+    this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+      // console.log(items)
+      this.itemsToAdd = items;
+      this.itemPackage.itemItemPackages = [];
+    })
+    // }
     // }
   }
 

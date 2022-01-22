@@ -40,9 +40,11 @@ export class BaManageItemComponent implements OnInit {
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.item = this.itemService.getNewItem();
-    businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
+    this.businessAccountService.businessCategoriesSub.observers = [];
+    this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     });
+    this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
       this.getItemsOrdered(businessCategoryId);
     })

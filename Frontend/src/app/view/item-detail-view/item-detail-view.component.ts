@@ -15,19 +15,18 @@ export class ItemDetailViewComponent implements OnInit {
   itemObj = {
     item: undefined,
     backBtn: undefined,
-    cart: undefined,
-    orderDetail:undefined
+    cart: undefined
   };
   item;
   _album: [];
 
   constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
     this.item = this.getNewItem();
-    itemService.itemSub.observers = [];
-    itemService.itemSub.subscribe((itemObj) => {
+    this.itemService.itemSub.observers = [];
+    this.itemService.itemSub.subscribe((itemObj) => {
       this.itemObj = itemObj;
       this.getItemSelected(itemObj.item);
-      console.log(itemObj.item)
+      console.log(itemObj)
     })
   }
 
@@ -35,39 +34,18 @@ export class ItemDetailViewComponent implements OnInit {
   }
 
   getItemSelected(item) {
-    // console.log(item.itemId)
-    // console.log(this.items[index])
-    // if (this.items[index].itemItemFeatures === undefined) {
-    this.itemService.getItemSelected(item.itemId).subscribe((item) => {
-      // Object.assign(this.items[index], item)
-      // item.itemImgsRaw = [];
-      // item.itemItemFeatures = [];
-      // item.businessProfileCategory = {
-      //   businessProfile: undefined,
-      //   businessCategory: undefined
-      // }
-      // if (item.itemDiscountType === "None") {
-      //   item.itemDiscountView = "N/A";
-      // } else if (item.itemDiscountType === "Cash") {
-      //   item.itemDiscountView = "LKR " + item.itemDiscount;
-      // } else if (item.itemDiscountType === "Percentage") {
-      //   item.itemDiscountView = item.itemDiscount + "%";
-      // }
-      this.item = item;
+    this.itemService.getItemSelected(item.itemId).subscribe((itemObj) => {
+      this.item = itemObj;
+      if (item.orderDetail !== undefined) {
+        this.item.orderDetail.quantity = item.orderDetail.quantity
+      }
       this.getAlbum(this.item);
-      // this.itemService.itemFeaturesSub.next(item.itemFeatures);
-      // this.itemService.itemSub.next(this.items[index]);
-      //console.log(this.items[index])
     })
-    // } else {
-    //   this.itemService.itemSub.next(this.items[index]);
-    // }
   }
 
-  addToCart(item) {
-    console.log(item)
-    // item.orderDetail.orderDetailType = 'Item';
-    // this.shopCartService.shopCartSub.next(item);
+  addToCart() {
+    this.item.orderDetail.orderDetailType = 'Item';
+    this.shopCartService.shopCartSub.next(this.item);
   }
 
   open(index: number): void {

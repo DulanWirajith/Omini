@@ -37,7 +37,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
         itemPackageObj.orderDetail.quantity = item.orderDetail.quantity;
       }
     })
-    // this.shopCartService.initShopCartSub.observers = [];
+    this.shopCartService.initShopCartSub.observers = [];
     this.shopCartService.initShopCartSub.subscribe((orderDetails) => {
       this.orderDetails = orderDetails;
     })
