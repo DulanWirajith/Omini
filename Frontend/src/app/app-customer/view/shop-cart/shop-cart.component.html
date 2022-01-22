@@ -44,7 +44,7 @@
     </div>
   </div>
   <div style="display: grid;align-content: center;justify-content: center"
-  *ngIf="getUser()===null && (getUser()!==null && getUser().role !== 'C')">
+  *ngIf="getUser()===null || (getUser()!==null && getUser().role !== 'C')">
     <span style="font-weight: bold;margin-bottom: 20px;margin-top: 20px">Please sign in to view cart</span>
     <a
       class="btn btn-primary btn-sm ms-2 order-lg-3"
