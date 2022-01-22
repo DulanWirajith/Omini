@@ -30,35 +30,41 @@ export class ShopCartComponent implements OnInit {
 
   initShopCart() {
     if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
+      if (localStorage.getItem('cart') !== null) {
+        this.initCart(JSON.parse(localStorage.getItem('cart')));
+      }
       this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
-        // console.log(itemOrder)
-        if (itemOrder !== null && itemOrder.orderId !== undefined) {
-          this.itemOrder = itemOrder;
-          if (itemOrder.orderDetails !== undefined) {
-            this.shopCartService.orderDetails = itemOrder.orderDetails;
-            for (let orderDetail of itemOrder.orderDetails) {
-              if (orderDetail.orderDetailType === 'Item') {
-                orderDetail.item.orderDetail = JSON.parse(JSON.stringify(orderDetail));
-                orderDetail.item.orderDetail.item = {
-                  itemId: orderDetail.item.itemId,
-                };
-                this.addToCart(orderDetail.item);
-              } else if (orderDetail.orderDetailType === 'ItemPackage') {
-                orderDetail.itemPackage.orderDetail = JSON.parse(JSON.stringify(orderDetail));
-                orderDetail.itemPackage.orderDetail.itemPackage = {
-                  itemPackageId: orderDetail.itemPackage.itemPackageId,
-                };
-                this.addToCart(orderDetail.itemPackage);
-              }
-            }
-            this.shopCartService.initShopCartSub.next(itemOrder.orderDetails);
-          }
-        } else {
-          this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;
-        }
+        this.initCart(itemOrder);
+        localStorage.setItem('cart', JSON.stringify(this.shopCart));
       })
-    } else {
+    }
+  }
 
+  initCart(itemOrder) {
+    // console.log(itemOrder)
+    if (itemOrder !== null && itemOrder.orderId !== undefined) {
+      this.itemOrder = itemOrder;
+      if (itemOrder.orderDetails !== undefined) {
+        this.shopCartService.orderDetails = itemOrder.orderDetails;
+        for (let orderDetail of itemOrder.orderDetails) {
+          if (orderDetail.orderDetailType === 'Item') {
+            orderDetail.item.orderDetail = JSON.parse(JSON.stringify(orderDetail));
+            orderDetail.item.orderDetail.item = {
+              itemId: orderDetail.item.itemId,
+            };
+            this.addToCart(orderDetail.item);
+          } else if (orderDetail.orderDetailType === 'ItemPackage') {
+            orderDetail.itemPackage.orderDetail = JSON.parse(JSON.stringify(orderDetail));
+            orderDetail.itemPackage.orderDetail.itemPackage = {
+              itemPackageId: orderDetail.itemPackage.itemPackageId,
+            };
+            this.addToCart(orderDetail.itemPackage);
+          }
+        }
+        this.shopCartService.initShopCartSub.next(itemOrder.orderDetails);
+      }
+    } else {
+      this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;
     }
   }
 
@@ -72,6 +78,7 @@ export class ShopCartComponent implements OnInit {
     if (indexShop === -1) {
       this.shopCart.push({
         shop: item.businessProfileCategory.businessProfile,
+        shopProfile: item,
         itemCount: item.orderDetail.quantity,
         totalPrice: (item.discountedPrice * item.orderDetail.quantity),
         items: [item]
@@ -91,7 +98,7 @@ export class ShopCartComponent implements OnInit {
   }
 
   addOrder(item) {
-    // console.log(item.quantity + ' ' + item.orderDetail.quantity)
+    // console.log(item)
     if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
       if (item.orderDetail.quantity === 0) {
         if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
@@ -156,6 +163,7 @@ export class ShopCartComponent implements OnInit {
           })
         }
       } else if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
+        console.log(item)
         let indexShop: any = this.shopCart.findIndex(shopCart => {
           return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
         })
@@ -179,12 +187,12 @@ export class ShopCartComponent implements OnInit {
           this.shopCartService.shopCartItemsSub.next(item);
 
 
-          let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
-            return itemObj.itemId === item.itemId
-          })
-          this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
+          // let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
+          //   return itemObj.itemId === item.itemId
+          // })
+          // this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
           // this.shopCart[indexShop].items[indexItem].price += price;
-          this.totalItemCount++;
+          // this.totalItemCount++;
           this.shopCart[indexShop].totalPrice += price;
           this.shopCart[indexShop].itemCount++;
           // item.price += price;
@@ -192,6 +200,7 @@ export class ShopCartComponent implements OnInit {
           this.totalPrice += price;
         })
       }
+      localStorage.setItem('cart', JSON.stringify(this.shopCart));
     }
     // console.log(item)
   }
@@ -212,6 +221,7 @@ export class ShopCartComponent implements OnInit {
         shop.itemCount++;
         orderDetail.quantity++;
         this.shopCartService.shopCartItemsSub.next(item);
+        localStorage.setItem('cart', JSON.stringify(this.shopCart));
       })
     }
   }
@@ -231,6 +241,7 @@ export class ShopCartComponent implements OnInit {
         shop.itemCount--;
         orderDetail.quantity--;
         this.shopCartService.shopCartItemsSub.next(item);
+        localStorage.setItem('cart', JSON.stringify(this.shopCart));
       })
     }
   }
@@ -293,6 +304,69 @@ export class ShopCartComponent implements OnInit {
 
   getUser() {
     return this.loginService.getUser();
+  }
+
+  removeCartItem(orderDetailId, indexShop, indexItem) {
+    // console.log(this.shopCart[indexShop].items[indexItem])
+    this.shopCartService.removeCartItem(orderDetailId).subscribe((reply) => {
+      let item = this.shopCart[indexShop].items[indexItem];
+      this.totalItemCount -= item.orderDetail.quantity;
+      this.totalPrice -= item.orderDetail.price * item.orderDetail.quantity;
+      this.shopCart[indexShop].itemCount -= item.orderDetail.quantity;
+      this.shopCart[indexShop].totalPrice -= item.orderDetail.price * item.orderDetail.quantity;
+      item.orderDetail.quantity = 0;
+      this.shopCartService.shopCartItemsSub.next(item);
+      if (this.shopCart[indexShop].items.length === 1) {
+        if (this.shopCart.length === 1) {
+          this.removeCart();
+        } else {
+          this.shopCart.splice(indexShop, 1);
+          localStorage.setItem('cart', JSON.stringify(this.shopCart));
+        }
+      } else {
+        this.shopCart[indexShop].items.splice(indexItem, 1);
+        localStorage.setItem('cart', JSON.stringify(this.shopCart));
+      }
+    })
+  }
+
+  removeCartShop(shop, indexShop) {
+    // console.log(shop)
+    let businessProfileCategory = shop.shopProfile.businessProfileCategory;
+    this.shopCartService.removeCartShop(this.itemOrder.orderId, businessProfileCategory.businessProfile.businessProId, businessProfileCategory.businessCategory.businessCategoryId).subscribe((reply) => {
+      // console.log(3)
+      for (let item of this.shopCart[indexShop].items) {
+        item.orderDetail.quantity = 0;
+        this.shopCartService.shopCartItemsSub.next(item);
+      }
+      this.totalItemCount -= this.shopCart[indexShop].itemCount
+      this.totalPrice -= this.shopCart[indexShop].totalPrice
+      if (this.shopCart.length === 1) {
+        this.removeCart()
+      } else {
+        this.shopCart.splice(indexShop, 1);
+        localStorage.setItem('cart', JSON.stringify(this.shopCart));
+      }
+    })
+  }
+
+  removeCart() {
+    if (this.itemOrder.orderId !== '') {
+      this.shopCartService.removeCart(this.itemOrder.orderId).subscribe((reply) => {
+        for (let shop of this.shopCart) {
+          for (let item of shop.items) {
+            item.orderDetail.quantity = 0;
+            this.shopCartService.shopCartItemsSub.next(item);
+          }
+        }
+        this.itemOrder = this.shopCartService.getNewItemOrder();
+        this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;
+        this.shopCart = [];
+        this.totalItemCount = 0;
+        this.totalPrice = 0;
+        localStorage.removeItem('cart');
+      })
+    }
   }
 
   // calcDiscount(item, calcForOne = false) {

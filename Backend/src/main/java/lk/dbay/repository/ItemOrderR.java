@@ -4,7 +4,9 @@ import lk.dbay.entity.BusinessProfileCategory;
 import lk.dbay.entity.BusinessProfileCategoryPK;
 import lk.dbay.entity.ItemOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;

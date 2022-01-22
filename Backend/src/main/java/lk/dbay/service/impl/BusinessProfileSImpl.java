@@ -48,6 +48,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             addBusinessAreas(businessProfile);
             addBusinessProfileCategories(businessProfile);
             addImagesToBusinessProfile(businessProfile.getDbayUser(), files);
+            businessProfile.getDbayUser().setVerificationCode(null);
             dbayUserR.save(businessProfile.getDbayUser());
             businessProfileR.save(businessProfile);
             BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);

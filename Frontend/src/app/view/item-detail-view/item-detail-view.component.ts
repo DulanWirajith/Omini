@@ -19,6 +19,7 @@ export class ItemDetailViewComponent implements OnInit {
   };
   item;
   _album: [];
+  review = false;
 
   constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
     this.item = this.getNewItem();

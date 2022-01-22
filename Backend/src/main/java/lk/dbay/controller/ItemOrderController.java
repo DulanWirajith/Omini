@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-
 @CrossOrigin
 @RestController
 @RequestMapping(value = CommonConstants.DOMAIN_DBAY + CommonConstants.ITEM_ORDER)
@@ -96,5 +94,35 @@ public class ItemOrderController {
     @GetMapping("/acceptItem/{orderDetailId}")
     public ResponseEntity acceptItem(@PathVariable String orderDetailId) {
         return ResponseEntity.ok(itemOrderS.acceptItem(orderDetailId));
+    }
+
+    @DeleteMapping("/removeCartItem/{orderDetailId}")
+    public ResponseEntity removeCartItem(@PathVariable String orderDetailId) {
+        try {
+            return ResponseEntity.ok(itemOrderS.removeCartItem(orderDetailId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/removeCartShop/{orderId}/{businessProfileId}/{businessCategoryId}")
+    public ResponseEntity removeCartShop(@PathVariable String orderId, @PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+        try {
+            return ResponseEntity.ok(itemOrderS.removeCartShop(orderId, businessProfileId, businessCategoryId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/removeCart/{orderId}")
+    public ResponseEntity removeCart(@PathVariable String orderId) {
+        try {
+            return ResponseEntity.ok(itemOrderS.removeCart(orderId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

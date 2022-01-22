@@ -255,6 +255,24 @@ public class ItemOrderSImpl implements ItemOrderS {
         return false;
     }
 
+    @Override
+    public boolean removeCartItem(String orderDetailId) throws Exception {
+        orderDetailR.deleteById(orderDetailId);
+        return true;
+    }
+
+    @Override
+    public boolean removeCartShop(String orderId, String businessProfileId, String businessCategoryId) {
+        orderDetailR.removeCartShop(orderId, new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
+        return true;
+    }
+
+    @Override
+    public boolean removeCart(String orderId) {
+        itemOrderR.deleteById(orderId);
+        return true;
+    }
+
     private List<ItemOrderDTO> setItemOrders(List<OrderDetail> itemOrderDetailsItems, boolean needBusinessProfile) {
         Set<ItemOrderDTO> itemOrderDTOS = new HashSet<>();
         for (OrderDetail itemOrderDetail : itemOrderDetailsItems) {

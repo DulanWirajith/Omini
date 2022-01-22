@@ -48,6 +48,7 @@ public class CustomerProfileSImpl implements CustomerProfileS {
 //            addBusinessAreas(customerProfile);
 //            addBusinessProfileCategories(customerProfile);
             addImagesToCustomerProfile(customerProfile.getDbayUser(), files);
+            customerProfile.getDbayUser().setVerificationCode(null);
             dbayUserR.save(customerProfile.getDbayUser());
             customerProfileR.save(customerProfile);
             CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);

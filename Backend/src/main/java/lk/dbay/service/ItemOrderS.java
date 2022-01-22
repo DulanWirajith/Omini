@@ -23,4 +23,10 @@ public interface ItemOrderS {
     ItemOrderDTO changeOrderStatus(String orderId, String businessProfileId, String businessCategoryId, String status);
 
     boolean acceptItem(String orderDetailId);
+
+    boolean removeCartItem(String orderDetailId) throws Exception;
+
+    boolean removeCart(String orderId);
+
+    boolean removeCartShop(String orderId, String businessProfileId, String businessCategoryId);
 }

@@ -43,6 +43,18 @@ export class ShopCartService {
     return this.http.post<any>(environment.backend_url + 'item_order/placeOrder', orderId);
   }
 
+  removeCart(orderId) {
+    return this.http.delete<any>(environment.backend_url + 'item_order/removeCart/' + orderId);
+  }
+
+  removeCartItem(orderDetailId) {
+    return this.http.delete<any>(environment.backend_url + 'item_order/removeCartItem/' + orderDetailId);
+  }
+
+  removeCartShop(orderId, businessProfileId, businessCategoryId) {
+    return this.http.delete<any>(environment.backend_url + 'item_order/removeCartShop/' + orderId + '/' + businessProfileId + '/' + businessCategoryId);
+  }
+
   getNewItemOrder() {
     return {
       orderId: '',

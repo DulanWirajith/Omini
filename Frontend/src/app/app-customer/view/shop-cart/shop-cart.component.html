@@ -44,7 +44,7 @@
     </div>
   </div>
   <div style="display: grid;align-content: center;justify-content: center"
-  *ngIf="getUser()===null || (getUser()!==null && getUser().role !== 'C')">
+       *ngIf="getUser()===null || (getUser()!==null && getUser().role !== 'C')">
     <span style="font-weight: bold;margin-bottom: 20px;margin-top: 20px">Please sign in to view cart</span>
     <a
       class="btn btn-primary btn-sm ms-2 order-lg-3"
@@ -74,7 +74,7 @@
               <div class="text-muted fs-sm mt-1"><a
                 class="btn btn-icon btn-danger btn-sm shadow-sm rounded-circle"
                 data-bs-toggle="tooltip" title="Remove order." data-bs-original-title="Remove order."
-                aria-label="Remove order." (click)="removeItem(i,'shop')">
+                aria-label="Remove order." (click)="removeCartShop(shop,i)">
                 <i class="fi-trash"></i></a></div>
             </div>
           </div>
@@ -129,7 +129,8 @@
                           style="margin-top: 5px"> Package </span>
                   </div>
                   <button type="button" class="btn btn-outline-primary btn-icon btn-xxs"
-                          style="margin-top: 3px;border-width: 2px;cursor: pointer" (click)="removeItem(i,'item',j)">
+                          style="margin-top: 3px;border-width: 2px;cursor: pointer"
+                          (click)="removeCartItem(item.orderDetail.orderDetailId,i,j)">
                     <i class="fi-x" style="font-weight: bold"></i>
                   </button>
                   <!--<span class="badge rounded-pill bg-info"> Item </span>-->
@@ -222,7 +223,7 @@
     </div>
   </div>
   <div class="offcanvas-footer justify-content-end border-top">
-    <button class="btn btn-light-primary btn-sm">
+    <button class="btn btn-light-primary btn-sm" (click)="removeCart()">
       <i class="fi-trash"></i> Clear Cart
     </button>
     <button class="btn btn-light-primary btn-sm" (click)="placeOrder()">

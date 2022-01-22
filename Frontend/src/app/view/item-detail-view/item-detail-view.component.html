@@ -112,9 +112,73 @@
         </div>
       </div>
 
+      <div class="tab-pane fade" id="item-review" role="tabpanel">
+        <div class="card card-body">
+          <!-- Reviews-->
+          <div class="mb-4 pb-4 border-bottom">
+            <h3 class="h4 pb-3"><i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9 (4 reviews)</h3>
+            <div class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
+              <a class="btn btn-outline-primary mb-sm-0 mb-3" href="#add-review" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="add-review"><i class="fi-edit me-1"></i>Add review</a>
+              <div class="d-flex align-items-center ms-sm-4">
+                <label class="me-2 pe-1 text-nowrap" for="reviews-sorting"><i class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:</label>
+                <select class="form-select" id="reviews-sorting">
+                  <option>Newest</option>
+                  <option>Oldest</option>
+                  <option>Popular</option>
+                  <option>High rating</option>
+                  <option>Low rating</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!--add Review-->
+          <div class="collapse mb-4 pb-4" id="add-review">
+            <div class="card card-body">
+              <form class="needs-validation" novalidate>
+                <div class="mb-3">
+                  <label class="form-label" for="review-rating">Rating <span class='text-danger'>*</span></label>
+                  <select class="form-control form-select" id="review-rating" required>
+                    <option value="" selected disabled hidden>Choose rating</option>
+                    <option value="5 stars">5 stars</option>
+                    <option value="4 stars">4 stars</option>
+                    <option value="3 stars">3 stars</option>
+                    <option value="2 stars">2 stars</option>
+                    <option value="1 star">1 star</option>
+                  </select>
+                  <div class="invalid-feedback">Please rate the property.</div>
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="review-text">Review <span class='text-danger'>*</span></label>
+                  <textarea class="form-control" id="review-text" rows="5" placeholder="Your review message" required></textarea>
+                  <div class="invalid-feedback">Please write your review.</div>
+                </div>
+                <button class="btn btn-success d-block w-100 mb-4" type="submit">Submit a review</button>
+              </form>
+            </div>
+          </div>
+          <!-- Review-->
+          <div class="mb-4 pb-4 border-bottom">
+            <div class="d-flex justify-content-between mb-3">
+              <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1" src="../../../assets/img/37.png" width="48" alt="Avatar">
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">Annette Black</h6><span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i></span>
+                </div>
+              </div><span class="text-muted fs-sm">Jan 17, 2021</span>
+            </div>
+            <p>Elementum ut quam tincidunt egestas vitae elit, hendrerit. Ullamcorper nulla amet lobortis elit, nibh condimentum enim. Aliquam felis nisl tellus sodales lectus dictum tristique proin vitae. Odio fermentum viverra tortor quis.</p>
+            <div class="d-flex align-items-center">
+              <button class="btn-like" type="button"><i class="fi-like"></i><span>(3)</span></button>
+              <div class="border-end me-1">&nbsp;</div>
+              <button class="btn-dislike" type="button"><i class="fi-dislike"></i><span>(0)</span></button>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
     </div>
   </div>
+
   <div class="offcanvas-footer border-top" style="display: block;">
     <ul class="nav nav-tabs justify-content-end" role="tablist">
       <li class="nav-item me-2" *ngIf="itemObj.cart!==undefined" style="display: flex">
@@ -131,8 +195,14 @@
            role="tab"><i
           class="fi-arrow-back fs-lg me-2"></i>Back</a>
       </li>
+      <li class="nav-item me-2" *ngIf="review">
+        <a class="btn btn-md btn-outline-info" href="#item-view" data-bs-toggle="tab"
+           role="tab" (click)="review=false"><i
+          class="fi-arrow-back fs-lg me-2"></i>Back</a>
+      </li>
       <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-primary" href="#item-review" data-bs-toggle="tab" role="tab"><i
+        <a class="btn btn-md btn-outline-primary" href="#item-review" data-bs-toggle="tab" role="tab"
+        (click)="review=true"><i
           class="fi-star fs-lg me-2"></i>Reviews</a>
       </li>
     </ul>
