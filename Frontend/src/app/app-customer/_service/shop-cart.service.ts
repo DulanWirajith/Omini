@@ -10,11 +10,17 @@ import {environment} from "../../../environments/environment";
 })
 export class ShopCartService {
 
+  iniCart = true;
   shopCartSub = new Subject<any>();
-  shopCart = [];
+  // shopCart = [];
   orderDetails = [];
   shopCartItemsSub = new Subject<any>();
   initShopCartSub = new Subject<any>();
+
+  shopCart = [];
+  itemOrder;
+  totalItemCount = 0;
+  totalPrice = 0;
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }

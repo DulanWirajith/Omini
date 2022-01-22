@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ShopCartService} from "../../_service/shop-cart.service";
 import {LoginService} from "../../../_service/login.service";
 import {ItemGService} from "../../../_service/item-g.service";
@@ -8,7 +8,7 @@ import {ItemGService} from "../../../_service/item-g.service";
   templateUrl: './shop-cart.component.html',
   styleUrls: ['./shop-cart.component.css']
 })
-export class ShopCartComponent implements OnInit {
+export class ShopCartComponent implements OnInit, OnDestroy {
 
   shopCart = [];
   itemOrder;
@@ -28,15 +28,45 @@ export class ShopCartComponent implements OnInit {
     this.initShopCart();
   }
 
+  ngOnDestroy(): void {
+    this.shopCartService.shopCart = this.shopCart;
+    this.shopCartService.itemOrder = this.itemOrder;
+    this.shopCartService.totalItemCount = this.totalItemCount;
+    this.shopCartService.totalPrice = this.totalPrice;
+    // this.shopCartService.orderDetails = this.itemOrder.orderDetails;
+  }
+
   initShopCart() {
+    // if (localStorage.getItem('cart') !== null && localStorage.getItem('itemOrder') !== null) {
+    //   this.itemOrder = JSON.parse(localStorage.getItem('itemOrder'));
+    //   this.shopCart = JSON.parse(localStorage.getItem('cart'));
+    //   for (let shop of this.shopCart) {
+    //     this.totalItemCount += shop.itemCount;
+    //     this.totalPrice += shop.totalPrice;
+    //     for (let item of shop.items) {
+    //       this.shopCartService.shopCartItemsSub.next(item);
+    //     }
+    //   }
+    // } else {
     if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
-      if (localStorage.getItem('cart') !== null) {
-        this.initCart(JSON.parse(localStorage.getItem('cart')));
+      if (this.shopCartService.itemOrder === undefined) {
+        this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
+          this.initCart(itemOrder);
+        })
+      } else {
+        this.shopCart = this.shopCartService.shopCart;
+        this.itemOrder = this.shopCartService.itemOrder;
+        this.totalItemCount = this.shopCartService.totalItemCount;
+        this.totalPrice = this.shopCartService.totalPrice;
+        for (let shop of this.shopCart) {
+          // this.totalItemCount += shop.itemCount;
+          // this.totalPrice += shop.totalPrice;
+          for (let item of shop.items) {
+            // console.log(item)
+            this.shopCartService.shopCartItemsSub.next(item);
+          }
+        }
       }
-      this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
-        this.initCart(itemOrder);
-        localStorage.setItem('cart', JSON.stringify(this.shopCart));
-      })
     }
   }
 
@@ -163,11 +193,11 @@ export class ShopCartComponent implements OnInit {
           })
         }
       } else if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
-        console.log(item)
+        // console.log(item)
         let indexShop: any = this.shopCart.findIndex(shopCart => {
           return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
         })
-        let orderDetail = item.orderDetail;
+        let orderDetail = JSON.parse(JSON.stringify(item.orderDetail));
         if (orderDetail.orderDetailType === 'Item') {
           orderDetail.item = JSON.parse(JSON.stringify(item));
         } else if (orderDetail.orderDetailType === 'ItemPackage') {
@@ -184,13 +214,13 @@ export class ShopCartComponent implements OnInit {
           // this.totalPrice += price;
           // this.shopCart[indexShop].itemCount++;
           orderDetail.quantity++;
-          this.shopCartService.shopCartItemsSub.next(item);
+          // this.shopCartService.shopCartItemsSub.next(item);
 
 
-          // let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
-          //   return itemObj.itemId === item.itemId
-          // })
-          // this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
+          let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
+            return itemObj.itemId === item.itemId
+          })
+          this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
           // this.shopCart[indexShop].items[indexItem].price += price;
           // this.totalItemCount++;
           this.shopCart[indexShop].totalPrice += price;
@@ -198,9 +228,11 @@ export class ShopCartComponent implements OnInit {
           // item.price += price;
           // shop.totalPrice += item.price;
           this.totalPrice += price;
+          item.orderDetail = orderDetail;
+          this.shopCartService.shopCartItemsSub.next(item);
         })
       }
-      localStorage.setItem('cart', JSON.stringify(this.shopCart));
+      // localStorage.setItem('cart', JSON.stringify(this.shopCart));
     }
     // console.log(item)
   }
@@ -221,7 +253,7 @@ export class ShopCartComponent implements OnInit {
         shop.itemCount++;
         orderDetail.quantity++;
         this.shopCartService.shopCartItemsSub.next(item);
-        localStorage.setItem('cart', JSON.stringify(this.shopCart));
+        // localStorage.setItem('cart', JSON.stringify(this.shopCart));
       })
     }
   }
@@ -241,7 +273,7 @@ export class ShopCartComponent implements OnInit {
         shop.itemCount--;
         orderDetail.quantity--;
         this.shopCartService.shopCartItemsSub.next(item);
-        localStorage.setItem('cart', JSON.stringify(this.shopCart));
+        // localStorage.setItem('cart', JSON.stringify(this.shopCart));
       })
     }
   }
@@ -321,11 +353,11 @@ export class ShopCartComponent implements OnInit {
           this.removeCart();
         } else {
           this.shopCart.splice(indexShop, 1);
-          localStorage.setItem('cart', JSON.stringify(this.shopCart));
+          // localStorage.setItem('cart', JSON.stringify(this.shopCart));
         }
       } else {
         this.shopCart[indexShop].items.splice(indexItem, 1);
-        localStorage.setItem('cart', JSON.stringify(this.shopCart));
+        // localStorage.setItem('cart', JSON.stringify(this.shopCart));
       }
     })
   }
@@ -345,7 +377,7 @@ export class ShopCartComponent implements OnInit {
         this.removeCart()
       } else {
         this.shopCart.splice(indexShop, 1);
-        localStorage.setItem('cart', JSON.stringify(this.shopCart));
+        // localStorage.setItem('cart', JSON.stringify(this.shopCart));
       }
     })
   }
@@ -364,7 +396,7 @@ export class ShopCartComponent implements OnInit {
         this.shopCart = [];
         this.totalItemCount = 0;
         this.totalPrice = 0;
-        localStorage.removeItem('cart');
+        // localStorage.removeItem('cart');
       })
     }
   }

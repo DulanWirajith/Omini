@@ -26,6 +26,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
         return itemObj.itemId === item.itemId
       })
       if (itemObj !== undefined) {
+        console.log(itemObj)
         itemObj.quantity = item.quantity;
         itemObj.orderDetail.quantity = item.orderDetail.quantity;
       }
@@ -49,7 +50,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
     this.itemCount = this.items.length;
     this.itemPackages = this.itemService.searchedItemPackages.itemPackages;
     this.toggleBtns();
-    this.setShopCart(this.shopCartService.orderDetails);
+    this.setShopCart(this.shopCartService.shopCart);
   }
 
   addToCart(itemPackage) {
@@ -68,23 +69,27 @@ export class ItemPackageSearchResultComponent implements OnInit {
   //   return '';
   // }
 
-  setShopCart(orderDetails) {
+  setShopCart(shopCart) {
     // console.log(orderDetails)
-    for (let orderDetail of orderDetails) {
-      if(orderDetail.orderDetailType==='Item') {
-        let itemObj: any = this.items.find(itemObj => {
-          return itemObj.itemId === orderDetail.item.itemId
-        })
-        if (itemObj !== undefined) {
-          itemObj.orderDetail.quantity = orderDetail.quantity;
-        }
-      }else if(orderDetail.orderDetailType==='ItemPackage') {
-        let itemPackageObj: any = this.itemPackages.find(itemPackageObj => {
-          return itemPackageObj.itemPackageId === orderDetail.itemPackage.itemPackageId
-        })
-        if (itemPackageObj !== undefined) {
-          // itemObj.quantity = item.quantity;
-          itemPackageObj.orderDetail.quantity = orderDetail.quantity;
+    for (let shop of shopCart) {
+      for (let item of shop.items) {
+        // console.log(orderDetail)
+        let orderDetail = item.orderDetail;
+        if (orderDetail.orderDetailType === 'Item') {
+          let itemObj: any = this.items.find(itemObj => {
+            return itemObj.itemId === orderDetail.item.itemId
+          })
+          if (itemObj !== undefined) {
+            itemObj.orderDetail.quantity = orderDetail.quantity;
+          }
+        } else if (orderDetail.orderDetailType === 'ItemPackage') {
+          let itemPackageObj: any = this.itemPackages.find(itemPackageObj => {
+            return itemPackageObj.itemPackageId === orderDetail.itemPackage.itemPackageId
+          })
+          if (itemPackageObj !== undefined) {
+            // itemObj.quantity = item.quantity;
+            itemPackageObj.orderDetail.quantity = orderDetail.quantity;
+          }
         }
       }
     }
