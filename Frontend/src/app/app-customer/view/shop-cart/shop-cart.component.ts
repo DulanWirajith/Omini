@@ -91,7 +91,7 @@ export class ShopCartComponent implements OnInit {
   }
 
   addOrder(item) {
-    console.log(item.quantity + ' ' + item.orderDetail.quantity)
+    // console.log(item.quantity + ' ' + item.orderDetail.quantity)
     if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
       if (item.orderDetail.quantity === 0) {
         if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
@@ -197,7 +197,7 @@ export class ShopCartComponent implements OnInit {
   }
 
   itemCountInc(shop, item) {
-    console.log(item)
+    // console.log(item)
     if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
       let orderDetail = item.orderDetail;
       orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));

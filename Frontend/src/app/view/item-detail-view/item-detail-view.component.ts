@@ -26,7 +26,7 @@ export class ItemDetailViewComponent implements OnInit {
     this.itemService.itemSub.subscribe((itemObj) => {
       this.itemObj = itemObj;
       this.getItemSelected(itemObj.item);
-      console.log(itemObj)
+      // console.log(itemObj)
     })
   }
 
