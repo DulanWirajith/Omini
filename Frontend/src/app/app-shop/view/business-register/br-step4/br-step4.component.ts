@@ -53,7 +53,16 @@ export class BrStep4Component implements OnInit {
 
   onSubmit() {
     if (this.businessProfile.businessProfileCategories.length > 0) {
-      this.businessProfile.defaultBusiness = this.businessProfile.businessProfileCategories[0];
+      if (this.businessProfile.businessProfileCategories[0].businessProfile === undefined) {
+        this.businessProfile.businessProfileCategories[0] = {
+          name: this.businessProfile.businessProfileCategories[0].name,
+          businessCategory: this.businessProfile.businessProfileCategories[0],
+          businessProfile: {
+            businessProId: this.businessProfile.businessProId
+          }
+        }
+      }
+      this.businessProfile.defaultBusiness = this.businessProfile.businessProfileCategories[0].businessCategory;
     }
     localStorage.setItem('br', JSON.stringify(this.businessProfile));
     this.businessAccountService.step.next(5)

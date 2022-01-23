@@ -21,6 +21,7 @@ export class BrStep5Component implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('br') !== null) {
       this.businessProfile = JSON.parse(localStorage.getItem('br'));
+      this.businessProfile.dbayUser.verificationCode = '';
       this.sendVerification();
     }
   }
@@ -39,6 +40,7 @@ export class BrStep5Component implements OnInit {
       if (this.businessProfile.businessProfileCategories[i].businessProfile === undefined) {
         // console.log(456)
         this.businessProfile.businessProfileCategories[i] = {
+          name: this.businessProfile.businessProfileCategories[i].name,
           businessCategory: this.businessProfile.businessProfileCategories[i],
           businessProfile: {
             businessProId: this.businessProfile.businessProId
@@ -51,6 +53,7 @@ export class BrStep5Component implements OnInit {
     for (let i = 0; i < this.businessProfile.businessAreas.length; i++) {
       if (this.businessProfile.businessAreas[i].businessProfile === undefined) {
         this.businessProfile.businessAreas[i] = {
+          name: this.businessProfile.businessAreas[i].name,
           town: this.businessProfile.businessAreas[i],
           businessProfile: {
             businessProId: this.businessProfile.businessProId

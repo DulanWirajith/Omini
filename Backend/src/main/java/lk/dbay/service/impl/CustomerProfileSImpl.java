@@ -10,6 +10,7 @@ import lk.dbay.service.SendEmailSMTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,6 +42,7 @@ public class CustomerProfileSImpl implements CustomerProfileS {
     private SendEmailSMTP sendEmailSMTP;
 
     @Override
+    @Transactional
     public CustomerProfileDTO addCustomerProfile(CustomerProfile customerProfile, MultipartFile[] files) throws Exception {
         try {
             LocalDateTime localDateTime = LocalDateTime.now();
@@ -53,7 +55,7 @@ public class CustomerProfileSImpl implements CustomerProfileS {
 //            addBusinessAreas(customerProfile);
 //            addBusinessProfileCategories(customerProfile);
             addImagesToCustomerProfile(customerProfile.getDbayUser(), files);
-            customerProfile.getDbayUser().setVerificationCode(null);
+//            customerProfile.getDbayUser().setVerificationCode(null);
             dbayUserR.save(customerProfile.getDbayUser());
             customerProfileR.save(customerProfile);
             CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);

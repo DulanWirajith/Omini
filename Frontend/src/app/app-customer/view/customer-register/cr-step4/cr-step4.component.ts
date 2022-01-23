@@ -21,6 +21,7 @@ export class CrStep4Component implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('cr') !== null) {
       this.customerProfile = JSON.parse(localStorage.getItem('cr'));
+      this.customerProfile.dbayUser.verificationCode = '';
       this.sendVerification();
     }
   }
