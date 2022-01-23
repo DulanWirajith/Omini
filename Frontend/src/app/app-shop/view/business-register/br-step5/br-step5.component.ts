@@ -10,6 +10,7 @@ import {BusinessAccountService} from "../../../_service/business-account.service
 export class BrStep5Component implements OnInit {
 
   businessProfile;
+  verification;
 
   @ViewChild('brForm5', {static: true}) public brForm5: NgForm;
 
@@ -20,8 +21,15 @@ export class BrStep5Component implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('br') !== null) {
       this.businessProfile = JSON.parse(localStorage.getItem('br'));
-      this.businessProfile.dbayUser.verificationCode = '';
+      this.sendVerification();
     }
+  }
+
+  sendVerification() {
+    this.verification = '';
+    this.businessAccountService.sendVerification().subscribe((user) => {
+      this.verification = user.verificationCode;
+    })
   }
 
   onSubmit() {

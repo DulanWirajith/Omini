@@ -1,0 +1,5 @@
+.btn-outline-primary:not(:disabled):not(.disabled).active {
+  color: white;
+  background-color: #FD390E;
+  border-color: #FD390E;
+}

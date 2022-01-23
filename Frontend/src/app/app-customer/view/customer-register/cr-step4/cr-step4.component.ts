@@ -10,6 +10,7 @@ import {CustomerAccountService} from "../../../_service/customer-account.service
 export class CrStep4Component implements OnInit {
 
   customerProfile;
+  verification;
 
   @ViewChild('crForm4', {static: true}) public crForm4: NgForm;
 
@@ -20,7 +21,15 @@ export class CrStep4Component implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('cr') !== null) {
       this.customerProfile = JSON.parse(localStorage.getItem('cr'));
+      this.sendVerification();
     }
+  }
+
+  sendVerification() {
+    this.verification = '';
+    this.customerAccountService.sendVerification().subscribe((user) => {
+      this.verification = user.verificationCode;
+    })
   }
 
   onSubmit() {

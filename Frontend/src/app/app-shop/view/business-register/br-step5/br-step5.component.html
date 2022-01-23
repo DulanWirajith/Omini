@@ -1,4 +1,4 @@
-<form #brForm4="ngForm" (ngSubmit)="brForm4.form.valid && onSubmit()" novalidate>
+<form #brForm5="ngForm" (ngSubmit)="brForm5.form.valid && onSubmit()" novalidate>
 
   <div class="bg-light rounded-3 p-4 p-md-5 mb-3">
     <h2 class="h4 mb-4">
@@ -11,22 +11,27 @@
           <div class="d-flex">
             <i class="fi-alert-circle me-2 me-sm-3"></i>
             <p class="fs-sm mb-1">
-              Please check your user email we have sent you a verification code...
+              Please check your user email. We have sent you a verification code...
             </p>
           </div>
         </div>
       </div>
-      <div class="col-sm-6 mb-4">
-        <label class="form-label" for="biz-verificationcode"
-        >Verification Code <span class="text-danger">*</span></label
-        >
-        <input class="form-control form-control-lg" type="text" id="biz-verificationcode" value=""
-               placeholder="Enter Verification Code" required
-               [(ngModel)]="businessProfile.dbayUser.verificationCode" #verificationCode="ngModel" name="verificationCode">
-        <div *ngIf="(verificationCode.touched || brForm4.submitted) && verificationCode.errors?.required"
+      <div class="col-sm-10 mb-4">
+        <!-- <label class="form-label" for="cli-verificationcode">Verification code<span class='text-danger'>*</span></label> -->
+        <input class="form-control form-control-md" type="text" id="cli-verificationcode" value=""
+               placeholder="Enter your verification code" required
+               [(ngModel)]="businessProfile.dbayUser.verificationCode" #verificationCode="ngModel"
+               name="verificationCode">
+        <div *ngIf="(verificationCode.touched || brForm5.submitted) && verificationCode.errors?.required"
              class="validErr">
           Verification Code is required
         </div>
+      </div>
+      <div class="col-sm-2 mb-4" style="align-self: center;">
+        <button class="btn btn-primary btn-md" style="font-size: 14px"
+                (click)="sendVerification()" type="button">
+          <i class="fi-refresh me-1" style="font-size: 12px"></i>Resend
+        </button>
       </div>
 
     </div>
@@ -37,7 +42,8 @@
             (click)="previousPage()">
       <i class="fi-chevron-left fs-sm"></i> Previous step
     </button>
-    <button type="submit" class="btn btn-primary btn-lg rounded-pill ms-sm-auto">
+    <button [disabled]="verification==='' || businessProfile.dbayUser.verificationCode!==verification"
+            type="submit" class="btn btn-primary btn-lg rounded-pill ms-sm-auto">
       Next step <i class="fi-chevron-right fs-sm ms-2"></i>
     </button>
   </div>

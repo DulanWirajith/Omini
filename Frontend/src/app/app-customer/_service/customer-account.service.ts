@@ -13,7 +13,7 @@ export class CustomerAccountService {
 
   step = new Subject<number>();
 
-  constructor(private http: HttpClient, private commonService: CommonService, private router: Router,private loginService:LoginService) {
+  constructor(private http: HttpClient, private commonService: CommonService, private router: Router, private loginService: LoginService) {
     // console.log(this.loginService.getUser())
     // if (this.router.url !== '/login' && this.loginService.getUser().role !== 'C') {
     //   localStorage.clear();
@@ -47,6 +47,11 @@ export class CustomerAccountService {
 
   getTowns(districtId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'town/getTowns/' + districtId);
+  }
+
+  sendVerification(): Observable<any> {
+    // console.log(JSON.parse(localStorage.getItem('cr')).dbayUser)
+    return this.http.get<any>(environment.backend_url + 'dbay_user/sendVerification/' + JSON.parse(localStorage.getItem('cr')).dbayUser.email);
   }
 
   getNewCustomerProfile() {

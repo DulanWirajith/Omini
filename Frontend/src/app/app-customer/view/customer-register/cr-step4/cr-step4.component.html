@@ -10,7 +10,7 @@
             <div class="d-flex">
               <i class="fi-alert-circle me-2 me-sm-3"></i>
               <p class="fs-sm mb-1">
-                Please check your user email we have sent you a verification code...
+                Please check your user email. We have sent you a verification code...
               </p>
             </div>
           </div>
@@ -27,7 +27,10 @@
           </div>
         </div>
         <div class="col-sm-2 mb-4" style="align-self: center;">
-          <button class="btn btn-primary btn-md"><i class="fi-refresh me-1"></i>Resend</button>
+          <button class="btn btn-primary btn-md" style="font-size: 14px"
+                  (click)="sendVerification()" type="button">
+            <i class="fi-refresh me-1" style="font-size: 12px"></i>Resend
+          </button>
         </div>
 
       </div>
@@ -39,7 +42,8 @@
             (click)="previousPage()">
       <i class="fi-chevron-left fs-sm"></i> Previous step
     </button>
-    <button type="submit" class="btn btn-primary btn-lg rounded-pill ms-sm-auto">
+    <button [disabled]="verification==='' || customerProfile.dbayUser.verificationCode!==verification"
+            type="submit" class="btn btn-primary btn-lg rounded-pill ms-sm-auto">
       Next step <i class="fi-chevron-right fs-sm ms-2"></i>
     </button>
   </div>

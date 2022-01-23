@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from "../../_service/login.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -8,10 +9,15 @@ import {LoginService} from "../../_service/login.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private router: Router) {
+    // router.subscribe((val) => {
+    //   // see also
+    //   console.log(this.router.url)
+    // });
   }
 
   ngOnInit(): void {
+    // console.log(this.router.url)
   }
 
   getUser() {
@@ -20,5 +26,9 @@ export class HeaderComponent implements OnInit {
 
   signOut() {
     this.loginService.signOut();
+  }
+
+  getCurUrl() {
+    return this.router.url;
   }
 }

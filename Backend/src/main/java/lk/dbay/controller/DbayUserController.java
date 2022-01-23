@@ -5,6 +5,7 @@ import lk.dbay.entity.DbayUser;
 import lk.dbay.service.DbayUserS;
 import lk.dbay.util.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -107,6 +108,23 @@ public class DbayUserController {
             } else {
                 return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/sendVerification/{email}")
+    public ResponseEntity sendVerificationToEmail(@PathVariable String email) {
+        try {
+            DbayUserDTO dbayUserDTO = dbayUserService.sendVerificationToEmail(email);
+            if (dbayUserDTO != null) {
+                return ResponseEntity.ok(dbayUserDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

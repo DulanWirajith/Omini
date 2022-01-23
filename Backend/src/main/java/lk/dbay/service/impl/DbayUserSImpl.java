@@ -230,59 +230,68 @@ public class DbayUserSImpl implements DbayUserS {
     }
 
     @Override
+    public DbayUserDTO sendVerificationToEmail(String email) throws Exception {
+        String verificationCode = (new Random().nextInt(10000) + 10000) + "";
+        sendEmailSMTP.sendVerificationToEmail(email, verificationCode);
+        DbayUserDTO dbayUserDTO = new DbayUserDTO();
+        dbayUserDTO.setVerificationCode(verificationCode);
+        return dbayUserDTO;
+    }
+
+    @Override
     public List<DbayUserDTO> getAllUsersByRole(String role) {
         return null;
     }
 
-    @Override
-    public DbayUserDTO addClassUser(DbayUser dbayUser) throws Exception {
-        try {
-            String verifyCode = (new Random().nextInt(89999999) + 10000001) + "";
-            dbayUser.setVerificationCode(verifyCode);
-            dbayUserR.save(dbayUser);
-            String emailTxt = "Hello " + dbayUser.getUsername() + ", " +
-                    "\nYou are now new user to the system" +
-                    "\nUse below link to set your password\n\n" +
-                    "\n" + emailLink + "?email=" + dbayUser.getEmail() + "&verify=" + verifyCode;
-            sendEmailSMTP.sendEmail(dbayUser.getEmail(), "YEWOI(Dbay) New " + dbayUser.getRole(), emailTxt);
-//            System.out.println(123);
-            return new DbayUserDTO(dbayUser);
-        } catch (DataIntegrityViolationException ex) {
-            ex.printStackTrace();
-            throw new Exception(ex.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again");
-        }
-    }
-
-    @Override
-    public DbayUserDTO updateClassUser(DbayUser dbayUser) throws Exception {
-        try {
-            Optional<DbayUser> userOptional = dbayUserR.findById(dbayUser.getUserId());
-            if (userOptional.isPresent()) {
-                DbayUser userObj = userOptional.get();
-//                userObj.setFirstName(dbayUser.getFirstName());
-//                userObj.setLastName(dbayUser.getLastName());
-                userObj.setUsername(dbayUser.getUsername());
-                userObj.setEmail(dbayUser.getEmail());
-                userObj.setRole(dbayUser.getRole());
-                dbayUserR.save(userObj);
-                return new DbayUserDTO(userObj);
-            }
-            return null;
-        } catch (DataIntegrityViolationException ex) {
-            ex.printStackTrace();
-            throw new Exception(ex.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again");
-        }
-    }
-
-    @Override
-    public boolean removeClassUser(String id) throws Exception {
-        Optional<DbayUser> userOptional = dbayUserR.findById(id);
-        if (userOptional.isPresent()) {
-            dbayUserR.deleteById(id);
-            return true;
-        }
-        return false;
-    }
+//    @Override
+//    public DbayUserDTO addClassUser(DbayUser dbayUser) throws Exception {
+//        try {
+//            String verifyCode = (new Random().nextInt(89999999) + 10000001) + "";
+//            dbayUser.setVerificationCode(verifyCode);
+//            dbayUserR.save(dbayUser);
+//            String emailTxt = "Hello " + dbayUser.getUsername() + ", " +
+//                    "\nYou are now new user to the system" +
+//                    "\nUse below link to set your password\n\n" +
+//                    "\n" + emailLink + "?email=" + dbayUser.getEmail() + "&verify=" + verifyCode;
+//            sendEmailSMTP.sendEmail(dbayUser.getEmail(), "YEWOI(Dbay) New " + dbayUser.getRole(), emailTxt);
+////            System.out.println(123);
+//            return new DbayUserDTO(dbayUser);
+//        } catch (DataIntegrityViolationException ex) {
+//            ex.printStackTrace();
+//            throw new Exception(ex.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again");
+//        }
+//    }
+//
+//    @Override
+//    public DbayUserDTO updateClassUser(DbayUser dbayUser) throws Exception {
+//        try {
+//            Optional<DbayUser> userOptional = dbayUserR.findById(dbayUser.getUserId());
+//            if (userOptional.isPresent()) {
+//                DbayUser userObj = userOptional.get();
+////                userObj.setFirstName(dbayUser.getFirstName());
+////                userObj.setLastName(dbayUser.getLastName());
+//                userObj.setUsername(dbayUser.getUsername());
+//                userObj.setEmail(dbayUser.getEmail());
+//                userObj.setRole(dbayUser.getRole());
+//                dbayUserR.save(userObj);
+//                return new DbayUserDTO(userObj);
+//            }
+//            return null;
+//        } catch (DataIntegrityViolationException ex) {
+//            ex.printStackTrace();
+//            throw new Exception(ex.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again");
+//        }
+//    }
+//
+//    @Override
+//    public boolean removeClassUser(String id) throws Exception {
+//        Optional<DbayUser> userOptional = dbayUserR.findById(id);
+//        if (userOptional.isPresent()) {
+//            dbayUserR.deleteById(id);
+//            return true;
+//        }
+//        return false;
+//    }
 
     @Override
     public DbayUserDTO getUser(String userId) {

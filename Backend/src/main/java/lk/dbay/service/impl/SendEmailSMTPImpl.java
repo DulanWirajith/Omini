@@ -78,13 +78,26 @@ public class SendEmailSMTPImpl implements SendEmailSMTP {
     }
 
     public void sendRegistrationEmail(DbayUser dbayUser) throws Exception {
+//        new Thread(() -> {
+//            try {
+//                if (dbayUser.getEmail() != null && !dbayUser.getEmail().equals("")) {
+//                    String emailTxt = "Hello " + " (" + dbayUser.getUsername() + "), " +
+//                            "\nYou are now new " + dbayUser.getRole() + " of the (Dbay) system." +
+//                            "\nYour " + dbayUser.getRole() + " ID is " + dbayUser.getUserId();
+//                    sendEmail(dbayUser.getEmail(), "YEWOI(Dbay) New " + dbayUser.getRole(), emailTxt);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }).start();
+    }
+
+    public void sendVerificationToEmail(String email, String verificationCode) throws Exception {
         new Thread(() -> {
             try {
-                if (dbayUser.getEmail() != null && !dbayUser.getEmail().equals("")) {
-                    String emailTxt = "Hello " + " (" + dbayUser.getUsername() + "), " +
-                            "\nYou are now new " + dbayUser.getRole() + " of the (E-Class) system." +
-                            "\nYour " + dbayUser.getRole() + " ID is " + dbayUser.getUserId();
-                    sendEmail(dbayUser.getEmail(), "YEWOI(E-Class) New " + dbayUser.getRole(), emailTxt);
+                if (email != null && !email.equals("")) {
+                    String emailTxt = "Verification Code for Dbay - " + verificationCode;
+                    sendEmail(email, "Verification Code for Dbay", emailTxt);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

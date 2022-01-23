@@ -16,13 +16,13 @@ const routes: Routes = [
   //   pathMatch: 'full'
   // },
   {
+    path: 'business_register',
+    component: BusinessRegisterComponent,
+  },
+  {
     path: 'header',
     component: AppShopComponent,
     children: [
-      {
-        path: 'business_register',
-        component: BusinessRegisterComponent,
-      },
       {
         path: 'business_account',
         component: BusinessAccountComponent,

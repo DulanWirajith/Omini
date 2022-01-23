@@ -18,13 +18,15 @@ public interface DbayUserS extends UserDetailsService {
 
     boolean resetOldPassword(DbayUserDTO dbayUser) throws Exception;
 
+    DbayUserDTO sendVerificationToEmail(String email) throws Exception;
+
     List<DbayUserDTO> getAllUsersByRole(String role);
 
-    DbayUserDTO addClassUser(DbayUser dbayUser) throws Exception;
-
-    DbayUserDTO updateClassUser(DbayUser dbayUser) throws Exception;
-
-    boolean removeClassUser(String id) throws Exception;
+//    DbayUserDTO addClassUser(DbayUser dbayUser) throws Exception;
+//
+//    DbayUserDTO updateClassUser(DbayUser dbayUser) throws Exception;
+//
+//    boolean removeClassUser(String id) throws Exception;
 
     DbayUserDTO getUser(String userId);
 

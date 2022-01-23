@@ -30,18 +30,30 @@
     <!--data-bs-toggle="modal"-->
     <!--&gt;<i class="fi-user me-2"></i>Sign in</a-->
     <!--&gt;-->
-    <a
-      class="btn btn-primary btn-sm ms-2 order-lg-3"
-      [routerLink]="'/login'"
-    ><i class="fi-user me-2"></i>Sign<span class="d-none d-sm-inline">
-        in</span
-    ></a
-    >
-    <a
-      class="btn btn-primary btn-sm ms-2 order-lg-3"
-      [routerLink]="''"
-    ><i class="fi-home me-2"></i>Home</a
-    >
+    <div *ngIf="getCurUrl()!=='/login'" class="btn-group dropdown ms-2 order-lg-3" role="group">
+      <button type="button" class="btn btn-primary btn-sm rounded-pill" style="font-size: 15px"
+              [routerLink]="'/login'">
+        <i class="fas fa-user me-2"></i>
+        Sign In
+      </button>
+    </div>
+    <div *ngIf="getCurUrl()!=='/login' && getCurUrl()!=='/customer/customer_register' && getCurUrl()!=='/shop/business_register'"
+         class="btn-group dropdown ms-2 order-lg-3" role="group">
+      <button type="button" class="btn btn-primary btn-sm rounded-pill dropdown-toggle" data-bs-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-plus me-2"></i>
+        Sign Up
+      </button>
+      <div class="dropdown-menu">
+        <a [routerLink]="'/customer/customer_register'" class="dropdown-item">As a customer</a>
+        <a [routerLink]="'/shop/business_register'" class="dropdown-item">As a business</a>
+      </div>
+    </div>
+    <a *ngIf="getCurUrl()!=='/customer/header/item_shop_search'"
+       class="btn btn-primary btn-sm ms-2 order-lg-3"
+       [routerLink]="''">
+      <i class="fi-home me-2"></i>Home
+    </a>
 
     <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
       <ul class="navbar-nav navbar-nav-scroll" style="max-height: 35rem">
@@ -115,7 +127,7 @@
           Home
         </a>
         <a *ngIf="getUser().role==='C'" class="dropdown-item"
-        data-bs-toggle="offcanvas" data-bs-target="#cart-viewer">
+           data-bs-toggle="offcanvas" data-bs-target="#cart-viewer">
           <i class="fi-cart opacity-60 me-2"></i>
           Cart
         </a>

@@ -75,6 +75,11 @@ export class BusinessAccountService {
     return this.http.get<any>(environment.backend_url + 'dbay_user/getNavBar/' + userId + '/' + businessCategory + '/Business');
   }
 
+  sendVerification(): Observable<any> {
+    // console.log(JSON.parse(localStorage.getItem('cr')).dbayUser)
+    return this.http.get<any>(environment.backend_url + 'dbay_user/sendVerification/' + JSON.parse(localStorage.getItem('cr')).dbayUser.email);
+  }
+
   getBusinessCategoriesCom() {
     // this.getBusinessCategories().subscribe((businessCategories) => {
     //   this.businessCategoriesSub.next(businessCategories);

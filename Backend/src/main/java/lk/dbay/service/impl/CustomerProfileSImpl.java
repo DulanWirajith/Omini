@@ -1,10 +1,12 @@
 package lk.dbay.service.impl;
 
 import lk.dbay.dto.CustomerProfileDTO;
+import lk.dbay.dto.DbayUserDTO;
 import lk.dbay.dto.ShopCartDTO;
 import lk.dbay.entity.*;
 import lk.dbay.repository.*;
 import lk.dbay.service.CustomerProfileS;
+import lk.dbay.service.SendEmailSMTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
 @Service
@@ -34,6 +37,8 @@ public class CustomerProfileSImpl implements CustomerProfileS {
     private DbayUserImgR dbayUserImgR;
     @Value("${image.path}")
     private String filePath;
+    @Autowired
+    private SendEmailSMTP sendEmailSMTP;
 
     @Override
     public CustomerProfileDTO addCustomerProfile(CustomerProfile customerProfile, MultipartFile[] files) throws Exception {
@@ -180,4 +185,5 @@ public class CustomerProfileSImpl implements CustomerProfileS {
         }
         return null;
     }
+
 }

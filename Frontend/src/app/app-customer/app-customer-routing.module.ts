@@ -18,13 +18,13 @@ const routes: Routes = [
   //   pathMatch: 'full'
   // },
   {
+    path: 'customer_register',
+    component: CustomerRegisterComponent,
+  },
+  {
     path: 'header',
     component: AppCustomerComponent,
     children: [
-      {
-        path: 'customer_register',
-        component: CustomerRegisterComponent,
-      },
       {
         path: 'customer_account',
         component: CustomerAccountComponent,
