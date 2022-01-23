@@ -77,7 +77,7 @@ export class BusinessAccountService {
 
   sendVerification(): Observable<any> {
     // console.log(JSON.parse(localStorage.getItem('cr')).dbayUser)
-    return this.http.get<any>(environment.backend_url + 'dbay_user/sendVerification/' + JSON.parse(localStorage.getItem('cr')).dbayUser.email);
+    return this.http.get<any>(environment.backend_url + 'dbay_user/sendVerification/' + JSON.parse(localStorage.getItem('br')).dbayUser.email);
   }
 
   getBusinessCategoriesCom() {
