@@ -12,16 +12,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ReviewResponse extends DateTime {
+public class BusinessReview extends DateTime {
 
     @Id
-    private String responseId;
+    private String reviewId;
 //    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne(optional = false)
-    private BusinessReview review;
+    private BusinessProfile businessProfile;
 
     @ManyToOne(optional = false)
     private CustomerProfile customerProfile;

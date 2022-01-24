@@ -4,14 +4,14 @@ SELECT `country`.`country_id`,
     `country`.`name`
 FROM `dbay`.`country`;
 
-INSERT INTO `dbay`.`country` (`country_id`, `created_at`, `updated_at`, `name`) VALUES ('C001', '2021-11-19', '2021-11-19', 'Sri Lanka');
-INSERT INTO `dbay`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D001', '2021-11-19', '2021-11-19', 'Galle', 'C001');
-INSERT INTO `dbay`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D002', '2021-11-19', '2021-11-19', 'Matara', 'C001');
-INSERT INTO `dbay`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T001', '2021-11-19', '2021-11-19', 'Akuressa', 'D001');
-INSERT INTO `dbay`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T002', '2021-11-19', '2021-11-19', 'Karapitiya', 'D001');
-INSERT INTO `dbay`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC001', '2021-11-19', '2021-11-19', 'Juice Bar');
-INSERT INTO `dbay`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC002', '2021-11-19', '2021-11-19', 'Cake Baker');
-INSERT INTO `dbay`.`item_feature` (`item_feature_id`, `created_at`, `updated_at`, `confirmed`, `name`, `business_category_business_category_id`) VALUES ('IF1', '2020-05-05', '2020-05-05', true, 'White', 'BC001');
+INSERT INTO `dbaytest`.`country` (`country_id`, `created_at`, `updated_at`, `name`) VALUES ('C001', '2021-11-19', '2021-11-19', 'Sri Lanka');
+INSERT INTO `dbaytest`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D001', '2021-11-19', '2021-11-19', 'Galle', 'C001');
+INSERT INTO `dbaytest`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D002', '2021-11-19', '2021-11-19', 'Matara', 'C001');
+INSERT INTO `dbaytest`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T001', '2021-11-19', '2021-11-19', 'Akuressa', 'D001');
+INSERT INTO `dbaytest`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T002', '2021-11-19', '2021-11-19', 'Karapitiya', 'D001');
+INSERT INTO `dbaytest`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC001', '2021-11-19', '2021-11-19', 'Juice Bar');
+INSERT INTO `dbaytest`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC002', '2021-11-19', '2021-11-19', 'Cake Baker');
+INSERT INTO `dbaytest`.`item_feature` (`item_feature_id`, `created_at`, `updated_at`, `confirmed`, `name`, `business_category_business_category_id`) VALUES ('IF1', '2020-05-05', '2020-05-05', true, 'White', 'BC001');
 
 SELECT `district`.`district_id`,
     `district`.`created_at`,
@@ -57,7 +57,7 @@ SELECT `business_profile`.`business_pro_id`,
     `business_profile`.`town_town_id`,
     `business_profile`.`dbay_user_user_id`,
     `business_profile`.`default_business_business_category_id`
-FROM `dbay`.`business_profile`;
+FROM `dbayTest`.`business_profile`;
 
 SELECT `customer_profile`.`customer_pro_id`,
     `customer_profile`.`created_at`,
@@ -68,7 +68,7 @@ SELECT `customer_profile`.`customer_pro_id`,
     `customer_profile`.`gender`,
     `customer_profile`.`dbay_user_user_id`,
     `customer_profile`.`town_town_id`
-FROM `dbay`.`customer_profile`;
+FROM `dbayTest`.`customer_profile`;
 
 
 SELECT `dbay_user`.`user_id`,
@@ -84,7 +84,7 @@ SELECT `dbay_user`.`user_id`,
     `dbay_user`.`username`,
     `dbay_user`.`verification_code`,
     `dbay_user`.`confirmed_by_user_id`
-FROM `dbay`.`dbay_user`;
+FROM `dbayTest`.`dbay_user`;
 
 SELECT `dbay_user_img`.`user_img_id`,
     `dbay_user_img`.`created_at`,
@@ -230,3 +230,12 @@ inner join item item1_ on (orderdetai0_.item_item_id=item1_.item_id or orderdeta
 inner join item_package itempackag2_ on (orderdetai0_.item_package_item_package_id=itempackag2_.item_package_id or orderdetai0_.item_package_item_package_id is null) 
 inner join item_order itemorder3_ on (orderdetai0_.item_order_order_id=itemorder3_.order_id) 
 where orderdetai0_.item_item_id=item4_.item_id and orderdetai0_.item_package_item_package_id=itempackag5_.item_package_id and orderdetai0_.item_order_order_id=itemorder6_.order_id and ((item4_.business_category_id, item4_.business_pro_id)=('BC001', 'B321') or (itempackag5_.business_category_id, itempackag5_.business_pro_id)=('BC001', 'B321'));
+
+SELECT `item_review`.`item_review_id`,
+    `item_review`.`created_at`,
+    `item_review`.`updated_at`,
+    `item_review`.`description`,
+    `item_review`.`customer_profile_customer_pro_id`,
+    `item_review`.`item_item_id`,
+    `item_review`.`rating`
+FROM `dbay`.`item_review`;

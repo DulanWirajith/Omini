@@ -1,7 +1,7 @@
 package lk.dbay.repository;
 
-import lk.dbay.entity.Review;
+import lk.dbay.entity.BusinessReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReviewR extends JpaRepository<Review,String> {
+public interface ReviewR extends JpaRepository<BusinessReview,String> {
 }

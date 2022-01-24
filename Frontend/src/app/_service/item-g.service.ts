@@ -22,4 +22,16 @@ export class ItemGService {
   getItemPackageSelected(itemPackageId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
   }
+
+  addItemReview(itemReview): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'item/addItemReview', itemReview);
+  }
+
+  addItemResponse(itemReviewResponse): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'item/addItemResponse', itemReviewResponse);
+  }
+
+  getItemReviews(itemId, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/getItemReviews/' + itemId + '/' + customerId);
+  }
 }

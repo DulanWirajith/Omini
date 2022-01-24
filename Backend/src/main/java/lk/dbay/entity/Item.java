@@ -26,7 +26,7 @@ public class Item extends DateTime {
     private double price;
     @Transient
     private double discountedPrice;
-//    @Lob
+    //    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;
     private double discount;
@@ -49,6 +49,9 @@ public class Item extends DateTime {
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
     private Set<ItemImg> itemImgs;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
+    private Set<ItemReview> itemReviews;
 
     @Override
     public boolean equals(Object o) {

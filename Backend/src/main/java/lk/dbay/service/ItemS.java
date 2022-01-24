@@ -1,9 +1,9 @@
 package lk.dbay.service;
 
-import lk.dbay.dto.ItemDTO;
-import lk.dbay.dto.ItemImgDTO;
-import lk.dbay.dto.ItemItemPackageDTO;
+import lk.dbay.dto.*;
 import lk.dbay.entity.Item;
+import lk.dbay.entity.ItemReview;
+import lk.dbay.entity.ItemReviewResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -26,4 +26,10 @@ public interface ItemS {
     boolean setItemAvailable(String itemId);
 
     ItemItemPackageDTO getItemsPackagesBySearch(String txt, String category);
+
+    ItemReviewDTO addItemReview(ItemReview itemReview);
+
+    List<ItemReviewDTO> getItemReviews(String itemId, String customerId);
+
+    ItemReviewResponseDTO addItemReviewResponse(ItemReviewResponse itemReviewResponse);
 }

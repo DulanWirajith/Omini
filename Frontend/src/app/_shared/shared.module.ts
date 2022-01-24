@@ -38,7 +38,8 @@ const components = [
   imports: [
     CommonModule,
     RouterModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    FormsModule
   ]
 })
 export class SharedModule {

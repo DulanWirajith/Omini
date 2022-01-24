@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   // backend_url: 'http://imalkag.ddns.net:8080/dbay/',
   // image_url: 'http://imalkag.ddns.net/Dbay/'
-  backend_url: 'http://192.168.1.4:8080/dbay/',
+  backend_url: 'http://192.168.1.4:8081/dbay/',
   image_url: 'http://192.168.1.4/Dbay/'
 };
 

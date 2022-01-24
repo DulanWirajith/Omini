@@ -32,6 +32,7 @@ public class ItemDTO extends DateTimeDTO {
     private List<ItemItemFeatureDTO> itemItemFeatures;
     private List<ItemFeatureDTO> itemFeatures;
     private List<ItemImgDTO> itemImgs;
+    private List<ItemReviewDTO> itemReviews;
     private OrderDetailDTO orderDetail;
 
 //    private byte[] itemImg;
@@ -91,6 +92,13 @@ public class ItemDTO extends DateTimeDTO {
         this.itemItemFeatures = new ArrayList<>();
         for (ItemItemFeature itemItemFeature : item.getItemItemFeatures()) {
             this.itemItemFeatures.add(new ItemItemFeatureDTO(item, itemItemFeature.getItemFeature()));
+        }
+    }
+
+    public void setItemReviews(Item item) {
+        this.itemReviews = new ArrayList<>();
+        for (ItemReview itemReview : item.getItemReviews()) {
+            this.itemReviews.add(new ItemReviewDTO(itemReview));
         }
     }
 

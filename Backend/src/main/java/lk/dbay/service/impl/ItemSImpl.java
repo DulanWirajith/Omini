@@ -32,6 +32,10 @@ public class ItemSImpl implements ItemS {
     @Autowired
     private ItemImgR itemImgR;
     @Autowired
+    private ItemReviewR itemReviewR;
+    @Autowired
+    private ItemReviewResponseR itemReviewResponseR;
+    @Autowired
     private ItemItemFeatureR itemItemFeatureR;
     @Value("${image.path}")
     private String filePath;
@@ -245,5 +249,62 @@ public class ItemSImpl implements ItemS {
             itemPackagesBySearch = itemPackageR.getItemPackagesBySearch("%" + txt + "%", category);
         }
         return new ItemItemPackageDTO(itemsBySearch, itemPackagesBySearch, true);
+    }
+
+    @Override
+    public ItemReviewDTO addItemReview(ItemReview itemReview) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        itemReview.setItemReviewId("IR" + format);
+        itemReview = itemReviewR.save(itemReview);
+        ItemReviewDTO itemReviewDTO = new ItemReviewDTO(itemReview);
+        itemReviewDTO.setCustomerProfile(itemReview);
+        return itemReviewDTO;
+    }
+
+    @Override
+    public List<ItemReviewDTO> getItemReviews(String itemId, String customerId) {
+        List<ItemReview> itemReviews = itemReviewR.getAllByItem_ItemId(itemId);
+        List<ItemReviewDTO> itemReviewDTOS = new ArrayList<>();
+        for (ItemReview itemReview : itemReviews) {
+            ItemReviewDTO itemReviewDTO = new ItemReviewDTO(itemReview);
+            List<ItemReviewResponse> responses = itemReviewResponseR.getAllByItemReview_ItemReviewId(itemReview.getItemReviewId());
+            for (ItemReviewResponse reviewResponse : responses) {
+                if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
+                    itemReviewDTO.setResponseByMe(new ItemReviewResponseDTO(reviewResponse));
+                }
+                if (reviewResponse.getResponse().equals("like")) {
+                    itemReviewDTO.setLikeCount(itemReviewDTO.getLikeCount() + 1);
+                } else if (reviewResponse.getResponse().equals("dislike")) {
+                    itemReviewDTO.setDislikeCount(itemReviewDTO.getDislikeCount() + 1);
+                }
+            }
+            itemReviewDTO.setCustomerProfile(itemReview);
+            itemReviewDTOS.add(itemReviewDTO);
+        }
+        return itemReviewDTOS;
+    }
+
+    @Override
+    public ItemReviewResponseDTO addItemReviewResponse(ItemReviewResponse itemReviewResponse) {
+        if (!itemReviewResponse.getResponse().equals("remove")) {
+            if (itemReviewResponse.getItemReviewResponseId().equals("")) {
+                LocalDateTime localDateTime = LocalDateTime.now();
+                String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+                itemReviewResponse.setItemReviewResponseId("IRRE" + format);
+                return new ItemReviewResponseDTO(itemReviewResponseR.save(itemReviewResponse));
+            } else {
+                Optional<ItemReviewResponse> optionalItemReviewResponse = itemReviewResponseR.findById(itemReviewResponse.getItemReviewResponseId());
+                if (optionalItemReviewResponse.isPresent()) {
+                    ItemReviewResponse itemReviewResponseObj = optionalItemReviewResponse.get();
+                    itemReviewResponseObj.setResponse(itemReviewResponse.getResponse());
+                    return new ItemReviewResponseDTO(itemReviewResponseR.save(itemReviewResponse));
+                }
+            }
+        } else {
+            itemReviewResponseR.deleteById(itemReviewResponse.getItemReviewResponseId());
+            return new ItemReviewResponseDTO(itemReviewResponse);
+        }
+        return null;
     }
 }
