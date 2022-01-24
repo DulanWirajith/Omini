@@ -10,29 +10,44 @@ import {ItemGService} from "../../../_service/item-g.service";
 })
 export class ShopCartComponent implements OnInit, OnDestroy {
 
+  static lastComp: ShopCartComponent;
+
   shopCart = [];
   itemOrder;
   totalItemCount = 0;
   totalPrice = 0;
 
   constructor(private shopCartService: ShopCartService, private loginService: LoginService, private itemServiceG: ItemGService) {
-    this.itemOrder = this.shopCartService.getNewItemOrder();
-    this.shopCartService.shopCartSub.observers = [];
-    this.shopCartService.shopCartSub.subscribe((item) => {
-      this.addOrder(item);
-    })
+    // console.log(ShopCartComponent.lastComp)
+    if (ShopCartComponent.lastComp === undefined) {
+      this.itemOrder = this.shopCartService.getNewItemOrder();
+      // this.shopCartService.itemOrder = this.itemOrder;
+      this.shopCartService.shopCartSub.observers = [];
+      this.shopCartService.shopCartSub.subscribe((item) => {
+        this.addOrder(item);
+      })
+    } else {
+      return ShopCartComponent.lastComp;
+    }
     //console.log(this.shopCartService.shopCartSub.observers.length)
   }
 
   ngOnInit(): void {
-    this.initShopCart();
+    if (ShopCartComponent.lastComp === undefined) {
+      this.initShopCart();
+    }
   }
 
   ngOnDestroy(): void {
-    this.shopCartService.shopCart = this.shopCart;
-    this.shopCartService.itemOrder = this.itemOrder;
-    this.shopCartService.totalItemCount = this.totalItemCount;
-    this.shopCartService.totalPrice = this.totalPrice;
+    if (localStorage.getItem('user') !== null) {
+      ShopCartComponent.lastComp = this;
+    } else {
+      ShopCartComponent.lastComp = undefined;
+    }
+    // this.shopCartService.shopCart = this.shopCart;
+    // this.shopCartService.itemOrder = this.itemOrder;
+    // this.shopCartService.totalItemCount = this.totalItemCount;
+    // this.shopCartService.totalPrice = this.totalPrice;
     // this.shopCartService.orderDetails = this.itemOrder.orderDetails;
   }
 
@@ -48,26 +63,30 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     //     }
     //   }
     // } else {
-    if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
-      if (this.shopCartService.itemOrder === undefined) {
-        this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
-          this.initCart(itemOrder);
-        })
-      } else {
-        this.shopCart = this.shopCartService.shopCart;
-        this.itemOrder = this.shopCartService.itemOrder;
-        this.totalItemCount = this.shopCartService.totalItemCount;
-        this.totalPrice = this.shopCartService.totalPrice;
-        for (let shop of this.shopCart) {
-          // this.totalItemCount += shop.itemCount;
-          // this.totalPrice += shop.totalPrice;
-          for (let item of shop.items) {
-            // console.log(item)
-            this.shopCartService.shopCartItemsSub.next(item);
-          }
-        }
-      }
-    }
+    // if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
+    //   // console.log(this.shopCartService.itemOrder)
+    //   if (this.shopCartService.itemOrder !== undefined && this.shopCartService.itemOrder.orderId === '') {
+    this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
+      this.shopCart = [];
+      this.totalItemCount = 0;
+      this.totalPrice = 0;
+      this.initCart(itemOrder);
+    })
+    // } else {
+    //   this.shopCart = this.shopCartService.shopCart;
+    //   this.itemOrder = this.shopCartService.itemOrder;
+    //   this.totalItemCount = this.shopCartService.totalItemCount;
+    //   this.totalPrice = this.shopCartService.totalPrice;
+    //   for (let shop of this.shopCart) {
+    //     // this.totalItemCount += shop.itemCount;
+    //     // this.totalPrice += shop.totalPrice;
+    //     for (let item of shop.items) {
+    //       // console.log(item)
+    //       this.shopCartService.shopCartItemsSub.next(item);
+    //     }
+    //   }
+    // }
+    // }
   }
 
   initCart(itemOrder) {

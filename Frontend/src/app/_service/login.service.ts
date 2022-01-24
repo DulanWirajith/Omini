@@ -4,6 +4,8 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {CommonService} from "./common.service";
 import {Router} from "@angular/router";
+import {ShopCartService} from "../app-customer/_service/shop-cart.service";
+import {ShopCartComponent} from "../app-customer/view/shop-cart/shop-cart.component";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class LoginService {
   user;
   loggedIn = new Subject<any>();
 
-  constructor(private http: HttpClient, private commonService: CommonService, private router: Router) {
+  constructor(private http: HttpClient, private commonService: CommonService, private router: Router, private shopCartService: ShopCartService) {
     // console.log(this.router.url)
     // if (this.router.url !== '/login' && this.getUser() === null) {
     //   localStorage.clear();
@@ -37,6 +39,7 @@ export class LoginService {
     localStorage.clear();
     this.user = null;
     // this.loggedIn.next(0);
+    ShopCartComponent.lastComp = undefined;
     this.router.navigate(['/login']);
   }
 
