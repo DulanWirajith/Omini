@@ -23,8 +23,11 @@ public class ItemReview extends DateTime {
 
     private int rating;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Item item;
+    @ManyToOne
+    private ItemPackage itemPackage;
+    private String reviewType;
 
     @ManyToOne(optional = false)
     private CustomerProfile customerProfile;

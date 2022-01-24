@@ -14,7 +14,7 @@
     <!-- Tabs content-->
     <div class="tab-content">
       <!-- Item View-->
-      <div class="tab-pane fade show active" id="item-view" role="tabpanel">
+      <div class="tab-pane fade show active" id="item-package-view" role="tabpanel">
         <div class="row">
           <div class="row g-2 g-md-3 gallery" data-thumbnails="true" style="min-width: 30rem;">
             <div class="col-12" *ngIf="_album?.length > 0">
@@ -111,214 +111,212 @@
             </span>
           </div>
         </div>
-      </div>
 
+        <div class="row g-4 py-2" style="margin-top: 10px">
+          <p class="mb-2 fs-sm text-dark fw-bold">Includes </p>
+          <!--Item-->
+          <div class="col-sm-12 col-md-6 col-xl-6" *ngFor="let itemItemPackage of itemPackage.itemItemPackages">
+            <div class="card shadow-sm card-hover border-0 h-100">
+              <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.25)">
+                <a class="img-overlay"></a>
+                <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                  class="d-table badge bg-primary cursor-point"><h4
+                  class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i
+                  class="fi-star fs-sm"></i> 4.5 / 5</h4></span>
+                </div>
+                <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                  <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                          data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>
+                  </button>
+                </div>
 
-    </div>
-    <div class="row g-4 py-2" style="margin-top: 10px">
-      <p class="mb-2 fs-sm text-dark fw-bold">Includes </p>
-      <!--Item-->
-      <div class="col-sm-12 col-md-6 col-xl-6" *ngFor="let itemItemPackage of itemPackage.itemItemPackages">
-        <div class="card shadow-sm card-hover border-0 h-100">
-          <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.25)">
-            <a class="img-overlay"></a>
-            <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
-              class="d-table badge bg-primary cursor-point"><h4
-              class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i class="fi-star fs-sm"></i> 4.5 / 5</h4></span>
-            </div>
-            <div class="content-overlay end-0 top-0 pt-3 pe-3">
-              <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
-                      data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i>
-              </button>
-            </div>
+                <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+                  <mdb-carousel-item *ngFor="let image of itemItemPackage.item.itemImgs">
+                    <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
+                    <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
+                         alt="First slide">
+                  </mdb-carousel-item>
+                </mdb-carousel>
 
-            <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-              <mdb-carousel-item *ngFor="let image of itemItemPackage.item.itemImgs">
-                <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
-                <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
-                     alt="First slide">
-              </mdb-carousel-item>
-            </mdb-carousel>
+              </div>
+              <div class="card-body position-relative pb-3">
 
-          </div>
-          <div class="card-body position-relative pb-3">
+                <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
+                <h3 class="h6 mb-2 fs-base">
+                  <a class="nav-link" data-bs-toggle="offcanvas"
+                     (click)="getItemSelected(itemItemPackage.item)"
+                     data-bs-target="#item-viewer-g"
+                     style="font-weight: bold;padding: 0px">{{itemItemPackage.item.name}}</a></h3>
+                <!-- <div class="d-flex align-items-center text-nowrap">
+                  <p class="mb-2 fs-sm text-muted">Quantity </p>
+                  <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
+                </div> -->
+                <div class="row g-2">
 
-            <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
-            <h3 class="h6 mb-2 fs-base">
-              <a class="nav-link" data-bs-toggle="offcanvas"
-                 (click)="getItemSelected(itemItemPackage.item)"
-                 data-bs-target="#item-viewer-g"
-                 style="font-weight: bold;padding: 0px">{{itemItemPackage.item.name}}</a></h3>
-            <!-- <div class="d-flex align-items-center text-nowrap">
-              <p class="mb-2 fs-sm text-muted">Quantity </p>
-              <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
-            </div> -->
-            <div class="row g-2">
-
-            </div>
-            <div class="row cols-sm-2 row-cols-md-12"
-                 style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
-              <div class="col" style="padding: 0px">
-                <div style="border-right: 1px solid #d3d3d3">
-                  <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
-                    Quantity </p>
-                  <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
-                    {{itemItemPackage.item.quantity}}</p>
+                </div>
+                <div class="row cols-sm-2 row-cols-md-12"
+                     style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
+                  <div class="col" style="padding: 0px">
+                    <div style="border-right: 1px solid #d3d3d3">
+                      <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                        Quantity </p>
+                      <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
+                        {{itemItemPackage.item.quantity}}</p>
+                    </div>
+                  </div>
+                  <div class="col" style="padding: 0px">
+                    <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                      Discount </p>
+                    <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
+                      {{itemItemPackage.item.discountType==='None' ? 'N/A' :
+                      itemItemPackage.item.discountType==='Cash' ? ('LKR '+itemItemPackage.item.discount) :
+                      itemItemPackage.item.discountType==='Percentage' ? (itemItemPackage.item.discount + '%') : ''}}
+                    </p>
+                    <!--<p *ngIf="item.itemDiscountType==='None'" class="mb-2 fs-sm text-primary fw-bold">N/A</p>-->
+                    <!--<p *ngIf="item.itemDiscountType==='Cash'" class="mb-2 fs-sm text-primary fw-bold">{{"LKR " + item.itemDiscount}}</p>-->
+                    <!--<p *ngIf="item.itemDiscountType==='Percentage'" class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount + "%"}}</p>-->
+                  </div>
+                </div>
+                <div class="fw-bold">
+                  <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
+                  <span *ngIf="itemItemPackage.item.discountType==='None'">LKR {{itemItemPackage.item.price}}</span>
+                  <span *ngIf="itemItemPackage.item.discountType!=='None'"
+                        style="text-decoration: line-through;color: red">LKR {{itemItemPackage.item.price}}</span>
+                  <span *ngIf="itemItemPackage.item.discountType!=='None'" style="margin-left: 10px">LKR {{itemItemPackage.item.discountedPrice}}</span>
                 </div>
               </div>
-              <div class="col" style="padding: 0px">
-                <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
-                  Discount </p>
-                <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
-                  {{itemItemPackage.item.discountType==='None' ? 'N/A' :
-                  itemItemPackage.item.discountType==='Cash' ? ('LKR '+itemItemPackage.item.discount) :
-                  itemItemPackage.item.discountType==='Percentage' ? (itemItemPackage.item.discount + '%') : ''}}
-                </p>
-                <!--<p *ngIf="item.itemDiscountType==='None'" class="mb-2 fs-sm text-primary fw-bold">N/A</p>-->
-                <!--<p *ngIf="item.itemDiscountType==='Cash'" class="mb-2 fs-sm text-primary fw-bold">{{"LKR " + item.itemDiscount}}</p>-->
-                <!--<p *ngIf="item.itemDiscountType==='Percentage'" class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount + "%"}}</p>-->
-              </div>
-            </div>
-            <div class="fw-bold">
-              <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
-              <span *ngIf="itemItemPackage.item.discountType==='None'">LKR {{itemItemPackage.item.price}}</span>
-              <span *ngIf="itemItemPackage.item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{itemItemPackage.item.price}}</span>
-              <span *ngIf="itemItemPackage.item.discountType!=='None'" style="margin-left: 10px">LKR {{itemItemPackage.item.discountedPrice}}</span>
+              <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
+              <!--<div class="form-check form-switch">-->
+              <!--<input class="form-check-input" type="checkbox" [checked]="itemItemPackage.item.available"-->
+              <!--(click)="setItemAvailable(item)">-->
+              <!--<label *ngIf="!itemItemPackage.item.available"-->
+              <!--class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">-->
+              <!--Not Available</label>-->
+              <!--<label *ngIf="itemItemPackage.item.available" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">-->
+              <!--Available</label>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<div class="form-check form-switch" *ngIf="item.itemAvailable">&ndash;&gt;-->
+              <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" checked>&ndash;&gt;-->
+              <!--&lt;!&ndash;<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">&ndash;&gt;-->
+              <!--&lt;!&ndash;Available</label>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--</div>-->
             </div>
           </div>
-          <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
-          <!--<div class="form-check form-switch">-->
-          <!--<input class="form-check-input" type="checkbox" [checked]="itemItemPackage.item.available"-->
-          <!--(click)="setItemAvailable(item)">-->
-          <!--<label *ngIf="!itemItemPackage.item.available"-->
-          <!--class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">-->
-          <!--Not Available</label>-->
-          <!--<label *ngIf="itemItemPackage.item.available" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">-->
-          <!--Available</label>-->
-          <!--</div>-->
-          <!--&lt;!&ndash;<div class="form-check form-switch" *ngIf="item.itemAvailable">&ndash;&gt;-->
-          <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" checked>&ndash;&gt;-->
-          <!--&lt;!&ndash;<label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">&ndash;&gt;-->
-          <!--&lt;!&ndash;Available</label>&ndash;&gt;-->
-          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-          <!--</div>-->
+
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="item-package-review" role="tabpanel">
+        <div class="card card-body">
+          <!-- Reviews-->
+          <div class="mb-4 pb-4 border-bottom">
+            <h3 class="h4 pb-3"><i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>
+              4,9 ({{itemPackageReviews.length}} review{{itemPackageReviews.length>1?'s':''}})
+            </h3>
+            <div
+              class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
+              <a class="btn btn-outline-primary mb-sm-0 mb-3" href="#add-review" data-bs-toggle="collapse" role="button"
+                 aria-expanded="false" aria-controls="add-review"><i class="fi-edit me-1"></i>Add review</a>
+              <div class="d-flex align-items-center ms-sm-4">
+                <label class="me-2 pe-1 text-nowrap" for="reviews-sorting"><i
+                  class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:</label>
+                <select class="form-select" id="reviews-sorting">
+                  <option>Newest</option>
+                  <option>Oldest</option>
+                  <option>Popular</option>
+                  <option>High rating</option>
+                  <option>Low rating</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!--add Review-->
+          <div class="collapse mb-4 pb-4" id="add-review">
+            <div class="card card-body">
+              <form #reviewForm="ngForm" (ngSubmit)="reviewForm.form.valid && addItemPackageReview()" novalidate>
+                <!--<form class="needs-validation" novalidate>-->
+                <div class="mb-3">
+                  <label class="form-label" for="review-rating">Rating <span class='text-danger'>*</span></label>
+                  <select class="form-control form-select" id="review-rating"
+                          [(ngModel)]="itemPackageReview.rating" #itemPackageReviewRate="ngModel"
+                          name="itemPackageReviewRate" required>
+                    <option value="" selected>Choose rating</option>
+                    <option value="5">5 stars</option>
+                    <option value="4">4 stars</option>
+                    <option value="3">3 stars</option>
+                    <option value="2">2 stars</option>
+                    <option value="1">1 star</option>
+                  </select>
+                  <div
+                    *ngIf="(itemPackageReviewRate.touched || reviewForm.submitted) && itemPackageReviewRate.errors?.required"
+                    class="validErr">
+                    Please rate the property
+                  </div>
+                  <!--<div class="invalid-feedback">Please rate the property.</div>-->
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="review-text">Review <span class='text-danger'>*</span></label>
+                  <textarea class="form-control" id="review-text" rows="5" placeholder="Your review message"
+                            required [(ngModel)]="itemPackageReview.description" #itemPackageReviewDesc="ngModel"
+                            name="itemPackageReviewDesc"></textarea>
+                  <div
+                    *ngIf="(itemPackageReviewDesc.touched || reviewForm.submitted) && itemPackageReviewDesc.errors?.required"
+                    class="validErr">
+                    Please write your review
+                  </div>
+                  <!--<div class="invalid-feedback">Please write your review.</div>-->
+                </div>
+                <button class="btn btn-success d-block w-100 mb-4" type="submit">Submit a review</button>
+              </form>
+            </div>
+          </div>
+          <!-- Review-->
+          <div class="mb-4 pb-4 border-bottom" *ngFor="let itemPackageReview of itemPackageReviews">
+            <div class="d-flex justify-content-between mb-3">
+              <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
+                                                               src="../../../assets/img/37.png" width="48" alt="Avatar">
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">
+                    {{itemPackageReview.customerProfile.firstName + ' ' + itemPackageReview.customerProfile.lastName}}
+                  </h6>
+                  <!--<span class="star-rating"><i-->
+                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
+                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
+                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
+                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
+                  <!--class="star-rating-icon fi-star-filled active"></i></span>-->
+                </div>
+              </div>
+              <!--<span class="text-muted fs-sm">Jan 17, 2021</span>-->
+              <span class="text-muted fs-sm">{{itemPackageReview.postedDate}}</span>
+            </div>
+            <p>{{itemPackageReview.description}}</p>
+            <div class="d-flex align-items-center">
+              <button class="btn-like" type="button" (click)="addItemReviewResponse(itemPackageReview,'like')"
+                      [ngStyle]="{'color':
+              itemPackageReview.responseByMe!==undefined?
+              itemPackageReview.responseByMe.response==='like'?'green':'':''}">
+                <i class="fi-like"></i>
+                <span>({{itemPackageReview.likeCount}})</span>
+              </button>
+              <div class="border-end me-1">&nbsp;</div>
+              <button class="btn-dislike" type="button" (click)="addItemReviewResponse(itemPackageReview,'dislike')"
+                      [ngStyle]="{'color':
+              itemPackageReview.responseByMe!==undefined?
+              itemPackageReview.responseByMe.response==='dislike'?'red':'':''}">
+                <i class="fi-dislike"></i>
+                <span>({{itemPackageReview.dislikeCount}})</span>
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
 
     </div>
   </div>
-  <!--<div class="tab-pane fade" id="package-review" role="tabpanel">-->
-  <!--<div class="card card-body">-->
-  <!--&lt;!&ndash; Reviews&ndash;&gt;-->
-  <!--<div class="mb-4 pb-4 border-bottom">-->
-  <!--<h3 class="h4 pb-3"><i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9 (4 reviews)</h3>-->
-  <!--<div class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">-->
-  <!--<a class="btn btn-outline-primary mb-sm-0 mb-3" href="#add-review" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="add-review"><i class="fi-edit me-1"></i>Add review</a>-->
-  <!--<div class="d-flex align-items-center ms-sm-4">-->
-  <!--<label class="me-2 pe-1 text-nowrap" for="reviews-sorting"><i class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:</label>-->
-  <!--<select class="form-select" id="reviews-sorting">-->
-  <!--<option>Newest</option>-->
-  <!--<option>Oldest</option>-->
-  <!--<option>Popular</option>-->
-  <!--<option>High rating</option>-->
-  <!--<option>Low rating</option>-->
-  <!--</select>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash;add Review&ndash;&gt;-->
-  <!--<div class="collapse mb-4 pb-4" id="add-review">-->
-  <!--<div class="card card-body">-->
-  <!--<form class="needs-validation" novalidate>-->
-  <!--<div class="mb-3">-->
-  <!--<label class="form-label" for="review-rating">Rating <span class='text-danger'>*</span></label>-->
-  <!--<select class="form-control form-select" id="review-rating" required>-->
-  <!--<option value="" selected disabled hidden>Choose rating</option>-->
-  <!--<option value="5 stars">5 stars</option>-->
-  <!--<option value="4 stars">4 stars</option>-->
-  <!--<option value="3 stars">3 stars</option>-->
-  <!--<option value="2 stars">2 stars</option>-->
-  <!--<option value="1 star">1 star</option>-->
-  <!--</select>-->
-  <!--<div class="invalid-feedback">Please rate the property.</div>-->
-  <!--</div>-->
-  <!--<div class="mb-4">-->
-  <!--<label class="form-label" for="review-text">Review <span class='text-danger'>*</span></label>-->
-  <!--<textarea class="form-control" id="review-text" rows="5" placeholder="Your review message" required></textarea>-->
-  <!--<div class="invalid-feedback">Please write your review.</div>-->
-  <!--</div>-->
-  <!--<button class="btn btn-success d-block w-100 mb-4" type="submit">Submit a review</button>-->
-  <!--</form>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash; Review&ndash;&gt;-->
-  <!--<div class="mb-4 pb-4 border-bottom">-->
-  <!--<div class="d-flex justify-content-between mb-3">-->
-  <!--<div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar">-->
-  <!--<div class="ps-2">-->
-  <!--<h6 class="fs-base mb-0">Annette Black</h6><span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i></span>-->
-  <!--</div>-->
-  <!--</div><span class="text-muted fs-sm">Jan 17, 2021</span>-->
-  <!--</div>-->
-  <!--<p>Elementum ut quam tincidunt egestas vitae elit, hendrerit. Ullamcorper nulla amet lobortis elit, nibh condimentum enim. Aliquam felis nisl tellus sodales lectus dictum tristique proin vitae. Odio fermentum viverra tortor quis.</p>-->
-  <!--<div class="d-flex align-items-center">-->
-  <!--<button class="btn-like" type="button"><i class="fi-like"></i><span>(3)</span></button>-->
-  <!--<div class="border-end me-1">&nbsp;</div>-->
-  <!--<button class="btn-dislike" type="button"><i class="fi-dislike"></i><span>(0)</span></button>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash; Review&ndash;&gt;-->
-  <!--<div class="mb-4 pb-4 border-bottom">-->
-  <!--<div class="d-flex justify-content-between mb-3">-->
-  <!--<div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar">-->
-  <!--<div class="ps-2">-->
-  <!--<h6 class="fs-base mb-0">Darrell Steward</h6><span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star"></i><i class="star-rating-icon fi-star"></i></span>-->
-  <!--</div>-->
-  <!--</div><span class="text-muted fs-sm">Dec 1, 2020</span>-->
-  <!--</div>-->
-  <!--<p>Vel dictum nunc ut tristique. Egestas diam amet, ut proin hendrerit. Dui accumsan at phasellus tempus consequat dignissim.</p>-->
-  <!--<div class="d-flex align-items-center">-->
-  <!--<button class="btn-like" type="button"><i class="fi-like"></i><span>(0)</span></button>-->
-  <!--<div class="border-end me-1">&nbsp;</div>-->
-  <!--<button class="btn-dislike" type="button"><i class="fi-dislike"></i><span>(1)</span></button>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash; Review&ndash;&gt;-->
-  <!--<div class="mb-4 pb-4 border-bottom">-->
-  <!--<div class="d-flex justify-content-between mb-3">-->
-  <!--<div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar">-->
-  <!--<div class="ps-2">-->
-  <!--<h6 class="fs-base mb-0">Floyd Miles</h6><span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i></span>-->
-  <!--</div>-->
-  <!--</div><span class="text-muted fs-sm">Oct  28, 2020</span>-->
-  <!--</div>-->
-  <!--<p>Viverra nunc blandit sapien non imperdiet sit. Purus tempus elementum aliquam eu urna. A aenean duis non egestas at libero porttitor integer eget. Sed dictum lobortis laoreet gravida.</p>-->
-  <!--<div class="d-flex align-items-center">-->
-  <!--<button class="btn-like" type="button"><i class="fi-like"></i><span>(2)</span></button>-->
-  <!--<div class="border-end me-1">&nbsp;</div>-->
-  <!--<button class="btn-dislike" type="button"><i class="fi-dislike"></i><span>(1)</span></button>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash; Review&ndash;&gt;-->
-  <!--<div class="mb-4 pb-4 border-bottom">-->
-  <!--<div class="d-flex justify-content-between mb-3">-->
-  <!--<div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1" src="./asset/img/37.png" width="48" alt="Avatar">-->
-  <!--<div class="ps-2">-->
-  <!--<h6 class="fs-base mb-0">Ralph Edwards</h6><span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star-filled active"></i><i class="star-rating-icon fi-star"></i></span>-->
-  <!--</div>-->
-  <!--</div><span class="text-muted fs-sm">Sep 14, 2020</span>-->
-  <!--</div>-->
-  <!--<p>Elementum nisl, egestas nam consectetur nisl, at pellentesque cras. Non sed ac vivamus dolor dignissim ut. Nisl sapien blandit pulvinar sagittis donec sociis ipsum arcu est. Tempus, rutrum morbi scelerisque tempor mi. Etiam urna, cras bibendum leo nec faucibus velit. Tempor lectus dignissim at auctor integer neque quam amet.</p>-->
-  <!--<div class="d-flex align-items-center">-->
-  <!--<button class="btn-like" type="button"><i class="fi-like"></i><span>(0)</span></button>-->
-  <!--<div class="border-end me-1">&nbsp;</div>-->
-  <!--<button class="btn-dislike" type="button"><i class="fi-dislike"></i><span>(0)</span></button>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
+
   <div class="offcanvas-footer border-top" style="display: block;">
     <ul class="nav nav-tabs justify-content-end" role="tablist">
       <li class="nav-item me-2" *ngIf="itemPackageObj.cart!==undefined" style="display: flex">
@@ -330,15 +328,21 @@
           {{itemPackageObj.itemPackage.orderDetail.quantity}}
         </div>
       </li>
-      <li class="nav-item me-2" *ngIf="itemPackageObj.backBtn!==undefined">
+      <li class="nav-item me-2" *ngIf="itemPackageObj.backBtn!==undefined && !review">
         <a class="btn btn-md btn-outline-info" [attr.data-bs-target]="'#'+itemPackageObj.backBtn"
            data-bs-toggle="offcanvas"
            role="tab"><i
           class="fi-arrow-back fs-lg me-2"></i>Back</a>
       </li>
+      <li class="nav-item me-2" *ngIf="review">
+        <a id="package-back-btn" class="btn btn-md btn-outline-info" href="#item-package-view" data-bs-toggle="tab"
+           role="tab" (click)="review=false"><i
+          class="fi-arrow-back fs-lg me-2"></i>Back</a>
+      </li>
       <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-primary" href="#item-review" data-bs-toggle="tab" role="tab"><i
-          class="fi-star fs-lg me-2"></i>Reviews</a>
+        <a class="btn btn-md btn-outline-primary" href="#item-package-review" data-bs-toggle="tab" role="tab"
+           (click)="getItemPackageReviews()">
+          <i class="fi-star fs-lg me-2"></i>Reviews</a>
       </li>
     </ul>
   </div>

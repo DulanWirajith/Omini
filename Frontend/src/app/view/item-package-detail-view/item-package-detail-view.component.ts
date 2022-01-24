@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {ItemGService} from "../../_service/item-g.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {Lightbox} from "ngx-lightbox";
 import {ShopCartService} from "../../app-customer/_service/shop-cart.service";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-item-package-detail-view',
@@ -19,9 +20,14 @@ export class ItemPackageDetailViewComponent implements OnInit {
   };
   itemPackage;
   _album: [];
+  review = false;
+  itemPackageReview;
+  itemPackageReviews = [];
+  @ViewChild('reviewForm', {static: true}) public reviewForm: NgForm;
 
   constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
     this.itemPackage = this.getNewPackage();
+    this.itemPackageReview = this.getNewItemPackageReview();
     this.itemService.itemPackageSub.observers = [];
     this.itemService.itemPackageSub.subscribe((itemPackageObj) => {
       // console.log(itemPackageObj)
@@ -39,12 +45,80 @@ export class ItemPackageDetailViewComponent implements OnInit {
   }
 
   getItemPackageSelected(itemPackage) {
+    if (document.getElementById('package-back-btn') !== null) {
+      document.getElementById('package-back-btn').click()
+    }
     this.itemService.getItemPackageSelected(itemPackage.itemPackageId).subscribe((itemPackageObj) => {
       this.itemPackage = itemPackageObj;
       if (itemPackage.orderDetail !== undefined) {
         this.itemPackage.orderDetail.quantity = itemPackage.orderDetail.quantity
       }
       this.getAlbum(this.itemPackage);
+    })
+  }
+
+  addItemPackageReview() {
+    this.itemPackageReview.itemPackage = {
+      itemPackageId: this.itemPackage.itemPackageId
+    };
+    this.itemPackageReview.reviewType = 'ItemPackage';
+    this.itemPackageReview.customerProfile.customerProId = JSON.parse(localStorage.getItem('user')).customerProfile.customerProId;
+    this.itemService.addItemReview(this.itemPackageReview).subscribe((itemPackageReview) => {
+      this.itemPackageReviews.push(itemPackageReview);
+      this.reviewForm.resetForm()
+      this.itemPackageReview = this.getNewItemPackageReview();
+    })
+  }
+
+  addItemReviewResponse(itemPackageReview, response) {
+    let itemReviewResponseId = '';
+    if (itemPackageReview.responseByMe !== undefined) {
+      itemReviewResponseId = itemPackageReview.responseByMe.itemReviewResponseId
+    }
+    let responseTemp = response;
+    if (itemPackageReview.responseByMe !== undefined && itemPackageReview.responseByMe.response === response) {
+      response = 'remove';
+    }
+    let itemReviewResponse = {
+      itemReviewResponseId: itemReviewResponseId,
+      response: response,
+      itemReview: {itemReviewId: itemPackageReview.itemReviewId},
+      customerProfile: {customerProId: JSON.parse(localStorage.getItem('user')).customerProfile.customerProId}
+    };
+    // console.log(itemReviewResponse)
+    this.itemService.addItemResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
+      if (itemReviewResponseObj.response === 'like') {
+        if (itemPackageReview.responseByMe !== undefined) {
+          itemPackageReview.dislikeCount--;
+        }
+        itemPackageReview.likeCount++;
+        itemPackageReview.responseByMe = itemReviewResponseObj;
+      } else if (itemReviewResponseObj.response === 'dislike') {
+        itemPackageReview.dislikeCount++;
+        if (itemPackageReview.responseByMe !== undefined) {
+          itemPackageReview.likeCount--;
+        }
+        itemPackageReview.responseByMe = itemReviewResponseObj;
+      } else if (itemReviewResponseObj.response === 'remove') {
+        if (responseTemp === 'like') {
+          // if (itemReview.likeCount > 0) {
+          itemPackageReview.likeCount--;
+          // }
+        } else if (responseTemp === 'dislike') {
+          // if (itemReview.dislikeCount > 0) {
+          itemPackageReview.dislikeCount--;
+          // }
+        }
+        itemPackageReview.responseByMe = undefined;
+      }
+    })
+  }
+
+  getItemPackageReviews() {
+    this.review = true;
+    this.itemService.getItemReviews(this.itemPackage.itemPackageId, JSON.parse(localStorage.getItem('user')).customerProfile.customerProId, 'ItemPackage').subscribe((itemPackageReviews) => {
+      this.itemPackageReviews = itemPackageReviews;
+      // console.log(this.itemPackageReviews)
     })
   }
 
@@ -131,6 +205,21 @@ export class ItemPackageDetailViewComponent implements OnInit {
       tempBusinessCategory: undefined,
       tempItems: [],
       tempItemFeatures: []
+    }
+  }
+
+  getNewItemPackageReview() {
+    return {
+      itemReviewId: '',
+      description: '',
+      rating: '',
+      likeCount: 0,
+      dislikeCount: 0,
+      postedDate: '',
+      itemPackage: undefined,
+      customerProfile: {
+        customerProId: ''
+      }
     }
   }
 }

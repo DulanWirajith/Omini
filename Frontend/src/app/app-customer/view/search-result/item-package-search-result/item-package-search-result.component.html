@@ -90,29 +90,40 @@
 
                   <div class="tns-carousel-wrapper card-img-top card-img-hover">
                     <span class="img-gradient-overlay"></span>
-                    <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
-                      class="d-table badge bg-info">{{itemPackage.name}}</span></div>
+                    <!--<div class="position-absolute start-0 top-0 pt-3 ps-3"-->
+                    <!--(click)="getItemPackageSelected(itemPackage)" data-bs-target="#item-package-viewer-g">-->
+                    <!--<span class="d-table badge bg-info">{{itemPackage.name}}</span></div>-->
+                    <!--<h3 class="h6 fs-base" style="margin-bottom: 0px">-->
+                    <!--<a class="nav-link" data-bs-toggle="offcanvas"-->
+                    <!--(click)="getItemPackageSelected(itemPackage)"-->
+                    <!--data-bs-target="#item-viewer-g" style="font-weight: bold;padding: 0px">{{itemPackage.name}}</a>-->
+                    <!--</h3>-->
 
                     <div class="card-footer border-0 pt-5 pb-4 gy-3 w-100 position-absolute bottom-0 end-0">
                       <div class="d-sm-flex justify-content-between align-items-end">
                         <a class="text-decoration-none text-light pe-2">
                           <!-- <div class="fs-sm text-uppercase pt-2 mb-1">Available</div> -->
-                          <h3 class="h5 text-light mb-1">{{itemPackage.name}}</h3>
+                          <!--<h3 class="h5 text-light mb-1">{{itemPackage.name}}</h3>-->
+                          <h3 class="h6 fs-base" style="margin-bottom: 0px">
+                            <a class="nav-link" data-bs-toggle="offcanvas"
+                               (click)="getItemPackageSelected(itemPackage)"
+                               data-bs-target="#item-package-viewer-g" style="font-weight: bold;padding: 0px">{{itemPackage.name}}</a>
+                          </h3>
                           <div class="fs-sm opacity-70">
                             <i class="fi-bookmark me-1"></i>
                             {{itemPackage.description}}
                           </div>
                         </a>
-                        <div class="btn-group ms-n2 ms-sm-5 mt-3 justify-content-end">
-                          <!--<a class="btn btn-primary px-3">LKR {{itemPackage.price}}</a>-->
-                          <button
-                            class="btnView btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
-                            type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#ipsr-package' + i"
-                            aria-expanded="true"
-                            aria-controls="packageOne" value="{{itemPackage.itemPackageId}}">
-                            <i class="fi-eye-on"></i>
-                          </button>
-                        </div>
+                        <!--<div class="btn-group ms-n2 ms-sm-5 mt-3 justify-content-end">-->
+                        <!--&lt;!&ndash;<a class="btn btn-primary px-3">LKR {{itemPackage.price}}</a>&ndash;&gt;-->
+                        <!--<button-->
+                        <!--class="btnView btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"-->
+                        <!--type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#ipsr-package' + i"-->
+                        <!--aria-expanded="true"-->
+                        <!--aria-controls="packageOne" value="{{itemPackage.itemPackageId}}">-->
+                        <!--<i class="fi-eye-on"></i>-->
+                        <!--</button>-->
+                        <!--</div>-->
                       </div>
                     </div>
 

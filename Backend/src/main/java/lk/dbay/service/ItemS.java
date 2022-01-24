@@ -29,7 +29,7 @@ public interface ItemS {
 
     ItemReviewDTO addItemReview(ItemReview itemReview);
 
-    List<ItemReviewDTO> getItemReviews(String itemId, String customerId);
+    List<ItemReviewDTO> getItemReviews(String itemId, String customerId, String reviewType);
 
     ItemReviewResponseDTO addItemReviewResponse(ItemReviewResponse itemReviewResponse);
 }

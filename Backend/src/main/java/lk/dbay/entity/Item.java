@@ -50,8 +50,8 @@ public class Item extends DateTime {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
     private Set<ItemImg> itemImgs;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
-    private Set<ItemReview> itemReviews;
+//    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
+//    private Set<ItemReview> itemReviews;
 
     @Override
     public boolean equals(Object o) {

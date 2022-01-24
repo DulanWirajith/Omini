@@ -22,7 +22,7 @@ public class ItemReviewDTO extends DateTimeDTO {
     private String itemReviewId;
     private String description;
 
-    private ItemDTO item;
+//    private ItemDTO item;
     private CustomerProfileDTO customerProfile;
     private String postedDate;
 
@@ -42,11 +42,11 @@ public class ItemReviewDTO extends DateTimeDTO {
         }
     }
 
-    public void setItem(ItemReview itemReview) {
-        if (itemReview.getItem() != null) {
-            this.item = new ItemDTO(itemReview.getItem(), false);
-        }
-    }
+//    public void setItem(ItemReview itemReview) {
+//        if (itemReview.getItem() != null) {
+//            this.item = new ItemDTO(itemReview.getItem(), false);
+//        }
+//    }
 
     public void setCustomerProfile(ItemReview itemReview) {
         if (itemReview.getCustomerProfile() != null) {

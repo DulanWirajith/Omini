@@ -11,7 +11,9 @@ import java.util.List;
 
 public interface ItemReviewR extends JpaRepository<ItemReview, String> {
 
-    List<ItemReview> getAllByItem_ItemId(String itemId);
+    List<ItemReview> getAllByItem_ItemIdAndReviewType(String itemId, String reviewType);
+
+    List<ItemReview> getAllByItemPackage_ItemPackageIdAndReviewType(String itemPackageId, String reviewType);
 
 //    List<Item> getAllByBusinessProfileCategory_BusinessProfileCategoryId(BusinessProfileCategoryPK businessCategoryId);
 //

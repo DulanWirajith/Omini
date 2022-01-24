@@ -231,7 +231,7 @@
           {{itemObj.item.orderDetail.quantity}}
         </div>
       </li>
-      <li class="nav-item me-2" *ngIf="itemObj.backBtn!==undefined">
+      <li class="nav-item me-2" *ngIf="itemObj.backBtn!==undefined && !review">
         <a class="btn btn-md btn-outline-info" [attr.data-bs-target]="'#'+itemObj.backBtn" data-bs-toggle="offcanvas"
            role="tab"><i
           class="fi-arrow-back fs-lg me-2"></i>Back</a>

@@ -31,7 +31,7 @@ export class ItemGService {
     return this.http.post<any>(environment.backend_url + 'item/addItemResponse', itemReviewResponse);
   }
 
-  getItemReviews(itemId, customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemReviews/' + itemId + '/' + customerId);
+  getItemReviews(itemId, customerId, reviewType): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/getItemReviews/' + itemId + '/' + customerId + '/' + reviewType);
   }
 }

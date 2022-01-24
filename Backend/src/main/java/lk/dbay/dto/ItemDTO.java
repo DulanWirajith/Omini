@@ -95,12 +95,12 @@ public class ItemDTO extends DateTimeDTO {
         }
     }
 
-    public void setItemReviews(Item item) {
-        this.itemReviews = new ArrayList<>();
-        for (ItemReview itemReview : item.getItemReviews()) {
-            this.itemReviews.add(new ItemReviewDTO(itemReview));
-        }
-    }
+//    public void setItemReviews(Item item) {
+//        this.itemReviews = new ArrayList<>();
+//        for (ItemReview itemReview : item.getItemReviews()) {
+//            this.itemReviews.add(new ItemReviewDTO(itemReview));
+//        }
+//    }
 
     public void setItemFeatures(Item item) {
 //        this.itemFeatures = itemFeatures;

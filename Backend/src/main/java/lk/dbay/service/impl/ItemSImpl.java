@@ -263,24 +263,31 @@ public class ItemSImpl implements ItemS {
     }
 
     @Override
-    public List<ItemReviewDTO> getItemReviews(String itemId, String customerId) {
-        List<ItemReview> itemReviews = itemReviewR.getAllByItem_ItemId(itemId);
+    public List<ItemReviewDTO> getItemReviews(String itemId, String customerId, String reviewType) {
+        List<ItemReview> itemReviews = null;
+        if (reviewType.equals("Item")) {
+            itemReviews = itemReviewR.getAllByItem_ItemIdAndReviewType(itemId, reviewType);
+        } else if (reviewType.equals("ItemPackage")) {
+            itemReviews = itemReviewR.getAllByItemPackage_ItemPackageIdAndReviewType(itemId, reviewType);
+        }
         List<ItemReviewDTO> itemReviewDTOS = new ArrayList<>();
-        for (ItemReview itemReview : itemReviews) {
-            ItemReviewDTO itemReviewDTO = new ItemReviewDTO(itemReview);
-            List<ItemReviewResponse> responses = itemReviewResponseR.getAllByItemReview_ItemReviewId(itemReview.getItemReviewId());
-            for (ItemReviewResponse reviewResponse : responses) {
-                if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
-                    itemReviewDTO.setResponseByMe(new ItemReviewResponseDTO(reviewResponse));
+        if (itemReviews != null) {
+            for (ItemReview itemReview : itemReviews) {
+                ItemReviewDTO itemReviewDTO = new ItemReviewDTO(itemReview);
+                List<ItemReviewResponse> responses = itemReviewResponseR.getAllByItemReview_ItemReviewId(itemReview.getItemReviewId());
+                for (ItemReviewResponse reviewResponse : responses) {
+                    if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
+                        itemReviewDTO.setResponseByMe(new ItemReviewResponseDTO(reviewResponse));
+                    }
+                    if (reviewResponse.getResponse().equals("like")) {
+                        itemReviewDTO.setLikeCount(itemReviewDTO.getLikeCount() + 1);
+                    } else if (reviewResponse.getResponse().equals("dislike")) {
+                        itemReviewDTO.setDislikeCount(itemReviewDTO.getDislikeCount() + 1);
+                    }
                 }
-                if (reviewResponse.getResponse().equals("like")) {
-                    itemReviewDTO.setLikeCount(itemReviewDTO.getLikeCount() + 1);
-                } else if (reviewResponse.getResponse().equals("dislike")) {
-                    itemReviewDTO.setDislikeCount(itemReviewDTO.getDislikeCount() + 1);
-                }
+                itemReviewDTO.setCustomerProfile(itemReview);
+                itemReviewDTOS.add(itemReviewDTO);
             }
-            itemReviewDTO.setCustomerProfile(itemReview);
-            itemReviewDTOS.add(itemReviewDTO);
         }
         return itemReviewDTOS;
     }

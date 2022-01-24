@@ -123,9 +123,9 @@ public class ItemController {
         }
     }
 
-    @GetMapping(value = "/getItemReviews/{itemId}/{customerId}")
-    public ResponseEntity getItemReviews(@PathVariable String itemId, @PathVariable String customerId) {
-        return ResponseEntity.ok(itemS.getItemReviews(itemId, customerId));
+    @GetMapping(value = "/getItemReviews/{itemId}/{customerId}/{reviewType}")
+    public ResponseEntity getItemReviews(@PathVariable String itemId, @PathVariable String customerId, @PathVariable String reviewType) {
+        return ResponseEntity.ok(itemS.getItemReviews(itemId, customerId, reviewType));
     }
 
 //    @GetMapping(value = "/itemImg/{id}")

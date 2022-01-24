@@ -57,6 +57,7 @@ export class ItemDetailViewComponent implements OnInit {
     this.itemReview.item = {
       itemId: this.item.itemId
     };
+    this.itemReview.reviewType = 'Item';
     this.itemReview.customerProfile.customerProId = JSON.parse(localStorage.getItem('user')).customerProfile.customerProId;
     this.itemService.addItemReview(this.itemReview).subscribe((itemReview) => {
       this.itemReviews.push(itemReview);
@@ -80,7 +81,7 @@ export class ItemDetailViewComponent implements OnInit {
       itemReview: {itemReviewId: itemReview.itemReviewId},
       customerProfile: {customerProId: JSON.parse(localStorage.getItem('user')).customerProfile.customerProId}
     };
-    console.log(itemReviewResponse)
+    // console.log(itemReviewResponse)
     this.itemService.addItemResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
       if (itemReviewResponseObj.response === 'like') {
         if (itemReview.responseByMe !== undefined) {
@@ -111,9 +112,9 @@ export class ItemDetailViewComponent implements OnInit {
 
   getItemReviews() {
     this.review = true;
-    this.itemService.getItemReviews(this.item.itemId, JSON.parse(localStorage.getItem('user')).customerProfile.customerProId).subscribe((itemReviews) => {
+    this.itemService.getItemReviews(this.item.itemId, JSON.parse(localStorage.getItem('user')).customerProfile.customerProId, 'Item').subscribe((itemReviews) => {
       this.itemReviews = itemReviews;
-      console.log(this.itemReviews)
+      // console.log(this.itemReviews)
     })
   }
 

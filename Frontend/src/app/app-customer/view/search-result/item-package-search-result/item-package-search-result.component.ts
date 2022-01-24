@@ -6,6 +6,7 @@ import {environment} from "../../../../../environments/environment";
 import * as $ from "jquery";
 import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
 import {ShopCartService} from "../../../_service/shop-cart.service";
+import {ItemGService} from "../../../../_service/item-g.service";
 
 @Component({
   selector: 'app-item-package-search-result',
@@ -19,7 +20,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
   itemCount = 0;
   orderDetails = [];
 
-  constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService) {
+  constructor(private itemService: ItemService, private itemServiceG: ItemGService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService) {
     this.shopCartService.shopCartItemsSub.observers = [];
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
       let itemObj: any = this.items.find(itemObj => {
@@ -97,11 +98,11 @@ export class ItemPackageSearchResultComponent implements OnInit {
 
   toggleBtns() {
     let that = this;
-    $(document).on('click', '.btnView', function () {
-      if (!$(this, '.accordionView').hasClass('show')) {
-        that.getItemPackageSelected(that, this);
-      }
-    })
+    // $(document).on('click', '.btnView', function () {
+    //   if (!$(this, '.accordionView').hasClass('show')) {
+    //     that.getItemPackageSelected(that, this);
+    //   }
+    // })
     $(document).on('click', '#a-item-filters', function () {
       that.itemCount = that.items.length
     })
@@ -110,25 +111,31 @@ export class ItemPackageSearchResultComponent implements OnInit {
     })
   }
 
-  getItemPackageSelected(that, obj) {
-    let index: any = that.itemPackages.findIndex(itemPackage => {
-      return itemPackage.itemPackageId === $(obj).val()
-    })
-    //console.log($(obj).val())
-    if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
-      that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
-        Object.assign(that.itemPackages[index], itemPackage)
-        that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
-        that.itemPackages[index].items = [];
-        // console.log(that.itemPackages[index])
-        for (let item of itemPackage.itemItemPackages) {
-          // console.log(item.item)
-          item.item.businessProfileCategory = that.itemPackages[index].businessProfileCategory;
-          that.itemPackages[index].items.push(item.item);
-        }
-        that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
-      })
-    }
+  getItemPackageSelected(itemPackage) {
+    // console.log(itemPackage)
+    this.itemServiceG.itemPackageSub.next({
+      itemPackage: itemPackage,
+      backBtn: undefined,
+      cart: true
+    });
+    // let index: any = that.itemPackages.findIndex(itemPackage => {
+    //   return itemPackage.itemPackageId === $(obj).val()
+    // })
+    // //console.log($(obj).val())
+    // if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
+    //   that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
+    //     Object.assign(that.itemPackages[index], itemPackage)
+    //     that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
+    //     that.itemPackages[index].items = [];
+    //     // console.log(that.itemPackages[index])
+    //     for (let item of itemPackage.itemItemPackages) {
+    //       // console.log(item.item)
+    //       item.item.businessProfileCategory = that.itemPackages[index].businessProfileCategory;
+    //       that.itemPackages[index].items.push(item.item);
+    //     }
+    //     that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
+    //   })
+    // }
   }
 
   getImageSrc(itemImg) {
