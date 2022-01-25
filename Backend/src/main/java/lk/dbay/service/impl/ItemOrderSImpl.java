@@ -176,7 +176,7 @@ public class ItemOrderSImpl implements ItemOrderS {
                     if (itemOptional.isPresent()) {
                         Item item = itemOptional.get();
                         int itemQty = item.getQuantity() - orderDetail.getQuantity();
-                        if (itemQty > 0) {
+                        if (itemQty >= 0) {
                             item.setQuantity(itemQty);
                             items.add(item);
                         } else {
@@ -188,7 +188,7 @@ public class ItemOrderSImpl implements ItemOrderS {
                     if (itemPackageOptional.isPresent()) {
                         ItemPackage itemPackage = itemPackageOptional.get();
                         int itemQty = itemPackage.getQuantity() - orderDetail.getQuantity();
-                        if (itemQty > 0) {
+                        if (itemQty >= 0) {
                             itemPackage.setQuantity(itemQty);
                             itemsPackages.add(itemPackage);
                         } else {

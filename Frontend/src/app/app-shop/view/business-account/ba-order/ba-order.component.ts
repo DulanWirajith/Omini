@@ -54,6 +54,7 @@ export class BaOrderComponent implements OnInit {
         this.inProgressItemOrders = itemOrders.filter(orderObj => {
           return orderObj.status === 'In Progress';
         });
+        this.loginService.getUser().businessProfile.countPendingOrders = this.pendingItemOrders.length + this.inProgressItemOrders.length;
       }
       if (status === 'Completed') {
         this.completeItemOrders = itemOrders.filter(orderObj => {

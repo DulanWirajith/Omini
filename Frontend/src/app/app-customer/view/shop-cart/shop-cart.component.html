@@ -37,7 +37,7 @@
         <div class="col-7">
           <div style="background-color: rgba(229,101,2,0.44)">
             <div class="mb-2 fs-sm text-dark fw-bold">Total Price</div>
-            <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR ' + totalPrice}}</div>
+            <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR ' + (totalPrice | number:'.2-2')}}</div>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@
             <div class="col-6">
               <div style="background-color: rgba(229,101,2,0.44)">
                 <div class="mb-2 fs-sm text-dark fw-bold">Total Price</div>
-                <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR ' + shop.totalPrice}}</div>
+                <div class="fs-sm fw-bold" style="color: #b96802">{{'LKR ' + (shop.totalPrice | number:'.2-2')}}</div>
               </div>
             </div>
             <div class="col-1">
@@ -139,7 +139,7 @@
                   <!--<div class="list-group list-group-horizontal-sm">-->
                   <div class="row cols-md-4" style="padding-top: 10px">
                     <!--<div class="col-12">-->
-                    <div class="col-5">
+                    <div class="col-8">
                       <!--<div class="row col-info">-->
                       <!--<div class="col-12">-->
                       <!--<div style="background-color: rgba(229,101,2,0.44)">-->
@@ -159,11 +159,11 @@
                       <!--</div>-->
                       <div class="border-top border-light pt-0 mb-2">
                         <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
-                          <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
-                          <span *ngIf="item.discountType==='None'">LKR {{item.price * item.orderDetail.quantity}}</span>
-                          <span *ngIf="item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.price * item.orderDetail.quantity}}</span>
+                          <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 20px"></i>
+                          <span *ngIf="item.discountType==='None'">LKR {{(item.price * item.orderDetail.quantity) | number:'.2-2'}}</span>
+                          <span *ngIf="item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{(item.price * item.orderDetail.quantity) | number:'.2-2'}}</span>
                           <span *ngIf="item.discountType!=='None'"
-                                style="margin-left: 10px">LKR {{item.discountedPrice * item.orderDetail.quantity}}</span>
+                                style="margin-left: 10px">LKR {{(item.discountedPrice * item.orderDetail.quantity) | number:'.2-2'}}</span>
                         </div>
                         <div class="row cols-sm-2 row-cols-md-12"
                              style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 0px;margin-bottom: 20px;font-size: 15px">
@@ -197,7 +197,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-7" style="display: grid;justify-content: center;align-content: center">
+                    <div class="col-4" style="display: grid;justify-content: center;align-content: center">
                       <div style="display: flex;margin-top: 25px">
                         <div><i class="fi-minus-square" style="font-size: 35px;cursor: pointer"
                                 (click)="itemCountDec(shop,item)"></i></div>

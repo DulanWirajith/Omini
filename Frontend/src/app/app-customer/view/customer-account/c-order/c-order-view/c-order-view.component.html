@@ -164,7 +164,7 @@
                            style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
                           Total Price </p>
                         <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
-                          LKR {{orderDetail.price * orderDetail.quantity}}
+                          LKR {{(orderDetail.price * orderDetail.quantity) | number:'.2-2'}}
                         </p>
                       </div>
                     </div>

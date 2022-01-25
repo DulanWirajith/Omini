@@ -15,7 +15,7 @@ export class LoginService {
   user;
   loggedIn = new Subject<any>();
 
-  constructor(private http: HttpClient, private commonService: CommonService, private router: Router, private shopCartService: ShopCartService) {
+  constructor(private http: HttpClient, private commonService: CommonService, private router: Router) {
     // console.log(this.router.url)
     // if (this.router.url !== '/login' && this.getUser() === null) {
     //   localStorage.clear();

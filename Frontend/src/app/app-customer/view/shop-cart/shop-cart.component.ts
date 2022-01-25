@@ -34,7 +34,15 @@ export class ShopCartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (ShopCartComponent.lastComp === undefined) {
-      this.initShopCart();
+      this.initCart();
+    } else {
+      // for (let orderDetail of this.itemOrder.orderDetails) {
+      //   if (orderDetail.orderDetailType === 'Item') {
+      //     this.shopCartService.shopCartItemsSub.next(orderDetail.item);
+      //   } else if (orderDetail.orderDetailType === 'ItemPackage') {
+      //     this.shopCartService.shopCartItemsSub.next(orderDetail.itemPackage);
+      //   }
+      // }
     }
   }
 
@@ -66,12 +74,12 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     // if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
     //   // console.log(this.shopCartService.itemOrder)
     //   if (this.shopCartService.itemOrder !== undefined && this.shopCartService.itemOrder.orderId === '') {
-    this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
-      this.shopCart = [];
-      this.totalItemCount = 0;
-      this.totalPrice = 0;
-      this.initCart(itemOrder);
-    })
+    // this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
+    //   this.shopCart = [];
+    //   this.totalItemCount = 0;
+    //   this.totalPrice = 0;
+    //   this.initCart(itemOrder);
+    // })
     // } else {
     //   this.shopCart = this.shopCartService.shopCart;
     //   this.itemOrder = this.shopCartService.itemOrder;
@@ -89,32 +97,38 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     // }
   }
 
-  initCart(itemOrder) {
+  initCart() {
     // console.log(itemOrder)
-    if (itemOrder !== null && itemOrder.orderId !== undefined) {
-      this.itemOrder = itemOrder;
-      if (itemOrder.orderDetails !== undefined) {
-        this.shopCartService.orderDetails = itemOrder.orderDetails;
-        for (let orderDetail of itemOrder.orderDetails) {
-          if (orderDetail.orderDetailType === 'Item') {
-            orderDetail.item.orderDetail = JSON.parse(JSON.stringify(orderDetail));
-            orderDetail.item.orderDetail.item = {
-              itemId: orderDetail.item.itemId,
-            };
-            this.addToCart(orderDetail.item);
-          } else if (orderDetail.orderDetailType === 'ItemPackage') {
-            orderDetail.itemPackage.orderDetail = JSON.parse(JSON.stringify(orderDetail));
-            orderDetail.itemPackage.orderDetail.itemPackage = {
-              itemPackageId: orderDetail.itemPackage.itemPackageId,
-            };
-            this.addToCart(orderDetail.itemPackage);
+    this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
+      this.shopCart = [];
+      this.totalItemCount = 0;
+      this.totalPrice = 0;
+      if (itemOrder !== null && itemOrder.orderId !== undefined) {
+        this.itemOrder = itemOrder;
+        if (itemOrder.orderDetails !== undefined) {
+          this.shopCartService.orderDetails = itemOrder.orderDetails;
+          for (let orderDetail of itemOrder.orderDetails) {
+            if (orderDetail.orderDetailType === 'Item') {
+              orderDetail.item.orderDetail = JSON.parse(JSON.stringify(orderDetail));
+              orderDetail.item.orderDetail.item = {
+                itemId: orderDetail.item.itemId,
+              };
+              this.addToCart(orderDetail.item);
+            } else if (orderDetail.orderDetailType === 'ItemPackage') {
+              orderDetail.itemPackage.orderDetail = JSON.parse(JSON.stringify(orderDetail));
+              orderDetail.itemPackage.orderDetail.itemPackage = {
+                itemPackageId: orderDetail.itemPackage.itemPackageId,
+              };
+              this.addToCart(orderDetail.itemPackage);
+            }
           }
+          this.shopCartService.initShopCartSub.next(itemOrder.orderDetails);
+          this.shopCartService.shopCart = this.shopCart;
         }
-        this.shopCartService.initShopCartSub.next(itemOrder.orderDetails);
+      } else {
+        this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;
       }
-    } else {
-      this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;
-    }
+    })
   }
 
   addToCart(item) {
@@ -144,6 +158,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
       this.shopCart[indexShop].totalPrice += (item.discountedPrice * item.orderDetail.quantity);
     }
     this.shopCartService.shopCartItemsSub.next(item);
+    this.shopCartService.shopCart = this.shopCart;
   }
 
   addOrder(item) {
@@ -153,6 +168,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
         if (item.quantity > item.orderDetail.quantity) {
           let orderDetail = item.orderDetail;
           orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
+          orderDetail.makeToOrder = item.makeToOrder;
           orderDetail.price = item.discountedPrice;
           orderDetail.itemOrder.orderDetails = [];
           if (orderDetail.orderDetailType === 'Item') {
@@ -302,12 +318,16 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     this.shopCartService.placeOrder(this.itemOrder).subscribe((reply) => {
       for (let orderDetail of this.itemOrder.orderDetails) {
         if (orderDetail.orderDetailType === 'Item') {
-          orderDetail.item.quantity -= orderDetail.quantity;
+          if (!orderDetail.item.makeToOrder) {
+            orderDetail.item.quantity -= orderDetail.quantity;
+          }
           orderDetail.item.orderDetail.quantity = 0;
           orderDetail.orderDetailId = undefined;
           this.shopCartService.shopCartItemsSub.next(orderDetail.item);
         } else if (orderDetail.orderDetailType === 'ItemPackage') {
-          // orderDetail.itemPackage.quantity -= orderDetail.quantity;
+          if (!orderDetail.item.makeToOrder) {
+            orderDetail.itemPackage.quantity -= orderDetail.quantity;
+          }
           orderDetail.itemPackage.orderDetail.quantity = 0;
           orderDetail.orderDetailId = undefined;
           this.shopCartService.shopCartItemsSub.next(orderDetail.itemPackage);

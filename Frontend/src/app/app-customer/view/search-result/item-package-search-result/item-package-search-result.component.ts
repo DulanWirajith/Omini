@@ -21,8 +21,10 @@ export class ItemPackageSearchResultComponent implements OnInit {
   orderDetails = [];
 
   constructor(private itemService: ItemService, private itemServiceG: ItemGService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService) {
-    this.shopCartService.shopCartItemsSub.observers = [];
+    // this.shopCartService.shopCartItemsSub.observers = [];
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
+      // console.log(item)
+      // console.log(this.items)
       let itemObj: any = this.items.find(itemObj => {
         return itemObj.itemId === item.itemId
       })
@@ -71,7 +73,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
   // }
 
   setShopCart(shopCart) {
-    // console.log(orderDetails)
+    // console.log(shopCart)
     for (let shop of shopCart) {
       for (let item of shop.items) {
         // console.log(orderDetail)

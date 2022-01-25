@@ -68,19 +68,27 @@
         <div class="border-top border-light pt-0 mb-2">
           <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
             <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
-            <span *ngIf="item.discountType==='None'">LKR {{item.price}}</span>
+            <span *ngIf="item.discountType==='None'">LKR {{item.price | number:'.2-2'}}</span>
             <span *ngIf="item.discountType!=='None'"
-                  style="text-decoration: line-through;color: red">LKR {{item.price}}</span>
-            <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice}}</span>
+                  style="text-decoration: line-through;color: red">LKR {{item.price | number:'.2-2'}}</span>
+            <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice | number:'.2-2'}}</span>
           </div>
           <div class="row cols-sm-2 row-cols-md-12"
                style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 0px;margin-bottom: 20px">
             <div class="col" style="padding: 0px">
-              <div style="border-right: 1px solid #d3d3d3">
+              <div *ngIf="item.quantity>0" style="border-right: 1px solid #d3d3d3">
                 <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
                   {{item.makeToOrder?'Max':''}} Quantity
                 </p>
                 <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.quantity}}</p>
+              </div>
+              <div *ngIf="item.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
+                <p class="mb-2 fs-sm fw-bold mx-2"
+                   style="text-align: center;">
+                  <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">
+                    Out Of Stock
+                  </span>
+                </p>
               </div>
             </div>
             <div class="col" style="padding: 0px">

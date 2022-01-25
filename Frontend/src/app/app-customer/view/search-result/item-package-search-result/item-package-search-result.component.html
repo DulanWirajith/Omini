@@ -133,11 +133,18 @@
                     <!--<i class="fi-trash" style="font-size: 20px"></i>-->
                     <!--</button>-->
                     <!--</div>-->
+                    <div class="position-absolute start-0 top-0 pt-3 ps-3"
+                         style="width: 99%;display: flex;justify-content: right">
+                      <div *ngIf="itemPackage.makeToOrder"
+                           class="d-table badge bg-info">Make To Order
+                      </div>
+                    </div>
                     <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
                       class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
                                                                         style="margin-bottom: 0px;"><i
                       class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
-                    <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <div class="content-overlay end-0 top-0"
+                         style="display: flex;justify-content: right;width: 95%;margin-top: 310px;margin-right: 10px">
                       <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                               data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"><i
                         class="fi-heart"></i></button>
@@ -161,13 +168,21 @@
                     <div class="border-top border-light pt-0 mb-2">
                       <div class="row cols-sm-2 row-cols-md-12">
                         <div class="col" style="padding: 0px">
-                          <div style="border-right: 1px solid #d3d3d3">
+                          <div *ngIf="itemPackage.quantity>0" style="border-right: 1px solid #d3d3d3">
                             <p class="mb-1 fs-sm"
                                style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
                               {{itemPackage.makeToOrder?'Max':''}} Quantity
                             </p>
                             <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
                               {{itemPackage.quantity}}</p>
+                          </div>
+                          <div *ngIf="itemPackage.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
+                            <p class="mb-2 fs-sm fw-bold mx-2"
+                               style="text-align: center;">
+                              <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">
+                                Out Of Stock
+                              </span>
+                            </p>
                           </div>
                         </div>
                         <div class="col" style="padding: 0px">
@@ -193,10 +208,10 @@
                         <!--</div>-->
                       </div>
                       <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>
-                        <span *ngIf="itemPackage.discountType==='None'">LKR {{itemPackage.price}}</span>
+                        <span *ngIf="itemPackage.discountType==='None'">LKR {{itemPackage.price | number:'.2-2'}}</span>
                         <span *ngIf="itemPackage.discountType!=='None'"
-                              style="text-decoration: line-through;color: red">LKR {{itemPackage.price}}</span>
-                        <span *ngIf="itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{itemPackage.discountedPrice}}</span>
+                              style="text-decoration: line-through;color: red">LKR {{itemPackage.price | number:'.2-2'}}</span>
+                        <span *ngIf="itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{itemPackage.discountedPrice | number:'.2-2'}}</span>
                       </div>
                     </div>
                   </div>
