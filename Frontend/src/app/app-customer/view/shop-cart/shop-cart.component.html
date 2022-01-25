@@ -168,7 +168,7 @@
                         <div class="row cols-sm-2 row-cols-md-12"
                              style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 0px;margin-bottom: 20px;font-size: 15px">
                           <div class="col" style="padding: 0px">
-                            <div *ngIf="item.quantity!==-1" style="border-right: 1px solid #d3d3d3">
+                            <div *ngIf="!item.makeToOrder" style="border-right: 1px solid #d3d3d3">
                               <p class="mb-1"
                                  style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
                                 Quantity </p>
@@ -176,10 +176,12 @@
                                 {{item.quantity}}
                               </p>
                             </div>
-                            <div *ngIf="item.quantity===-1"
-                                 style="border-right: 1px solid #d3d3d3;display: grid;justify-content: center;align-content: center;height: 100%">
-                              <p class="mb-2 fw-bold mx-2" style="text-align: center;color: #d48f03">
-                                Make To Order
+                            <div *ngIf="item.makeToOrder" style="border-right: 1px solid #d3d3d3">
+                              <p class="mb-1"
+                                 style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                                Max Quantity </p>
+                              <p class="mb-2 fw-bold mx-2" style="text-align: center;color: #f29d00">
+                                {{item.quantity}}
                               </p>
                             </div>
                           </div>

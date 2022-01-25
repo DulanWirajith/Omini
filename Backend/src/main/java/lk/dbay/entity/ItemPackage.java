@@ -23,6 +23,7 @@ public class ItemPackage extends DateTime {
     private String itemPackageId;
     private String name;
     private int quantity;
+    private boolean makeToOrder;
     private double price;
     private double discountedPrice;
     //    @Lob

@@ -175,6 +175,7 @@ export class ItemDetailViewComponent implements OnInit {
       itemId: "",
       name: "",
       quantity: 1,
+      makeToOrder: false,
       itemCount: 0,
       discount: "",
       discountType: "None",

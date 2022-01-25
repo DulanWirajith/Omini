@@ -41,6 +41,7 @@ export class ItemService {
       orderDetailId: '',
       name: "",
       quantity: 1,
+      makeToOrder: false,
       itemCount: 0,
       discount: "",
       discountType: "None",

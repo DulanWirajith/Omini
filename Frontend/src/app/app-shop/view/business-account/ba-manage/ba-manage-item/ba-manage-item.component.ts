@@ -40,19 +40,22 @@ export class BaManageItemComponent implements OnInit {
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.item = this.itemService.getNewItem();
-    this.businessAccountService.businessCategoriesSub.observers = [];
+    // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     });
-    this.businessAccountService.businessCategorySub.observers = [];
+    // console.log(4)
+    // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
       this.getItemsOrdered(businessCategoryId);
+      // console.log(2)
     })
   }
 
   ngOnInit(): void {
     // this.getBusinessCategories();
     // this.getItemsOrdered();
+    // console.log(3)
     this.businessCategories = this.businessAccountService.businessCategories;
     if (this.businessAccountService.businessCategory !== undefined) {
       this.getItemsOrdered(this.businessAccountService.businessCategory.businessCategoryId);

@@ -51,12 +51,12 @@ export class BaManagePackageComponent implements OnInit {
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.itemPackage = this.itemService.getNewPackage();
-    this.businessAccountService.businessCategoriesSub.observers = [];
+    // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
       // console.log(this.businessCategories)
     })
-    this.businessAccountService.businessCategorySub.observers = [];
+    // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
       this.getItemPackagesOrdered(businessCategoryId);
     })
@@ -65,7 +65,7 @@ export class BaManagePackageComponent implements OnInit {
   ngOnInit(): void {
     // this.getItems();
     // this.getBusinessCategories();
-    //console.log(9)
+    // console.log(this.businessAccountService.businessCategory)
     this.businessCategories = this.businessAccountService.businessCategories;
     if (this.businessAccountService.businessCategory !== undefined) {
       this.getItemPackagesOrdered(this.businessAccountService.businessCategory.businessCategoryId);

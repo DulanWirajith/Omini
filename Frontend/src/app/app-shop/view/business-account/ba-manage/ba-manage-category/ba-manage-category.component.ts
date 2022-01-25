@@ -26,12 +26,12 @@ export class BaManageCategoryComponent implements OnInit {
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.itemCategory = itemService.getNewCategory();
     // this.categoryE = itemService.getNewCategory();
-    this.businessAccountService.businessCategoriesSub.observers = [];
+    // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
       // console.log(this.businessCategories)
     })
-    this.businessAccountService.businessCategorySub.observers = [];
+    // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
       this.businessCategoryId = businessCategoryId;
       this.getItemCategoriesOrdered(businessCategoryId);

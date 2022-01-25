@@ -96,6 +96,7 @@ export class ItemService {
       itemId: "",
       name: "",
       quantity: 1,
+      makeToOrder: false,
       itemCount: 0,
       discount: "",
       discountType: "None",
@@ -138,6 +139,8 @@ export class ItemService {
       name: "",
       description: "",
       price: "",
+      quantity: 1,
+      makeToOrder: false,
       discount: "",
       discountType: "None",
       businessProfileCategory: {

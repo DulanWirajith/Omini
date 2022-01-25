@@ -17,6 +17,6 @@ public interface ItemPackageR extends JpaRepository<ItemPackage,String> {
     @Query(value = "select distinct i from ItemPackage i inner join i.itemPackageItemPackageFeatures iif where (i.name like ?1 or iif.itemPackageFeature.name like ?1) and (i.businessProfileCategory.businessCategory.businessCategoryId=?2 or iif.itemPackage.businessProfileCategory.businessCategory.businessCategoryId=?2)")
     List<ItemPackage> getItemPackagesBySearch(String txt, String category);
 
-    @Query(value = "select distinct i from ItemPackage i inner join i.itemPackageItemPackageFeatures iif where i.name like ?1 or iif.itemPackageFeature.name like ?1")
+    @Query(value = "select distinct i from ItemPackage i inner join i.itemPackageItemPackageFeatures iif inner join i.itemItemPackages iip where i.name like ?1 or iip.item.name like ?1 or iif.itemPackageFeature.name like ?1")
     List<ItemPackage> getItemPackagesBySearch(String txt);
 }

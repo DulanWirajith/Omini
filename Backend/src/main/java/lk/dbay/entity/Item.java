@@ -23,6 +23,7 @@ public class Item extends DateTime {
     private String itemId;
     private String name;
     private int quantity;
+    private boolean makeToOrder;
     private double price;
     @Transient
     private double discountedPrice;

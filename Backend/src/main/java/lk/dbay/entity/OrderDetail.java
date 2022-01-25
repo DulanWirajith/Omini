@@ -17,6 +17,7 @@ public class OrderDetail extends DateTime {
     @Id
     private String orderDetailId;
     private int quantity;
+    private boolean makeToOrder;
     private double price;
     @Transient
     private double discountedPrice;

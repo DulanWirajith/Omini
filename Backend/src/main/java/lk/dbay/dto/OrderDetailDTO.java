@@ -21,6 +21,7 @@ public class OrderDetailDTO extends DateTimeDTO {
 
     private String orderDetailId;
     private int quantity;
+    private boolean makeToOrder;
     private double price;
     private double discountedPrice;
     private double discount;
@@ -41,6 +42,7 @@ public class OrderDetailDTO extends DateTimeDTO {
             this.orderDetailType = orderDetail.getOrderDetailType();
             this.status = orderDetail.getStatus();
             this.available = orderDetail.isAvailable();
+            this.makeToOrder = orderDetail.isMakeToOrder();
         }
     }
 

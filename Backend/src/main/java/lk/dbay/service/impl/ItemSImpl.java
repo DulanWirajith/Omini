@@ -70,6 +70,8 @@ public class ItemSImpl implements ItemS {
                 itemObj.setName(item.getName());
                 itemObj.setQuantity(item.getQuantity());
                 itemObj.setPrice(item.getPrice());
+                itemObj.setMakeToOrder(item.isMakeToOrder());
+                itemObj.setQuantity(item.getQuantity());
                 itemObj.setDescription(item.getDescription());
                 itemObj.setDiscount(item.getDiscount());
                 itemObj.setDiscountType(item.getDiscountType());

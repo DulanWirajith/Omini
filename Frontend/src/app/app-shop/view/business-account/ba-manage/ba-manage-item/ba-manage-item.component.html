@@ -55,7 +55,7 @@
     <form #baManageFormItem="ngForm" (ngSubmit)="baManageFormItem.form.valid && onSubmit()" novalidate>
 
       <div class="row">
-        <div class="col-md-8 mb-3">
+        <div class="col-md-12 mb-3">
           <label class="form-label" for="validationTooltip01"
           >Title</label
           >
@@ -98,6 +98,13 @@
             Quantity is required
           </div>
           <div class="valid-tooltip">Looks good!</div>
+        </div>
+        <div class="col-md-4 mb-3" style="margin-top: 46px">
+          <label>
+            Make To Order
+            <input type="checkbox" name="makeToOrder" style="margin-left: 5px; transform: scale(1.4)"
+                   [(ngModel)]="item.makeToOrder">
+          </label>
         </div>
         <!-- <div class="col-md-4 mb-3">
                 <label class="form-label" for="validationTooltipUsername">Username</label>

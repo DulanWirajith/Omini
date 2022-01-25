@@ -96,7 +96,7 @@
                 (ngSubmit)="baManageFormPackageE.form.valid && onSubmit(itemPackage,imageInput)" novalidate>
 
             <div class="row">
-              <div class="col-md-8 mb-3">
+              <div class="col-md-12 mb-3">
                 <label class="form-label" for="validationTooltipp1"
                 >Package name</label
                 >
@@ -117,7 +117,36 @@
                   Package Name is required
                 </div>
               </div>
-
+              <div class="col-md-4 mb-3">
+                <label class="form-label" for="validationTooltip02"
+                >Quantity</label
+                >
+                <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
+                   data-bs-toggle="tooltip" title="Item quantity" data-bs-original-title="Item quantity"
+                   aria-label="Item quantity"><i class="fi-help"></i>
+                </a>
+                <input
+                  class="form-control"
+                  type="number"
+                  placeholder="Quantity"
+                  id="validationTooltip02"
+                  min="1"
+                  required
+                  [(ngModel)]="itemPackage.quantity" #packageQtyE="ngModel" name="packageQtyE"
+                />
+                <div *ngIf="(packageQtyE.touched || baManageFormPackageE.submitted) && packageQtyE.errors?.required"
+                     class="validErr">
+                  Quantity is required
+                </div>
+                <div class="valid-tooltip">Looks good!</div>
+              </div>
+              <div class="col-md-4 mb-3" style="margin-top: 46px">
+                <label>
+                  Make To Order
+                  <input type="checkbox" name="makeToOrder" style="margin-left: 5px; transform: scale(1.4)"
+                         [(ngModel)]="itemPackage.makeToOrder">
+                </label>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-4 mb-3">

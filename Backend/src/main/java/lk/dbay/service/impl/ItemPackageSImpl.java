@@ -49,7 +49,7 @@ public class ItemPackageSImpl implements ItemPackageS {
             businessProfileCategory.setBusinessProfileCategoryId(
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
-            itemPackage.setQuantity(-1);
+//            itemPackage.setQuantity(-1);
             addItemsToItemPackage(itemPackage);
             addFeaturesToItemPackage(itemPackage);
             addImagesToItemPackage(itemPackage, files);
@@ -73,6 +73,8 @@ public class ItemPackageSImpl implements ItemPackageS {
                 ItemPackage itemPackageObj = itemPackageOptional.get();
                 itemPackageObj.setName(itemPackage.getName());
                 itemPackageObj.setDescription(itemPackage.getDescription());
+                itemPackageObj.setQuantity(itemPackage.getQuantity());
+                itemPackageObj.setMakeToOrder(itemPackage.isMakeToOrder());
                 itemPackageObj.setPrice(itemPackage.getPrice());
                 itemPackageObj.setDiscount(itemPackage.getDiscount());
                 itemPackageObj.setDiscountType(itemPackage.getDiscountType());

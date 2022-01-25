@@ -19,6 +19,7 @@ public class ItemDTO extends DateTimeDTO {
     private String itemId;
     private String name;
     private int quantity;
+    private boolean makeToOrder;
     private double price;
     private String description;
     private double discount;
@@ -50,6 +51,7 @@ public class ItemDTO extends DateTimeDTO {
             this.discount = item.getDiscount();
             this.confirmed = item.isConfirmed();
             this.available = item.isAvailable();
+            this.makeToOrder = item.isMakeToOrder();
             if (this.discountType.equals("Cash")) {
                 this.discountedPrice = (this.price - this.discount);
             } else if (this.discountType.equals("Percentage")) {

@@ -78,7 +78,8 @@
             <div class="col" style="padding: 0px">
               <div style="border-right: 1px solid #d3d3d3">
                 <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
-                  Quantity </p>
+                  {{item.makeToOrder?'Max':''}} Quantity
+                </p>
                 <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.quantity}}</p>
               </div>
             </div>
@@ -142,8 +143,8 @@
               <form #reviewForm="ngForm" (ngSubmit)="reviewForm.form.valid && addItemReview()" novalidate>
                 <!--<form class="needs-validation" novalidate>-->
                 <div class="mb-3">
-                  <label class="form-label" for="review-rating">Rating <span class='text-danger'>*</span></label>
-                  <select class="form-control form-select" id="review-rating"
+                  <label class="form-label" for="i-review-rating">Rating <span class='text-danger'>*</span></label>
+                  <select class="form-control form-select" id="i-review-rating"
                           [(ngModel)]="itemReview.rating" #itemReviewRate="ngModel"
                           name="itemReviewRate" required>
                     <option value="" selected>Choose rating</option>
@@ -160,8 +161,8 @@
                   <!--<div class="invalid-feedback">Please rate the property.</div>-->
                 </div>
                 <div class="mb-4">
-                  <label class="form-label" for="review-text">Review <span class='text-danger'>*</span></label>
-                  <textarea class="form-control" id="review-text" rows="5" placeholder="Your review message"
+                  <label class="form-label" for="i-review-text">Review <span class='text-danger'>*</span></label>
+                  <textarea class="form-control" id="i-review-text" rows="5" placeholder="Your review message"
                             required [(ngModel)]="itemReview.description" #itemReviewDesc="ngModel"
                             name="itemReviewDesc"></textarea>
                   <div *ngIf="(itemReviewDesc.touched || reviewForm.submitted) && itemReviewDesc.errors?.required"

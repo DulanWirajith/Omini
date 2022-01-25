@@ -7,6 +7,7 @@ import lk.dbay.service.ItemOrderS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,8 @@ public class ItemOrderSImpl implements ItemOrderS {
     private OrderDetailR orderDetailR;
     @Autowired
     private ItemR itemR;
+    @Autowired
+    private ItemPackageR itemPackageR;
 
     @Override
     public OrderDetailDTO addOrderDetail(OrderDetail orderDetail) {
@@ -165,9 +168,10 @@ public class ItemOrderSImpl implements ItemOrderS {
             itemOrderObj.setOrderDate(LocalDateTime.now());
             itemOrderR.save(itemOrderObj);
             List<Item> items = new ArrayList<>();
+            List<ItemPackage> itemsPackages = new ArrayList<>();
             String itemsNotAvailable = "";
             for (OrderDetail orderDetail : itemOrder.getOrderDetails()) {
-                if (orderDetail.getOrderDetailType().equals("Item")) {
+                if (orderDetail.getOrderDetailType().equals("Item") && !orderDetail.isMakeToOrder()) {
                     Optional<Item> itemOptional = itemR.findById(orderDetail.getItem().getItemId());
                     if (itemOptional.isPresent()) {
                         Item item = itemOptional.get();
@@ -179,15 +183,31 @@ public class ItemOrderSImpl implements ItemOrderS {
                             itemsNotAvailable += item.getName() + ", ";
                         }
                     }
+                } else if (orderDetail.getOrderDetailType().equals("ItemPackage") && !orderDetail.isMakeToOrder()) {
+                    Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(orderDetail.getItem().getItemId());
+                    if (itemPackageOptional.isPresent()) {
+                        ItemPackage itemPackage = itemPackageOptional.get();
+                        int itemQty = itemPackage.getQuantity() - orderDetail.getQuantity();
+                        if (itemQty > 0) {
+                            itemPackage.setQuantity(itemQty);
+                            itemsPackages.add(itemPackage);
+                        } else {
+                            itemsNotAvailable += itemPackage.getName() + ", ";
+                        }
+                    }
                 }
             }
             if (!itemsNotAvailable.equals("")) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 throw new Exception(itemsNotAvailable + " not available in stock now.");
             }
             if (items.size() > 0) {
                 itemR.saveAll(items);
             }
-            itemR.saveAll(items);
+            if (itemsPackages.size() > 0) {
+                itemPackageR.saveAll(itemsPackages);
+            }
+//            itemR.saveAll(items);
             return new ItemOrderDTO(itemOrderObj);
         }
         return null;

@@ -150,7 +150,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     // console.log(item)
     if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
       if (item.orderDetail.quantity === 0) {
-        if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
+        if (item.quantity > item.orderDetail.quantity) {
           let orderDetail = item.orderDetail;
           orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
           orderDetail.price = item.discountedPrice;
@@ -211,7 +211,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
             // console.log(this.itemOrder)
           })
         }
-      } else if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
+      } else if (item.quantity > item.orderDetail.quantity) {
         // console.log(item)
         let indexShop: any = this.shopCart.findIndex(shopCart => {
           return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId

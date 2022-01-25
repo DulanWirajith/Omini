@@ -188,6 +188,8 @@ export class ItemPackageDetailViewComponent implements OnInit {
       name: "",
       description: "",
       price: "",
+      quantity: 1,
+      makeToOrder: false,
       discount: "",
       discountType: "None",
       businessProfileCategory: {
