@@ -97,9 +97,11 @@ export class BaManagePackageEditComponent implements OnInit {
       // this.item = undefined;
       imageInput.removeFiles();
       itemPackage.itemPackageImgs = itemPackage.itemPackageImgs.concat(itemPackageR.itemPackageImgs);
+      itemPackage.itemPkgImgs = [];
       if (document.getElementById('btnPackage' + index) !== null) {
         document.getElementById('btnPackage' + index).click()
       }
+      itemPackage.isNewPackage = false;
     })
   }
 
@@ -192,28 +194,28 @@ export class BaManagePackageEditComponent implements OnInit {
       return itemPackage.itemPackageId === $(obj).val()
     })
     //console.log($(obj).val())
-    if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
-      that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
-        // that.categories[index] = category;
-        Object.assign(that.itemPackages[index], itemPackage)
-        // that.getItems(that.itemPackages[index])
-        // that.getItemPackageFeatures(that.itemPackages[index])
-        that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
-        that.itemPackages[index].items = [];
-        for (let item of itemPackage.itemItemPackages) {
-          that.itemPackages[index].items.push(item.item);
-        }
-        that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
-        // console.log(that.itemPackages[index])
-        // for (let i = 0; i < that.categories.length; i++) {
-        //   if (that.categories[i].itemCategoryId === $(obj).val()) {
-        //     // console.log(category)
-        //     that.categoryE = category;
-        //     that.categories[i].items = category.items;
-        //   }
-        // }
-      })
-    }
+    // if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
+    that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
+      // that.categories[index] = category;
+      Object.assign(that.itemPackages[index], itemPackage)
+      // that.getItems(that.itemPackages[index])
+      // that.getItemPackageFeatures(that.itemPackages[index])
+      that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
+      that.itemPackages[index].items = [];
+      for (let item of itemPackage.itemItemPackages) {
+        that.itemPackages[index].items.push(item.item);
+      }
+      that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
+      // console.log(that.itemPackages[index])
+      // for (let i = 0; i < that.categories.length; i++) {
+      //   if (that.categories[i].itemCategoryId === $(obj).val()) {
+      //     // console.log(category)
+      //     that.categoryE = category;
+      //     that.categories[i].items = category.items;
+      //   }
+      // }
+    })
+    // }
   }
 
   getImageSrc(itemPackageImg) {
@@ -227,5 +229,49 @@ export class BaManagePackageEditComponent implements OnInit {
     // let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
+  }
+
+  pondHandleAddFile(event, itemPackageE?) {
+    itemPackageE.itemPkgImgs.push(event.file.file);
+  }
+
+  pondHandlerRemoveFile(event, itemPackageE?) {
+    for (let i = 0; i < itemPackageE.itemPkgImgs.length; i++) {
+      if (itemPackageE.itemPkgImgs[i].name === event.file.file.name) {
+        itemPackageE.itemPkgImgs.splice(i, 1);
+      }
+    }
+  }
+
+  confirmation = {
+    reply: false,
+    message: ''
+  };
+
+  packageIndex;
+  packageE;
+
+  // confirmationSub = new Subject();
+
+  setPackage(packageE, packageIndex) {
+    this.packageE = packageE
+    this.packageIndex = packageIndex;
+    this.setDialogBox('Do you want to remove <b>' + packageE.name + '</b> ?', false)
+  }
+
+  setDialogBox(message, reply = false) {
+    this.confirmation.reply = reply;
+    this.confirmation.message = message;
+  }
+
+  removePackage() {
+    this.itemService.removePackage(this.packageE.itemPackageId).subscribe((reply) => {
+      if (reply) {
+        this.itemPackages.splice(this.packageIndex, 1);
+        this.setDialogBox('Package has been removed', true);
+      }
+    }, (error) => {
+      this.setDialogBox(error.error, true);
+    })
   }
 }

@@ -35,12 +35,20 @@ export class ItemService {
     return this.http.put<any>(environment.backend_url + 'category/updateCategory/' + itemsCategory.itemCategoryId, itemsCategory);
   }
 
+  removeCategory(categoryId): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + 'category/removeCategory/' + categoryId);
+  }
+
   addPackage(itemsPackage): Observable<any> {
     return this.http.post<any>(environment.backend_url + 'package/addPackage', itemsPackage);
   }
 
   updatePackage(itemsPackage, itemPackageId): Observable<any> {
     return this.http.put<any>(environment.backend_url + 'package/updatePackage/' + itemPackageId, itemsPackage);
+  }
+
+  removePackage(itemsPackageId): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + 'package/removePackage/' + itemsPackageId);
   }
 
   getItemFeatures(businessCategoryId): Observable<any> {

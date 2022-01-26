@@ -172,6 +172,7 @@ export class BaManagePackageComponent implements OnInit {
       this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
       this.itemPackage.itemItemPackages = [];
       this.itemPackage.itemPackageItemPackageFeatures = [];
+      itemPackage.itemPkgImgs = [];
       // this.item = undefined;
 
       this.itemPackages.push(itemPackage)
@@ -180,6 +181,7 @@ export class BaManagePackageComponent implements OnInit {
       if (document.getElementById('btnAddPackage') !== null) {
         document.getElementById('btnAddPackage').click()
       }
+      this.itemPackage.isNewPackage = false;
     })
   }
 
@@ -296,28 +298,17 @@ export class BaManagePackageComponent implements OnInit {
   //   return this.sanitizer.bypassSecurityTrustUrl(imageData);
   // }
 
-  pondHandleAddFile(event, val, itemPackageE?) {
-    if (val === 'n') {
-      this.itemPackage.itemPkgImgs.push(event.file.file);
-    } else if (val === 'e') {
-      itemPackageE.itemPkgImgs.push(event.file.file);
+  pondHandleAddFile(event) {
+    this.itemPackage.itemPkgImgs.push(event.file.file);
+  }
+
+  pondHandlerRemoveFile(event) {
+    for (let i = 0; i < this.itemPackage.itemPkgImgs.length; i++) {
+      // console.log(this.itemPackage.itemPkgImgs[i].name + ' ' + event.file.file.name)
+      if (this.itemPackage.itemPkgImgs[i].name === event.file.file.name) {
+        this.itemPackage.itemPkgImgs.splice(i, 1);
+      }
     }
   }
 
-  pondHandlerRemoveFile(event, val, itemPackageE?) {
-    if (val === 'n') {
-      for (let i = 0; i < this.itemPackage.itemPkgImgs.length; i++) {
-        // console.log(this.itemPackage.itemPkgImgs[i].name + ' ' + event.file.file.name)
-        if (this.itemPackage.itemPkgImgs[i].name === event.file.file.name) {
-          this.itemPackage.itemPkgImgs.splice(i, 1);
-        }
-      }
-    } else if (val === 'e') {
-      for (let i = 0; i < itemPackageE.itemPkgImgs.length; i++) {
-        if (itemPackageE.itemPkgImgs[i].name === event.file.file.name) {
-          itemPackageE.itemPkgImgs.splice(i, 1);
-        }
-      }
-    }
-  }
 }

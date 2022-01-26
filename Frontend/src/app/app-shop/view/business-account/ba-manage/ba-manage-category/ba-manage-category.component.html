@@ -10,19 +10,19 @@
 >
   <div class="d-flex flex-sm-row">
     <button id="btnAddCategory"
-      class="
+            class="
                         btn btn-icon btn-outline-primary btn-xs
                         rounded-circle
                         shadow-sm
                       "
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#add-new-category"
-      aria-controls="add-new-category"
-      aria-expanded="false"
-      title="Add new category"
-      data-bs-original-title="Add new category"
-      aria-label="Add new category"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#add-new-category"
+            aria-controls="add-new-category"
+            aria-expanded="false"
+            title="Add new category"
+            data-bs-original-title="Add new category"
+            aria-label="Add new category"
     >
       <i class="fi-plus"></i>
     </button>
@@ -223,37 +223,37 @@
 </div>
 
 <!--<div class="row" style="margin-top: 30px">-->
-  <!--<div class="col-md-12 mb-3">-->
-    <!--&lt;!&ndash;<label class="form-label"&ndash;&gt;-->
-    <!--&lt;!&ndash;&gt;Business type </label&ndash;&gt;-->
-    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;<a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"&ndash;&gt;-->
-    <!--&lt;!&ndash;data-bs-toggle="tooltip" title="Select this item belongs to which type of business"&ndash;&gt;-->
-    <!--&lt;!&ndash;data-bs-original-title="Select this item belongs to which type of business"&ndash;&gt;-->
-    <!--&lt;!&ndash;aria-label="Select this item belongs to which type of business"><i class="fi-help"></i>&ndash;&gt;-->
-    <!--&lt;!&ndash;</a>&ndash;&gt;-->
-    <!--&lt;!&ndash; <div class="d-flex flex-column flex-sm-row"> &ndash;&gt;-->
-    <!--<ng-select-->
-      <!--[items]="businessCategories"-->
-      <!--bindLabel="name"-->
-      <!--placeholder="Select Business Type"-->
-      <!--dropdownPosition="auto"-->
-      <!--[multiple]="false"-->
-      <!--[searchWhileComposing]="true"-->
-      <!--(change)="getItemCategoriesOrdered();getItems('e')"-->
-      <!--[(ngModel)]="businessProfileCategory">-->
-    <!--</ng-select>-->
-    <!--&lt;!&ndash; <div class="invalid-tooltip">-->
-      <!--Please fill item quantity-->
-    <!--</div>-->
-    <!--<div class="valid-tooltip">Looks good!</div> &ndash;&gt;-->
-    <!--&lt;!&ndash; <button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
-      <!--<i class="fi-plus"></i>-->
-    <!--</button> &ndash;&gt;-->
-    <!--&lt;!&ndash; <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> &ndash;&gt;-->
-    <!--&lt;!&ndash; </div> &ndash;&gt;-->
+<!--<div class="col-md-12 mb-3">-->
+<!--&lt;!&ndash;<label class="form-label"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;Business type </label&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"&ndash;&gt;-->
+<!--&lt;!&ndash;data-bs-toggle="tooltip" title="Select this item belongs to which type of business"&ndash;&gt;-->
+<!--&lt;!&ndash;data-bs-original-title="Select this item belongs to which type of business"&ndash;&gt;-->
+<!--&lt;!&ndash;aria-label="Select this item belongs to which type of business"><i class="fi-help"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;</a>&ndash;&gt;-->
+<!--&lt;!&ndash; <div class="d-flex flex-column flex-sm-row"> &ndash;&gt;-->
+<!--<ng-select-->
+<!--[items]="businessCategories"-->
+<!--bindLabel="name"-->
+<!--placeholder="Select Business Type"-->
+<!--dropdownPosition="auto"-->
+<!--[multiple]="false"-->
+<!--[searchWhileComposing]="true"-->
+<!--(change)="getItemCategoriesOrdered();getItems('e')"-->
+<!--[(ngModel)]="businessProfileCategory">-->
+<!--</ng-select>-->
+<!--&lt;!&ndash; <div class="invalid-tooltip">-->
+<!--Please fill item quantity-->
+<!--</div>-->
+<!--<div class="valid-tooltip">Looks good!</div> &ndash;&gt;-->
+<!--&lt;!&ndash; <button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
+<!--<i class="fi-plus"></i>-->
+<!--</button> &ndash;&gt;-->
+<!--&lt;!&ndash; <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> &ndash;&gt;-->
+<!--&lt;!&ndash; </div> &ndash;&gt;-->
 
-  <!--</div>-->
+<!--</div>-->
 <!--</div>-->
 
 <div class="row g-4 py-1">
@@ -262,13 +262,15 @@
 
     <!-- Accordion item -->
     <div class="accordion-item" *ngFor="let itemCategoryE of categories;let i = index"
-    style="border-width: 2px">
+         style="border-width: 2px">
       <div class="accordion-header d-flex" id="headingOne">
         <div class="p-2 flex-grow-1 bd-highlight">
           <a class="nav-link">{{itemCategoryE.name}}</a>
         </div>
         <div class="p-2 bd-highlight">
-          <a type="button" class="nav-link hover-text-danger">
+          <a type="button" class="nav-link hover-text-danger"
+             data-bs-toggle="modal" data-bs-target="#confirm-dialog-category"
+             (click)="setCategory(itemCategoryE,i)">
             <i class="fi-trash"></i>
           </a>
         </div>
@@ -288,7 +290,8 @@
       <div class="accordion-collapse collapse" aria-labelledby="headingEdit" data-bs-parent="#category-list"
            id="categoryEdit{{i}}">
         <div class="card card-body border-none">
-          <form #baManageFormCategoryE="ngForm" (ngSubmit)="baManageFormCategoryE.form.valid && onSubmitE(itemCategoryE,i)" novalidate>
+          <form #baManageFormCategoryE="ngForm"
+                (ngSubmit)="baManageFormCategoryE.form.valid && onSubmitE(itemCategoryE,i)" novalidate>
 
             <div class="row">
               <div class="col-md-8 mb-3">
@@ -477,5 +480,35 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+<!--c-->
+
+<div id="confirm-dialog-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+     style="z-index: 999999999">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-none">
+        <div class="d-flex w-100 justify-content-between">
+          <a class="btn btn-icon btn-primary btn-md shadow-sm rounded-circle me-2 mb-0">
+            <i class="fi-shopping-bag"></i></a>
+          <h5 class="modal-title" style="margin-top: 8px">Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p [innerHTML]="confirmation.message"></p>
+      </div>
+      <div *ngIf="!confirmation.reply" class="modal-footer border-none">
+        <button type="submit" class="btn btn-success btn-sm"
+                (click)="removeCategory(itemCategoryE.itemCategoryId)">Yes
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">No</button>
+      </div>
+      <div *ngIf="confirmation.reply" class="modal-footer border-none">
+        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Done</button>
+      </div>
+    </div>
   </div>
 </div>

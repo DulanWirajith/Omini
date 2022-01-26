@@ -221,6 +221,7 @@ public class ItemSImpl implements ItemS {
             itemDTO.setBusinessProfileCategory(item);
             itemDTO.setItemItemFeatures(item);
             itemDTO.setItemFeatures(item);
+            itemDTO.setItemCategory(item);
             itemDTO.setOrderDetail(new OrderDetailDTO());
             return itemDTO;
         }

@@ -10,19 +10,19 @@
 >
   <div class="d-flex flex-sm-row">
     <button id="btnAddPackage"
-      class="
+            class="
                       btn btn-icon btn-outline-primary btn-xs
                       rounded-circle
                       shadow-sm
                     "
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#add-new-package"
-      aria-controls="add-new-package"
-      aria-expanded="false"
-      title="Add new package"
-      data-bs-original-title="Add new package"
-      aria-label="Add new package"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#add-new-package"
+            aria-controls="add-new-package"
+            aria-expanded="false"
+            title="Add new package"
+            data-bs-original-title="Add new package"
+            aria-label="Add new package"
     >
       <i class="fi-plus"></i>
     </button>
@@ -58,7 +58,7 @@
     <!--<form #baManageFormPackage="ngForm"-->
     <!--(ngSubmit)="baManageFormPackage.form.valid && itemPackage.itemItemPackages.length > 0 && onSubmit()" novalidate>-->
     <form #baManageFormPackage="ngForm"
-          (ngSubmit)="baManageFormPackage.form.valid && onSubmit()" novalidate>
+          (ngSubmit)="baManageFormPackage.form.valid && itemPackage.itemPkgImgs.length>=3 && onSubmit()" novalidate>
 
       <div class="row">
         <div class="col-md-12 mb-3">
@@ -396,17 +396,17 @@
             #imageInput
             [options]="pondOptions"
             name="imageInput"
-            (onaddfile)="pondHandleAddFile($event,'n')"
-            (onremovefile)="pondHandlerRemoveFile($event,'n')">
+            (onaddfile)="pondHandleAddFile($event)"
+            (onremovefile)="pondHandlerRemoveFile($event)">
           </file-pond>
           <!--<input class="file-uploader file-uploader-grid" type="file" multiple data-max-file-size="10MB"-->
           <!--accept="image/png, image/jpeg"-->
           <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->
         </div>
         <div
-          *ngIf="(imageInput.touched || baManageFormPackage.submitted) && imageInput.errors?.required"
+          *ngIf="(itemPackage.itemPkgImgs.length<3 && baManageFormPackage.submitted)"
           class="validErr" style="margin-bottom: 10px">
-          Image is required
+          Minimum 3 images are required
         </div>
       </div>
       <div class="mb-3 py-2">

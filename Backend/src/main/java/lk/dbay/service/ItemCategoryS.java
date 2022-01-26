@@ -17,4 +17,6 @@ public interface ItemCategoryS {
     List<ItemCategoryDTO> getItemCategoriesOrdered(String businessProfileId, String businessCategoryId);
 
     ItemCategoryDTO getItemCategorySelected(String categoryId);
+
+    boolean removeCategory(String categoryId) throws Exception;
 }

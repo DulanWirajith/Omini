@@ -96,6 +96,7 @@ export class BaManageItemComponent implements OnInit {
       if (document.getElementById('btnAddItem') !== null) {
         document.getElementById('btnAddItem').click()
       }
+      this.item.isNewItem = false;
     })
   }
 

@@ -73,7 +73,11 @@ export class BaManageItemViewComponent implements OnInit {
         //console.log(this.items[index])
       })
     } else {
-      this.itemService.itemSub.next(this.items[index]);
+      this.itemService.itemSub.next({
+        items: this.items,
+        item: this.items[index],
+        index: index
+      });
     }
   }
 

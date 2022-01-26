@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemR extends JpaRepository<Item, String> {
 
@@ -21,4 +22,6 @@ public interface ItemR extends JpaRepository<Item, String> {
 
     @Query(value = "select distinct i from Item i inner join i.itemItemFeatures iif where i.name like ?1 or iif.itemFeature.name like ?1")
     List<Item> getItemsBySearch(String txt);
+
+    Optional<Item> getByItemCategory_ItemCategoryId(String categoryId);
 }

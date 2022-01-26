@@ -103,6 +103,22 @@
           </div>
         </div>
 
+        <div style="display: flex;;border-bottom: 1px solid #eaeaea;padding-bottom: 10px">
+          <div class="mb-2 fs-sm text-dark fw-bold">Item Category |</div>
+          <div style="font-size: 14px;margin-left: 5px">{{item.itemCategory===undefined?'N/A':item.itemCategory.name}}
+          </div>
+        </div>
+
+        <div style="padding-top: 15px">
+          <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
+          <span *ngFor="let itemFeature of item.itemItemFeatures"
+                class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"
+                style="margin-left: 10px">
+              {{itemFeature.itemFeature.name}}
+            <!--<i class="fi-x fs-xs ms-2"></i>-->
+            </span>
+        </div>
+
         <div class="row cols-md-12 mt-3">
           <p class="mb-2 fs-sm text-dark fw-bold">Overview </p>
           <div class="col">
@@ -110,15 +126,6 @@
           </div>
         </div>
 
-        <div class="row cols-md-12 mt-2">
-          <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
-          <div class="col" *ngFor="let itemFeature of item.itemItemFeatures">
-            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">
-              {{itemFeature.itemFeature.name}}
-              <!--<i class="fi-x fs-xs ms-2"></i>-->
-            </span>
-          </div>
-        </div>
       </div>
 
       <div class="tab-pane fade" id="item-review" role="tabpanel">

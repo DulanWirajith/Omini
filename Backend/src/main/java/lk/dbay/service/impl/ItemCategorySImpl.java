@@ -6,6 +6,7 @@ import lk.dbay.entity.BusinessProfileCategoryPK;
 import lk.dbay.entity.Item;
 import lk.dbay.entity.ItemCategory;
 import lk.dbay.repository.ItemCategoryR;
+import lk.dbay.repository.ItemR;
 import lk.dbay.service.ItemCategoryS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class ItemCategorySImpl implements ItemCategoryS {
 
     @Autowired
     private ItemCategoryR itemCategoryR;
+    @Autowired
+    private ItemR itemR;
 
     @Override
     @Transactional
@@ -109,5 +112,21 @@ public class ItemCategorySImpl implements ItemCategoryS {
             return itemCategoryDTO;
         }
         return null;
+    }
+
+    @Override
+    public boolean removeCategory(String categoryId) throws Exception {
+        try {
+            Optional<Item> itemOptional = itemR.getByItemCategory_ItemCategoryId(categoryId);
+            if (itemOptional.isPresent()) {
+                Item item = itemOptional.get();
+                item.setItemCategory(null);
+                itemR.save(item);
+            }
+            itemCategoryR.deleteById(categoryId);
+            return true;
+        } catch (Exception e) {
+            throw new Exception("You cannot remove this category, since it is used.");
+        }
     }
 }

@@ -61,6 +61,7 @@ export class BaManageCategoryComponent implements OnInit {
       if (document.getElementById('btnAddCategory') !== null) {
         document.getElementById('btnAddCategory').click()
       }
+      this.itemCategory.isNewCategory = false;
       // this.item.itemItemFeatures = [];
     })
   }
@@ -76,6 +77,7 @@ export class BaManageCategoryComponent implements OnInit {
       if (document.getElementById('btnCategory' + index) !== null) {
         document.getElementById('btnCategory' + index).click()
       }
+      itemCategory.isUpdateCategory = false;
       // this.item.itemItemFeatures = [];
     })
   }
@@ -139,32 +141,64 @@ export class BaManageCategoryComponent implements OnInit {
     let index: any = that.categories.findIndex(itemCategory => {
       return itemCategory.itemCategoryId === $(obj).val()
     })
-    if (that.categories[index] !== undefined && that.categories[index].items === undefined) {
-      that.itemService.getItemCategorySelected($(obj).val()).subscribe((itemCategory) => {
-        // console.log(itemCategory)
-        // that.categories[index] = category;
-        Object.assign(that.categories[index], itemCategory)
-        that.categories[index].tempBusinessCategory = itemCategory.businessProfileCategory.businessCategory;
-        for (let item of itemCategory.items) {
-          // item.itemImgsRaw = [];
-          // item.itemItemFeatures = [];
-          item.businessProfileCategory = {
-            businessProfile: undefined,
-            businessCategory: undefined
-          }
-          // this.items.push(item.item);
+    // if (that.categories[index] !== undefined && that.categories[index].items === undefined) {
+    that.itemService.getItemCategorySelected($(obj).val()).subscribe((itemCategory) => {
+      // console.log(itemCategory)
+      // that.categories[index] = category;
+      Object.assign(that.categories[index], itemCategory)
+      that.categories[index].tempBusinessCategory = itemCategory.businessProfileCategory.businessCategory;
+      for (let item of itemCategory.items) {
+        // item.itemImgsRaw = [];
+        // item.itemItemFeatures = [];
+        item.businessProfileCategory = {
+          businessProfile: undefined,
+          businessCategory: undefined
         }
-        that.categories[index].tempItems = itemCategory.items;
-        // console.log(that.categories[index])
-        // for (let i = 0; i < that.categories.length; i++) {
-        //   if (that.categories[i].itemCategoryId === $(obj).val()) {
-        //     // console.log(category)
-        //     that.categoryE = category;
-        //     that.categories[i].items = category.items;
-        //   }
-        // }
-      })
-    }
+        // this.items.push(item.item);
+      }
+      that.categories[index].tempItems = itemCategory.items;
+      // console.log(that.categories[index])
+      // for (let i = 0; i < that.categories.length; i++) {
+      //   if (that.categories[i].itemCategoryId === $(obj).val()) {
+      //     // console.log(category)
+      //     that.categoryE = category;
+      //     that.categories[i].items = category.items;
+      //   }
+      // }
+    })
+    // }
+  }
+
+  confirmation = {
+    reply: false,
+    message: ''
+  };
+
+  categoryIndex;
+  itemCategoryE;
+
+  // confirmationSub = new Subject();
+
+  setCategory(itemCategoryE, categoryIndex) {
+    this.itemCategoryE = itemCategoryE
+    this.categoryIndex = categoryIndex;
+    this.setDialogBox('Do you want to remove <b>' + itemCategoryE.name + '</b> ?', false)
+  }
+
+  setDialogBox(message, reply = false) {
+    this.confirmation.reply = reply;
+    this.confirmation.message = message;
+  }
+
+  removeCategory() {
+    this.itemService.removeCategory(this.itemCategoryE.itemCategoryId).subscribe((reply) => {
+      if (reply) {
+        this.categories.splice(this.categoryIndex, 1);
+        this.setDialogBox('Category has been removed', true);
+      }
+    }, (error) => {
+      this.setDialogBox(error.error, true);
+    })
   }
 
   // setItemAvailable(item) {

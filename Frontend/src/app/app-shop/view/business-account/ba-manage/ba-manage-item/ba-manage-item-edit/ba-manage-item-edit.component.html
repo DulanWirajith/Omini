@@ -146,6 +146,22 @@
           </div>
         </div>
 
+        <div style="display: flex;border-bottom: 1px solid #eaeaea;padding-bottom: 10px">
+          <div class="mb-2 fs-sm text-dark fw-bold">Item Category |</div>
+          <div style="font-size: 14px;margin-left: 5px">{{item.itemCategory===undefined?'N/A':item.itemCategory.name}}
+          </div>
+        </div>
+
+        <div style="padding-top: 15px">
+          <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
+          <span *ngFor="let itemFeature of item.itemItemFeatures"
+                class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"
+                style="margin-left: 10px">
+              {{itemFeature.itemFeature.name}}
+            <!--<i class="fi-x fs-xs ms-2"></i>-->
+            </span>
+        </div>
+
         <div class="row cols-md-12 mt-3">
           <p class="mb-2 fs-sm text-dark fw-bold">Overview </p>
           <div class="col">
@@ -153,21 +169,12 @@
           </div>
         </div>
 
-        <div class="row cols-md-12 mt-2">
-          <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
-          <div class="col" *ngFor="let itemFeature of item.itemItemFeatures">
-            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">
-              {{itemFeature.itemFeature.name}}
-              <!--<i class="fi-x fs-xs ms-2"></i>-->
-            </span>
-          </div>
-        </div>
       </div>
 
       <!--Item Edit-->
       <div class="tab-pane fade" id="item-edit" role="tabpanel">
         <div class="card card-body">
-          <form #baManageFormItemE="ngForm" (ngSubmit)="baManageFormItemE.form.valid && onSubmitE()" novalidate>
+          <form #baManageFormItemE="ngForm" (ngSubmit)="baManageFormItemE.form.valid && (item.itemImgsRaw.length+item.itemImgs.length)>=3 && onSubmitE()" novalidate>
 
             <div class="row">
               <div class="col-md-12 mb-3">
@@ -449,9 +456,9 @@
                 <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->
               </div>
               <div
-                *ngIf="(imageInput.touched || baManageFormItemE.submitted) && imageInput.errors?.required"
+                *ngIf="((item.itemImgsRaw.length+item.itemImgs.length)<3 && baManageFormItemE.submitted)"
                 class="validErr" style="margin-bottom: 10px">
-                Image is required
+                Minimum 3 images are required
               </div>
               <!--<div class="col-md-4 mb-4" *ngFor='let url of imagesE'>-->
               <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->

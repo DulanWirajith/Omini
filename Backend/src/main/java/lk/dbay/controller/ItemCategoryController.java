@@ -53,6 +53,16 @@ public class ItemCategoryController {
         }
     }
 
+    @DeleteMapping(value = "/removeCategory/{categoryId}")
+    public ResponseEntity removeCategory(@PathVariable String categoryId) {
+        try {
+            return ResponseEntity.ok(itemCategoryS.removeCategory(categoryId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping(value = "/getItemCategoriesOrdered/{businessProfileId}/{businessCategoryId}")
     public ResponseEntity getItemCategoriesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
         return ResponseEntity.ok(itemCategoryS.getItemCategoriesOrdered(businessProfileId, businessCategoryId));

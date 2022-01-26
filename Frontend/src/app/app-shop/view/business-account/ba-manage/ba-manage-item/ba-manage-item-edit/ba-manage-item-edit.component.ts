@@ -46,6 +46,7 @@ export class BaManageItemEditComponent implements OnInit {
     })
     this.itemService.itemSub.observers = [];
     this.itemService.itemSub.subscribe((item) => {
+      // console.log(item)
       this.item = item.item;
       this.items = item.items;
       this.itemIndex = item.index
@@ -125,6 +126,8 @@ export class BaManageItemEditComponent implements OnInit {
       if (document.getElementById('item-back-btn') !== null) {
         document.getElementById('item-back-btn').click();
       }
+      this.item.isNewItem = false;
+      this.getAlbum(this.item);
     })
   }
 

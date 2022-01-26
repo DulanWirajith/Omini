@@ -217,6 +217,16 @@ public class ItemPackageSImpl implements ItemPackageS {
         return null;
     }
 
+    @Override
+    public boolean removePackage(String itemPackageId) throws Exception {
+        try {
+            itemPackageR.deleteById(itemPackageId);
+            return true;
+        } catch (Exception e) {
+            throw new Exception("You cannot remove this package, since it is used.");
+        }
+    }
+
 //    private void addItemsToPackage(ItemPackage itemPackage) {
 //        itemPackage.geti
 //    }
