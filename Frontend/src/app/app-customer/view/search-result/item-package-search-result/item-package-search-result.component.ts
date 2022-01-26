@@ -7,6 +7,7 @@ import * as $ from "jquery";
 import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
 import {ShopCartService} from "../../../_service/shop-cart.service";
 import {ItemGService} from "../../../../_service/item-g.service";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-item-package-search-result',
@@ -20,7 +21,8 @@ export class ItemPackageSearchResultComponent implements OnInit {
   itemCount = 0;
   orderDetails = [];
 
-  constructor(private itemService: ItemService, private itemServiceG: ItemGService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService) {
+  constructor(private itemService: ItemService, private itemServiceG: ItemGService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService,
+              private notifierService:NotifierService) {
     // this.shopCartService.shopCartItemsSub.observers = [];
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
       // console.log(item)
@@ -152,4 +154,8 @@ export class ItemPackageSearchResultComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
   }
 
+  t(){
+    console.log(5)
+    this.notifierService.notify("success", "Item deleted successfully");
+  }
 }

@@ -121,21 +121,21 @@
             <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('p-'+j)"></app-ba-order-view>
 
             <footer class="d-flex justify-content-between">
-              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,pendingItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,pendingItemOrders,'Cancel Order')"
                  class="btn btn-icon btn-light-primary btnhred btn-xs rounded-circle me-2 mb-2 shadow-sm"
-                 data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Cancel Order">
                 <i class="fi-x" style="padding-left: 1.5px;padding-bottom: 1px"></i>
               </a>
-              <a (click)="changeOrderStatus(itemOrder,'Completed',j,pendingItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'Completed',j,pendingItemOrders,'Order Completed')"
                  class="btn btn-icon btn-light-primary btnhgreen btn-xs rounded-circle me-2 mb-2 shadow-sm"
-                 data-bs-toggle="tooltip" title="Order Completed" data-bs-original-title="Order Completed"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Order Completed">
                 <i class="fi-check"></i>
               </a>
-              <a (click)="changeOrderStatus(itemOrder,'In Progress',j,pendingItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'In Progress',j,pendingItemOrders,'Order In Progress')"
                  class="btn btn-icon btn-light-primary btnhblue btn-xs rounded-circle me-2 mb-2 shadow-sm"
-                 data-bs-toggle="tooltip" title="Order In Progress" data-bs-original-title="Order In Progress"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Order In Progress">
                 <i class="fi-arrow-long-right"></i>
               </a>
@@ -173,21 +173,21 @@
             <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('ip-'+j)"></app-ba-order-view>
 
             <footer class="d-flex justify-content-between">
-              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,inProgressItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,inProgressItemOrders,'Cancel Order')"
                  class="btn btn-icon btn-light-primary btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
-                 data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Cancel Order">
                 <i class="fi-x"></i>
               </a>
-              <a (click)="changeOrderStatus(itemOrder,'Pending',j,inProgressItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'Pending',j,inProgressItemOrders,'Pending Order')"
                  class="btn btn-icon btn-light-primary btnhyellow btn-xs shadow-sm rounded-circle me-2 mb-2"
-                 data-bs-toggle="tooltip" title="Pending Order" data-bs-original-title="Pending Order"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Pending Order">
                 <i class="fi-arrow-long-left"></i>
               </a>
-              <a (click)="changeOrderStatus(itemOrder,'Completed',j,inProgressItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'Completed',j,inProgressItemOrders,'Order Completed')"
                  class="btn btn-icon btn-light-primary btnhgreen btn-xs shadow-sm rounded-circle me-2 mb-2"
-                 data-bs-toggle="tooltip" title="Order Completed" data-bs-original-title="Order Completed"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Order Completed">
                 <i class="fi-check"></i>
               </a>
@@ -254,21 +254,21 @@
             <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('co-'+j)"></app-ba-order-view>
 
             <footer class="d-flex justify-content-between">
-              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,completeItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,completeItemOrders,'Cancel Order')"
                  class="btn btn-icon btn-light-primary btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
-                 data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Cancel Order">
                 <i class="fi-x"></i>
               </a>
-              <a (click)="changeOrderStatus(itemOrder,'Pending',j,completeItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'Pending',j,completeItemOrders,'Pending Order')"
                  class="btn btn-icon btn-light-primary btnhyellow btn-xs shadow-sm rounded-circle me-2 mb-2"
-                 data-bs-toggle="tooltip" title="Pending Order" data-bs-original-title="Pending Order"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Pending Order">
                 <i class="fi-chevrons-left"></i>
               </a>
-              <a (click)="changeOrderStatus(itemOrder,'In Progress',j,completeItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'In Progress',j,completeItemOrders,'Order In Progress')"
                  class="btn btn-icon btn-light-primary btnhblue btn-xs shadow-sm rounded-circle me-2 mb-2"
-                 data-bs-toggle="tooltip" title="Order In Progress" data-bs-original-title="Order In Progress"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Order In Progress">
                 <i class="fi-arrow-long-left"></i>
               </a>
@@ -334,21 +334,21 @@
             <app-ba-order-view [itemOrder]="itemOrder" [orderIndex]="('ca-'+j)"></app-ba-order-view>
 
             <footer class="d-flex justify-content-between">
-              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,completeItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'Canceled',j,completeItemOrders,'Cancel Order')"
                  class="btn btn-icon btn-light-primary btnhred btn-xs shadow-sm rounded-circle me-2 mb-2"
-                 data-bs-toggle="tooltip" title="Cancel Order" data-bs-original-title="Cancel Order"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Cancel Order">
                 <i class="fi-x"></i>
               </a>
-              <a (click)="changeOrderStatus(itemOrder,'Pending',j,completeItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'Pending',j,completeItemOrders,'Pending Order')"
                  class="btn btn-icon btn-light-primary btnhyellow btn-xs shadow-sm rounded-circle me-2 mb-2"
-                 data-bs-toggle="tooltip" title="Pending Order" data-bs-original-title="Pending Order"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Pending Order">
                 <i class="fi-chevrons-left"></i>
               </a>
-              <a (click)="changeOrderStatus(itemOrder,'In Progress',j,completeItemOrders)"
+              <a (click)="changeOrderStatus(itemOrder,'In Progress',j,completeItemOrders,'Order In Progress')"
                  class="btn btn-icon btn-light-primary btnhblue btn-xs shadow-sm rounded-circle me-2 mb-2"
-                 data-bs-toggle="tooltip" title="Order In Progress" data-bs-original-title="Order In Progress"
+                 data-bs-toggle="modal" data-bs-target="#confirm-dialog-order-profile"
                  aria-label="Order In Progress">
                 <i class="fi-arrow-long-left"></i>
               </a>
@@ -362,3 +362,27 @@
 
 </div>
 
+<!--c-->
+
+<div id="confirm-dialog-order-profile" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-none">
+        <div class="d-flex w-100 justify-content-between">
+          <a class="btn btn-icon btn-primary btn-md shadow-sm rounded-circle me-2 mb-0" href="#">
+            <i class="fi-shopping-bag"></i></a>
+          <h5 class="modal-title" style="margin-top: 8px">Order</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p [innerHTML]="'Do you want change this order to <b>'+confMessage+'</b>?'"></p>
+      </div>
+      <div class="modal-footer border-none">
+        <button type="submit" class="btn btn-success btn-sm" (click)="confirmationSub.next()"
+                data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>

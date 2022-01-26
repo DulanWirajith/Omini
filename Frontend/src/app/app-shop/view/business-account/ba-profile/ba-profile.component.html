@@ -11,11 +11,11 @@
     </p>
   </div>
 </div>
-<div class="mb-2 pt-1">Your profile is 50% completed</div>
-<div class="progress mb-4" style="height: .25rem;">
-  <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-       aria-valuemax="100"></div>
-</div>
+<!--<div class="mb-2 pt-1">Your profile is 50% completed</div>-->
+<!--<div class="progress mb-4" style="height: .25rem;">-->
+  <!--<div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"-->
+       <!--aria-valuemax="100"></div>-->
+<!--</div>-->
 <hr>
 <!-- User info-->
 <form #spProfileForm="ngForm" (ngSubmit)="spProfileForm.form.valid && onSubmit()" novalidate>
@@ -695,10 +695,38 @@
   <div class="row pt-4 mt-2">
     <div class="col-lg-9 offset-lg-3">
       <div class="d-flex align-items-center justify-content-between">
-        <button class="btn btn-primary rounded-pill px-3 px-sm-4" type="submit">Save changes</button>
+        <button class="btn btn-primary rounded-pill px-3 px-sm-4" type="submit"
+                data-bs-toggle="modal" data-bs-target="#confirm-dialog-b-profile">Save changes
+        </button>
         <button class="btn btn-link btn-sm px-0" type="button"><i class="fi-user-x me-2"></i>Deactivate account</button>
       </div>
     </div>
   </div>
-
 </form>
+
+<!--c-->
+
+<div id="confirm-dialog-b-profile" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-none">
+        <div class="d-flex w-100 justify-content-between">
+          <a class="btn btn-icon btn-primary btn-md shadow-sm rounded-circle me-2 mb-0" href="#">
+            <i class="fi-user"></i></a>
+          <h5 class="modal-title" style="margin-top: 8px">My Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p [innerHTML]="confirmation.message"></p>
+      </div>
+      <div *ngIf="!confirmation.reply" class="modal-footer border-none">
+        <button type="button" class="btn btn-success btn-sm" (click)="confirmationSub.next()">Yes</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">No</button>
+      </div>
+      <div *ngIf="confirmation.reply" class="modal-footer border-none">
+        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

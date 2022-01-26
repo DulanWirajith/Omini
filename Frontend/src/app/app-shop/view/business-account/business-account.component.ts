@@ -46,8 +46,8 @@ export class BusinessAccountComponent implements OnInit {
   getBusinessCategories() {
     this.businessAccountService.getBusinessCategories().subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
-      this.businessAccountService.businessCategoriesSub.next(businessCategories);
       this.businessAccountService.businessCategories = businessCategories;
+      this.businessAccountService.businessCategoriesSub.next(businessCategories);
       this.businessCategory = this.loginService.getUser().businessProfile.defaultBusiness;
       // this.businessAccountService.businessCategory = this.businessCategory;
       this.setBusinessCategory();

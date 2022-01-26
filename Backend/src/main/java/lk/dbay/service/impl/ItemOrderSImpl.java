@@ -169,8 +169,9 @@ public class ItemOrderSImpl implements ItemOrderS {
             itemOrderR.save(itemOrderObj);
             List<Item> items = new ArrayList<>();
             List<ItemPackage> itemsPackages = new ArrayList<>();
-            String itemsNotAvailable = "";
-            for (OrderDetail orderDetail : itemOrder.getOrderDetails()) {
+            boolean cartSubmission = true;
+            String itemsNotAvailable = "Sorry, the cart cannot be submitted \n\n";
+            for (OrderDetail orderDetail : itemOrderObj.getOrderDetails()) {
                 if (orderDetail.getOrderDetailType().equals("Item") && !orderDetail.isMakeToOrder()) {
                     Optional<Item> itemOptional = itemR.findById(orderDetail.getItem().getItemId());
                     if (itemOptional.isPresent()) {
@@ -180,7 +181,12 @@ public class ItemOrderSImpl implements ItemOrderS {
                             item.setQuantity(itemQty);
                             items.add(item);
                         } else {
-                            itemsNotAvailable += item.getName() + ", ";
+                            cartSubmission = false;
+                            String txt = "Only " + item.getQuantity();
+                            if (item.getQuantity() == 0) {
+                                txt = "No";
+                            }
+                            itemsNotAvailable += (txt + " <b>" + item.getName() + "</b> available in stock now.<br>");
                         }
                     }
                 } else if (orderDetail.getOrderDetailType().equals("ItemPackage") && !orderDetail.isMakeToOrder()) {
@@ -192,14 +198,19 @@ public class ItemOrderSImpl implements ItemOrderS {
                             itemPackage.setQuantity(itemQty);
                             itemsPackages.add(itemPackage);
                         } else {
-                            itemsNotAvailable += itemPackage.getName() + ", ";
+                            cartSubmission = false;
+                            String txt = "Only " + itemPackage.getQuantity();
+                            if (itemPackage.getQuantity() == 0) {
+                                txt = "No";
+                            }
+                            itemsNotAvailable += (txt + " <b>" + itemPackage.getName() + "</b> available in stock now.<br>");
                         }
                     }
                 }
             }
-            if (!itemsNotAvailable.equals("")) {
+            if (!cartSubmission) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                throw new Exception(itemsNotAvailable + " not available in stock now.");
+                throw new Exception(itemsNotAvailable);
             }
             if (items.size() > 0) {
                 itemR.saveAll(items);

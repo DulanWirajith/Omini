@@ -23,6 +23,10 @@ export class ItemService {
     return this.http.put<any>(environment.backend_url + 'item/updateItem/' + itemId, item);
   }
 
+  removeItem(itemId): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + 'item/removeItem/' + itemId);
+  }
+
   addCategory(itemsCategory): Observable<any> {
     return this.http.post<any>(environment.backend_url + 'category/addCategory', itemsCategory);
   }

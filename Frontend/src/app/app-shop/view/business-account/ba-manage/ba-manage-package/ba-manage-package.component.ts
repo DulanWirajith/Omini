@@ -177,6 +177,9 @@ export class BaManagePackageComponent implements OnInit {
       this.itemPackages.push(itemPackage)
       // this.item.itemItemFeatures = [];
       this.imageInput.removeFiles();
+      if (document.getElementById('btnAddPackage') !== null) {
+        document.getElementById('btnAddPackage').click()
+      }
     })
   }
 

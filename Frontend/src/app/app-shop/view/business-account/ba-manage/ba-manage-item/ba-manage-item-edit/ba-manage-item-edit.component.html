@@ -6,7 +6,7 @@
         <h2 class="h5 mb-0" style="margin-right: 15px">{{item.name}}</h2>
         <span class="badge rounded-pill bg-info" style="padding-top: 7px"> Item </span>
       </div>
-      <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
+      <button id="item-close-btn" class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
     </div>
 
   </div>
@@ -109,26 +109,6 @@
         <div class="rowg-3  mt-4">
           <h3 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Information</h3>
         </div>
-        <!--<div class="row g-2">-->
-        <!--<div class="col me-sm-1">-->
-        <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
-        <!--<i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>-->
-        <!--<span class="fs-xs text-light fw-bold">{{item.itemQty}}</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col me-sm-1">-->
-        <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
-        <!--<i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>-->
-        <!--<span class="fs-xs text-light fw-bold">{{item.itemDiscount}}</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col">-->
-        <!--<div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">-->
-        <!--<i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>-->
-        <!--<span class="fs-xs text-light fw-bold">LKR {{item.itemPrice}}</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
         <div class="border-top border-light pt-0 mb-2">
           <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
             <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
@@ -517,7 +497,7 @@
   <div class="offcanvas-footer border-top" style="display: block;">
     <ul class="nav nav-tabs justify-content-end" role="tablist">
       <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-info" href="#item-view" data-bs-toggle="tab" role="tab"><i
+        <a id="item-back-btn" class="btn btn-md btn-outline-info" href="#item-view" data-bs-toggle="tab" role="tab"><i
           class="fi-arrow-back fs-lg me-2"></i>Back</a>
       </li>
       <li class="nav-item me-2">
@@ -525,7 +505,10 @@
           class="fi-edit fs-lg me-2"></i>Edit</a>
       </li>
       <li class="nav-item me-2">
-        <a class="btn btn-md btn-outline-danger" href="#" rel="noopener"><i class="fi-trash fs-lg me-2"></i>Remove</a>
+        <a class="btn btn-md btn-outline-danger" rel="noopener"
+           data-bs-toggle="modal" data-bs-target="#confirm-dialog-item-edit"
+           (click)="setDialogBox('Do you want to remove <b>'+item.name+'</b> ?',false)">
+          <i class="fi-trash fs-lg me-2"></i>Remove</a>
       </li>
     </ul>
   </div>
@@ -591,6 +574,36 @@
                   (click)="addNewItemFeature()" [disabled]="!isNewFeature">Save
           </button>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--c-->
+
+<div id="confirm-dialog-item-edit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+     style="z-index: 999999999">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-none">
+        <div class="d-flex w-100 justify-content-between">
+          <a class="btn btn-icon btn-primary btn-md shadow-sm rounded-circle me-2 mb-0">
+            <i class="fi-shopping-bag"></i></a>
+          <h5 class="modal-title" style="margin-top: 8px">Item</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p [innerHTML]="confirmation.message"></p>
+      </div>
+      <div *ngIf="!confirmation.reply" class="modal-footer border-none">
+        <button type="submit" class="btn btn-success btn-sm"
+                (click)="removeItem(item.itemId)">Yes
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">No</button>
+      </div>
+      <div *ngIf="confirmation.reply" class="modal-footer border-none">
+        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Done</button>
       </div>
     </div>
   </div>

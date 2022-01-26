@@ -32,4 +32,6 @@ public interface ItemS {
     List<ItemReviewDTO> getItemReviews(String itemId, String customerId, String reviewType);
 
     ItemReviewResponseDTO addItemReviewResponse(ItemReviewResponse itemReviewResponse);
+
+    boolean removeItem(String itemId) throws Exception;
 }

@@ -74,6 +74,7 @@ export class BaManageItemComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.item.itemImgsRaw.length)
     this.item.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
@@ -92,6 +93,9 @@ export class BaManageItemComponent implements OnInit {
       this.baManageFormItem.resetForm(this.itemService.getNewItem());
       this.item.itemItemFeatures = [];
       this.imageInput.removeFiles();
+      if (document.getElementById('btnAddItem') !== null) {
+        document.getElementById('btnAddItem').click()
+      }
     })
   }
 

@@ -39,7 +39,7 @@ export class BaManagePackageEditComponent implements OnInit {
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     // this.itemPackage = this.itemService.getNewPackage();
-    this.businessAccountService.businessCategoriesSub.observers = [];
+    // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
@@ -56,7 +56,7 @@ export class BaManagePackageEditComponent implements OnInit {
     this.toggleCategoryBtn();
   }
 
-  onSubmit(itemPackage) {
+  onSubmit(itemPackage, imageInput, index) {
     itemPackage.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
@@ -95,8 +95,11 @@ export class BaManagePackageEditComponent implements OnInit {
       // this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
       // this.itemPackage.itemItemPackages = [];
       // this.item = undefined;
-      this.imageInput.removeFiles();
+      imageInput.removeFiles();
       itemPackage.itemPackageImgs = itemPackage.itemPackageImgs.concat(itemPackageR.itemPackageImgs);
+      if (document.getElementById('btnPackage' + index) !== null) {
+        document.getElementById('btnPackage' + index).click()
+      }
     })
   }
 

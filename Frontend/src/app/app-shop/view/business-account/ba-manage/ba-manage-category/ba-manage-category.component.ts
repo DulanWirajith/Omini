@@ -29,7 +29,6 @@ export class BaManageCategoryComponent implements OnInit {
     // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
-      // console.log(this.businessCategories)
     })
     // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
@@ -59,11 +58,14 @@ export class BaManageCategoryComponent implements OnInit {
       this.categories.push(itemCategory)
       // console.log(this.categories)
       this.baManageFormCategory.resetForm(this.itemService.getNewItem());
+      if (document.getElementById('btnAddCategory') !== null) {
+        document.getElementById('btnAddCategory').click()
+      }
       // this.item.itemItemFeatures = [];
     })
   }
 
-  onSubmitE(itemCategory) {
+  onSubmitE(itemCategory, index) {
     itemCategory.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
@@ -71,6 +73,9 @@ export class BaManageCategoryComponent implements OnInit {
     this.itemService.updateCategory(itemCategory).subscribe((item) => {
       // this.items.push(item)
       this.baManageFormCategory.resetForm(this.itemService.getNewItem());
+      if (document.getElementById('btnCategory' + index) !== null) {
+        document.getElementById('btnCategory' + index).click()
+      }
       // this.item.itemItemFeatures = [];
     })
   }

@@ -3,6 +3,7 @@ import {ItemService} from "../../../_service/item.service";
 import {BusinessAccountService} from "../../../_service/business-account.service";
 import {LoginService} from "../../../../_service/login.service";
 import {DatePipe} from "@angular/common";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-ba-order',
@@ -17,6 +18,9 @@ export class BaOrderComponent implements OnInit {
   inProgressItemOrders = [];
   completeItemOrders = [];
   canceledItemOrders = [];
+
+  confMessage = '';
+  confirmationSub = new Subject();
 
   constructor(private itemService: ItemService, private businessAccountService: BusinessAccountService, private loginService: LoginService, private datePipe: DatePipe) {
     // this.businessAccountService.navBarSub.subscribe((val) => {
@@ -70,21 +74,25 @@ export class BaOrderComponent implements OnInit {
     })
   }
 
-  changeOrderStatus(itemOrder, status, index, orderList) {
-    this.itemService.changeOrderStatus(itemOrder.orderId, this.loginService.getUser().userId, this.businessAccountService.businessCategory.businessCategoryId, status).subscribe((itemOrderObj) => {
-      orderList.splice(index, 1);
-      for (let orderDetail of itemOrder.orderDetails) {
-        orderDetail.status = itemOrderObj.status;
-      }
-      if (itemOrderObj.status === 'Pending') {
-        this.pendingItemOrders.push(itemOrder)
-      } else if (itemOrderObj.status === 'In Progress') {
-        this.inProgressItemOrders.push(itemOrder)
-      } else if (itemOrderObj.status === 'Completed') {
-        this.completeItemOrders.push(itemOrder)
-      }
-      this.loginService.getUser().businessProfile.countPendingOrders = this.pendingItemOrders.length + this.inProgressItemOrders.length;
-      localStorage.setItem('user', JSON.stringify(this.loginService.getUser()))
+  changeOrderStatus(itemOrder, status, index, orderList, message) {
+    this.confMessage = message;
+    this.confirmationSub.observers = [];
+    this.confirmationSub.subscribe(() => {
+      this.itemService.changeOrderStatus(itemOrder.orderId, this.loginService.getUser().userId, this.businessAccountService.businessCategory.businessCategoryId, status).subscribe((itemOrderObj) => {
+        orderList.splice(index, 1);
+        for (let orderDetail of itemOrder.orderDetails) {
+          orderDetail.status = itemOrderObj.status;
+        }
+        if (itemOrderObj.status === 'Pending') {
+          this.pendingItemOrders.push(itemOrder)
+        } else if (itemOrderObj.status === 'In Progress') {
+          this.inProgressItemOrders.push(itemOrder)
+        } else if (itemOrderObj.status === 'Completed') {
+          this.completeItemOrders.push(itemOrder)
+        }
+        this.loginService.getUser().businessProfile.countPendingOrders = this.pendingItemOrders.length + this.inProgressItemOrders.length;
+        localStorage.setItem('user', JSON.stringify(this.loginService.getUser()))
+      })
     })
   }
 

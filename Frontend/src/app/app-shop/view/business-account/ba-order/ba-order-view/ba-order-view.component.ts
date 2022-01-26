@@ -40,4 +40,15 @@ export class BaOrderViewComponent implements OnInit {
       backBtn: undefined
     });
   }
+
+  // confirmation = {
+  //   reply: false,
+  //   message: ''
+  // };
+  //
+  // setDialogBox(message, reply = false) {
+  //   this.confirmation.reply = reply;
+  //   this.confirmation.message = message;
+  //   // console.log(this.confirmation.reply)
+  // }
 }

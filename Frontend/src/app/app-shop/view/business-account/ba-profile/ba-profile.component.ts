@@ -5,6 +5,7 @@ import {environment} from "../../../../../environments/environment";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ShopCartService} from "../../../../app-customer/_service/shop-cart.service";
 import {LoginService} from "../../../../_service/login.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-ba-profile',
@@ -134,65 +135,70 @@ export class BaProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    let businessTypes = [];
-    let businessAreas = [];
-    for (let businessType of this.businessProfile.businessProfileCategories) {
-      if (businessType.businessCategory === undefined) {
-        businessTypes.push({
-          name: businessType.name,
-          businessCategory: businessType,
-          businessProfile: {
-            businessProId: this.businessProfile.businessProId
-          }
-        })
+    this.setDialogBox('Do you want update your profile?');
+    this.confirmationSub.observers = [];
+    this.confirmationSub.subscribe(() => {
+      let businessTypes = [];
+      let businessAreas = [];
+      for (let businessType of this.businessProfile.businessProfileCategories) {
+        if (businessType.businessCategory === undefined) {
+          businessTypes.push({
+            name: businessType.name,
+            businessCategory: businessType,
+            businessProfile: {
+              businessProId: this.businessProfile.businessProId
+            }
+          })
+        }
       }
-    }
-    if (businessTypes.length > 0) {
-      this.businessProfile.businessProfileCategories = businessTypes;
-    }
+      if (businessTypes.length > 0) {
+        this.businessProfile.businessProfileCategories = businessTypes;
+      }
 
-    for (let businessArea of this.businessProfile.businessAreas) {
-      if (businessArea.town === undefined) {
-        businessAreas.push({
-          name: businessArea.name,
-          town: businessArea,
-          businessProfile: {
-            businessProId: this.businessProfile.businessProId
-          }
+      for (let businessArea of this.businessProfile.businessAreas) {
+        if (businessArea.town === undefined) {
+          businessAreas.push({
+            name: businessArea.name,
+            town: businessArea,
+            businessProfile: {
+              businessProId: this.businessProfile.businessProId
+            }
+          })
+        }
+      }
+      if (businessAreas.length > 0) {
+        this.businessProfile.businessAreas = businessAreas;
+      }
+      //console.log(this.businessProfile)
+      const uploadImageData = new FormData();
+      for (let dbayUserImg of this.businessProfile.dbayUser.dbayUserImgsRaw) {
+        uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
+      }
+      uploadImageData.append('businessProfile', new Blob([JSON.stringify(this.businessProfile)],
+        {
+          type: "application/json"
+        }));
+      this.businessAccountService.updateBusinessProfile(uploadImageData, this.businessProfile.businessProId).subscribe((businessProfile) => {
+        //console.log(businessProfile)
+        this.businessProfile.dbayUser.password = '';
+        this.businessProfile.dbayUser.passwordC = '';
+        this.businessProfile.dbayUser.cPassword = '';
+        this.businessProfile.dbayUser.dbayUserImgsRaw = [];
+        if (businessProfile.dbayUser.dbayUserImgs.length > 0) {
+          this.businessProfile.dbayUser.dbayUserImgs = businessProfile.dbayUser.dbayUserImgs;
+        }
+        // localStorage.setItem('user', JSON.stringify(this.user));
+        this.businessAccountService.navBarSub.next({
+          name: 'Business',
+          value: this.businessProfile.defaultBusiness
         })
-      }
-    }
-    if (businessAreas.length > 0) {
-      this.businessProfile.businessAreas = businessAreas;
-    }
-    //console.log(this.businessProfile)
-    const uploadImageData = new FormData();
-    for (let dbayUserImg of this.businessProfile.dbayUser.dbayUserImgsRaw) {
-      uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
-    }
-    uploadImageData.append('businessProfile', new Blob([JSON.stringify(this.businessProfile)],
-      {
-        type: "application/json"
-      }));
-    this.businessAccountService.updateBusinessProfile(uploadImageData, this.businessProfile.businessProId).subscribe((businessProfile) => {
-      //console.log(businessProfile)
-      this.businessProfile.dbayUser.password = '';
-      this.businessProfile.dbayUser.passwordC = '';
-      this.businessProfile.dbayUser.cPassword = '';
-      this.businessProfile.dbayUser.dbayUserImgsRaw = [];
-      if (businessProfile.dbayUser.dbayUserImgs.length > 0) {
-        this.businessProfile.dbayUser.dbayUserImgs = businessProfile.dbayUser.dbayUserImgs;
-      }
-      // localStorage.setItem('user', JSON.stringify(this.user));
-      this.businessAccountService.navBarSub.next({
-        name: 'Business',
-        value: this.businessProfile.defaultBusiness
+        this.loginService.getUser().businessProfile.defaultBusiness = this.businessProfile.defaultBusiness;
+        localStorage.setItem('user', JSON.stringify(this.loginService.getUser()))
+        // this.businessProfile = businessProfile;
+        this.imageInput.removeFiles();
+        this.setDialogBox('Your profile has been updated', true)
+        // this.businessProfile.dbayUser.dbayUserImgs = this.businessProfile.dbayUser.dbayUserImgs.concat(businessProfile.dbayUser.dbayUserImgs);
       })
-      this.loginService.getUser().businessProfile.defaultBusiness = this.businessProfile.defaultBusiness;
-      localStorage.setItem('user', JSON.stringify(this.loginService.getUser()))
-      // this.businessProfile = businessProfile;
-      this.imageInput.removeFiles();
-      // this.businessProfile.dbayUser.dbayUserImgs = this.businessProfile.dbayUser.dbayUserImgs.concat(businessProfile.dbayUser.dbayUserImgs);
     })
   }
 
@@ -218,5 +224,18 @@ export class BaProfileComponent implements OnInit {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + userImg.userImgName);
+  }
+
+  confirmation = {
+    reply: false,
+    message: ''
+  };
+
+  confirmationSub = new Subject();
+
+  setDialogBox(message, reply = false) {
+    this.confirmation.reply = reply;
+    this.confirmation.message = message;
+    // console.log(this.confirmation.reply)
   }
 }

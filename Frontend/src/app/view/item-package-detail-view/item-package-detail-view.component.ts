@@ -161,8 +161,10 @@ export class ItemPackageDetailViewComponent implements OnInit {
   }
 
   getAlbumSrc(imgNo) {
-    let albumImgSrc;
-    albumImgSrc = this._album[imgNo]['thumb'];
+    let albumImgSrc = '';
+    if (this._album[imgNo] !== undefined) {
+      albumImgSrc = this._album[imgNo]['thumb'];
+    }
     return albumImgSrc;
   }
 

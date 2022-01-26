@@ -316,4 +316,14 @@ public class ItemSImpl implements ItemS {
         }
         return null;
     }
+
+    @Override
+    public boolean removeItem(String itemId) throws Exception {
+        try {
+            itemR.deleteById(itemId);
+            return true;
+        } catch (Exception e) {
+            throw new Exception("You cannot remove this item, since it is used.");
+        }
+    }
 }

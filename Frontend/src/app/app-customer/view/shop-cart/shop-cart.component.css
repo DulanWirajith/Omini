@@ -17,3 +17,7 @@
   line-height: 2;
   font-size: 14px !important;
 }
+
+#confMsg {
+  white-space: pre;
+}

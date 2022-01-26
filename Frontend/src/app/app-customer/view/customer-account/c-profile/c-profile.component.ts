@@ -4,6 +4,7 @@ import {environment} from "../../../../../environments/environment";
 import {BusinessAccountService} from "../../../../app-shop/_service/business-account.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {LoginService} from "../../../../_service/login.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-c-profile',
@@ -82,6 +83,9 @@ export class CProfileComponent implements OnInit {
 
   onSubmit() {
     //console.log(this.customerProfile)
+    this.setDialogBox('Do you want update your profile?');
+    this.confirmationSub.observers = [];
+    this.confirmationSub.subscribe(() => {
     const uploadImageData = new FormData();
     for (let dbayUserImg of this.customerProfile.dbayUser.dbayUserImgsRaw) {
       uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
@@ -102,7 +106,9 @@ export class CProfileComponent implements OnInit {
       // customerProfile.dbayUser.dbayUserImgs = [];
       // this.customerProfile = customerProfile;
       this.imageInput.removeFiles();
+      this.setDialogBox('Your profile has been updated', true)
       // this.customerProfile.dbayUser.dbayUserImgs = this.customerProfile.dbayUser.dbayUserImgs.concat(customerProfile.dbayUser.dbayUserImgs);
+    })
     })
   }
 
@@ -140,5 +146,18 @@ export class CProfileComponent implements OnInit {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + userImg.userImgName);
+  }
+
+  confirmation = {
+    reply: false,
+    message: ''
+  };
+
+  confirmationSub = new Subject();
+
+  setDialogBox(message, reply = false) {
+    this.confirmation.reply = reply;
+    this.confirmation.message = message;
+    // console.log(this.confirmation.reply)
   }
 }

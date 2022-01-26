@@ -27,8 +27,8 @@
                   </div>
                 </a>
                 <div class="btn-group ms-n2 ms-sm-5 mt-3 justify-content-end">
-                  <a class="btn btn-primary px-3">LKR {{itemPackage.price | number:'.2-2'}}</a>
-                  <button
+                  <a class="btn btn-primary px-3">LKR {{itemPackage.discountedPrice | number:'.2-2'}}</a>
+                  <button id="btnPackage{{i}}"
                     class="btnView btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
                     type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#package' + i" aria-expanded="true"
                     aria-controls="packageOne" value="{{itemPackage.itemPackageId}}">
@@ -93,7 +93,7 @@
            id="packageEdit{{i}}">
         <div class="card card-body">
           <form #baManageFormPackageE="ngForm"
-                (ngSubmit)="baManageFormPackageE.form.valid && onSubmit(itemPackage,imageInput)" novalidate>
+                (ngSubmit)="baManageFormPackageE.form.valid && onSubmit(itemPackage,imageInput,i)" novalidate>
 
             <div class="row">
               <div class="col-md-12 mb-3">
@@ -483,6 +483,65 @@
       <div class="accordionView accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#package-list"
            id="package{{i}}" style="margin-top: 10px">
         <div class="accordion-body">
+
+          <div class="rowg-3  mt-4">
+            <h3 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Information</h3>
+          </div>
+          <div class="border-top border-light pt-0 mb-2">
+            <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
+              <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
+              <span *ngIf="itemPackage.discountType==='None'">LKR {{itemPackage.price | number:'.2-2'}}</span>
+              <span *ngIf="itemPackage.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{itemPackage.price | number:'.2-2'}}</span>
+              <span *ngIf="itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{itemPackage.discountedPrice | number:'.2-2'}}</span>
+            </div>
+            <div class="row cols-sm-2 row-cols-md-12"
+                 style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 0px;margin-bottom: 20px">
+              <div class="col" style="padding: 0px">
+                <div *ngIf="itemPackage.quantity>0" style="border-right: 1px solid #d3d3d3">
+                  <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                    {{itemPackage.makeToOrder?'Max':''}} Quantity
+                  </p>
+                  <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{itemPackage.quantity}}</p>
+                </div>
+                <div *ngIf="itemPackage.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
+                  <p class="mb-2 fs-sm fw-bold mx-2"
+                     style="text-align: center;">
+                  <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">
+                    Out Of Stock
+                  </span>
+                  </p>
+                </div>
+              </div>
+              <div class="col" style="padding: 0px">
+                <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                  Discount </p>
+                <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
+                  {{itemPackage.discountType==='None' ? 'N/A' :
+                  itemPackage.discountType==='Cash' ? ('LKR '+itemPackage.discount) :
+                  itemPackage.discountType==='Percentage' ? (itemPackage.discount + '%') : ''}}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row cols-md-12 mt-3">
+            <p class="mb-2 fs-sm text-dark fw-bold">Overview </p>
+            <div class="col">
+              <p class="mb-2 fs-sm text-muted">{{itemPackage.description}} </p>
+            </div>
+          </div>
+
+          <div class="row cols-md-12 mt-2">
+            <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
+            <div class="col" *ngFor="let itemFeature of itemPackage.itemPackageItemPackageFeatures">
+            <span class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">
+              {{itemFeature.itemPackageFeature.name}}
+              <!--<i class="fi-x fs-xs ms-2"></i>-->
+            </span>
+            </div>
+          </div>
+
+          <p class="mb-2 fs-sm text-dark fw-bold" style="margin-bottom: 10px">Includes </p>
 
           <app-ba-manage-item-view [items]="itemPackage.items"></app-ba-manage-item-view>
 

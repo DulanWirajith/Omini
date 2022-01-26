@@ -20,6 +20,48 @@ import {CrStep3Component} from "./view/customer-register/cr-step3/cr-step3.compo
 import {CrStep4Component} from "./view/customer-register/cr-step4/cr-step4.component";
 import {CrStep5Component} from "./view/customer-register/cr-step5/cr-step5.component";
 import {COrderViewComponent} from "./view/customer-account/c-order/c-order-view/c-order-view.component";
+import {NotifierModule, NotifierOptions} from "angular-notifier";
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: "middle",
+      distance: 5
+    },
+    vertical: {
+      position: "top",
+      distance: 10,
+      gap: 10
+    }
+  },
+  theme: "material",
+  behaviour: {
+    autoHide: 5000,
+    onClick: false,
+    onMouseover: "pauseAutoHide",
+    showDismissButton: false,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: "slide",
+      speed: 300,
+      easing: "ease"
+    },
+    hide: {
+      preset: "fade",
+      speed: 300,
+      easing: "ease",
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: "ease"
+    },
+    overlap: 150
+  }
+};
 
 const components = [
   ItemShopSearchComponent,
@@ -47,7 +89,8 @@ const components = [
   exports: [components],
   imports: [
     SharedModule,
-    AppCustomerRoutingModule
+    AppCustomerRoutingModule,
+    // NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [
     // ShopCartService

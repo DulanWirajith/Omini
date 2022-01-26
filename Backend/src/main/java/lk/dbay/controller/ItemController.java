@@ -87,6 +87,16 @@ public class ItemController {
         return ResponseEntity.ok(itemS.getItemsPackagesBySearch(txt, category));
     }
 
+    @DeleteMapping(value = "/removeItem/{itemId}")
+    public ResponseEntity removeItem(@PathVariable String itemId) {
+        try {
+            return ResponseEntity.ok(itemS.removeItem(itemId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // Item Review
 
     @PostMapping(value = "/addItemReview")

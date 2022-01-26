@@ -15,6 +15,8 @@ import {LoginService} from "../../../../../../_service/login.service";
 })
 export class BaManageItemEditComponent implements OnInit {
 
+  itemIndex;
+  items;
   item;
   itemFeatures;
   @ViewChild('imageInput') imageInput: any;
@@ -38,13 +40,15 @@ export class BaManageItemEditComponent implements OnInit {
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private loginService: LoginService) {
     this.item = this.itemService.getNewItem();
     // this.lightbox = _lightbox;
-    this.businessAccountService.businessCategoriesSub.observers = [];
+    // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
     this.itemService.itemSub.observers = [];
     this.itemService.itemSub.subscribe((item) => {
-      this.item = item;
+      this.item = item.item;
+      this.items = item.items;
+      this.itemIndex = item.index
       this.getAlbum(this.item);
     })
     this.itemService.itemFeaturesSub.observers = [];
@@ -85,8 +89,10 @@ export class BaManageItemEditComponent implements OnInit {
   }
 
   getAlbumSrc(imgNo) {
-    let albumImgSrc;
-    albumImgSrc = this._album[imgNo]['thumb'];
+    let albumImgSrc = '';
+    if (this._album[imgNo] !== undefined) {
+      albumImgSrc = this._album[imgNo]['thumb'];
+    }
     return albumImgSrc;
   }
 
@@ -116,6 +122,9 @@ export class BaManageItemEditComponent implements OnInit {
     this.itemService.updateItem(uploadImageData, this.item.itemId).subscribe((item) => {
       this.imageInput.removeFiles();
       this.item.itemImgs = this.item.itemImgs.concat(item.itemImgs);
+      if (document.getElementById('item-back-btn') !== null) {
+        document.getElementById('item-back-btn').click();
+      }
     })
   }
 
@@ -183,5 +192,31 @@ export class BaManageItemEditComponent implements OnInit {
 
   getIndex(value) {
     return value;
+  }
+
+  confirmation = {
+    reply: false,
+    message: ''
+  };
+
+  // confirmationSub = new Subject();
+
+  setDialogBox(message, reply = false) {
+    this.confirmation.reply = reply;
+    this.confirmation.message = message;
+  }
+
+  removeItem(itemId) {
+    this.itemService.removeItem(itemId).subscribe((reply) => {
+      if (reply) {
+        this.items.splice(this.itemIndex, 1);
+        if (document.getElementById('item-close-btn') !== null) {
+          document.getElementById('item-close-btn').click()
+        }
+        this.setDialogBox('Item has been removed', true);
+      }
+    }, (error) => {
+      this.setDialogBox(error.error, true);
+    })
   }
 }
