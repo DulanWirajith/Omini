@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ItemService} from "../../../../_service/item.service";
 import {ItemGService} from "../../../../../_service/item-g.service";
+import {TimeAgo} from "../../../../../_util/TimeAgo";
 
 
 @Component({
@@ -39,6 +40,12 @@ export class BaOrderViewComponent implements OnInit {
       itemPackage: itemPackage,
       backBtn: undefined
     });
+  }
+
+  timeAgo = new TimeAgo();
+
+  getTimeAgo(time) {
+    return this.timeAgo.timeSince(time);
   }
 
   // confirmation = {

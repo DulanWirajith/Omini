@@ -76,7 +76,8 @@ let notifierModule: any = NotifierModule.withConfig(customNotifierOptions)
     HttpClientModule,
     MDBBootstrapModule,
     LightboxModule,
-    notifierModule
+    notifierModule,
+    // TimeAgoPipe
   ],
   declarations: [
     components
@@ -86,7 +87,8 @@ let notifierModule: any = NotifierModule.withConfig(customNotifierOptions)
     RouterModule,
     MDBBootstrapModule,
     FormsModule,
-    notifierModule
+    notifierModule,
+    // TimeAgoPipe
   ]
 })
 export class SharedModule {

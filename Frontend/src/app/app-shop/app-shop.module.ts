@@ -49,6 +49,7 @@ const components = [
 @NgModule({
   declarations: [
     AppShopComponent,
+    // TimeAgoPipe,
     components
   ],
   exports: [components],

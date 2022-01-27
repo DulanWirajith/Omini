@@ -20,7 +20,8 @@ import { LoginComponent } from './view/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    // TimeAgoPipe
     // HeaderComponent
   ],
   imports: [
