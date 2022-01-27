@@ -112,7 +112,7 @@ export class ItemDetailViewComponent implements OnInit {
 
   getItemReviews() {
     this.review = true;
-    this.itemService.getItemReviews(this.item.itemId, JSON.parse(localStorage.getItem('user')).customerProfile.customerProId, 'Item').subscribe((itemReviews) => {
+    this.itemService.getItemReviews(this.item.itemId, JSON.parse(localStorage.getItem('user')).userId, 'Item').subscribe((itemReviews) => {
       this.itemReviews = itemReviews;
       // console.log(this.itemReviews)
     })

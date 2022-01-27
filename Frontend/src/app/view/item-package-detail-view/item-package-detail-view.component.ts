@@ -116,7 +116,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
 
   getItemPackageReviews() {
     this.review = true;
-    this.itemService.getItemReviews(this.itemPackage.itemPackageId, JSON.parse(localStorage.getItem('user')).customerProfile.customerProId, 'ItemPackage').subscribe((itemPackageReviews) => {
+    this.itemService.getItemReviews(this.itemPackage.itemPackageId, JSON.parse(localStorage.getItem('user')).userId, 'ItemPackage').subscribe((itemPackageReviews) => {
       this.itemPackageReviews = itemPackageReviews;
       // console.log(this.itemPackageReviews)
     })
