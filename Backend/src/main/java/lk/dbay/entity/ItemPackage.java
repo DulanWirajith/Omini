@@ -33,6 +33,7 @@ public class ItemPackage extends DateTime {
     private String discountType;
     private boolean confirmed;
     private boolean available;
+//    private boolean favourite;
 
 //    @Lob
 //    private byte[] itemPackageImg;

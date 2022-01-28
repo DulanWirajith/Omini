@@ -10,6 +10,7 @@ import {CProfileComponent} from "./view/customer-account/c-profile/c-profile.com
 import {COrderComponent} from "./view/customer-account/c-order/c-order.component";
 import {BusinessRegisterComponent} from "../app-shop/view/business-register/business-register.component";
 import {CustomerRegisterComponent} from "./view/customer-register/customer-register.component";
+import {CFavouriteComponent} from "./view/customer-account/c-favourite/c-favourite.component";
 
 const routes: Routes = [
   // {
@@ -36,6 +37,10 @@ const routes: Routes = [
           {
             path: 'customer_order',
             component: COrderComponent,
+          },
+          {
+            path: 'customer_favourite',
+            component: CFavouriteComponent,
           }
         ]
       },

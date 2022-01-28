@@ -34,4 +34,6 @@ public interface ItemS {
     ItemReviewResponseDTO addItemReviewResponse(ItemReviewResponse itemReviewResponse);
 
     boolean removeItem(String itemId) throws Exception;
+
+    boolean setItemFavourite(String customerId, String itemId);
 }

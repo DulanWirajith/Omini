@@ -77,6 +77,11 @@ public class ItemController {
         return ResponseEntity.ok(itemS.setItemAvailable(itemId));
     }
 
+    @GetMapping(value = "/setItemFavourite/{customerId}/{itemId}")
+    public ResponseEntity setItemFavourite(@PathVariable String customerId, @PathVariable String itemId) {
+        return ResponseEntity.ok(itemS.setItemFavourite(customerId, itemId));
+    }
+
     @GetMapping(value = "/getItemSelected/{itemId}")
     public ResponseEntity getItemSelected(@PathVariable String itemId) {
         return ResponseEntity.ok(itemS.getItemSelected(itemId));

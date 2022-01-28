@@ -7,7 +7,6 @@ import {SharedModule} from "../_shared/shared.module";
 import {ItemShopSearchComponent} from "./view/item-shop-search/item-shop-search.component";
 import {CustomerAccountComponent} from "./view/customer-account/customer-account.component";
 import {SearchResultComponent} from "./view/search-result/search-result.component";
-import {ItemSearchResultViewComponent} from "./view/search-result/item-package-search-result/item-search-result-view/item-search-result-view.component";
 import {ItemPackageSearchResultComponent} from "./view/search-result/item-package-search-result/item-package-search-result.component";
 import {ShopCartComponent} from "./view/shop-cart/shop-cart.component";
 import {ShopCartService} from "./_service/shop-cart.service";
@@ -21,6 +20,7 @@ import {CrStep4Component} from "./view/customer-register/cr-step4/cr-step4.compo
 import {CrStep5Component} from "./view/customer-register/cr-step5/cr-step5.component";
 import {COrderViewComponent} from "./view/customer-account/c-order/c-order-view/c-order-view.component";
 import {NotifierModule, NotifierOptions} from "angular-notifier";
+import {CFavouriteComponent} from "./view/customer-account/c-favourite/c-favourite.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -67,7 +67,6 @@ const components = [
   ItemShopSearchComponent,
   CustomerAccountComponent,
   SearchResultComponent,
-  ItemSearchResultViewComponent,
   ItemPackageSearchResultComponent,
   ShopCartComponent,
   CProfileComponent,
@@ -78,7 +77,8 @@ const components = [
   CrStep3Component,
   CrStep4Component,
   CrStep5Component,
-  COrderViewComponent
+  COrderViewComponent,
+  CFavouriteComponent
 ];
 
 @NgModule({

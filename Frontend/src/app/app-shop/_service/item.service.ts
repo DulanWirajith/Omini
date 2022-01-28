@@ -113,6 +113,7 @@ export class ItemService {
       discount: "",
       discountType: "None",
       price: "",
+      favourite: false,
       description: "",
       itemImgs: [],
       itemImgsRaw: [],
@@ -154,6 +155,7 @@ export class ItemService {
       quantity: 1,
       makeToOrder: false,
       discount: "",
+      favourite: false,
       discountType: "None",
       businessProfileCategory: {
         businessProfile: undefined,

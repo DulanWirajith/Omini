@@ -34,6 +34,7 @@ public class Item extends DateTime {
     private String discountType;
     private boolean confirmed;
     private boolean available;
+//    private boolean favourite;
 
     @ManyToOne(optional = false)
     @JoinColumns({
@@ -50,6 +51,9 @@ public class Item extends DateTime {
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
     private Set<ItemImg> itemImgs;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
+    private Set<CustomerItemFavourite> customerItemFavourites;
 
 //    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
 //    private Set<ItemReview> itemReviews;

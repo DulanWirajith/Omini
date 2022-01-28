@@ -16,11 +16,12 @@ registerPlugin(FilePondPluginFileValidateType, FilepondPluginImageEdit, Filepond
 import {RouterModule} from "@angular/router";
 import {SharedModule} from "./_shared/shared.module";
 import { LoginComponent } from './view/login/login.component';
+import { CFavouriteComponent } from './app-customer/view/customer-account/c-favourite/c-favourite.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    LoginComponent
     // TimeAgoPipe
     // HeaderComponent
   ],

@@ -22,7 +22,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
   orderDetails = [];
 
   constructor(private itemService: ItemService, private itemServiceG: ItemGService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService,
-              private notifierService:NotifierService) {
+              private notifierService: NotifierService) {
     // this.shopCartService.shopCartItemsSub.observers = [];
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
       // console.log(item)
@@ -58,11 +58,18 @@ export class ItemPackageSearchResultComponent implements OnInit {
     this.setShopCart(this.shopCartService.shopCart);
   }
 
-  addToCart(itemPackage) {
-    // console.log(itemPackage)
+  // addToCart(itemPackage) {
+  //   // console.log(itemPackage)
+  //   //console.log(this.shopCartService.shopCartSub)
+  //   itemPackage.orderDetail.orderDetailType = 'ItemPackage';
+  //   this.shopCartService.shopCartSub.next(itemPackage);
+  // }
+
+  addToCart(item, orderDetailType) {
+    // console.log(item)
     //console.log(this.shopCartService.shopCartSub)
-    itemPackage.orderDetail.orderDetailType = 'ItemPackage';
-    this.shopCartService.shopCartSub.next(itemPackage);
+    item.orderDetail.orderDetailType = orderDetailType;
+    this.shopCartService.shopCartSub.next(item);
   }
 
   // calcDiscount(itemPackage) {
@@ -142,6 +149,50 @@ export class ItemPackageSearchResultComponent implements OnInit {
     // }
   }
 
+  getItemSelected(item) {
+    this.itemServiceG.itemSub.next({
+      item: item,
+      backBtn: undefined,
+      cart: true
+    });
+    // console.log(item.itemId)
+    // let index: any = this.items.findIndex(itemObj => {
+    //   return itemObj.itemId === item.itemId
+    // })
+    // // console.log(this.items[index])
+    // if (this.items[index].itemItemFeatures === undefined) {
+    //   this.itemService.getItemSelected(item.itemId).subscribe((item) => {
+    //     // Object.assign(this.items[index], item)
+    //     // item.itemImgsRaw = [];
+    //     // item.itemItemFeatures = [];
+    //     // item.businessProfileCategory = {
+    //     //   businessProfile: undefined,
+    //     //   businessCategory: undefined
+    //     // }
+    //     // if (item.itemDiscountType === "None") {
+    //     //   item.itemDiscountView = "N/A";
+    //     // } else if (item.itemDiscountType === "Cash") {
+    //     //   item.itemDiscountView = "LKR " + item.itemDiscount;
+    //     // } else if (item.itemDiscountType === "Percentage") {
+    //     //   item.itemDiscountView = item.itemDiscount + "%";
+    //     // }
+    //     item.itemCount = this.items[index].itemCount;
+    //     this.items[index] = item;
+    //     // this.itemService.itemFeaturesSub.next(item.itemFeatures);
+    //     this.itemService.itemSub.next(this.items[index]);
+    //     //console.log(this.items[index])
+    //   })
+    // } else {
+    //   this.itemService.itemSub.next(this.items[index]);
+    // }
+  }
+
+  setItemFavourite(item) {
+    this.itemService.setItemFavourite(JSON.parse(localStorage.getItem('user')).userId, item.itemId).subscribe((reply) => {
+      item.favourite = reply;
+    })
+  }
+
   getImageSrc(itemImg) {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
@@ -154,8 +205,8 @@ export class ItemPackageSearchResultComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
   }
 
-  t(){
-    console.log(5)
-    this.notifierService.notify("success", "Item deleted successfully");
-  }
+  // t(){
+  //   console.log(5)
+  //   this.notifierService.notify("success", "Item deleted successfully");
+  // }
 }

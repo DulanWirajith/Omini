@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LoginService} from "../../../../../_service/login.service";
 import {DatePipe} from "@angular/common";
 import {ItemGService} from "../../../../../_service/item-g.service";
+import {TimeAgo} from "../../../../../_util/TimeAgo";
 
 @Component({
   selector: 'app-c-order-view',
@@ -34,6 +35,12 @@ export class COrderViewComponent implements OnInit {
       itemPackage: itemPackage,
       backBtn: undefined
     });
+  }
+
+  timeAgo = new TimeAgo();
+
+  getTimeAgo(time) {
+    return this.timeAgo.timeSince(time);
   }
 
   // getPreDate() {

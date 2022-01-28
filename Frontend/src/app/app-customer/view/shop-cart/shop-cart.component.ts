@@ -326,7 +326,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
         this.shopCart = [];
         this.totalItemCount = 0;
         this.totalPrice = 0;
-        this.setDialogBox('Your cart has been cleared.');
+        this.setDialogBox('Your cart has been cleared.', true);
       })
     }
   }

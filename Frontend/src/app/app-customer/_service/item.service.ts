@@ -35,6 +35,10 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
   }
 
+  setItemFavourite(customerId, itemId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/setItemFavourite/' + customerId + '/' + itemId);
+  }
+
   getNewItem() {
     return {
       itemId: "",
@@ -46,6 +50,7 @@ export class ItemService {
       discount: "",
       discountType: "None",
       price: "",
+      favourite: false,
       description: "",
       itemImgs: [],
       itemImgsRaw: [],

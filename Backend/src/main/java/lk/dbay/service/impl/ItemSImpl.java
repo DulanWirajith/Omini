@@ -37,6 +37,8 @@ public class ItemSImpl implements ItemS {
     private ItemReviewResponseR itemReviewResponseR;
     @Autowired
     private ItemItemFeatureR itemItemFeatureR;
+    @Autowired
+    private CustomerItemFavouriteR customerItemFavouriteR;
     @Value("${image.path}")
     private String filePath;
 
@@ -326,5 +328,26 @@ public class ItemSImpl implements ItemS {
         } catch (Exception e) {
             throw new Exception("You cannot remove this item, since it is used.");
         }
+    }
+
+    @Override
+    public boolean setItemFavourite(String customerId, String itemId) {
+        Optional<CustomerItemFavourite> itemFavourite = customerItemFavouriteR.findById(new CustomerItemFavouritePK(customerId, itemId));
+        if (itemFavourite.isPresent()) {
+            customerItemFavouriteR.deleteById(new CustomerItemFavouritePK(customerId, itemId));
+            return false;
+        } else {
+            CustomerItemFavourite customerItemFavourite = new CustomerItemFavourite();
+            customerItemFavourite.setCustomerItemFavouriteId(new CustomerItemFavouritePK(customerId, itemId));
+            CustomerProfile customerProfile = new CustomerProfile();
+            customerProfile.setCustomerProId(customerId);
+            customerItemFavourite.setCustomerProfile(customerProfile);
+            Item item = new Item();
+            item.setItemId(itemId);
+            customerItemFavourite.setItem(item);
+            customerItemFavouriteR.save(customerItemFavourite);
+            return true;
+        }
+//        return new CustomerItemFavouriteDTO(customerItemFavourite.getCustomerProfile(), customerItemFavourite.getItem());
     }
 }

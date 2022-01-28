@@ -83,7 +83,9 @@
             >
             <a
               class="card-nav-link"
-              href="./client-account-favourite.html"
+              [routerLinkActive]="'active'"
+              [routerLink]="'/customer/header/customer_account/customer_favourite'"
+              (click)="breadCrumbTxt='Favourite'"
             ><i class="fi-heart opacity-60 me-2"></i>Favourite</a
             >
             <a

@@ -35,6 +35,7 @@ public class ItemDTO extends DateTimeDTO {
     private List<ItemImgDTO> itemImgs;
     private List<ItemReviewDTO> itemReviews;
     private OrderDetailDTO orderDetail;
+//    private boolean favourite;
 
 //    private byte[] itemImg;
 //    private String itemImgName;
@@ -52,6 +53,7 @@ public class ItemDTO extends DateTimeDTO {
             this.confirmed = item.isConfirmed();
             this.available = item.isAvailable();
             this.makeToOrder = item.isMakeToOrder();
+//            this.favourite = item.isFavourite();
             if (this.discountType.equals("Cash")) {
                 this.discountedPrice = (this.price - this.discount);
             } else if (this.discountType.equals("Percentage")) {
