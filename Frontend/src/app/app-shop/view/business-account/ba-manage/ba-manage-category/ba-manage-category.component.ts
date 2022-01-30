@@ -33,7 +33,7 @@ export class BaManageCategoryComponent implements OnInit {
     // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
       this.businessCategoryId = businessCategoryId;
-      this.getItemCategoriesOrdered(businessCategoryId);
+      // this.getItemCategoriesOrdered(businessCategoryId);
     })
   }
 
@@ -103,12 +103,12 @@ export class BaManageCategoryComponent implements OnInit {
 
   getItems(val, itemCategory?) {
     if (val === 'n') {
-      this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.itemCategory.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+      this.itemService.getItemPackagesBusinessCategory(this.loginService.getUser().userId, this.itemCategory.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAdd = items;
       })
     } else if (val === 'e') {
-      this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.businessCategoryId).subscribe((items) => {
+      this.itemService.getItemPackagesBusinessCategory(this.loginService.getUser().userId, this.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAddE = items;
         if (itemCategory !== undefined) {

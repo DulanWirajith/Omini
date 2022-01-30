@@ -1,4 +1,4 @@
-package lk.dbay.entity;
+package lk.dbay.entity.item;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItemItemFeaturePK implements Serializable {
+public class PackageItemItemPK implements Serializable {
 
     private String itemId;
-    private String itemFeatureId;
+    private String itemPackageId;
 }

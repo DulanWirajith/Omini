@@ -30,7 +30,7 @@ public class OrderDetailDTO extends DateTimeDTO {
     private String orderDetailType;
     private ItemOrderDTO itemOrder;
     private ItemPackageDTO itemPackage;
-    private ItemDTO item;
+//    private ItemDTO item;
     private BusinessProfileCategoryDTO businessProfileCategory;
 
     public OrderDetailDTO(OrderDetail orderDetail) {

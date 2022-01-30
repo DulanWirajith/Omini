@@ -1,8 +1,6 @@
 package lk.dbay.service.impl;
 
 import lk.dbay.dto.CustomerProfileDTO;
-import lk.dbay.dto.DbayUserDTO;
-import lk.dbay.dto.ShopCartDTO;
 import lk.dbay.entity.*;
 import lk.dbay.repository.*;
 import lk.dbay.service.CustomerProfileS;
@@ -32,8 +30,6 @@ public class CustomerProfileSImpl implements CustomerProfileS {
     private CustomerProfileR customerProfileR;
     @Autowired
     private DbayUserR dbayUserR;
-    @Autowired
-    private ShopCartR shopCartR;
     @Autowired
     private DbayUserImgR dbayUserImgR;
     @Value("${image.path}")
@@ -174,18 +170,18 @@ public class CustomerProfileSImpl implements CustomerProfileS {
         }
     }
 
-    @Override
-    public ShopCartDTO addCart(ShopCart shopCart) {
-        return new ShopCartDTO(shopCartR.save(shopCart));
-    }
-
-    @Override
-    public ShopCartDTO getCart(String cartId) {
-        Optional<ShopCart> optionalShopCart = shopCartR.findById(cartId);
-        if (optionalShopCart.isPresent()) {
-            return new ShopCartDTO(optionalShopCart.get());
-        }
-        return null;
-    }
+//    @Override
+//    public ShopCartDTO addCart(ShopCart shopCart) {
+//        return new ShopCartDTO(shopCartR.save(shopCart));
+//    }
+//
+//    @Override
+//    public ShopCartDTO getCart(String cartId) {
+//        Optional<ShopCart> optionalShopCart = shopCartR.findById(cartId);
+//        if (optionalShopCart.isPresent()) {
+//            return new ShopCartDTO(optionalShopCart.get());
+//        }
+//        return null;
+//    }
 
 }

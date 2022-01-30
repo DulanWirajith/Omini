@@ -1,5 +1,6 @@
-package lk.dbay.entity;
+package lk.dbay.entity.item;
 
+import lk.dbay.entity.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

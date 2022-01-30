@@ -32,7 +32,7 @@ export class ItemDetailViewComponent implements OnInit {
     this.itemService.itemSub.observers = [];
     this.itemService.itemSub.subscribe((itemObj) => {
       this.itemObj = itemObj;
-      this.getItemSelected(itemObj.item);
+      this.getItemPackageSelected(itemObj.item);
       // console.log(itemObj)
     })
   }
@@ -40,11 +40,11 @@ export class ItemDetailViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getItemSelected(item) {
+  getItemPackageSelected(item) {
     if (document.getElementById('item-back-btn') !== null) {
       document.getElementById('item-back-btn').click()
     }
-    this.itemService.getItemSelected(item.itemId).subscribe((itemObj) => {
+    this.itemService.getItemPackageSelected(item.itemId).subscribe((itemObj) => {
       this.item = itemObj;
       if (item.orderDetail !== undefined) {
         this.item.orderDetail.quantity = item.orderDetail.quantity
@@ -135,7 +135,7 @@ export class ItemDetailViewComponent implements OnInit {
 
   getAlbum(imageList) {
     let promises = [];
-    imageList.itemImgs.forEach(element => {
+    imageList.itemPackageImages.forEach(element => {
       promises.push(this.setAlbum(element));
     });
     Promise.all(promises).then((result: []) => {
@@ -162,10 +162,10 @@ export class ItemDetailViewComponent implements OnInit {
     return albumImgSrc;
   }
 
-  getImageSrc(itemImg) {
+  getImageSrc(itemPackageImage) {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemImg.itemImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.itemPackage.itemImageName);
   }
 
   firstImg = 0;
@@ -183,14 +183,14 @@ export class ItemDetailViewComponent implements OnInit {
       discountType: "None",
       price: "",
       description: "",
-      itemImgs: [],
+      itemPackageImages: [],
       itemImgsRaw: [],
       available: false,
       businessProfileCategory: {
         businessProfile: undefined,
         businessCategory: undefined
       },
-      itemItemFeatures: [],
+      itemPackageItemPackageFeatures: [],
       isNewItem: false,
       isUpdateItem: false,
     }

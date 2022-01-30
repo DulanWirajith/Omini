@@ -106,7 +106,7 @@
                   </button>
                 </div>
                 <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-                  <mdb-carousel-item *ngFor="let image of item.itemImgs">
+                  <mdb-carousel-item *ngFor="let image of item.itemPackageImages">
                     <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
                     <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
                          alt="First slide">
@@ -116,7 +116,7 @@
               <div class="position-relative" style="margin: 15px 15px 0px 15px">
                 <h3 class="h6 fs-base" style="margin-bottom: 0px">
                   <a class="nav-link" data-bs-toggle="offcanvas"
-                     (click)="getItemSelected(item)"
+                     (click)="getItemPackageSelected(item)"
                      data-bs-target="#item-viewer-g" style="font-weight: bold;padding: 0px;cursor: pointer">
                     {{item.name}}
                   </a>
@@ -248,7 +248,7 @@
                           <!--<h3 class="h5 text-light mb-1">{{itemPackage.name}}</h3>-->
                           <h3 class="h6 fs-base" style="margin-bottom: 0px">
                             <a class="nav-link" data-bs-toggle="offcanvas"
-                               (click)="getItemPackageSelected(itemPackage)"
+                               (click)="getPackageItemSelected(itemPackage)"
                                data-bs-target="#item-package-viewer-g" style="font-weight: bold;padding: 0px">{{itemPackage.name}}</a>
                           </h3>
                           <div class="fs-sm opacity-70">

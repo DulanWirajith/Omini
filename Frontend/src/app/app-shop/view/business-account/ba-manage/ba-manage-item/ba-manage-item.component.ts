@@ -19,7 +19,7 @@ export class BaManageItemComponent implements OnInit {
   item;
   newItemFeature;
   newItemFeaturesTemp = [];
-  itemFeature;
+  itemPackageFeature;
   businessCategories = [];
   itemFeatures = [];
   isNewFeature = false;
@@ -39,7 +39,7 @@ export class BaManageItemComponent implements OnInit {
   }
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
-    this.item = this.itemService.getNewItem();
+    this.item = this.itemService.getNewItem().itemPackage;
     // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
@@ -47,7 +47,7 @@ export class BaManageItemComponent implements OnInit {
     // console.log(4)
     // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
-      this.getItemsOrdered(businessCategoryId);
+      this.getItemPackagesOrdered(businessCategoryId);
       // console.log(2)
     })
   }
@@ -58,7 +58,7 @@ export class BaManageItemComponent implements OnInit {
     // console.log(3)
     this.businessCategories = this.businessAccountService.businessCategories;
     if (this.businessAccountService.businessCategory !== undefined) {
-      this.getItemsOrdered(this.businessAccountService.businessCategory.businessCategoryId);
+      this.getItemPackagesOrdered(this.businessAccountService.businessCategory.businessCategoryId);
     }
   }
 
@@ -69,7 +69,7 @@ export class BaManageItemComponent implements OnInit {
   getItemFeatures() {
     this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
       this.itemFeatures = itemFeatures;
-      this.item.itemItemFeatures = [];
+      this.item.itemPackageItemPackageFeatures = [];
     })
   }
 
@@ -81,17 +81,21 @@ export class BaManageItemComponent implements OnInit {
 
     //console.log(this.item)
     const uploadImageData = new FormData();
-    for (let itemImg of this.item.itemImgsRaw) {
-      uploadImageData.append('imageFile', itemImg, itemImg.name);
+    for (let itemPackageImage of this.item.itemImgsRaw) {
+      uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
     }
-    uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
+    let item = {
+      itemPackage: this.item
+    }
+    console.log(this.item)
+    uploadImageData.append('item', new Blob([JSON.stringify(item)],
       {
         type: "application/json"
       }));
     this.itemService.addItem(uploadImageData).subscribe((item) => {
-      this.items.push(item)
-      this.baManageFormItem.resetForm(this.itemService.getNewItem());
-      this.item.itemItemFeatures = [];
+      this.items.push(item.itemPackage);
+      this.baManageFormItem.resetForm(this.itemService.getNewItem().itemPackage);
+      this.item.itemPackageItemPackageFeatures = [];
       this.imageInput.removeFiles();
       if (document.getElementById('btnAddItem') !== null) {
         document.getElementById('btnAddItem').click()
@@ -100,8 +104,8 @@ export class BaManageItemComponent implements OnInit {
     })
   }
 
-  getItemsOrdered(businessCategoryId) {
-    this.itemService.getItemsOrdered(this.loginService.getUser().userId, businessCategoryId, 0, 100).subscribe((items) => {
+  getItemPackagesOrdered(businessCategoryId) {
+    this.itemService.getItemPackagesOrdered(this.loginService.getUser().userId, businessCategoryId, 0, 100).subscribe((items) => {
       this.items = items;
       for (let item of this.items) {
         item.itemImgsRaw = [];
@@ -115,20 +119,20 @@ export class BaManageItemComponent implements OnInit {
   }
 
   addFeature() {
-    if (this.itemFeature !== undefined) {
-      this.item.itemItemFeatures.push({
-        item: {itemId: this.item.itemId},
-        itemFeature: this.itemFeature
+    if (this.itemPackageFeature !== undefined) {
+      this.item.itemPackageItemPackageFeatures.push({
+        itemPackage: {itemPackageId: this.item.itemPackageId},
+        itemPackageFeature: this.itemPackageFeature
       })
       this.baManageFormItemFeatureExs.resetForm()
-      this.itemFeature = undefined;
+      this.itemPackageFeature = undefined;
     }
   }
 
   addFeatureTemp() {
     this.newItemFeaturesTemp.push(
       {
-        itemFeatureId: 0,
+        itemPackageFeatureId: 0,
         name: this.newItemFeature
       }
     );
@@ -137,10 +141,10 @@ export class BaManageItemComponent implements OnInit {
   }
 
   addNewItemFeature() {
-    for (let itemFeature of this.newItemFeaturesTemp) {
-      this.item.itemItemFeatures.push({
-        item: {itemId: this.item.itemId},
-        itemFeature: itemFeature
+    for (let itemPackageFeature of this.newItemFeaturesTemp) {
+      this.item.itemPackageItemPackageFeatures.push({
+        itemPackage: {itemPackageId: this.item.itemPackageId},
+        itemPackageFeature: itemPackageFeature
       })
     }
     this.isNewFeature = false;

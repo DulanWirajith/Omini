@@ -50,7 +50,7 @@
       <div class="d-flex align-items-center justify-content-between pb-1">
         <h3 class="h6 fs-base" style="margin-bottom: 0px">
           <a class="nav-link" data-bs-toggle="offcanvas"
-             (click)="orderDetail.orderDetailType==='Item'?getItemSelected(orderDetail.item):orderDetail.orderDetailType==='ItemPackage'?getItemPackageSelected(orderDetail.itemPackage):''"
+             (click)="orderDetail.orderDetailType==='Item'?getItemPackageSelected(orderDetail.item):orderDetail.orderDetailType==='ItemPackage'?getPackageItemSelected(orderDetail.itemPackage):''"
              [attr.data-bs-target]="orderDetail.orderDetailType==='Item'?'#item-viewer-g':orderDetail.orderDetailType==='ItemPackage'?'#item-package-viewer-g':''">
             {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
           </a>

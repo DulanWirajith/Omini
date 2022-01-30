@@ -1,11 +1,9 @@
 package lk.dbay.controller;
 
 import lk.dbay.dto.ItemDTO;
-import lk.dbay.dto.ItemReviewDTO;
-import lk.dbay.dto.ItemReviewResponseDTO;
-import lk.dbay.entity.Item;
-import lk.dbay.entity.ItemReview;
-import lk.dbay.entity.ItemReviewResponse;
+import lk.dbay.entity.item.Item;
+import lk.dbay.entity.item.ItemPackageReview;
+import lk.dbay.entity.item.ItemPackageReviewResponse;
 import lk.dbay.service.ItemS;
 import lk.dbay.util.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,40 +55,40 @@ public class ItemController {
         }
     }
 
-    @GetMapping(value = "/getItems")
-    public ResponseEntity getItems() {
-        return ResponseEntity.ok(itemS.getItems());
-    }
+//    @GetMapping(value = "/getItems")
+//    public ResponseEntity getItems() {
+//        return ResponseEntity.ok(itemS.getItems());
+//    }
 
-    @GetMapping(value = "/getItemsBusinessCategory/{businessProfileId}/{businessCategoryId}")
-    public ResponseEntity getItemsBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
-        return ResponseEntity.ok(itemS.getItemsBusinessCategory(businessProfileId, businessCategoryId));
-    }
-
-    @GetMapping(value = "/getItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
-    public ResponseEntity getItemsOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
-        return ResponseEntity.ok(itemS.getItemsOrdered(businessProfileId, businessCategoryId, start, limit));
-    }
-
-    @GetMapping(value = "/setItemAvailable/{itemId}")
-    public ResponseEntity setItemAvailable(@PathVariable String itemId) {
-        return ResponseEntity.ok(itemS.setItemAvailable(itemId));
-    }
-
-    @GetMapping(value = "/setItemFavourite/{customerId}/{itemId}")
-    public ResponseEntity setItemFavourite(@PathVariable String customerId, @PathVariable String itemId) {
-        return ResponseEntity.ok(itemS.setItemFavourite(customerId, itemId));
-    }
-
-    @GetMapping(value = "/getItemSelected/{itemId}")
-    public ResponseEntity getItemSelected(@PathVariable String itemId) {
-        return ResponseEntity.ok(itemS.getItemSelected(itemId));
-    }
-
-    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}")
-    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category) {
-        return ResponseEntity.ok(itemS.getItemsPackagesBySearch(txt, category));
-    }
+//    @GetMapping(value = "/getItemsBusinessCategory/{businessProfileId}/{businessCategoryId}")
+//    public ResponseEntity getItemsBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+//        return ResponseEntity.ok(itemS.getItemsBusinessCategory(businessProfileId, businessCategoryId));
+//    }
+//
+//    @GetMapping(value = "/getItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
+//    public ResponseEntity getItemsOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
+//        return ResponseEntity.ok(itemS.getItemsOrdered(businessProfileId, businessCategoryId, start, limit));
+//    }
+//
+//    @GetMapping(value = "/setItemAvailable/{itemId}")
+//    public ResponseEntity setItemAvailable(@PathVariable String itemId) {
+//        return ResponseEntity.ok(itemS.setItemAvailable(itemId));
+//    }
+//
+//    @GetMapping(value = "/setItemFavourite/{customerId}/{itemId}")
+//    public ResponseEntity setItemFavourite(@PathVariable String customerId, @PathVariable String itemId) {
+//        return ResponseEntity.ok(itemS.setItemFavourite(customerId, itemId));
+//    }
+//
+//    @GetMapping(value = "/getItemSelected/{itemId}")
+//    public ResponseEntity getItemSelected(@PathVariable String itemId) {
+//        return ResponseEntity.ok(itemS.getItemSelected(itemId));
+//    }
+//
+//    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}")
+//    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category) {
+//        return ResponseEntity.ok(itemS.getItemsPackagesBySearch(txt, category));
+//    }
 
     @DeleteMapping(value = "/removeItem/{itemId}")
     public ResponseEntity removeItem(@PathVariable String itemId) {
@@ -104,44 +102,44 @@ public class ItemController {
 
     // Item Review
 
-    @PostMapping(value = "/addItemReview")
-    public ResponseEntity addItemReview(@RequestBody ItemReview itemReview) {
-        try {
-            ItemReviewDTO itemReviewDTO = itemS.addItemReview(itemReview);
-            if (itemReviewDTO != null) {
-                return ResponseEntity.ok(itemReviewDTO);
-            } else {
-                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
-            }
-        } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @PostMapping(value = "/addItemResponse")
-    public ResponseEntity addItemReviewResponse(@RequestBody ItemReviewResponse itemReviewResponse) {
-        try {
-            ItemReviewResponseDTO itemReviewResponseDTO = itemS.addItemReviewResponse(itemReviewResponse);
-            if (itemReviewResponseDTO != null) {
-                return ResponseEntity.ok(itemReviewResponseDTO);
-            } else {
-                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
-            }
-        } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @GetMapping(value = "/getItemReviews/{itemId}/{customerId}/{reviewType}")
-    public ResponseEntity getItemReviews(@PathVariable String itemId, @PathVariable String customerId, @PathVariable String reviewType) {
-        return ResponseEntity.ok(itemS.getItemReviews(itemId, customerId, reviewType));
-    }
+//    @PostMapping(value = "/addItemReview")
+//    public ResponseEntity addItemReview(@RequestBody ItemPackageReview itemReview) {
+//        try {
+//            ItemReviewDTO itemReviewDTO = itemS.addItemReview(itemReview);
+//            if (itemReviewDTO != null) {
+//                return ResponseEntity.ok(itemReviewDTO);
+//            } else {
+//                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+//            }
+//        } catch (DataIntegrityViolationException e) {
+//            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
+//
+//    @PostMapping(value = "/addItemResponse")
+//    public ResponseEntity addItemReviewResponse(@RequestBody ItemPackageReviewResponse itemReviewResponse) {
+//        try {
+//            ItemReviewResponseDTO itemReviewResponseDTO = itemS.addItemReviewResponse(itemReviewResponse);
+//            if (itemReviewResponseDTO != null) {
+//                return ResponseEntity.ok(itemReviewResponseDTO);
+//            } else {
+//                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+//            }
+//        } catch (DataIntegrityViolationException e) {
+//            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
+//
+//    @GetMapping(value = "/getItemReviews/{itemId}/{customerId}/{reviewType}")
+//    public ResponseEntity getItemReviews(@PathVariable String itemId, @PathVariable String customerId, @PathVariable String reviewType) {
+//        return ResponseEntity.ok(itemS.getItemReviews(itemId, customerId, reviewType));
+//    }
 
 //    @GetMapping(value = "/itemImg/{id}")
 //    public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {

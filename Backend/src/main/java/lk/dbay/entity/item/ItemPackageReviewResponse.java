@@ -1,11 +1,12 @@
-package lk.dbay.entity;
+package lk.dbay.entity.item;
 
+import lk.dbay.entity.CustomerProfile;
+import lk.dbay.entity.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -15,7 +16,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItemReviewResponse extends DateTime {
+public class ItemPackageReviewResponse extends DateTime {
 
     @Id
     private String itemReviewResponseId;
@@ -25,7 +26,7 @@ public class ItemReviewResponse extends DateTime {
     private String response;
 
     @ManyToOne(optional = false)
-    private ItemReview itemReview;
+    private ItemPackageReview itemReview;
 
     @ManyToOne(optional = false)
     private CustomerProfile customerProfile;

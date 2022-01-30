@@ -1,5 +1,6 @@
-package lk.dbay.entity;
+package lk.dbay.entity.item;
 
+import lk.dbay.entity.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,30 +14,30 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItemItemFeature extends DateTime {
+public class PackageItemItem extends DateTime {
 
     @EmbeddedId
-    private ItemItemFeaturePK itemItemFeatureId;
+    private PackageItemItemPK packageItemItemId;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "itemId", referencedColumnName = "itemId", insertable = false, updatable = false, nullable = false)
     private Item item;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "itemFeatureId", referencedColumnName = "itemFeatureId", insertable = false, updatable = false, nullable = false)
-    private ItemFeature itemFeature;
+    @JoinColumn(name = "packageItemId", referencedColumnName = "packageItemId", insertable = false, updatable = false, nullable = false)
+    private PackageItem packageItem;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ItemItemFeature that = (ItemItemFeature) o;
+        PackageItemItem that = (PackageItemItem) o;
         return Objects.equals(item.getItemId(), that.item.getItemId()) &&
-                Objects.equals(itemFeature.getName(), that.itemFeature.getName());
+                Objects.equals(packageItem.getPackageItemId(), that.packageItem.getPackageItemId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(item.getItemId(), itemFeature.getName());
+        return Objects.hash(item.getItemId(), packageItem.getPackageItemId());
     }
 }

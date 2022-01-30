@@ -58,7 +58,7 @@ export class BaManagePackageComponent implements OnInit {
     })
     // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
-      this.getItemPackagesOrdered(businessCategoryId);
+      // this.getPackageItemsOrdered(businessCategoryId);
     })
   }
 
@@ -68,7 +68,7 @@ export class BaManagePackageComponent implements OnInit {
     // console.log(this.businessAccountService.businessCategory)
     this.businessCategories = this.businessAccountService.businessCategories;
     if (this.businessAccountService.businessCategory !== undefined) {
-      this.getItemPackagesOrdered(this.businessAccountService.businessCategory.businessCategoryId);
+      this.getPackageItemsOrdered(this.businessAccountService.businessCategory.businessCategoryId);
     }
     // this.toggleCategoryBtn();
   }
@@ -161,8 +161,8 @@ export class BaManagePackageComponent implements OnInit {
     // this.itemPackage.itemItemPackages = itemItemPackages;
     //console.log(this.itemPackage)
     const uploadImageData = new FormData();
-    for (let itemImg of this.itemPackage.itemPkgImgs) {
-      uploadImageData.append('imageFile', itemImg, itemImg.name);
+    for (let itemPackageImage of this.itemPackage.itemPkgImgs) {
+      uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
     }
     uploadImageData.append('package', new Blob([JSON.stringify(this.itemPackage)],
       {
@@ -186,9 +186,9 @@ export class BaManagePackageComponent implements OnInit {
   }
 
 
-  getItemPackagesOrdered(businessCategoryId) {
+  getPackageItemsOrdered(businessCategoryId) {
     if (this.businessProfileCategory !== null) {
-      this.itemService.getItemPackagesOrdered(this.loginService.getUser().userId, businessCategoryId).subscribe((packages) => {
+      this.itemService.getPackageItemsOrdered(this.loginService.getUser().userId, businessCategoryId).subscribe((packages) => {
         // console.log(packages)
         this.itemPackages = packages;
         for (let itemPackage of this.itemPackages) {
@@ -208,7 +208,7 @@ export class BaManagePackageComponent implements OnInit {
   getItems() {
     // if (val === 'item') {
     // if (this.itemPackage.businessProfileCategory.businessCategory !== undefined) {
-    this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+    this.itemService.getItemPackagesBusinessCategory(this.loginService.getUser().userId, this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
       // console.log(items)
       this.itemsToAdd = items;
       this.itemPackage.itemItemPackages = [];

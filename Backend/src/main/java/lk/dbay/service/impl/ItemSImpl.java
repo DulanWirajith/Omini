@@ -2,6 +2,7 @@ package lk.dbay.service.impl;
 
 import lk.dbay.dto.*;
 import lk.dbay.entity.*;
+import lk.dbay.entity.item.*;
 import lk.dbay.repository.*;
 import lk.dbay.service.ItemS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +29,11 @@ public class ItemSImpl implements ItemS {
     @Autowired
     private ItemPackageR itemPackageR;
     @Autowired
-    private ItemFeatureR itemFeatureR;
+    private ItemPackageFeatureR itemPackageFeatureR;
     @Autowired
-    private ItemImgR itemImgR;
+    private ItemPackageItemPackageFeatureR itemPackageItemPackageFeatureR;
     @Autowired
-    private ItemReviewR itemReviewR;
-    @Autowired
-    private ItemReviewResponseR itemReviewResponseR;
-    @Autowired
-    private ItemItemFeatureR itemItemFeatureR;
-    @Autowired
-    private CustomerItemFavouriteR customerItemFavouriteR;
+    private ItemPackageImageR itemPackageImageR;
     @Value("${image.path}")
     private String filePath;
 
@@ -48,14 +43,21 @@ public class ItemSImpl implements ItemS {
         try {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-            BusinessProfileCategory businessProfileCategory = item.getBusinessProfileCategory();
+            BusinessProfileCategory businessProfileCategory = item.getItemPackage().getBusinessProfileCategory();
             item.setItemId("ITM" + businessProfileCategory.getBusinessProfile().getBusinessProId() + format);
+            item.getItemPackage().setItemPackageId(item.getItemId());
+            item.getItemPackage().setItemPackageType("Item");
             businessProfileCategory.setBusinessProfileCategoryId(
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
             addFeaturesToItem(item);
             addImagesToItem(item, files);
-            return new ItemDTO(itemR.save(item), true);
+            itemPackageR.save(item.getItemPackage());
+            item = itemR.save(item);
+            ItemDTO itemDTO = new ItemDTO(item);
+            itemDTO.setItemPackage(item);
+            itemDTO.getItemPackage().setItemPackageImages(item.getItemPackage());
+            return itemDTO;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Something went wrong");
@@ -69,47 +71,48 @@ public class ItemSImpl implements ItemS {
             Optional<Item> itemOptional = itemR.findById(itemId);
             if (itemOptional.isPresent()) {
                 Item itemObj = itemOptional.get();
-                itemObj.setName(item.getName());
-                itemObj.setQuantity(item.getQuantity());
-                itemObj.setPrice(item.getPrice());
-                itemObj.setMakeToOrder(item.isMakeToOrder());
-                itemObj.setQuantity(item.getQuantity());
-                itemObj.setDescription(item.getDescription());
-                itemObj.setDiscount(item.getDiscount());
-                itemObj.setDiscountType(item.getDiscountType());
-                itemObj.setBusinessProfileCategory(item.getBusinessProfileCategory());
-                itemObj.getBusinessProfileCategory().setBusinessProfileCategoryId(
-                        new BusinessProfileCategoryPK(itemObj.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(), itemObj.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId())
+                ItemPackage itemPackageObj = itemObj.getItemPackage();
+                itemPackageObj.setName(item.getItemPackage().getName());
+                itemPackageObj.setQuantity(item.getItemPackage().getQuantity());
+                itemPackageObj.setPrice(item.getItemPackage().getPrice());
+                itemPackageObj.setMakeToOrder(item.getItemPackage().isMakeToOrder());
+                itemPackageObj.setQuantity(item.getItemPackage().getQuantity());
+                itemPackageObj.setDescription(item.getItemPackage().getDescription());
+                itemPackageObj.setDiscount(item.getItemPackage().getDiscount());
+                itemPackageObj.setDiscountType(item.getItemPackage().getDiscountType());
+                itemPackageObj.setBusinessProfileCategory(item.getItemPackage().getBusinessProfileCategory());
+                itemPackageObj.getBusinessProfileCategory().setBusinessProfileCategoryId(
+                        new BusinessProfileCategoryPK(itemPackageObj.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(), itemPackageObj.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId())
                 );
 //                addFeaturesToItem(item);
 //                addImagesToItem(item, files);
 
-                HashSet<ItemItemFeature> itemItemFeatures = new HashSet<>(item.getItemItemFeatures());
-                itemItemFeatures.retainAll(itemObj.getItemItemFeatures());
-                Set<ItemItemFeature> itemItemFeaturesSetRemove = new HashSet<>(itemObj.getItemItemFeatures());
-                itemItemFeaturesSetRemove.removeAll(itemItemFeatures);
-                Set<ItemItemFeature> itemItemFeaturesSetAdd = new HashSet<>(item.getItemItemFeatures());
-                itemItemFeaturesSetAdd.removeAll(itemItemFeatures);
-                itemObj.setItemItemFeatures(itemItemFeaturesSetAdd);
+                HashSet<ItemPackageItemPackageFeature> itemPackageItemPackageFeatures = new HashSet<>(item.getItemPackage().getItemPackageItemPackageFeatures());
+                itemPackageItemPackageFeatures.retainAll(itemObj.getItemPackage().getItemPackageItemPackageFeatures());
+                Set<ItemPackageItemPackageFeature> itemPackageItemPackageFeaturesSetRemove = new HashSet<>(itemObj.getItemPackage().getItemPackageItemPackageFeatures());
+                itemPackageItemPackageFeaturesSetRemove.removeAll(itemPackageItemPackageFeatures);
+                Set<ItemPackageItemPackageFeature> itemPackageItemPackageFeaturesSetAdd = new HashSet<>(item.getItemPackage().getItemPackageItemPackageFeatures());
+                itemPackageItemPackageFeaturesSetAdd.removeAll(itemPackageItemPackageFeatures);
+                itemObj.getItemPackage().setItemPackageItemPackageFeatures(itemPackageItemPackageFeaturesSetAdd);
                 addFeaturesToItem(itemObj);
 
-                HashSet<ItemImg> itemImgs = new HashSet<>(item.getItemImgs());
-                itemImgs.retainAll(itemObj.getItemImgs());
-                Set<ItemImg> itemImgsSetRemove = new HashSet<>(itemObj.getItemImgs());
-                itemImgsSetRemove.removeAll(itemImgs);
-                Set<ItemImg> itemImgsSetAdd = new HashSet<>(item.getItemImgs());
-                itemImgsSetAdd.removeAll(itemImgs);
-                itemObj.setItemImgs(itemImgsSetAdd);
+                HashSet<ItemPackageImage> itemPackageImages = new HashSet<>(item.getItemPackage().getItemPackageImages());
+                itemPackageImages.retainAll(itemObj.getItemPackage().getItemPackageImages());
+                Set<ItemPackageImage> itemPackageImagesSetRemove = new HashSet<>(itemObj.getItemPackage().getItemPackageImages());
+                itemPackageImagesSetRemove.removeAll(itemPackageImages);
+                Set<ItemPackageImage> itemPackageImagesAdd = new HashSet<>(item.getItemPackage().getItemPackageImages());
+                itemPackageImagesAdd.removeAll(itemPackageImages);
+                itemObj.getItemPackage().setItemPackageImages(itemPackageImagesAdd);
                 addImagesToItem(itemObj, files);
 
-                if (itemItemFeaturesSetRemove.size() > 0) {
-                    itemItemFeatureR.deleteAll(itemItemFeaturesSetRemove);
+                if (itemPackageItemPackageFeaturesSetRemove.size() > 0) {
+                    itemPackageItemPackageFeatureR.deleteAll(itemPackageItemPackageFeaturesSetRemove);
                 }
-                if (itemImgsSetRemove.size() > 0) {
-                    itemImgR.deleteAll(itemImgsSetRemove);
+                if (itemPackageImagesSetRemove.size() > 0) {
+                    itemPackageImageR.deleteAll(itemPackageImagesSetRemove);
                 }
 
-                return new ItemDTO(itemR.save(itemObj), true);
+                return new ItemDTO(itemR.save(itemObj));
             }
             return null;
         } catch (Exception e) {
@@ -121,8 +124,8 @@ public class ItemSImpl implements ItemS {
     private void addImagesToItem(Item item, MultipartFile[] files) {
         try {
 //            Set<ItemImg> itemImgs = new HashSet<>();
-            for (ItemImg itemImg : item.getItemImgs()) {
-                itemImg.setItem(item);
+            for (ItemPackageImage itemPackageImage : item.getItemPackage().getItemPackageImages()) {
+                itemPackageImage.setItemPackage(item.getItemPackage());
             }
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
@@ -130,8 +133,8 @@ public class ItemSImpl implements ItemS {
 //            String filePath = "C:\\xampp\\htdocs\\Dbay";
             String filePathCur = filePath + "\\item";
             for (MultipartFile file : files) {
-                ItemImg itemImg = new ItemImg();
-                itemImg.setItemImgId("ITIMG" + ++i + format);
+                ItemPackageImage itemPackageImage = new ItemPackageImage();
+                itemPackageImage.setItemPackageImageId("ITIMG" + ++i + format);
 //                itemImg.setItemImg(file.getBytes());
                 Path root = Paths.get(filePathCur);
                 if (!Files.exists(root)) {
@@ -140,13 +143,13 @@ public class ItemSImpl implements ItemS {
                 try {
                     Files.copy(file.getInputStream(), root.resolve(file.getOriginalFilename()));
                 } catch (FileAlreadyExistsException e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
-                itemImg.setItemImgName("item/" + StringUtils.cleanPath(file.getOriginalFilename()));
+                itemPackageImage.setImageName("item/" + StringUtils.cleanPath(file.getOriginalFilename()));
 //                itemImg.setItemImgPath("C:\\xampp\\htdocs\\Dbay\\" + itemImg.getItemImgName());
-                itemImg.setItemImgType(file.getContentType());
-                itemImg.setItem(item);
-                item.getItemImgs().add(itemImg);
+                itemPackageImage.setImageType(file.getContentType());
+                itemPackageImage.setItemPackage(item.getItemPackage());
+                item.getItemPackage().getItemPackageImages().add(itemPackageImage);
             }
 //            item.setItemImgs(itemImgs);
         } catch (Exception e) {
@@ -155,17 +158,17 @@ public class ItemSImpl implements ItemS {
     }
 
     private void addFeaturesToItem(Item item) {
-        for (ItemItemFeature itemItemFeature : item.getItemItemFeatures()) {
+        for (ItemPackageItemPackageFeature itemPackageItemPackageFeature : item.getItemPackage().getItemPackageItemPackageFeatures()) {
 //            if (itemItemFeature.getItemFeature().getItemFeatureId().equals("0")) {
 //                LocalDateTime localDateTime = LocalDateTime.now();
 //                String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-            ItemFeature itemFeatureObj = itemItemFeature.getItemFeature();
-            itemFeatureObj.setItemFeatureId("ITF" + itemFeatureObj.getName().replace(" ", "_") + item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId());
-            ItemFeature itemFeature = itemFeatureR.save(itemItemFeature.getItemFeature());
-            itemItemFeature.setItemFeature(itemFeature);
+            ItemPackageFeature itemPackageFeatureObj = itemPackageItemPackageFeature.getItemPackageFeature();
+            itemPackageFeatureObj.setItemPackageFeatureId("ITF" + itemPackageFeatureObj.getName().replace(" ", "_") + item.getItemPackage().getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId());
+            ItemPackageFeature itemPackageFeature = itemPackageFeatureR.save(itemPackageItemPackageFeature.getItemPackageFeature());
+            itemPackageItemPackageFeature.setItemPackageFeature(itemPackageFeature);
 //            }
-            itemItemFeature.setItemItemFeatureId(new ItemItemFeaturePK(item.getItemId(), itemItemFeature.getItemFeature().getItemFeatureId()));
-            itemItemFeature.setItem(item);
+            itemPackageItemPackageFeature.setItemPackageItemPackageFeatureId(new ItemPackageItemPackageFeaturePK(item.getItemId(), itemPackageItemPackageFeature.getItemPackageFeature().getItemPackageFeatureId()));
+            itemPackageItemPackageFeature.setItemPackage(item.getItemPackage());
         }
     }
 
@@ -174,150 +177,9 @@ public class ItemSImpl implements ItemS {
         List<Item> itemList = itemR.findAll();
         List<ItemDTO> itemDTOS = new ArrayList<>();
         for (Item item : itemList) {
-            itemDTOS.add(new ItemDTO(item, false));
+            itemDTOS.add(new ItemDTO(item));
         }
         return itemDTOS;
-    }
-
-    @Override
-    public List<ItemDTO> getItemsBusinessCategory(String businessProfileId, String businessCategoryId) {
-        List<Item> itemList = itemR.getAllByBusinessProfileCategory_BusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
-        List<ItemDTO> itemDTOS = new ArrayList<>();
-        for (Item item : itemList) {
-            itemDTOS.add(new ItemDTO(item, false));
-        }
-        return itemDTOS;
-    }
-
-    @Override
-    public ItemImgDTO getItemImg(String id) {
-        Optional<ItemImg> itemImgOptional = itemImgR.findById(id);
-        if (itemImgOptional.isPresent()) {
-            ItemImg itemImg = itemImgOptional.get();
-            return new ItemImgDTO(itemImg);
-        }
-        return null;
-    }
-
-    @Override
-    public List<ItemDTO> getItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit) {
-        List<Item> itemList = itemR.getItemsOrdered(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), PageRequest.of(start, limit));
-        List<ItemDTO> itemDTOS = new ArrayList<>();
-        for (Item item : itemList) {
-            itemDTOS.add(new ItemDTO(item, true));
-        }
-        return itemDTOS;
-    }
-
-    @Override
-    public ItemDTO getItemSelected(String itemId) {
-        Optional<Item> itemOptional = itemR.findById(itemId);
-        if (itemOptional.isPresent()) {
-            Item item = itemOptional.get();
-//            List<ItemFeature> itemFeatureRAll = itemFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId(), true);
-//            List<ItemFeatureDTO> itemFeatureDTOS = new ArrayList<>();
-//            for (ItemFeature itemFeature : itemFeatureRAll) {
-//                itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
-//            }
-            ItemDTO itemDTO = new ItemDTO(item, true);
-            itemDTO.setBusinessProfileCategory(item);
-            itemDTO.setItemItemFeatures(item);
-            itemDTO.setItemFeatures(item);
-            itemDTO.setItemCategory(item);
-            itemDTO.setOrderDetail(new OrderDetailDTO());
-            return itemDTO;
-        }
-        return null;
-    }
-
-    @Override
-    public boolean setItemAvailable(String itemId) {
-        Optional<Item> itemOptional = itemR.findById(itemId);
-        if (itemOptional.isPresent()) {
-            Item item = itemOptional.get();
-            item.setAvailable(!item.isAvailable());
-            itemR.save(item);
-            return item.isAvailable();
-        }
-        return false;
-    }
-
-    @Override
-    public ItemItemPackageDTO getItemsPackagesBySearch(String txt, String category) {
-        List<Item> itemsBySearch;
-        List<ItemPackage> itemPackagesBySearch;
-        if (category.equals("no")) {
-            itemsBySearch = itemR.getItemsBySearch("%" + txt + "%");
-            itemPackagesBySearch = itemPackageR.getItemPackagesBySearch("%" + txt + "%");
-        } else {
-            itemsBySearch = itemR.getItemsBySearch("%" + txt + "%", category);
-            itemPackagesBySearch = itemPackageR.getItemPackagesBySearch("%" + txt + "%", category);
-        }
-        return new ItemItemPackageDTO(itemsBySearch, itemPackagesBySearch, true);
-    }
-
-    @Override
-    public ItemReviewDTO addItemReview(ItemReview itemReview) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-        itemReview.setItemReviewId("IR" + format);
-        itemReview = itemReviewR.save(itemReview);
-        ItemReviewDTO itemReviewDTO = new ItemReviewDTO(itemReview);
-        itemReviewDTO.setCustomerProfile(itemReview);
-        return itemReviewDTO;
-    }
-
-    @Override
-    public List<ItemReviewDTO> getItemReviews(String itemId, String customerId, String reviewType) {
-        List<ItemReview> itemReviews = null;
-        if (reviewType.equals("Item")) {
-            itemReviews = itemReviewR.getAllByItem_ItemIdAndReviewType(itemId, reviewType);
-        } else if (reviewType.equals("ItemPackage")) {
-            itemReviews = itemReviewR.getAllByItemPackage_ItemPackageIdAndReviewType(itemId, reviewType);
-        }
-        List<ItemReviewDTO> itemReviewDTOS = new ArrayList<>();
-        if (itemReviews != null) {
-            for (ItemReview itemReview : itemReviews) {
-                ItemReviewDTO itemReviewDTO = new ItemReviewDTO(itemReview);
-                List<ItemReviewResponse> responses = itemReviewResponseR.getAllByItemReview_ItemReviewId(itemReview.getItemReviewId());
-                for (ItemReviewResponse reviewResponse : responses) {
-                    if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
-                        itemReviewDTO.setResponseByMe(new ItemReviewResponseDTO(reviewResponse));
-                    }
-                    if (reviewResponse.getResponse().equals("like")) {
-                        itemReviewDTO.setLikeCount(itemReviewDTO.getLikeCount() + 1);
-                    } else if (reviewResponse.getResponse().equals("dislike")) {
-                        itemReviewDTO.setDislikeCount(itemReviewDTO.getDislikeCount() + 1);
-                    }
-                }
-                itemReviewDTO.setCustomerProfile(itemReview);
-                itemReviewDTOS.add(itemReviewDTO);
-            }
-        }
-        return itemReviewDTOS;
-    }
-
-    @Override
-    public ItemReviewResponseDTO addItemReviewResponse(ItemReviewResponse itemReviewResponse) {
-        if (!itemReviewResponse.getResponse().equals("remove")) {
-            if (itemReviewResponse.getItemReviewResponseId().equals("")) {
-                LocalDateTime localDateTime = LocalDateTime.now();
-                String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-                itemReviewResponse.setItemReviewResponseId("IRRE" + format);
-                return new ItemReviewResponseDTO(itemReviewResponseR.save(itemReviewResponse));
-            } else {
-                Optional<ItemReviewResponse> optionalItemReviewResponse = itemReviewResponseR.findById(itemReviewResponse.getItemReviewResponseId());
-                if (optionalItemReviewResponse.isPresent()) {
-                    ItemReviewResponse itemReviewResponseObj = optionalItemReviewResponse.get();
-                    itemReviewResponseObj.setResponse(itemReviewResponse.getResponse());
-                    return new ItemReviewResponseDTO(itemReviewResponseR.save(itemReviewResponse));
-                }
-            }
-        } else {
-            itemReviewResponseR.deleteById(itemReviewResponse.getItemReviewResponseId());
-            return new ItemReviewResponseDTO(itemReviewResponse);
-        }
-        return null;
     }
 
     @Override
@@ -330,24 +192,24 @@ public class ItemSImpl implements ItemS {
         }
     }
 
-    @Override
-    public boolean setItemFavourite(String customerId, String itemId) {
-        Optional<CustomerItemFavourite> itemFavourite = customerItemFavouriteR.findById(new CustomerItemFavouritePK(customerId, itemId));
-        if (itemFavourite.isPresent()) {
-            customerItemFavouriteR.deleteById(new CustomerItemFavouritePK(customerId, itemId));
-            return false;
-        } else {
-            CustomerItemFavourite customerItemFavourite = new CustomerItemFavourite();
-            customerItemFavourite.setCustomerItemFavouriteId(new CustomerItemFavouritePK(customerId, itemId));
-            CustomerProfile customerProfile = new CustomerProfile();
-            customerProfile.setCustomerProId(customerId);
-            customerItemFavourite.setCustomerProfile(customerProfile);
-            Item item = new Item();
-            item.setItemId(itemId);
-            customerItemFavourite.setItem(item);
-            customerItemFavouriteR.save(customerItemFavourite);
-            return true;
-        }
-//        return new CustomerItemFavouriteDTO(customerItemFavourite.getCustomerProfile(), customerItemFavourite.getItem());
-    }
+//    @Override
+//    public ItemDTO getItemSelected(String itemId) {
+//        Optional<Item> itemOptional = itemR.findById(itemId);
+//        if (itemOptional.isPresent()) {
+//            Item item = itemOptional.get();
+////            List<ItemFeature> itemFeatureRAll = itemFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId(), true);
+////            List<ItemFeatureDTO> itemFeatureDTOS = new ArrayList<>();
+////            for (ItemFeature itemFeature : itemFeatureRAll) {
+////                itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
+////            }
+//            ItemDTO itemDTO = new ItemDTO(item);
+//            itemDTO.setBusinessProfileCategory(item);
+//            itemDTO.setItemPackageItemPackageFeatures(item);
+////            itemDTO.setItemFeatures(item);
+//            itemDTO.setItemCategory(item);
+//            itemDTO.setOrderDetail(new OrderDetailDTO());
+//            return itemDTO;
+//        }
+//        return null;
+//    }
 }

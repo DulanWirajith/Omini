@@ -27,7 +27,7 @@ export class BaManageItemEditComponent implements OnInit {
     acceptedFileTypes: 'image/jpeg, image/png'
   }
   businessCategories = [];
-  itemFeature;
+  itemPackageFeature;
   isNewFeature;
   newItemFeature;
   newItemFeaturesTemp = [];
@@ -38,7 +38,7 @@ export class BaManageItemEditComponent implements OnInit {
   // lightbox;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private loginService: LoginService) {
-    this.item = this.itemService.getNewItem();
+    this.item = this.itemService.getNewItem().itemPackage;
     // this.lightbox = _lightbox;
     // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
@@ -70,7 +70,7 @@ export class BaManageItemEditComponent implements OnInit {
 
   getAlbum(imageList) {
     let promises = [];
-    imageList.itemImgs.forEach(element => {
+    imageList.itemPackageImages.forEach(element => {
       promises.push(this.setAlbum(element));
     });
     Promise.all(promises).then((result: []) => {
@@ -113,8 +113,8 @@ export class BaManageItemEditComponent implements OnInit {
     // }
     //console.log(this.item)
     const uploadImageData = new FormData();
-    for (let itemImg of this.item.itemImgsRaw) {
-      uploadImageData.append('imageFile', itemImg, itemImg.name);
+    for (let itemPackageImage of this.item.itemImgsRaw) {
+      uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
     }
     uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
       {
@@ -122,7 +122,7 @@ export class BaManageItemEditComponent implements OnInit {
       }));
     this.itemService.updateItem(uploadImageData, this.item.itemId).subscribe((item) => {
       this.imageInput.removeFiles();
-      this.item.itemImgs = this.item.itemImgs.concat(item.itemImgs);
+      this.item.itemPackageImages = this.item.itemPackageImages.concat(item.itemPackageImages);
       if (document.getElementById('item-back-btn') !== null) {
         document.getElementById('item-back-btn').click();
       }
@@ -134,25 +134,25 @@ export class BaManageItemEditComponent implements OnInit {
   getItemFeatures() {
     this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
       this.itemFeatures = itemFeatures;
-      this.item.itemItemFeatures = [];
+      this.item.itemPackageItemPackageFeatures = [];
     })
   }
 
   addFeature() {
-    if (this.itemFeature !== undefined) {
-      this.item.itemItemFeatures.push({
+    if (this.itemPackageFeature !== undefined) {
+      this.item.itemPackageItemPackageFeatures.push({
         item: {itemId: this.item.itemId},
-        itemFeature: this.itemFeature
+        itemPackageFeature: this.itemPackageFeature
       })
       this.baManageFormItemFeatureExs.resetForm()
-      this.itemFeature = undefined;
+      this.itemPackageFeature = undefined;
     }
   }
 
   addFeatureTemp() {
     this.newItemFeaturesTemp.push(
       {
-        itemFeatureId: 0,
+        itemPackageFeatureId: 0,
         name: this.newItemFeature
       }
     );
@@ -161,20 +161,21 @@ export class BaManageItemEditComponent implements OnInit {
   }
 
   addNewItemFeature() {
-    for (let itemFeature of this.newItemFeaturesTemp) {
-      this.item.itemItemFeatures.push({
+    for (let itemPackageFeature of this.newItemFeaturesTemp) {
+      this.item.itemPackageItemPackageFeatures.push({
         item: {itemId: this.item.itemId},
-        itemFeature: itemFeature
+        itemPackageFeature: itemPackageFeature
       })
     }
     this.isNewFeature = false;
     this.newItemFeaturesTemp = [];
   }
 
-  getImageSrc(itemImg) {
+  getImageSrc(itemPackageImage) {
+    // console.log(itemPackageImage)
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemImg.itemImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.imageName);
   }
 
   pondHandleAddFile(event) {

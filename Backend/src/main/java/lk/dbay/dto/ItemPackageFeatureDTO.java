@@ -1,8 +1,7 @@
 package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lk.dbay.entity.ItemFeature;
-import lk.dbay.entity.ItemPackageFeature;
+import lk.dbay.entity.item.ItemPackageFeature;
 import lombok.*;
 
 @NoArgsConstructor

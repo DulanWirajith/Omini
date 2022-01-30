@@ -1,20 +1,12 @@
 package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lk.dbay.entity.DateTime;
-import lk.dbay.entity.ItemPackage;
-import lk.dbay.entity.ItemPackageFeature;
-import lk.dbay.entity.ItemPackageItemPackageFeaturePK;
+import lk.dbay.entity.item.ItemPackage;
+import lk.dbay.entity.item.ItemPackageFeature;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor

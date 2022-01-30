@@ -105,10 +105,10 @@
 
         <div>
           <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
-          <span *ngFor="let itemFeature of itemPackage.itemPackageItemPackageFeatures"
+          <span *ngFor="let itemPackageFeature of itemPackage.itemPackageItemPackageFeatures"
                 class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"
                 style="margin-left: 10px">
-              {{itemFeature.itemPackageFeature.name}}
+              {{itemPackageFeature.itemPackageFeature.name}}
             <!--<i class="fi-x fs-xs ms-2"></i>-->
             </span>
         </div>
@@ -139,7 +139,7 @@
                 <!--</div>-->
 
                 <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-                  <mdb-carousel-item *ngFor="let image of itemItemPackage.item.itemImgs">
+                  <mdb-carousel-item *ngFor="let image of itemItemPackage.item.itemPackageImages">
                     <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
                     <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
                          alt="First slide">
@@ -152,7 +152,7 @@
                 <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
                 <h3 class="h6 mb-2 fs-base">
                   <a class="nav-link" data-bs-toggle="offcanvas"
-                     (click)="getItemSelected(itemItemPackage.item)"
+                     (click)="getItemPackageSelected(itemItemPackage.item)"
                      data-bs-target="#item-viewer-g"
                      style="font-weight: bold;padding: 0px">{{itemItemPackage.item.name}}</a></h3>
                 <!-- <div class="d-flex align-items-center text-nowrap">

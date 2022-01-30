@@ -23,16 +23,16 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item/getItemsPackagesBySearch/' + txt + '/' + category);
   }
 
-  getItemSelected(itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  getItemPackageSelected(itemId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/getItemPackageSelected/' + itemId);
   }
 
   getCustomerOrders(customerId, status, from, to): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_order/getCustomerOrders/' + customerId + '/' + status + '/' + from + '/' + to);
   }
 
-  getItemPackageSelected(itemPackageId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
+  getPackageItemSelected(itemPackageId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
   }
 
   setItemFavourite(customerId, itemId): Observable<any> {
@@ -42,6 +42,13 @@ export class ItemService {
   getNewItem() {
     return {
       itemId: "",
+      itemPackage: this.getNewItemPackage()
+    }
+  }
+
+  getNewItemPackage() {
+    return {
+      itemPackageId: "",
       orderDetailId: '',
       name: "",
       quantity: 1,
@@ -52,7 +59,7 @@ export class ItemService {
       price: "",
       favourite: false,
       description: "",
-      itemImgs: [],
+      itemPackageImages: [],
       itemImgsRaw: [],
       itemAvailable: false,
       businessProfileCategory: {
@@ -61,7 +68,7 @@ export class ItemService {
         },
         businessCategory: undefined
       },
-      itemItemFeatures: [],
+      itemPackageItemPackageFeatures: [],
       isNewItem: false,
       isUpdateItem: false,
       orderDetail: undefined,

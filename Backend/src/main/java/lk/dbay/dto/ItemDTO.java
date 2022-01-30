@@ -2,6 +2,8 @@ package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.*;
+import lk.dbay.entity.item.Item;
+import lk.dbay.entity.item.ItemPackageItemPackageFeature;
 import lombok.*;
 import lombok.experimental.Tolerate;
 
@@ -28,12 +30,13 @@ public class ItemDTO extends DateTimeDTO {
     private boolean confirmed;
     private boolean available;
     private ItemCategoryDTO itemCategory;
+    private ItemPackageDTO itemPackage;
     private boolean itemAvailable;
     private BusinessProfileCategoryDTO businessProfileCategory;
-    private List<ItemItemFeatureDTO> itemItemFeatures;
-    private List<ItemFeatureDTO> itemFeatures;
-    private List<ItemImgDTO> itemImgs;
-    private List<ItemReviewDTO> itemReviews;
+    private List<ItemPackageItemPackageFeatureDTO> itemPackageItemPackageFeatures;
+//    private List<ItemFeatureDTO> itemFeatures;
+//    private List<ItemImgDTO> itemImgs;
+//    private List<ItemReviewDTO> itemReviews;
     private OrderDetailDTO orderDetail;
 //    private boolean favourite;
 
@@ -41,43 +44,9 @@ public class ItemDTO extends DateTimeDTO {
 //    private String itemImgName;
 //    private String itemImgType;
 
-    public ItemDTO(Item item, boolean needImage) {
+    public ItemDTO(Item item) {
         if (item != null) {
             this.itemId = item.getItemId();
-            this.name = item.getName();
-            this.quantity = item.getQuantity();
-            this.price = item.getPrice();
-            this.description = item.getDescription();
-            this.discountType = item.getDiscountType();
-            this.discount = item.getDiscount();
-            this.confirmed = item.isConfirmed();
-            this.available = item.isAvailable();
-            this.makeToOrder = item.isMakeToOrder();
-//            this.favourite = item.isFavourite();
-            if (this.discountType.equals("Cash")) {
-                this.discountedPrice = (this.price - this.discount);
-            } else if (this.discountType.equals("Percentage")) {
-                this.discountedPrice = (this.price * ((100 - this.discount) / 100));
-            } else if (this.discountType.equals("None")) {
-                this.discountedPrice = this.price;
-            }
-//        if (this.itemDiscountType.equals("None")) {
-//            this.itemDiscount = "N/A";
-//        } else if (this.itemDiscountType.equals("Cash")) {
-//            this.itemDiscount = "LKR " + item.getItemDiscount();
-//        } else if (this.itemDiscountType.equals("Percentage")) {
-//            this.itemDiscount = item.getItemDiscount() + "%";
-//        }
-            if (needImage) {
-                List<ItemImgDTO> itemImgs = new ArrayList<>();
-                for (ItemImg itemImg : item.getItemImgs()) {
-                    itemImgs.add(new ItemImgDTO(itemImg));
-                }
-                this.itemImgs = itemImgs;
-//            this.itemImgName = item.getItemImgName();
-//            this.itemImg = item.getItemImg();
-//            this.itemImgType = item.getItemImgType();
-            }
         }
     }
 
@@ -86,18 +55,35 @@ public class ItemDTO extends DateTimeDTO {
             this.itemCategory = new ItemCategoryDTO(item.getItemCategory());
     }
 
-    @Tolerate
-    public void setBusinessProfileCategory(Item item) {
-        if (item.getBusinessProfileCategory() != null)
-            this.businessProfileCategory = new BusinessProfileCategoryDTO(item.getBusinessProfileCategory().getBusinessProfile(), item.getBusinessProfileCategory().getBusinessCategory());
+    public void setItemPackage(Item item) {
+        if (item.getItemPackage() != null)
+            this.itemPackage = new ItemPackageDTO(item.getItemPackage());
     }
 
-    public void setItemItemFeatures(Item item) {
-        this.itemItemFeatures = new ArrayList<>();
-        for (ItemItemFeature itemItemFeature : item.getItemItemFeatures()) {
-            this.itemItemFeatures.add(new ItemItemFeatureDTO(item, itemItemFeature.getItemFeature()));
+    @Tolerate
+    public void setBusinessProfileCategory(Item item) {
+        if (item.getItemPackage().getBusinessProfileCategory() != null)
+            this.businessProfileCategory = new BusinessProfileCategoryDTO(item.getItemPackage().getBusinessProfileCategory().getBusinessProfile(), item.getItemPackage().getBusinessProfileCategory().getBusinessCategory());
+    }
+
+    public void setItemPackageItemPackageFeatures(Item item) {
+        if (item.getItemPackage().getItemPackageItemPackageFeatures() != null) {
+            this.itemPackageItemPackageFeatures = new ArrayList<>();
+            for (ItemPackageItemPackageFeature itemPackageItemPackageFeature : item.getItemPackage().getItemPackageItemPackageFeatures()) {
+                this.itemPackageItemPackageFeatures.add(new ItemPackageItemPackageFeatureDTO(
+                        itemPackageItemPackageFeature.getItemPackage(),
+                        itemPackageItemPackageFeature.getItemPackageFeature()
+                ));
+            }
         }
     }
+
+//    public void setItemItemFeatures(Item item) {
+//        this.itemItemFeatures = new ArrayList<>();
+//        for (ItemItemFeature itemItemFeature : item.getItemItemFeatures()) {
+//            this.itemItemFeatures.add(new ItemItemFeatureDTO(item, itemItemFeature.getItemFeature()));
+//        }
+//    }
 
 //    public void setItemReviews(Item item) {
 //        this.itemReviews = new ArrayList<>();
@@ -106,13 +92,13 @@ public class ItemDTO extends DateTimeDTO {
 //        }
 //    }
 
-    public void setItemFeatures(Item item) {
-//        this.itemFeatures = itemFeatures;
-    }
-
-    public void setItemImgs(Item item) {
-//        this.itemImgs = itemImgs;
-    }
+//    public void setItemFeatures(Item item) {
+////        this.itemFeatures = itemFeatures;
+//    }
+//
+//    public void setItemImgs(Item item) {
+////        this.itemImgs = itemImgs;
+//    }
 
 //    public ItemDTO(@NonNull Item item, boolean needImage, @NonNull ItemCategory itemCategory) {
 //        this(item, needImage);

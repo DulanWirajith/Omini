@@ -1,5 +1,7 @@
-package lk.dbay.entity;
+package lk.dbay.entity.item;
 
+import lk.dbay.entity.BusinessCategory;
+import lk.dbay.entity.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,7 @@ public class ItemPackageFeature extends DateTime {
     @Id
     private String itemPackageFeatureId;
     private String name;
-//    @Lob
+    //    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;
     private boolean confirmed;

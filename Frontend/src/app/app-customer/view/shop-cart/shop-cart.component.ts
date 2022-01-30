@@ -251,7 +251,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     }
   }
 
-  getItemSelected(item) {
+  getItemPackageSelected(item) {
     this.itemServiceG.itemSub.next({
       item: item,
       backBtn: 'cart-viewer',
@@ -259,7 +259,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     });
   }
 
-  getItemPackageSelected(item) {
+  getPackageItemSelected(item) {
     this.itemServiceG.itemPackageSub.next({
       itemPackage: item,
       backBtn: 'cart-viewer',

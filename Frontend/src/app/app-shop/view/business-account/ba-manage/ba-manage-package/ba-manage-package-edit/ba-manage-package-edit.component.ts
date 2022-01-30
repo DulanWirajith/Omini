@@ -84,8 +84,8 @@ export class BaManagePackageEditComponent implements OnInit {
     }
     //console.log(itemPackage)
     const uploadImageData = new FormData();
-    for (let itemImg of itemPackage.itemPkgImgs) {
-      uploadImageData.append('imageFile', itemImg, itemImg.name);
+    for (let itemPackageImage of itemPackage.itemPkgImgs) {
+      uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
     }
     uploadImageData.append('package', new Blob([JSON.stringify(itemPackage)],
       {
@@ -142,7 +142,7 @@ export class BaManagePackageEditComponent implements OnInit {
   getItems(businessCategoryId, itemPackage?) {
     //console.log(this.businessProfileCategory)
     // if (this.businessProfileCategory !== undefined) {
-    this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, businessCategoryId).subscribe((items) => {
+    this.itemService.getItemPackagesBusinessCategory(this.loginService.getUser().userId, businessCategoryId).subscribe((items) => {
       // console.log(items)
       this.itemsToAdd = items;
       if (itemPackage !== undefined) {
@@ -176,12 +176,12 @@ export class BaManagePackageEditComponent implements OnInit {
     let that = this;
     $(document).on('click', '.btnEdit', function () {
       if (!$(this, '.accordionEdit').hasClass('show')) {
-        that.getItemPackageSelected(that, this);
+        that.getPackageItemSelected(that, this);
       }
     })
     $(document).on('click', '.btnView', function () {
       if (!$(this, '.accordionView').hasClass('show')) {
-        that.getItemPackageSelected(that, this);
+        that.getPackageItemSelected(that, this);
       }
     })
     $(document).on('click', '.createFeature', function () {
@@ -189,13 +189,13 @@ export class BaManagePackageEditComponent implements OnInit {
     })
   }
 
-  getItemPackageSelected(that, obj) {
+  getPackageItemSelected(that, obj) {
     let index: any = that.itemPackages.findIndex(itemPackage => {
       return itemPackage.itemPackageId === $(obj).val()
     })
     //console.log($(obj).val())
     // if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
-    that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
+    that.itemService.getPackageItemSelected($(obj).val()).subscribe((itemPackage) => {
       // that.categories[index] = category;
       Object.assign(that.itemPackages[index], itemPackage)
       // that.getItems(that.itemPackages[index])

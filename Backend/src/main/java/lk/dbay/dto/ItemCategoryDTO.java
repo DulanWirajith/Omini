@@ -1,14 +1,12 @@
 package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lk.dbay.entity.BusinessProfileCategory;
-import lk.dbay.entity.Item;
-import lk.dbay.entity.ItemCategory;
+import lk.dbay.entity.item.Item;
+import lk.dbay.entity.item.ItemCategory;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,7 +38,7 @@ public class ItemCategoryDTO extends DateTimeDTO {
     public void setItems(ItemCategory itemCategory, boolean needImage) {
         this.items = new ArrayList<>();
         for (Item item : itemCategory.getItems()) {
-            this.items.add(new ItemDTO(item, needImage));
+            this.items.add(new ItemDTO(item));
         }
     }
 

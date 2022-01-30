@@ -59,36 +59,36 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item_package_feature/getItemPackageFeatures/' + businessCategoryId);
   }
 
-  getItemsBusinessCategory(businessProfileId, businessCategoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemsBusinessCategory/' + businessProfileId + '/' + businessCategoryId);
+  getItemPackagesBusinessCategory(businessProfileId, businessCategoryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackagesBusinessCategory/' + businessProfileId + '/' + businessCategoryId);
   }
 
-  getItemsOrdered(businessProfileId, businessCategoryId, start, limit): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemsOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit);
+  getItemPackagesOrdered(businessProfileId, businessCategoryId, start, limit): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackagesOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit);
   }
 
   getItemCategoriesOrdered(businessProfileId, businessCategoryId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'category/getItemCategoriesOrdered/' + businessProfileId + '/' + businessCategoryId);
   }
 
-  getItemPackagesOrdered(businessProfileId, businessCategoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'package/getItemPackagesOrdered/' + businessProfileId + '/' + businessCategoryId);
+  getPackageItemsOrdered(businessProfileId, businessCategoryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'package/getPackageItemsOrdered/' + businessProfileId + '/' + businessCategoryId);
   }
 
   setItemAvailable(itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/setItemAvailable/' + itemId);
   }
 
-  getItemSelected(itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  getItemPackageSelected(itemId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId);
   }
 
   getItemCategorySelected(categoryId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'category/getItemCategorySelected/' + categoryId);
   }
 
-  getItemPackageSelected(itemPackageId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
+  getPackageItemSelected(itemPackageId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
   }
 
   getItemOrders(businessProfileId, businessCategoryId, status, from, to): Observable<any> {
@@ -106,6 +106,13 @@ export class ItemService {
   getNewItem() {
     return {
       itemId: "",
+      itemPackage: this.getNewItemPackage()
+    }
+  }
+
+  getNewItemPackage() {
+    return {
+      itemPackageId: "",
       name: "",
       quantity: 1,
       makeToOrder: false,
@@ -115,14 +122,14 @@ export class ItemService {
       price: "",
       favourite: false,
       description: "",
-      itemImgs: [],
+      itemPackageImages: [],
       itemImgsRaw: [],
       available: false,
       businessProfileCategory: {
         businessProfile: undefined,
         businessCategory: undefined
       },
-      itemItemFeatures: [],
+      itemPackageItemPackageFeatures: [],
       isNewItem: false,
       isUpdateItem: false,
     }

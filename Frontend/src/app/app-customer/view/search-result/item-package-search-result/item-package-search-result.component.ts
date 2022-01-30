@@ -122,7 +122,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
     })
   }
 
-  getItemPackageSelected(itemPackage) {
+  getPackageItemSelected(itemPackage) {
     // console.log(itemPackage)
     this.itemServiceG.itemPackageSub.next({
       itemPackage: itemPackage,
@@ -149,7 +149,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
     // }
   }
 
-  getItemSelected(item) {
+  getItemPackageSelected(item) {
     this.itemServiceG.itemSub.next({
       item: item,
       backBtn: undefined,
@@ -193,10 +193,10 @@ export class ItemPackageSearchResultComponent implements OnInit {
     })
   }
 
-  getImageSrc(itemImg) {
+  getImageSrc(itemPackageImage) {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemImg.itemImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.itemImageName);
   }
 
   getPackageImageSrc(itemPackageImg) {

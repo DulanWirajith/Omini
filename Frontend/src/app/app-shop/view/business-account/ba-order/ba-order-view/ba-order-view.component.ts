@@ -28,14 +28,14 @@ export class BaOrderViewComponent implements OnInit {
     })
   }
 
-  getItemSelected(item) {
+  getItemPackageSelected(item) {
     this.itemServiceG.itemSub.next({
       item: item,
       backBtn: undefined
     });
   }
 
-  getItemPackageSelected(itemPackage) {
+  getPackageItemSelected(itemPackage) {
     this.itemServiceG.itemPackageSub.next({
       itemPackage: itemPackage,
       backBtn: undefined

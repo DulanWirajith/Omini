@@ -1,5 +1,7 @@
-package lk.dbay.entity;
+package lk.dbay.entity.item;
 
+import lk.dbay.entity.CustomerProfile;
+import lk.dbay.entity.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,10 +17,10 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CustomerItemFavourite extends DateTime {
+public class ItemPackageFavourite extends DateTime {
 
     @EmbeddedId
-    private CustomerItemFavouritePK customerItemFavouriteId;
+    private ItemPackageFavouritePK itemPackageFavouriteId;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "customerProId", referencedColumnName = "customerProId", insertable = false, updatable = false, nullable = false)

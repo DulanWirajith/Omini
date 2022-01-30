@@ -1,5 +1,7 @@
 package lk.dbay.entity;
 
+import lk.dbay.entity.item.Item;
+import lk.dbay.entity.item.ItemPackage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,8 +49,8 @@ public class OrderDetail extends DateTime {
     @ManyToOne
     private ItemPackage itemPackage;
 
-    @ManyToOne
-    private Item item;
+//    @ManyToOne
+//    private Item item;
 
 
 //    @ManyToOne

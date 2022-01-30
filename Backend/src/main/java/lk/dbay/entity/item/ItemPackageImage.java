@@ -1,5 +1,6 @@
-package lk.dbay.entity;
+package lk.dbay.entity.item;
 
+import lk.dbay.entity.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import java.util.Objects;
 
@@ -16,13 +16,13 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItemPackageImg extends DateTime {
+public class ItemPackageImage extends DateTime {
 
     @Id
-    private String itemPackageImgId;
+    private String itemPackageImageId;
 
-    private String itemPackageImgName;
-    private String itemPackageImgType;
+    private String imageName;
+    private String imageType;
     private boolean thumbnail;
 
     @ManyToOne
@@ -32,12 +32,12 @@ public class ItemPackageImg extends DateTime {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ItemPackageImg itemPackageImg = (ItemPackageImg) o;
-        return Objects.equals(itemPackageImgId, itemPackageImg.itemPackageImgId);
+        ItemPackageImage image = (ItemPackageImage) o;
+        return Objects.equals(itemPackageImageId, image.itemPackageImageId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(itemPackageImgId);
+        return Objects.hash(itemPackageImageId);
     }
 }

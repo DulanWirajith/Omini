@@ -1,5 +1,7 @@
-package lk.dbay.entity;
+package lk.dbay.entity.item;
 
+import lk.dbay.entity.BusinessProfileCategory;
+import lk.dbay.entity.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,17 +17,16 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"name", "businessProId", "businessCategoryId"}, name = "ItemTitle")
+        @UniqueConstraint(columnNames = {"name", "businessProId", "businessCategoryId"}, name = "PackageName")
 })
-public class Item extends DateTime {
+public class ItemPackage extends DateTime {
 
     @Id
-    private String itemId;
+    private String itemPackageId;
     private String name;
     private int quantity;
     private boolean makeToOrder;
     private double price;
-    @Transient
     private double discountedPrice;
     //    @Lob
     @Column(columnDefinition = "TEXT")
@@ -34,7 +35,13 @@ public class Item extends DateTime {
     private String discountType;
     private boolean confirmed;
     private boolean available;
+    private String itemPackageType;
 //    private boolean favourite;
+
+//    @Lob
+//    private byte[] itemPackageImg;
+//    private String itemPackageName;
+//    private String itemPackageType;
 
     @ManyToOne(optional = false)
     @JoinColumns({
@@ -43,31 +50,28 @@ public class Item extends DateTime {
     })
     private BusinessProfileCategory businessProfileCategory;
 
-    @ManyToOne
-    private ItemCategory itemCategory;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "itemPackage")
+    private Set<ItemPackageItemPackageFeature> itemPackageItemPackageFeatures;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
-    private Set<ItemItemFeature> itemItemFeatures;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "itemPackage")
+    private Set<ItemPackageImage> itemPackageImages;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
-    private Set<ItemImg> itemImgs;
+    @OneToOne(cascade = {CascadeType.ALL}, mappedBy = "itemPackage")
+    private PackageItem packageItem;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
-    private Set<CustomerItemFavourite> customerItemFavourites;
-
-//    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
-//    private Set<ItemReview> itemReviews;
+    @OneToOne(cascade = {CascadeType.ALL}, mappedBy = "itemPackage")
+    private Item item;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
-        return Objects.equals(itemId, item.itemId);
+        ItemPackage that = (ItemPackage) o;
+        return Objects.equals(itemPackageId, that.itemPackageId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(itemId);
+        return Objects.hash(itemPackageId);
     }
 }

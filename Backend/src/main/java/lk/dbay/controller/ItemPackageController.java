@@ -1,8 +1,7 @@
 package lk.dbay.controller;
 
-import lk.dbay.dto.ItemPackageDTO;
-import lk.dbay.entity.ItemPackage;
 import lk.dbay.service.ItemPackageS;
+import lk.dbay.service.ItemS;
 import lk.dbay.util.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,64 +12,58 @@ import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = CommonConstants.DOMAIN_DBAY + CommonConstants.PACKAGE)
+@RequestMapping(value = CommonConstants.DOMAIN_DBAY + CommonConstants.ITEM_PACKAGE)
 public class ItemPackageController {
 
     @Autowired
-    private ItemPackageS packageCategoryS;
+    private ItemPackageS itemPackageS;
 
-    @PostMapping(value = "/addPackage")
-    public ResponseEntity addPackage(@RequestPart("package") ItemPackage itemPackage, @RequestPart("imageFile") MultipartFile[] files) {
-        try {
-            ItemPackageDTO itemPackageDTO = packageCategoryS.addPackage(itemPackage, files);
-            if (itemPackageDTO != null) {
-                return ResponseEntity.ok(itemPackageDTO);
-            } else {
-                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
-            }
-        } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+//    @GetMapping(value = "/getItems")
+//    public ResponseEntity getItems() {
+//        return ResponseEntity.ok(itemPackageS.getItems());
+//    }
+
+    @GetMapping(value = "/getItemPackagesBusinessCategory/{businessProfileId}/{businessCategoryId}")
+    public ResponseEntity getItemPackagesBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+        return ResponseEntity.ok(itemPackageS.getItemsPackageBusinessCategory(businessProfileId, businessCategoryId));
     }
 
-    @PutMapping(value = "/updatePackage/{itemPackageId}")
-    public ResponseEntity updatePackage(@RequestPart("package") ItemPackage itemPackage, @RequestPart("imageFile") MultipartFile[] files, @PathVariable String itemPackageId) {
-        try {
-            ItemPackageDTO itemPackageDTO = packageCategoryS.updatePackage(itemPackage, files, itemPackageId);
-            if (itemPackageDTO != null) {
-                return ResponseEntity.ok(itemPackageDTO);
-            } else {
-                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
-            }
-        } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping(value = "/getItemPackagesOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
+    public ResponseEntity getItemPackagesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
+        return ResponseEntity.ok(itemPackageS.getItemPackagesOrdered(businessProfileId, businessCategoryId, start, limit));
     }
 
-    @DeleteMapping(value = "/removePackage/{itemPackageId}")
-    public ResponseEntity removePackage(@PathVariable String itemPackageId) {
-        try {
-            return ResponseEntity.ok(packageCategoryS.removePackage(itemPackageId));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping(value = "/setItemAvailable/{itemId}")
+    public ResponseEntity setItemAvailable(@PathVariable String itemId) {
+        return ResponseEntity.ok(itemPackageS.setItemPackageAvailable(itemId));
     }
 
-    @GetMapping(value = "/getItemPackagesOrdered/{businessProfileId}/{businessCategoryId}")
-    public ResponseEntity getItemPackagesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
-        return ResponseEntity.ok(packageCategoryS.getItemPackagesOrdered(businessProfileId, businessCategoryId));
+//    @GetMapping(value = "/setItemFavourite/{customerId}/{itemId}")
+//    public ResponseEntity setItemFavourite(@PathVariable String customerId, @PathVariable String itemId) {
+//        return ResponseEntity.ok(itemPackageS.setItemFavourite(customerId, itemId));
+//    }
+
+    @GetMapping(value = "/getItemPackageSelected/{itemId}")
+    public ResponseEntity getItemPackageSelected(@PathVariable String itemId) {
+        return ResponseEntity.ok(itemPackageS.getItemPackageSelected(itemId));
     }
 
-    @GetMapping(value = "/getItemPackageSelected/{itemPackageId}")
-    public ResponseEntity getItemPackageSelected(@PathVariable String itemPackageId) {
-        return ResponseEntity.ok(packageCategoryS.getItemPackageSelected(itemPackageId));
+    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}")
+    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category) {
+        return ResponseEntity.ok(itemPackageS.getItemsPackagesBySearch(txt, category));
     }
 
+
+//    @GetMapping(value = "/itemImg/{id}")
+//    public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {
+//
+//        ItemImgDTO itemImg = itemS.getItemImg(id);
+//
+//        if (itemImg != null) {
+//            return ResponseEntity.ok()
+//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + itemImg.getItemImgName() + "\"")
+//                    .body(itemImg.getItemImg());
+//        }
+//        return null;
+//    }
 }

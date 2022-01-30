@@ -449,9 +449,9 @@
                 class="validErr" style="margin-bottom: 10px">
                 Minimum 3 images are required
               </div>
-              <div class="col-md-4 mb-4" *ngFor='let itemImg of itemPackage.itemPackageImgs;let j = index'>
+              <div class="col-md-4 mb-4" *ngFor='let itemPackageImage of itemPackage.itemPackageImgs;let j = index'>
                 <div style="position: relative" class="delImgT">
-                  <img [src]="getImageSrc(itemImg)" style="margin: 3px;height: 200px;width: 300px">
+                  <img [src]="getImageSrc(itemPackageImage)" style="margin: 3px;height: 200px;width: 300px">
                   <span class="delImg">
                     <i class="fi-trash"
                        style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 25px;"
@@ -531,10 +531,10 @@
 
           <div>
             <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
-            <span *ngFor="let itemFeature of itemPackage.itemPackageItemPackageFeatures"
+            <span *ngFor="let itemPackageFeature of itemPackage.itemPackageItemPackageFeatures"
                   class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"
                   style="margin-left: 10px">
-              {{itemFeature.itemPackageFeature.name}}
+              {{itemPackageFeature.itemPackageFeature.name}}
               <!--<i class="fi-x fs-xs ms-2"></i>-->
             </span>
           </div>

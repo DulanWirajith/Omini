@@ -32,7 +32,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
     this.itemService.itemPackageSub.subscribe((itemPackageObj) => {
       // console.log(itemPackageObj)
       this.itemPackageObj = itemPackageObj;
-      this.getItemPackageSelected(itemPackageObj.itemPackage);
+      this.getPackageItemSelected(itemPackageObj.itemPackage);
     })
   }
 
@@ -44,11 +44,11 @@ export class ItemPackageDetailViewComponent implements OnInit {
     this.shopCartService.shopCartSub.next(this.itemPackage);
   }
 
-  getItemPackageSelected(itemPackage) {
+  getPackageItemSelected(itemPackage) {
     if (document.getElementById('package-back-btn') !== null) {
       document.getElementById('package-back-btn').click()
     }
-    this.itemService.getItemPackageSelected(itemPackage.itemPackageId).subscribe((itemPackageObj) => {
+    this.itemService.getPackageItemSelected(itemPackage.itemPackageId).subscribe((itemPackageObj) => {
       this.itemPackage = itemPackageObj;
       if (itemPackage.orderDetail !== undefined) {
         this.itemPackage.orderDetail.quantity = itemPackage.orderDetail.quantity
@@ -122,7 +122,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
     })
   }
 
-  getItemSelected(item) {
+  getItemPackageSelected(item) {
     this.itemService.itemSub.next({
       item: item,
       backBtn: 'item-package-viewer-g'
@@ -174,10 +174,10 @@ export class ItemPackageDetailViewComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
   }
 
-  getImageSrc(itemImg) {
+  getImageSrc(itemPackageImage) {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemImg.itemImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.itemImageName);
   }
 
   firstImg = 0;

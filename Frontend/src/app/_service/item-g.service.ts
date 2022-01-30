@@ -15,12 +15,12 @@ export class ItemGService {
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
-  getItemSelected(itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  getItemPackageSelected(itemId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/getItemPackageSelected/' + itemId);
   }
 
-  getItemPackageSelected(itemPackageId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'package/getItemPackageSelected/' + itemPackageId);
+  getPackageItemSelected(itemPackageId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
   }
 
   addItemReview(itemReview): Observable<any> {

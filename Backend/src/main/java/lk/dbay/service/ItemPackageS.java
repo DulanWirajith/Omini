@@ -1,22 +1,30 @@
 package lk.dbay.service;
 
-import lk.dbay.dto.ItemCategoryDTO;
+import lk.dbay.dto.ItemDTO;
 import lk.dbay.dto.ItemPackageDTO;
-import lk.dbay.entity.ItemPackage;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
+import lk.dbay.dto.ItemPackageImageDTO;
 
 import java.util.List;
 
 public interface ItemPackageS {
 
-    ItemPackageDTO addPackage(ItemPackage itemPackage, MultipartFile[] file) throws Exception;
+    List<ItemPackageDTO> getItemsPackageBusinessCategory(String businessProfileId, String businessCategoryId);
 
-    ItemPackageDTO updatePackage(ItemPackage itemPackage, MultipartFile[] files, String itemPackageId) throws Exception;
+    ItemPackageImageDTO getItemPackageImage(String id);
 
-    List<ItemPackageDTO> getItemPackagesOrdered(String businessProfileId, String businessCategoryId);
+    List<ItemPackageDTO> getItemPackagesOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
 
-    ItemPackageDTO getItemPackageSelected(String itemPackageId);
+    ItemPackageDTO getItemPackageSelected(String itemId);
 
-    boolean removePackage(String itemPackageId) throws Exception;
+    boolean setItemPackageAvailable(String itemId);
+
+    List<ItemPackageDTO> getItemsPackagesBySearch(String txt, String category);
+
+//    ItemReviewDTO addItemPackageReview(ItemReview itemReview);
+
+//    List<ItemReviewDTO> getItemPackageReviews(String itemId, String customerId, String reviewType);
+
+//    ItemReviewResponseDTO addItemPackageReviewResponse(ItemReviewResponse itemReviewResponse);
+
+//    boolean setItemPackageFavourite(String customerId, String itemId);
 }

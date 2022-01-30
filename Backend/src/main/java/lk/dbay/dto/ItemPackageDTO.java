@@ -1,13 +1,14 @@
 package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lk.dbay.entity.*;
+import lk.dbay.entity.item.ItemPackage;
+import lk.dbay.entity.item.ItemPackageImage;
+import lk.dbay.entity.item.ItemPackageItemPackageFeature;
 import lombok.*;
 import lombok.experimental.Tolerate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,11 +28,12 @@ public class ItemPackageDTO extends DateTimeDTO {
     private String discountType;
     private boolean confirmed;
     private boolean available;
-    private List<ItemItemPackageDTO> itemItemPackages;
-    private List<ItemPackageImgDTO> itemPackageImgs;
+//    private List<ItemItemPackageDTO> itemItemPackages;
+    private List<ItemPackageImageDTO> itemPackageImages;
     private List<ItemPackageItemPackageFeatureDTO> itemPackageItemPackageFeatures;
     private BusinessProfileCategoryDTO businessProfileCategory;
     private OrderDetailDTO orderDetail;
+    private ItemDTO itemDTO;
 //    private boolean favourite;
 
     public ItemPackageDTO(ItemPackage itemPackage) {
@@ -57,17 +59,17 @@ public class ItemPackageDTO extends DateTimeDTO {
         }
     }
 
-    public void setItemItemPackages(ItemPackage itemPackage, boolean needImage) {
-        this.itemItemPackages = new ArrayList<>();
-        for (ItemItemPackage itemItemPackage : itemPackage.getItemItemPackages()) {
-            this.itemItemPackages.add(new ItemItemPackageDTO(itemItemPackage.getItem(), itemItemPackage.getItemPackage(), needImage));
-        }
-    }
+//    public void setItemItemPackages(ItemPackage itemPackage, boolean needImage) {
+//        this.itemItemPackages = new ArrayList<>();
+//        for (ItemItemPackage itemItemPackage : itemPackage.getItemItemPackages()) {
+//            this.itemItemPackages.add(new ItemItemPackageDTO(itemItemPackage.getItem(), itemItemPackage.getItemPackage(), needImage));
+//        }
+//    }
 
-    public void setItemPackageImgs(ItemPackage itemPackage) {
-        this.itemPackageImgs = new ArrayList<>();
-        for (ItemPackageImg itemPackageImg : itemPackage.getItemPackageImgs()) {
-            this.itemPackageImgs.add(new ItemPackageImgDTO(itemPackageImg));
+    public void setItemPackageImages(ItemPackage itemPackage) {
+        this.itemPackageImages = new ArrayList<>();
+        for (ItemPackageImage itemPackageImage : itemPackage.getItemPackageImages()) {
+            this.itemPackageImages.add(new ItemPackageImageDTO(itemPackageImage));
         }
     }
 

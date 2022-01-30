@@ -14,7 +14,7 @@
         <!--</div>-->
 
         <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-          <mdb-carousel-item *ngFor="let image of item.itemImgs">
+          <mdb-carousel-item *ngFor="let image of item.itemPackageImages">
             <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
             <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
                  alt="First slide">
@@ -27,7 +27,7 @@
         <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
         <h3 class="h6 mb-2 fs-base" style="cursor: pointer">
           <a class="nav-link" data-bs-toggle="offcanvas"
-                                       (click)="getItemSelected(item)"
+                                       (click)="getItemPackageSelected(item)"
                                        data-bs-target="#item-viewer">{{item.name}}</a></h3>
         <div class="row cols-sm-2 row-cols-md-12"
              style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">

@@ -35,20 +35,21 @@ export class BaManageItemViewComponent implements OnInit {
     })
   }
 
-  getImageSrc(itemImg) {
+  getImageSrc(itemPackageImage) {
+    // console.log(itemPackageImage)
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemImg.itemImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.imageName);
   }
 
-  getItemSelected(item) {
+  getItemPackageSelected(item) {
     // console.log(item.itemId)
     let index: any = this.items.findIndex(itemObj => {
       return itemObj.itemId === item.itemId
     })
     // console.log(this.items[index])
-    if (this.items[index].itemItemFeatures === undefined) {
-      this.itemService.getItemSelected(item.itemId).subscribe((item) => {
+    if (this.items[index].itemPackageItemPackageFeatures === undefined) {
+      this.itemService.getItemPackageSelected(item.itemId).subscribe((item) => {
         // Object.assign(this.items[index], item)
         item.itemImgsRaw = [];
         // item.itemItemFeatures = [];
