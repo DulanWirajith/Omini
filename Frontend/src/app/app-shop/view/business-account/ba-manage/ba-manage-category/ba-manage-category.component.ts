@@ -33,7 +33,7 @@ export class BaManageCategoryComponent implements OnInit {
     // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
       this.businessCategoryId = businessCategoryId;
-      // this.getItemCategoriesOrdered(businessCategoryId);
+      this.getItemCategoriesOrdered(businessCategoryId);
     })
   }
 
@@ -51,7 +51,14 @@ export class BaManageCategoryComponent implements OnInit {
     this.itemCategory.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
-
+    // let items = [];
+    // for (let item of this.itemCategory.items) {
+    //   items.push({
+    //     itemId: item.itemPackageId
+    //   })
+    // }
+    // this.itemCategory.items = items;
+    console.log(this.itemCategory)
     this.itemService.addCategory(this.itemCategory).subscribe((itemCategory) => {
       // this.items.push(item)
       itemCategory.businessProfileCategory = this.itemCategory.businessProfileCategory;
@@ -103,12 +110,12 @@ export class BaManageCategoryComponent implements OnInit {
 
   getItems(val, itemCategory?) {
     if (val === 'n') {
-      this.itemService.getItemPackagesBusinessCategory(this.loginService.getUser().userId, this.itemCategory.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
-        // console.log(items)
+      this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.itemCategory.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+        console.log(items)
         this.itemsToAdd = items;
       })
     } else if (val === 'e') {
-      this.itemService.getItemPackagesBusinessCategory(this.loginService.getUser().userId, this.businessCategoryId).subscribe((items) => {
+      this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.businessCategoryId).subscribe((items) => {
         // console.log(items)
         this.itemsToAddE = items;
         if (itemCategory !== undefined) {
@@ -150,7 +157,7 @@ export class BaManageCategoryComponent implements OnInit {
       for (let item of itemCategory.items) {
         // item.itemImgsRaw = [];
         // item.itemItemFeatures = [];
-        item.businessProfileCategory = {
+        item.itemPackage.businessProfileCategory = {
           businessProfile: undefined,
           businessCategory: undefined
         }
@@ -201,8 +208,8 @@ export class BaManageCategoryComponent implements OnInit {
     })
   }
 
-  // setItemAvailable(item) {
-  //   this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
+  // setItemPackageAvailable(item) {
+  //   this.itemService.setItemPackageAvailable(item.itemId).subscribe((reply) => {
   //     item.itemAvailable = reply;
   //   })
   // }

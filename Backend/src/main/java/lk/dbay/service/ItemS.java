@@ -12,8 +12,14 @@ public interface ItemS {
 
     ItemDTO updateItem(Item item, MultipartFile[] files, String itemId) throws Exception;
 
-    List<ItemDTO> getItems();
+//    List<ItemDTO> getItems();
 
     boolean removeItem(String itemId) throws Exception;
+
+    List<ItemDTO> getItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
+
+    ItemDTO getItemSelected(String itemId);
+
+    List<ItemDTO> getItemsBusinessCategory(String businessProfileId, String businessCategoryId);
 
 }

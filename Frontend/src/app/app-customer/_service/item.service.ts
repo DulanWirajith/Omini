@@ -23,8 +23,8 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item/getItemsPackagesBySearch/' + txt + '/' + category);
   }
 
-  getItemPackageSelected(itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemPackageSelected/' + itemId);
+  getItemSelected(itemId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
   }
 
   getCustomerOrders(customerId, status, from, to): Observable<any> {

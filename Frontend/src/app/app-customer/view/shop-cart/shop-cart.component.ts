@@ -251,7 +251,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     }
   }
 
-  getItemPackageSelected(item) {
+  getItemSelected(item) {
     this.itemServiceG.itemSub.next({
       item: item,
       backBtn: 'cart-viewer',

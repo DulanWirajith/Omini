@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface ItemPackageS {
 
-    List<ItemPackageDTO> getItemsPackageBusinessCategory(String businessProfileId, String businessCategoryId);
+//    List<ItemPackageDTO> getItemsPackageBusinessCategory(String businessProfileId, String businessCategoryId);
 
     ItemPackageImageDTO getItemPackageImage(String id);
 
-    List<ItemPackageDTO> getItemPackagesOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
-
-    ItemPackageDTO getItemPackageSelected(String itemId);
-
+//    List<ItemPackageDTO> getItemPackagesOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
+//
+//    ItemPackageDTO getItemPackageSelected(String itemId);
+//
     boolean setItemPackageAvailable(String itemId);
 
     List<ItemPackageDTO> getItemsPackagesBySearch(String txt, String category);

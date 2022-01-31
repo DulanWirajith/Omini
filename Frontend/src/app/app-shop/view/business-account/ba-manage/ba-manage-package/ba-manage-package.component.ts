@@ -15,8 +15,8 @@ import {LoginService} from "../../../../../_service/login.service";
 })
 export class BaManagePackageComponent implements OnInit {
 
-  itemPackage;
-  itemPackages = [];
+  packageItem;
+  packageItems = [];
   itemPackageFeatures = [];
   items = [];
   itemPackageItemPackageFeatures = [];
@@ -50,7 +50,7 @@ export class BaManagePackageComponent implements OnInit {
   // @ViewChild('baManageFormPackageItemExs', {static: true}) public baManageFormPackageItemExs: NgForm;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
-    this.itemPackage = this.itemService.getNewPackage();
+    this.packageItem = this.itemService.getNewPackage();
     // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
@@ -58,7 +58,7 @@ export class BaManagePackageComponent implements OnInit {
     })
     // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
-      // this.getPackageItemsOrdered(businessCategoryId);
+      this.getPackageItemsOrdered(businessCategoryId);
     })
   }
 
@@ -88,8 +88,8 @@ export class BaManagePackageComponent implements OnInit {
   // }
   addFeature() {
     if (this.itemPackageFeature !== undefined) {
-      this.itemPackage.itemPackageItemPackageFeatures.push({
-        itemPackage: {itemId: this.itemPackage.itemPackageId},
+      this.packageItem.itemPackage.itemPackageItemPackageFeatures.push({
+        itemPackage: {itemId: this.packageItem.itemPackage.itemPackageId},
         itemPackageFeature: this.itemPackageFeature
       })
       this.baManageFormPackageExs.resetForm()
@@ -111,8 +111,8 @@ export class BaManagePackageComponent implements OnInit {
 
   addNewPackageFeature() {
     for (let itemPackageFeature of this.newPackageFeaturesTemp) {
-      this.itemPackage.itemPackageItemPackageFeatures.push({
-        itemPackage: {itemPackageId: this.itemPackage.itemPackageId},
+      this.packageItem.itemPackage.itemPackageItemPackageFeatures.push({
+        itemPackage: {itemPackageId: this.packageItem.itemPackage.itemPackageId},
         itemPackageFeature: itemPackageFeature
       })
     }
@@ -129,97 +129,97 @@ export class BaManagePackageComponent implements OnInit {
     // }
     // this.package.itemItemPackages = packageItems;
 
-    this.itemPackage.businessProfileCategory.businessProfile = {
+    this.packageItem.itemPackage.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
 
     // let itemItemPackages = [];
-    for (let i = 0; i < this.itemPackage.itemItemPackages.length; i++) {
-      if (this.itemPackage.itemItemPackages[i].itemPackage === undefined) {
-        this.itemPackage.itemItemPackages[i] = {
-          name: this.itemPackage.itemItemPackages[i].name,
-          item: this.itemPackage.itemItemPackages[i],
+    for (let i = 0; i < this.packageItem.itemPackage.itemItemPackages.length; i++) {
+      if (this.packageItem.itemPackage.itemItemPackages[i].itemPackage === undefined) {
+        this.packageItem.itemPackage.itemItemPackages[i] = {
+          name: this.packageItem.itemPackage.itemItemPackages[i].name,
+          item: this.packageItem.itemPackage.itemItemPackages[i],
           itemPackage: {
-            itemPackageId: this.itemPackage.itemPackageId
+            itemPackageId: this.packageItem.itemPackage.itemPackageId
           }
         }
       }
     }
 
-    for (let i = 0; i < this.itemPackage.itemPackageItemPackageFeatures.length; i++) {
-      if (this.itemPackage.itemPackageItemPackageFeatures[i].itemPackageFeature === undefined) {
-        this.itemPackage.itemPackageItemPackageFeatures[i] = {
-          name: this.itemPackage.itemItemPackages[i].name,
-          itemPackageFeature: this.itemPackage.itemPackageItemPackageFeatures[i],
+    for (let i = 0; i < this.packageItem.itemPackage.itemPackageItemPackageFeatures.length; i++) {
+      if (this.packageItem.itemPackage.itemPackageItemPackageFeatures[i].itemPackageFeature === undefined) {
+        this.packageItem.itemPackage.itemPackageItemPackageFeatures[i] = {
+          name: this.packageItem.itemPackage.itemItemPackages[i].name,
+          itemPackageFeature: this.packageItem.itemPackage.itemPackageItemPackageFeatures[i],
           itemPackage: {
-            itemPackageId: this.itemPackage.itemPackageId
+            itemPackageId: this.packageItem.itemPackage.itemPackageId
           }
         }
       }
     }
 
     // this.itemPackage.itemItemPackages = itemItemPackages;
-    //console.log(this.itemPackage)
+    console.log(this.packageItem)
     const uploadImageData = new FormData();
-    for (let itemPackageImage of this.itemPackage.itemPkgImgs) {
+    for (let itemPackageImage of this.packageItem.itemPackage.itemImgsRaw) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
     }
-    uploadImageData.append('package', new Blob([JSON.stringify(this.itemPackage)],
+    uploadImageData.append('package', new Blob([JSON.stringify(this.packageItem)],
       {
         type: "application/json"
       }));
-    this.itemService.addPackage(uploadImageData).subscribe((itemPackage) => {
+    this.itemService.addPackage(uploadImageData).subscribe((packageItem) => {
       this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
-      this.itemPackage.itemItemPackages = [];
-      this.itemPackage.itemPackageItemPackageFeatures = [];
-      itemPackage.itemPkgImgs = [];
+      this.packageItem.itemPackage.itemItemPackages = [];
+      this.packageItem.itemPackage.itemPackageItemPackageFeatures = [];
+      packageItem.itemPackage.itemPackageImages = [];
       // this.item = undefined;
 
-      this.itemPackages.push(itemPackage)
+      this.packageItems.push(packageItem)
       // this.item.itemItemFeatures = [];
       this.imageInput.removeFiles();
       if (document.getElementById('btnAddPackage') !== null) {
         document.getElementById('btnAddPackage').click()
       }
-      this.itemPackage.isNewPackage = false;
+      this.packageItem.itemPackage.isNewPackage = false;
     })
   }
 
 
   getPackageItemsOrdered(businessCategoryId) {
     if (this.businessProfileCategory !== null) {
-      this.itemService.getPackageItemsOrdered(this.loginService.getUser().userId, businessCategoryId).subscribe((packages) => {
-        // console.log(packages)
-        this.itemPackages = packages;
-        for (let itemPackage of this.itemPackages) {
-          itemPackage.itemPkgImgs = [];
-          itemPackage.businessProfileCategory = {
+      this.itemService.getPackageItemsOrdered(this.loginService.getUser().userId, businessCategoryId, 0, 100).subscribe((packages) => {
+        console.log(packages)
+        this.packageItems = packages;
+        for (let packageItem of this.packageItems) {
+          packageItem.itemPackage.itemImgsRaw = [];
+          packageItem.itemPackage.businessProfileCategory = {
             businessProfile: undefined,
             businessCategory: undefined
           }
-          itemPackage.isUpdatePackage = false;
+          packageItem.isUpdatePackage = false;
         }
       })
     } else {
-      this.itemPackages = [];
+      this.packageItems = [];
     }
   }
 
   getItems() {
     // if (val === 'item') {
     // if (this.itemPackage.businessProfileCategory.businessCategory !== undefined) {
-    this.itemService.getItemPackagesBusinessCategory(this.loginService.getUser().userId, this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
+    this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.packageItem.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
       // console.log(items)
       this.itemsToAdd = items;
-      this.itemPackage.itemItemPackages = [];
+      this.packageItem.packageItemItems = [];
     })
     // }
     // }
   }
 
   getItemPackageFeatures() {
-    if (this.itemPackage.businessProfileCategory !== undefined) {
-      this.itemService.getItemPackageFeatures(this.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemPackageFeatures) => {
+    if (this.packageItem.itemPackage.businessProfileCategory !== undefined) {
+      this.itemService.getItemPackageFeatures(this.packageItem.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemPackageFeatures) => {
         // console.log(items)
         this.itemPackageFeatures = itemPackageFeatures;
       })
@@ -227,10 +227,10 @@ export class BaManagePackageComponent implements OnInit {
   }
 
   getImageSrc(itemPackageImg) {
-    // console.log(itemImg)
+    // console.log(itemPackageImg)
     // let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.imageName);
   }
 
   // toggleCategoryBtn() {
@@ -248,21 +248,21 @@ export class BaManagePackageComponent implements OnInit {
   // }
   //
   // getItemPackageSelected(that, obj) {
-  //   let index: any = that.itemPackages.findIndex(itemPackage => {
+  //   let index: any = that.packageItems.findIndex(itemPackage => {
   //     return itemPackage.itemPackageId === $(obj).val()
   //   })
   //   //console.log($(obj).val())
-  //   if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
+  //   if (that.packageItems[index] !== undefined && that.packageItems[index].itemItemPackages === undefined) {
   //     that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
   //       // that.categories[index] = category;
-  //       Object.assign(that.itemPackages[index], itemPackage)
-  //       that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
-  //       that.itemPackages[index].items = [];
+  //       Object.assign(that.packageItems[index], itemPackage)
+  //       that.packageItems[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
+  //       that.packageItems[index].items = [];
   //       for (let item of itemPackage.itemItemPackages) {
-  //         that.itemPackages[index].items.push(item.item);
+  //         that.packageItems[index].items.push(item.item);
   //       }
-  //       that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
-  //       // console.log(that.itemPackages[index])
+  //       that.packageItems[index].tempItems = itemPackage.itemItemPackages;
+  //       // console.log(that.packageItems[index])
   //       // for (let i = 0; i < that.categories.length; i++) {
   //       //   if (that.categories[i].itemCategoryId === $(obj).val()) {
   //       //     // console.log(category)
@@ -281,8 +281,8 @@ export class BaManagePackageComponent implements OnInit {
   //   }
   // }
 
-  // setItemAvailable(item) {
-  //   this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
+  // setItemPackageAvailable(item) {
+  //   this.itemService.setItemPackageAvailable(item.itemId).subscribe((reply) => {
   //     item.itemAvailable = reply;
   //   })
   // }
@@ -290,7 +290,7 @@ export class BaManagePackageComponent implements OnInit {
   getPackageImageSrc(itemPackageImg) {
     // let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemImageName);
   }
 
   // getImageSrc(itemImg) {
@@ -299,14 +299,14 @@ export class BaManagePackageComponent implements OnInit {
   // }
 
   pondHandleAddFile(event) {
-    this.itemPackage.itemPkgImgs.push(event.file.file);
+    this.packageItem.itemPackage.itemImgsRaw.push(event.file.file);
   }
 
   pondHandlerRemoveFile(event) {
-    for (let i = 0; i < this.itemPackage.itemPkgImgs.length; i++) {
+    for (let i = 0; i < this.packageItem.itemPackage.itemImgsRaw.length; i++) {
       // console.log(this.itemPackage.itemPkgImgs[i].name + ' ' + event.file.file.name)
-      if (this.itemPackage.itemPkgImgs[i].name === event.file.file.name) {
-        this.itemPackage.itemPkgImgs.splice(i, 1);
+      if (this.packageItem.itemPackage.itemImgsRaw[i].name === event.file.file.name) {
+        this.packageItem.itemPackage.itemImgsRaw.splice(i, 1);
       }
     }
   }

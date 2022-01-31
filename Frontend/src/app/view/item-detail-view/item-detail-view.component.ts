@@ -32,7 +32,7 @@ export class ItemDetailViewComponent implements OnInit {
     this.itemService.itemSub.observers = [];
     this.itemService.itemSub.subscribe((itemObj) => {
       this.itemObj = itemObj;
-      this.getItemPackageSelected(itemObj.item);
+      this.getItemSelected(itemObj.item);
       // console.log(itemObj)
     })
   }
@@ -40,11 +40,11 @@ export class ItemDetailViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getItemPackageSelected(item) {
+  getItemSelected(item) {
     if (document.getElementById('item-back-btn') !== null) {
       document.getElementById('item-back-btn').click()
     }
-    this.itemService.getItemPackageSelected(item.itemId).subscribe((itemObj) => {
+    this.itemService.getItemSelected(item.itemId).subscribe((itemObj) => {
       this.item = itemObj;
       if (item.orderDetail !== undefined) {
         this.item.orderDetail.quantity = item.orderDetail.quantity

@@ -23,18 +23,18 @@ public class ItemPackageController {
 //        return ResponseEntity.ok(itemPackageS.getItems());
 //    }
 
-    @GetMapping(value = "/getItemPackagesBusinessCategory/{businessProfileId}/{businessCategoryId}")
-    public ResponseEntity getItemPackagesBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
-        return ResponseEntity.ok(itemPackageS.getItemsPackageBusinessCategory(businessProfileId, businessCategoryId));
-    }
-
-    @GetMapping(value = "/getItemPackagesOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
-    public ResponseEntity getItemPackagesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
-        return ResponseEntity.ok(itemPackageS.getItemPackagesOrdered(businessProfileId, businessCategoryId, start, limit));
-    }
-
-    @GetMapping(value = "/setItemAvailable/{itemId}")
-    public ResponseEntity setItemAvailable(@PathVariable String itemId) {
+//    @GetMapping(value = "/getItemPackagesBusinessCategory/{businessProfileId}/{businessCategoryId}")
+//    public ResponseEntity getItemPackagesBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+//        return ResponseEntity.ok(itemPackageS.getItemsPackageBusinessCategory(businessProfileId, businessCategoryId));
+//    }
+//
+//    @GetMapping(value = "/getItemPackagesOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
+//    public ResponseEntity getItemPackagesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
+//        return ResponseEntity.ok(itemPackageS.getItemPackagesOrdered(businessProfileId, businessCategoryId, start, limit));
+//    }
+//
+    @GetMapping(value = "/setItemPackageAvailable/{itemId}")
+    public ResponseEntity setItemPackageAvailable(@PathVariable String itemId) {
         return ResponseEntity.ok(itemPackageS.setItemPackageAvailable(itemId));
     }
 
@@ -43,10 +43,10 @@ public class ItemPackageController {
 //        return ResponseEntity.ok(itemPackageS.setItemFavourite(customerId, itemId));
 //    }
 
-    @GetMapping(value = "/getItemPackageSelected/{itemId}")
-    public ResponseEntity getItemPackageSelected(@PathVariable String itemId) {
-        return ResponseEntity.ok(itemPackageS.getItemPackageSelected(itemId));
-    }
+//    @GetMapping(value = "/getItemPackageSelected/{itemId}")
+//    public ResponseEntity getItemPackageSelected(@PathVariable String itemId) {
+//        return ResponseEntity.ok(itemPackageS.getItemPackageSelected(itemId));
+//    }
 
     @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}")
     public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category) {

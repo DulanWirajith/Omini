@@ -129,27 +129,27 @@ export class ItemPackageSearchResultComponent implements OnInit {
       backBtn: undefined,
       cart: true
     });
-    // let index: any = that.itemPackages.findIndex(itemPackage => {
+    // let index: any = that.packageItems.findIndex(itemPackage => {
     //   return itemPackage.itemPackageId === $(obj).val()
     // })
     // //console.log($(obj).val())
-    // if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
+    // if (that.packageItems[index] !== undefined && that.packageItems[index].itemItemPackages === undefined) {
     //   that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
-    //     Object.assign(that.itemPackages[index], itemPackage)
-    //     that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
-    //     that.itemPackages[index].items = [];
-    //     // console.log(that.itemPackages[index])
+    //     Object.assign(that.packageItems[index], itemPackage)
+    //     that.packageItems[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
+    //     that.packageItems[index].items = [];
+    //     // console.log(that.packageItems[index])
     //     for (let item of itemPackage.itemItemPackages) {
     //       // console.log(item.item)
-    //       item.item.businessProfileCategory = that.itemPackages[index].businessProfileCategory;
-    //       that.itemPackages[index].items.push(item.item);
+    //       item.item.businessProfileCategory = that.packageItems[index].businessProfileCategory;
+    //       that.packageItems[index].items.push(item.item);
     //     }
-    //     that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
+    //     that.packageItems[index].tempItems = itemPackage.itemItemPackages;
     //   })
     // }
   }
 
-  getItemPackageSelected(item) {
+  getItemSelected(item) {
     this.itemServiceG.itemSub.next({
       item: item,
       backBtn: undefined,

@@ -52,11 +52,11 @@
 <div class="collapse" id="add-new-item">
   <div class="card card-body">
 
-    <form #baManageFormItem="ngForm" (ngSubmit)="baManageFormItem.form.valid && item.itemImgsRaw.length>=3 && onSubmit()" novalidate>
+    <form #baManageFormItem="ngForm" (ngSubmit)="baManageFormItem.form.valid && item.itemPackage.itemImgsRaw.length>=3 && onSubmit()" novalidate>
 
       <div class="row">
         <div class="col-md-12 mb-3">
-          <label class="form-label" for="validationTooltip01"
+          <label class="form-label"
           >Title</label
           >
           <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"
@@ -68,7 +68,7 @@
             type="text"
             placeholder="Title"
             required
-            [(ngModel)]="item.name" #itemTitle="ngModel" name="itemTitle"
+            [(ngModel)]="item.itemPackage.name" #itemTitle="ngModel" name="itemTitle"
           />
           <div *ngIf="(itemTitle.touched || baManageFormItem.submitted) && itemTitle.errors?.required"
                class="validErr">
@@ -91,7 +91,7 @@
             id="validationTooltip02"
             min="1"
             required
-            [(ngModel)]="item.quantity" #itemQty="ngModel" name="itemQty"
+            [(ngModel)]="item.itemPackage.quantity" #itemQty="ngModel" name="itemQty"
           />
           <div *ngIf="(itemQty.touched || baManageFormItem.submitted) && itemQty.errors?.required"
                class="validErr">
@@ -103,7 +103,7 @@
           <label>
             Make To Order
             <input type="checkbox" name="makeToOrder" style="margin-left: 5px; transform: scale(1.4)"
-                   [(ngModel)]="item.makeToOrder">
+                   [(ngModel)]="item.itemPackage.makeToOrder">
           </label>
         </div>
         <!-- <div class="col-md-4 mb-3">
@@ -125,7 +125,7 @@
           <select
             class="form-select"
             id="validationTooltip03"
-            [(ngModel)]="item.discountType" #itemDiscountType="ngModel" name="itemDiscountType"
+            [(ngModel)]="item.itemPackage.discountType" #itemDiscountType="ngModel" name="itemDiscountType"
           >
             <option value="None">None</option>
             <option value="Cash">Cash</option>
@@ -136,7 +136,7 @@
             Discount type is required
           </div>
         </div>
-        <div class="col-md-4 mb-3" *ngIf="item.discountType!=='None'">
+        <div class="col-md-4 mb-3" *ngIf="item.itemPackage.discountType!=='None'">
           <label class="form-label" for="validationTooltip04"
           >Discount</label
           >
@@ -150,7 +150,7 @@
             id="validationTooltip04"
             placeholder="Discount"
             required
-            [(ngModel)]="item.discount" #itemDiscount="ngModel" name="itemDiscount"
+            [(ngModel)]="item.itemPackage.discount" #itemDiscount="ngModel" name="itemDiscount"
           />
           <div *ngIf="(itemDiscount.touched || baManageFormItem.submitted) && itemDiscount.errors?.required"
                class="validErr">
@@ -177,7 +177,7 @@
           <div class="input-group">
             <span class="input-group-text fs-lg py-1">LKR</span>
             <input type="number" class="form-control" placeholder="Amount"
-                   required [(ngModel)]="item.price" #itemPrice="ngModel" name="itemPrice">
+                   required [(ngModel)]="item.itemPackage.price" #itemPrice="ngModel" name="itemPrice">
             <!--<span class="input-group-text">.00</span>-->
           </div>
           <div *ngIf="(itemPrice.touched || baManageFormItem.submitted) && itemPrice.errors?.required"
@@ -208,7 +208,7 @@
             name="businessProfileCategories"
             #businessProfileCategories="ngModel" required
             (change)="getItemFeatures()"
-            [(ngModel)]="item.businessProfileCategory.businessCategory">
+            [(ngModel)]="item.itemPackage.businessProfileCategory.businessCategory">
           </ng-select>
           <div
             *ngIf="(businessProfileCategories.touched || baManageFormItem.submitted) && businessProfileCategories.errors?.required"
@@ -287,9 +287,9 @@
       </div>
       <div class="row">
         <div class="d-flex flex-wrap mb-4">
-                <span *ngFor="let itemPackageFeature of item.itemPackageItemPackageFeatures;let i = index"
+                <span *ngFor="let itemPackageFeature of item.itemPackage.itemPackageItemPackageFeatures;let i = index"
                       class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemPackageFeature.itemPackageFeature.name}}
-                  <i class="fi-x fs-xs ms-2" (click)="item.itemPackageItemPackageFeatures.splice(i,1)" style="cursor: pointer"></i>
+                  <i class="fi-x fs-xs ms-2" (click)="item.itemPackage.itemPackageItemPackageFeatures.splice(i,1)" style="cursor: pointer"></i>
                 </span>
         </div>
       </div>
@@ -304,7 +304,7 @@
              aria-label="Small description about your item."><i class="fi-help"></i>
           </a>
           <textarea class="form-control" id="validationTooltip05" rows="5" placeholder="Description"
-                    [(ngModel)]="item.description" name="itemDescription"></textarea>
+                    [(ngModel)]="item.itemPackage.description" name="itemDescription"></textarea>
           <div class="invalid-tooltip">
             Please fill item discount
           </div>
@@ -343,7 +343,7 @@
         <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->
         <!--</div>-->
         <div
-          *ngIf="(item.itemImgsRaw.length<3 && baManageFormItem.submitted)"
+          *ngIf="(item.itemPackage.itemImgsRaw.length<3 && baManageFormItem.submitted)"
           class="validErr" style="margin-bottom: 10px">
           Minimum 3 images are required
         </div>

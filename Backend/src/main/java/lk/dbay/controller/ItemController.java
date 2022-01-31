@@ -60,16 +60,16 @@ public class ItemController {
 //        return ResponseEntity.ok(itemS.getItems());
 //    }
 
-//    @GetMapping(value = "/getItemsBusinessCategory/{businessProfileId}/{businessCategoryId}")
-//    public ResponseEntity getItemsBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
-//        return ResponseEntity.ok(itemS.getItemsBusinessCategory(businessProfileId, businessCategoryId));
-//    }
-//
-//    @GetMapping(value = "/getItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
-//    public ResponseEntity getItemsOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
-//        return ResponseEntity.ok(itemS.getItemsOrdered(businessProfileId, businessCategoryId, start, limit));
-//    }
-//
+    @GetMapping(value = "/getItemsBusinessCategory/{businessProfileId}/{businessCategoryId}")
+    public ResponseEntity getItemsBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
+        return ResponseEntity.ok(itemS.getItemsBusinessCategory(businessProfileId, businessCategoryId));
+    }
+
+    @GetMapping(value = "/getItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
+    public ResponseEntity getItemsOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
+        return ResponseEntity.ok(itemS.getItemsOrdered(businessProfileId, businessCategoryId, start, limit));
+    }
+
 //    @GetMapping(value = "/setItemAvailable/{itemId}")
 //    public ResponseEntity setItemAvailable(@PathVariable String itemId) {
 //        return ResponseEntity.ok(itemS.setItemAvailable(itemId));
@@ -80,10 +80,10 @@ public class ItemController {
 //        return ResponseEntity.ok(itemS.setItemFavourite(customerId, itemId));
 //    }
 //
-//    @GetMapping(value = "/getItemSelected/{itemId}")
-//    public ResponseEntity getItemSelected(@PathVariable String itemId) {
-//        return ResponseEntity.ok(itemS.getItemSelected(itemId));
-//    }
+    @GetMapping(value = "/getItemSelected/{itemId}")
+    public ResponseEntity getItemSelected(@PathVariable String itemId) {
+        return ResponseEntity.ok(itemS.getItemSelected(itemId));
+    }
 //
 //    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}")
 //    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category) {

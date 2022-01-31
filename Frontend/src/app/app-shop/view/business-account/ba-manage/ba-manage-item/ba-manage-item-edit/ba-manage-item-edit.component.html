@@ -3,7 +3,7 @@
   <div class="offcanvas-header d-block border-bottom">
     <div class="d-flex align-items-center justify-content-between">
       <div style="display: flex">
-        <h2 class="h5 mb-0" style="margin-right: 15px">{{item.name}}</h2>
+        <h2 class="h5 mb-0" style="margin-right: 15px">{{item.itemPackage.name}}</h2>
         <span class="badge rounded-pill bg-info" style="padding-top: 7px"> Item </span>
       </div>
       <button id="item-close-btn" class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
@@ -112,20 +112,20 @@
         <div class="border-top border-light pt-0 mb-2">
           <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
             <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
-            <span *ngIf="item.discountType==='None'">LKR {{item.price | number:'.2-2'}}</span>
-            <span *ngIf="item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.price | number:'.2-2'}}</span>
-            <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice | number:'.2-2'}}</span>
+            <span *ngIf="item.itemPackage.discountType==='None'">LKR {{item.itemPackage.price | number:'.2-2'}}</span>
+            <span *ngIf="item.itemPackage.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.itemPackage.price | number:'.2-2'}}</span>
+            <span *ngIf="item.itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{item.itemPackage.discountedPrice | number:'.2-2'}}</span>
           </div>
           <div class="row cols-sm-2 row-cols-md-12"
                style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 0px;margin-bottom: 20px">
             <div class="col" style="padding: 0px">
-              <div *ngIf="item.quantity>0" style="border-right: 1px solid #d3d3d3">
+              <div *ngIf="item.itemPackage.quantity>0" style="border-right: 1px solid #d3d3d3">
                 <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
-                  {{item.makeToOrder?'Max':''}} Quantity
+                  {{item.itemPackage.makeToOrder?'Max':''}} Quantity
                 </p>
-                <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.quantity}}</p>
+                <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.itemPackage.quantity}}</p>
               </div>
-              <div *ngIf="item.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
+              <div *ngIf="item.itemPackage.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
                 <p class="mb-2 fs-sm fw-bold mx-2"
                    style="text-align: center;">
                   <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">
@@ -138,9 +138,9 @@
               <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
                 Discount </p>
               <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
-                {{item.discountType==='None' ? 'N/A' :
-                item.discountType==='Cash' ? ('LKR '+item.discount) :
-                item.discountType==='Percentage' ? (item.discount + '%') : ''}}
+                {{item.itemPackage.discountType==='None' ? 'N/A' :
+                item.itemPackage.discountType==='Cash' ? ('LKR '+item.itemPackage.discount) :
+                item.itemPackage.discountType==='Percentage' ? (item.itemPackage.discount + '%') : ''}}
               </p>
             </div>
           </div>
@@ -148,13 +148,13 @@
 
         <div style="display: flex;border-bottom: 1px solid #eaeaea;padding-bottom: 10px">
           <div class="mb-2 fs-sm text-dark fw-bold">Item Category |</div>
-          <div style="font-size: 14px;margin-left: 5px">{{item.itemCategory===undefined?'N/A':item.itemCategory.name}}
+          <div style="font-size: 14px;margin-left: 5px">{{item.itemPackage.itemCategory===undefined?'N/A':item.itemPackage.itemCategory.name}}
           </div>
         </div>
 
         <div style="padding-top: 15px">
           <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
-          <span *ngFor="let itemPackageFeature of item.itemPackageItemPackageFeatures"
+          <span *ngFor="let itemPackageFeature of item.itemPackage.itemPackageItemPackageFeatures"
                 class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"
                 style="margin-left: 10px">
               {{itemPackageFeature.itemPackageFeature.name}}
@@ -165,7 +165,7 @@
         <div class="row cols-md-12 mt-3">
           <p class="mb-2 fs-sm text-dark fw-bold">Overview </p>
           <div class="col">
-            <p class="mb-2 fs-sm text-muted">{{item.description}} </p>
+            <p class="mb-2 fs-sm text-muted">{{item.itemPackage.description}} </p>
           </div>
         </div>
 
@@ -174,7 +174,7 @@
       <!--Item Edit-->
       <div class="tab-pane fade" id="item-edit" role="tabpanel">
         <div class="card card-body">
-          <form #baManageFormItemE="ngForm" (ngSubmit)="baManageFormItemE.form.valid && (item.itemImgsRaw.length+item.itemPackageImages.length)>=3 && onSubmitE()" novalidate>
+          <form #baManageFormItemE="ngForm" (ngSubmit)="baManageFormItemE.form.valid && (item.itemPackage.itemImgsRaw.length+item.itemPackage.itemPackageImages.length)>=3 && onSubmitE()" novalidate>
 
             <div class="row">
               <div class="col-md-12 mb-3">
@@ -190,7 +190,7 @@
                   type="text"
                   placeholder="Title"
                   required
-                  [(ngModel)]="item.name" #itemTitleE="ngModel" name="itemTitle"
+                  [(ngModel)]="item.itemPackage.name" #itemTitleE="ngModel" name="itemTitle"
                 />
                 <div *ngIf="(itemTitleE.touched || baManageFormItemE.submitted) && itemTitleE.errors?.required"
                      class="validErr">
@@ -212,7 +212,7 @@
                   placeholder="Quantity"
                   min="1"
                   required
-                  [(ngModel)]="item.quantity" #itemQtyE="ngModel" name="itemQty"
+                  [(ngModel)]="item.itemPackage.quantity" #itemQtyE="ngModel" name="itemQty"
                 />
                 <div *ngIf="(itemQtyE.touched || baManageFormItemE.submitted) && itemQtyE.errors?.required"
                      class="validErr">
@@ -224,7 +224,7 @@
                 <label>
                   Make To Order
                   <input type="checkbox" name="makeToOrder" style="margin-left: 5px; transform: scale(1.4)"
-                         [(ngModel)]="item.makeToOrder">
+                         [(ngModel)]="item.itemPackage.makeToOrder">
                 </label>
               </div>
               <!-- <div class="col-md-4 mb-3">
@@ -245,7 +245,7 @@
                 </a>
                 <select
                   class="form-select"
-                  [(ngModel)]="item.discountType" #itemDiscountTypeE="ngModel" name="itemDiscountType"
+                  [(ngModel)]="item.itemPackage.discountType" #itemDiscountTypeE="ngModel" name="itemDiscountType"
                 >
                   <option value="None">None</option>
                   <option value="Cash">Cash</option>
@@ -257,7 +257,7 @@
                   Discount type is required
                 </div>
               </div>
-              <div class="col-md-4 mb-3" *ngIf="item.discountType!=='None'">
+              <div class="col-md-4 mb-3" *ngIf="item.itemPackage.discountType!=='None'">
                 <label class="form-label" for="validationTooltip04"
                 >Discount</label
                 >
@@ -270,7 +270,7 @@
                   type="number"
                   placeholder="Discount"
                   required
-                  [(ngModel)]="item.discount" #itemDiscountE="ngModel" name="discount"
+                  [(ngModel)]="item.itemPackage.discount" #itemDiscountE="ngModel" name="discount"
                 />
                 <div *ngIf="(itemDiscountE.touched || baManageFormItemE.submitted) && itemDiscountE.errors?.required"
                      class="validErr">
@@ -297,7 +297,7 @@
                 <div class="input-group">
                   <span class="input-group-text fs-lg py-1">LKR</span>
                   <input type="number" class="form-control" placeholder="Amount"
-                         required [(ngModel)]="item.price" #itemPriceE="ngModel" name="itemPrice">
+                         required [(ngModel)]="item.itemPackage.price" #itemPriceE="ngModel" name="itemPrice">
                   <!--<span class="input-group-text">.00</span>-->
                 </div>
                 <div *ngIf="(itemPriceE.touched || baManageFormItemE.submitted) && itemPriceE.errors?.required"
@@ -328,7 +328,7 @@
                   name="businessProfileCategories"
                   #businessProfileCategoriesE="ngModel" required
                   (change)="getItemFeatures()"
-                  [(ngModel)]="item.businessProfileCategory.businessCategory">
+                  [(ngModel)]="item.itemPackage.businessProfileCategory.businessCategory">
                 </ng-select>
                 <div
                   *ngIf="(businessProfileCategoriesE.touched || baManageFormItemE.submitted) && businessProfileCategoriesE.errors?.required"
@@ -407,9 +407,9 @@
             </div>
             <div class="row">
               <div class="d-flex flex-wrap mb-4">
-                <span *ngFor="let itemPackageFeature of item.itemPackageItemPackageFeatures;let i = index"
+                <span *ngFor="let itemPackageFeature of item.itemPackage.itemPackageItemPackageFeatures;let i = index"
                       class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemPackageFeature.itemPackageFeature.name}}
-                  <i class="fi-x fs-xs ms-2" (click)="item.itemPackageItemPackageFeatures.splice(i,1)" style="cursor: pointer"></i>
+                  <i class="fi-x fs-xs ms-2" (click)="item.itemPackage.itemPackageItemPackageFeatures.splice(i,1)" style="cursor: pointer"></i>
                 </span>
               </div>
             </div>
@@ -424,7 +424,7 @@
                    aria-label="Small description about your item."><i class="fi-help"></i>
                 </a>
                 <textarea class="form-control" rows="5" placeholder="Description"
-                          [(ngModel)]="item.description" name="itemDescription"></textarea>
+                          [(ngModel)]="item.itemPackage.description" name="itemDescription"></textarea>
                 <div class="invalid-tooltip">
                   Please fill item discount
                 </div>
@@ -456,14 +456,14 @@
                 <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->
               </div>
               <div
-                *ngIf="((item.itemImgsRaw.length+item.itemPackageImages.length)<3 && baManageFormItemE.submitted)"
+                *ngIf="((item.itemPackage.itemImgsRaw.length+item.itemPackage.itemPackageImages.length)<3 && baManageFormItemE.submitted)"
                 class="validErr" style="margin-bottom: 10px">
                 Minimum 3 images are required
               </div>
               <!--<div class="col-md-4 mb-4" *ngFor='let url of imagesE'>-->
               <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->
               <!--</div>-->
-              <div class="col-md-6 mb-6" *ngFor='let itemPackageImage of item.itemPackageImages;let j = index'>
+              <div class="col-md-6 mb-6" *ngFor='let itemPackageImage of item.itemPackage.itemPackageImages;let j = index'>
                 <div
                   style="position: relative;display: flex;justify-content: center;border: 1px solid #efefef;margin-bottom: 20px"
                   class="delImgT">
@@ -471,7 +471,7 @@
                   <span class="delImg">
                     <i class="fi-trash"
                        style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 25px;"
-                       (click)="item.itemPackageImages.splice(j,1)"></i>
+                       (click)="item.itemPackage.itemPackageImages.splice(j,1)"></i>
                   </span>
                 </div>
               </div>
@@ -514,7 +514,7 @@
       <li class="nav-item me-2">
         <a class="btn btn-md btn-outline-danger" rel="noopener"
            data-bs-toggle="modal" data-bs-target="#confirm-dialog-item-edit"
-           (click)="setDialogBox('Do you want to remove <b>'+item.name+'</b> ?',false)">
+           (click)="setDialogBox('Do you want to remove <b>'+item.itemPackage.name+'</b> ?',false)">
           <i class="fi-trash fs-lg me-2"></i>Remove</a>
       </li>
     </ul>

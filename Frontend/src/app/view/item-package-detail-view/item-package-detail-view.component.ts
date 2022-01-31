@@ -122,7 +122,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
     })
   }
 
-  getItemPackageSelected(item) {
+  getItemSelected(item) {
     this.itemService.itemSub.next({
       item: item,
       backBtn: 'item-package-viewer-g'

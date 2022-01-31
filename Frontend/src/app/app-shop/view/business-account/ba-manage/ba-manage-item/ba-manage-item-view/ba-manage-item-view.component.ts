@@ -29,9 +29,9 @@ export class BaManageItemViewComponent implements OnInit {
 
 
   setItemAvailable(item) {
-    this.itemService.setItemAvailable(item.itemId).subscribe((reply) => {
+    this.itemService.setItemPackageAvailable(item.itemId).subscribe((reply) => {
       // console.log(reply)
-      item.available = reply;
+      item.itemPackage.available = reply;
     })
   }
 
@@ -42,16 +42,17 @@ export class BaManageItemViewComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.imageName);
   }
 
-  getItemPackageSelected(item) {
+  getItemSelected(item) {
     // console.log(item.itemId)
     let index: any = this.items.findIndex(itemObj => {
       return itemObj.itemId === item.itemId
     })
     // console.log(this.items[index])
     if (this.items[index].itemPackageItemPackageFeatures === undefined) {
-      this.itemService.getItemPackageSelected(item.itemId).subscribe((item) => {
+      this.itemService.getItemSelected(item.itemId).subscribe((item) => {
         // Object.assign(this.items[index], item)
-        item.itemImgsRaw = [];
+        console.log(item)
+        item.itemPackage.itemImgsRaw = [];
         // item.itemItemFeatures = [];
         // item.businessProfileCategory = {
         //   businessProfile: undefined,

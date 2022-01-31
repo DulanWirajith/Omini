@@ -58,7 +58,7 @@
     <!--<form #baManageFormPackage="ngForm"-->
     <!--(ngSubmit)="baManageFormPackage.form.valid && itemPackage.itemItemPackages.length > 0 && onSubmit()" novalidate>-->
     <form #baManageFormPackage="ngForm"
-          (ngSubmit)="baManageFormPackage.form.valid && itemPackage.itemPkgImgs.length>=3 && onSubmit()" novalidate>
+          (ngSubmit)="baManageFormPackage.form.valid && packageItem.itemPackage.itemImgsRaw.length>=3 && onSubmit()" novalidate>
 
       <div class="row">
         <div class="col-md-12 mb-3">
@@ -74,7 +74,7 @@
             type="text"
             id="validationTooltipp1"
             placeholder="Package name"
-            [(ngModel)]="itemPackage.name" #packageName="ngModel" name="packageName"
+            [(ngModel)]="packageItem.itemPackage.name" #packageName="ngModel" name="packageName"
             required
           />
           <div *ngIf="(packageName.touched || baManageFormPackage.submitted) && packageName.errors?.required"
@@ -97,7 +97,7 @@
             id="validationTooltip02"
             min="1"
             required
-            [(ngModel)]="itemPackage.quantity" #packageQty="ngModel" name="packageQty"
+            [(ngModel)]="packageItem.itemPackage.quantity" #packageQty="ngModel" name="packageQty"
           />
           <div *ngIf="(packageQty.touched || baManageFormPackage.submitted) && packageQty.errors?.required"
                class="validErr">
@@ -109,7 +109,7 @@
           <label>
             Make To Order
             <input type="checkbox" name="makeToOrder" style="margin-left: 5px; transform: scale(1.4)"
-                   [(ngModel)]="itemPackage.makeToOrder">
+                   [(ngModel)]="packageItem.itemPackage.makeToOrder">
           </label>
         </div>
       </div>
@@ -126,7 +126,7 @@
           <select
             class="form-select"
             id="validationTooltipp2"
-            [(ngModel)]="itemPackage.discountType" #discountType="ngModel" name="discountType"
+            [(ngModel)]="packageItem.itemPackage.discountType" #discountType="ngModel" name="discountType"
           >
             <option value="None">None</option>
             <option value="Cash">Cash</option>
@@ -138,7 +138,7 @@
           <!--</div>-->
           <div class="valid-tooltip">Looks good!</div>
         </div>
-        <div class="col-md-4 mb-3" *ngIf="itemPackage.discountType!=='None'">
+        <div class="col-md-4 mb-3" *ngIf="packageItem.itemPackage.discountType!=='None'">
           <label class="form-label" for="validationTooltipp3"
           >Discount</label
           >
@@ -152,7 +152,7 @@
             type="number"
             id="validationTooltipp3"
             placeholder="Discount"
-            [(ngModel)]="itemPackage.discount" #discount="ngModel" name="discount"
+            [(ngModel)]="packageItem.itemPackage.discount" #discount="ngModel" name="discount"
             required
           />
           <div *ngIf="(discount.touched || baManageFormPackage.submitted) && discount.errors?.required"
@@ -180,7 +180,7 @@
           <div class="input-group">
             <span class="input-group-text fs-lg py-1">LKR</span>
             <input type="number" class="form-control" id="validationTooltipp3" placeholder="Amount" required
-                   [(ngModel)]="itemPackage.price" #price="ngModel" name="price">
+                   [(ngModel)]="packageItem.itemPackage.price" #price="ngModel" name="price">
             <!--<span class="input-group-text">.00</span>-->
             <!--<div class="invalid-tooltip">-->
             <!--Please enter itemPackage price-->
@@ -215,7 +215,7 @@
             name="businessProfileCategories"
             #businessProfileCategories="ngModel" required
             (change)="getItems();getItemPackageFeatures()"
-            [(ngModel)]="itemPackage.businessProfileCategory.businessCategory">
+            [(ngModel)]="packageItem.itemPackage.businessProfileCategory.businessCategory">
           </ng-select>
           <div
             *ngIf="(businessProfileCategories.touched || baManageFormPackage.submitted) && businessProfileCategories.errors?.required"
@@ -259,12 +259,12 @@
                   [searchWhileComposing]="true"
                   name="items"
                   #itemsE="ngModel" required
-                  [(ngModel)]="itemPackage.itemItemPackages"
+                  [(ngModel)]="packageItem.itemPackage.itemItemPackages"
                   style="width: 100%">
                 </ng-select>
               </div>
               <div
-                *ngIf="(baManageFormPackage.submitted) && itemPackage.itemItemPackages.length===0"
+                *ngIf="(baManageFormPackage.submitted) && packageItem.itemPackage.itemItemPackages.length===0"
                 class="validErr">
                 Item is required
               </div>
@@ -354,9 +354,9 @@
       </div>
       <div class="row">
         <div class="d-flex flex-wrap mb-4">
-                <span *ngFor="let itemPackageFeature of itemPackage.itemPackageItemPackageFeatures;let j = index"
+                <span *ngFor="let itemPackageFeature of packageItem.itemPackage.itemPackageItemPackageFeatures;let j = index"
                       class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemPackageFeature.itemPackageFeature.name}}
-                  <i class="fi-x fs-xs ms-2" (click)="itemPackage.itemPackageItemPackageFeatures.splice(i,1)"
+                  <i class="fi-x fs-xs ms-2" (click)="packageItem.itemPackage.itemPackageItemPackageFeatures.splice(i,1)"
                      style="cursor: pointer"></i>
                 </span>
         </div>
@@ -372,7 +372,7 @@
              aria-label="Small description about your package."><i class="fi-help"></i>
           </a>
           <textarea class="form-control" id="validationTooltipp5" rows="5" placeholder="Description"
-                    [(ngModel)]="itemPackage.description" name="description"></textarea>
+                    [(ngModel)]="packageItem.itemPackage.description" name="description"></textarea>
           <div class="invalid-tooltip">
             Please write something about your package
           </div>
@@ -404,7 +404,7 @@
           <!--data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos&lt;/div&gt;&lt;br&gt;or drag them in">-->
         </div>
         <div
-          *ngIf="(itemPackage.itemPkgImgs.length<3 && baManageFormPackage.submitted)"
+          *ngIf="(packageItem.itemPackage.itemImgsRaw.length<3 && baManageFormPackage.submitted)"
           class="validErr" style="margin-bottom: 10px">
           Minimum 3 images are required
         </div>
@@ -415,7 +415,7 @@
             class="form-check-input"
             type="checkbox"
             id="invalidCheckP"
-            [(ngModel)]="itemPackage.isNewPackage"
+            [(ngModel)]="packageItem.itemPackage.isNewPackage"
             name="newPackage"
             required
           />
@@ -427,7 +427,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-primary btn-md" type="submit" [disabled]="!itemPackage.isNewPackage">
+      <button class="btn btn-primary btn-md" type="submit" [disabled]="!packageItem.itemPackage.isNewPackage">
         Save
       </button>
     </form>
@@ -532,4 +532,4 @@
   </div>
 </div>
 
-<app-ba-manage-package-edit [itemPackages]="itemPackages"></app-ba-manage-package-edit>
+<app-ba-manage-package-edit [packageItems]="packageItems"></app-ba-manage-package-edit>

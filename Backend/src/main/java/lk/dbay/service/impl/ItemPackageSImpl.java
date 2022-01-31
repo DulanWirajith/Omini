@@ -27,16 +27,6 @@ public class ItemPackageSImpl implements ItemPackageS {
     private ItemPackageImageR itemPackageImageR;
 
     @Override
-    public List<ItemPackageDTO> getItemsPackageBusinessCategory(String businessProfileId, String businessCategoryId) {
-        List<ItemPackage> itemList = itemPackageR.getAllByBusinessProfileCategory_BusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
-        List<ItemPackageDTO> itemPackageDTOS = new ArrayList<>();
-        for (ItemPackage itemPackage : itemList) {
-            itemPackageDTOS.add(new ItemPackageDTO(itemPackage));
-        }
-        return itemPackageDTOS;
-    }
-
-    @Override
     public ItemPackageImageDTO getItemPackageImage(String id) {
         Optional<ItemPackageImage> itemImgOptional = itemPackageImageR.findById(id);
         if (itemImgOptional.isPresent()) {
@@ -44,18 +34,6 @@ public class ItemPackageSImpl implements ItemPackageS {
             return new ItemPackageImageDTO(itemPackageImage);
         }
         return null;
-    }
-
-    @Override
-    public List<ItemPackageDTO> getItemPackagesOrdered(String businessProfileId, String businessCategoryId, int start, int limit) {
-        List<ItemPackage> itemPackageList = itemPackageR.getItemsPackageOrdered(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), PageRequest.of(start, limit));
-        List<ItemPackageDTO> itemPackageDTOS = new ArrayList<>();
-        for (ItemPackage itemPackage : itemPackageList) {
-            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
-            itemPackageDTO.setItemPackageImages(itemPackage);
-            itemPackageDTOS.add(itemPackageDTO);
-        }
-        return itemPackageDTOS;
     }
 
     @Override
@@ -68,29 +46,6 @@ public class ItemPackageSImpl implements ItemPackageS {
             return itemPackage.isAvailable();
         }
         return false;
-    }
-
-    @Override
-    public ItemPackageDTO getItemPackageSelected(String itemId) {
-        Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(itemId);
-        if (itemPackageOptional.isPresent()) {
-            ItemPackage itemPackage = itemPackageOptional.get();
-//            List<ItemFeature> itemFeatureRAll = itemFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId(), true);
-//            List<ItemFeatureDTO> itemFeatureDTOS = new ArrayList<>();
-//            for (ItemFeature itemFeature : itemFeatureRAll) {
-//                itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
-//            }
-            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
-            itemPackageDTO.setBusinessProfileCategory(itemPackage);
-            itemPackageDTO.setItemPackageItemPackageFeatures(itemPackage);
-//            itemDTO.setItemFeatures(item);
-            if (itemPackage.getItemPackageType().equals("Item")) {
-                itemPackageDTO.getItemDTO().setItemCategory(itemPackage.getItem());
-            }
-            itemPackageDTO.setOrderDetail(new OrderDetailDTO());
-            return itemPackageDTO;
-        }
-        return null;
     }
 
     @Override

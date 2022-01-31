@@ -3,9 +3,11 @@ package lk.dbay.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.*;
 import lk.dbay.entity.item.Item;
+import lk.dbay.entity.item.ItemPackage;
 import lk.dbay.entity.item.ItemPackageItemPackageFeature;
 import lombok.*;
 import lombok.experimental.Tolerate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,21 +22,21 @@ public class ItemDTO extends DateTimeDTO {
 
     private String itemId;
     private String name;
-    private int quantity;
-    private boolean makeToOrder;
-    private double price;
-    private String description;
-    private double discount;
-    private double discountedPrice;
-    private String discountType;
-    private boolean confirmed;
-    private boolean available;
+    //    private int quantity;
+//    private boolean makeToOrder;
+//    private double price;
+//    private String description;
+//    private double discount;
+//    private double discountedPrice;
+//    private String discountType;
+//    private boolean confirmed;
+//    private boolean available;
     private ItemCategoryDTO itemCategory;
     private ItemPackageDTO itemPackage;
-    private boolean itemAvailable;
+    //    private boolean itemAvailable;
     private BusinessProfileCategoryDTO businessProfileCategory;
     private List<ItemPackageItemPackageFeatureDTO> itemPackageItemPackageFeatures;
-//    private List<ItemFeatureDTO> itemFeatures;
+    //    private List<ItemFeatureDTO> itemFeatures;
 //    private List<ItemImgDTO> itemImgs;
 //    private List<ItemReviewDTO> itemReviews;
     private OrderDetailDTO orderDetail;
@@ -47,6 +49,7 @@ public class ItemDTO extends DateTimeDTO {
     public ItemDTO(Item item) {
         if (item != null) {
             this.itemId = item.getItemId();
+            this.name = item.getItemPackage().getName();
         }
     }
 
@@ -55,9 +58,17 @@ public class ItemDTO extends DateTimeDTO {
             this.itemCategory = new ItemCategoryDTO(item.getItemCategory());
     }
 
+    @Tolerate
     public void setItemPackage(Item item) {
         if (item.getItemPackage() != null)
             this.itemPackage = new ItemPackageDTO(item.getItemPackage());
+    }
+
+    public ItemDTO setItemPackageToItem(ItemPackageDTO itemPackageDTO) {
+        this.itemId = itemPackageDTO.getItemPackageId();
+        this.name = itemPackageDTO.getName();
+        this.setItemPackage(itemPackageDTO);
+        return this;
     }
 
     @Tolerate

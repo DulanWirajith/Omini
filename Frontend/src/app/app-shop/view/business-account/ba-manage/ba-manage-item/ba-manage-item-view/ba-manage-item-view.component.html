@@ -14,7 +14,7 @@
         <!--</div>-->
 
         <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-          <mdb-carousel-item *ngFor="let image of item.itemPackageImages">
+          <mdb-carousel-item *ngFor="let image of item.itemPackage.itemPackageImages">
             <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
             <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
                  alt="First slide">
@@ -27,18 +27,18 @@
         <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
         <h3 class="h6 mb-2 fs-base" style="cursor: pointer">
           <a class="nav-link" data-bs-toggle="offcanvas"
-                                       (click)="getItemPackageSelected(item)"
-                                       data-bs-target="#item-viewer">{{item.name}}</a></h3>
+                                       (click)="getItemSelected(item)"
+                                       data-bs-target="#item-viewer">{{item.itemPackage.name}}</a></h3>
         <div class="row cols-sm-2 row-cols-md-12"
              style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
           <div class="col" style="padding: 0px">
-            <div *ngIf="item.quantity>0" style="border-right: 1px solid #d3d3d3">
+            <div *ngIf="item.itemPackage.quantity>0" style="border-right: 1px solid #d3d3d3">
               <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
-                {{item.makeToOrder?'Max':''}} Quantity
+                {{item.itemPackage.makeToOrder?'Max':''}} Quantity
               </p>
-              <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.quantity}}</p>
+              <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.itemPackage.quantity}}</p>
             </div>
-            <div *ngIf="item.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
+            <div *ngIf="item.itemPackage.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
               <p class="mb-2 fs-sm fw-bold mx-2"
                  style="text-align: center;">
                   <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">
@@ -50,27 +50,27 @@
           <div class="col" style="padding: 0px">
             <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">Discount </p>
             <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
-              {{item.discountType==='None' ? 'N/A' :
-              item.discountType==='Cash' ? ('LKR '+item.discount) :
-              item.discountType==='Percentage' ? (item.discount + '%') : ''}}
+              {{item.itemPackage.discountType==='None' ? 'N/A' :
+              item.itemPackage.discountType==='Cash' ? ('LKR '+item.itemPackage.discount) :
+              item.itemPackage.discountType==='Percentage' ? (item.itemPackage.discount + '%') : ''}}
             </p>
           </div>
         </div>
         <div class="fw-bold">
           <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
-          <span *ngIf="item.discountType==='None'">LKR {{item.price | number:'.2-2'}}</span>
-          <span *ngIf="item.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.price | number:'.2-2'}}</span>
-          <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice | number:'.2-2'}}</span>
+          <span *ngIf="item.itemPackage.discountType==='None'">LKR {{item.itemPackage.price | number:'.2-2'}}</span>
+          <span *ngIf="item.itemPackage.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{item.itemPackage.price | number:'.2-2'}}</span>
+          <span *ngIf="item.itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{item.itemPackage.discountedPrice | number:'.2-2'}}</span>
         </div>
       </div>
       <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
         <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" [checked]="item.available"
+          <input class="form-check-input" type="checkbox" [checked]="item.itemPackage.available"
                  (click)="setItemAvailable(item)">
-          <label *ngIf="!item.available"
+          <label *ngIf="!item.itemPackage.available"
                  class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">
             Not Available</label>
-          <label *ngIf="item.available" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
+          <label *ngIf="item.itemPackage.available" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
             Available</label>
         </div>
       </div>

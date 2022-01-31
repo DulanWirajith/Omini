@@ -90,7 +90,7 @@ export class BusinessAccountComponent implements OnInit {
     return this.loginService.getUser();
   }
 
-  getItemPackagesOrdered() {
+  getItemsOrdered() {
     // this.itemService.getItemsOrdered("B321", this.businessProfileCategory.businessCategoryId, 0, 100).subscribe((items) => {
     //   this.items = items;
     //   for (let item of this.items) {

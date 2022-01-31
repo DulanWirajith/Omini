@@ -111,8 +111,11 @@ public class ItemSImpl implements ItemS {
                 if (itemPackageImagesSetRemove.size() > 0) {
                     itemPackageImageR.deleteAll(itemPackageImagesSetRemove);
                 }
-
-                return new ItemDTO(itemR.save(itemObj));
+                itemObj = itemR.save(itemObj);
+                ItemDTO itemDTO = new ItemDTO(itemObj);
+                itemDTO.setItemPackage(itemObj);
+                itemDTO.getItemPackage().setItemPackageImages(itemObj.getItemPackage());
+                return itemDTO;
             }
             return null;
         } catch (Exception e) {
@@ -172,15 +175,15 @@ public class ItemSImpl implements ItemS {
         }
     }
 
-    @Override
-    public List<ItemDTO> getItems() {
-        List<Item> itemList = itemR.findAll();
-        List<ItemDTO> itemDTOS = new ArrayList<>();
-        for (Item item : itemList) {
-            itemDTOS.add(new ItemDTO(item));
-        }
-        return itemDTOS;
-    }
+//    @Override
+//    public List<ItemDTO> getItems() {
+//        List<Item> itemList = itemR.findAll();
+//        List<ItemDTO> itemDTOS = new ArrayList<>();
+//        for (Item item : itemList) {
+//            itemDTOS.add(new ItemDTO(item));
+//        }
+//        return itemDTOS;
+//    }
 
     @Override
     public boolean removeItem(String itemId) throws Exception {
@@ -190,6 +193,54 @@ public class ItemSImpl implements ItemS {
         } catch (Exception e) {
             throw new Exception("You cannot remove this item, since it is used.");
         }
+    }
+
+    @Override
+    public List<ItemDTO> getItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit) {
+        List<Item> itemList = itemR.getItemsOrdered(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), PageRequest.of(start, limit));
+        List<ItemDTO> itemDTOS = new ArrayList<>();
+        for (Item item : itemList) {
+//            ItemDTO itemDTO = ;
+            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(item.getItemPackage());
+            itemPackageDTO.setItemPackageImages(item.getItemPackage());
+//            itemDTO.setItemPackage(itemPackageDTO);
+            itemDTOS.add(new ItemDTO().setItemPackageToItem(itemPackageDTO));
+        }
+        return itemDTOS;
+    }
+
+    @Override
+    public ItemDTO getItemSelected(String itemId) {
+        Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(itemId);
+        if (itemPackageOptional.isPresent()) {
+            ItemPackage itemPackage = itemPackageOptional.get();
+//            List<ItemFeature> itemFeatureRAll = itemFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId(), true);
+//            List<ItemFeatureDTO> itemFeatureDTOS = new ArrayList<>();
+//            for (ItemFeature itemFeature : itemFeatureRAll) {
+//                itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
+//            }
+            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
+            itemPackageDTO.setBusinessProfileCategory(itemPackage);
+            itemPackageDTO.setItemPackageItemPackageFeatures(itemPackage);
+            itemPackageDTO.setItemPackageImages(itemPackage);
+//            itemDTO.setItemFeatures(item);
+//            if (itemPackage.getItemPackageType().equals("Item")) {
+//                itemPackageDTO.getItemDTO().setItemCategory(itemPackage.getItem());
+//            }
+            itemPackageDTO.setOrderDetail(new OrderDetailDTO());
+            return new ItemDTO().setItemPackageToItem(itemPackageDTO);
+        }
+        return null;
+    }
+
+    @Override
+    public List<ItemDTO> getItemsBusinessCategory(String businessProfileId, String businessCategoryId) {
+        List<ItemPackage> itemList = itemPackageR.getAllByBusinessProfileCategory_BusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
+        List<ItemDTO> itemDTOS = new ArrayList<>();
+        for (ItemPackage itemPackage : itemList) {
+            itemDTOS.add(new ItemDTO().setItemPackageToItem(new ItemPackageDTO(itemPackage)));
+        }
+        return itemDTOS;
     }
 
 //    @Override

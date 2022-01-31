@@ -38,7 +38,7 @@ export class BaManageItemEditComponent implements OnInit {
   // lightbox;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private loginService: LoginService) {
-    this.item = this.itemService.getNewItem().itemPackage;
+    this.item = this.itemService.getNewItem();
     // this.lightbox = _lightbox;
     // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
@@ -70,7 +70,7 @@ export class BaManageItemEditComponent implements OnInit {
 
   getAlbum(imageList) {
     let promises = [];
-    imageList.itemPackageImages.forEach(element => {
+    imageList.itemPackage.itemPackageImages.forEach(element => {
       promises.push(this.setAlbum(element));
     });
     Promise.all(promises).then((result: []) => {
@@ -82,9 +82,9 @@ export class BaManageItemEditComponent implements OnInit {
   setAlbum(img) {
     return new Promise((resolve, reject) => {
       resolve({
-        src: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemImgName),
+        src: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.imageName),
         caption: img.itemImgId,
-        thumb: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemImgName)
+        thumb: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.imageName)
       })
     });
   }
@@ -102,11 +102,11 @@ export class BaManageItemEditComponent implements OnInit {
   }
 
   onSubmitE() {
-    this.item.businessProfileCategory.businessProfile = {
+    this.item.itemPackage.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
-    if (this.item.discount === 'N/A') {
-      this.item.discount = 0;
+    if (this.item.itemPackage.discount === 'N/A') {
+      this.item.itemPackage.discount = 0;
     }
     // for (let item of this.item.itemItemFeatures) {
     //   item.name = item.item.name;
@@ -122,7 +122,7 @@ export class BaManageItemEditComponent implements OnInit {
       }));
     this.itemService.updateItem(uploadImageData, this.item.itemId).subscribe((item) => {
       this.imageInput.removeFiles();
-      this.item.itemPackageImages = this.item.itemPackageImages.concat(item.itemPackageImages);
+      this.item.itemPackage.itemPackageImages = this.item.itemPackage.itemPackageImages.concat(item.itemPackage.itemPackageImages);
       if (document.getElementById('item-back-btn') !== null) {
         document.getElementById('item-back-btn').click();
       }
@@ -132,16 +132,16 @@ export class BaManageItemEditComponent implements OnInit {
   }
 
   getItemFeatures() {
-    this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
+    this.itemService.getItemPackageFeatures(this.item.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
       this.itemFeatures = itemFeatures;
-      this.item.itemPackageItemPackageFeatures = [];
+      this.item.itemPackage.itemPackageItemPackageFeatures = [];
     })
   }
 
   addFeature() {
     if (this.itemPackageFeature !== undefined) {
-      this.item.itemPackageItemPackageFeatures.push({
-        item: {itemId: this.item.itemId},
+      this.item.itemPackage.itemPackageItemPackageFeatures.push({
+        itemPackage: {itemPackageId: this.item.itemId},
         itemPackageFeature: this.itemPackageFeature
       })
       this.baManageFormItemFeatureExs.resetForm()
@@ -162,8 +162,8 @@ export class BaManageItemEditComponent implements OnInit {
 
   addNewItemFeature() {
     for (let itemPackageFeature of this.newItemFeaturesTemp) {
-      this.item.itemPackageItemPackageFeatures.push({
-        item: {itemId: this.item.itemId},
+      this.item.itemPackage.itemPackageItemPackageFeatures.push({
+        itemPackage: {itemPackageId: this.item.itemId},
         itemPackageFeature: itemPackageFeature
       })
     }
@@ -179,13 +179,13 @@ export class BaManageItemEditComponent implements OnInit {
   }
 
   pondHandleAddFile(event) {
-    this.item.itemImgsRaw.push(event.file.file);
+    this.item.itemPackage.itemImgsRaw.push(event.file.file);
   }
 
   pondHandlerRemoveFile(event) {
-    for (let i = 0; i < this.item.itemImgsRaw.length; i++) {
-      if (this.item.itemImgsRaw[i].name === event.file.file.name) {
-        this.item.itemImgsRaw.splice(i, 1);
+    for (let i = 0; i < this.item.itemPackage.itemImgsRaw.length; i++) {
+      if (this.item.itemPackage.itemImgsRaw[i].name === event.file.file.name) {
+        this.item.itemPackage.itemImgsRaw.splice(i, 1);
       }
     }
   }

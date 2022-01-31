@@ -38,7 +38,12 @@ public class ItemCategoryDTO extends DateTimeDTO {
     public void setItems(ItemCategory itemCategory, boolean needImage) {
         this.items = new ArrayList<>();
         for (Item item : itemCategory.getItems()) {
-            this.items.add(new ItemDTO(item));
+            ItemDTO itemDTO = new ItemDTO(item);
+            itemDTO.setItemPackage(item);
+            if (needImage) {
+                itemDTO.getItemPackage().setItemPackageImages(item.getItemPackage());
+            }
+            this.items.add(itemDTO);
         }
     }
 

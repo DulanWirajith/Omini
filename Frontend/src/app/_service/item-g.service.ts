@@ -15,8 +15,8 @@ export class ItemGService {
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
-  getItemPackageSelected(itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemPackageSelected/' + itemId);
+  getItemSelected(itemId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
   }
 
   getPackageItemSelected(itemPackageId): Observable<any> {

@@ -46,7 +46,7 @@
            <!--style="justify-content: center"-->
            <!--data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>-->
           <!--<span style="border-right: 1px solid #b9b9b9;padding-right: 20px">Packages</span>-->
-          <!--<span class="" style="margin-left: 20px;font-size: 16px">{{itemPackages.length>1 ? itemPackages.length+' results':itemPackages.length+' result'}}</span>-->
+          <!--<span class="" style="margin-left: 20px;font-size: 16px">{{packageItems.length>1 ? packageItems.length+' results':packageItems.length+' result'}}</span>-->
         <!--</a>-->
       <!--</li>-->
     <!--</ul>-->
@@ -116,7 +116,7 @@
               <div class="position-relative" style="margin: 15px 15px 0px 15px">
                 <h3 class="h6 fs-base" style="margin-bottom: 0px">
                   <a class="nav-link" data-bs-toggle="offcanvas"
-                     (click)="getItemPackageSelected(item)"
+                     (click)="getItemSelected(item)"
                      data-bs-target="#item-viewer-g" style="font-weight: bold;padding: 0px;cursor: pointer">
                     {{item.name}}
                   </a>

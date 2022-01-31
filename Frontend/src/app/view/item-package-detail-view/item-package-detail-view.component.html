@@ -152,7 +152,7 @@
                 <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
                 <h3 class="h6 mb-2 fs-base">
                   <a class="nav-link" data-bs-toggle="offcanvas"
-                     (click)="getItemPackageSelected(itemItemPackage.item)"
+                     (click)="getItemSelected(itemItemPackage.item)"
                      data-bs-target="#item-viewer-g"
                      style="font-weight: bold;padding: 0px">{{itemItemPackage.item.name}}</a></h3>
                 <!-- <div class="d-flex align-items-center text-nowrap">
@@ -196,7 +196,7 @@
               <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
               <!--<div class="form-check form-switch">-->
               <!--<input class="form-check-input" type="checkbox" [checked]="itemItemPackage.item.available"-->
-              <!--(click)="setItemAvailable(item)">-->
+              <!--(click)="setItemPackageAvailable(item)">-->
               <!--<label *ngIf="!itemItemPackage.item.available"-->
               <!--class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">-->
               <!--Not Available</label>-->

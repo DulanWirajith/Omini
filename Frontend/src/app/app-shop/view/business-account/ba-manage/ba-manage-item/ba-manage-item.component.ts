@@ -39,7 +39,7 @@ export class BaManageItemComponent implements OnInit {
   }
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
-    this.item = this.itemService.getNewItem().itemPackage;
+    this.item = this.itemService.getNewItem();
     // this.businessAccountService.businessCategoriesSub.observers = [];
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
@@ -47,7 +47,7 @@ export class BaManageItemComponent implements OnInit {
     // console.log(4)
     // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
-      this.getItemPackagesOrdered(businessCategoryId);
+      this.getItemsOrdered(businessCategoryId);
       // console.log(2)
     })
   }
@@ -58,7 +58,7 @@ export class BaManageItemComponent implements OnInit {
     // console.log(3)
     this.businessCategories = this.businessAccountService.businessCategories;
     if (this.businessAccountService.businessCategory !== undefined) {
-      this.getItemPackagesOrdered(this.businessAccountService.businessCategory.businessCategoryId);
+      this.getItemsOrdered(this.businessAccountService.businessCategory.businessCategoryId);
     }
   }
 
@@ -67,34 +67,34 @@ export class BaManageItemComponent implements OnInit {
   // }
 
   getItemFeatures() {
-    this.itemService.getItemFeatures(this.item.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
+    this.itemService.getItemPackageFeatures(this.item.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
       this.itemFeatures = itemFeatures;
       this.item.itemPackageItemPackageFeatures = [];
     })
   }
 
   onSubmit() {
-    console.log(this.item.itemImgsRaw.length)
+    console.log(this.item.itemPackage.itemImgsRaw.length)
     this.item.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
 
     //console.log(this.item)
     const uploadImageData = new FormData();
-    for (let itemPackageImage of this.item.itemImgsRaw) {
+    for (let itemPackageImage of this.item.itemPackage.itemImgsRaw) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
     }
-    let item = {
-      itemPackage: this.item
-    }
+    // let item = {
+    //   itemPackage: this.item
+    // }
     console.log(this.item)
-    uploadImageData.append('item', new Blob([JSON.stringify(item)],
+    uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
       {
         type: "application/json"
       }));
     this.itemService.addItem(uploadImageData).subscribe((item) => {
-      this.items.push(item.itemPackage);
-      this.baManageFormItem.resetForm(this.itemService.getNewItem().itemPackage);
+      this.items.push(item);
+      this.baManageFormItem.resetForm(this.itemService.getNewItem());
       this.item.itemPackageItemPackageFeatures = [];
       this.imageInput.removeFiles();
       if (document.getElementById('btnAddItem') !== null) {
@@ -104,12 +104,12 @@ export class BaManageItemComponent implements OnInit {
     })
   }
 
-  getItemPackagesOrdered(businessCategoryId) {
-    this.itemService.getItemPackagesOrdered(this.loginService.getUser().userId, businessCategoryId, 0, 100).subscribe((items) => {
+  getItemsOrdered(businessCategoryId) {
+    this.itemService.getItemsOrdered(this.loginService.getUser().userId, businessCategoryId, 0, 100).subscribe((items) => {
       this.items = items;
       for (let item of this.items) {
-        item.itemImgsRaw = [];
-        item.businessProfileCategory = {
+        item.itemPackage.itemImgsRaw = [];
+        item.itemPackage.businessProfileCategory = {
           businessProfile: undefined,
           businessCategory: undefined
         }
@@ -121,7 +121,7 @@ export class BaManageItemComponent implements OnInit {
   addFeature() {
     if (this.itemPackageFeature !== undefined) {
       this.item.itemPackageItemPackageFeatures.push({
-        itemPackage: {itemPackageId: this.item.itemPackageId},
+        itemPackage: {itemPackageId: this.item.itemId},
         itemPackageFeature: this.itemPackageFeature
       })
       this.baManageFormItemFeatureExs.resetForm()
@@ -143,7 +143,7 @@ export class BaManageItemComponent implements OnInit {
   addNewItemFeature() {
     for (let itemPackageFeature of this.newItemFeaturesTemp) {
       this.item.itemPackageItemPackageFeatures.push({
-        itemPackage: {itemPackageId: this.item.itemPackageId},
+        itemPackage: {itemPackageId: this.item.itemId},
         itemPackageFeature: itemPackageFeature
       })
     }
@@ -154,14 +154,14 @@ export class BaManageItemComponent implements OnInit {
   // @ViewChild('baManageFormItemE', {static: true}) public baManageFormItemE: NgForm;
 
   pondHandleAddFile(event) {
-    this.item.itemImgsRaw.push(event.file.file);
+    this.item.itemPackage.itemImgsRaw.push(event.file.file);
   }
 
   pondHandlerRemoveFile(event) {
-    for (let i = 0; i < this.item.itemImgsRaw.length; i++) {
+    for (let i = 0; i < this.item.itemPackage.itemImgsRaw.length; i++) {
       // console.log(this.itemImgs[i].name + ' ' + event.file.file.name)
-      if (this.item.itemImgsRaw[i].name === event.file.file.name) {
-        this.item.itemImgsRaw.splice(i, 1);
+      if (this.item.itemPackage.itemImgsRaw[i].name === event.file.file.name) {
+        this.item.itemPackage.itemImgsRaw.splice(i, 1);
       }
     }
   }

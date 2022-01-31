@@ -22,7 +22,7 @@ export class COrderViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getItemPackageSelected(item) {
+  getItemSelected(item) {
     // item.orderDetail.quantity = item.quantity;
     this.itemServiceG.itemSub.next({
       item: item,

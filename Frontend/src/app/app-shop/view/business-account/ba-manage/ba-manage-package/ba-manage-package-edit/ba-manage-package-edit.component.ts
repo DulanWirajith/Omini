@@ -19,11 +19,11 @@ export class BaManagePackageEditComponent implements OnInit {
   newPackageFeaturesTemp = [];
   isNewFeature;
   itemPackageFeatures = [];
-  @Input() itemPackages = [];
+  @Input() packageItems = [];
   itemPackageItemPackageFeatures = [];
   itemPackageItemPackageFeature;
   itemPackageFeature;
-  itemPackageCur;
+  packageItemCur;
   businessCategories = [];
   businessProfileCategory;
   itemsToAdd;
@@ -48,7 +48,7 @@ export class BaManagePackageEditComponent implements OnInit {
   ngOnInit(): void {
     // this.btnCreateFeature();
     this.businessCategories = this.businessAccountService.businessCategories;
-    // this.getItems(this.itemPackageCur)
+    // this.getItems(this.packageItemCur)
     if (this.businessAccountService.businessCategory !== undefined) {
       this.getItems(this.businessAccountService.businessCategory.businessCategoryId)
       this.getItemPackageFeatures(this.businessAccountService.businessCategory.businessCategoryId)
@@ -56,59 +56,59 @@ export class BaManagePackageEditComponent implements OnInit {
     this.toggleCategoryBtn();
   }
 
-  onSubmit(itemPackage, imageInput, index) {
-    itemPackage.businessProfileCategory.businessProfile = {
+  onSubmit(packageItem, imageInput, index) {
+    packageItem.itemPackage.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
-    for (let i = 0; i < itemPackage.itemItemPackages.length; i++) {
+    for (let i = 0; i < packageItem.itemPackage.packageItemItems.length; i++) {
       // console.log(itemPackageE.itemItemPackages[i].itemPackage)
-      if (itemPackage.itemItemPackages[i].itemPackage === undefined) {
-        itemPackage.itemItemPackages[i] = {
-          item: itemPackage.itemItemPackages[i],
-          itemPackage: {
-            itemPackageId: itemPackage.itemPackageId
+      if (packageItem.itemPackage.packageItemItems[i].packageItem === undefined) {
+        packageItem.itemItemPackages[i] = {
+          item: packageItem.packageItemItems[i],
+          packageItem: {
+            packageItemId: packageItem.packageItemId
           }
         }
       }
     }
-    for (let i = 0; i < itemPackage.itemPackageItemPackageFeatures.length; i++) {
+    for (let i = 0; i < packageItem.itemPackage.itemPackageItemPackageFeatures.length; i++) {
       // console.log(itemPackageE.itemItemPackages[i].itemPackage)
-      if (itemPackage.itemPackageItemPackageFeatures[i].itemPackageFeature === undefined) {
-        itemPackage.itemItemPackages[i] = {
-          itemPackageFeature: itemPackage.itemPackageItemPackageFeatures[i],
-          itemPackage: {
-            itemPackageId: itemPackage.itemPackageId
+      if (packageItem.itemPackage.itemPackageItemPackageFeatures[i].itemPackageFeature === undefined) {
+        packageItem.itemPackageItemPackageFeatures[i] = {
+          itemPackageFeature: packageItem.itemPackageItemPackageFeatures[i],
+          packageItem: {
+            itemPackageId: packageItem.packageItemId
           }
         }
       }
     }
     //console.log(itemPackage)
     const uploadImageData = new FormData();
-    for (let itemPackageImage of itemPackage.itemPkgImgs) {
+    for (let itemPackageImage of packageItem.itemPkgImgs) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
     }
-    uploadImageData.append('package', new Blob([JSON.stringify(itemPackage)],
+    uploadImageData.append('package', new Blob([JSON.stringify(packageItem)],
       {
         type: "application/json"
       }));
-    this.itemService.updatePackage(uploadImageData, itemPackage.itemPackageId).subscribe((itemPackageR) => {
+    this.itemService.updatePackage(uploadImageData, packageItem.itemPackageId).subscribe((itemPackageR) => {
       // this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
       // this.itemPackage.itemItemPackages = [];
       // this.item = undefined;
       imageInput.removeFiles();
-      itemPackage.itemPackageImgs = itemPackage.itemPackageImgs.concat(itemPackageR.itemPackageImgs);
-      itemPackage.itemPkgImgs = [];
+      packageItem.itemPackage.itemPackageImages = packageItem.itemPackage.itemPackageImages.concat(itemPackageR.itemPackageImgs);
+      packageItem.itemPkgImgs = [];
       if (document.getElementById('btnPackage' + index) !== null) {
         document.getElementById('btnPackage' + index).click()
       }
-      itemPackage.isNewPackage = false;
+      packageItem.isNewPackage = false;
     })
   }
 
-  addFeature(itemPackage) {
+  addFeature(packageItem) {
     if (this.itemPackageFeature !== undefined) {
-      itemPackage.itemPackageItemPackageFeatures.push({
-        itemPackage: {itemId: itemPackage.itemPackageId},
+      packageItem.itemPackage.itemPackageItemPackageFeatures.push({
+        itemPackage: {itemPackageId: packageItem.packageItemId},
         itemPackageFeature: this.itemPackageFeature
       })
       this.baManageFormPackageExs.resetForm()
@@ -129,30 +129,30 @@ export class BaManagePackageEditComponent implements OnInit {
 
   addNewPackageFeature() {
     for (let itemPackageFeature of this.newPackageFeaturesTemp) {
-      this.itemPackageCur.itemPackageItemPackageFeatures.push({
-        itemPackage: {itemPackageId: this.itemPackageCur.itemPackageId},
+      this.packageItemCur.itemPackageItemPackageFeatures.push({
+        itemPackage: {itemPackageId: this.packageItemCur.packageItemId},
         itemPackageFeature: itemPackageFeature
       })
     }
     this.isNewFeature = false;
     this.newPackageFeaturesTemp = [];
-    //console.log(this.itemPackageCur)
+    //console.log(this.packageItemCur)
   }
 
-  getItems(businessCategoryId, itemPackage?) {
+  getItems(businessCategoryId, packageItem?) {
     //console.log(this.businessProfileCategory)
     // if (this.businessProfileCategory !== undefined) {
-    this.itemService.getItemPackagesBusinessCategory(this.loginService.getUser().userId, businessCategoryId).subscribe((items) => {
+    this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, businessCategoryId).subscribe((items) => {
       // console.log(items)
       this.itemsToAdd = items;
-      if (itemPackage !== undefined) {
-        if (itemPackage.businessProfileCategory.businessCategory.businessCategoryId === itemPackage.tempBusinessCategory.businessCategoryId) {
+      if (packageItem !== undefined) {
+        if (packageItem.itemPackage.businessProfileCategory.businessCategory.businessCategoryId === packageItem.itemPackage.tempBusinessCategory.businessCategoryId) {
           // console.log(itemPackage.tempItems)
-          itemPackage.itemItemPackages = itemPackage.tempItems;
-          itemPackage.itemPackageItemPackageFeatures = itemPackage.tempItemFeatures;
+          packageItem.packageItemItems = packageItem.tempItems;
+          packageItem.itemPackageItemPackageFeatures = packageItem.tempItemFeatures;
         } else {
-          itemPackage.itemItemPackages = [];
-          itemPackage.itemPackageItemPackageFeatures = [];
+          packageItem.packageItemItems = [];
+          packageItem.itemPackageItemPackageFeatures = [];
         }
         // itemPackage.items = [];
         // for (let item of itemPackage.itemItemPackages) {
@@ -185,28 +185,28 @@ export class BaManagePackageEditComponent implements OnInit {
       }
     })
     $(document).on('click', '.createFeature', function () {
-      that.itemPackageCur = that.itemPackages[$(this).val()];
+      that.packageItemCur = that.packageItems[$(this).val()];
     })
   }
 
   getPackageItemSelected(that, obj) {
-    let index: any = that.itemPackages.findIndex(itemPackage => {
-      return itemPackage.itemPackageId === $(obj).val()
+    let index: any = that.packageItems.findIndex(packageItem => {
+      return packageItem.itemPackageId === $(obj).val()
     })
     //console.log($(obj).val())
-    // if (that.itemPackages[index] !== undefined && that.itemPackages[index].itemItemPackages === undefined) {
-    that.itemService.getPackageItemSelected($(obj).val()).subscribe((itemPackage) => {
+    // if (that.packageItems[index] !== undefined && that.packageItems[index].itemItemPackages === undefined) {
+    that.itemService.getPackageItemSelected($(obj).val()).subscribe((packageItem) => {
       // that.categories[index] = category;
-      Object.assign(that.itemPackages[index], itemPackage)
-      // that.getItems(that.itemPackages[index])
-      // that.getItemPackageFeatures(that.itemPackages[index])
-      that.itemPackages[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
-      that.itemPackages[index].items = [];
-      for (let item of itemPackage.itemItemPackages) {
-        that.itemPackages[index].items.push(item.item);
+      Object.assign(that.packageItems[index], packageItem)
+      // that.getItems(that.packageItems[index])
+      // that.getItemPackageFeatures(that.packageItems[index])
+      that.packageItems[index].tempBusinessCategory = packageItem.itemPackage.businessProfileCategory.businessCategory;
+      that.packageItems[index].items = [];
+      for (let item of packageItem.packageItemItems) {
+        that.packageItems[index].items.push(item.item);
       }
-      that.itemPackages[index].tempItems = itemPackage.itemItemPackages;
-      // console.log(that.itemPackages[index])
+      that.packageItems[index].tempItems = packageItem.packageItemItems;
+      // console.log(that.packageItems[index])
       // for (let i = 0; i < that.categories.length; i++) {
       //   if (that.categories[i].itemCategoryId === $(obj).val()) {
       //     // console.log(category)
@@ -219,16 +219,16 @@ export class BaManagePackageEditComponent implements OnInit {
   }
 
   getImageSrc(itemPackageImg) {
-    // console.log(itemImg)
+    // console.log(environment.image_url + itemPackageImg.imageName)
     // let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.imageName);
   }
 
   getPackageImageSrc(itemPackageImg) {
     // let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.imageName);
   }
 
   pondHandleAddFile(event, itemPackageE?) {
@@ -267,7 +267,7 @@ export class BaManagePackageEditComponent implements OnInit {
   removePackage() {
     this.itemService.removePackage(this.packageE.itemPackageId).subscribe((reply) => {
       if (reply) {
-        this.itemPackages.splice(this.packageIndex, 1);
+        this.packageItems.splice(this.packageIndex, 1);
         this.setDialogBox('Package has been removed', true);
       }
     }, (error) => {
