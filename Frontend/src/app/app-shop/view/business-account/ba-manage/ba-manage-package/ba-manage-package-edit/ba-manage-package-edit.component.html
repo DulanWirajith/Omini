@@ -32,14 +32,14 @@
                           class="btnView btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
                           type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#package' + i"
                           aria-expanded="true"
-                          aria-controls="packageOne" value="{{packageItem.itemPackage.itemPackageId}}">
+                          aria-controls="packageOne" value="{{packageItem.packageItemId}}">
                     <i class="fi-eye-on"></i>
                   </button>
                   <button
                     class="btnEdit btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
                     type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#packageEdit' + i"
                     aria-expanded="true"
-                    aria-controls="packageOneEdit" value="{{packageItem.itemPackage.itemPackageId}}">
+                    aria-controls="packageOneEdit" value="{{packageItem.packageItemId}}">
                     <i class="fi-edit"></i>
                   </button>
                   <!-- <button type="button" class="btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm">
@@ -96,7 +96,7 @@
            id="packageEdit{{i}}">
         <div class="card card-body">
           <form #baManageFormPackageE="ngForm"
-                (ngSubmit)="baManageFormPackageE.form.valid && (packageItem.itemPkgImgs.length+packageItem.itemPackage.itemPackageImages.length)>=3 && onSubmit(itemPackage,imageInput,i)"
+                (ngSubmit)="baManageFormPackageE.form.valid && (packageItem.itemPackage.itemImgsRaw.length+packageItem.itemPackage.itemPackageImages.length)>=3 && onSubmit(packageItem,imageInput,i)"
                 novalidate>
 
             <div class="row">
@@ -304,7 +304,7 @@
                       </ng-select>
                     </div>
                     <div
-                      *ngIf="(baManageFormPackageE.submitted) && itemPackage.packageItemItems.length===0"
+                      *ngIf="(baManageFormPackageE.submitted) && packageItem.packageItemItems.length===0"
                       class="validErr">
                       Item is required
                     </div>

@@ -15,6 +15,8 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PackageItemItemDTO extends DateTimeDTO {
 
+    private String itemId;
+    private String name;
     private PackageItemDTO packageItem;
     private ItemDTO item;
 
@@ -22,7 +24,8 @@ public class PackageItemItemDTO extends DateTimeDTO {
         if (packageItem != null)
             this.packageItem = new PackageItemDTO(packageItem);
         if (item != null) {
-//            this.name = itemPackageFeature.getName();
+            this.itemId = item.getItemId();
+            this.name = item.getItemPackage().getName();
             this.item = new ItemDTO(item);
         }
     }

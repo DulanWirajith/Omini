@@ -20,7 +20,7 @@ export class ItemService {
   }
 
   getItemsPackagesBySearch(txt, category): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemsPackagesBySearch/' + txt + '/' + category);
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemsPackagesBySearch/' + txt + '/' + category);
   }
 
   getItemSelected(itemId): Observable<any> {

@@ -43,6 +43,10 @@ export class BaManagePackageEditComponent implements OnInit {
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     })
+    this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
+      this.getItems(businessCategoryId)
+      this.getItemPackageFeatures(businessCategoryId)
+    })
   }
 
   ngOnInit(): void {
@@ -60,10 +64,10 @@ export class BaManagePackageEditComponent implements OnInit {
     packageItem.itemPackage.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
-    for (let i = 0; i < packageItem.itemPackage.packageItemItems.length; i++) {
+    for (let i = 0; i < packageItem.packageItemItems.length; i++) {
       // console.log(itemPackageE.itemItemPackages[i].itemPackage)
-      if (packageItem.itemPackage.packageItemItems[i].packageItem === undefined) {
-        packageItem.itemItemPackages[i] = {
+      if (packageItem.packageItemItems[i].packageItem === undefined) {
+        packageItem.packageItemItems[i] = {
           item: packageItem.packageItemItems[i],
           packageItem: {
             packageItemId: packageItem.packageItemId
@@ -84,20 +88,20 @@ export class BaManagePackageEditComponent implements OnInit {
     }
     //console.log(itemPackage)
     const uploadImageData = new FormData();
-    for (let itemPackageImage of packageItem.itemPkgImgs) {
+    for (let itemPackageImage of packageItem.itemPackage.itemImgsRaw) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
     }
     uploadImageData.append('package', new Blob([JSON.stringify(packageItem)],
       {
         type: "application/json"
       }));
-    this.itemService.updatePackage(uploadImageData, packageItem.itemPackageId).subscribe((itemPackageR) => {
+    this.itemService.updatePackage(uploadImageData, packageItem.packageItemId).subscribe((itemPackageR) => {
       // this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
       // this.itemPackage.itemItemPackages = [];
       // this.item = undefined;
       imageInput.removeFiles();
-      packageItem.itemPackage.itemPackageImages = packageItem.itemPackage.itemPackageImages.concat(itemPackageR.itemPackageImgs);
-      packageItem.itemPkgImgs = [];
+      packageItem.itemPackage.itemPackageImages = packageItem.itemPackage.itemPackageImages.concat(itemPackageR.itemPackage.itemPackageImages);
+      packageItem.itemPackage.itemPkgImgs = [];
       if (document.getElementById('btnPackage' + index) !== null) {
         document.getElementById('btnPackage' + index).click()
       }
@@ -142,6 +146,7 @@ export class BaManagePackageEditComponent implements OnInit {
   getItems(businessCategoryId, packageItem?) {
     //console.log(this.businessProfileCategory)
     // if (this.businessProfileCategory !== undefined) {
+    // console.log(5)
     this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, businessCategoryId).subscribe((items) => {
       // console.log(items)
       this.itemsToAdd = items;
@@ -191,22 +196,25 @@ export class BaManagePackageEditComponent implements OnInit {
 
   getPackageItemSelected(that, obj) {
     let index: any = that.packageItems.findIndex(packageItem => {
-      return packageItem.itemPackageId === $(obj).val()
+      return packageItem.packageItemId === $(obj).val()
     })
     //console.log($(obj).val())
     // if (that.packageItems[index] !== undefined && that.packageItems[index].itemItemPackages === undefined) {
-    that.itemService.getPackageItemSelected($(obj).val()).subscribe((packageItem) => {
+    that.itemService.getPackageItemSelected($(obj).val()).subscribe((packageItemObj) => {
+      // console.log(index)
       // that.categories[index] = category;
-      Object.assign(that.packageItems[index], packageItem)
+      Object.assign(that.packageItems[index], packageItemObj)
       // that.getItems(that.packageItems[index])
       // that.getItemPackageFeatures(that.packageItems[index])
-      that.packageItems[index].tempBusinessCategory = packageItem.itemPackage.businessProfileCategory.businessCategory;
+      that.packageItems[index].itemPackage.itemImgsRaw = [];
+      that.packageItems[index].tempBusinessCategory = packageItemObj.itemPackage.businessProfileCategory.businessCategory;
       that.packageItems[index].items = [];
-      for (let item of packageItem.packageItemItems) {
+      for (let item of packageItemObj.packageItemItems) {
+        // console.log(item)
         that.packageItems[index].items.push(item.item);
       }
-      that.packageItems[index].tempItems = packageItem.packageItemItems;
-      // console.log(that.packageItems[index])
+      that.packageItems[index].tempItems = packageItemObj.packageItemItems;
+      console.log(that.packageItems[index])
       // for (let i = 0; i < that.categories.length; i++) {
       //   if (that.categories[i].itemCategoryId === $(obj).val()) {
       //     // console.log(category)

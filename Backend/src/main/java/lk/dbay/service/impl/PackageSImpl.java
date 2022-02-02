@@ -1,8 +1,6 @@
 package lk.dbay.service.impl;
 
-import lk.dbay.dto.ItemPackageDTO;
-import lk.dbay.dto.OrderDetailDTO;
-import lk.dbay.dto.PackageItemDTO;
+import lk.dbay.dto.*;
 import lk.dbay.entity.*;
 import lk.dbay.entity.item.*;
 import lk.dbay.repository.*;
@@ -218,9 +216,30 @@ public class PackageSImpl implements PackageS {
         if (packageItemOptional.isPresent()) {
             PackageItem packageItem = packageItemOptional.get();
             PackageItemDTO packageItemDTO = new PackageItemDTO(packageItem);
+            List<PackageItemItemDTO> packageItemItemDTOS = new ArrayList<>();
+            for (PackageItemItem packageItemItem : packageItem.getPackageItemItems()) {
+//                PackageItem packageItemObj = packageItemItem.getPackageItem();
+
+                ItemPackageDTO itemPackageDTO = new ItemPackageDTO(packageItemItem.getItem().getItemPackage());
+                itemPackageDTO.setBusinessProfileCategory(packageItemItem.getItem().getItemPackage());
+                itemPackageDTO.setItemPackageItemPackageFeatures(packageItemItem.getItem().getItemPackage());
+                itemPackageDTO.setItemPackageImages(packageItemItem.getItem().getItemPackage());
+////            itemDTO.setItemFeatures(item);
+////            if (itemPackage.getItemPackageType().equals("Item")) {
+////                itemPackageDTO.getItemDTO().setItemCategory(itemPackage.getItem());
+////            }
+//                itemPackageDTO.setOrderDetail(new OrderDetailDTO());
+                PackageItemItemDTO packageItemItemDTO = new PackageItemItemDTO();
+                packageItemItemDTO.setItemId(packageItemItem.getItem().getItemId());
+                packageItemItemDTO.setName(packageItemItem.getItem().getItemPackage().getName());
+                packageItemItemDTO.setPackageItem(new PackageItemDTO(packageItemItem.getPackageItem()));
+                packageItemItemDTO.setItem(new ItemDTO().setItemPackageToItem(itemPackageDTO));
+                packageItemItemDTOS.add(packageItemItemDTO);
+            }
+            packageItemDTO.setPackageItemItems(packageItemItemDTOS);
+            packageItemDTO.setItemPackage(new ItemPackageDTO(packageItem.getItemPackage()));
             ItemPackageDTO itemPackageDTO = packageItemDTO.getItemPackage();
             itemPackageDTO.setBusinessProfileCategory(packageItem.getItemPackage());
-            packageItemDTO.setPackageItemItems(packageItem);
             itemPackageDTO.setItemPackageItemPackageFeatures(packageItem.getItemPackage());
             itemPackageDTO.setItemPackageImages(packageItem.getItemPackage());
             itemPackageDTO.setOrderDetail(new OrderDetailDTO());

@@ -235,10 +235,10 @@ public class ItemSImpl implements ItemS {
 
     @Override
     public List<ItemDTO> getItemsBusinessCategory(String businessProfileId, String businessCategoryId) {
-        List<ItemPackage> itemList = itemPackageR.getAllByBusinessProfileCategory_BusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
+        List<Item> itemsList = itemR.getAllByItemPackage_BusinessProfileCategory_BusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
         List<ItemDTO> itemDTOS = new ArrayList<>();
-        for (ItemPackage itemPackage : itemList) {
-            itemDTOS.add(new ItemDTO().setItemPackageToItem(new ItemPackageDTO(itemPackage)));
+        for (Item item : itemsList) {
+            itemDTOS.add(new ItemDTO(item));
         }
         return itemDTOS;
     }

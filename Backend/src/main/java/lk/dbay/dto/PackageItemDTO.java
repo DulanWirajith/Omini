@@ -18,13 +18,13 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PackageItemDTO extends DateTimeDTO {
 
-    private String itemPackageId;
+    private String packageItemId;
     private ItemPackageDTO itemPackage;
     private List<PackageItemItemDTO> packageItemItems;
 
     public PackageItemDTO(PackageItem packageItem) {
         if (packageItem != null) {
-            this.itemPackageId = packageItem.getPackageItemId();
+            this.packageItemId = packageItem.getPackageItemId();
 //            this.name = item.getItemPackage().getName();
         }
     }
@@ -36,12 +36,13 @@ public class PackageItemDTO extends DateTimeDTO {
     }
 
     public PackageItemDTO setItemPackageToPackageItem(ItemPackageDTO itemPackageDTO) {
-        this.itemPackageId = itemPackageDTO.getItemPackageId();
+        this.packageItemId = itemPackageDTO.getItemPackageId();
 //        this.name = itemPackageDTO.getName();
         this.setItemPackage(itemPackageDTO);
         return this;
     }
 
+    @Tolerate
     public void setPackageItemItems(PackageItem packageItem) {
         this.packageItemItems = new ArrayList<>();
         for (PackageItemItem packageItemItem : packageItem.getPackageItemItems()) {

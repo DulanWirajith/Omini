@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface ItemPackageR extends JpaRepository<ItemPackage, String> {
 
-    List<ItemPackage> getAllByBusinessProfileCategory_BusinessProfileCategoryId(BusinessProfileCategoryPK businessCategoryId);
-
     @Query(value = "from ItemPackage where businessProfileCategory.businessProfileCategoryId=?1 order by name")
     List<ItemPackage> getItemsPackageOrdered(BusinessProfileCategoryPK businessCategoryId, Pageable pageable);
 

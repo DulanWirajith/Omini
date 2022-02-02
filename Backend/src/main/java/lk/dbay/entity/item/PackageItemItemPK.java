@@ -15,6 +15,6 @@ import java.io.Serializable;
 @Setter
 public class PackageItemItemPK implements Serializable {
 
+    private String packageItemId;
     private String itemId;
-    private String itemPackageId;
 }

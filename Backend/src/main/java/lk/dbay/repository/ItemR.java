@@ -13,6 +13,8 @@ public interface ItemR extends JpaRepository<Item, String> {
 
     Optional<Item> getByItemCategory_ItemCategoryId(String categoryId);
 
+    List<Item> getAllByItemPackage_BusinessProfileCategory_BusinessProfileCategoryId(BusinessProfileCategoryPK businessCategoryId);
+
     @Query(value = "from Item where itemPackage.businessProfileCategory.businessProfileCategoryId=?1 order by itemPackage.name")
     List<Item> getItemsOrdered(BusinessProfileCategoryPK businessProfileCategoryPK, Pageable pageable);
 
