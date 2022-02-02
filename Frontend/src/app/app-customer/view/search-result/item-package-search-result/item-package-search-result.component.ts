@@ -27,14 +27,14 @@ export class ItemPackageSearchResultComponent implements OnInit {
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
       // console.log(item)
       // console.log(this.items)
-      let itemObj: any = this.items.find(itemObj => {
-        return itemObj.itemId === item.itemId
-      })
-      if (itemObj !== undefined) {
-        // console.log(itemObj)
-        itemObj.quantity = item.quantity;
-        itemObj.orderDetail.quantity = item.orderDetail.quantity;
-      }
+      // let itemObj: any = this.items.find(itemObj => {
+      //   return itemObj.itemId === item.itemId
+      // })
+      // if (itemObj !== undefined) {
+      //   // console.log(itemObj)
+      //   itemObj.quantity = item.quantity;
+      //   itemObj.orderDetail.quantity = item.orderDetail.quantity;
+      // }
       let itemPackageObj: any = this.itemPackages.find(itemPackageObj => {
         return itemPackageObj.itemPackageId === item.itemPackageId
       })
@@ -50,9 +50,10 @@ export class ItemPackageSearchResultComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.itemService.searchedItemPackages)
     this.items = this.itemService.searchedItemPackages.items;
     // console.log(this.items)
-    this.itemCount = this.items.length;
+    this.itemCount = this.itemService.searchedItemPackages.items.length;
     this.itemPackages = this.itemService.searchedItemPackages.itemPackages;
     this.toggleBtns();
     this.setShopCart(this.shopCartService.shopCart);
@@ -194,15 +195,16 @@ export class ItemPackageSearchResultComponent implements OnInit {
   }
 
   getImageSrc(itemPackageImage) {
+    // console.log(itemPackageImage)
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.itemImageName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.imageName);
   }
 
   getPackageImageSrc(itemPackageImg) {
     // let imageData = 'data:' + itemPackageImg.itemPackageImgType + ';base64,' + itemPackageImg.itemPackageImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.itemPackageImgName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.imageName);
   }
 
   // t(){

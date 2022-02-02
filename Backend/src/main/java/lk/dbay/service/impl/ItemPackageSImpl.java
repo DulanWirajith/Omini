@@ -49,7 +49,7 @@ public class ItemPackageSImpl implements ItemPackageS {
     }
 
     @Override
-    public List<ItemPackageDTO> getItemsPackagesBySearch(String txt, String category) {
+    public ItemPackageDTO getItemsPackagesBySearch(String txt, String category) {
 //        List<ItemPackage> itemsBySearch;
         List<ItemPackage> itemPackagesBySearch;
         if (category.equals("no")) {
@@ -59,11 +59,27 @@ public class ItemPackageSImpl implements ItemPackageS {
 //            itemsBySearch = itemR.getItemsBySearch("%" + txt + "%", category);
             itemPackagesBySearch = itemPackageR.getItemPackagesBySearch("%" + txt + "%", category);
         }
-        List<ItemPackageDTO> itemPackageDTOS = new ArrayList<>();
+        ItemPackageDTO itemPackageDTO = new ItemPackageDTO();
+        List<ItemPackageDTO> itemPackages = new ArrayList<>();
+        List<ItemPackageDTO> items = new ArrayList<>();
         for (ItemPackage packagesBySearch : itemPackagesBySearch) {
-            itemPackageDTOS.add(new ItemPackageDTO(packagesBySearch));
+            if (packagesBySearch.getItemPackageType().equals("Item")) {
+                ItemPackageDTO itemPackageDTOObj = new ItemPackageDTO(packagesBySearch);
+                itemPackageDTOObj.setBusinessProfileCategory(packagesBySearch);
+                itemPackageDTOObj.setItemPackageImages(packagesBySearch);
+                itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
+                items.add(itemPackageDTOObj);
+            } else if (packagesBySearch.getItemPackageType().equals("ItemPackage")) {
+                ItemPackageDTO itemPackageDTOObj = new ItemPackageDTO(packagesBySearch);
+                itemPackageDTOObj.setBusinessProfileCategory(packagesBySearch);
+                itemPackageDTOObj.setItemPackageImages(packagesBySearch);
+                itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
+                itemPackages.add(itemPackageDTOObj);
+            }
         }
+        itemPackageDTO.setItemPackages(itemPackages);
+        itemPackageDTO.setItems(items);
 
-        return itemPackageDTOS;
+        return itemPackageDTO;
     }
 }

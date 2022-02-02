@@ -34,6 +34,8 @@ public class ItemPackageDTO extends DateTimeDTO {
     private BusinessProfileCategoryDTO businessProfileCategory;
     private OrderDetailDTO orderDetail;
     private ItemDTO itemDTO;
+    private List<ItemPackageDTO> items;
+    private List<ItemPackageDTO> itemPackages;
 //    private boolean favourite;
 
     public ItemPackageDTO(ItemPackage itemPackage) {

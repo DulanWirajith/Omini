@@ -18,7 +18,7 @@ public interface ItemPackageS {
 //
     boolean setItemPackageAvailable(String itemId);
 
-    List<ItemPackageDTO> getItemsPackagesBySearch(String txt, String category);
+    ItemPackageDTO getItemsPackagesBySearch(String txt, String category);
 
 //    ItemReviewDTO addItemPackageReview(ItemReview itemReview);
 
