@@ -20,6 +20,8 @@ public interface ItemPackageS {
 
     ItemPackageDTO getItemsPackagesBySearch(String txt, String category);
 
+    ItemPackageDTO getItemPackageSelected(String itemId, String type);
+
 //    ItemReviewDTO addItemPackageReview(ItemReview itemReview);
 
 //    List<ItemReviewDTO> getItemPackageReviews(String itemId, String customerId, String reviewType);

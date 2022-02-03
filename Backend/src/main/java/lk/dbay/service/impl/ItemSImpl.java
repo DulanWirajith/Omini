@@ -209,29 +209,29 @@ public class ItemSImpl implements ItemS {
         return itemDTOS;
     }
 
-    @Override
-    public ItemDTO getItemSelected(String itemId) {
-        Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(itemId);
-        if (itemPackageOptional.isPresent()) {
-            ItemPackage itemPackage = itemPackageOptional.get();
-//            List<ItemFeature> itemFeatureRAll = itemFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId(), true);
-//            List<ItemFeatureDTO> itemFeatureDTOS = new ArrayList<>();
-//            for (ItemFeature itemFeature : itemFeatureRAll) {
-//                itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
-//            }
-            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
-            itemPackageDTO.setBusinessProfileCategory(itemPackage);
-            itemPackageDTO.setItemPackageItemPackageFeatures(itemPackage);
-            itemPackageDTO.setItemPackageImages(itemPackage);
-//            itemDTO.setItemFeatures(item);
-//            if (itemPackage.getItemPackageType().equals("Item")) {
-//                itemPackageDTO.getItemDTO().setItemCategory(itemPackage.getItem());
-//            }
-            itemPackageDTO.setOrderDetail(new OrderDetailDTO());
-            return new ItemDTO().setItemPackageToItem(itemPackageDTO);
-        }
-        return null;
-    }
+//    @Override
+//    public ItemDTO getItemSelected(String itemId) {
+//        Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(itemId);
+//        if (itemPackageOptional.isPresent()) {
+//            ItemPackage itemPackage = itemPackageOptional.get();
+////            List<ItemFeature> itemFeatureRAll = itemFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(item.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId(), true);
+////            List<ItemFeatureDTO> itemFeatureDTOS = new ArrayList<>();
+////            for (ItemFeature itemFeature : itemFeatureRAll) {
+////                itemFeatureDTOS.add(new ItemFeatureDTO(itemFeature));
+////            }
+//            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(itemPackage);
+//            itemPackageDTO.setBusinessProfileCategory(itemPackage);
+//            itemPackageDTO.setItemPackageItemPackageFeatures(itemPackage);
+//            itemPackageDTO.setItemPackageImages(itemPackage);
+////            itemDTO.setItemFeatures(item);
+////            if (itemPackage.getItemPackageType().equals("Item")) {
+////                itemPackageDTO.getItemDTO().setItemCategory(itemPackage.getItem());
+////            }
+//            itemPackageDTO.setOrderDetail(new OrderDetailDTO());
+//            return new ItemDTO().setItemPackageToItem(itemPackageDTO);
+//        }
+//        return null;
+//    }
 
     @Override
     public List<ItemDTO> getItemsBusinessCategory(String businessProfileId, String businessCategoryId) {

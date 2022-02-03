@@ -52,9 +52,9 @@ export class ItemPackageSearchResultComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.itemService.searchedItemPackages)
     this.items = this.itemService.searchedItemPackages.items;
-    // console.log(this.items)
     this.itemCount = this.itemService.searchedItemPackages.items.length;
     this.itemPackages = this.itemService.searchedItemPackages.itemPackages;
+    console.log(this.itemPackages)
     this.toggleBtns();
     this.setShopCart(this.shopCartService.shopCart);
   }
@@ -123,7 +123,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
     })
   }
 
-  getPackageItemSelected(itemPackage) {
+  getItemPackageSelected(itemPackage) {
     // console.log(itemPackage)
     this.itemServiceG.itemPackageSub.next({
       itemPackage: itemPackage,
@@ -150,12 +150,12 @@ export class ItemPackageSearchResultComponent implements OnInit {
     // }
   }
 
-  getItemSelected(item) {
-    this.itemServiceG.itemSub.next({
-      item: item,
-      backBtn: undefined,
-      cart: true
-    });
+  // getItemSelected(item) {
+  //   this.itemServiceG.itemSub.next({
+  //     item: item,
+  //     backBtn: undefined,
+  //     cart: true
+  //   });
     // console.log(item.itemId)
     // let index: any = this.items.findIndex(itemObj => {
     //   return itemObj.itemId === item.itemId
@@ -186,7 +186,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
     // } else {
     //   this.itemService.itemSub.next(this.items[index]);
     // }
-  }
+  // }
 
   setItemFavourite(item) {
     this.itemService.setItemFavourite(JSON.parse(localStorage.getItem('user')).userId, item.itemId).subscribe((reply) => {

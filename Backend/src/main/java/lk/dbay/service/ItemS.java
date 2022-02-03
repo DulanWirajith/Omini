@@ -18,7 +18,7 @@ public interface ItemS {
 
     List<ItemDTO> getItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
 
-    ItemDTO getItemSelected(String itemId);
+//    ItemDTO getItemSelected(String itemId);
 
     List<ItemDTO> getItemsBusinessCategory(String businessProfileId, String businessCategoryId);
 

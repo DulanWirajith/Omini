@@ -29,12 +29,12 @@ export class ItemDetailViewComponent implements OnInit {
   constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
     this.item = this.getNewItem();
     this.itemReview = this.getNewItemReview();
-    this.itemService.itemSub.observers = [];
-    this.itemService.itemSub.subscribe((itemObj) => {
-      this.itemObj = itemObj;
-      this.getItemSelected(itemObj.item);
-      // console.log(itemObj)
-    })
+    // this.itemService.itemSub.observers = [];
+    // this.itemService.itemSub.subscribe((itemObj) => {
+    //   this.itemObj = itemObj;
+    //   this.getItemSelected(itemObj.item);
+    //   // console.log(itemObj)
+    // })
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class ItemDetailViewComponent implements OnInit {
     if (document.getElementById('item-back-btn') !== null) {
       document.getElementById('item-back-btn').click()
     }
-    this.itemService.getItemSelected(item.itemId).subscribe((itemObj) => {
+    this.itemService.getItemPackageSelected(item.itemId, 'Item').subscribe((itemObj) => {
       this.item = itemObj;
       if (item.orderDetail !== undefined) {
         this.item.orderDetail.quantity = item.orderDetail.quantity

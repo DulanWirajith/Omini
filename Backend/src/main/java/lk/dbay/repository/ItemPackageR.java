@@ -16,10 +16,20 @@ public interface ItemPackageR extends JpaRepository<ItemPackage, String> {
     @Query(value = "" +
             "select distinct i from ItemPackage i inner join i.itemPackageItemPackageFeatures iif inner join i.packageItem.packageItemItems pii " +
             "where i.available=true and (i.name like ?1 or iif.itemPackageFeature.name like ?1 or pii.item.itemPackage.name like ?1) and (i.businessProfileCategory.businessCategory.businessCategoryId=?2 or iif.itemPackage.businessProfileCategory.businessCategory.businessCategoryId=?2)")
-    List<ItemPackage> getItemPackagesBySearch(String txt, String category);
+    List<ItemPackage> getItemPackagesBySearchPackage(String txt, String category);
 
     @Query(value = "" +
-            "select distinct i from ItemPackage i inner join i.itemPackageItemPackageFeatures iif left outer join i.packageItem.packageItemItems pii " +
+            "select distinct i from ItemPackage i inner join i.itemPackageItemPackageFeatures iif " +
+            "where i.available=true and (i.name like ?1 or iif.itemPackageFeature.name like ?1) and (i.businessProfileCategory.businessCategory.businessCategoryId=?2 or iif.itemPackage.businessProfileCategory.businessCategory.businessCategoryId=?2)")
+    List<ItemPackage> getItemPackagesBySearchItem(String txt, String category);
+
+    @Query(value = "" +
+            "select distinct i from ItemPackage i inner join i.itemPackageItemPackageFeatures iif inner join i.packageItem.packageItemItems pii " +
             "where i.available=true and i.name like ?1 or iif.itemPackageFeature.name like ?1 or pii.item.itemPackage.name like ?1")
-    List<ItemPackage> getItemPackagesBySearch(String txt);
+    List<ItemPackage> getItemPackagesBySearchPackage(String txt);
+
+    @Query(value = "" +
+            "select distinct i from ItemPackage i inner join i.itemPackageItemPackageFeatures iif " +
+            "where i.available=true and i.name like ?1 or iif.itemPackageFeature.name like ?1")
+    List<ItemPackage> getItemPackagesBySearchItem(String txt);
 }

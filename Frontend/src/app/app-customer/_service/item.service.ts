@@ -23,17 +23,21 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item_package/getItemsPackagesBySearch/' + txt + '/' + category);
   }
 
-  getItemSelected(itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  // getItemSelected(itemId): Observable<any> {
+  //   return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  // }
+
+  getItemPackageSelected(itemId, type): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type);
   }
 
   getCustomerOrders(customerId, status, from, to): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_order/getCustomerOrders/' + customerId + '/' + status + '/' + from + '/' + to);
   }
 
-  getPackageItemSelected(itemPackageId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
-  }
+  // getPackageItemSelected(itemPackageId): Observable<any> {
+  //   return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
+  // }
 
   setItemFavourite(customerId, itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item/setItemFavourite/' + customerId + '/' + itemId);

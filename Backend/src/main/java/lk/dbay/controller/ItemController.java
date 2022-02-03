@@ -80,10 +80,10 @@ public class ItemController {
 //        return ResponseEntity.ok(itemS.setItemFavourite(customerId, itemId));
 //    }
 //
-    @GetMapping(value = "/getItemSelected/{itemId}")
-    public ResponseEntity getItemSelected(@PathVariable String itemId) {
-        return ResponseEntity.ok(itemS.getItemSelected(itemId));
-    }
+//    @GetMapping(value = "/getItemSelected/{itemId}")
+//    public ResponseEntity getItemSelected(@PathVariable String itemId) {
+//        return ResponseEntity.ok(itemS.getItemSelected(itemId));
+//    }
 //
 //    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}")
 //    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category) {

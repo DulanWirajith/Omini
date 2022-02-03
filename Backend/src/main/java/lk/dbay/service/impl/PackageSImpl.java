@@ -48,7 +48,7 @@ public class PackageSImpl implements PackageS {
             BusinessProfileCategory businessProfileCategory = packageItem.getItemPackage().getBusinessProfileCategory();
             packageItem.setPackageItemId("IPK" + businessProfileCategory.getBusinessProfile().getBusinessProId() + format);
             packageItem.getItemPackage().setItemPackageId(packageItem.getPackageItemId());
-            packageItem.getItemPackage().setItemPackageType("ItemPackage");
+            packageItem.getItemPackage().setItemPackageType("Package");
             businessProfileCategory.setBusinessProfileCategoryId(
                     new BusinessProfileCategoryPK(businessProfileCategory.getBusinessProfile().getBusinessProId(), businessProfileCategory.getBusinessCategory().getBusinessCategoryId())
             );
@@ -210,43 +210,46 @@ public class PackageSImpl implements PackageS {
         return packageItemDTOS;
     }
 
-    @Override
-    public PackageItemDTO getPackageItemSelected(String packageItemId) {
-        Optional<PackageItem> packageItemOptional = packageR.findById(packageItemId);
-        if (packageItemOptional.isPresent()) {
-            PackageItem packageItem = packageItemOptional.get();
-            PackageItemDTO packageItemDTO = new PackageItemDTO(packageItem);
-            List<PackageItemItemDTO> packageItemItemDTOS = new ArrayList<>();
-            for (PackageItemItem packageItemItem : packageItem.getPackageItemItems()) {
-//                PackageItem packageItemObj = packageItemItem.getPackageItem();
-
-                ItemPackageDTO itemPackageDTO = new ItemPackageDTO(packageItemItem.getItem().getItemPackage());
-                itemPackageDTO.setBusinessProfileCategory(packageItemItem.getItem().getItemPackage());
-                itemPackageDTO.setItemPackageItemPackageFeatures(packageItemItem.getItem().getItemPackage());
-                itemPackageDTO.setItemPackageImages(packageItemItem.getItem().getItemPackage());
-////            itemDTO.setItemFeatures(item);
-////            if (itemPackage.getItemPackageType().equals("Item")) {
-////                itemPackageDTO.getItemDTO().setItemCategory(itemPackage.getItem());
-////            }
-//                itemPackageDTO.setOrderDetail(new OrderDetailDTO());
-                PackageItemItemDTO packageItemItemDTO = new PackageItemItemDTO();
-                packageItemItemDTO.setItemId(packageItemItem.getItem().getItemId());
-                packageItemItemDTO.setName(packageItemItem.getItem().getItemPackage().getName());
-                packageItemItemDTO.setPackageItem(new PackageItemDTO(packageItemItem.getPackageItem()));
-                packageItemItemDTO.setItem(new ItemDTO().setItemPackageToItem(itemPackageDTO));
-                packageItemItemDTOS.add(packageItemItemDTO);
-            }
-            packageItemDTO.setPackageItemItems(packageItemItemDTOS);
-            packageItemDTO.setItemPackage(new ItemPackageDTO(packageItem.getItemPackage()));
-            ItemPackageDTO itemPackageDTO = packageItemDTO.getItemPackage();
-            itemPackageDTO.setBusinessProfileCategory(packageItem.getItemPackage());
-            itemPackageDTO.setItemPackageItemPackageFeatures(packageItem.getItemPackage());
-            itemPackageDTO.setItemPackageImages(packageItem.getItemPackage());
-            itemPackageDTO.setOrderDetail(new OrderDetailDTO());
-            return packageItemDTO;
-        }
-        return null;
-    }
+//    @Override
+//    public PackageItemDTO getPackageItemSelected(String packageItemId) {
+//        Optional<PackageItem> packageItemOptional = packageR.findById(packageItemId);
+//        if (packageItemOptional.isPresent()) {
+//            PackageItem packageItem = packageItemOptional.get();
+//            PackageItemDTO packageItemDTO = new PackageItemDTO(packageItem);
+//            packageItemDTO.setItemPackage(new ItemPackageDTO(packageItem.getItemPackage()));
+//            ItemPackageDTO itemPackageDTO = packageItemDTO.getItemPackage();
+//            itemPackageDTO.setBusinessProfileCategory(packageItem.getItemPackage());
+//            itemPackageDTO.setItemPackageItemPackageFeatures(packageItem.getItemPackage());
+//            itemPackageDTO.setItemPackageImages(packageItem.getItemPackage());
+//            itemPackageDTO.setOrderDetail(new OrderDetailDTO());
+//
+//            List<PackageItemItemDTO> packageItemItemDTOS = new ArrayList<>();
+//            for (PackageItemItem packageItemItem : packageItem.getPackageItemItems()) {
+////                PackageItem packageItemObj = packageItemItem.getPackageItem();
+//                PackageItemItemDTO packageItemItemDTO = new PackageItemItemDTO(packageItemItem.getPackageItem(),packageItemItem.getItem());
+////                packageItemItemDTO.setItemId(packageItemItem.getItem().getItemId());
+////                packageItemItemDTO.setName(packageItemItem.getItem().getItemPackage().getName());
+////                packageItemItemDTO.setPackageItem(packageItemDTO);
+////                packageItemItemDTO.setItem(packageItemItem.getItem());
+//
+//                ItemPackageDTO itemPackageItemDTO = new ItemPackageDTO(packageItemItem.getItem().getItemPackage());
+//                itemPackageItemDTO.setBusinessProfileCategory(packageItemItem.getItem().getItemPackage());
+//                itemPackageItemDTO.setItemPackageItemPackageFeatures(packageItemItem.getItem().getItemPackage());
+//                itemPackageItemDTO.setItemPackageImages(packageItemItem.getItem().getItemPackage());
+//                packageItemItemDTO.getItem().setItemPackage(itemPackageItemDTO);
+//////            itemDTO.setItemFeatures(item);
+//////            if (itemPackage.getItemPackageType().equals("Item")) {
+//////                itemPackageDTO.getItemDTO().setItemCategory(itemPackage.getItem());
+//////            }
+////                itemPackageDTO.setOrderDetail(new OrderDetailDTO());
+//
+//                packageItemItemDTOS.add(packageItemItemDTO);
+//            }
+//            packageItemDTO.setPackageItemItems(packageItemItemDTOS);
+//            return packageItemDTO;
+//        }
+//        return null;
+//    }
 
     @Override
     public boolean removePackage(String packageItemId) throws Exception {

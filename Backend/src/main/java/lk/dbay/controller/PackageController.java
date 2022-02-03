@@ -70,9 +70,9 @@ public class PackageController {
         return ResponseEntity.ok(packageS.getPackageItemsOrdered(businessProfileId, businessCategoryId, start, limit));
     }
 
-    @GetMapping(value = "/getPackageItemSelected/{itemPackageId}")
-    public ResponseEntity getPackageItemSelected(@PathVariable String itemPackageId) {
-        return ResponseEntity.ok(packageS.getPackageItemSelected(itemPackageId));
-    }
+//    @GetMapping(value = "/getPackageItemSelected/{itemPackageId}")
+//    public ResponseEntity getPackageItemSelected(@PathVariable String itemPackageId) {
+//        return ResponseEntity.ok(packageS.getPackageItemSelected(itemPackageId));
+//    }
 
 }

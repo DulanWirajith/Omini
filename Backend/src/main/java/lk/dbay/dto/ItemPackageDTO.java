@@ -28,14 +28,16 @@ public class ItemPackageDTO extends DateTimeDTO {
     private String discountType;
     private boolean confirmed;
     private boolean available;
-//    private List<ItemItemPackageDTO> itemItemPackages;
+    //    private List<ItemItemPackageDTO> itemItemPackages;
     private List<ItemPackageImageDTO> itemPackageImages;
     private List<ItemPackageItemPackageFeatureDTO> itemPackageItemPackageFeatures;
     private BusinessProfileCategoryDTO businessProfileCategory;
     private OrderDetailDTO orderDetail;
-    private ItemDTO itemDTO;
+    private ItemDTO item;
+    private PackageItemDTO packageItem;
     private List<ItemPackageDTO> items;
     private List<ItemPackageDTO> itemPackages;
+    private String itemPackageType;
 //    private boolean favourite;
 
     public ItemPackageDTO(ItemPackage itemPackage) {
@@ -50,6 +52,7 @@ public class ItemPackageDTO extends DateTimeDTO {
             this.confirmed = itemPackage.isConfirmed();
             this.available = itemPackage.isAvailable();
             this.makeToOrder = itemPackage.isMakeToOrder();
+            this.itemPackageType = itemPackage.getItemPackageType();
 //            this.favourite = itemPackage.isFavourite();
             if (this.discountType.equals("Cash")) {
                 this.discountedPrice = (this.price - this.discount);

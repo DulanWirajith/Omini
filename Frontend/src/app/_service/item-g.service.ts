@@ -9,19 +9,23 @@ import {environment} from "../../environments/environment";
 })
 export class ItemGService {
 
-  itemSub = new Subject<any>();
+  // itemSub = new Subject<any>();
   itemPackageSub = new Subject<any>();
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
-  getItemSelected(itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  getItemPackageSelected(itemId, type): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type);
   }
 
-  getPackageItemSelected(itemPackageId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
-  }
+  // getItemSelected(itemId): Observable<any> {
+  //   return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  // }
+  //
+  // getPackageItemSelected(itemPackageId): Observable<any> {
+  //   return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
+  // }
 
   addItemReview(itemReview): Observable<any> {
     return this.http.post<any>(environment.backend_url + 'item/addItemReview', itemReview);

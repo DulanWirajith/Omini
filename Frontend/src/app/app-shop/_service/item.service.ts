@@ -79,17 +79,21 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item_package/setItemPackageAvailable/' + itemId);
   }
 
-  getItemSelected(itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  getItemPackageSelected(itemId, type): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type);
   }
+
+  // getItemSelected(itemId): Observable<any> {
+  //   return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
+  // }
 
   getItemCategorySelected(categoryId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'category/getItemCategorySelected/' + categoryId);
   }
 
-  getPackageItemSelected(itemPackageId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
-  }
+  // getPackageItemSelected(itemPackageId): Observable<any> {
+  //   return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
+  // }
 
   getItemOrders(businessProfileId, businessCategoryId, status, from, to): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_order/getItemOrders/' + businessProfileId + '/' + businessCategoryId + '/' + status + '/' + from + '/' + to);

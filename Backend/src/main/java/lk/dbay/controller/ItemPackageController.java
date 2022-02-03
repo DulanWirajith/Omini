@@ -23,7 +23,7 @@ public class ItemPackageController {
 //        return ResponseEntity.ok(itemPackageS.getItems());
 //    }
 
-//    @GetMapping(value = "/getItemPackagesBusinessCategory/{businessProfileId}/{businessCategoryId}")
+    //    @GetMapping(value = "/getItemPackagesBusinessCategory/{businessProfileId}/{businessCategoryId}")
 //    public ResponseEntity getItemPackagesBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
 //        return ResponseEntity.ok(itemPackageS.getItemsPackageBusinessCategory(businessProfileId, businessCategoryId));
 //    }
@@ -53,6 +53,10 @@ public class ItemPackageController {
         return ResponseEntity.ok(itemPackageS.getItemsPackagesBySearch(txt, category));
     }
 
+    @GetMapping(value = "/getItemPackageSelected/{itemId}/{type}")
+    public ResponseEntity getItemPackageSelected(@PathVariable String itemId, @PathVariable String type) {
+        return ResponseEntity.ok(itemPackageS.getItemPackageSelected(itemId, type));
+    }
 
 //    @GetMapping(value = "/itemImg/{id}")
 //    public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {

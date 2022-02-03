@@ -49,10 +49,10 @@ export class BaManageItemViewComponent implements OnInit {
     })
     // console.log(this.items[index])
     if (this.items[index].itemPackageItemPackageFeatures === undefined) {
-      this.itemService.getItemSelected(item.itemId).subscribe((item) => {
+      this.itemService.getItemPackageSelected(item.itemId, 'Item').subscribe((itemPackage) => {
         // Object.assign(this.items[index], item)
         console.log(item)
-        item.itemPackage.itemImgsRaw = [];
+        itemPackage.item.itemPackage.itemImgsRaw = [];
         // item.itemItemFeatures = [];
         // item.businessProfileCategory = {
         //   businessProfile: undefined,
@@ -65,8 +65,8 @@ export class BaManageItemViewComponent implements OnInit {
         // } else if (item.itemDiscountType === "Percentage") {
         //   item.itemDiscountView = item.itemDiscount + "%";
         // }
-        this.items[index] = item;
-        this.itemService.itemFeaturesSub.next(item.itemFeatures);
+        this.items[index] = itemPackage.item;
+        this.itemService.itemFeaturesSub.next(itemPackage.item.itemFeatures);
         this.itemService.itemSub.next({
           items: this.items,
           item: this.items[index],

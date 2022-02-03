@@ -14,7 +14,7 @@ public interface PackageS {
 
     List<PackageItemDTO> getPackageItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
 
-    PackageItemDTO getPackageItemSelected(String packageItemId);
+//    PackageItemDTO getPackageItemSelected(String packageItemId);
 
     boolean removePackage(String packageItemId) throws Exception;
 }

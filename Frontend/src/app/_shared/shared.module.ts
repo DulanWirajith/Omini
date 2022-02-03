@@ -58,7 +58,7 @@ const customNotifierOptions: NotifierOptions = {
 const components = [
   HeaderComponent,
   ConfirmPasswordDirective,
-  ItemDetailViewComponent,
+  // ItemDetailViewComponent,
   ItemPackageDetailViewComponent
   // NotifierModule.withConfig(customNotifierOptions)
   // LoginComponent

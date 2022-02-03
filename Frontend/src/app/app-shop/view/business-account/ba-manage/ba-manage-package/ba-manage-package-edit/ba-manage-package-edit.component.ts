@@ -200,20 +200,20 @@ export class BaManagePackageEditComponent implements OnInit {
     })
     //console.log($(obj).val())
     // if (that.packageItems[index] !== undefined && that.packageItems[index].itemItemPackages === undefined) {
-    that.itemService.getPackageItemSelected($(obj).val()).subscribe((packageItemObj) => {
+    that.itemService.getItemPackageSelected($(obj).val(),'Package').subscribe((itemPackage) => {
       // console.log(index)
       // that.categories[index] = category;
-      Object.assign(that.packageItems[index], packageItemObj)
+      Object.assign(that.packageItems[index], itemPackage.packageItem)
       // that.getItems(that.packageItems[index])
       // that.getItemPackageFeatures(that.packageItems[index])
       that.packageItems[index].itemPackage.itemImgsRaw = [];
-      that.packageItems[index].tempBusinessCategory = packageItemObj.itemPackage.businessProfileCategory.businessCategory;
+      that.packageItems[index].tempBusinessCategory = itemPackage.packageItem.itemPackage.businessProfileCategory.businessCategory;
       that.packageItems[index].items = [];
-      for (let item of packageItemObj.packageItemItems) {
+      for (let item of itemPackage.packageItem.packageItemItems) {
         // console.log(item)
         that.packageItems[index].items.push(item.item);
       }
-      that.packageItems[index].tempItems = packageItemObj.packageItemItems;
+      that.packageItems[index].tempItems = itemPackage.packageItem.packageItemItems;
       console.log(that.packageItems[index])
       // for (let i = 0; i < that.categories.length; i++) {
       //   if (that.categories[i].itemCategoryId === $(obj).val()) {

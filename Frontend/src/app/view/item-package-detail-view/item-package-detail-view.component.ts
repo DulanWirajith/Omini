@@ -45,11 +45,18 @@ export class ItemPackageDetailViewComponent implements OnInit {
   }
 
   getPackageItemSelected(itemPackage) {
+    console.log(itemPackage)
     if (document.getElementById('package-back-btn') !== null) {
       document.getElementById('package-back-btn').click()
     }
-    this.itemService.getPackageItemSelected(itemPackage.itemPackageId).subscribe((itemPackageObj) => {
-      this.itemPackage = itemPackageObj;
+    this.itemService.getItemPackageSelected(itemPackage.itemPackageId, itemPackage.itemPackageType).subscribe((itemPackageObj) => {
+      if (itemPackage.itemPackageType === 'Item') {
+        this.itemPackage = itemPackageObj.item.itemPackage;
+      } else if (itemPackage.itemPackageType === 'Package') {
+        this.itemPackage = itemPackageObj.packageItem.itemPackage;
+        this.itemPackage.packageItemItems = itemPackageObj.packageItem.packageItemItems;
+      }
+      console.log(this.itemPackage)
       if (itemPackage.orderDetail !== undefined) {
         this.itemPackage.orderDetail.quantity = itemPackage.orderDetail.quantity
       }
@@ -122,11 +129,13 @@ export class ItemPackageDetailViewComponent implements OnInit {
     })
   }
 
-  getItemSelected(item) {
-    this.itemService.itemSub.next({
-      item: item,
-      backBtn: 'item-package-viewer-g'
-    });
+  getItemPackageSelected(itemPackage) {
+    // this.itemService.itemPackageSub.next({
+    //   itemPackage: itemPackage,
+    //   backBtn: 'item-package-viewer-g'
+    // });
+    this.itemPackage = itemPackage;
+    this.getAlbum(this.itemPackage);
   }
 
   open(index: number): void {
@@ -141,7 +150,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
 
   getAlbum(imageList) {
     let promises = [];
-    imageList.itemPackageImgs.forEach(element => {
+    imageList.itemPackageImages.forEach(element => {
       promises.push(this.setAlbum(element));
     });
     Promise.all(promises).then((result: []) => {
@@ -153,9 +162,9 @@ export class ItemPackageDetailViewComponent implements OnInit {
   setAlbum(img) {
     return new Promise((resolve, reject) => {
       resolve({
-        src: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemPackageImgName),
-        caption: img.itemPackageImgId,
-        thumb: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.itemPackageImgName)
+        src: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.imageName),
+        caption: img.itemPackageImageId,
+        thumb: this.sanitizer.bypassSecurityTrustUrl(environment.image_url + img.imageName)
       })
     });
   }
@@ -177,7 +186,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
   getImageSrc(itemPackageImage) {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
-    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.itemImageName);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.imageName);
   }
 
   firstImg = 0;
@@ -198,14 +207,15 @@ export class ItemPackageDetailViewComponent implements OnInit {
         businessProfile: undefined,
         businessCategory: undefined
       },
+      itemPackageType: '',
       isNewPackage: false,
       isUpdatePackage: false,
-      itemItemPackages: [],
+      packageItemItems: [],
       items: [],
       itemPackageItemPackageFeatures: [],
       itemPackageItemPackageFeature: "",
       itemPkgImgs: [],
-      itemPackageImgs: [],
+      itemPackageImages: [],
       tempBusinessCategory: undefined,
       tempItems: [],
       tempItemFeatures: []

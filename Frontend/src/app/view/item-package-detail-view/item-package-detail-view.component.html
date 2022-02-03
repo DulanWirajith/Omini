@@ -4,7 +4,8 @@
     <div class="d-flex align-items-center justify-content-between">
       <div style="display: flex">
         <h2 class="h5 mb-0" style="margin-right: 15px">{{itemPackage.name}}</h2>
-        <span class="badge rounded-pill bg-success" style="padding-top: 7px"> Package </span>
+        <span *ngIf="itemPackage.itemPackageType==='Item'" class="badge rounded-pill bg-info" style="padding-top: 7px"> Item </span>
+        <span *ngIf="itemPackage.itemPackageType==='Package'" class="badge rounded-pill bg-success" style="padding-top: 7px"> Package </span>
       </div>
       <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
     </div>
@@ -123,7 +124,7 @@
         <div class="row" style="margin-top: 10px">
           <p class="mb-2 fs-sm text-dark fw-bold">Includes </p>
           <!--Item-->
-          <div class="col-sm-12 col-md-6 col-xl-6" *ngFor="let itemItemPackage of itemPackage.itemItemPackages">
+          <div class="col-sm-12 col-md-6 col-xl-6" *ngFor="let packageItemItem of itemPackage.packageItemItems">
             <div class="card shadow-sm card-hover border-0 h-100">
               <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.25)">
                 <a class="img-overlay"></a>
@@ -139,7 +140,7 @@
                 <!--</div>-->
 
                 <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-                  <mdb-carousel-item *ngFor="let image of itemItemPackage.item.itemPackageImages">
+                  <mdb-carousel-item *ngFor="let image of packageItemItem.item.itemPackage.itemPackageImages">
                     <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
                     <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
                          alt="First slide">
@@ -151,10 +152,9 @@
 
                 <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
                 <h3 class="h6 mb-2 fs-base">
-                  <a class="nav-link" data-bs-toggle="offcanvas"
-                     (click)="getItemSelected(itemItemPackage.item)"
-                     data-bs-target="#item-viewer-g"
-                     style="font-weight: bold;padding: 0px">{{itemItemPackage.item.name}}</a></h3>
+                  <a class="nav-link"
+                     (click)="getItemPackageSelected(packageItemItem.item.itemPackage)"
+                     style="font-weight: bold;padding: 0px">{{packageItemItem.item.itemPackage.name}}</a></h3>
                 <!-- <div class="d-flex align-items-center text-nowrap">
                   <p class="mb-2 fs-sm text-muted">Quantity </p>
                   <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
@@ -162,36 +162,36 @@
                 <div class="row g-2">
 
                 </div>
-                <div class="row cols-sm-2 row-cols-md-12"
-                     style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
-                  <div class="col" style="padding: 0px">
-                    <div style="border-right: 1px solid #d3d3d3">
-                      <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
-                        Quantity </p>
-                      <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
-                        {{itemItemPackage.item.quantity}}</p>
-                    </div>
-                  </div>
-                  <div class="col" style="padding: 0px">
-                    <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
-                      Discount </p>
-                    <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
-                      {{itemItemPackage.item.discountType==='None' ? 'N/A' :
-                      itemItemPackage.item.discountType==='Cash' ? ('LKR '+itemItemPackage.item.discount) :
-                      itemItemPackage.item.discountType==='Percentage' ? (itemItemPackage.item.discount + '%') : ''}}
-                    </p>
-                    <!--<p *ngIf="item.itemDiscountType==='None'" class="mb-2 fs-sm text-primary fw-bold">N/A</p>-->
-                    <!--<p *ngIf="item.itemDiscountType==='Cash'" class="mb-2 fs-sm text-primary fw-bold">{{"LKR " + item.itemDiscount}}</p>-->
-                    <!--<p *ngIf="item.itemDiscountType==='Percentage'" class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount + "%"}}</p>-->
-                  </div>
-                </div>
-                <div class="fw-bold">
-                  <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
-                  <span *ngIf="itemItemPackage.item.discountType==='None'">LKR {{itemItemPackage.item.price | number:'.2-2'}}</span>
-                  <span *ngIf="itemItemPackage.item.discountType!=='None'"
-                        style="text-decoration: line-through;color: red">LKR {{itemItemPackage.item.price | number:'.2-2'}}</span>
-                  <span *ngIf="itemItemPackage.item.discountType!=='None'" style="margin-left: 10px">LKR {{itemItemPackage.item.discountedPrice | number:'.2-2'}}</span>
-                </div>
+                <!--<div class="row cols-sm-2 row-cols-md-12"-->
+                     <!--style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">-->
+                  <!--<div class="col" style="padding: 0px">-->
+                    <!--<div style="border-right: 1px solid #d3d3d3">-->
+                      <!--<p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">-->
+                        <!--Quantity </p>-->
+                      <!--<p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">-->
+                        <!--{{packageItemItem.item.itemPackage.quantity}}</p>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="col" style="padding: 0px">-->
+                    <!--<p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">-->
+                      <!--Discount </p>-->
+                    <!--<p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">-->
+                      <!--{{packageItemItem.item.itemPackage.discountType==='None' ? 'N/A' :-->
+                      <!--packageItemItem.item.itemPackage.discountType==='Cash' ? ('LKR '+packageItemItem.item.itemPackage.discount) :-->
+                      <!--packageItemItem.item.itemPackage.discountType==='Percentage' ? (packageItemItem.item.itemPackage.discount + '%') : ''}}-->
+                    <!--</p>-->
+                    <!--&lt;!&ndash;<p *ngIf="item.itemDiscountType==='None'" class="mb-2 fs-sm text-primary fw-bold">N/A</p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<p *ngIf="item.itemDiscountType==='Cash'" class="mb-2 fs-sm text-primary fw-bold">{{"LKR " + item.itemDiscount}}</p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<p *ngIf="item.itemDiscountType==='Percentage'" class="mb-2 fs-sm text-primary fw-bold">{{item.itemDiscount + "%"}}</p>&ndash;&gt;-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="fw-bold">-->
+                  <!--<i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>-->
+                  <!--<span *ngIf="packageItemItem.item.itemPackage.discountType==='None'">LKR {{packageItemItem.item.itemPackage.price | number:'.2-2'}}</span>-->
+                  <!--<span *ngIf="packageItemItem.item.itemPackage.discountType!=='None'"-->
+                        <!--style="text-decoration: line-through;color: red">LKR {{packageItemItem.item.itemPackage.price | number:'.2-2'}}</span>-->
+                  <!--<span *ngIf="packageItemItem.item.itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{packageItemItem.item.itemPackage.discountedPrice | number:'.2-2'}}</span>-->
+                <!--</div>-->
               </div>
               <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
               <!--<div class="form-check form-switch">-->

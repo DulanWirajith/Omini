@@ -50,7 +50,7 @@ public class ItemOrderSImpl implements ItemOrderS {
 //        } else
         if (orderDetail.getItemPackage() != null) {
             orderDetail.setOrderDetailId("ODD" + orderDetail.getItemOrder().getOrderId() + orderDetail.getItemPackage().getItemPackageId());
-            orderDetail.setOrderDetailType("ItemPackage");
+            orderDetail.setOrderDetailType("Package");
         }
 //        orderDetail.getItemOrder().getOrderDetails().add(orderDetail);
         orderDetailR.save(orderDetail);
@@ -115,7 +115,7 @@ public class ItemOrderSImpl implements ItemOrderS {
 //                    itemDTO.setBusinessProfileCategory(businessProfileCategoryDTO);
 //                    orderDetailDTO.setItem(itemDTO);
 //                } else
-                if (orderDetail.getOrderDetailType().equals("ItemPackage")) {
+                if (orderDetail.getOrderDetailType().equals("Package")) {
                     ItemPackageDTO itemPackageDTO = new ItemPackageDTO(orderDetail.getItemPackage());
                     BusinessProfileCategoryDTO businessProfileCategoryDTO = new BusinessProfileCategoryDTO(orderDetail.getItemPackage().getBusinessProfileCategory().getBusinessProfile(), orderDetail.getItemPackage().getBusinessProfileCategory().getBusinessCategory());
                     itemPackageDTO.setBusinessProfileCategory(businessProfileCategoryDTO);
@@ -136,7 +136,7 @@ public class ItemOrderSImpl implements ItemOrderS {
 //        if (orderDetail.getOrderDetailType().equals("Item")) {
 //            itemId = orderDetail.getItem().getItemId();
 //        } else
-        if (orderDetail.getOrderDetailType().equals("ItemPackage")) {
+        if (orderDetail.getOrderDetailType().equals("Package")) {
             itemId = orderDetail.getItemPackage().getItemPackageId();
         }
         Optional<OrderDetail> orderDetailOptional = orderDetailR.findById("ODD" + orderDetail.getItemOrder().getOrderId() + itemId);
@@ -194,7 +194,7 @@ public class ItemOrderSImpl implements ItemOrderS {
 //                        }
 //                    }
 //                } else
-                if (orderDetail.getOrderDetailType().equals("ItemPackage") && !orderDetail.isMakeToOrder()) {
+                if (orderDetail.getOrderDetailType().equals("Package") && !orderDetail.isMakeToOrder()) {
                     Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(orderDetail.getItemPackage().getItemPackageId());
                     if (itemPackageOptional.isPresent()) {
                         ItemPackage itemPackage = itemPackageOptional.get();
@@ -339,7 +339,7 @@ public class ItemOrderSImpl implements ItemOrderS {
 //
 //                    } else
                     if (itemOrderDetail.getItemPackage() != null) {
-                        orderDetailDTO.setOrderDetailType("ItemPackage");
+                        orderDetailDTO.setOrderDetailType("Package");
                         orderDetailDTO.setItemPackage(new ItemPackageDTO(itemOrderDetail.getItemPackage()));
                         if (needBusinessProfile) {
                             orderDetailDTO.setBusinessProfileCategory(itemOrderDetail);

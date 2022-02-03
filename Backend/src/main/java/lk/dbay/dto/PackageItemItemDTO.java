@@ -29,4 +29,10 @@ public class PackageItemItemDTO extends DateTimeDTO {
             this.item = new ItemDTO(item);
         }
     }
+
+    public void setItem(Item item) {
+        if (item != null) {
+            this.item = new ItemDTO(item);
+        }
+    }
 }
