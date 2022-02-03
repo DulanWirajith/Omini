@@ -23,6 +23,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
   review = false;
   itemPackageReview;
   itemPackageReviews = [];
+  prevItemPackage;
   @ViewChild('reviewForm', {static: true}) public reviewForm: NgForm;
 
   constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
@@ -129,13 +130,21 @@ export class ItemPackageDetailViewComponent implements OnInit {
     })
   }
 
-  getItemPackageSelected(itemPackage) {
+  getItemPackageSelected(prevItemPackage, itemPackage) {
     // this.itemService.itemPackageSub.next({
     //   itemPackage: itemPackage,
     //   backBtn: 'item-package-viewer-g'
     // });
     this.itemPackage = itemPackage;
+    this.prevItemPackage = prevItemPackage;
     this.getAlbum(this.itemPackage);
+    this.itemPackageObj.backBtn = true;
+  }
+
+  goBack() {
+    this.itemPackage = this.prevItemPackage;
+    this.itemPackageObj.backBtn = undefined;
+    this.getAlbum(this.prevItemPackage);
   }
 
   open(index: number): void {
