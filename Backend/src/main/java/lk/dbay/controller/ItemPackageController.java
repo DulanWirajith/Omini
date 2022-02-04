@@ -1,5 +1,7 @@
 package lk.dbay.controller;
 
+import lk.dbay.dto.ItemPackageReviewDTO;
+import lk.dbay.entity.item.ItemPackageReview;
 import lk.dbay.service.ItemPackageS;
 import lk.dbay.service.ItemS;
 import lk.dbay.util.CommonConstants;
@@ -56,6 +58,47 @@ public class ItemPackageController {
     @GetMapping(value = "/getItemPackageSelected/{itemId}/{type}")
     public ResponseEntity getItemPackageSelected(@PathVariable String itemId, @PathVariable String type) {
         return ResponseEntity.ok(itemPackageS.getItemPackageSelected(itemId, type));
+    }
+
+    // Item Review
+
+    @PostMapping(value = "/addItemPackageReview")
+    public ResponseEntity addItemPackageReview(@RequestBody ItemPackageReview itemPackageReview) {
+        try {
+            ItemPackageReviewDTO itemPackageReviewDTO = itemPackageS.addItemPackageReview(itemPackageReview);
+            if (itemPackageReviewDTO != null) {
+                return ResponseEntity.ok(itemPackageReviewDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+//    @PostMapping(value = "/addItemResponse")
+//    public ResponseEntity addItemReviewResponse(@RequestBody ItemPackageReviewResponse itemReviewResponse) {
+//        try {
+//            ItemReviewResponseDTO itemReviewResponseDTO = itemS.addItemReviewResponse(itemReviewResponse);
+//            if (itemReviewResponseDTO != null) {
+//                return ResponseEntity.ok(itemReviewResponseDTO);
+//            } else {
+//                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+//            }
+//        } catch (DataIntegrityViolationException e) {
+//            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
+
+    @GetMapping(value = "/getItemPackageReviews/{itemId}/{customerId}/{reviewType}")
+    public ResponseEntity getItemPackageReviews(@PathVariable String itemId, @PathVariable String customerId, @PathVariable String reviewType) {
+        return ResponseEntity.ok(itemPackageS.getItemPackageReviews(itemId, customerId, reviewType));
     }
 
 //    @GetMapping(value = "/itemImg/{id}")

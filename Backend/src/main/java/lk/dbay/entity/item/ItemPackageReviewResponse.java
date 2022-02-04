@@ -26,7 +26,7 @@ public class ItemPackageReviewResponse extends DateTime {
     private String response;
 
     @ManyToOne(optional = false)
-    private ItemPackageReview itemReview;
+    private ItemPackageReview itemPackageReview;
 
     @ManyToOne(optional = false)
     private CustomerProfile customerProfile;

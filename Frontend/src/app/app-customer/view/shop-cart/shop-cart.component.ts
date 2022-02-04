@@ -57,19 +57,20 @@ export class ShopCartComponent implements OnInit, OnDestroy {
         if (itemOrder.orderDetails !== undefined) {
           this.shopCartService.orderDetails = itemOrder.orderDetails;
           for (let orderDetail of itemOrder.orderDetails) {
-            if (orderDetail.orderDetailType === 'Item') {
-              orderDetail.item.orderDetail = JSON.parse(JSON.stringify(orderDetail));
-              orderDetail.item.orderDetail.item = {
-                itemId: orderDetail.item.itemId,
-              };
-              this.addToCart(orderDetail.item);
-            } else if (orderDetail.orderDetailType === 'ItemPackage') {
+            // if (orderDetail.orderDetailType === 'Item') {
+            //   orderDetail.item.orderDetail = JSON.parse(JSON.stringify(orderDetail));
+            //   orderDetail.item.orderDetail.item = {
+            //     itemId: orderDetail.item.itemId,
+            //   };
+            //   this.addToCart(orderDetail.item);
+            // } else if (orderDetail.orderDetailType === 'ItemPackage') {
+            // console.log(orderDetail)
               orderDetail.itemPackage.orderDetail = JSON.parse(JSON.stringify(orderDetail));
               orderDetail.itemPackage.orderDetail.itemPackage = {
                 itemPackageId: orderDetail.itemPackage.itemPackageId,
               };
               this.addToCart(orderDetail.itemPackage);
-            }
+            // }
           }
           this.shopCartService.initShopCartSub.next(itemOrder.orderDetails);
           this.shopCartService.shopCart = this.shopCart;
@@ -119,11 +120,11 @@ export class ShopCartComponent implements OnInit, OnDestroy {
           orderDetail.makeToOrder = item.makeToOrder;
           orderDetail.price = item.discountedPrice;
           orderDetail.itemOrder.orderDetails = [];
-          if (orderDetail.orderDetailType === 'Item') {
-            orderDetail.item = JSON.parse(JSON.stringify(item));
-          } else if (orderDetail.orderDetailType === 'ItemPackage') {
+          // if (orderDetail.orderDetailType === 'Item') {
+          //   orderDetail.item = JSON.parse(JSON.stringify(item));
+          // } else if (orderDetail.orderDetailType === 'ItemPackage') {
             orderDetail.itemPackage = JSON.parse(JSON.stringify(item));
-          }
+          // }
           orderDetail.businessProfileCategory = item.businessProfileCategory;
           this.shopCartService.addOrderDetail(orderDetail).subscribe((orderDetailR) => {
             //console.log(orderDetail.orderDetailId)
@@ -149,11 +150,11 @@ export class ShopCartComponent implements OnInit, OnDestroy {
           return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
         })
         let orderDetail = JSON.parse(JSON.stringify(item.orderDetail));
-        if (orderDetail.orderDetailType === 'Item') {
-          orderDetail.item = JSON.parse(JSON.stringify(item));
-        } else if (orderDetail.orderDetailType === 'ItemPackage') {
+        // if (orderDetail.orderDetailType === 'Item') {
+        //   orderDetail.item = JSON.parse(JSON.stringify(item));
+        // } else if (orderDetail.orderDetailType === 'ItemPackage') {
           orderDetail.itemPackage = JSON.parse(JSON.stringify(item));
-        }
+        // }
         orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
         orderDetail.itemOrder.orderDetails = [];
         orderDetail.businessProfileCategory = item.businessProfileCategory;
@@ -222,21 +223,21 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     if (this.itemOrder.orderId !== '') {
       this.shopCartService.placeOrder(this.itemOrder).subscribe((reply) => {
         for (let orderDetail of this.itemOrder.orderDetails) {
-          if (orderDetail.orderDetailType === 'Item') {
-            if (!orderDetail.makeToOrder) {
-              orderDetail.item.quantity -= orderDetail.quantity;
-            }
-            orderDetail.item.orderDetail.quantity = 0;
-            orderDetail.orderDetailId = undefined;
-            this.shopCartService.shopCartItemsSub.next(orderDetail.item);
-          } else if (orderDetail.orderDetailType === 'ItemPackage') {
+          // if (orderDetail.orderDetailType === 'Item') {
+          //   if (!orderDetail.makeToOrder) {
+          //     orderDetail.item.quantity -= orderDetail.quantity;
+          //   }
+          //   orderDetail.item.orderDetail.quantity = 0;
+          //   orderDetail.orderDetailId = undefined;
+          //   this.shopCartService.shopCartItemsSub.next(orderDetail.item);
+          // } else if (orderDetail.orderDetailType === 'ItemPackage') {
             if (!orderDetail.makeToOrder) {
               orderDetail.itemPackage.quantity -= orderDetail.quantity;
             }
             orderDetail.itemPackage.orderDetail.quantity = 0;
             orderDetail.orderDetailId = undefined;
             this.shopCartService.shopCartItemsSub.next(orderDetail.itemPackage);
-          }
+          // }
         }
         this.itemOrder = this.shopCartService.getNewItemOrder();
         this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;

@@ -27,15 +27,15 @@ export class ItemGService {
   //   return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
   // }
 
-  addItemReview(itemReview): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'item/addItemReview', itemReview);
+  addItemPackageReview(itemReview): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'item_package/addItemPackageReview', itemReview);
   }
 
-  addItemResponse(itemReviewResponse): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'item/addItemResponse', itemReviewResponse);
+  addItemPackageResponse(itemReviewResponse): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'item_package/addItemPackageResponse', itemReviewResponse);
   }
 
-  getItemReviews(itemId, customerId, reviewType): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemReviews/' + itemId + '/' + customerId + '/' + reviewType);
+  getItemPackageReviews(itemId, customerId, reviewType): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageReviews/' + itemId + '/' + customerId + '/' + reviewType);
   }
 }

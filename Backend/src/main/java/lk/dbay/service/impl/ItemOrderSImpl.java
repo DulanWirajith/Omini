@@ -27,6 +27,7 @@ public class ItemOrderSImpl implements ItemOrderS {
     private ItemPackageR itemPackageR;
 
     @Override
+    @Transactional
     public OrderDetailDTO addOrderDetail(OrderDetail orderDetail) {
         if (orderDetail.getItemOrder().getOrderId().equals("")) {
             LocalDateTime localDateTime = LocalDateTime.now();
@@ -48,10 +49,10 @@ public class ItemOrderSImpl implements ItemOrderS {
 //            orderDetail.setOrderDetailId("ODD" + orderDetail.getItemOrder().getOrderId() + orderDetail.getItem().getItemId());
 //            orderDetail.setOrderDetailType("Item");
 //        } else
-        if (orderDetail.getItemPackage() != null) {
+//        if (orderDetail.getItemPackage() != null) {
             orderDetail.setOrderDetailId("ODD" + orderDetail.getItemOrder().getOrderId() + orderDetail.getItemPackage().getItemPackageId());
-            orderDetail.setOrderDetailType("Package");
-        }
+            orderDetail.setOrderDetailType(orderDetail.getItemPackage().getItemPackageType());
+//        }
 //        orderDetail.getItemOrder().getOrderDetails().add(orderDetail);
         orderDetailR.save(orderDetail);
         OrderDetailDTO orderDetailDTO = new OrderDetailDTO(orderDetail);
@@ -115,12 +116,12 @@ public class ItemOrderSImpl implements ItemOrderS {
 //                    itemDTO.setBusinessProfileCategory(businessProfileCategoryDTO);
 //                    orderDetailDTO.setItem(itemDTO);
 //                } else
-                if (orderDetail.getOrderDetailType().equals("Package")) {
+//                if (orderDetail.getOrderDetailType().equals("Package")) {
                     ItemPackageDTO itemPackageDTO = new ItemPackageDTO(orderDetail.getItemPackage());
                     BusinessProfileCategoryDTO businessProfileCategoryDTO = new BusinessProfileCategoryDTO(orderDetail.getItemPackage().getBusinessProfileCategory().getBusinessProfile(), orderDetail.getItemPackage().getBusinessProfileCategory().getBusinessCategory());
                     itemPackageDTO.setBusinessProfileCategory(businessProfileCategoryDTO);
                     orderDetailDTO.setItemPackage(itemPackageDTO);
-                }
+//                }
                 orderDetailDTOS.add(orderDetailDTO);
             }
 
@@ -132,14 +133,14 @@ public class ItemOrderSImpl implements ItemOrderS {
 
     @Override
     public OrderDetailDTO updateOrderDetail(OrderDetail orderDetail, String updateType) {
-        String itemId = "";
-//        if (orderDetail.getOrderDetailType().equals("Item")) {
-//            itemId = orderDetail.getItem().getItemId();
-//        } else
-        if (orderDetail.getOrderDetailType().equals("Package")) {
-            itemId = orderDetail.getItemPackage().getItemPackageId();
-        }
-        Optional<OrderDetail> orderDetailOptional = orderDetailR.findById("ODD" + orderDetail.getItemOrder().getOrderId() + itemId);
+//        String itemId = "";
+////        if (orderDetail.getOrderDetailType().equals("Item")) {
+////            itemId = orderDetail.getItem().getItemId();
+////        } else
+//        if (orderDetail.getOrderDetailType().equals("Package")) {
+//            itemId = orderDetail.getItemPackage().getItemPackageId();
+//        }
+        Optional<OrderDetail> orderDetailOptional = orderDetailR.findById("ODD" + orderDetail.getItemOrder().getOrderId() + orderDetail.getItemPackage().getItemPackageId());
         if (orderDetailOptional.isPresent()) {
             OrderDetail orderDetailObj = orderDetailOptional.get();
             if (updateType.equals("inc")) {

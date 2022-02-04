@@ -3,6 +3,8 @@ package lk.dbay.service;
 import lk.dbay.dto.ItemDTO;
 import lk.dbay.dto.ItemPackageDTO;
 import lk.dbay.dto.ItemPackageImageDTO;
+import lk.dbay.dto.ItemPackageReviewDTO;
+import lk.dbay.entity.item.ItemPackageReview;
 
 import java.util.List;
 
@@ -21,6 +23,10 @@ public interface ItemPackageS {
     ItemPackageDTO getItemsPackagesBySearch(String txt, String category);
 
     ItemPackageDTO getItemPackageSelected(String itemId, String type);
+
+    ItemPackageReviewDTO addItemPackageReview(ItemPackageReview itemPackageReview);
+
+    List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId, String reviewType);
 
 //    ItemReviewDTO addItemPackageReview(ItemReview itemReview);
 

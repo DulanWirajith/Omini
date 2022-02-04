@@ -74,7 +74,7 @@ export class BaManageItemComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.item.itemPackage.itemImgsRaw.length)
+    // console.log(this.item.itemPackage.itemImgsRaw.length)
     this.item.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
@@ -87,7 +87,7 @@ export class BaManageItemComponent implements OnInit {
     // let item = {
     //   itemPackage: this.item
     // }
-    console.log(this.item)
+    // console.log(this.item)
     uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
       {
         type: "application/json"

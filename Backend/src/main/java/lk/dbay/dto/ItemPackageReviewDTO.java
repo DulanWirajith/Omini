@@ -33,7 +33,7 @@ public class ItemPackageReviewDTO extends DateTimeDTO {
 
     public ItemPackageReviewDTO(ItemPackageReview itemPackageReview) {
         if (itemPackageReview != null) {
-            this.itemReviewId = itemPackageReview.getItemReviewId();
+            this.itemReviewId = itemPackageReview.getItemPackageReviewId();
             this.description = itemPackageReview.getDescription();
             if (itemPackageReview.getUpdatedAt() != null) {
                 this.postedDate = itemPackageReview.getUpdatedAt().format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));

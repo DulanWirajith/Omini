@@ -51,7 +51,7 @@ export class BaManageItemViewComponent implements OnInit {
     if (this.items[index].itemPackageItemPackageFeatures === undefined) {
       this.itemService.getItemPackageSelected(item.itemId, 'Item').subscribe((itemPackage) => {
         // Object.assign(this.items[index], item)
-        console.log(item)
+        // console.log(item)
         itemPackage.item.itemPackage.itemImgsRaw = [];
         // item.itemItemFeatures = [];
         // item.businessProfileCategory = {

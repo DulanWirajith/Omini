@@ -2,16 +2,18 @@ package lk.dbay.service.impl;
 
 import lk.dbay.dto.*;
 import lk.dbay.entity.BusinessProfileCategoryPK;
-import lk.dbay.entity.item.ItemPackage;
-import lk.dbay.entity.item.ItemPackageImage;
-import lk.dbay.entity.item.PackageItemItem;
+import lk.dbay.entity.item.*;
 import lk.dbay.repository.ItemPackageImageR;
 import lk.dbay.repository.ItemPackageR;
+import lk.dbay.repository.ItemPackageReviewR;
+import lk.dbay.repository.ItemPackageReviewResponseR;
 import lk.dbay.service.ItemPackageS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,10 @@ public class ItemPackageSImpl implements ItemPackageS {
     private ItemPackageR itemPackageR;
     @Autowired
     private ItemPackageImageR itemPackageImageR;
+    @Autowired
+    private ItemPackageReviewR itemPackageReviewR;
+    @Autowired
+    private ItemPackageReviewResponseR itemPackageReviewResponseR;
 
     @Override
     public ItemPackageImageDTO getItemPackageImage(String id) {
@@ -141,5 +147,46 @@ public class ItemPackageSImpl implements ItemPackageS {
             return itemPackageDTOObj;
         }
         return null;
+    }
+
+    @Override
+    public ItemPackageReviewDTO addItemPackageReview(ItemPackageReview itemPackageReview) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        itemPackageReview.setItemPackageReviewId("IPR" + format);
+        itemPackageReview = itemPackageReviewR.save(itemPackageReview);
+        ItemPackageReviewDTO itemPackageReviewDTO = new ItemPackageReviewDTO(itemPackageReview);
+        itemPackageReviewDTO.setCustomerProfile(itemPackageReview);
+        return itemPackageReviewDTO;
+    }
+
+    @Override
+    public List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId, String reviewType) {
+        List<ItemPackageReview> itemPackageReviews = null;
+//        if (reviewType.equals("Item")) {
+//            itemPackageReviews = itemPackageReviewR.getAllByItem_ItemIdAndReviewType(itemId, reviewType);
+//        } else if (reviewType.equals("ItemPackage")) {
+            itemPackageReviews = itemPackageReviewR.getAllByItemPackage_ItemPackageIdAndReviewType(itemId, reviewType);
+//        }
+        List<ItemPackageReviewDTO> itemPackageReviewDTOS = new ArrayList<>();
+        if (itemPackageReviews != null) {
+            for (ItemPackageReview itemPackageReview : itemPackageReviews) {
+                ItemPackageReviewDTO itemPackageReviewDTO = new ItemPackageReviewDTO(itemPackageReview);
+                List<ItemPackageReviewResponse> responses = itemPackageReviewResponseR.getAllByItemPackageReview_ItemPackageReviewId(itemPackageReview.getItemPackageReviewId());
+                for (ItemPackageReviewResponse reviewResponse : responses) {
+                    if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
+                        itemPackageReviewDTO.setResponseByMe(new ItemPackageReviewResponseDTO(reviewResponse));
+                    }
+                    if (reviewResponse.getResponse().equals("like")) {
+                        itemPackageReviewDTO.setLikeCount(itemPackageReviewDTO.getLikeCount() + 1);
+                    } else if (reviewResponse.getResponse().equals("dislike")) {
+                        itemPackageReviewDTO.setDislikeCount(itemPackageReviewDTO.getDislikeCount() + 1);
+                    }
+                }
+                itemPackageReviewDTO.setCustomerProfile(itemPackageReview);
+                itemPackageReviewDTOS.add(itemPackageReviewDTO);
+            }
+        }
+        return itemPackageReviewDTOS;
     }
 }

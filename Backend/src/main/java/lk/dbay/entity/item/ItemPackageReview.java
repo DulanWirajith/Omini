@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class ItemPackageReview extends DateTime {
 
     @Id
-    private String itemReviewId;
+    private String itemPackageReviewId;
     @Column(columnDefinition = "TEXT")
     private String description;
 

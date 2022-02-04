@@ -159,7 +159,7 @@ export class BaManagePackageComponent implements OnInit {
     }
 
     // this.itemPackage.itemItemPackages = itemItemPackages;
-    console.log(this.packageItem)
+    // console.log(this.packageItem)
     const uploadImageData = new FormData();
     for (let itemPackageImage of this.packageItem.itemPackage.itemImgsRaw) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
@@ -189,7 +189,7 @@ export class BaManagePackageComponent implements OnInit {
   getPackageItemsOrdered(businessCategoryId) {
     if (this.businessProfileCategory !== null) {
       this.itemService.getPackageItemsOrdered(this.loginService.getUser().userId, businessCategoryId, 0, 100).subscribe((packages) => {
-        console.log(packages)
+        // console.log(packages)
         this.packageItems = packages;
         for (let packageItem of this.packageItems) {
           packageItem.itemPackage.itemImgsRaw = [];

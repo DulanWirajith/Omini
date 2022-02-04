@@ -58,7 +58,7 @@ export class BaManageCategoryComponent implements OnInit {
     //   })
     // }
     // this.itemCategory.items = items;
-    console.log(this.itemCategory)
+    // console.log(this.itemCategory)
     this.itemService.addCategory(this.itemCategory).subscribe((itemCategory) => {
       // this.items.push(item)
       itemCategory.businessProfileCategory = this.itemCategory.businessProfileCategory;
@@ -111,7 +111,7 @@ export class BaManageCategoryComponent implements OnInit {
   getItems(val, itemCategory?) {
     if (val === 'n') {
       this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.itemCategory.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
-        console.log(items)
+        // console.log(items)
         this.itemsToAdd = items;
       })
     } else if (val === 'e') {

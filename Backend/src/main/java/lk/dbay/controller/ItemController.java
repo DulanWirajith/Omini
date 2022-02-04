@@ -100,46 +100,7 @@ public class ItemController {
         }
     }
 
-    // Item Review
 
-//    @PostMapping(value = "/addItemReview")
-//    public ResponseEntity addItemReview(@RequestBody ItemPackageReview itemReview) {
-//        try {
-//            ItemReviewDTO itemReviewDTO = itemS.addItemReview(itemReview);
-//            if (itemReviewDTO != null) {
-//                return ResponseEntity.ok(itemReviewDTO);
-//            } else {
-//                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
-//            }
-//        } catch (DataIntegrityViolationException e) {
-//            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//    @PostMapping(value = "/addItemResponse")
-//    public ResponseEntity addItemReviewResponse(@RequestBody ItemPackageReviewResponse itemReviewResponse) {
-//        try {
-//            ItemReviewResponseDTO itemReviewResponseDTO = itemS.addItemReviewResponse(itemReviewResponse);
-//            if (itemReviewResponseDTO != null) {
-//                return ResponseEntity.ok(itemReviewResponseDTO);
-//            } else {
-//                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
-//            }
-//        } catch (DataIntegrityViolationException e) {
-//            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//    @GetMapping(value = "/getItemReviews/{itemId}/{customerId}/{reviewType}")
-//    public ResponseEntity getItemReviews(@PathVariable String itemId, @PathVariable String customerId, @PathVariable String reviewType) {
-//        return ResponseEntity.ok(itemS.getItemReviews(itemId, customerId, reviewType));
-//    }
 
 //    @GetMapping(value = "/itemImg/{id}")
 //    public ResponseEntity<byte[]> getItemImg(@PathVariable String id) {

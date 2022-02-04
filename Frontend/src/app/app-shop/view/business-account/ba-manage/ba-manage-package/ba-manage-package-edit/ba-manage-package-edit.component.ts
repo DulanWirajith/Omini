@@ -214,7 +214,7 @@ export class BaManagePackageEditComponent implements OnInit {
         that.packageItems[index].items.push(item.item);
       }
       that.packageItems[index].tempItems = itemPackage.packageItem.packageItemItems;
-      console.log(that.packageItems[index])
+      // console.log(that.packageItems[index])
       // for (let i = 0; i < that.categories.length; i++) {
       //   if (that.categories[i].itemCategoryId === $(obj).val()) {
       //     // console.log(category)

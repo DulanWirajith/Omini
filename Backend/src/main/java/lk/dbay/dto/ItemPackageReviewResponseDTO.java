@@ -29,8 +29,8 @@ public class ItemPackageReviewResponseDTO extends DateTimeDTO {
     }
 
     public void setItemPackageReview(ItemPackageReviewResponse itemPackageReviewResponse) {
-        if (itemPackageReviewResponse.getItemReview() != null) {
-            this.itemPackageReview = new ItemPackageReviewDTO(itemPackageReviewResponse.getItemReview());
+        if (itemPackageReviewResponse.getItemPackageReview() != null) {
+            this.itemPackageReview = new ItemPackageReviewDTO(itemPackageReviewResponse.getItemPackageReview());
         }
     }
 

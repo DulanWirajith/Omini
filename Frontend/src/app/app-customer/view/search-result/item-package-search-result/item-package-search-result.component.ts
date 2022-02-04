@@ -25,16 +25,16 @@ export class ItemPackageSearchResultComponent implements OnInit {
               private notifierService: NotifierService) {
     // this.shopCartService.shopCartItemsSub.observers = [];
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
-      // console.log(item)
-      // console.log(this.items)
-      // let itemObj: any = this.items.find(itemObj => {
-      //   return itemObj.itemId === item.itemId
-      // })
-      // if (itemObj !== undefined) {
-      //   // console.log(itemObj)
-      //   itemObj.quantity = item.quantity;
-      //   itemObj.orderDetail.quantity = item.orderDetail.quantity;
-      // }
+      console.log(item)
+      console.log(this.items)
+      let itemObj: any = this.items.find(itemObj => {
+        return itemObj.itemId === item.itemId
+      })
+      if (itemObj !== undefined) {
+        // console.log(itemObj)
+        itemObj.quantity = item.quantity;
+        itemObj.orderDetail.quantity = item.orderDetail.quantity;
+      }
       let itemPackageObj: any = this.itemPackages.find(itemPackageObj => {
         return itemPackageObj.itemPackageId === item.itemPackageId
       })
@@ -50,11 +50,11 @@ export class ItemPackageSearchResultComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.itemService.searchedItemPackages)
+    // console.log(this.itemService.searchedItemPackages)
     this.items = this.itemService.searchedItemPackages.items;
     this.itemCount = this.itemService.searchedItemPackages.items.length;
     this.itemPackages = this.itemService.searchedItemPackages.itemPackages;
-    console.log(this.itemPackages)
+    // console.log(this.itemPackages)
     this.toggleBtns();
     this.setShopCart(this.shopCartService.shopCart);
   }
@@ -86,16 +86,16 @@ export class ItemPackageSearchResultComponent implements OnInit {
     // console.log(shopCart)
     for (let shop of shopCart) {
       for (let item of shop.items) {
-        // console.log(orderDetail)
         let orderDetail = item.orderDetail;
+        console.log(orderDetail)
         if (orderDetail.orderDetailType === 'Item') {
           let itemObj: any = this.items.find(itemObj => {
-            return itemObj.itemId === orderDetail.item.itemId
+            return itemObj.itemPackageId === orderDetail.itemPackage.itemPackageId
           })
           if (itemObj !== undefined) {
             itemObj.orderDetail.quantity = orderDetail.quantity;
           }
-        } else if (orderDetail.orderDetailType === 'ItemPackage') {
+        } else if (orderDetail.orderDetailType === 'Package') {
           let itemPackageObj: any = this.itemPackages.find(itemPackageObj => {
             return itemPackageObj.itemPackageId === orderDetail.itemPackage.itemPackageId
           })

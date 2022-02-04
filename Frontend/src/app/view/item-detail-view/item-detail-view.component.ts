@@ -59,7 +59,7 @@ export class ItemDetailViewComponent implements OnInit {
     };
     this.itemReview.reviewType = 'Item';
     this.itemReview.customerProfile.customerProId = JSON.parse(localStorage.getItem('user')).customerProfile.customerProId;
-    this.itemService.addItemReview(this.itemReview).subscribe((itemReview) => {
+    this.itemService.addItemPackageReview(this.itemReview).subscribe((itemReview) => {
       this.itemReviews.push(itemReview);
       this.reviewForm.resetForm()
       this.itemReview = this.getNewItemReview();
@@ -82,7 +82,7 @@ export class ItemDetailViewComponent implements OnInit {
       customerProfile: {customerProId: JSON.parse(localStorage.getItem('user')).customerProfile.customerProId}
     };
     // console.log(itemReviewResponse)
-    this.itemService.addItemResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
+    this.itemService.addItemPackageResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
       if (itemReviewResponseObj.response === 'like') {
         if (itemReview.responseByMe !== undefined) {
           itemReview.dislikeCount--;
@@ -112,7 +112,7 @@ export class ItemDetailViewComponent implements OnInit {
 
   getItemReviews() {
     this.review = true;
-    this.itemService.getItemReviews(this.item.itemId, JSON.parse(localStorage.getItem('user')).userId, 'Item').subscribe((itemReviews) => {
+    this.itemService.getItemPackageReviews(this.item.itemId, JSON.parse(localStorage.getItem('user')).userId, 'Item').subscribe((itemReviews) => {
       this.itemReviews = itemReviews;
       // console.log(this.itemReviews)
     })
