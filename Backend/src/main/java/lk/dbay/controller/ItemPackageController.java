@@ -1,7 +1,9 @@
 package lk.dbay.controller;
 
 import lk.dbay.dto.ItemPackageReviewDTO;
+import lk.dbay.dto.ItemPackageReviewResponseDTO;
 import lk.dbay.entity.item.ItemPackageReview;
+import lk.dbay.entity.item.ItemPackageReviewResponse;
 import lk.dbay.service.ItemPackageS;
 import lk.dbay.service.ItemS;
 import lk.dbay.util.CommonConstants;
@@ -79,22 +81,23 @@ public class ItemPackageController {
         }
     }
 
-//    @PostMapping(value = "/addItemResponse")
-//    public ResponseEntity addItemReviewResponse(@RequestBody ItemPackageReviewResponse itemReviewResponse) {
-//        try {
-//            ItemReviewResponseDTO itemReviewResponseDTO = itemS.addItemReviewResponse(itemReviewResponse);
-//            if (itemReviewResponseDTO != null) {
-//                return ResponseEntity.ok(itemReviewResponseDTO);
-//            } else {
-//                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
-//            }
-//        } catch (DataIntegrityViolationException e) {
+    @PostMapping(value = "/addItemPackageResponse")
+    public ResponseEntity addItemPackageResponse(@RequestBody ItemPackageReviewResponse itemReviewResponse) {
+        try {
+            ItemPackageReviewResponseDTO itemReviewResponseDTO = itemPackageS.addItemPackageResponse(itemReviewResponse);
+            if (itemReviewResponseDTO != null) {
+                return ResponseEntity.ok(itemReviewResponseDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 //            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @GetMapping(value = "/getItemPackageReviews/{itemId}/{customerId}")
     public ResponseEntity getItemPackageReviews(@PathVariable String itemId, @PathVariable String customerId) {

@@ -14,7 +14,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemPackageReviewResponseDTO extends DateTimeDTO {
 
-    private String itemReviewResponseId;
+    private String itemPackageReviewResponseId;
     //    private String description;
     private String response;
     private ItemPackageReviewDTO itemPackageReview;
@@ -22,7 +22,7 @@ public class ItemPackageReviewResponseDTO extends DateTimeDTO {
 
     public ItemPackageReviewResponseDTO(ItemPackageReviewResponse itemPackageReviewResponse) {
         if (itemPackageReviewResponse != null) {
-            this.itemReviewResponseId = itemPackageReviewResponse.getItemReviewResponseId();
+            this.itemPackageReviewResponseId = itemPackageReviewResponse.getItemPackageReviewResponseId();
 //            this.description = itemReviewResponse.getDescription();
             this.response = itemPackageReviewResponse.getResponse();
         }

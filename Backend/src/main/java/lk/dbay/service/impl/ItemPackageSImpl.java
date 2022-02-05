@@ -189,4 +189,27 @@ public class ItemPackageSImpl implements ItemPackageS {
         }
         return itemPackageReviewDTOS;
     }
+
+    @Override
+    public ItemPackageReviewResponseDTO addItemPackageResponse(ItemPackageReviewResponse itemPackageReviewResponse) {
+        if (!itemPackageReviewResponse.getResponse().equals("remove")) {
+            if (itemPackageReviewResponse.getItemPackageReviewResponseId().equals("")) {
+                LocalDateTime localDateTime = LocalDateTime.now();
+                String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+                itemPackageReviewResponse.setItemPackageReviewResponseId("IRRE" + format);
+                return new ItemPackageReviewResponseDTO(itemPackageReviewResponseR.save(itemPackageReviewResponse));
+            } else {
+                Optional<ItemPackageReviewResponse> optionalItemReviewResponse = itemPackageReviewResponseR.findById(itemPackageReviewResponse.getItemPackageReviewResponseId());
+                if (optionalItemReviewResponse.isPresent()) {
+                    ItemPackageReviewResponse itemReviewResponseObj = optionalItemReviewResponse.get();
+                    itemReviewResponseObj.setResponse(itemPackageReviewResponse.getResponse());
+                    return new ItemPackageReviewResponseDTO(itemPackageReviewResponseR.save(itemPackageReviewResponse));
+                }
+            }
+        } else {
+            itemPackageReviewResponseR.deleteById(itemPackageReviewResponse.getItemPackageReviewResponseId());
+            return new ItemPackageReviewResponseDTO(itemPackageReviewResponse);
+        }
+        return null;
+    }
 }

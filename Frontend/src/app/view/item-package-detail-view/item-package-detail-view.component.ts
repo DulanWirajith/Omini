@@ -79,21 +79,22 @@ export class ItemPackageDetailViewComponent implements OnInit {
   }
 
   addItemReviewResponse(itemPackageReview, response) {
-    let itemReviewResponseId = '';
+    // console.log(itemPackageReview)
+    let itemPackageReviewResponseId = '';
     if (itemPackageReview.responseByMe !== undefined) {
-      itemReviewResponseId = itemPackageReview.responseByMe.itemReviewResponseId
+      itemPackageReviewResponseId = itemPackageReview.responseByMe.itemPackageReviewResponseId
     }
     let responseTemp = response;
     if (itemPackageReview.responseByMe !== undefined && itemPackageReview.responseByMe.response === response) {
       response = 'remove';
     }
     let itemReviewResponse = {
-      itemReviewResponseId: itemReviewResponseId,
+      itemPackageReviewResponseId: itemPackageReviewResponseId,
       response: response,
-      itemReview: {itemReviewId: itemPackageReview.itemReviewId},
+      itemPackageReview: {itemPackageReviewId: itemPackageReview.itemPackageReviewId},
       customerProfile: {customerProId: JSON.parse(localStorage.getItem('user')).customerProfile.customerProId}
     };
-    // console.log(itemReviewResponse)
+    console.log(itemReviewResponse)
     this.itemService.addItemPackageResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
       if (itemReviewResponseObj.response === 'like') {
         if (itemPackageReview.responseByMe !== undefined) {

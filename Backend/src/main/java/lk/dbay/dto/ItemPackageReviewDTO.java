@@ -20,7 +20,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemPackageReviewDTO extends DateTimeDTO {
 
-    private String itemReviewId;
+    private String itemPackageReviewId;
     private String description;
 
     //    private ItemDTO item;
@@ -33,7 +33,7 @@ public class ItemPackageReviewDTO extends DateTimeDTO {
 
     public ItemPackageReviewDTO(ItemPackageReview itemPackageReview) {
         if (itemPackageReview != null) {
-            this.itemReviewId = itemPackageReview.getItemPackageReviewId();
+            this.itemPackageReviewId = itemPackageReview.getItemPackageReviewId();
             this.description = itemPackageReview.getDescription();
             if (itemPackageReview.getUpdatedAt() != null) {
                 this.postedDate = itemPackageReview.getUpdatedAt().format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));

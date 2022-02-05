@@ -1,10 +1,8 @@
 package lk.dbay.service;
 
-import lk.dbay.dto.ItemDTO;
-import lk.dbay.dto.ItemPackageDTO;
-import lk.dbay.dto.ItemPackageImageDTO;
-import lk.dbay.dto.ItemPackageReviewDTO;
+import lk.dbay.dto.*;
 import lk.dbay.entity.item.ItemPackageReview;
+import lk.dbay.entity.item.ItemPackageReviewResponse;
 
 import java.util.List;
 
@@ -27,6 +25,8 @@ public interface ItemPackageS {
     ItemPackageReviewDTO addItemPackageReview(ItemPackageReview itemPackageReview);
 
     List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId);
+
+    ItemPackageReviewResponseDTO addItemPackageResponse(ItemPackageReviewResponse itemReviewResponse);
 
 //    ItemReviewDTO addItemPackageReview(ItemReview itemReview);
 

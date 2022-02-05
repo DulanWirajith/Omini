@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 public class ItemPackageReviewResponse extends DateTime {
 
     @Id
-    private String itemReviewResponseId;
+    private String itemPackageReviewResponseId;
 //    @Column(columnDefinition = "TEXT")
 //    private String description;
 
