@@ -19,16 +19,20 @@ export class ItemService {
   constructor(private http: HttpClient, private commonService: CommonService, private shopCartService: ShopCartService) {
   }
 
-  getItemsPackagesBySearch(txt, category): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/getItemsPackagesBySearch/' + txt + '/' + category);
+  getItemsPackagesBySearch(txt, category, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemsPackagesBySearch/' + txt + '/' + category + '/' + customerId);
   }
 
   // getItemSelected(itemId): Observable<any> {
   //   return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
   // }
 
-  getItemPackageSelected(itemId, type): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type);
+  getItemPackageSelected(itemId, type, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type + '/' + customerId);
+  }
+
+  getFavItemPackages(customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getFavItemPackages/' + customerId);
   }
 
   getCustomerOrders(customerId, status, from, to): Observable<any> {
@@ -40,7 +44,7 @@ export class ItemService {
   // }
 
   setItemFavourite(customerId, itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/setItemFavourite/' + customerId + '/' + itemId);
+    return this.http.get<any>(environment.backend_url + 'item_package/setItemPackageFavourite/' + customerId + '/' + itemId);
   }
 
   getNewItem() {

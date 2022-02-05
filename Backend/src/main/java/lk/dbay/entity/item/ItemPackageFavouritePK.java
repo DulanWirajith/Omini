@@ -16,5 +16,5 @@ import java.io.Serializable;
 public class ItemPackageFavouritePK implements Serializable {
 
     private String customerProId;
-    private String itemPackageFavouriteId;
+    private String itemPackageId;
 }

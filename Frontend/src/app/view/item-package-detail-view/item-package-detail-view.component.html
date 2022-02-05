@@ -106,6 +106,14 @@
           </div>
         </div>
 
+        <div *ngIf="itemPackage.itemPackageType==='Item'"
+             style="display: flex;border-bottom: 1px solid #eaeaea;padding-bottom: 10px">
+          <div class="mb-2 fs-sm text-dark fw-bold">Item Category |</div>
+          <div style="font-size: 14px;margin-left: 5px">
+            {{itemPackage.itemCategory!==undefined?itemPackage.itemCategory.name:'N/A'}}
+          </div>
+        </div>
+
         <div>
           <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
           <span *ngFor="let itemPackageFeature of itemPackage.itemPackageItemPackageFeatures"
@@ -327,7 +335,13 @@
     </div>
   </div>
 
-  <div class="offcanvas-footer border-top" style="display: block;">
+  <div class="offcanvas-footer border-top" style="display: flex;">
+    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+            data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
+            style="padding-bottom: 24px" (click)="setItemFavourite(itemPackage)">
+      <i *ngIf="!itemPackage.favourite" class="fi-heart" style="font-size: 26px"></i>
+      <i *ngIf="itemPackage.favourite" class="fi-heart-filled" style="font-size: 26px"></i>
+    </button>
     <ul class="nav nav-tabs justify-content-end" role="tablist">
       <li class="nav-item me-2" *ngIf="itemPackageObj.cart!==undefined" style="display: flex">
         <button class="btn btn-icon btn-success btn-lg text-light shadow-sm rounded-circle" type="button"

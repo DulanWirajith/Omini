@@ -188,9 +188,9 @@ export class ItemPackageSearchResultComponent implements OnInit {
     // }
   // }
 
-  setItemFavourite(item) {
-    this.itemService.setItemFavourite(JSON.parse(localStorage.getItem('user')).userId, item.itemId).subscribe((reply) => {
-      item.favourite = reply;
+  setItemFavourite(itemPackage) {
+    this.itemService.setItemFavourite(JSON.parse(localStorage.getItem('user')).userId, itemPackage.itemPackageId).subscribe((reply) => {
+      itemPackage.favourite = reply;
     })
   }
 

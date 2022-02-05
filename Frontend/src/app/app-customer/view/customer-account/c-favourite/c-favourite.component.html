@@ -39,56 +39,99 @@
       <!-- Catalog grid-->
       <div class="row row-cols-xl-3 row-cols-sm-2 row-cols-1 gy-4 gx-3 gx-xxl-4">
         <!--Item-->
-        <div class="col-sm-12 col-md-6 col-xl-6">
+        <div class="col-sm-12 col-md-6 col-xl-4" *ngFor="let item of items;let i = index">
           <div class="card shadow-sm card-hover border-0 h-100">
-            <div class="tns-carousel-wrapper card-img-top card-img-hover">
-              <a class="img-overlay" href="#"></a>
+            <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"></a>
+              <div class="position-absolute start-0 top-0 pt-3 ps-3"
+                   style="width: 95%;display: flex;justify-content: right">
+                <div *ngIf="item.makeToOrder"
+                     class="d-table badge bg-info">Make To Order
+                </div>
+              </div>
               <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
                 class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
                                                                   style="margin-bottom: 0px;"><i
                 class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
-              <div class="content-overlay end-0 top-0 pt-3 pe-3">
-                <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
-                        data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"><i
-                  class="fi-heart-filled"></i></button>
-              </div>
-              <div class="tns-carousel-inner"><img src="./asset/img/catalog/07.jpg" alt="Image"><img
-                src="./asset/img/catalog/07.jpg" alt="Image"></div>
+              <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+                <mdb-carousel-item *ngFor="let image of item.itemPackageImages">
+                  <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
+                  <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
+                       alt="First slide">
+                </mdb-carousel-item>
+              </mdb-carousel>
             </div>
-            <div class="card-body position-relative pb-3">
-              <h3 class="h6 mb-2 fs-base"><a class="nav-link" href="#" data-bs-toggle="offcanvas"
-                                             data-bs-target="#fav-item-viewer">Item Name</a></h3>
+            <div class="position-relative" style="margin: 15px 15px 0px 15px">
+              <div class="row">
+                <div class="col-10">
+                  <h3 class="h6 fs-base" style="margin-bottom: 0px">
+                    <a class="nav-link" data-bs-toggle="offcanvas"
+                       (click)="getItemPackageSelected(item)"
+                       data-bs-target="#item-package-viewer-g" style="font-weight: bold;padding: 0px;cursor: pointer">
+                      {{item.name}}
+                    </a>
+                  </h3>
+                </div>
+                <!--<div class="content-overlay end-0 top-0"-->
+                <!--style="display: flex;justify-content: right;width: 95%;margin-top: 158px;margin-right: 10px">-->
+                <div class="col-2">
+                  <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                          data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
+                          (click)="setItemFavourite(item,i)" style="padding-bottom: 10px">
+                    <i class="fi-heart-filled" style="font-size: 20px"></i>
+                  </button>
+                </div>
+              </div>
+              <!--</div>-->
               <div class="border-top border-light pt-0 mb-2">
-                <div class="row g-2">
-                  <div class="col me-sm-1">
-                    <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                      <i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>
-                      <span class="fs-xs text-light fw-bold">1 Packet</span>
+
+                <div class="row cols-sm-2 row-cols-md-12"
+                     style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 5px;margin-bottom: 10px">
+                  <div class="col" style="padding: 0px">
+                    <div *ngIf="item.quantity>0" style="border-right: 1px solid #d3d3d3">
+                      <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                        {{item.makeToOrder?'Max':''}} Quantity
+                      </p>
+                      <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.quantity}}</p>
+                    </div>
+                    <div *ngIf="item.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
+                      <p class="mb-2 fs-sm fw-bold mx-2"
+                         style="text-align: center;">
+                  <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">
+                    Out Of Stock
+                  </span>
+                      </p>
                     </div>
                   </div>
-                  <div class="col me-sm-1">
-                    <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                      <i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>
-                      <span class="fs-xs text-light fw-bold">20%</span>
-                    </div>
+                  <div class="col" style="padding: 0px">
+                    <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                      Discount </p>
+                    <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
+                      {{item.discountType==='None' ? 'N/A' :
+                      item.discountType==='Cash' ? ('LKR '+item.discount) :
+                      item.discountType==='Percentage' ? (item.discount + '%') : ''}}
+                    </p>
                   </div>
-                  <div class="col">
-                    <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                      <i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>
-                      <span class="fs-xs text-light fw-bold">LKR 2000</span>
-                    </div>
-                  </div>
+                </div>
+                <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>
+                  <span *ngIf="item.discountType==='None'">LKR {{item.price | number:'.2-2'}}</span>
+                  <span *ngIf="item.discountType!=='None'"
+                        style="text-decoration: line-through;color: red">LKR {{item.price | number:'.2-2'}}</span>
+                  <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice | number:'.2-2'}}</span>
                 </div>
               </div>
             </div>
-            <div class="card-footer d-flex mx-3 pt-3 text-nowrap">
+            <div class="card-footer d-flex pt-3 text-nowrap">
 
               <div class="d-flex align-items-center justify-content-between w-100">
                 <div class="fs-sm">
                   <div class="d-flex d-md-block d-lg-flex align-items-start mb-2">
-                    <img class="rounded-circle" src="./asset/img/37.png" width="48" alt="Annette Black">
+                    <img class="rounded-circle" src="../../../../../assets/img/37.png" width="48" alt="Annette Black">
                     <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
-                      <h2 class="fs-sm mb-0"><a href="./client-shop-view.html" class="nav-link">Business name</a></h2>
+                      <h2 class="fs-sm mb-0">
+                        <a style="padding: 0px;font-weight: bold" class="nav-link">
+                          {{item.businessProfileCategory.businessProfile.businessName}}
+                        </a>
+                      </h2>
                       <div class="star-rating">
                         <i class="star-rating-icon fi-star-filled active"></i>
                         <i class="star-rating-icon fi-star-filled active"></i>
@@ -100,9 +143,16 @@
 
                   </div>
                 </div>
-                <button class="btn btn-icon btn-light-primary btn-sm text-primary shadow-sm rounded-circle"
-                        type="button" data-bs-toggle="tooltip" title="Add to Cart">
-                  <i class="fi-cart"></i></button>
+                <div style="display: flex" *ngIf="item.orderDetail!==undefined">
+                  <button style="background-color: #06A773"
+                          class="btn btn-icon btn-sm text-primary rounded-circle"
+                          type="button" data-bs-toggle="tooltip" title="Add to Cart" (click)="addToCart(item,'Item')">
+                    <i class="fi-cart" style="color: white"></i></button>
+                  <div *ngIf="item.orderDetail!==undefined && item.orderDetail.quantity>0"
+                       style="padding: 2px 5px 2px 5px;color: #1b945b;margin-top: 4px;margin-left: 8px;font-weight: bold">
+                    {{item.orderDetail.quantity}}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -112,191 +162,134 @@
     </div>
 
     <div class="tab-pane fade" id="client-shop-view-package" role="tabpanel">
-      <div class="accordion-item mb-2">
-        <div class="accordion-header" id="">
-          <div class="card bg-position-center border-0 overflow-hidden" style="height: 350px; background-size: cover;">
 
-            <div class="tns-carousel-wrapper card-img-top card-img-hover">
+      <div class="row row-cols-xl-3 row-cols-sm-2 row-cols-1 gy-4 gx-3 gx-xxl-4">
 
-              <span class="img-gradient-overlay"></span>
-              <div class="position-absolute start-0 top-0 pt-3 ps-3">
-                <span class="d-table badge bg-success">Offer</span>
+        <div class="col-sm-12 col-md-6 col-xl-4" *ngFor="let item of packageItems;let i = index">
+          <div class="card shadow-sm card-hover border-0 h-100">
+            <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"></a>
+              <div class="position-absolute start-0 top-0 pt-3 ps-3"
+                   style="width: 95%;display: flex;justify-content: right">
+                <div *ngIf="item.makeToOrder"
+                     class="d-table badge bg-info">Make To Order
+                </div>
               </div>
-              <div class="card-footer border-0 pt-5 pb-4 gy-3 w-100 position-absolute bottom-0 end-0">
-                <div class="d-sm-flex justify-content-between align-items-end pt-5 mt-2 mt-sm-5">
-                  <a href="#" class="text-decoration-none text-light pe-2" data-bs-toggle="offcanvas"
-                     data-bs-target="#fav-package-viewer">
-                    <h3 class="h5 text-light mb-1">Package Name</h3>
-                    <div class="fs-sm opacity-70">
-                      <i class="fi-bookmark me-1"></i>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum cumque, eius fuga magni
-                      rerum cum ducimus libero atque minima! Sequi qui vel magnam facilis molestiae ratione numquam, rem
-                      reprehenderit?
+              <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
+                                                                  style="margin-bottom: 0px;"><i
+                class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
+              <!--<div class="content-overlay end-0 top-0"-->
+              <!--style="display: flex;justify-content: right;width: 95%;margin-top: 158px;margin-right: 10px">-->
+              <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
+              <!--data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"-->
+              <!--(click)="setItemFavourite(item,i)">-->
+              <!--<i class="fi-heart-filled"></i>-->
+              <!--</button>-->
+              <!--</div>-->
+              <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+                <mdb-carousel-item *ngFor="let image of item.itemPackageImages">
+                  <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
+                  <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
+                       alt="First slide">
+                </mdb-carousel-item>
+              </mdb-carousel>
+            </div>
+            <div class="position-relative" style="margin: 15px 15px 0px 15px">
+              <div class="row">
+                <div class="col-10">
+                  <h3 class="h6 fs-base" style="margin-bottom: 0px">
+                    <a class="nav-link" data-bs-toggle="offcanvas"
+                       (click)="getItemPackageSelected(item)"
+                       data-bs-target="#item-package-viewer-g" style="font-weight: bold;padding: 0px;cursor: pointer">
+                      {{item.name}}
+                    </a>
+                  </h3>
+                </div>
+                <div class="col-2">
+                  <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                          data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
+                          (click)="setItemFavourite(item,i)" style="padding-bottom: 10px">
+                    <i class="fi-heart-filled" style="font-size: 20px"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="border-top border-light pt-0 mb-2">
+
+                <div class="row cols-sm-2 row-cols-md-12"
+                     style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
+                  <div class="col" style="padding: 0px">
+                    <div *ngIf="item.quantity>0" style="border-right: 1px solid #d3d3d3">
+                      <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                        {{item.makeToOrder?'Max':''}} Quantity
+                      </p>
+                      <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.quantity}}</p>
                     </div>
-                  </a>
-                  <div class="btn-group ms-n2 ms-sm-5 mt-3 justify-content-end">
-                    <a href="#" class="btn btn-primary px-3">LKR 200,410</a>
-                    <button
-                      class="btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"
-                      type="button" data-bs-toggle="collapse" data-bs-target="#packageOne" aria-expanded="true"
-                      aria-controls="packageOne">
-                      <i class="fi-eye-on"></i>
-                    </button>
-                    <button type="button"
-                            class="btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm">
-                      <i class="fi-heart-filled"></i>
-                    </button>
+                    <div *ngIf="item.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
+                      <p class="mb-2 fs-sm fw-bold mx-2"
+                         style="text-align: center;">
+                  <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">
+                    Out Of Stock
+                  </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col" style="padding: 0px">
+                    <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                      Discount </p>
+                    <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
+                      {{item.discountType==='None' ? 'N/A' :
+                      item.discountType==='Cash' ? ('LKR '+item.discount) :
+                      item.discountType==='Percentage' ? (item.discount + '%') : ''}}
+                    </p>
                   </div>
                 </div>
-              </div>
-
-              <!-- <div class="content-overlay end-0 top-0 pt-3 pe-3">
-                <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="remove item"><i class="fi-trash"></i></button>
-              </div> -->
-              <div class="tns-carousel-inner" style="height: 350px; background-size: cover;">
-                <img src="./asset/img/catalog/02.jpg" alt="Image" style="height: 350px;">
-                <img src="./asset/img/catalog/07.jpg" alt="Image" style="height: 350px;">
-
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#package-list"
-             id="packageOne">
-          <div class="accordion-body">
-            <div class="rowg-3  mt-4">
-              <h3 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Information</h3>
-            </div>
-            <div class="row g-2">
-              <div class="col me-sm-1">
-                <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                  <i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>
-                  <span class="fs-xs text-light fw-bold">1 Packet</span>
-                </div>
-              </div>
-              <div class="col me-sm-1">
-                <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                  <i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>
-                  <span class="fs-xs text-light fw-bold">20%</span>
-                </div>
-              </div>
-              <div class="col">
-                <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                  <i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>
-                  <span class="fs-xs text-light fw-bold">LKR 2000</span>
+                <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>
+                  <span *ngIf="item.discountType==='None'">LKR {{item.price | number:'.2-2'}}</span>
+                  <span *ngIf="item.discountType!=='None'"
+                        style="text-decoration: line-through;color: red">LKR {{item.price | number:'.2-2'}}</span>
+                  <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice | number:'.2-2'}}</span>
                 </div>
               </div>
             </div>
-            <div class="row cols-md-12 mt-3">
-              <p class="mb-2 fs-sm text-dark fw-bold">Overview </p>
-              <div class="col">
-                <p class="mb-2 fs-sm text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
-                  consequuntur laudantium inventore dignissimos ipsum. Error sint perferendis dolores eligendi animi
-                  alias excepturi aut aliquid, molestiae recusandae atque, quo iusto rem! </p>
-              </div>
-            </div>
+            <div class="card-footer d-flex pt-3 text-nowrap">
 
-            <div class="row cols-md-12 mt-2">
-              <p class="mb-2 fs-sm text-dark fw-bold">Features </p>
-              <div class="col-sm-6 col-md-4 col-xl-3">
-                <span
-                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
-                  class="fi-info-square me-2"></i> User Interface</span>
-              </div>
-              <div class="col-sm-6 col-md-4 col-xl-3">
-                <span
-                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
-                  class="fi-info-square me-2"></i> Typography</span>
-              </div>
-              <div class="col-sm-6 col-md-4 col-xl-3">
-                <span
-                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
-                  class="fi-info-square me-2"></i> User Experience</span>
-              </div>
-              <div class="col-sm-6 col-md-4 col-xl-3">
-                <span
-                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
-                  class="fi-info-square me-2"></i> User Interface</span>
-              </div>
-              <div class="col-sm-6 col-md-4 col-xl-3">
-                <span
-                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
-                  class="fi-info-square me-2"></i> Typography</span>
-              </div>
-              <div class="col-sm-6 col-md-4 col-xl-3">
-                <span
-                  class="bg-success text-light fs-sm btn btn-xs disabled opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1"><i
-                  class="fi-info-square me-2"></i> User Experience</span>
-              </div>
-            </div>
-            <div class="row g-4 py-1">
-              <p class="mb-2 fs-sm text-dark fw-bold">Includes </p>
-              <!--Item-->
-              <div class="col-sm-12 col-md-6 col-xl-6">
-                <div class="card shadow-sm card-hover border-0 h-100">
-                  <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay" href="#"></a>
-                    <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
-                      class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
-                                                                        style="margin-bottom: 0px;"><i
-                      class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
-                    <div class="content-overlay end-0 top-0 pt-3 pe-3">
-                      <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
-                              data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"><i
-                        class="fi-heart"></i></button>
-                    </div>
-                    <div class="tns-carousel-inner"><img src="./asset/img/catalog/07.jpg" alt="Image"><img
-                      src="./asset/img/catalog/07.jpg" alt="Image"></div>
-                  </div>
-                  <div class="card-body position-relative pb-3">
-                    <h3 class="h6 mb-2 fs-base">
-                      <a class="nav-link fw-bold ps-0" href="#" data-bs-toggle="offcanvas"
-                         data-bs-target="#fi-item-viewer">
-                        Item Name
-                      </a>
-                    </h3>
-                    <div class="border-top border-light pt-0 mb-2">
-                      <div class="row g-2">
-                        <div class="col me-sm-1">
-                          <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                            <i class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i>
-                            <span class="fs-xs text-light fw-bold">1 Packet</span>
-                          </div>
-                        </div>
-                        <div class="col me-sm-1">
-                          <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                            <i class="fi-precentage d-block h4 text-light mb-0 mx-center fw-bold"></i>
-                            <span class="fs-xs text-light fw-bold">20%</span>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="bg-dark rounded text-center w-100 h-100 p-2 cursor-point">
-                            <i class="fi-cash d-block h4 text-light mb-0 mx-center"></i>
-                            <span class="fs-xs text-light fw-bold">LKR 2000</span>
-                          </div>
-                        </div>
+              <div class="d-flex align-items-center justify-content-between w-100">
+                <div class="fs-sm">
+                  <div class="d-flex d-md-block d-lg-flex align-items-start mb-2">
+                    <img class="rounded-circle" src="../../../../../assets/img/37.png" width="48" alt="Annette Black">
+                    <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
+                      <h2 class="fs-sm mb-0">
+                        <a style="padding: 0px;font-weight: bold" class="nav-link">
+                          {{item.businessProfileCategory.businessProfile.businessName}}
+                        </a>
+                      </h2>
+                      <div class="star-rating">
+                        <i class="star-rating-icon fi-star-filled active"></i>
+                        <i class="star-rating-icon fi-star-filled active"></i>
+                        <i class="star-rating-icon fi-star-filled active"></i>
+                        <i class="star-rating-icon fi-star-filled active"></i>
+                        <i class="star-rating-icon fi-star-filled active"></i>
                       </div>
                     </div>
-                  </div>
-                  <div class="card-footer d-flex mx-3 pt-3 text-nowrap">
 
-                    <div class="d-flex align-items-center justify-content-between w-100">
-                      <div class="fs-sm">
-                        <span class="badge rounded-pill bg-success fw-bold">Category name</span>
-                      </div>
-                      <button class="btn btn-icon btn-light-primary btn-sm text-primary shadow-sm rounded-circle"
-                              type="button" data-bs-toggle="tooltip" title="Add to Cart">
-                        <i class="fi-cart"></i></button>
-                    </div>
+                  </div>
+                </div>
+                <div style="display: flex" *ngIf="item.orderDetail!==undefined">
+                  <button style="background-color: #06A773"
+                          class="btn btn-icon btn-sm text-primary rounded-circle"
+                          type="button" data-bs-toggle="tooltip" title="Add to Cart"
+                          (click)="addToCart(item,'Package')">
+                    <i class="fi-cart" style="color: white"></i></button>
+                  <div *ngIf="item.orderDetail!==undefined && item.orderDetail.quantity>0"
+                       style="padding: 2px 5px 2px 5px;color: #1b945b;margin-top: 4px;margin-left: 8px;font-weight: bold">
+                    {{item.orderDetail.quantity}}
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
+
       </div>
 
     </div>

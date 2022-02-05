@@ -50,7 +50,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
     if (document.getElementById('package-back-btn') !== null) {
       document.getElementById('package-back-btn').click()
     }
-    this.itemService.getItemPackageSelected(itemPackage.itemPackageId, itemPackage.itemPackageType).subscribe((itemPackageObj) => {
+    this.itemService.getItemPackageSelected(itemPackage.itemPackageId, itemPackage.itemPackageType, JSON.parse(localStorage.getItem('user')).userId).subscribe((itemPackageObj) => {
       if (itemPackage.itemPackageType === 'Item') {
         this.itemPackage = itemPackageObj.item.itemPackage;
       } else if (itemPackage.itemPackageType === 'Package') {
@@ -140,6 +140,12 @@ export class ItemPackageDetailViewComponent implements OnInit {
     this.prevItemPackage = prevItemPackage;
     this.getAlbum(this.itemPackage);
     this.itemPackageObj.backBtn = true;
+  }
+
+  setItemFavourite(itemPackage) {
+    this.itemService.setItemFavourite(JSON.parse(localStorage.getItem('user')).userId, itemPackage.itemPackageId).subscribe((reply) => {
+      itemPackage.favourite = reply;
+    })
   }
 
   goBack() {

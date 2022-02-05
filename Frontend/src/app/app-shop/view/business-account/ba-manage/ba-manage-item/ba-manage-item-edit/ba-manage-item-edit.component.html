@@ -123,7 +123,8 @@
                 <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
                   {{item.itemPackage.makeToOrder?'Max':''}} Quantity
                 </p>
-                <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.itemPackage.quantity}}</p>
+                <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
+                  {{item.itemPackage.quantity}}</p>
               </div>
               <div *ngIf="item.itemPackage.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
                 <p class="mb-2 fs-sm fw-bold mx-2"
@@ -148,7 +149,8 @@
 
         <div style="display: flex;border-bottom: 1px solid #eaeaea;padding-bottom: 10px">
           <div class="mb-2 fs-sm text-dark fw-bold">Item Category |</div>
-          <div style="font-size: 14px;margin-left: 5px">{{item.itemPackage.itemCategory===undefined?'N/A':item.itemPackage.itemCategory.name}}
+          <div style="font-size: 14px;margin-left: 5px">
+            {{item.itemPackage.itemCategory!==undefined?item.itemPackage.itemCategory.name:'N/A'}}
           </div>
         </div>
 
@@ -174,7 +176,9 @@
       <!--Item Edit-->
       <div class="tab-pane fade" id="item-edit" role="tabpanel">
         <div class="card card-body">
-          <form #baManageFormItemE="ngForm" (ngSubmit)="baManageFormItemE.form.valid && (item.itemPackage.itemImgsRaw.length+item.itemPackage.itemPackageImages.length)>=3 && onSubmitE()" novalidate>
+          <form #baManageFormItemE="ngForm"
+                (ngSubmit)="baManageFormItemE.form.valid && (item.itemPackage.itemImgsRaw.length+item.itemPackage.itemPackageImages.length)>=3 && onSubmitE()"
+                novalidate>
 
             <div class="row">
               <div class="col-md-12 mb-3">
@@ -409,7 +413,8 @@
               <div class="d-flex flex-wrap mb-4">
                 <span *ngFor="let itemPackageFeature of item.itemPackage.itemPackageItemPackageFeatures;let i = index"
                       class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemPackageFeature.itemPackageFeature.name}}
-                  <i class="fi-x fs-xs ms-2" (click)="item.itemPackage.itemPackageItemPackageFeatures.splice(i,1)" style="cursor: pointer"></i>
+                  <i class="fi-x fs-xs ms-2" (click)="item.itemPackage.itemPackageItemPackageFeatures.splice(i,1)"
+                     style="cursor: pointer"></i>
                 </span>
               </div>
             </div>
@@ -463,7 +468,8 @@
               <!--<div class="col-md-4 mb-4" *ngFor='let url of imagesE'>-->
               <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->
               <!--</div>-->
-              <div class="col-md-6 mb-6" *ngFor='let itemPackageImage of item.itemPackage.itemPackageImages;let j = index'>
+              <div class="col-md-6 mb-6"
+                   *ngFor='let itemPackageImage of item.itemPackage.itemPackageImages;let j = index'>
                 <div
                   style="position: relative;display: flex;justify-content: center;border: 1px solid #efefef;margin-bottom: 20px"
                   class="delImgT">

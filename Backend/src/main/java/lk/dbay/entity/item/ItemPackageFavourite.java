@@ -27,6 +27,6 @@ public class ItemPackageFavourite extends DateTime {
     private CustomerProfile customerProfile;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "itemId", referencedColumnName = "itemId", insertable = false, updatable = false, nullable = false)
-    private Item item;
+    @JoinColumn(name = "itemPackageId", referencedColumnName = "itemPackageId", insertable = false, updatable = false, nullable = false)
+    private ItemPackage itemPackage;
 }

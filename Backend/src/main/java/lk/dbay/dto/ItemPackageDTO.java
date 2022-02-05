@@ -38,7 +38,8 @@ public class ItemPackageDTO extends DateTimeDTO {
     private List<ItemPackageDTO> items;
     private List<ItemPackageDTO> itemPackages;
     private String itemPackageType;
-//    private boolean favourite;
+    private ItemCategoryDTO itemCategory;
+    private boolean favourite;
 
     public ItemPackageDTO(ItemPackage itemPackage) {
         if (itemPackage != null) {
@@ -89,6 +90,11 @@ public class ItemPackageDTO extends DateTimeDTO {
     public void setBusinessProfileCategory(ItemPackage itemPackage) {
         if (itemPackage.getBusinessProfileCategory() != null)
             this.businessProfileCategory = new BusinessProfileCategoryDTO(itemPackage.getBusinessProfileCategory().getBusinessProfile(), itemPackage.getBusinessProfileCategory().getBusinessCategory());
+    }
+
+    public void setItemCategory(ItemPackage itemPackage) {
+        if (itemPackage.getItem() != null && itemPackage.getItem().getItemCategory() != null)
+            this.itemCategory = new ItemCategoryDTO(itemPackage.getItem().getItemCategory());
     }
 
 //    public ItemPackageDTO(@NonNull ItemPackage itemPackage, @NonNull BusinessProfileCategory businessProfileCategory, @NonNull Set<ItemPackageImg> itemPackageImgs) {

@@ -42,24 +42,24 @@ public class ItemPackageController {
         return ResponseEntity.ok(itemPackageS.setItemPackageAvailable(itemId));
     }
 
-//    @GetMapping(value = "/setItemFavourite/{customerId}/{itemId}")
-//    public ResponseEntity setItemFavourite(@PathVariable String customerId, @PathVariable String itemId) {
-//        return ResponseEntity.ok(itemPackageS.setItemFavourite(customerId, itemId));
-//    }
-
-//    @GetMapping(value = "/getItemPackageSelected/{itemId}")
-//    public ResponseEntity getItemPackageSelected(@PathVariable String itemId) {
-//        return ResponseEntity.ok(itemPackageS.getItemPackageSelected(itemId));
-//    }
-
-    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}")
-    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category) {
-        return ResponseEntity.ok(itemPackageS.getItemsPackagesBySearch(txt, category));
+    @GetMapping(value = "/setItemPackageFavourite/{customerId}/{itemId}")
+    public ResponseEntity setItemPackageFavourite(@PathVariable String customerId, @PathVariable String itemId) {
+        return ResponseEntity.ok(itemPackageS.setItemPackageFavourite(customerId, itemId));
     }
 
-    @GetMapping(value = "/getItemPackageSelected/{itemId}/{type}")
-    public ResponseEntity getItemPackageSelected(@PathVariable String itemId, @PathVariable String type) {
-        return ResponseEntity.ok(itemPackageS.getItemPackageSelected(itemId, type));
+    @GetMapping(value = "/getFavItemPackages/{customerId}")
+    public ResponseEntity getFavItemPackages(@PathVariable String customerId) {
+        return ResponseEntity.ok(itemPackageS.getFavItemPackages(customerId));
+    }
+
+    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}/{customerId}")
+    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category, @PathVariable String customerId) {
+        return ResponseEntity.ok(itemPackageS.getItemsPackagesBySearch(txt, category, customerId));
+    }
+
+    @GetMapping(value = "/getItemPackageSelected/{itemId}/{type}/{customerId}")
+    public ResponseEntity getItemPackageSelected(@PathVariable String itemId, @PathVariable String type, @PathVariable String customerId) {
+        return ResponseEntity.ok(itemPackageS.getItemPackageSelected(itemId, type, customerId));
     }
 
     // Item Review

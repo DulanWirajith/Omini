@@ -18,15 +18,19 @@ public interface ItemPackageS {
 //
     boolean setItemPackageAvailable(String itemId);
 
-    ItemPackageDTO getItemsPackagesBySearch(String txt, String category);
+    ItemPackageDTO getItemsPackagesBySearch(String txt, String category, String customerId);
 
-    ItemPackageDTO getItemPackageSelected(String itemId, String type);
+    ItemPackageDTO getItemPackageSelected(String itemId, String type, String customerId);
 
     ItemPackageReviewDTO addItemPackageReview(ItemPackageReview itemPackageReview);
 
     List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId);
 
     ItemPackageReviewResponseDTO addItemPackageResponse(ItemPackageReviewResponse itemReviewResponse);
+
+    boolean setItemPackageFavourite(String customerId, String itemId);
+
+    ItemPackageDTO getFavItemPackages(String customerId);
 
 //    ItemReviewDTO addItemPackageReview(ItemReview itemReview);
 

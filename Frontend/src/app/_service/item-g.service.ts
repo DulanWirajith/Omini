@@ -15,8 +15,8 @@ export class ItemGService {
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
-  getItemPackageSelected(itemId, type): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type);
+  getItemPackageSelected(itemId, type, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type + '/' + customerId);
   }
 
   // getItemSelected(itemId): Observable<any> {
@@ -26,6 +26,9 @@ export class ItemGService {
   // getPackageItemSelected(itemPackageId): Observable<any> {
   //   return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
   // }
+  setItemFavourite(customerId, itemId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/setItemPackageFavourite/' + customerId + '/' + itemId);
+  }
 
   addItemPackageReview(itemReview): Observable<any> {
     return this.http.post<any>(environment.backend_url + 'item_package/addItemPackageReview', itemReview);

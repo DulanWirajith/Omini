@@ -1,15 +1,11 @@
 package lk.dbay.service.impl;
 
 import lk.dbay.dto.*;
-import lk.dbay.entity.BusinessProfileCategoryPK;
+import lk.dbay.entity.CustomerProfile;
 import lk.dbay.entity.item.*;
-import lk.dbay.repository.ItemPackageImageR;
-import lk.dbay.repository.ItemPackageR;
-import lk.dbay.repository.ItemPackageReviewR;
-import lk.dbay.repository.ItemPackageReviewResponseR;
+import lk.dbay.repository.*;
 import lk.dbay.service.ItemPackageS;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,6 +25,8 @@ public class ItemPackageSImpl implements ItemPackageS {
     private ItemPackageReviewR itemPackageReviewR;
     @Autowired
     private ItemPackageReviewResponseR itemPackageReviewResponseR;
+    @Autowired
+    private ItemPackageFavouriteR itemPackageFavouriteR;
 
     @Override
     public ItemPackageImageDTO getItemPackageImage(String id) {
@@ -53,7 +51,7 @@ public class ItemPackageSImpl implements ItemPackageS {
     }
 
     @Override
-    public ItemPackageDTO getItemsPackagesBySearch(String txt, String category) {
+    public ItemPackageDTO getItemsPackagesBySearch(String txt, String category, String customerId) {
         List<ItemPackage> itemsBySearch;
         List<ItemPackage> packagesBySearch;
         ItemPackageDTO itemPackageDTO = new ItemPackageDTO();
@@ -67,21 +65,23 @@ public class ItemPackageSImpl implements ItemPackageS {
             itemsBySearch = itemPackageR.getItemPackagesBySearchItem("%" + txt + "%", category);
             packagesBySearch = itemPackageR.getItemPackagesBySearchPackage("%" + txt + "%", category);
         }
-        for (ItemPackage itemBySearch : itemsBySearch) {
-            ItemPackageDTO itemPackageDTOObj = new ItemPackageDTO(itemBySearch);
-            itemPackageDTOObj.setBusinessProfileCategory(itemBySearch);
-            itemPackageDTOObj.setItemPackageImages(itemBySearch);
-            itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
-            items.add(itemPackageDTOObj);
-        }
-
-        for (ItemPackage packageBySearch : packagesBySearch) {
-            ItemPackageDTO itemPackageDTOObj = new ItemPackageDTO(packageBySearch);
-            itemPackageDTOObj.setBusinessProfileCategory(packageBySearch);
-            itemPackageDTOObj.setItemPackageImages(packageBySearch);
-            itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
-            itemPackages.add(itemPackageDTOObj);
-        }
+        setItemPackageDTO(itemsBySearch, items);
+        setItemPackageDTO(packagesBySearch, itemPackages);
+//        for (ItemPackage itemBySearch : itemsBySearch) {
+//            ItemPackageDTO itemPackageDTOObj = new ItemPackageDTO(itemBySearch);
+//            itemPackageDTOObj.setBusinessProfileCategory(itemBySearch);
+//            itemPackageDTOObj.setItemPackageImages(itemBySearch);
+//            itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
+//            items.add(itemPackageDTOObj);
+//        }
+//
+//        for (ItemPackage packageBySearch : packagesBySearch) {
+//            ItemPackageDTO itemPackageDTOObj = new ItemPackageDTO(packageBySearch);
+//            itemPackageDTOObj.setBusinessProfileCategory(packageBySearch);
+//            itemPackageDTOObj.setItemPackageImages(packageBySearch);
+//            itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
+//            itemPackages.add(itemPackageDTOObj);
+//        }
 
 //        for (ItemPackage packagesBySearch : packagesBySearch) {
 //            if (packagesBySearch.getItemPackageType().equals("Item")) {
@@ -104,8 +104,18 @@ public class ItemPackageSImpl implements ItemPackageS {
         return itemPackageDTO;
     }
 
+    private void setItemPackageDTO(List<ItemPackage> itemsBySearch, List<ItemPackageDTO> itemPackages) {
+        for (ItemPackage itemBySearch : itemsBySearch) {
+            ItemPackageDTO itemPackageDTOObj = new ItemPackageDTO(itemBySearch);
+            itemPackageDTOObj.setBusinessProfileCategory(itemBySearch);
+            itemPackageDTOObj.setItemPackageImages(itemBySearch);
+            itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
+            itemPackages.add(itemPackageDTOObj);
+        }
+    }
+
     @Override
-    public ItemPackageDTO getItemPackageSelected(String itemId, String type) {
+    public ItemPackageDTO getItemPackageSelected(String itemId, String type, String customerId) {
         Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(itemId);
         if (itemPackageOptional.isPresent()) {
             ItemPackage itemPackage = itemPackageOptional.get();
@@ -118,6 +128,8 @@ public class ItemPackageSImpl implements ItemPackageS {
             itemPackageDTO.setBusinessProfileCategory(itemPackage);
             itemPackageDTO.setItemPackageItemPackageFeatures(itemPackage);
             itemPackageDTO.setItemPackageImages(itemPackage);
+            Optional<ItemPackageFavourite> itemPackageFavourite = itemPackageFavouriteR.getByCustomerProfile_CustomerProIdAndItemPackage_ItemPackageId(customerId, itemId);
+            itemPackageDTO.setFavourite(itemPackageFavourite.isPresent());
 //            itemDTO.setItemFeatures(item);
 //            if (itemPackage.getItemPackageType().equals("Item")) {
 //                itemPackageDTO.getItemDTO().setItemCategory(itemPackage.getItem());
@@ -126,6 +138,7 @@ public class ItemPackageSImpl implements ItemPackageS {
             ItemDTO itemDTO = null;
             PackageItemDTO packageItemDTO = null;
             if (type.equals("Item")) {
+                itemPackageDTO.setItemCategory(itemPackage);
                 itemDTO = new ItemDTO().setItemPackageToItem(itemPackageDTO);
             } else if (type.equals("Package")) {
                 packageItemDTO = new PackageItemDTO(itemPackage.getPackageItem()).setItemPackageToPackageItem(itemPackageDTO);
@@ -211,5 +224,49 @@ public class ItemPackageSImpl implements ItemPackageS {
             return new ItemPackageReviewResponseDTO(itemPackageReviewResponse);
         }
         return null;
+    }
+
+    @Override
+    public boolean setItemPackageFavourite(String customerId, String itemId) {
+        Optional<ItemPackageFavourite> itemFavourite = itemPackageFavouriteR.findById(new ItemPackageFavouritePK(customerId, itemId));
+        if (itemFavourite.isPresent()) {
+            itemPackageFavouriteR.deleteById(new ItemPackageFavouritePK(customerId, itemId));
+            return false;
+        } else {
+            ItemPackageFavourite itemPackageFavourite = new ItemPackageFavourite();
+            itemPackageFavourite.setItemPackageFavouriteId(new ItemPackageFavouritePK(customerId, itemId));
+            CustomerProfile customerProfile = new CustomerProfile();
+            customerProfile.setCustomerProId(customerId);
+            itemPackageFavourite.setCustomerProfile(customerProfile);
+            ItemPackage itemPackage = new ItemPackage();
+            itemPackage.setItemPackageId(itemId);
+            itemPackageFavourite.setItemPackage(itemPackage);
+            itemPackageFavouriteR.save(itemPackageFavourite);
+            return true;
+        }
+//        return new CustomerItemFavouriteDTO(customerItemFavourite.getCustomerProfile(), customerItemFavourite.getItem());
+    }
+
+    @Override
+    public ItemPackageDTO getFavItemPackages(String customerId) {
+//        List<ItemPackage> itemPackageFavourites=new ArrayList<>();
+        List<ItemPackage> itemsBySearch = new ArrayList<>();
+        List<ItemPackage> packagesBySearch = new ArrayList<>();
+        ItemPackageDTO itemPackageDTO = new ItemPackageDTO();
+        List<ItemPackageDTO> itemPackages = new ArrayList<>();
+        List<ItemPackageDTO> items = new ArrayList<>();
+        List<ItemPackageFavourite> itemPackageFavouriteList = itemPackageFavouriteR.getAllByCustomerProfile_CustomerProId(customerId);
+        for (ItemPackageFavourite itemPackageFavourite : itemPackageFavouriteList) {
+            if (itemPackageFavourite.getItemPackage().getItemPackageType().equals("Item")) {
+                itemsBySearch.add(itemPackageFavourite.getItemPackage());
+            } else if (itemPackageFavourite.getItemPackage().getItemPackageType().equals("Package")) {
+                packagesBySearch.add(itemPackageFavourite.getItemPackage());
+            }
+        }
+        setItemPackageDTO(itemsBySearch, items);
+        setItemPackageDTO(packagesBySearch, itemPackages);
+        itemPackageDTO.setItemPackages(itemPackages);
+        itemPackageDTO.setItems(items);
+        return itemPackageDTO;
     }
 }
