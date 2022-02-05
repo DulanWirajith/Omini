@@ -41,7 +41,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
   }
 
   addToCart() {
-    this.itemPackage.orderDetail.orderDetailType = 'ItemPackage';
+    this.itemPackage.orderDetail.orderDetailType = this.itemPackage.itemPackageType;
     this.shopCartService.shopCartSub.next(this.itemPackage);
   }
 
@@ -69,7 +69,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
     this.itemPackageReview.itemPackage = {
       itemPackageId: this.itemPackage.itemPackageId
     };
-    this.itemPackageReview.reviewType = 'ItemPackage';
+    // this.itemPackageReview.reviewType = 'ItemPackage';
     this.itemPackageReview.customerProfile.customerProId = JSON.parse(localStorage.getItem('user')).customerProfile.customerProId;
     this.itemService.addItemPackageReview(this.itemPackageReview).subscribe((itemPackageReview) => {
       this.itemPackageReviews.push(itemPackageReview);
@@ -124,7 +124,7 @@ export class ItemPackageDetailViewComponent implements OnInit {
 
   getItemPackageReviews() {
     this.review = true;
-    this.itemService.getItemPackageReviews(this.itemPackage.itemPackageId, JSON.parse(localStorage.getItem('user')).userId, 'ItemPackage').subscribe((itemPackageReviews) => {
+    this.itemService.getItemPackageReviews(this.itemPackage.itemPackageId, JSON.parse(localStorage.getItem('user')).userId).subscribe((itemPackageReviews) => {
       this.itemPackageReviews = itemPackageReviews;
       // console.log(this.itemPackageReviews)
     })

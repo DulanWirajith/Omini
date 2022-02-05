@@ -54,6 +54,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
       this.totalPrice = 0;
       if (itemOrder !== null && itemOrder.orderId !== undefined) {
         this.itemOrder = itemOrder;
+        console.log(this.itemOrder)
         if (itemOrder.orderDetails !== undefined) {
           this.shopCartService.orderDetails = itemOrder.orderDetails;
           for (let orderDetail of itemOrder.orderDetails) {
@@ -81,57 +82,57 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     })
   }
 
-  addToCart(item) {
+  addToCart(itemPackage) {
     // console.log(item)
-    this.totalItemCount += item.orderDetail.quantity;
-    this.totalPrice += (item.discountedPrice * item.orderDetail.quantity);
+    this.totalItemCount += itemPackage.orderDetail.quantity;
+    this.totalPrice += (itemPackage.discountedPrice * itemPackage.orderDetail.quantity);
     let indexShop: any = this.shopCart.findIndex(shopCart => {
-      return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
+      return shopCart.shop.businessProId === itemPackage.businessProfileCategory.businessProfile.businessProId
     })
     if (indexShop === -1) {
       this.shopCart.push({
-        shop: item.businessProfileCategory.businessProfile,
-        shopProfile: item,
-        itemCount: item.orderDetail.quantity,
-        totalPrice: (item.discountedPrice * item.orderDetail.quantity),
-        items: [item]
+        shop: itemPackage.businessProfileCategory.businessProfile,
+        shopProfile: itemPackage,
+        itemCount: itemPackage.orderDetail.quantity,
+        totalPrice: (itemPackage.discountedPrice * itemPackage.orderDetail.quantity),
+        items: [itemPackage]
       });
     } else {
       let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
-        return itemObj.itemId === item.itemId
+        return itemObj.itemPackageId === itemPackage.itemPackageId
       })
       if (indexItem === -1) {
-        this.shopCart[indexShop].items.push(item);
+        this.shopCart[indexShop].items.push(itemPackage);
       }
-      this.shopCart[indexShop].itemCount += item.orderDetail.quantity;
-      this.shopCart[indexShop].totalPrice += (item.discountedPrice * item.orderDetail.quantity);
+      this.shopCart[indexShop].itemCount += itemPackage.orderDetail.quantity;
+      this.shopCart[indexShop].totalPrice += (itemPackage.discountedPrice * itemPackage.orderDetail.quantity);
     }
-    this.shopCartService.shopCartItemsSub.next(item);
+    this.shopCartService.shopCartItemsSub.next(itemPackage);
     this.shopCartService.shopCart = this.shopCart;
   }
 
-  addOrder(item) {
-    // console.log(item)
+  addOrder(itemPackage) {
+    console.log(itemPackage)
     if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
-      if (item.orderDetail.quantity === 0) {
-        if (item.quantity > item.orderDetail.quantity) {
-          let orderDetail = item.orderDetail;
+      if (itemPackage.orderDetail.quantity === 0) {
+        if (itemPackage.quantity > itemPackage.orderDetail.quantity) {
+          let orderDetail = itemPackage.orderDetail;
           orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
-          orderDetail.makeToOrder = item.makeToOrder;
-          orderDetail.price = item.discountedPrice;
+          orderDetail.makeToOrder = itemPackage.makeToOrder;
+          orderDetail.price = itemPackage.discountedPrice;
           orderDetail.itemOrder.orderDetails = [];
           // if (orderDetail.orderDetailType === 'Item') {
           //   orderDetail.item = JSON.parse(JSON.stringify(item));
           // } else if (orderDetail.orderDetailType === 'ItemPackage') {
-            orderDetail.itemPackage = JSON.parse(JSON.stringify(item));
+            orderDetail.itemPackage = JSON.parse(JSON.stringify(itemPackage));
           // }
-          orderDetail.businessProfileCategory = item.businessProfileCategory;
+          orderDetail.businessProfileCategory = itemPackage.businessProfileCategory;
           this.shopCartService.addOrderDetail(orderDetail).subscribe((orderDetailR) => {
             //console.log(orderDetail.orderDetailId)
             orderDetail.orderDetailId = orderDetailR.orderDetailId;
             this.itemOrder.orderId = orderDetailR.itemOrder.orderId;
             orderDetail.quantity = orderDetailR.quantity;
-            this.addToCart(item);
+            this.addToCart(itemPackage);
             let indexOrderDetail: any = this.itemOrder.orderDetails.findIndex(orderDetailObj => {
               return orderDetailObj.orderDetailId === orderDetailR.orderDetailId
             })
@@ -144,57 +145,57 @@ export class ShopCartComponent implements OnInit, OnDestroy {
             // console.log(this.itemOrder)
           })
         }
-      } else if (item.quantity > item.orderDetail.quantity) {
+      } else if (itemPackage.quantity > itemPackage.orderDetail.quantity) {
         // console.log(item)
         let indexShop: any = this.shopCart.findIndex(shopCart => {
-          return shopCart.shop.businessProId === item.businessProfileCategory.businessProfile.businessProId
+          return shopCart.shop.businessProId === itemPackage.businessProfileCategory.businessProfile.businessProId
         })
-        let orderDetail = JSON.parse(JSON.stringify(item.orderDetail));
+        let orderDetail = JSON.parse(JSON.stringify(itemPackage.orderDetail));
         // if (orderDetail.orderDetailType === 'Item') {
         //   orderDetail.item = JSON.parse(JSON.stringify(item));
         // } else if (orderDetail.orderDetailType === 'ItemPackage') {
-          orderDetail.itemPackage = JSON.parse(JSON.stringify(item));
+          orderDetail.itemPackage = JSON.parse(JSON.stringify(itemPackage));
         // }
         orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
         orderDetail.itemOrder.orderDetails = [];
-        orderDetail.businessProfileCategory = item.businessProfileCategory;
+        orderDetail.businessProfileCategory = itemPackage.businessProfileCategory;
         this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
           // console.log(orderDetailR)
           this.totalItemCount++;
-          let price = item.discountedPrice;
+          let price = itemPackage.discountedPrice;
           orderDetail.quantity++;
 
           let indexItem: any = this.shopCart[indexShop].items.findIndex(itemObj => {
-            return itemObj.itemId === item.itemId
+            return itemObj.itemPackageId === itemPackage.itemPackageId
           })
           this.shopCart[indexShop].items[indexItem].orderDetail.quantity++;
           this.shopCart[indexShop].totalPrice += price;
           this.shopCart[indexShop].itemCount++;
           this.totalPrice += price;
-          item.orderDetail = orderDetail;
-          this.shopCartService.shopCartItemsSub.next(item);
+          itemPackage.orderDetail = orderDetail;
+          this.shopCartService.shopCartItemsSub.next(itemPackage);
         })
       }
     }
-    // console.log(item)
+    console.log(this.shopCart)
   }
 
-  itemCountInc(shop, item) {
+  itemCountInc(shop, itemPackage) {
     // console.log(item)
-    if (item.quantity === -1 || item.quantity > item.orderDetail.quantity) {
-      let orderDetail = item.orderDetail;
+    if (itemPackage.quantity > itemPackage.orderDetail.quantity) {
+      let orderDetail = itemPackage.orderDetail;
       orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
       orderDetail.itemOrder.orderDetails = [];
-      orderDetail.businessProfileCategory = item.businessProfileCategory;
+      orderDetail.businessProfileCategory = itemPackage.businessProfileCategory;
       this.shopCartService.updateOrderDetail('inc', orderDetail).subscribe((orderDetailR) => {
         // console.log(orderDetailR)
         this.totalItemCount++;
-        let price = item.discountedPrice;
+        let price = itemPackage.discountedPrice;
         shop.totalPrice += price;
         this.totalPrice += price;
         shop.itemCount++;
         orderDetail.quantity++;
-        this.shopCartService.shopCartItemsSub.next(item);
+        this.shopCartService.shopCartItemsSub.next(itemPackage);
       })
     }
   }

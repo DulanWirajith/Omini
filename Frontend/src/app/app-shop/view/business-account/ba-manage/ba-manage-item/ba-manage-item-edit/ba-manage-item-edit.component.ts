@@ -113,7 +113,7 @@ export class BaManageItemEditComponent implements OnInit {
     // }
     //console.log(this.item)
     const uploadImageData = new FormData();
-    for (let itemPackageImage of this.item.itemImgsRaw) {
+    for (let itemPackageImage of this.item.itemPackage.itemImgsRaw) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
     }
     uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
@@ -122,6 +122,7 @@ export class BaManageItemEditComponent implements OnInit {
       }));
     this.itemService.updateItem(uploadImageData, this.item.itemId).subscribe((item) => {
       this.imageInput.removeFiles();
+      // this.item.itemPackage.itemImgsRaw = [];
       this.item.itemPackage.itemPackageImages = this.item.itemPackage.itemPackageImages.concat(item.itemPackage.itemPackageImages);
       if (document.getElementById('item-back-btn') !== null) {
         document.getElementById('item-back-btn').click();

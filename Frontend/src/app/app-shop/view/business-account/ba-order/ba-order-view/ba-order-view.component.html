@@ -52,11 +52,11 @@
           <a class="nav-link" data-bs-toggle="offcanvas"
              (click)="getItemPackageSelected(orderDetail.itemPackage)"
              [attr.data-bs-target]="'#item-package-viewer-g'">
-            {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
+            {{orderDetail.itemPackage.name}}
           </a>
         </h3>
         <span *ngIf="orderDetail.orderDetailType==='Item'" class="badge rounded-pill bg-info"> Item </span>
-        <span *ngIf="orderDetail.orderDetailType==='ItemPackage'" class="badge rounded-pill bg-success"> Package </span>
+        <span *ngIf="orderDetail.orderDetailType==='Package'" class="badge rounded-pill bg-success"> Package </span>
       </div>
       <div class="row cols-sm-2 row-cols-md-12"
            style="margin-top: 10px;margin-bottom: 10px">
@@ -73,7 +73,7 @@
           <p class="mb-1 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
             Total Price </p>
           <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
-            LKR {{orderDetail.price * orderDetail.quantity}}
+            LKR {{(orderDetail.price * orderDetail.quantity) | number:'.2-2'}}
           </p>
         </div>
       </div>

@@ -96,9 +96,9 @@ public class ItemPackageController {
 //        }
 //    }
 
-    @GetMapping(value = "/getItemPackageReviews/{itemId}/{customerId}/{reviewType}")
-    public ResponseEntity getItemPackageReviews(@PathVariable String itemId, @PathVariable String customerId, @PathVariable String reviewType) {
-        return ResponseEntity.ok(itemPackageS.getItemPackageReviews(itemId, customerId, reviewType));
+    @GetMapping(value = "/getItemPackageReviews/{itemId}/{customerId}")
+    public ResponseEntity getItemPackageReviews(@PathVariable String itemId, @PathVariable String customerId) {
+        return ResponseEntity.ok(itemPackageS.getItemPackageReviews(itemId, customerId));
     }
 
 //    @GetMapping(value = "/itemImg/{id}")

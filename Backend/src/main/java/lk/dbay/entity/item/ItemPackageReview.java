@@ -29,7 +29,7 @@ public class ItemPackageReview extends DateTime {
 //    private Item item;
     @ManyToOne
     private ItemPackage itemPackage;
-    private String reviewType;
+//    private String reviewType;
 
     @ManyToOne(optional = false)
     private CustomerProfile customerProfile;

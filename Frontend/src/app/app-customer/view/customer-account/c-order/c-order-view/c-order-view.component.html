@@ -133,7 +133,7 @@
                         <a class="nav-link" data-bs-toggle="offcanvas"
                            (click)="getItemPackageSelected(orderDetail.itemPackage)"
                            [attr.data-bs-target]="'#item-package-viewer-g'">
-                          {{orderDetail.orderDetailType==='Item'?orderDetail.item.name:orderDetail.orderDetailType==='ItemPackage'?orderDetail.itemPackage.name:''}}
+                          {{orderDetail.itemPackage.name}}
                         </a>
                         <i *ngIf="orderDetail.status==='Pending'" class="fas fa-sync-alt"
                            style="margin-left: 10px;font-size: 18px;color: #e9ad2d"></i>
@@ -150,7 +150,7 @@
                       </h3>
                       <span *ngIf="orderDetail.orderDetailType==='Item'"
                             class="badge rounded-pill bg-info"> Item </span>
-                      <span *ngIf="orderDetail.orderDetailType==='ItemPackage'"
+                      <span *ngIf="orderDetail.orderDetailType==='Package'"
                             class="badge rounded-pill bg-success"> Package </span>
                     </div>
                     <div class="row cols-sm-2 row-cols-md-12"

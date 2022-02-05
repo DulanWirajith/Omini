@@ -73,7 +73,7 @@
     class="fs-sm mt-n1">{{itemCount>1 ? itemCount+' results':itemCount+' result'}}</span></div>
 </div>
 <!-- Catalog grid-->
-<div class="offcanvas-body py-lg-4">
+<div class="offcanvas-body py-lg-4" style="padding-left: 2px">
   <!-- Tabs content-->
   <div class="tab-content">
 
@@ -219,197 +219,311 @@
     <div class="tab-pane fade show" id="package-filters" role="tabpanel">
       <div class="">
         <!--<div class="row row-cols-xl-3 row-cols-sm-2 row-cols-1 gy-4 gx-3 gx-xxl-4 py-4">-->
-        <div class="row g-4 py-1" style="padding-right: 50px;padding-left: 50px">
-          <!-- Accordion basic -->
-          <div class="accordion" id="package-list">
+        <div class="row g-4 py-1" style="">
 
-            <!-- Accordion item -->
-            <div class="accordion-item mb-2" *ngFor="let itemPackage of itemPackages;let i = index"
-                 [ngStyle]="{'margin-top':i>0 ? '30px':'0px'}">
-              <div class="accordion-header" id="">
-                <div class="card bg-position-center border-0 overflow-hidden"
-                     style="">
-
-                  <div class="tns-carousel-wrapper card-img-top card-img-hover">
-                    <span class="img-gradient-overlay"></span>
-                    <!--<div class="position-absolute start-0 top-0 pt-3 ps-3"-->
-                    <!--(click)="getItemPackageSelected(itemPackage)" data-bs-target="#item-package-viewer-g">-->
-                    <!--<span class="d-table badge bg-info">{{itemPackage.name}}</span></div>-->
-                    <!--<h3 class="h6 fs-base" style="margin-bottom: 0px">-->
-                    <!--<a class="nav-link" data-bs-toggle="offcanvas"-->
-                    <!--(click)="getItemPackageSelected(itemPackage)"-->
-                    <!--data-bs-target="#item-viewer-g" style="font-weight: bold;padding: 0px">{{itemPackage.name}}</a>-->
-                    <!--</h3>-->
-
-                    <div class="card-footer border-0 pt-5 pb-4 gy-3 w-100 position-absolute bottom-0 end-0">
-                      <div class="d-sm-flex justify-content-between align-items-end">
-                        <a class="text-decoration-none text-light pe-2">
-                          <!-- <div class="fs-sm text-uppercase pt-2 mb-1">Available</div> -->
-                          <!--<h3 class="h5 text-light mb-1">{{itemPackage.name}}</h3>-->
-                          <h3 class="h6 fs-base" style="margin-bottom: 0px">
-                            <a class="nav-link" data-bs-toggle="offcanvas"
-                               (click)="getItemPackageSelected(itemPackage)"
-                               data-bs-target="#item-package-viewer-g" style="font-weight: bold;padding: 0px">{{itemPackage.name}}</a>
-                          </h3>
-                          <div class="fs-sm opacity-70">
-                            <i class="fi-bookmark me-1"></i>
-                            {{itemPackage.description}}
-                          </div>
-                        </a>
-                        <!--<div class="btn-group ms-n2 ms-sm-5 mt-3 justify-content-end">-->
-                        <!--&lt;!&ndash;<a class="btn btn-primary px-3">LKR {{itemPackage.price}}</a>&ndash;&gt;-->
-                        <!--<button-->
-                        <!--class="btnView btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"-->
-                        <!--type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#ipsr-package' + i"-->
-                        <!--aria-expanded="true"-->
-                        <!--aria-controls="packageOne" value="{{itemPackage.itemPackageId}}">-->
-                        <!--<i class="fi-eye-on"></i>-->
-                        <!--</button>-->
-                        <!--</div>-->
-                      </div>
-                    </div>
-
-                    <!--<div class="content-overlay end-0 top-0 pt-3 pe-3">-->
-                    <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
-                    <!--data-bs-toggle="tooltip" data-bs-placement="left" title="remove item">-->
-                    <!--<i class="fi-trash" style="font-size: 20px"></i>-->
-                    <!--</button>-->
-                    <!--</div>-->
-                    <div class="position-absolute start-0 top-0 pt-3 ps-3"
-                         style="width: 99%;display: flex;justify-content: right">
-                      <div *ngIf="itemPackage.makeToOrder"
-                           class="d-table badge bg-info">Make To Order
-                      </div>
-                    </div>
-                    <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
-                      class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
-                                                                        style="margin-bottom: 0px;"><i
-                      class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
-                    <div class="content-overlay end-0 top-0"
-                         style="display: flex;justify-content: right;width: 95%;margin-top: 310px;margin-right: 10px">
-                      <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
-                              data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"><i
-                        class="fi-heart"></i></button>
-                    </div>
-                    <div style="height: 350px; background-size: cover;">
-                      <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-                        <mdb-carousel-item *ngFor="let image of itemPackage.itemPackageImages">
-                          <span
-                            style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
-                          <img style="max-height:350px;height: 350px" class="d-block w-100"
-                               [src]="getPackageImageSrc(image)" alt="First slide">
-                        </mdb-carousel-item>
-                      </mdb-carousel>
-                    </div>
+          <div class="col-sm-12 col-md-6 col-xl-4" *ngFor="let item of itemPackages;let i = index">
+            <div class="card shadow-sm card-hover border-0 h-100">
+              <div class="tns-carousel-wrapper card-img-top card-img-hover"><a class="img-overlay"></a>
+                <div class="position-absolute start-0 top-0 pt-3 ps-3"
+                     style="width: 95%;display: flex;justify-content: right">
+                  <div *ngIf="item.makeToOrder"
+                       class="d-table badge bg-info">Make To Order
                   </div>
-                  <div class="position-relative" style="margin: 15px 15px 0px 15px">
-                    <!--<h3 class="h6 fs-base" style="margin-bottom: 0px">-->
-                    <!--<a class="nav-link" href="#" data-bs-toggle="offcanvas"-->
-                    <!--data-bs-target="#fi-item-viewer" style="font-weight: bold;padding: 0px">{{itemPackage.name}}</a>-->
-                    <!--</h3>-->
-                    <div class="border-top border-light pt-0 mb-2">
-                      <div class="row cols-sm-2 row-cols-md-12">
-                        <div class="col" style="padding: 0px">
-                          <div *ngIf="itemPackage.quantity>0" style="border-right: 1px solid #d3d3d3">
-                            <p class="mb-1 fs-sm"
-                               style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
-                              {{itemPackage.makeToOrder?'Max':''}} Quantity
-                            </p>
-                            <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
-                              {{itemPackage.quantity}}</p>
-                          </div>
-                          <div *ngIf="itemPackage.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
-                            <p class="mb-2 fs-sm fw-bold mx-2"
-                               style="text-align: center;">
-                              <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">
-                                Out Of Stock
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="col" style="padding: 0px">
-                          <p class="mb-2 fs-sm"
-                             style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
-                            Discount </p>
-                          <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
-                            {{itemPackage.discountType==='None' ? 'N/A' :
-                            itemPackage.discountType==='Cash' ? ('LKR '+itemPackage.discount) :
-                            itemPackage.discountType==='Percentage' ? (itemPackage.discount + '%') : ''}}
-                          </p>
-                        </div>
-                        <!--<div class="col"-->
-                        <!--style="padding: 0px;display: grid;justify-content: center;align-content: center">-->
-                        <!--<div style="border-right: 1px solid #d3d3d3">-->
-                        <!--<div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>-->
-                        <!--<span *ngIf="itemPackage.discountType==='None'">LKR {{itemPackage.price}}</span>-->
-                        <!--<span *ngIf="itemPackage.discountType!=='None'"-->
-                        <!--style="text-decoration: line-through;color: red">LKR {{itemPackage.price}}</span>-->
-                        <!--<span *ngIf="itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{itemPackage.discountedPrice}}</span>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                      </div>
-                      <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>
-                        <span *ngIf="itemPackage.discountType==='None'">LKR {{itemPackage.price | number:'.2-2'}}</span>
-                        <span *ngIf="itemPackage.discountType!=='None'"
-                              style="text-decoration: line-through;color: red">LKR {{itemPackage.price | number:'.2-2'}}</span>
-                        <span *ngIf="itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{itemPackage.discountedPrice | number:'.2-2'}}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-footer d-flex pt-3 text-nowrap">
-
-                    <div class="d-flex align-items-center justify-content-between w-100">
-                      <div class="fs-sm">
-                        <div class="d-flex d-md-block d-lg-flex align-items-start mb-2">
-                          <img class="rounded-circle" src="../../../../../assets/img/37.png" width="48"
-                               alt="Annette Black">
-                          <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
-                            <h2 class="fs-sm mb-0">
-                              <a style="padding: 0px;font-weight: bold" class="nav-link">
-                                {{itemPackage.businessProfileCategory.businessProfile.businessName}}
-                              </a>
-                            </h2>
-                            <div class="star-rating">
-                              <i class="star-rating-icon fi-star-filled active"></i>
-                              <i class="star-rating-icon fi-star-filled active"></i>
-                              <i class="star-rating-icon fi-star-filled active"></i>
-                              <i class="star-rating-icon fi-star-filled active"></i>
-                              <i class="star-rating-icon fi-star-filled active"></i>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div style="display: flex">
-                        <button style="background-color: #06A773"
-                                class="btn btn-icon btn-sm text-primary rounded-circle"
-                                type="button" data-bs-toggle="tooltip" title="Add to Cart"
-                                (click)="addToCart(itemPackage,'ItemPackage')">
-                          <i class="fi-cart" style="color: white"></i></button>
-                        <div *ngIf="itemPackage.orderDetail.quantity>0"
-                             style="padding: 2px 5px 2px 5px;color: #1b945b;margin-top: 4px;margin-left: 8px;font-weight: bold">
-                          {{itemPackage.orderDetail.quantity}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
-
+                <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                  class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
+                                                                    style="margin-bottom: 0px;"><i
+                  class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
+                <div class="content-overlay end-0 top-0"
+                     style="display: flex;justify-content: right;width: 95%;margin-top: 158px;margin-right: 10px">
+                  <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                          data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
+                          (click)="setItemFavourite(item)">
+                    <i *ngIf="!item.favourite" class="fi-heart"></i>
+                    <i *ngIf="item.favourite" class="fi-heart-filled"></i>
+                  </button>
+                </div>
+                <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+                  <mdb-carousel-item *ngFor="let image of item.itemPackageImages">
+                    <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
+                    <img style="max-height:200px;height: 200px" class="d-block w-100" [src]="getImageSrc(image)"
+                         alt="First slide">
+                  </mdb-carousel-item>
+                </mdb-carousel>
               </div>
-              <div class="accordionView accordion-collapse collapse" aria-labelledby="headingOne"
-                   data-bs-parent="#package-list"
-                   id="ipsr-package{{i}}" style="margin-top: 10px">
-                <div class="accordion-body">
+              <div class="position-relative" style="margin: 15px 15px 0px 15px">
+                <h3 class="h6 fs-base" style="margin-bottom: 0px">
+                  <a class="nav-link" data-bs-toggle="offcanvas"
+                     (click)="getItemPackageSelected(item)"
+                     data-bs-target="#item-package-viewer-g" style="font-weight: bold;padding: 0px;cursor: pointer">
+                    {{item.name}}
+                  </a>
+                </h3>
+                <div class="border-top border-light pt-0 mb-2">
 
-                  <!--<app-item-search-result-view [items]="itemPackage.items"></app-item-search-result-view>-->
+                  <div class="row cols-sm-2 row-cols-md-12"
+                       style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">
+                    <div class="col" style="padding: 0px">
+                      <div *ngIf="item.quantity>0" style="border-right: 1px solid #d3d3d3">
+                        <p class="mb-1 fs-sm" style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">
+                          {{item.makeToOrder?'Max':''}} Quantity
+                        </p>
+                        <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">{{item.quantity}}</p>
+                      </div>
+                      <div *ngIf="item.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
+                        <p class="mb-2 fs-sm fw-bold mx-2"
+                           style="text-align: center;">
+                  <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">
+                    Out Of Stock
+                  </span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col" style="padding: 0px">
+                      <p class="mb-2 fs-sm" style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">
+                        Discount </p>
+                      <p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">
+                        {{item.discountType==='None' ? 'N/A' :
+                        item.discountType==='Cash' ? ('LKR '+item.discount) :
+                        item.discountType==='Percentage' ? (item.discount + '%') : ''}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>
+                    <span *ngIf="item.discountType==='None'">LKR {{item.price | number:'.2-2'}}</span>
+                    <span *ngIf="item.discountType!=='None'"
+                          style="text-decoration: line-through;color: red">LKR {{item.price | number:'.2-2'}}</span>
+                    <span *ngIf="item.discountType!=='None'" style="margin-left: 10px">LKR {{item.discountedPrice | number:'.2-2'}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer d-flex pt-3 text-nowrap">
 
+                <div class="d-flex align-items-center justify-content-between w-100">
+                  <div class="fs-sm">
+                    <div class="d-flex d-md-block d-lg-flex align-items-start mb-2">
+                      <img class="rounded-circle" src="../../../../../assets/img/37.png" width="48" alt="Annette Black">
+                      <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
+                        <h2 class="fs-sm mb-0">
+                          <a style="padding: 0px;font-weight: bold" class="nav-link">
+                            {{item.businessProfileCategory.businessProfile.businessName}}
+                          </a>
+                        </h2>
+                        <div class="star-rating">
+                          <i class="star-rating-icon fi-star-filled active"></i>
+                          <i class="star-rating-icon fi-star-filled active"></i>
+                          <i class="star-rating-icon fi-star-filled active"></i>
+                          <i class="star-rating-icon fi-star-filled active"></i>
+                          <i class="star-rating-icon fi-star-filled active"></i>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div style="display: flex" *ngIf="item.orderDetail!==undefined">
+                    <button style="background-color: #06A773"
+                            class="btn btn-icon btn-sm text-primary rounded-circle"
+                            type="button" data-bs-toggle="tooltip" title="Add to Cart" (click)="addToCart(item,'Package')">
+                      <i class="fi-cart" style="color: white"></i></button>
+                    <div *ngIf="item.orderDetail!==undefined && item.orderDetail.quantity>0"
+                         style="padding: 2px 5px 2px 5px;color: #1b945b;margin-top: 4px;margin-left: 8px;font-weight: bold">
+                      {{item.orderDetail.quantity}}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
+          <!-- Accordion basic -->
+          <!--<div class="accordion" id="package-list">-->
+
+            <!--&lt;!&ndash; Accordion item &ndash;&gt;-->
+            <!--<div class="accordion-item mb-2" *ngFor="let itemPackage of itemPackages;let i = index"-->
+                 <!--[ngStyle]="{'margin-top':i>0 ? '30px':'0px'}">-->
+              <!--<div class="accordion-header" id="">-->
+                <!--<div class="card bg-position-center border-0 overflow-hidden"-->
+                     <!--style="">-->
+
+                  <!--<div class="tns-carousel-wrapper card-img-top card-img-hover">-->
+                    <!--<span class="img-gradient-overlay"></span>-->
+                    <!--&lt;!&ndash;<div class="position-absolute start-0 top-0 pt-3 ps-3"&ndash;&gt;-->
+                    <!--&lt;!&ndash;(click)="getItemPackageSelected(itemPackage)" data-bs-target="#item-package-viewer-g">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="d-table badge bg-info">{{itemPackage.name}}</span></div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<h3 class="h6 fs-base" style="margin-bottom: 0px">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a class="nav-link" data-bs-toggle="offcanvas"&ndash;&gt;-->
+                    <!--&lt;!&ndash;(click)="getItemPackageSelected(itemPackage)"&ndash;&gt;-->
+                    <!--&lt;!&ndash;data-bs-target="#item-viewer-g" style="font-weight: bold;padding: 0px">{{itemPackage.name}}</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</h3>&ndash;&gt;-->
+
+                    <!--<div class="card-footer border-0 pt-5 pb-4 gy-3 w-100 position-absolute bottom-0 end-0">-->
+                      <!--<div class="d-sm-flex justify-content-between align-items-end">-->
+                        <!--<a class="text-decoration-none text-light pe-2">-->
+                          <!--&lt;!&ndash; <div class="fs-sm text-uppercase pt-2 mb-1">Available</div> &ndash;&gt;-->
+                          <!--&lt;!&ndash;<h3 class="h5 text-light mb-1">{{itemPackage.name}}</h3>&ndash;&gt;-->
+                          <!--<h3 class="h6 fs-base" style="margin-bottom: 0px">-->
+                            <!--<a class="nav-link" data-bs-toggle="offcanvas"-->
+                               <!--(click)="getItemPackageSelected(itemPackage)"-->
+                               <!--data-bs-target="#item-package-viewer-g" style="font-weight: bold;padding: 0px">{{itemPackage.name}}</a>-->
+                          <!--</h3>-->
+                          <!--<div class="fs-sm opacity-70">-->
+                            <!--<i class="fi-bookmark me-1"></i>-->
+                            <!--{{itemPackage.description}}-->
+                          <!--</div>-->
+                        <!--</a>-->
+                        <!--&lt;!&ndash;<div class="btn-group ms-n2 ms-sm-5 mt-3 justify-content-end">&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<a class="btn btn-primary px-3">LKR {{itemPackage.price}}</a>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="btnView btn btn-primary btn-icon border-end-0 border-top-0 border-bottom-0 border-light fs-sm"&ndash;&gt;-->
+                        <!--&lt;!&ndash;type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#ipsr-package' + i"&ndash;&gt;-->
+                        <!--&lt;!&ndash;aria-expanded="true"&ndash;&gt;-->
+                        <!--&lt;!&ndash;aria-controls="packageOne" value="{{itemPackage.itemPackageId}}">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<i class="fi-eye-on"></i>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash;<div class="content-overlay end-0 top-0 pt-3 pe-3">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"&ndash;&gt;-->
+                    <!--&lt;!&ndash;data-bs-toggle="tooltip" data-bs-placement="left" title="remove item">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<i class="fi-trash" style="font-size: 20px"></i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="position-absolute start-0 top-0 pt-3 ps-3"-->
+                         <!--style="width: 99%;display: flex;justify-content: right">-->
+                      <!--<div *ngIf="itemPackage.makeToOrder"-->
+                           <!--class="d-table badge bg-info">Make To Order-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="position-absolute start-0 top-0 pt-3 ps-3"><span-->
+                      <!--class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"-->
+                                                                        <!--style="margin-bottom: 0px;"><i-->
+                      <!--class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>-->
+                    <!--<div class="content-overlay end-0 top-0"-->
+                         <!--style="display: flex;justify-content: right;width: 95%;margin-top: 310px;margin-right: 10px">-->
+                      <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
+                              <!--data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"><i-->
+                        <!--class="fi-heart"></i></button>-->
+                    <!--</div>-->
+                    <!--<div style="height: 350px; background-size: cover;">-->
+                      <!--<mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">-->
+                        <!--<mdb-carousel-item *ngFor="let image of itemPackage.itemPackageImages">-->
+                          <!--<span-->
+                            <!--style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>-->
+                          <!--<img style="max-height:350px;height: 350px" class="d-block w-100"-->
+                               <!--[src]="getPackageImageSrc(image)" alt="First slide">-->
+                        <!--</mdb-carousel-item>-->
+                      <!--</mdb-carousel>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="position-relative" style="margin: 15px 15px 0px 15px">-->
+                    <!--&lt;!&ndash;<h3 class="h6 fs-base" style="margin-bottom: 0px">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a class="nav-link" href="#" data-bs-toggle="offcanvas"&ndash;&gt;-->
+                    <!--&lt;!&ndash;data-bs-target="#fi-item-viewer" style="font-weight: bold;padding: 0px">{{itemPackage.name}}</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</h3>&ndash;&gt;-->
+                    <!--<div class="border-top border-light pt-0 mb-2">-->
+                      <!--<div class="row cols-sm-2 row-cols-md-12">-->
+                        <!--<div class="col" style="padding: 0px">-->
+                          <!--<div *ngIf="itemPackage.quantity>0" style="border-right: 1px solid #d3d3d3">-->
+                            <!--<p class="mb-1 fs-sm"-->
+                               <!--style="margin-top: 7px;color: #d48f03;font-weight: bold;text-align: center">-->
+                              <!--{{itemPackage.makeToOrder?'Max':''}} Quantity-->
+                            <!--</p>-->
+                            <!--<p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">-->
+                              <!--{{itemPackage.quantity}}</p>-->
+                          <!--</div>-->
+                          <!--<div *ngIf="itemPackage.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">-->
+                            <!--<p class="mb-2 fs-sm fw-bold mx-2"-->
+                               <!--style="text-align: center;">-->
+                              <!--<span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">-->
+                                <!--Out Of Stock-->
+                              <!--</span>-->
+                            <!--</p>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col" style="padding: 0px">-->
+                          <!--<p class="mb-2 fs-sm"-->
+                             <!--style="margin-top: 7px;color: #b94701;font-weight: bold;text-align: center">-->
+                            <!--Discount </p>-->
+                          <!--<p class="mb-2 fs-sm text-primary fw-bold" style="text-align: center">-->
+                            <!--{{itemPackage.discountType==='None' ? 'N/A' :-->
+                            <!--itemPackage.discountType==='Cash' ? ('LKR '+itemPackage.discount) :-->
+                            <!--itemPackage.discountType==='Percentage' ? (itemPackage.discount + '%') : ''}}-->
+                          <!--</p>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="col"&ndash;&gt;-->
+                        <!--&lt;!&ndash;style="padding: 0px;display: grid;justify-content: center;align-content: center">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div style="border-right: 1px solid #d3d3d3">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span *ngIf="itemPackage.discountType==='None'">LKR {{itemPackage.price}}</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span *ngIf="itemPackage.discountType!=='None'"&ndash;&gt;-->
+                        <!--&lt;!&ndash;style="text-decoration: line-through;color: red">LKR {{itemPackage.price}}</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span *ngIf="itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{itemPackage.discountedPrice}}</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                      <!--</div>-->
+                      <!--<div class="fw-bold"><i class="fi-cash mt-n1 me-2 lead align-middle opacity-70"></i>-->
+                        <!--<span *ngIf="itemPackage.discountType==='None'">LKR {{itemPackage.price | number:'.2-2'}}</span>-->
+                        <!--<span *ngIf="itemPackage.discountType!=='None'"-->
+                              <!--style="text-decoration: line-through;color: red">LKR {{itemPackage.price | number:'.2-2'}}</span>-->
+                        <!--<span *ngIf="itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{itemPackage.discountedPrice | number:'.2-2'}}</span>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="card-footer d-flex pt-3 text-nowrap">-->
+
+                    <!--<div class="d-flex align-items-center justify-content-between w-100">-->
+                      <!--<div class="fs-sm">-->
+                        <!--<div class="d-flex d-md-block d-lg-flex align-items-start mb-2">-->
+                          <!--<img class="rounded-circle" src="../../../../../assets/img/37.png" width="48"-->
+                               <!--alt="Annette Black">-->
+                          <!--<div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">-->
+                            <!--<h2 class="fs-sm mb-0">-->
+                              <!--<a style="padding: 0px;font-weight: bold" class="nav-link">-->
+                                <!--{{itemPackage.businessProfileCategory.businessProfile.businessName}}-->
+                              <!--</a>-->
+                            <!--</h2>-->
+                            <!--<div class="star-rating">-->
+                              <!--<i class="star-rating-icon fi-star-filled active"></i>-->
+                              <!--<i class="star-rating-icon fi-star-filled active"></i>-->
+                              <!--<i class="star-rating-icon fi-star-filled active"></i>-->
+                              <!--<i class="star-rating-icon fi-star-filled active"></i>-->
+                              <!--<i class="star-rating-icon fi-star-filled active"></i>-->
+                            <!--</div>-->
+                          <!--</div>-->
+
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div style="display: flex">-->
+                        <!--<button style="background-color: #06A773"-->
+                                <!--class="btn btn-icon btn-sm text-primary rounded-circle"-->
+                                <!--type="button" data-bs-toggle="tooltip" title="Add to Cart"-->
+                                <!--(click)="addToCart(itemPackage,'Package')">-->
+                          <!--<i class="fi-cart" style="color: white"></i></button>-->
+                        <!--<div *ngIf="itemPackage.orderDetail.quantity>0"-->
+                             <!--style="padding: 2px 5px 2px 5px;color: #1b945b;margin-top: 4px;margin-left: 8px;font-weight: bold">-->
+                          <!--{{itemPackage.orderDetail.quantity}}-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                <!--</div>-->
+
+              <!--</div>-->
+              <!--<div class="accordionView accordion-collapse collapse" aria-labelledby="headingOne"-->
+                   <!--data-bs-parent="#package-list"-->
+                   <!--id="ipsr-package{{i}}" style="margin-top: 10px">-->
+                <!--<div class="accordion-body">-->
+
+                  <!--&lt;!&ndash;<app-item-search-result-view [items]="itemPackage.items"></app-item-search-result-view>&ndash;&gt;-->
+
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+          <!--</div>-->
         </div>
 
       </div>

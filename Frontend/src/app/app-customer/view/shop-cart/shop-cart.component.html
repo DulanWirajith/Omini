@@ -119,13 +119,13 @@
                       <a class="nav-link" href="#" data-bs-toggle="offcanvas"
                          (click)="getPackageItemSelected(item)"
                          [attr.data-bs-target]="'#item-package-viewer-g'"
-                         style="font-weight: bold;padding-left: 10px">
+                         style="font-weight: bold;padding-left: 0px">
                         {{item.name}}
                       </a>
                     </h3>
                     <span *ngIf="item.orderDetail.orderDetailType==='Item'" class="badge rounded-pill bg-info"
                           style="margin-top: 5px"> Item </span>
-                    <span *ngIf="item.orderDetail.orderDetailType==='ItemPackage'" class="badge rounded-pill bg-success"
+                    <span *ngIf="item.orderDetail.orderDetailType==='Package'" class="badge rounded-pill bg-success"
                           style="margin-top: 5px"> Package </span>
                   </div>
                   <button type="button" class="btn btn-outline-primary btn-icon btn-xxs"

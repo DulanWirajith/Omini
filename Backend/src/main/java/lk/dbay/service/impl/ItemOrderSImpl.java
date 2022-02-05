@@ -195,7 +195,7 @@ public class ItemOrderSImpl implements ItemOrderS {
 //                        }
 //                    }
 //                } else
-                if (orderDetail.getOrderDetailType().equals("Package") && !orderDetail.isMakeToOrder()) {
+                if (!orderDetail.isMakeToOrder()) {
                     Optional<ItemPackage> itemPackageOptional = itemPackageR.findById(orderDetail.getItemPackage().getItemPackageId());
                     if (itemPackageOptional.isPresent()) {
                         ItemPackage itemPackage = itemPackageOptional.get();
@@ -339,13 +339,13 @@ public class ItemOrderSImpl implements ItemOrderS {
 //                        }
 //
 //                    } else
-                    if (itemOrderDetail.getItemPackage() != null) {
-                        orderDetailDTO.setOrderDetailType("Package");
+//                    if (itemOrderDetail.getItemPackage() != null) {
+//                        orderDetailDTO.setOrderDetailType("Package");
                         orderDetailDTO.setItemPackage(new ItemPackageDTO(itemOrderDetail.getItemPackage()));
                         if (needBusinessProfile) {
                             orderDetailDTO.setBusinessProfileCategory(itemOrderDetail);
                         }
-                    }
+//                    }
                     itemOrderDTO.getOrderDetails().add(orderDetailDTO);
                     itemOrderDTO.setAmount(itemOrderDTO.getAmount() + (itemOrderDetail.getPrice() * itemOrderDetail.getQuantity()));
                     itemOrderDTO.setQty(itemOrderDTO.getQty() + itemOrderDetail.getQuantity());

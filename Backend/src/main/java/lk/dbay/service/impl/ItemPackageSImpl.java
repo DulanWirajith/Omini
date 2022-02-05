@@ -161,12 +161,12 @@ public class ItemPackageSImpl implements ItemPackageS {
     }
 
     @Override
-    public List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId, String reviewType) {
-        List<ItemPackageReview> itemPackageReviews = null;
+    public List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId) {
+        List<ItemPackageReview> itemPackageReviews = itemPackageReviewR.getAllByItemPackage_ItemPackageId(itemId);
 //        if (reviewType.equals("Item")) {
 //            itemPackageReviews = itemPackageReviewR.getAllByItem_ItemIdAndReviewType(itemId, reviewType);
 //        } else if (reviewType.equals("ItemPackage")) {
-            itemPackageReviews = itemPackageReviewR.getAllByItemPackage_ItemPackageIdAndReviewType(itemId, reviewType);
+//            itemPackageReviews = itemPackageReviewR.getAllByItemPackage_ItemPackageId(itemId);
 //        }
         List<ItemPackageReviewDTO> itemPackageReviewDTOS = new ArrayList<>();
         if (itemPackageReviews != null) {

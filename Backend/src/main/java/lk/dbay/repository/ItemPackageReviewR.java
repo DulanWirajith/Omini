@@ -9,5 +9,5 @@ public interface ItemPackageReviewR extends JpaRepository<ItemPackageReview, Str
 
 //    List<ItemPackageReview> getAllByItemPackage_ItemPackageIdAndReviewType(String itemId, String reviewType);
 
-    List<ItemPackageReview> getAllByItemPackage_ItemPackageIdAndReviewType(String itemPackageId, String reviewType);
+    List<ItemPackageReview> getAllByItemPackage_ItemPackageId(String itemPackageId);
 }

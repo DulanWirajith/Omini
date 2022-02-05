@@ -25,10 +25,10 @@ export class ItemPackageSearchResultComponent implements OnInit {
               private notifierService: NotifierService) {
     // this.shopCartService.shopCartItemsSub.observers = [];
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
-      console.log(item)
-      console.log(this.items)
+      // console.log(item)
+      // console.log(this.items)
       let itemObj: any = this.items.find(itemObj => {
-        return itemObj.itemId === item.itemId
+        return itemObj.itemPackageId === item.itemPackageId
       })
       if (itemObj !== undefined) {
         // console.log(itemObj)
@@ -39,7 +39,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
         return itemPackageObj.itemPackageId === item.itemPackageId
       })
       if (itemPackageObj !== undefined) {
-        // itemObj.quantity = item.quantity;
+        itemPackageObj.quantity = item.quantity;
         itemPackageObj.orderDetail.quantity = item.orderDetail.quantity;
       }
     })
