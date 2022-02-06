@@ -17,6 +17,8 @@ import {RouterModule} from "@angular/router";
 import {SharedModule} from "./_shared/shared.module";
 import { LoginComponent } from './view/login/login.component';
 import { CFavouriteComponent } from './app-customer/view/customer-account/c-favourite/c-favourite.component';
+import { ShopSearchResultComponent } from './app-customer/view/search-result/shop-search-result/shop-search-result.component';
+import { ShopViewComponent } from './view/shop-view/shop-view.component';
 
 @NgModule({
   declarations: [

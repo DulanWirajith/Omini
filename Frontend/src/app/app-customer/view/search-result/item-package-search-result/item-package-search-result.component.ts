@@ -124,30 +124,11 @@ export class ItemPackageSearchResultComponent implements OnInit {
   }
 
   getItemPackageSelected(itemPackage) {
-    // console.log(itemPackage)
     this.itemServiceG.itemPackageSub.next({
       itemPackage: itemPackage,
       backBtn: undefined,
       cart: true
     });
-    // let index: any = that.packageItems.findIndex(itemPackage => {
-    //   return itemPackage.itemPackageId === $(obj).val()
-    // })
-    // //console.log($(obj).val())
-    // if (that.packageItems[index] !== undefined && that.packageItems[index].itemItemPackages === undefined) {
-    //   that.itemService.getItemPackageSelected($(obj).val()).subscribe((itemPackage) => {
-    //     Object.assign(that.packageItems[index], itemPackage)
-    //     that.packageItems[index].tempBusinessCategory = itemPackage.businessProfileCategory.businessCategory;
-    //     that.packageItems[index].items = [];
-    //     // console.log(that.packageItems[index])
-    //     for (let item of itemPackage.itemItemPackages) {
-    //       // console.log(item.item)
-    //       item.item.businessProfileCategory = that.packageItems[index].businessProfileCategory;
-    //       that.packageItems[index].items.push(item.item);
-    //     }
-    //     that.packageItems[index].tempItems = itemPackage.itemItemPackages;
-    //   })
-    // }
   }
 
   // getItemSelected(item) {

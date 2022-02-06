@@ -34,7 +34,9 @@
             alt="Annette Black"
           />
           <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
-            <h2 class="fs-lg mb-0">{{getUser().businessProfile.businessName}}</h2>
+            <h2 class="fs-lg mb-0"
+                [routerLink]="'/shop/header/shop_view'">
+              {{getUser().businessProfile.businessName}}</h2>
             <span class="star-rating"
             ><i class="star-rating-icon fi-star-filled active"></i
             ><i class="star-rating-icon fi-star-filled active"></i
@@ -131,10 +133,10 @@
               </span>
             </a>
             <!--<a-->
-              <!--class="card-nav-link"-->
-              <!--[routerLinkActive]="'active'"-->
-              <!--[routerLink]="'/shop/header/business_account/ba_order_history'"-->
-              <!--(click)="breadCrumbTxt='Order History'"-->
+            <!--class="card-nav-link"-->
+            <!--[routerLinkActive]="'active'"-->
+            <!--[routerLink]="'/shop/header/business_account/ba_order_history'"-->
+            <!--(click)="breadCrumbTxt='Order History'"-->
             <!--&gt;<i class="fi-clock opacity-60 me-2"></i>Order History</a-->
             <!--&gt;-->
             <a
@@ -169,3 +171,4 @@
 
 <!--<app-item-detail-view></app-item-detail-view>-->
 <app-item-package-detail-view></app-item-package-detail-view>
+<!--<app-shop-view></app-shop-view>-->

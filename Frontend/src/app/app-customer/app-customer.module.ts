@@ -21,6 +21,7 @@ import {CrStep5Component} from "./view/customer-register/cr-step5/cr-step5.compo
 import {COrderViewComponent} from "./view/customer-account/c-order/c-order-view/c-order-view.component";
 import {NotifierModule, NotifierOptions} from "angular-notifier";
 import {CFavouriteComponent} from "./view/customer-account/c-favourite/c-favourite.component";
+import {ShopSearchResultComponent} from "./view/search-result/shop-search-result/shop-search-result.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -78,7 +79,8 @@ const components = [
   CrStep4Component,
   CrStep5Component,
   COrderViewComponent,
-  CFavouriteComponent
+  CFavouriteComponent,
+  ShopSearchResultComponent
 ];
 
 @NgModule({

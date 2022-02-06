@@ -1,17 +1,20 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {ItemGService} from "../../_service/item-g.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {Lightbox} from "ngx-lightbox";
 import {ShopCartService} from "../../app-customer/_service/shop-cart.service";
 import {NgForm} from "@angular/forms";
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-item-package-detail-view',
   templateUrl: './item-package-detail-view.component.html',
   styleUrls: ['./item-package-detail-view.component.css']
 })
-export class ItemPackageDetailViewComponent implements OnInit {
+export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
+
+  static lastComp: ItemPackageDetailViewComponent;
 
   itemPackageObj = {
     itemPackage: undefined,
@@ -27,17 +30,29 @@ export class ItemPackageDetailViewComponent implements OnInit {
   @ViewChild('reviewForm', {static: true}) public reviewForm: NgForm;
 
   constructor(private itemService: ItemGService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private shopCartService: ShopCartService) {
-    this.itemPackage = this.getNewPackage();
-    this.itemPackageReview = this.getNewItemPackageReview();
-    this.itemService.itemPackageSub.observers = [];
-    this.itemService.itemPackageSub.subscribe((itemPackageObj) => {
-      // console.log(itemPackageObj)
-      this.itemPackageObj = itemPackageObj;
-      this.getPackageItemSelected(itemPackageObj.itemPackage);
-    })
+    if (ItemPackageDetailViewComponent.lastComp === undefined) {
+      this.itemPackage = this.getNewPackage();
+      this.itemPackageReview = this.getNewItemPackageReview();
+      this.itemService.itemPackageSub.observers = [];
+      this.itemService.itemPackageSub.subscribe((itemPackageObj) => {
+        // console.log(itemPackageObj)
+        this.itemPackageObj = itemPackageObj;
+        this.getPackageItemSelected(itemPackageObj.itemPackage);
+      })
+      $(document).on('click', '.item-package-viewer-g-btn', function () {
+        console.log(432)
+      });
+    } else {
+      return ItemPackageDetailViewComponent.lastComp;
+    }
+
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    ItemPackageDetailViewComponent.lastComp = this;
   }
 
   addToCart() {

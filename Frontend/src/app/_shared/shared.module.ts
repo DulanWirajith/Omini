@@ -11,6 +11,7 @@ import {RouterModule} from "@angular/router";
 import {LightboxModule} from 'ngx-lightbox';
 import {ItemPackageDetailViewComponent} from "../view/item-package-detail-view/item-package-detail-view.component";
 import {NotifierModule, NotifierOptions} from "angular-notifier";
+import {ShopViewComponent} from "../view/shop-view/shop-view.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -57,7 +58,8 @@ const components = [
   HeaderComponent,
   ConfirmPasswordDirective,
   // ItemDetailViewComponent,
-  ItemPackageDetailViewComponent
+  ItemPackageDetailViewComponent,
+  ShopViewComponent
   // NotifierModule.withConfig(customNotifierOptions)
   // LoginComponent
 ]
@@ -74,7 +76,7 @@ let notifierModule: any = NotifierModule.withConfig(customNotifierOptions)
     HttpClientModule,
     MDBBootstrapModule,
     LightboxModule,
-    notifierModule,
+    notifierModule
     // TimeAgoPipe
   ],
   declarations: [

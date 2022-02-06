@@ -39,8 +39,8 @@ export class BusinessAccountService {
     return this.http.put<any>(environment.backend_url + 'business_profile/updateBusinessProfile/' + businessProId, businessReg);
   }
 
-  getBusinessProfile(businessProfileId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId);
+  getBusinessProfile(businessProfileId, needItems): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems);
   }
 
   addBusinessProfile(businessReg): Observable<any> {
@@ -76,7 +76,6 @@ export class BusinessAccountService {
   }
 
   sendVerification(): Observable<any> {
-    // console.log(JSON.parse(localStorage.getItem('cr')).dbayUser)
     return this.http.get<any>(environment.backend_url + 'dbay_user/sendVerification/' + JSON.parse(localStorage.getItem('br')).dbayUser.email);
   }
 

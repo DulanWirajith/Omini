@@ -11,6 +11,8 @@ import {COrderComponent} from "./view/customer-account/c-order/c-order.component
 import {BusinessRegisterComponent} from "../app-shop/view/business-register/business-register.component";
 import {CustomerRegisterComponent} from "./view/customer-register/customer-register.component";
 import {CFavouriteComponent} from "./view/customer-account/c-favourite/c-favourite.component";
+import {ShopSearchResultComponent} from "./view/search-result/shop-search-result/shop-search-result.component";
+import {ShopViewComponent} from "../view/shop-view/shop-view.component";
 
 const routes: Routes = [
   // {
@@ -55,9 +57,17 @@ const routes: Routes = [
           {
             path: 'item_package_search_result',
             component: ItemPackageSearchResultComponent,
+          },
+          {
+            path: 'shop_search_result',
+            component: ShopSearchResultComponent,
           }
         ]
       },
+      {
+        path: 'shop_view',
+        component: ShopViewComponent,
+      }
     ]
   },
 ];

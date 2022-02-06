@@ -2,6 +2,8 @@ package lk.dbay.service.impl;
 
 import lk.dbay.dto.*;
 import lk.dbay.entity.*;
+import lk.dbay.entity.item.ItemPackage;
+import lk.dbay.entity.item.ItemPackageFavourite;
 import lk.dbay.repository.*;
 import lk.dbay.service.BusinessProfileS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     private DbayUserImgR dbayUserImgR;
     @Autowired
     private BusinessProfileCategoryR businessProfileCategoryR;
+    @Autowired
+    private ItemPackageR itemPackageR;
     @Value("${image.path}")
     private String filePath;
 
@@ -61,7 +65,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     }
 
     @Override
-    public BusinessProfileDTO getBusinessProfile(String businessProfileId) {
+    public BusinessProfileDTO getBusinessProfile(String businessProfileId, boolean needItems) {
         Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(businessProfileId);
         if (businessProfileOptional.isPresent()) {
             BusinessProfile businessProfile = businessProfileOptional.get();
@@ -70,9 +74,39 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             businessProfileDTO.setBusinessAreas(businessProfile);
             businessProfileDTO.setBusinessProfileCategories(businessProfile);
             businessProfileDTO.setTown(businessProfile);
+            if (needItems) {
+                List<ItemPackage> itemsBySearch = new ArrayList<>();
+                List<ItemPackage> packagesBySearch = new ArrayList<>();
+                ItemPackageDTO itemPackageDTO = new ItemPackageDTO();
+                List<ItemPackageDTO> itemPackages = new ArrayList<>();
+                List<ItemPackageDTO> items = new ArrayList<>();
+                List<ItemPackage> itemPackageList = itemPackageR.getItemsForBusinessProId(businessProfileId);
+                for (ItemPackage itemPackage : itemPackageList) {
+                    if (itemPackage.getItemPackageType().equals("Item")) {
+                        itemsBySearch.add(itemPackage);
+                    } else if (itemPackage.getItemPackageType().equals("Package")) {
+                        packagesBySearch.add(itemPackage);
+                    }
+                }
+                setItemPackageDTO(itemsBySearch, items);
+                setItemPackageDTO(packagesBySearch, itemPackages);
+                itemPackageDTO.setItemPackages(itemPackages);
+                itemPackageDTO.setItems(items);
+                businessProfileDTO.setItemPackage(itemPackageDTO);
+            }
             return businessProfileDTO;
         }
         return null;
+    }
+
+    private void setItemPackageDTO(List<ItemPackage> itemsBySearch, List<ItemPackageDTO> itemPackages) {
+        for (ItemPackage itemBySearch : itemsBySearch) {
+            ItemPackageDTO itemPackageDTOObj = new ItemPackageDTO(itemBySearch);
+            itemPackageDTOObj.setBusinessProfileCategory(itemBySearch);
+            itemPackageDTOObj.setItemPackageImages(itemBySearch);
+            itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
+            itemPackages.add(itemPackageDTOObj);
+        }
     }
 
     @Override
