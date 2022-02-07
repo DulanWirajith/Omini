@@ -11,4 +11,6 @@ public interface BusinessProfileS {
     BusinessProfileDTO getBusinessProfile(String businessProfileId, boolean needItems);
 
     BusinessProfileDTO updateBusinessProfile(BusinessProfile businessProfile, MultipartFile[] files, String businessProfileId) throws Exception;
+
+    BusinessProfileDTO getItemsBusinessProfile(String businessProfileId, String categoryId);
 }

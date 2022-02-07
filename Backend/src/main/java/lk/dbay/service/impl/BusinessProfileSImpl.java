@@ -75,28 +75,39 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             businessProfileDTO.setBusinessProfileCategories(businessProfile);
             businessProfileDTO.setTown(businessProfile);
             if (needItems) {
-                List<ItemPackage> itemsBySearch = new ArrayList<>();
-                List<ItemPackage> packagesBySearch = new ArrayList<>();
-                ItemPackageDTO itemPackageDTO = new ItemPackageDTO();
-                List<ItemPackageDTO> itemPackages = new ArrayList<>();
-                List<ItemPackageDTO> items = new ArrayList<>();
-                List<ItemPackage> itemPackageList = itemPackageR.getItemsForBusinessProId(businessProfileId);
-                for (ItemPackage itemPackage : itemPackageList) {
-                    if (itemPackage.getItemPackageType().equals("Item")) {
-                        itemsBySearch.add(itemPackage);
-                    } else if (itemPackage.getItemPackageType().equals("Package")) {
-                        packagesBySearch.add(itemPackage);
-                    }
-                }
-                setItemPackageDTO(itemsBySearch, items);
-                setItemPackageDTO(packagesBySearch, itemPackages);
-                itemPackageDTO.setItemPackages(itemPackages);
-                itemPackageDTO.setItems(items);
-                businessProfileDTO.setItemPackage(itemPackageDTO);
+                setItemsToBusinessProfile(businessProfileId, businessProfile.getDefaultBusiness().getBusinessCategoryId(), businessProfileDTO);
             }
             return businessProfileDTO;
         }
         return null;
+    }
+
+    @Override
+    public BusinessProfileDTO getItemsBusinessProfile(String businessProfileId, String categoryId) {
+        BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO();
+        setItemsToBusinessProfile(businessProfileId, categoryId, businessProfileDTO);
+        return businessProfileDTO;
+    }
+
+    private void setItemsToBusinessProfile(String businessProfileId, String categoryId, BusinessProfileDTO businessProfileDTO) {
+        List<ItemPackage> itemsBySearch = new ArrayList<>();
+        List<ItemPackage> packagesBySearch = new ArrayList<>();
+        ItemPackageDTO itemPackageDTO = new ItemPackageDTO();
+        List<ItemPackageDTO> itemPackages = new ArrayList<>();
+        List<ItemPackageDTO> items = new ArrayList<>();
+        List<ItemPackage> itemPackageList = itemPackageR.getItemsForBusinessProId(businessProfileId, categoryId);
+        for (ItemPackage itemPackage : itemPackageList) {
+            if (itemPackage.getItemPackageType().equals("Item")) {
+                itemsBySearch.add(itemPackage);
+            } else if (itemPackage.getItemPackageType().equals("Package")) {
+                packagesBySearch.add(itemPackage);
+            }
+        }
+        setItemPackageDTO(itemsBySearch, items);
+        setItemPackageDTO(packagesBySearch, itemPackages);
+        itemPackageDTO.setItemPackages(itemPackages);
+        itemPackageDTO.setItems(items);
+        businessProfileDTO.setItemPackage(itemPackageDTO);
     }
 
     private void setItemPackageDTO(List<ItemPackage> itemsBySearch, List<ItemPackageDTO> itemPackages) {

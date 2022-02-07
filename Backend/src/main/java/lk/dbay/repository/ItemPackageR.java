@@ -13,8 +13,8 @@ public interface ItemPackageR extends JpaRepository<ItemPackage, String> {
     @Query(value = "from ItemPackage where businessProfileCategory.businessProfileCategoryId=?1 order by name")
     List<ItemPackage> getItemsPackageOrdered(BusinessProfileCategoryPK businessCategoryId, Pageable pageable);
 
-    @Query(value = "from ItemPackage where businessProfileCategory.businessProfile.businessProId=?1")
-    List<ItemPackage> getItemsForBusinessProId(String businessProId);
+    @Query(value = "from ItemPackage where businessProfileCategory.businessProfile.businessProId=?1 and businessProfileCategory.businessProfile.defaultBusiness.businessCategoryId=?2")
+    List<ItemPackage> getItemsForBusinessProId(String businessProId, String defCategory);
 
     @Query(value = "" +
             "select distinct i from ItemPackage i inner join i.itemPackageItemPackageFeatures iif inner join i.packageItem.packageItemItems pii " +

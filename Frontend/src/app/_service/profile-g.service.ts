@@ -15,6 +15,10 @@ export class ProfileGService {
     return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems);
   }
 
+  getItemsBusinessProfile(businessProfileId, categoryId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getItemsBusinessProfile/' + businessProfileId + '/' + categoryId);
+  }
+
   getNewBusinessProfile() {
     return {
       businessProId: "",

@@ -224,6 +224,11 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
   secondImg = 1;
   thirdImg = 2;
 
+  getUser() {
+    // console.log(JSON.parse(localStorage.getItem('user')).role)
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
   getNewPackage() {
     return {
       itemPackageId: "",

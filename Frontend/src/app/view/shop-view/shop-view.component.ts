@@ -32,8 +32,23 @@ export class ShopViewComponent implements OnInit {
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)
       if (businessProfile !== null) {
-        // console.log(businessProfile)
+        console.log(businessProfile)
         this.businessProfile = businessProfile;
+        this.items = businessProfile.itemPackage.items;
+        this.packageItems = businessProfile.itemPackage.itemPackages;
+      }
+    })
+  }
+
+  getItemsBusinessProfile(categoryId){
+    // console.log(categoryId)
+    this.profileService.getItemsBusinessProfile(this.loginService.getUser().userId, categoryId).subscribe((businessProfile) => {
+      // this.user = this.loginService.getUser();
+      // let businessProfile = this.loginService.getUser();
+      //console.log(businessProfile)
+      if (businessProfile !== null) {
+        // console.log(businessProfile)
+        // this.businessProfile = businessProfile;
         this.items = businessProfile.itemPackage.items;
         this.packageItems = businessProfile.itemPackage.itemPackages;
       }
@@ -44,7 +59,7 @@ export class ShopViewComponent implements OnInit {
     this.itemServiceG.itemPackageSub.next({
       itemPackage: itemPackage,
       backBtn: undefined,
-      cart: true
+      cart: undefined
     });
   }
 
@@ -53,5 +68,10 @@ export class ShopViewComponent implements OnInit {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.imageName);
+  }
+
+  getUser() {
+    // console.log(JSON.parse(localStorage.getItem('user')).role)
+    return JSON.parse(localStorage.getItem('user'));
   }
 }

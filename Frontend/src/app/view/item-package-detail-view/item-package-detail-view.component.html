@@ -335,8 +335,8 @@
     </div>
   </div>
 
-  <div class="offcanvas-footer border-top" style="display: flex;">
-    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+  <div class="offcanvas-footer border-top" [ngStyle]="{'display': getUser().role==='C'?'flex':'block'}">
+    <button *ngIf="getUser().role==='C'" class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
             data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
             style="padding-bottom: 24px" (click)="setItemFavourite(itemPackage)">
       <i *ngIf="!itemPackage.favourite" class="fi-heart" style="font-size: 26px"></i>

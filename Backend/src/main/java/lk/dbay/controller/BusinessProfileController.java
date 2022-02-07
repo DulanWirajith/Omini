@@ -57,4 +57,9 @@ public class BusinessProfileController {
     public ResponseEntity getBusinessProfile(@PathVariable String businessProfileId, @PathVariable boolean needItems) {
         return ResponseEntity.ok(businessProfileS.getBusinessProfile(businessProfileId, needItems));
     }
+
+    @GetMapping(value = "/getItemsBusinessProfile/{businessProfileId}/{categoryId}")
+    public ResponseEntity getItemsBusinessProfile(@PathVariable String businessProfileId, @PathVariable String categoryId) {
+        return ResponseEntity.ok(businessProfileS.getItemsBusinessProfile(businessProfileId, categoryId));
+    }
 }

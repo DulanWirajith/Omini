@@ -62,11 +62,17 @@
               <!-- Categories-->
               <div class="tab-pane fade show active" id="biz-item-categories" role="tabpanel">
                 <div class="row row-cols-lg-2 row-cols-1 g-3">
-                  <div class="col" *ngFor="let category of businessProfile.businessProfileCategories"><a
-                    class="icon-box card card-body h-100 border-0 shadow-sm card-hover text-center" href="#">
+                  <div class="col" *ngFor="let category of businessProfile.businessProfileCategories"
+                  (click)="getItemsBusinessProfile(category.businessCategory.businessCategoryId)">
+                    <a class="icon-box card card-body h-100 border-0 shadow-sm card-hover text-center">
                     <div class="icon-box-media bg-faded-accent text-accent rounded-circle mb-3 mx-auto"><i
+                      [ngStyle]="{'color':businessProfile.defaultBusiness.name===category.name?'orangered':''}"
                       class="fi-bed"></i></div>
-                    <h3 class="icon-box-title fs-base mb-0">{{category.name}}</h3></a></div>
+                    <h3 class=" fs-base mb-0"
+                        [ngStyle]="{'color':businessProfile.defaultBusiness.name===category.name?'orangered':''}">
+                      {{category.name}}
+                    </h3>
+                  </a></div>
                   <!--<div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover text-center" href="#">-->
                   <!--<div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-dumbell"></i></div>-->
                   <!--<h3 class="icon-box-title fs-base mb-0">Fitness &amp; Sport</h3></a></div>-->
@@ -193,7 +199,8 @@
         <div class="d-sm-flex align-items-center justify-content-between pb-3 pb-sm-4 mb-3">
           <h1 class="h2 mb-sm-0">{{businessProfile.businessName}}</h1>
 
-          <a class="btn btn-round btn-primary d-inline-block fw-bold text-decoration-none py-1" href="#"
+          <a *ngIf="getUser().role==='C'"
+             class="btn btn-round btn-primary d-inline-block fw-bold text-decoration-none py-1" href="#"
              data-bs-toggle-class="invisible" data-bs-target="#"><i class="fi-like me-2"></i>Follow</a>
         </div>
         <div class="d-sm-flex align-items-center justify-content-between pb-3 pb-sm-4">
@@ -266,7 +273,7 @@
                       </div>
                       <!--<div class="content-overlay end-0 top-0"-->
                       <!--style="display: flex;justify-content: right;width: 95%;margin-top: 158px;margin-right: 10px">-->
-                      <div class="col-2">
+                      <div class="col-2" *ngIf="getUser().role==='C'">
                         <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                                 data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
                                 (click)="setItemFavourite(item,i)" style="padding-bottom: 10px">
@@ -340,7 +347,7 @@
 
                         </div>
                       </div>
-                      <div style="display: flex" *ngIf="item.orderDetail!==undefined">
+                      <div style="display: flex" *ngIf="item.orderDetail!==undefined && getUser().role==='C'">
                         <button style="background-color: #06A773"
                                 class="btn btn-icon btn-sm text-primary rounded-circle"
                                 type="button" data-bs-toggle="tooltip" title="Add to Cart"
@@ -404,7 +411,7 @@
                           </a>
                         </h3>
                       </div>
-                      <div class="col-2">
+                      <div class="col-2" *ngIf="getUser().role==='C'">
                         <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                                 data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
                                 (click)="setItemFavourite(item,i)" style="padding-bottom: 10px">
@@ -477,7 +484,7 @@
 
                         </div>
                       </div>
-                      <div style="display: flex" *ngIf="item.orderDetail!==undefined">
+                      <div style="display: flex" *ngIf="item.orderDetail!==undefined && getUser().role==='C'">
                         <button style="background-color: #06A773"
                                 class="btn btn-icon btn-sm text-primary rounded-circle"
                                 type="button" data-bs-toggle="tooltip" title="Add to Cart"
