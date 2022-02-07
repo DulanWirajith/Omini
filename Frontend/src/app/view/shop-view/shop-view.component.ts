@@ -17,6 +17,9 @@ export class ShopViewComponent implements OnInit {
   businessProfile;
   items = [];
   packageItems = [];
+  selectedCategory = {
+    businessCategoryId: ''
+  };
 
   constructor(private profileService: ProfileGService, private loginService: LoginService, private sanitizer: DomSanitizer, private itemServiceG: ItemGService) {
     this.businessProfile = profileService.getNewBusinessProfile();
@@ -34,14 +37,16 @@ export class ShopViewComponent implements OnInit {
       if (businessProfile !== null) {
         console.log(businessProfile)
         this.businessProfile = businessProfile;
+        this.selectedCategory = businessProfile.defaultBusiness;
         this.items = businessProfile.itemPackage.items;
         this.packageItems = businessProfile.itemPackage.itemPackages;
       }
     })
   }
 
-  getItemsBusinessProfile(categoryId){
+  getItemsBusinessProfile(categoryId) {
     // console.log(categoryId)
+    this.selectedCategory.businessCategoryId = categoryId;
     this.profileService.getItemsBusinessProfile(this.loginService.getUser().userId, categoryId).subscribe((businessProfile) => {
       // this.user = this.loginService.getUser();
       // let businessProfile = this.loginService.getUser();
