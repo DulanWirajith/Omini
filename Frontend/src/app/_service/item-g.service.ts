@@ -9,7 +9,6 @@ import {environment} from "../../environments/environment";
 })
 export class ItemGService {
 
-  // itemSub = new Subject<any>();
   itemPackageSub = new Subject<any>();
 
   constructor(private http: HttpClient, private commonService: CommonService) {
@@ -19,13 +18,6 @@ export class ItemGService {
     return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type + '/' + customerId);
   }
 
-  // getItemSelected(itemId): Observable<any> {
-  //   return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
-  // }
-  //
-  // getPackageItemSelected(itemPackageId): Observable<any> {
-  //   return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
-  // }
   setItemFavourite(customerId, itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_package/setItemPackageFavourite/' + customerId + '/' + itemId);
   }

@@ -9,7 +9,6 @@ import {environment} from "../../environments/environment";
 })
 export class ProfileGService {
 
-  shopProfileSub = new Subject();
   profile = {
     profileId: '',
     returnUrl: ''

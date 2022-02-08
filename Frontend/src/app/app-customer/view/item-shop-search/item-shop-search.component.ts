@@ -25,10 +25,6 @@ export class ItemShopSearchComponent implements OnInit {
   searchItem() {
     if (this.categorySelected !== undefined) {
       this.itemService.getItemsPackagesBySearch(this.txt, this.categorySelected.businessCategoryId, JSON.parse(localStorage.getItem('user')).userId).subscribe((searchedItemPackages) => {
-        // console.log(searchedItemPackages)
-        // for (let i = 0; i < searchedItemPackages.items.length; i++) {
-        //   searchedItemPackages.items[i].orderDetail = this.shopCartService.getNewOrderDetail();
-        // }
         this.itemService.searchedItemPackages = searchedItemPackages;
         this.router.navigate(['customer/header/search_result/item_package_search_result'])
         // console.log(items)
@@ -44,7 +40,6 @@ export class ItemShopSearchComponent implements OnInit {
 
   getBusinessCategories() {
     this.customerAccountService.getBusinessCategories().subscribe((businessCategories) => {
-      // console.log(businessCategories)
       this.businessCategories = businessCategories;
     })
   }

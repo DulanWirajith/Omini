@@ -25,14 +25,6 @@ export class ShopCartService {
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
-  addCart(cart): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'customer_profile/addCart', cart);
-  }
-
-  getCart(cartId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'customer_profile/getCart/' + cartId);
-  }
-
   addOrderDetail(order) {
     return this.http.post<any>(environment.backend_url + 'item_order/addOrderDetail', order);
   }

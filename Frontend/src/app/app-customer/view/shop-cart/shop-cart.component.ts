@@ -58,14 +58,6 @@ export class ShopCartComponent implements OnInit, OnDestroy {
         if (itemOrder.orderDetails !== undefined) {
           this.shopCartService.orderDetails = itemOrder.orderDetails;
           for (let orderDetail of itemOrder.orderDetails) {
-            // if (orderDetail.orderDetailType === 'Item') {
-            //   orderDetail.item.orderDetail = JSON.parse(JSON.stringify(orderDetail));
-            //   orderDetail.item.orderDetail.item = {
-            //     itemId: orderDetail.item.itemId,
-            //   };
-            //   this.addToCart(orderDetail.item);
-            // } else if (orderDetail.orderDetailType === 'ItemPackage') {
-            // console.log(orderDetail)
               orderDetail.itemPackage.orderDetail = JSON.parse(JSON.stringify(orderDetail));
               orderDetail.itemPackage.orderDetail.itemPackage = {
                 itemPackageId: orderDetail.itemPackage.itemPackageId,

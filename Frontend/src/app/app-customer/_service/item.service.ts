@@ -10,7 +10,6 @@ import {ShopCartService} from "./shop-cart.service";
 })
 export class ItemService {
 
-  itemSub = new Subject<any>();
   searchedItemPackages = {
     items: [],
     itemPackages: []
@@ -23,10 +22,6 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item_package/getItemsPackagesBySearch/' + txt + '/' + category + '/' + customerId);
   }
 
-  // getItemSelected(itemId): Observable<any> {
-  //   return this.http.get<any>(environment.backend_url + 'item/getItemSelected/' + itemId);
-  // }
-
   getItemPackageSelected(itemId, type, customerId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type + '/' + customerId);
   }
@@ -38,10 +33,6 @@ export class ItemService {
   getCustomerOrders(customerId, status, from, to): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_order/getCustomerOrders/' + customerId + '/' + status + '/' + from + '/' + to);
   }
-
-  // getPackageItemSelected(itemPackageId): Observable<any> {
-  //   return this.http.get<any>(environment.backend_url + 'package/getPackageItemSelected/' + itemPackageId);
-  // }
 
   setItemFavourite(customerId, itemId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_package/setItemPackageFavourite/' + customerId + '/' + itemId);

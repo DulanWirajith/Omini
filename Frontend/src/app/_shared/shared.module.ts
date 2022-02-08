@@ -58,12 +58,10 @@ const customNotifierOptions: NotifierOptions = {
 const components = [
   HeaderComponent,
   ConfirmPasswordDirective,
-  // ItemDetailViewComponent,
   ItemPackageDetailViewComponent,
   ShopViewComponent,
   ShopCartComponent
   // NotifierModule.withConfig(customNotifierOptions)
-  // LoginComponent
 ]
 
 let notifierModule: any = NotifierModule.withConfig(customNotifierOptions)
@@ -79,7 +77,6 @@ let notifierModule: any = NotifierModule.withConfig(customNotifierOptions)
     MDBBootstrapModule,
     LightboxModule,
     notifierModule
-    // TimeAgoPipe
   ],
   declarations: [
     components
@@ -89,8 +86,7 @@ let notifierModule: any = NotifierModule.withConfig(customNotifierOptions)
     RouterModule,
     MDBBootstrapModule,
     FormsModule,
-    notifierModule,
-    // TimeAgoPipe
+    notifierModule
   ]
 })
 export class SharedModule {
