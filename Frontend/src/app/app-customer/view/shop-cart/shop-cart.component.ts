@@ -54,7 +54,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
       this.totalPrice = 0;
       if (itemOrder !== null && itemOrder.orderId !== undefined) {
         this.itemOrder = itemOrder;
-        console.log(this.itemOrder)
+        // console.log(this.itemOrder)
         if (itemOrder.orderDetails !== undefined) {
           this.shopCartService.orderDetails = itemOrder.orderDetails;
           for (let orderDetail of itemOrder.orderDetails) {
@@ -104,7 +104,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
   }
 
   addOrder(itemPackage) {
-    console.log(itemPackage)
+    // console.log(itemPackage)
     if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
       if (itemPackage.orderDetail.quantity === 0) {
         if (itemPackage.quantity > itemPackage.orderDetail.quantity) {
@@ -169,7 +169,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
         })
       }
     }
-    console.log(this.shopCart)
+    // console.log(this.shopCart)
   }
 
   itemCountInc(shop, itemPackage) {

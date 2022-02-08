@@ -61,7 +61,7 @@ export class ShopViewComponent implements OnInit {
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)
       if (businessProfile !== null) {
-        console.log(businessProfile)
+        // console.log(businessProfile)
         this.businessProfile = businessProfile;
         this.selectedCategory = businessProfile.defaultBusiness;
         this.items = businessProfile.itemPackage.items;
@@ -110,7 +110,7 @@ export class ShopViewComponent implements OnInit {
     for (let shop of shopCart) {
       for (let item of shop.items) {
         let orderDetail = item.orderDetail;
-        console.log(orderDetail)
+        // console.log(orderDetail)
         if (orderDetail.orderDetailType === 'Item') {
           let itemObj: any = this.items.find(itemObj => {
             return itemObj.itemPackageId === orderDetail.itemPackage.itemPackageId
@@ -190,47 +190,49 @@ export class ShopViewComponent implements OnInit {
 
   addBusinessReviewResponse(businessReview, response) {
     // console.log(itemPackageReview)
-    let businessReviewResponseId = '';
-    if (businessReview.responseByMe !== undefined) {
-      businessReviewResponseId = businessReview.responseByMe.businessReviewResponseId
-    }
-    let responseTemp = response;
-    if (businessReview.responseByMe !== undefined && businessReview.responseByMe.response === response) {
-      response = 'remove';
-    }
-    let itemReviewResponse = {
-      businessReviewResponseId: businessReviewResponseId,
-      response: response,
-      businessReview: {businessReviewId: businessReview.businessReviewId},
-      customerProfile: {customerProId: JSON.parse(localStorage.getItem('user')).customerProfile.customerProId}
-    };
-    // console.log(itemReviewResponse)
-    this.profileService.addBusinessReviewResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
-      if (itemReviewResponseObj.response === 'like') {
-        if (businessReview.responseByMe !== undefined) {
-          businessReview.dislikeCount--;
-        }
-        businessReview.likeCount++;
-        businessReview.responseByMe = itemReviewResponseObj;
-      } else if (itemReviewResponseObj.response === 'dislike') {
-        businessReview.dislikeCount++;
-        if (businessReview.responseByMe !== undefined) {
-          businessReview.likeCount--;
-        }
-        businessReview.responseByMe = itemReviewResponseObj;
-      } else if (itemReviewResponseObj.response === 'remove') {
-        if (responseTemp === 'like') {
-          // if (itemReview.likeCount > 0) {
-          businessReview.likeCount--;
-          // }
-        } else if (responseTemp === 'dislike') {
-          // if (itemReview.dislikeCount > 0) {
-          businessReview.dislikeCount--;
-          // }
-        }
-        businessReview.responseByMe = undefined;
+    if (this.getUser().role === 'C') {
+      let businessReviewResponseId = '';
+      if (businessReview.responseByMe !== undefined) {
+        businessReviewResponseId = businessReview.responseByMe.businessReviewResponseId
       }
-    })
+      let responseTemp = response;
+      if (businessReview.responseByMe !== undefined && businessReview.responseByMe.response === response) {
+        response = 'remove';
+      }
+      let itemReviewResponse = {
+        businessReviewResponseId: businessReviewResponseId,
+        response: response,
+        businessReview: {businessReviewId: businessReview.businessReviewId},
+        customerProfile: {customerProId: JSON.parse(localStorage.getItem('user')).customerProfile.customerProId}
+      };
+      // console.log(itemReviewResponse)
+      this.profileService.addBusinessReviewResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
+        if (itemReviewResponseObj.response === 'like') {
+          if (businessReview.responseByMe !== undefined) {
+            businessReview.dislikeCount--;
+          }
+          businessReview.likeCount++;
+          businessReview.responseByMe = itemReviewResponseObj;
+        } else if (itemReviewResponseObj.response === 'dislike') {
+          businessReview.dislikeCount++;
+          if (businessReview.responseByMe !== undefined) {
+            businessReview.likeCount--;
+          }
+          businessReview.responseByMe = itemReviewResponseObj;
+        } else if (itemReviewResponseObj.response === 'remove') {
+          if (responseTemp === 'like') {
+            // if (itemReview.likeCount > 0) {
+            businessReview.likeCount--;
+            // }
+          } else if (responseTemp === 'dislike') {
+            // if (itemReview.dislikeCount > 0) {
+            businessReview.dislikeCount--;
+            // }
+          }
+          businessReview.responseByMe = undefined;
+        }
+      })
+    }
   }
 
   getBusinessReviews() {

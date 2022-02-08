@@ -28,7 +28,7 @@ export class COrderComponent implements OnInit {
   getCustomerOrders(status, from, to) {
     this.itemService.getCustomerOrders(this.loginService.getUser().userId, status, from, to).subscribe((itemOrders) => {
       // this.itemOrders = itemOrders;
-      console.log(itemOrders)
+      // console.log(itemOrders)
       this.shopItemOrders = [];
       for (let i = 0; i < itemOrders.length; i++) {
         // console.log(1)

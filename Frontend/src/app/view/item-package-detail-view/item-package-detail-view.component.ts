@@ -40,7 +40,7 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
         this.getPackageItemSelected(itemPackageObj.itemPackage);
       })
       $(document).on('click', '.item-package-viewer-g-btn', function () {
-        console.log(432)
+        // console.log(432)
       });
     } else {
       return ItemPackageDetailViewComponent.lastComp;
@@ -95,47 +95,49 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
 
   addItemReviewResponse(itemPackageReview, response) {
     // console.log(itemPackageReview)
-    let itemPackageReviewResponseId = '';
-    if (itemPackageReview.responseByMe !== undefined) {
-      itemPackageReviewResponseId = itemPackageReview.responseByMe.itemPackageReviewResponseId
-    }
-    let responseTemp = response;
-    if (itemPackageReview.responseByMe !== undefined && itemPackageReview.responseByMe.response === response) {
-      response = 'remove';
-    }
-    let itemReviewResponse = {
-      itemPackageReviewResponseId: itemPackageReviewResponseId,
-      response: response,
-      itemPackageReview: {itemPackageReviewId: itemPackageReview.itemPackageReviewId},
-      customerProfile: {customerProId: JSON.parse(localStorage.getItem('user')).customerProfile.customerProId}
-    };
-    // console.log(itemReviewResponse)
-    this.itemService.addItemPackageResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
-      if (itemReviewResponseObj.response === 'like') {
-        if (itemPackageReview.responseByMe !== undefined) {
-          itemPackageReview.dislikeCount--;
-        }
-        itemPackageReview.likeCount++;
-        itemPackageReview.responseByMe = itemReviewResponseObj;
-      } else if (itemReviewResponseObj.response === 'dislike') {
-        itemPackageReview.dislikeCount++;
-        if (itemPackageReview.responseByMe !== undefined) {
-          itemPackageReview.likeCount--;
-        }
-        itemPackageReview.responseByMe = itemReviewResponseObj;
-      } else if (itemReviewResponseObj.response === 'remove') {
-        if (responseTemp === 'like') {
-          // if (itemReview.likeCount > 0) {
-          itemPackageReview.likeCount--;
-          // }
-        } else if (responseTemp === 'dislike') {
-          // if (itemReview.dislikeCount > 0) {
-          itemPackageReview.dislikeCount--;
-          // }
-        }
-        itemPackageReview.responseByMe = undefined;
+    if (this.getUser().role === 'C') {
+      let itemPackageReviewResponseId = '';
+      if (itemPackageReview.responseByMe !== undefined) {
+        itemPackageReviewResponseId = itemPackageReview.responseByMe.itemPackageReviewResponseId
       }
-    })
+      let responseTemp = response;
+      if (itemPackageReview.responseByMe !== undefined && itemPackageReview.responseByMe.response === response) {
+        response = 'remove';
+      }
+      let itemReviewResponse = {
+        itemPackageReviewResponseId: itemPackageReviewResponseId,
+        response: response,
+        itemPackageReview: {itemPackageReviewId: itemPackageReview.itemPackageReviewId},
+        customerProfile: {customerProId: JSON.parse(localStorage.getItem('user')).customerProfile.customerProId}
+      };
+      // console.log(itemReviewResponse)
+      this.itemService.addItemPackageResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
+        if (itemReviewResponseObj.response === 'like') {
+          if (itemPackageReview.responseByMe !== undefined) {
+            itemPackageReview.dislikeCount--;
+          }
+          itemPackageReview.likeCount++;
+          itemPackageReview.responseByMe = itemReviewResponseObj;
+        } else if (itemReviewResponseObj.response === 'dislike') {
+          itemPackageReview.dislikeCount++;
+          if (itemPackageReview.responseByMe !== undefined) {
+            itemPackageReview.likeCount--;
+          }
+          itemPackageReview.responseByMe = itemReviewResponseObj;
+        } else if (itemReviewResponseObj.response === 'remove') {
+          if (responseTemp === 'like') {
+            // if (itemReview.likeCount > 0) {
+            itemPackageReview.likeCount--;
+            // }
+          } else if (responseTemp === 'dislike') {
+            // if (itemReview.dislikeCount > 0) {
+            itemPackageReview.dislikeCount--;
+            // }
+          }
+          itemPackageReview.responseByMe = undefined;
+        }
+      })
+    }
   }
 
   getItemPackageReviews() {

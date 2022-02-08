@@ -234,7 +234,7 @@
             </h3>
             <div
               class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
-              <a class="btn btn-outline-primary mb-sm-0 mb-3" href="#add-review" data-bs-toggle="collapse" role="button"
+              <a *ngIf="getUser().role==='C'" class="btn btn-outline-primary mb-sm-0 mb-3" href="#add-review" data-bs-toggle="collapse" role="button"
                  aria-expanded="false" aria-controls="add-review"><i class="fi-edit me-1"></i>Add review</a>
               <div class="d-flex align-items-center ms-sm-4">
                 <label class="me-2 pe-1 text-nowrap" for="reviews-sorting"><i

@@ -62,7 +62,7 @@
       </div>
       <p>{{businessReview.description}}</p>
       <div class="d-flex align-items-center">
-        <button class="btn-like" type="button" (click)="addBusinessReviewResponse(businessReview,'like')"
+        <button class="btn-like" type="button"
                 [ngStyle]="{'color':
               businessReview.responseByMe!==undefined?
               businessReview.responseByMe.response==='like'?'green':'':''}">
@@ -71,7 +71,6 @@
         </button>
         <div class="border-end me-1">&nbsp;</div>
         <button class="btn-dislike" type="button"
-                (click)="addBusinessReviewResponse(businessReview,'dislike')"
                 [ngStyle]="{'color':
               businessReview.responseByMe!==undefined?
               businessReview.responseByMe.response==='dislike'?'red':'':''}">

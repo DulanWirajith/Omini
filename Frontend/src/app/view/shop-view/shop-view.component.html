@@ -108,7 +108,7 @@
                   <!-- Reviews-->
                   <div class="mb-4 pb-4 border-bottom">
                     <h3 class="h4 pb-3">
-                      <i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9 (4 reviews)</h3>
+                      <i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9 ({{businessReviews.length}} review{{businessReviews.length>1?'s':''}})</h3>
                     <div class="d-flex flex-sm-row flex-md-column align-items-sm-center justify-content-between">
                       <a *ngIf="getUser().role==='C'" class="btn btn-sm btn-outline-primary mb-sm-0 mb-2" href="#add-review"
                          data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="add-review"><i

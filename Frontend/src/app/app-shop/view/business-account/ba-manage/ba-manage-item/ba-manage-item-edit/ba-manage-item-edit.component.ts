@@ -46,7 +46,7 @@ export class BaManageItemEditComponent implements OnInit {
     })
     this.itemService.itemSub.observers = [];
     this.itemService.itemSub.subscribe((item) => {
-      console.log(item)
+      // console.log(item)
       this.item = item.item;
       this.items = item.items;
       this.itemIndex = item.index

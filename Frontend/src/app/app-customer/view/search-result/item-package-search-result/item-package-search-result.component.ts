@@ -63,7 +63,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
     for (let shop of shopCart) {
       for (let item of shop.items) {
         let orderDetail = item.orderDetail;
-        console.log(orderDetail)
+        // console.log(orderDetail)
         if (orderDetail.orderDetailType === 'Item') {
           let itemObj: any = this.items.find(itemObj => {
             return itemObj.itemPackageId === orderDetail.itemPackage.itemPackageId
