@@ -30,7 +30,11 @@ export class ItemShopSearchComponent implements OnInit {
         // console.log(items)
       })
     } else {
-      this.itemService.getItemsPackagesBySearch(this.txt, 'no', JSON.parse(localStorage.getItem('user')).userId).subscribe((searchedItemPackages) => {
+      let customerId = '0';
+      if (JSON.parse(localStorage.getItem('user')) !== null) {
+        customerId = JSON.parse(localStorage.getItem('user'));
+      }
+      this.itemService.getItemsPackagesBySearch(this.txt, 'no', customerId).subscribe((searchedItemPackages) => {
         this.itemService.searchedItemPackages = searchedItemPackages;
         this.router.navigate(['customer/header/search_result/item_package_search_result'])
         // console.log(items)

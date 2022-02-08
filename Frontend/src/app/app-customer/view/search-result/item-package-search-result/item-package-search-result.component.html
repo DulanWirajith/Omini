@@ -127,7 +127,7 @@
                       </a>
                     </h3>
                   </div>
-                  <div class="col-2">
+                  <div class="col-2" *ngIf="getUser()!==null">
                     <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                             data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
                             (click)="setItemFavourite(item)" style="padding-bottom: 10px">

@@ -48,30 +48,32 @@ export class ShopCartComponent implements OnInit, OnDestroy {
 
   initCart() {
     // console.log(itemOrder)
-    this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
-      this.shopCart = [];
-      this.totalItemCount = 0;
-      this.totalPrice = 0;
-      if (itemOrder !== null && itemOrder.orderId !== undefined) {
-        this.itemOrder = itemOrder;
-        // console.log(this.itemOrder)
-        if (itemOrder.orderDetails !== undefined) {
-          this.shopCartService.orderDetails = itemOrder.orderDetails;
-          for (let orderDetail of itemOrder.orderDetails) {
+    if (this.loginService.getUser() !== null) {
+      this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
+        this.shopCart = [];
+        this.totalItemCount = 0;
+        this.totalPrice = 0;
+        if (itemOrder !== null && itemOrder.orderId !== undefined) {
+          this.itemOrder = itemOrder;
+          // console.log(this.itemOrder)
+          if (itemOrder.orderDetails !== undefined) {
+            this.shopCartService.orderDetails = itemOrder.orderDetails;
+            for (let orderDetail of itemOrder.orderDetails) {
               orderDetail.itemPackage.orderDetail = JSON.parse(JSON.stringify(orderDetail));
               orderDetail.itemPackage.orderDetail.itemPackage = {
                 itemPackageId: orderDetail.itemPackage.itemPackageId,
               };
               this.addToCart(orderDetail.itemPackage);
-            // }
+              // }
+            }
+            this.shopCartService.initShopCartSub.next(itemOrder.orderDetails);
+            this.shopCartService.shopCart = this.shopCart;
           }
-          this.shopCartService.initShopCartSub.next(itemOrder.orderDetails);
-          this.shopCartService.shopCart = this.shopCart;
+        } else {
+          this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;
         }
-      } else {
-        this.itemOrder.customerProfile.customerProId = this.loginService.getUser().userId;
-      }
-    })
+      })
+    }
   }
 
   addToCart(itemPackage) {
@@ -116,7 +118,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
           // if (orderDetail.orderDetailType === 'Item') {
           //   orderDetail.item = JSON.parse(JSON.stringify(item));
           // } else if (orderDetail.orderDetailType === 'ItemPackage') {
-            orderDetail.itemPackage = JSON.parse(JSON.stringify(itemPackage));
+          orderDetail.itemPackage = JSON.parse(JSON.stringify(itemPackage));
           // }
           orderDetail.businessProfileCategory = itemPackage.businessProfileCategory;
           this.shopCartService.addOrderDetail(orderDetail).subscribe((orderDetailR) => {
@@ -146,7 +148,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
         // if (orderDetail.orderDetailType === 'Item') {
         //   orderDetail.item = JSON.parse(JSON.stringify(item));
         // } else if (orderDetail.orderDetailType === 'ItemPackage') {
-          orderDetail.itemPackage = JSON.parse(JSON.stringify(itemPackage));
+        orderDetail.itemPackage = JSON.parse(JSON.stringify(itemPackage));
         // }
         orderDetail.itemOrder = JSON.parse(JSON.stringify(this.itemOrder));
         orderDetail.itemOrder.orderDetails = [];
@@ -224,12 +226,12 @@ export class ShopCartComponent implements OnInit, OnDestroy {
           //   orderDetail.orderDetailId = undefined;
           //   this.shopCartService.shopCartItemsSub.next(orderDetail.item);
           // } else if (orderDetail.orderDetailType === 'ItemPackage') {
-            if (!orderDetail.makeToOrder) {
-              orderDetail.itemPackage.quantity -= orderDetail.quantity;
-            }
-            orderDetail.itemPackage.orderDetail.quantity = 0;
-            orderDetail.orderDetailId = undefined;
-            this.shopCartService.shopCartItemsSub.next(orderDetail.itemPackage);
+          if (!orderDetail.makeToOrder) {
+            orderDetail.itemPackage.quantity -= orderDetail.quantity;
+          }
+          orderDetail.itemPackage.orderDetail.quantity = 0;
+          orderDetail.orderDetailId = undefined;
+          this.shopCartService.shopCartItemsSub.next(orderDetail.itemPackage);
           // }
         }
         this.itemOrder = this.shopCartService.getNewItemOrder();

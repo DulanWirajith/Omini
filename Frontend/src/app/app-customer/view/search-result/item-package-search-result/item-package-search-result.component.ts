@@ -126,4 +126,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.imageName);
   }
 
+  getUser() {
+    return JSON.parse(localStorage.getItem('user'))
+  }
 }
