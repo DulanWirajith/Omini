@@ -147,7 +147,7 @@ export class ShopViewComponent implements OnInit {
     this.itemServiceG.itemPackageSub.next({
       itemPackage: itemPackage,
       backBtn: undefined,
-      cart: undefined
+      cart: true
     });
   }
 
