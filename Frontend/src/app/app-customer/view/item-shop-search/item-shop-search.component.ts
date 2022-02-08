@@ -32,7 +32,7 @@ export class ItemShopSearchComponent implements OnInit {
     } else {
       let customerId = '0';
       if (JSON.parse(localStorage.getItem('user')) !== null) {
-        customerId = JSON.parse(localStorage.getItem('user'));
+        customerId = JSON.parse(localStorage.getItem('user')).userId;
       }
       this.itemService.getItemsPackagesBySearch(this.txt, 'no', customerId).subscribe((searchedItemPackages) => {
         this.itemService.searchedItemPackages = searchedItemPackages;

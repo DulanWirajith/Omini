@@ -65,7 +65,11 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
     if (document.getElementById('package-back-btn') !== null) {
       document.getElementById('package-back-btn').click()
     }
-    this.itemService.getItemPackageSelected(itemPackage.itemPackageId, itemPackage.itemPackageType, JSON.parse(localStorage.getItem('user')).userId).subscribe((itemPackageObj) => {
+    let customerId = '0';
+    if (JSON.parse(localStorage.getItem('user')) !== null) {
+      customerId = JSON.parse(localStorage.getItem('user')).userId;
+    }
+    this.itemService.getItemPackageSelected(itemPackage.itemPackageId, itemPackage.itemPackageType, customerId).subscribe((itemPackageObj) => {
       if (itemPackage.itemPackageType === 'Item') {
         this.itemPackage = itemPackageObj.item.itemPackage;
       } else if (itemPackage.itemPackageType === 'Package') {
@@ -95,7 +99,7 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
 
   addItemReviewResponse(itemPackageReview, response) {
     // console.log(itemPackageReview)
-    if (this.getUser().role === 'C') {
+    if (this.getUser() !== null && this.getUser().role === 'C') {
       let itemPackageReviewResponseId = '';
       if (itemPackageReview.responseByMe !== undefined) {
         itemPackageReviewResponseId = itemPackageReview.responseByMe.itemPackageReviewResponseId
@@ -142,7 +146,11 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
 
   getItemPackageReviews() {
     this.review = true;
-    this.itemService.getItemPackageReviews(this.itemPackage.itemPackageId, JSON.parse(localStorage.getItem('user')).userId).subscribe((itemPackageReviews) => {
+    let customerId = '0';
+    if (JSON.parse(localStorage.getItem('user')) !== null) {
+      customerId = JSON.parse(localStorage.getItem('user')).userId;
+    }
+    this.itemService.getItemPackageReviews(this.itemPackage.itemPackageId, customerId).subscribe((itemPackageReviews) => {
       this.itemPackageReviews = itemPackageReviews;
       // console.log(this.itemPackageReviews)
     })
