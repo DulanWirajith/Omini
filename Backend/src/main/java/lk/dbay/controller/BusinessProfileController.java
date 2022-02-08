@@ -53,13 +53,13 @@ public class BusinessProfileController {
         }
     }
 
-    @GetMapping(value = "/getBusinessProfile/{businessProfileId}/{needItems}")
-    public ResponseEntity getBusinessProfile(@PathVariable String businessProfileId, @PathVariable boolean needItems) {
-        return ResponseEntity.ok(businessProfileS.getBusinessProfile(businessProfileId, needItems));
+    @GetMapping(value = "/getBusinessProfile/{businessProfileId}/{needItems}/{customerId}")
+    public ResponseEntity getBusinessProfile(@PathVariable String businessProfileId, @PathVariable boolean needItems, @PathVariable String customerId) {
+        return ResponseEntity.ok(businessProfileS.getBusinessProfile(businessProfileId, needItems, customerId));
     }
 
-    @GetMapping(value = "/getItemsBusinessProfile/{businessProfileId}/{categoryId}")
-    public ResponseEntity getItemsBusinessProfile(@PathVariable String businessProfileId, @PathVariable String categoryId) {
-        return ResponseEntity.ok(businessProfileS.getItemsBusinessProfile(businessProfileId, categoryId));
+    @GetMapping(value = "/getItemsBusinessProfile/{businessProfileId}/{categoryId}/{customerId}")
+    public ResponseEntity getItemsBusinessProfile(@PathVariable String businessProfileId, @PathVariable String categoryId, @PathVariable String customerId) {
+        return ResponseEntity.ok(businessProfileS.getItemsBusinessProfile(businessProfileId, categoryId, customerId));
     }
 }

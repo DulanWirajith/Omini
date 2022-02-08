@@ -51,7 +51,7 @@ export class BaProfileComponent implements OnInit {
   }
 
   getBusinessProfile() {
-    this.businessAccountService.getBusinessProfile(this.loginService.getUser().userId, false).subscribe((businessProfile) => {
+    this.businessAccountService.getBusinessProfile(this.loginService.getUser().userId, false, '0').subscribe((businessProfile) => {
       // this.user = this.loginService.getUser();
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)

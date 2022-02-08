@@ -8,9 +8,9 @@ public interface BusinessProfileS {
 
     BusinessProfileDTO addBusinessProfile(BusinessProfile businessProfile, MultipartFile[] files) throws Exception;
 
-    BusinessProfileDTO getBusinessProfile(String businessProfileId, boolean needItems);
+    BusinessProfileDTO getBusinessProfile(String businessProfileId, boolean needItems, String customerId);
 
     BusinessProfileDTO updateBusinessProfile(BusinessProfile businessProfile, MultipartFile[] files, String businessProfileId) throws Exception;
 
-    BusinessProfileDTO getItemsBusinessProfile(String businessProfileId, String categoryId);
+    BusinessProfileDTO getItemsBusinessProfile(String businessProfileId, String categoryId, String customerId);
 }

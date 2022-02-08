@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CommonService} from "./common.service";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -9,14 +9,18 @@ import {environment} from "../../environments/environment";
 })
 export class ProfileGService {
 
-  constructor(private http: HttpClient, private commonService: CommonService) { }
+  shopProfileSub = new Subject();
+  profileId;
 
-  getBusinessProfile(businessProfileId, needItems): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems);
+  constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
-  getItemsBusinessProfile(businessProfileId, categoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/getItemsBusinessProfile/' + businessProfileId + '/' + categoryId);
+  getBusinessProfile(businessProfileId, needItems, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems + '/' + customerId);
+  }
+
+  getItemsBusinessProfile(businessProfileId, categoryId, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getItemsBusinessProfile/' + businessProfileId + '/' + categoryId + '/' + customerId);
   }
 
   getNewBusinessProfile() {

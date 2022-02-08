@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from "../../_service/login.service";
 import {Router} from "@angular/router";
+import {ProfileGService} from "../../_service/profile-g.service";
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router, private profileService: ProfileGService) {
     // router.subscribe((val) => {
     //   // see also
     //   console.log(this.router.url)
@@ -30,5 +31,10 @@ export class HeaderComponent implements OnInit {
 
   getCurUrl() {
     return this.router.url;
+  }
+
+  routeToShop() {
+    this.profileService.profileId = this.loginService.getUser().userId;
+    this.router.navigate(['/shop/header/shop_view'])
   }
 }

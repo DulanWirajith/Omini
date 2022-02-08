@@ -20,9 +20,13 @@ export class ShopViewComponent implements OnInit {
   selectedCategory = {
     businessCategoryId: ''
   };
+  profileId;
 
   constructor(private profileService: ProfileGService, private loginService: LoginService, private sanitizer: DomSanitizer, private itemServiceG: ItemGService) {
     this.businessProfile = profileService.getNewBusinessProfile();
+    // this.profileService.shopProfileSub.subscribe((profileId) => {
+    //   this.profileId = profileId;
+    // })
   }
 
   ngOnInit(): void {
@@ -30,7 +34,7 @@ export class ShopViewComponent implements OnInit {
   }
 
   getBusinessProfile() {
-    this.profileService.getBusinessProfile(this.loginService.getUser().userId, true).subscribe((businessProfile) => {
+    this.profileService.getBusinessProfile(this.profileService.profileId, true, JSON.parse(localStorage.getItem('user')).userId).subscribe((businessProfile) => {
       // this.user = this.loginService.getUser();
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)
@@ -47,7 +51,7 @@ export class ShopViewComponent implements OnInit {
   getItemsBusinessProfile(categoryId) {
     // console.log(categoryId)
     this.selectedCategory.businessCategoryId = categoryId;
-    this.profileService.getItemsBusinessProfile(this.loginService.getUser().userId, categoryId).subscribe((businessProfile) => {
+    this.profileService.getItemsBusinessProfile(this.profileService.profileId, categoryId, JSON.parse(localStorage.getItem('user')).userId).subscribe((businessProfile) => {
       // this.user = this.loginService.getUser();
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)

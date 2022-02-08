@@ -37,8 +37,9 @@
         Sign In
       </button>
     </div>
-    <div *ngIf="getCurUrl()!=='/login' && getCurUrl()!=='/customer/customer_register' && getCurUrl()!=='/shop/business_register'"
-         class="btn-group dropdown ms-2 order-lg-3" role="group">
+    <div
+      *ngIf="getCurUrl()!=='/login' && getCurUrl()!=='/customer/customer_register' && getCurUrl()!=='/shop/business_register'"
+      class="btn-group dropdown ms-2 order-lg-3" role="group">
       <button type="button" class="btn btn-primary btn-sm rounded-pill dropdown-toggle" data-bs-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-plus me-2"></i>
@@ -118,10 +119,6 @@
           <i class="fi-user opacity-60 me-2"></i>
           Account
         </a>
-        <a *ngIf="getUser().role==='B'" [routerLink]="'/shop/header/business_account/ba_monitor'" class="dropdown-item">
-          <i class="fi-user opacity-60 me-2"></i>
-          Account
-        </a>
         <a *ngIf="getUser().role==='C'" [routerLink]="'/customer/header/item_shop_search'" class="dropdown-item">
           <i class="fi-home opacity-60 me-2"></i>
           Home
@@ -130,6 +127,14 @@
            data-bs-toggle="offcanvas" data-bs-target="#cart-viewer">
           <i class="fi-cart opacity-60 me-2"></i>
           Cart
+        </a>
+        <a *ngIf="getUser().role==='B'" [routerLink]="'/shop/header/business_account/ba_monitor'" class="dropdown-item">
+          <i class="fi-user opacity-60 me-2"></i>
+          Account
+        </a>
+        <a *ngIf="getUser().role==='B'" (click)="routeToShop()" class="dropdown-item">
+          <i class="fi-user opacity-60 me-2"></i>
+          My Profile
         </a>
         <!-- <a href="#" class="dropdown-item">
           <i class="fi-lock opacity-60 me-2"></i>

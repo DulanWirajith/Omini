@@ -39,8 +39,8 @@ export class BusinessAccountService {
     return this.http.put<any>(environment.backend_url + 'business_profile/updateBusinessProfile/' + businessProId, businessReg);
   }
 
-  getBusinessProfile(businessProfileId, needItems): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems);
+  getBusinessProfile(businessProfileId, needItems, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems + '/' + customerId);
   }
 
   addBusinessProfile(businessReg): Observable<any> {

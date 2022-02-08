@@ -36,7 +36,8 @@ public class ItemPackage extends DateTime {
     private boolean confirmed;
     private boolean available;
     private String itemPackageType;
-//    private boolean favourite;
+    @Transient
+    private boolean favourite;
 
 //    @Lob
 //    private byte[] itemPackageImg;

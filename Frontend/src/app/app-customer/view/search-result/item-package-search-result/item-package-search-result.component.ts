@@ -8,6 +8,9 @@ import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
 import {ShopCartService} from "../../../_service/shop-cart.service";
 import {ItemGService} from "../../../../_service/item-g.service";
 import {NotifierService} from "angular-notifier";
+import {LoginService} from "../../../../_service/login.service";
+import {Router} from "@angular/router";
+import {ProfileGService} from "../../../../_service/profile-g.service";
 
 @Component({
   selector: 'app-item-package-search-result',
@@ -22,7 +25,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
   orderDetails = [];
 
   constructor(private itemService: ItemService, private itemServiceG: ItemGService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService,
-              private notifierService: NotifierService) {
+              private notifierService: NotifierService, private router: Router, private profileService: ProfileGService, private loginService: LoginService) {
     // this.shopCartService.shopCartItemsSub.observers = [];
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
       // console.log(item)
@@ -131,42 +134,47 @@ export class ItemPackageSearchResultComponent implements OnInit {
     });
   }
 
+  routeToShop(profileId) {
+    this.profileService.profileId = profileId;
+    this.router.navigate(['/shop/header/shop_view'])
+  }
+
   // getItemSelected(item) {
   //   this.itemServiceG.itemSub.next({
   //     item: item,
   //     backBtn: undefined,
   //     cart: true
   //   });
-    // console.log(item.itemId)
-    // let index: any = this.items.findIndex(itemObj => {
-    //   return itemObj.itemId === item.itemId
-    // })
-    // // console.log(this.items[index])
-    // if (this.items[index].itemItemFeatures === undefined) {
-    //   this.itemService.getItemSelected(item.itemId).subscribe((item) => {
-    //     // Object.assign(this.items[index], item)
-    //     // item.itemImgsRaw = [];
-    //     // item.itemItemFeatures = [];
-    //     // item.businessProfileCategory = {
-    //     //   businessProfile: undefined,
-    //     //   businessCategory: undefined
-    //     // }
-    //     // if (item.itemDiscountType === "None") {
-    //     //   item.itemDiscountView = "N/A";
-    //     // } else if (item.itemDiscountType === "Cash") {
-    //     //   item.itemDiscountView = "LKR " + item.itemDiscount;
-    //     // } else if (item.itemDiscountType === "Percentage") {
-    //     //   item.itemDiscountView = item.itemDiscount + "%";
-    //     // }
-    //     item.itemCount = this.items[index].itemCount;
-    //     this.items[index] = item;
-    //     // this.itemService.itemFeaturesSub.next(item.itemFeatures);
-    //     this.itemService.itemSub.next(this.items[index]);
-    //     //console.log(this.items[index])
-    //   })
-    // } else {
-    //   this.itemService.itemSub.next(this.items[index]);
-    // }
+  // console.log(item.itemId)
+  // let index: any = this.items.findIndex(itemObj => {
+  //   return itemObj.itemId === item.itemId
+  // })
+  // // console.log(this.items[index])
+  // if (this.items[index].itemItemFeatures === undefined) {
+  //   this.itemService.getItemSelected(item.itemId).subscribe((item) => {
+  //     // Object.assign(this.items[index], item)
+  //     // item.itemImgsRaw = [];
+  //     // item.itemItemFeatures = [];
+  //     // item.businessProfileCategory = {
+  //     //   businessProfile: undefined,
+  //     //   businessCategory: undefined
+  //     // }
+  //     // if (item.itemDiscountType === "None") {
+  //     //   item.itemDiscountView = "N/A";
+  //     // } else if (item.itemDiscountType === "Cash") {
+  //     //   item.itemDiscountView = "LKR " + item.itemDiscount;
+  //     // } else if (item.itemDiscountType === "Percentage") {
+  //     //   item.itemDiscountView = item.itemDiscount + "%";
+  //     // }
+  //     item.itemCount = this.items[index].itemCount;
+  //     this.items[index] = item;
+  //     // this.itemService.itemFeaturesSub.next(item.itemFeatures);
+  //     this.itemService.itemSub.next(this.items[index]);
+  //     //console.log(this.items[index])
+  //   })
+  // } else {
+  //   this.itemService.itemSub.next(this.items[index]);
+  // }
   // }
 
   setItemFavourite(itemPackage) {

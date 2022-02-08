@@ -54,7 +54,7 @@ public class ItemPackageDTO extends DateTimeDTO {
             this.available = itemPackage.isAvailable();
             this.makeToOrder = itemPackage.isMakeToOrder();
             this.itemPackageType = itemPackage.getItemPackageType();
-//            this.favourite = itemPackage.isFavourite();
+            this.favourite = itemPackage.isFavourite();
             if (this.discountType.equals("Cash")) {
                 this.discountedPrice = (this.price - this.discount);
             } else if (this.discountType.equals("Percentage")) {
