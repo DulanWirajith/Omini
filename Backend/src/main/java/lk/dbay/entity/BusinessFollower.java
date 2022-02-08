@@ -12,10 +12,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Follower extends DateTime {
+public class BusinessFollower extends DateTime {
 
     @EmbeddedId
-    private FollowerPK followerId;
+    private BusinessFollowerPK businessFollowerId;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "businessProId", referencedColumnName = "businessProId", insertable = false, updatable = false, nullable = false)

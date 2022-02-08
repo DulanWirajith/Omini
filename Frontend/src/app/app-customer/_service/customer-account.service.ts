@@ -49,6 +49,14 @@ export class CustomerAccountService {
     return this.http.get<any>(environment.backend_url + 'town/getTowns/' + districtId);
   }
 
+  getFollowedBusinesses(customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getFollowedBusinesses/' + customerId);
+  }
+
+  followBusiness(customerId, businessProfileId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/followBusiness/' + customerId + '/' + businessProfileId);
+  }
+
   sendVerification(): Observable<any> {
     // console.log(JSON.parse(localStorage.getItem('cr')).dbayUser)
     return this.http.get<any>(environment.backend_url + 'dbay_user/sendVerification/' + JSON.parse(localStorage.getItem('cr')).dbayUser.email);

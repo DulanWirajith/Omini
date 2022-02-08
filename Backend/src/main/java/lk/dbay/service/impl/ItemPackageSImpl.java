@@ -128,8 +128,10 @@ public class ItemPackageSImpl implements ItemPackageS {
             itemPackageDTO.setBusinessProfileCategory(itemPackage);
             itemPackageDTO.setItemPackageItemPackageFeatures(itemPackage);
             itemPackageDTO.setItemPackageImages(itemPackage);
-            Optional<ItemPackageFavourite> itemPackageFavourite = itemPackageFavouriteR.getByCustomerProfile_CustomerProIdAndItemPackage_ItemPackageId(customerId, itemId);
-            itemPackageDTO.setFavourite(itemPackageFavourite.isPresent());
+            if (!customerId.equals("0")) {
+                Optional<ItemPackageFavourite> itemPackageFavourite = itemPackageFavouriteR.getByCustomerProfile_CustomerProIdAndItemPackage_ItemPackageId(customerId, itemId);
+                itemPackageDTO.setFavourite(itemPackageFavourite.isPresent());
+            }
 //            itemDTO.setItemFeatures(item);
 //            if (itemPackage.getItemPackageType().equals("Item")) {
 //                itemPackageDTO.getItemDTO().setItemCategory(itemPackage.getItem());
@@ -176,11 +178,6 @@ public class ItemPackageSImpl implements ItemPackageS {
     @Override
     public List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId) {
         List<ItemPackageReview> itemPackageReviews = itemPackageReviewR.getAllByItemPackage_ItemPackageId(itemId);
-//        if (reviewType.equals("Item")) {
-//            itemPackageReviews = itemPackageReviewR.getAllByItem_ItemIdAndReviewType(itemId, reviewType);
-//        } else if (reviewType.equals("ItemPackage")) {
-//            itemPackageReviews = itemPackageReviewR.getAllByItemPackage_ItemPackageId(itemId);
-//        }
         List<ItemPackageReviewDTO> itemPackageReviewDTOS = new ArrayList<>();
         if (itemPackageReviews != null) {
             for (ItemPackageReview itemPackageReview : itemPackageReviews) {

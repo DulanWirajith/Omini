@@ -1,0 +1,83 @@
+<div class="d-flex">
+  <div class="flex-grow-1">
+    <h1 class="h2"><i class="fi-like text-primary"></i> Following</h1>
+  </div>
+  <div class="">
+    <div class="input-group">
+      <input class="form-control" type="text" placeholder="Search....." id="following-shop-search">
+      <div class="input-group-text p-0">
+        <a class="d-block text-body px-3 py-2" href="#">
+          <i class="fi-search mt-n1"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="d-sm-flex align-items-center pb-2 pb-sm-2">
+    <div class="mt-md-n3 mb-4 w-100">
+      <a class="btn btn-outline-primary btn-lg rounded-pill w-100 d-md-none" href="#account-nav"
+         data-bs-toggle="collapse"><i class="fi-align-justify me-2"></i>Account Menu
+      </a>
+      <div class="row collapse d-md-block justify-content-between border-bottom-md" id="account-nav">
+
+        <ul class="nav nav-pills pt-4 pt-md-2 pb-md-2 w-50" role="tablist">
+          <li class="nav-item mb-md-0 me-md-2 pe-md-1"><a class="nav-link active" href="#client-following-view"
+                                                          data-bs-toggle="tab" role="tab"><i
+            class="fi-building mt-n1 me-2 fs-base"></i> {{businesses.length}} Shop{{businesses.length>1?'s':''}}</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <div class="tab-content">
+
+    <div class="tab-pane fade show active" id="client-following-view" role="tabpanel" *ngFor="let business of businesses;let i=index">
+      <!--favourite shops grid-->
+      <div class="row row-cols-xl-3 row-cols-sm-2 row-cols-1 gy-4 gx-3 gx-xxl-4">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card card-body h-100 border-0 shadow-sm card-hover ">
+            <a class="btn btn-icon btn-primary btn-xs shadow-sm rounded-circle" style="align-self: flex-end;"
+               href="#biz-contact-info-view" data-bs-toggle="collapse" aria-expanded="false"
+               aria-controls="biz-contact-info-view"><i class="fas fa-thumbs-up" (click)="followBusiness(business,i)"></i></a>
+            <a class="nav-link text-center"  (click)="routeToShop(business.businessProId)">
+              <div class="icon-box-media bg-faded-accent text-accent rounded-circle mb-3 mx-auto">
+                <img class="rounded-circle" src="../../../../../assets/img/37.png" width="60" alt="Annette Black">
+              </div>
+              <h3 class="icon-box-title fs-base mb-0">{{business.businessName}}</h3>
+              <span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i
+                class="star-rating-icon fi-star-filled active"></i><i
+                class="star-rating-icon fi-star-filled active"></i><i
+                class="star-rating-icon fi-star-filled active"></i><i
+                class="star-rating-icon fi-star-filled active"></i></span>
+              <h3 class="icon-box-title fs-base mb-0">4.5 / 5.0</h3>
+            </a>
+            <div class="d-flex justify-content-between w-100 mt-2">
+              <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2 mb-0"
+                 href="#biz-contact-info-view" data-bs-toggle="collapse" aria-expanded="false"
+                 aria-controls="biz-contact-info-view"><i class="fi-facebook"></i></a>
+              <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2 mb-0"
+                 href="#biz-contact-info-view" data-bs-toggle="collapse" aria-expanded="false"
+                 aria-controls="biz-contact-info-view"><i class="fi-instagram"></i></a>
+              <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2 mb-0"
+                 href="#biz-contact-info-view" data-bs-toggle="collapse" aria-expanded="false"
+                 aria-controls="biz-contact-info-view"><i class="fi-youtube"></i></a>
+              <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2 mb-0"
+                 href="#biz-contact-info-view" data-bs-toggle="collapse" aria-expanded="false"
+                 aria-controls="biz-contact-info-view"><i class="fi-phone"></i></a>
+              <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2 mb-0"
+                 href="#biz-contact-info-view" data-bs-toggle="collapse" aria-expanded="false"
+                 aria-controls="biz-contact-info-view"><i class="fi-whatsapp"></i></a>
+            </div>
+            <div class="collapse mt-3" id="biz-contact-info-view">
+              <div class="card card-body text-dark text-center">
+                <h4 class="">0765363828</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

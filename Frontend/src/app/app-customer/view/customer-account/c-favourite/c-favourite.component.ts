@@ -3,6 +3,8 @@ import {ItemService} from "../../../_service/item.service";
 import {environment} from "../../../../../environments/environment";
 import {ItemGService} from "../../../../_service/item-g.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ProfileGService} from "../../../../_service/profile-g.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-c-favourite',
@@ -14,7 +16,7 @@ export class CFavouriteComponent implements OnInit {
   items = [];
   packageItems = [];
 
-  constructor(private itemService: ItemService, private sanitizer: DomSanitizer) {
+  constructor(private itemService: ItemService, private sanitizer: DomSanitizer,private profileService: ProfileGService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -45,5 +47,11 @@ export class CFavouriteComponent implements OnInit {
     // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
     // return this.sanitizer.bypassSecurityTrustUrl(imageData);
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.imageName);
+  }
+
+  routeToShop(profileId) {
+    this.profileService.profile.profileId = profileId;
+    this.profileService.profile.returnUrl = '/customer/header/customer_account/customer_favourite';
+    this.router.navigate(['/shop/header/shop_view']);
   }
 }

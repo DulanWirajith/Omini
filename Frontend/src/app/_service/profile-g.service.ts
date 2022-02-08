@@ -10,7 +10,10 @@ import {environment} from "../../environments/environment";
 export class ProfileGService {
 
   shopProfileSub = new Subject();
-  profileId;
+  profile = {
+    profileId: '',
+    returnUrl: ''
+  };
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
@@ -21,6 +24,22 @@ export class ProfileGService {
 
   getItemsBusinessProfile(businessProfileId, categoryId, customerId): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'business_profile/getItemsBusinessProfile/' + businessProfileId + '/' + categoryId + '/' + customerId);
+  }
+
+  followBusiness(customerId, businessProfileId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/followBusiness/' + customerId + '/' + businessProfileId);
+  }
+
+  addBusinessReview(businessReview): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'business_profile/addBusinessReview', businessReview);
+  }
+
+  addBusinessReviewResponse(businessReviewResponse): Observable<any> {
+    return this.http.post<any>(environment.backend_url + 'business_profile/addBusinessReviewResponse', businessReviewResponse);
+  }
+
+  getBusinessReviews(businessId, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessReviews/' + businessId + '/' + customerId);
   }
 
   getNewBusinessProfile() {
@@ -42,6 +61,7 @@ export class ProfileGService {
       socialLinkedIn: "",
       country: "",
       district: "",
+      followed: false,
       town: {
         townId: "",
         district: {

@@ -38,6 +38,12 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     private ItemPackageR itemPackageR;
     @Autowired
     private ItemPackageFavouriteR itemPackageFavouriteR;
+    @Autowired
+    private BusinessFollowerR businessFollowerR;
+    @Autowired
+    private BusinessReviewR businessReviewR;
+    @Autowired
+    private BusinessReviewResponseR businessReviewResponseR;
     @Value("${image.path}")
     private String filePath;
 
@@ -77,6 +83,8 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             businessProfileDTO.setBusinessProfileCategories(businessProfile);
             businessProfileDTO.setTown(businessProfile);
             if (needItems) {
+                Optional<BusinessFollower> followerOptional = businessFollowerR.getByCustomerProfile_CustomerProIdAndBusinessProfile_BusinessProId(customerId, businessProfileId);
+                businessProfileDTO.setFollowed(followerOptional.isPresent());
                 setItemsToBusinessProfile(businessProfileId, businessProfile.getDefaultBusiness().getBusinessCategoryId(), businessProfileDTO, customerId);
             }
             return businessProfileDTO;
@@ -89,6 +97,95 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO();
         setItemsToBusinessProfile(businessProfileId, categoryId, businessProfileDTO, customerId);
         return businessProfileDTO;
+    }
+
+    @Override
+    public boolean followBusiness(String customerId, String businessProId) {
+        Optional<BusinessFollower> businessFollower = businessFollowerR.findById(new BusinessFollowerPK(customerId, businessProId));
+        if (businessFollower.isPresent()) {
+            businessFollowerR.deleteById(new BusinessFollowerPK(customerId, businessProId));
+            return false;
+        } else {
+            BusinessFollower businessFollowerObj = new BusinessFollower();
+            businessFollowerObj.setBusinessFollowerId(new BusinessFollowerPK(customerId, businessProId));
+            CustomerProfile customerProfile = new CustomerProfile();
+            customerProfile.setCustomerProId(customerId);
+            businessFollowerObj.setCustomerProfile(customerProfile);
+            BusinessProfile businessProfile = new BusinessProfile();
+            businessProfile.setBusinessProId(businessProId);
+            businessFollowerObj.setBusinessProfile(businessProfile);
+            businessFollowerR.save(businessFollowerObj);
+            return true;
+        }
+    }
+
+    @Override
+    public List<BusinessProfileDTO> getFollowedBusinesses(String customerId) {
+        List<BusinessProfileDTO> businessProfileDTOS = new ArrayList<>();
+        List<BusinessFollower> followerList = businessFollowerR.getAllByCustomerProfile_CustomerProId(customerId);
+        for (BusinessFollower businessFollower : followerList) {
+            businessProfileDTOS.add(new BusinessProfileDTO(businessFollower.getBusinessProfile()));
+        }
+        return businessProfileDTOS;
+    }
+
+    @Override
+    public List<BusinessReviewDTO> getBusinessReviews(String businessId, String customerId) {
+        List<BusinessReview> businessReviews = businessReviewR.getAllByBusinessProfile_BusinessProId(businessId);
+        List<BusinessReviewDTO> businessReviewDTOS = new ArrayList<>();
+        if (businessReviews != null) {
+            for (BusinessReview businessReview : businessReviews) {
+                BusinessReviewDTO businessReviewDTO = new BusinessReviewDTO(businessReview);
+                List<BusinessReviewResponse> responses = businessReviewResponseR.getAllByBusinessReview_BusinessReviewId(businessReview.getBusinessReviewId());
+                for (BusinessReviewResponse reviewResponse : responses) {
+                    if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
+                        businessReviewDTO.setResponseByMe(new BusinessReviewResponseDTO(reviewResponse));
+                    }
+                    if (reviewResponse.getResponse().equals("like")) {
+                        businessReviewDTO.setLikeCount(businessReviewDTO.getLikeCount() + 1);
+                    } else if (reviewResponse.getResponse().equals("dislike")) {
+                        businessReviewDTO.setDislikeCount(businessReviewDTO.getDislikeCount() + 1);
+                    }
+                }
+                businessReviewDTO.setCustomerProfile(businessReview);
+                businessReviewDTOS.add(businessReviewDTO);
+            }
+        }
+        return businessReviewDTOS;
+    }
+
+    @Override
+    public BusinessReviewDTO addBusinessReview(BusinessReview businessReview) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        businessReview.setBusinessReviewId("BREV" + format);
+        businessReview = businessReviewR.save(businessReview);
+        BusinessReviewDTO businessReviewDTO = new BusinessReviewDTO(businessReview);
+        businessReviewDTO.setCustomerProfile(businessReview);
+        return businessReviewDTO;
+    }
+
+    @Override
+    public BusinessReviewResponseDTO addBusinessReviewResponse(BusinessReviewResponse businessReviewResponse) {
+        if (!businessReviewResponse.getResponse().equals("remove")) {
+            if (businessReviewResponse.getBusinessReviewResponseId().equals("")) {
+                LocalDateTime localDateTime = LocalDateTime.now();
+                String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+                businessReviewResponse.setBusinessReviewResponseId("BRRE" + format);
+                return new BusinessReviewResponseDTO(businessReviewResponseR.save(businessReviewResponse));
+            } else {
+                Optional<BusinessReviewResponse> optionalBusinessReviewResponse = businessReviewResponseR.findById(businessReviewResponse.getBusinessReviewResponseId());
+                if (optionalBusinessReviewResponse.isPresent()) {
+                    BusinessReviewResponse businessReviewResponseObj = optionalBusinessReviewResponse.get();
+                    businessReviewResponseObj.setResponse(businessReviewResponse.getResponse());
+                    return new BusinessReviewResponseDTO(businessReviewResponseR.save(businessReviewResponse));
+                }
+            }
+        } else {
+            businessReviewResponseR.deleteById(businessReviewResponse.getBusinessReviewResponseId());
+            return new BusinessReviewResponseDTO(businessReviewResponse);
+        }
+        return null;
     }
 
     private void setItemsToBusinessProfile(String businessProfileId, String categoryId, BusinessProfileDTO businessProfileDTO, String customerId) {

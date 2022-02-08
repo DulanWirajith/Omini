@@ -19,11 +19,16 @@ import { LoginComponent } from './view/login/login.component';
 import { CFavouriteComponent } from './app-customer/view/customer-account/c-favourite/c-favourite.component';
 import { ShopSearchResultComponent } from './app-customer/view/search-result/shop-search-result/shop-search-result.component';
 import { ShopViewComponent } from './view/shop-view/shop-view.component';
+import { CFollowingComponent } from './app-customer/view/customer-account/c-following/c-following.component';
+import { BaReviewsComponent } from './app-shop/view/business-account/ba-reviews/ba-reviews.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+
+
+
     // TimeAgoPipe
     // HeaderComponent
   ],

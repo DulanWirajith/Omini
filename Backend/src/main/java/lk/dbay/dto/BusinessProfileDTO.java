@@ -28,6 +28,7 @@ public class BusinessProfileDTO extends DateTimeDTO {
     private String socialInsta;
     private String socialTwitter;
     private String socialLinkedIn;
+    private boolean followed;
     private int proViewCount;
     private int contactViewCount;
     private int countPendingOrders;

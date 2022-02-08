@@ -9,6 +9,7 @@ import {BaManageComponent} from "./view/business-account/ba-manage/ba-manage.com
 import {BaOrderComponent} from "./view/business-account/ba-order/ba-order.component";
 import {BaProfileComponent} from "./view/business-account/ba-profile/ba-profile.component";
 import {ShopViewComponent} from "../view/shop-view/shop-view.component";
+import {BaReviewsComponent} from "./view/business-account/ba-reviews/ba-reviews.component";
 
 const routes: Routes = [
   // {
@@ -47,6 +48,10 @@ const routes: Routes = [
           {
             path: 'ba_profile',
             component: BaProfileComponent,
+          },
+          {
+            path: 'ba_reviews',
+            component: BaReviewsComponent,
           }
         ]
       },

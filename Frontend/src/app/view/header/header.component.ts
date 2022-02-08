@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   routeToShop() {
-    this.profileService.profileId = this.loginService.getUser().userId;
+    this.profileService.profile.profileId = this.loginService.getUser().userId;
     this.router.navigate(['/shop/header/shop_view'])
   }
 }

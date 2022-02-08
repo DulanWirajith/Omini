@@ -90,7 +90,9 @@
             >
             <a
               class="card-nav-link"
-              href="./client-account-following.html"
+              [routerLinkActive]="'active'"
+              [routerLink]="'/customer/header/customer_account/customer_following'"
+              (click)="breadCrumbTxt='Following'"
             ><i class="fi-like opacity-60 me-2"></i>Following</a
             >
 

@@ -22,6 +22,7 @@ import {COrderViewComponent} from "./view/customer-account/c-order/c-order-view/
 import {NotifierModule, NotifierOptions} from "angular-notifier";
 import {CFavouriteComponent} from "./view/customer-account/c-favourite/c-favourite.component";
 import {ShopSearchResultComponent} from "./view/search-result/shop-search-result/shop-search-result.component";
+import {CFollowingComponent} from "./view/customer-account/c-following/c-following.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -69,7 +70,6 @@ const components = [
   CustomerAccountComponent,
   SearchResultComponent,
   ItemPackageSearchResultComponent,
-  ShopCartComponent,
   CProfileComponent,
   COrderComponent,
   CustomerRegisterComponent,
@@ -80,7 +80,8 @@ const components = [
   CrStep5Component,
   COrderViewComponent,
   CFavouriteComponent,
-  ShopSearchResultComponent
+  ShopSearchResultComponent,
+  CFollowingComponent,
 ];
 
 @NgModule({

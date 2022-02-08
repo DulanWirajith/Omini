@@ -80,7 +80,7 @@ export class ItemService {
   }
 
   getItemPackageSelected(itemId, type): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type);
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type + '/0');
   }
 
   // getItemSelected(itemId): Observable<any> {

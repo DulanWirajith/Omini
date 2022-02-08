@@ -13,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public class FollowerPK implements Serializable {
+public class BusinessFollowerPK implements Serializable {
 
     private String customerProId;
     private String businessProId;

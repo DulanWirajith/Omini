@@ -12,6 +12,7 @@ import {LightboxModule} from 'ngx-lightbox';
 import {ItemPackageDetailViewComponent} from "../view/item-package-detail-view/item-package-detail-view.component";
 import {NotifierModule, NotifierOptions} from "angular-notifier";
 import {ShopViewComponent} from "../view/shop-view/shop-view.component";
+import {ShopCartComponent} from "../app-customer/view/shop-cart/shop-cart.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -59,7 +60,8 @@ const components = [
   ConfirmPasswordDirective,
   // ItemDetailViewComponent,
   ItemPackageDetailViewComponent,
-  ShopViewComponent
+  ShopViewComponent,
+  ShopCartComponent
   // NotifierModule.withConfig(customNotifierOptions)
   // LoginComponent
 ]

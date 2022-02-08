@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AppShopRoutingModule } from './app-shop-routing.module';
-import { AppShopComponent } from './app-shop.component';
+import {AppShopRoutingModule} from './app-shop-routing.module';
+import {AppShopComponent} from './app-shop.component';
 import {BusinessRegisterComponent} from "./view/business-register/business-register.component";
 import {BrStep1Component} from "./view/business-register/br-step1/br-step1.component";
 import {BrStep2Component} from "./view/business-register/br-step2/br-step2.component";
@@ -23,6 +23,7 @@ import {BaManagePackageEditComponent} from "./view/business-account/ba-manage/ba
 import {BaProfileComponent} from "./view/business-account/ba-profile/ba-profile.component";
 import {BaOrderComponent} from "./view/business-account/ba-order/ba-order.component";
 import {BaOrderViewComponent} from "./view/business-account/ba-order/ba-order-view/ba-order-view.component";
+import {BaReviewsComponent} from "./view/business-account/ba-reviews/ba-reviews.component";
 
 const components = [
   BusinessRegisterComponent,
@@ -43,7 +44,8 @@ const components = [
   BaManagePackageEditComponent,
   BaProfileComponent,
   BaOrderComponent,
-  BaOrderViewComponent
+  BaOrderViewComponent,
+  BaReviewsComponent
 ];
 
 @NgModule({
@@ -58,4 +60,5 @@ const components = [
     AppShopRoutingModule
   ]
 })
-export class AppShopModule { }
+export class AppShopModule {
+}

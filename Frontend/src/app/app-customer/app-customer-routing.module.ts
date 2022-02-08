@@ -13,6 +13,7 @@ import {CustomerRegisterComponent} from "./view/customer-register/customer-regis
 import {CFavouriteComponent} from "./view/customer-account/c-favourite/c-favourite.component";
 import {ShopSearchResultComponent} from "./view/search-result/shop-search-result/shop-search-result.component";
 import {ShopViewComponent} from "../view/shop-view/shop-view.component";
+import {CFollowingComponent} from "./view/customer-account/c-following/c-following.component";
 
 const routes: Routes = [
   // {
@@ -43,6 +44,10 @@ const routes: Routes = [
           {
             path: 'customer_favourite',
             component: CFavouriteComponent,
+          },
+          {
+            path: 'customer_following',
+            component: CFollowingComponent,
           }
         ]
       },

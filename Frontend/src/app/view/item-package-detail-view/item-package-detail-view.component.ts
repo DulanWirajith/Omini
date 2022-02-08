@@ -109,7 +109,7 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
       itemPackageReview: {itemPackageReviewId: itemPackageReview.itemPackageReviewId},
       customerProfile: {customerProId: JSON.parse(localStorage.getItem('user')).customerProfile.customerProId}
     };
-    console.log(itemReviewResponse)
+    // console.log(itemReviewResponse)
     this.itemService.addItemPackageResponse(itemReviewResponse).subscribe((itemReviewResponseObj) => {
       if (itemReviewResponseObj.response === 'like') {
         if (itemPackageReview.responseByMe !== undefined) {

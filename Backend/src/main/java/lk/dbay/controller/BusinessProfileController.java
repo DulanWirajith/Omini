@@ -1,7 +1,9 @@
 package lk.dbay.controller;
 
-import lk.dbay.dto.BusinessProfileDTO;
+import lk.dbay.dto.*;
 import lk.dbay.entity.BusinessProfile;
+import lk.dbay.entity.BusinessReview;
+import lk.dbay.entity.BusinessReviewResponse;
 import lk.dbay.service.BusinessProfileS;
 import lk.dbay.util.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +63,57 @@ public class BusinessProfileController {
     @GetMapping(value = "/getItemsBusinessProfile/{businessProfileId}/{categoryId}/{customerId}")
     public ResponseEntity getItemsBusinessProfile(@PathVariable String businessProfileId, @PathVariable String categoryId, @PathVariable String customerId) {
         return ResponseEntity.ok(businessProfileS.getItemsBusinessProfile(businessProfileId, categoryId, customerId));
+    }
+
+    @GetMapping(value = "/followBusiness/{customerId}/{businessProId}")
+    public ResponseEntity followBusiness(@PathVariable String customerId, @PathVariable String businessProId) {
+        return ResponseEntity.ok(businessProfileS.followBusiness(customerId, businessProId));
+    }
+
+    @GetMapping(value = "/getFollowedBusinesses/{customerId}")
+    public ResponseEntity getFollowedBusinesses(@PathVariable String customerId) {
+        return ResponseEntity.ok(businessProfileS.getFollowedBusinesses(customerId));
+    }
+
+    //
+
+    @PostMapping(value = "/addBusinessReview")
+    public ResponseEntity addBusinessReview(@RequestBody BusinessReview itemPackageReview) {
+        try {
+            BusinessReviewDTO businessReviewDTO = businessProfileS.addBusinessReview(itemPackageReview);
+            if (businessReviewDTO != null) {
+                return ResponseEntity.ok(businessReviewDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/addBusinessReviewResponse")
+    public ResponseEntity addBusinessReviewResponse(@RequestBody BusinessReviewResponse itemReviewResponse) {
+        try {
+            BusinessReviewResponseDTO reviewResponseDTO = businessProfileS.addBusinessReviewResponse(itemReviewResponse);
+            if (reviewResponseDTO != null) {
+                return ResponseEntity.ok(reviewResponseDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/getBusinessReviews/{businessId}/{customerId}")
+    public ResponseEntity getBusinessReviews(@PathVariable String businessId, @PathVariable String customerId) {
+        return ResponseEntity.ok(businessProfileS.getBusinessReviews(businessId, customerId));
     }
 }

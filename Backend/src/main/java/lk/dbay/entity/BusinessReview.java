@@ -15,10 +15,12 @@ import javax.persistence.*;
 public class BusinessReview extends DateTime {
 
     @Id
-    private String reviewId;
-//    @Lob
+    private String businessReviewId;
+    //    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    private int rating;
 
     @ManyToOne(optional = false)
     private BusinessProfile businessProfile;

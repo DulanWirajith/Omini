@@ -20,6 +20,7 @@ public class ItemPackageReview extends DateTime {
 
     @Id
     private String itemPackageReviewId;
+
     @Column(columnDefinition = "TEXT")
     private String description;
 
