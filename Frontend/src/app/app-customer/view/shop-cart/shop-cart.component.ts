@@ -48,7 +48,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
 
   initCart() {
     // console.log(itemOrder)
-    if (this.loginService.getUser() !== null) {
+    if (this.loginService.getUser() !== null && this.loginService.getUser().role === 'C') {
       this.shopCartService.getOrder(this.loginService.getUser().userId).subscribe((itemOrder) => {
         this.shopCart = [];
         this.totalItemCount = 0;

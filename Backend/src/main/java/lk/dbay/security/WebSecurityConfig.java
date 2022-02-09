@@ -1,6 +1,7 @@
 package lk.dbay.security;
 
 import lk.dbay.service.DbayUserS;
+import lk.dbay.util.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -77,22 +78,45 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        String urlPrefix = "/" + CommonConstants.DOMAIN_DBAY;
         http.csrf().disable()
-                .authorizeRequests().antMatchers( "/**").permitAll()//test
-//                .authorizeRequests().antMatchers("/" + CommonConstants.DOMAIN_ECLASS + "/pharmacy_user/authenticate").permitAll()
-//                .and()
-//                .authorizeRequests().antMatchers("/" + CommonConstants.DOMAIN_ECLASS + "/pharmacy_user/curDateTime").permitAll()
-//                .and()
-//                .authorizeRequests().antMatchers("/" + CommonConstants.DOMAIN_ECLASS + "/pharmacy_user/signup").permitAll()
-//                .and()
-//                .authorizeRequests().antMatchers("/" + CommonConstants.DOMAIN_ECLASS + "/pharmacy_user/forgotPassword/**").permitAll()
-//                .and()
-//                .authorizeRequests().antMatchers("/" + CommonConstants.DOMAIN_ECLASS + "/pharmacy_user/resetPassword").permitAll()
-//                .and()
-//                .authorizeRequests().antMatchers("/" + CommonConstants.DOMAIN_ECLASS + "/pharmacy_user/user/signout/**").permitAll()
-//                .and()
-//                .authorizeRequests().antMatchers("/" + CommonConstants.DOMAIN_ECLASS + "**").authenticated()
-//                .anyRequest().authenticated()
+//                .authorizeRequests().antMatchers( "/**").permitAll()//test
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.DBAY_USER + "/authenticate").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.DBAY_USER + "/sendVerification/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.BUSINESS_AREA + "/getBusinessAreas").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.BUSINESS_CATEGORY + "/getBusinessCategories").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.BUSINESS_PROFILE + "/addBusinessProfile").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.BUSINESS_PROFILE + "/getBusinessProfile/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.BUSINESS_PROFILE + "/getItemsBusinessProfile/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.BUSINESS_PROFILE + "/getBusinessReviews/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.CUSTOMER_PROFILE + "/addCustomerProfile").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.ITEM_PACKAGE + "/getItemsPackagesBySearch/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.ITEM_PACKAGE + "/getItemPackageSelected/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.ITEM_PACKAGE + "/getItemPackageReviews/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.TOWN + "/getCountries").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.TOWN + "/getDistricts/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.TOWN + "/getTowns/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.TOWN + "/getTownsWIthDistrict").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.DBAY_USER + "/getNavBar/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(urlPrefix + "**").authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()

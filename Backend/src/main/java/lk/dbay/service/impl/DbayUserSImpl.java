@@ -91,7 +91,7 @@ public class DbayUserSImpl implements DbayUserS {
 
                 userDTOobj.setToken(jwtGenerator.generate(userDTOobj));
 
-//                jwtCache.setUser(userDTOobj);
+                jwtCache.setUser(userDTOobj);
 
 //                DbayUserDTO userDTO = new DbayUserDTO();
 //                userDTO.setCurDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));

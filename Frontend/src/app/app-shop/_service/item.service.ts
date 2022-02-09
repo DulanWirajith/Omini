@@ -16,39 +16,39 @@ export class ItemService {
   }
 
   addItem(item): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'item/addItem', item);
+    return this.http.post<any>(environment.backend_url + 'item/shop/addItem', item, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   updateItem(item, itemId): Observable<any> {
-    return this.http.put<any>(environment.backend_url + 'item/updateItem/' + itemId, item);
+    return this.http.put<any>(environment.backend_url + 'item/shop/updateItem/' + itemId, item, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   removeItem(itemId): Observable<any> {
-    return this.http.delete<any>(environment.backend_url + 'item/removeItem/' + itemId);
+    return this.http.delete<any>(environment.backend_url + 'item/shop/removeItem/' + itemId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   addCategory(itemsCategory): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'category/addCategory', itemsCategory);
+    return this.http.post<any>(environment.backend_url + 'category/shop/addCategory', itemsCategory, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   updateCategory(itemsCategory): Observable<any> {
-    return this.http.put<any>(environment.backend_url + 'category/updateCategory/' + itemsCategory.itemCategoryId, itemsCategory);
+    return this.http.put<any>(environment.backend_url + 'category/shop/updateCategory/' + itemsCategory.itemCategoryId, itemsCategory, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   removeCategory(categoryId): Observable<any> {
-    return this.http.delete<any>(environment.backend_url + 'category/removeCategory/' + categoryId);
+    return this.http.delete<any>(environment.backend_url + 'category/shop/removeCategory/' + categoryId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   addPackage(itemsPackage): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'package/addPackage', itemsPackage);
+    return this.http.post<any>(environment.backend_url + 'package/shop/addPackage', itemsPackage, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   updatePackage(itemsPackage, itemPackageId): Observable<any> {
-    return this.http.put<any>(environment.backend_url + 'package/updatePackage/' + itemPackageId, itemsPackage);
+    return this.http.put<any>(environment.backend_url + 'package/shop/updatePackage/' + itemPackageId, itemsPackage, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   removePackage(itemsPackageId): Observable<any> {
-    return this.http.delete<any>(environment.backend_url + 'package/removePackage/' + itemsPackageId);
+    return this.http.delete<any>(environment.backend_url + 'package/shop/removePackage/' + itemsPackageId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   // getItemFeatures(businessCategoryId): Observable<any> {
@@ -56,31 +56,31 @@ export class ItemService {
   // }
 
   getItemPackageFeatures(businessCategoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package_feature/getItemPackageFeatures/' + businessCategoryId);
+    return this.http.get<any>(environment.backend_url + 'item_package_feature/shop/getItemPackageFeatures/' + businessCategoryId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getItemsBusinessCategory(businessProfileId, businessCategoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemsBusinessCategory/' + businessProfileId + '/' + businessCategoryId);
+    return this.http.get<any>(environment.backend_url + 'item/shop/getItemsBusinessCategory/' + businessProfileId + '/' + businessCategoryId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getItemsOrdered(businessProfileId, businessCategoryId, start, limit): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/getItemsOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit);
+    return this.http.get<any>(environment.backend_url + 'item/shop/getItemsOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getItemCategoriesOrdered(businessProfileId, businessCategoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'category/getItemCategoriesOrdered/' + businessProfileId + '/' + businessCategoryId);
+    return this.http.get<any>(environment.backend_url + 'category/shop/getItemCategoriesOrdered/' + businessProfileId + '/' + businessCategoryId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getPackageItemsOrdered(businessProfileId, businessCategoryId, start, limit): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'package/getPackageItemsOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit);
+    return this.http.get<any>(environment.backend_url + 'package/shop/getPackageItemsOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   setItemPackageAvailable(itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/setItemPackageAvailable/' + itemId);
+    return this.http.get<any>(environment.backend_url + 'item_package/shop/setItemPackageAvailable/' + itemId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getItemPackageSelected(itemId, type): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type + '/0');
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type + '/0', {headers: this.commonService.createAuthorizationHeader()});
   }
 
   // getItemSelected(itemId): Observable<any> {
@@ -88,7 +88,7 @@ export class ItemService {
   // }
 
   getItemCategorySelected(categoryId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'category/getItemCategorySelected/' + categoryId);
+    return this.http.get<any>(environment.backend_url + 'category/shop/getItemCategorySelected/' + categoryId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   // getPackageItemSelected(itemPackageId): Observable<any> {
@@ -96,15 +96,15 @@ export class ItemService {
   // }
 
   getItemOrders(businessProfileId, businessCategoryId, status, from, to): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_order/getItemOrders/' + businessProfileId + '/' + businessCategoryId + '/' + status + '/' + from + '/' + to);
+    return this.http.get<any>(environment.backend_url + 'item_order/shop/getItemOrders/' + businessProfileId + '/' + businessCategoryId + '/' + status + '/' + from + '/' + to, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   changeOrderStatus(orderId, businessProfileId, businessCategoryId, status): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_order/changeOrderStatus/' + orderId + '/' + businessProfileId + '/' + businessCategoryId + '/' + status);
+    return this.http.get<any>(environment.backend_url + 'item_order/shop/changeOrderStatus/' + orderId + '/' + businessProfileId + '/' + businessCategoryId + '/' + status, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   acceptItem(orderDetailId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_order/acceptItem/' + orderDetailId);
+    return this.http.get<any>(environment.backend_url + 'item_order/shop/acceptItem/' + orderDetailId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getNewItem() {

@@ -14,7 +14,7 @@ public class ItemPackageFeatureController {
     @Autowired
     private ItemPackageFeatureS itemPackageFeatureS;
 
-    @GetMapping("/getItemPackageFeatures/{businessCategoryId}")
+    @GetMapping(value = CommonConstants.SHOP + "/getItemPackageFeatures/{businessCategoryId}")
     public ResponseEntity getItemPackageFeatures(@PathVariable String businessCategoryId) {
         return ResponseEntity.ok(itemPackageFeatureS.getItemPackageFeatures(businessCategoryId));
     }

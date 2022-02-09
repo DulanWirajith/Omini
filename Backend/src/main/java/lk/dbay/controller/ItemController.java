@@ -21,7 +21,7 @@ public class ItemController {
     @Autowired
     private ItemS itemS;
 
-    @PostMapping(value = "/addItem")
+    @PostMapping(value = CommonConstants.SHOP + "/addItem")
     public ResponseEntity addItem(@RequestPart("item") Item item, @RequestParam("imageFile") MultipartFile[] files) {
         try {
             ItemDTO itemDTO = itemS.addItem(item, files);
@@ -38,7 +38,7 @@ public class ItemController {
         }
     }
 
-    @PutMapping(value = "/updateItem/{itemId}")
+    @PutMapping(value = CommonConstants.SHOP + "/updateItem/{itemId}")
     public ResponseEntity updateItem(@RequestPart("item") Item item, @RequestParam("imageFile") MultipartFile[] files, @PathVariable String itemId) {
         try {
             ItemDTO itemDTO = itemS.updateItem(item, files, itemId);
@@ -60,12 +60,12 @@ public class ItemController {
 //        return ResponseEntity.ok(itemS.getItems());
 //    }
 
-    @GetMapping(value = "/getItemsBusinessCategory/{businessProfileId}/{businessCategoryId}")
+    @GetMapping(value = CommonConstants.SHOP + "/getItemsBusinessCategory/{businessProfileId}/{businessCategoryId}")
     public ResponseEntity getItemsBusinessCategory(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
         return ResponseEntity.ok(itemS.getItemsBusinessCategory(businessProfileId, businessCategoryId));
     }
 
-    @GetMapping(value = "/getItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
+    @GetMapping(value = CommonConstants.SHOP + "/getItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
     public ResponseEntity getItemsOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
         return ResponseEntity.ok(itemS.getItemsOrdered(businessProfileId, businessCategoryId, start, limit));
     }
@@ -90,7 +90,7 @@ public class ItemController {
 //        return ResponseEntity.ok(itemS.getItemsPackagesBySearch(txt, category));
 //    }
 
-    @DeleteMapping(value = "/removeItem/{itemId}")
+    @DeleteMapping(value = CommonConstants.SHOP + "/removeItem/{itemId}")
     public ResponseEntity removeItem(@PathVariable String itemId) {
         try {
             return ResponseEntity.ok(itemS.removeItem(itemId));
@@ -99,7 +99,6 @@ public class ItemController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
 
 
 //    @GetMapping(value = "/itemImg/{id}")

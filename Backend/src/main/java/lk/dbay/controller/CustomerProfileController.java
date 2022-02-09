@@ -36,7 +36,7 @@ public class CustomerProfileController {
         }
     }
 
-    @PutMapping(value = "/updateCustomerProfile/{customerProfileId}")
+    @PutMapping(value = CommonConstants.CUSTOMER + "/updateCustomerProfile/{customerProfileId}")
     public ResponseEntity updateCustomerProfile(@RequestPart("customerProfile") CustomerProfile customerProfile, @RequestParam("imageFile") MultipartFile[] files, @PathVariable String customerProfileId) {
         try {
             CustomerProfileDTO customerProfileDTO = customerProfileS.updateCustomerProfile(customerProfile, files, customerProfileId);
@@ -53,7 +53,7 @@ public class CustomerProfileController {
         }
     }
 
-    @GetMapping(value = "/getCustomerProfile/{customerProfileId}")
+    @GetMapping(value = CommonConstants.CUSTOMER + "/getCustomerProfile/{customerProfileId}")
     public ResponseEntity getCustomerProfile(@PathVariable String customerProfileId) {
         return ResponseEntity.ok(customerProfileS.getCustomerProfile(customerProfileId));
     }

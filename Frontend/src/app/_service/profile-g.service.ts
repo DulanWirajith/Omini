@@ -26,15 +26,15 @@ export class ProfileGService {
   }
 
   followBusiness(customerId, businessProfileId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/followBusiness/' + customerId + '/' + businessProfileId);
+    return this.http.get<any>(environment.backend_url + 'business_profile/customer/followBusiness/' + customerId + '/' + businessProfileId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   addBusinessReview(businessReview): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'business_profile/addBusinessReview', businessReview);
+    return this.http.post<any>(environment.backend_url + 'business_profile/customer/addBusinessReview', businessReview, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   addBusinessReviewResponse(businessReviewResponse): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'business_profile/addBusinessReviewResponse', businessReviewResponse);
+    return this.http.post<any>(environment.backend_url + 'business_profile/customer/addBusinessReviewResponse', businessReviewResponse, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getBusinessReviews(businessId, customerId): Observable<any> {

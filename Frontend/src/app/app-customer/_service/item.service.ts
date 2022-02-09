@@ -27,15 +27,15 @@ export class ItemService {
   }
 
   getFavItemPackages(customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/getFavItemPackages/' + customerId);
+    return this.http.get<any>(environment.backend_url + 'item_package/customer/getFavItemPackages/' + customerId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getCustomerOrders(customerId, status, from, to): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_order/getCustomerOrders/' + customerId + '/' + status + '/' + from + '/' + to);
+    return this.http.get<any>(environment.backend_url + 'item_order/customer/getCustomerOrders/' + customerId + '/' + status + '/' + from + '/' + to, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   setItemFavourite(customerId, itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/setItemPackageFavourite/' + customerId + '/' + itemId);
+    return this.http.get<any>(environment.backend_url + 'item_package/customer/setItemPackageFavourite/' + customerId + '/' + itemId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getNewItem() {

@@ -144,10 +144,14 @@ export class ShopViewComponent implements OnInit {
   }
 
   getItemPackageSelected(itemPackage) {
+    let cart = undefined;
+    if (this.getUser() !== null && this.getUser().role === 'C') {
+      cart = true;
+    }
     this.itemServiceG.itemPackageSub.next({
       itemPackage: itemPackage,
       backBtn: undefined,
-      cart: true
+      cart: cart
     });
   }
 

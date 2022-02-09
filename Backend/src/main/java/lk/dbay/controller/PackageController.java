@@ -20,7 +20,7 @@ public class PackageController {
     @Autowired
     private PackageS packageS;
 
-    @PostMapping(value = "/addPackage")
+    @PostMapping(value = CommonConstants.SHOP + "/addPackage")
     public ResponseEntity addPackage(@RequestPart("package") PackageItem packageItem, @RequestPart("imageFile") MultipartFile[] files) {
         try {
             PackageItemDTO packageItemDTO = packageS.addPackage(packageItem, files);
@@ -37,7 +37,7 @@ public class PackageController {
         }
     }
 
-    @PutMapping(value = "/updatePackage/{itemPackageId}")
+    @PutMapping(value = CommonConstants.SHOP + "/updatePackage/{itemPackageId}")
     public ResponseEntity updatePackage(@RequestPart("package") PackageItem packageItem, @RequestPart("imageFile") MultipartFile[] files, @PathVariable String itemPackageId) {
         try {
             PackageItemDTO packageItemDTO = packageS.updatePackage(packageItem, files, itemPackageId);
@@ -55,7 +55,7 @@ public class PackageController {
         }
     }
 
-    @DeleteMapping(value = "/removePackage/{itemPackageId}")
+    @DeleteMapping(value = CommonConstants.SHOP + "/removePackage/{itemPackageId}")
     public ResponseEntity removePackage(@PathVariable String itemPackageId) {
         try {
             return ResponseEntity.ok(packageS.removePackage(itemPackageId));
@@ -65,7 +65,7 @@ public class PackageController {
         }
     }
 
-    @GetMapping(value = "/getPackageItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
+    @GetMapping(value = CommonConstants.SHOP + "/getPackageItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
     public ResponseEntity getPackageItemsOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
         return ResponseEntity.ok(packageS.getPackageItemsOrdered(businessProfileId, businessCategoryId, start, limit));
     }

@@ -23,7 +23,7 @@ export class BusinessAccountService {
 
   itemOrders = [];
 
-  constructor(private http: HttpClient, private commonService: CommonService, private router: Router, private loginService: LoginService) {
+  constructor(private http: HttpClient, private commonService: CommonService, private loginService: LoginService) {
     // if (this.router.url !== '/login' && this.loginService.getUser().role !== 'B') {
     //   localStorage.clear();
     //   this.router.navigate(['']);
@@ -36,7 +36,7 @@ export class BusinessAccountService {
   // }
 
   updateBusinessProfile(businessReg, businessProId): Observable<any> {
-    return this.http.put<any>(environment.backend_url + 'business_profile/updateBusinessProfile/' + businessProId, businessReg);
+    return this.http.put<any>(environment.backend_url + 'business_profile/shop/updateBusinessProfile/' + businessProId, businessReg, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getBusinessProfile(businessProfileId, needItems, customerId): Observable<any> {

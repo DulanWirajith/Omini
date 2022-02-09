@@ -19,15 +19,15 @@ export class ItemGService {
   }
 
   setItemFavourite(customerId, itemId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/setItemPackageFavourite/' + customerId + '/' + itemId);
+    return this.http.get<any>(environment.backend_url + 'item_package/customer/setItemPackageFavourite/' + customerId + '/' + itemId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   addItemPackageReview(itemReview): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'item_package/addItemPackageReview', itemReview);
+    return this.http.post<any>(environment.backend_url + 'item_package/customer/addItemPackageReview', itemReview, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   addItemPackageResponse(itemReviewResponse): Observable<any> {
-    return this.http.post<any>(environment.backend_url + 'item_package/addItemPackageResponse', itemReviewResponse);
+    return this.http.post<any>(environment.backend_url + 'item_package/customer/addItemPackageResponse', itemReviewResponse, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getItemPackageReviews(itemId, customerId): Observable<any> {

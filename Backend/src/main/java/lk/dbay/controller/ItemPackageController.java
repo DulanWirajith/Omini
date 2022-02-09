@@ -37,17 +37,17 @@ public class ItemPackageController {
 //        return ResponseEntity.ok(itemPackageS.getItemPackagesOrdered(businessProfileId, businessCategoryId, start, limit));
 //    }
 //
-    @GetMapping(value = "/setItemPackageAvailable/{itemId}")
+    @GetMapping(value = CommonConstants.SHOP + "/setItemPackageAvailable/{itemId}")
     public ResponseEntity setItemPackageAvailable(@PathVariable String itemId) {
         return ResponseEntity.ok(itemPackageS.setItemPackageAvailable(itemId));
     }
 
-    @GetMapping(value = "/setItemPackageFavourite/{customerId}/{itemId}")
+    @GetMapping(value = CommonConstants.CUSTOMER + "/setItemPackageFavourite/{customerId}/{itemId}")
     public ResponseEntity setItemPackageFavourite(@PathVariable String customerId, @PathVariable String itemId) {
         return ResponseEntity.ok(itemPackageS.setItemPackageFavourite(customerId, itemId));
     }
 
-    @GetMapping(value = "/getFavItemPackages/{customerId}")
+    @GetMapping(value = CommonConstants.CUSTOMER + "/getFavItemPackages/{customerId}")
     public ResponseEntity getFavItemPackages(@PathVariable String customerId) {
         return ResponseEntity.ok(itemPackageS.getFavItemPackages(customerId));
     }
@@ -64,7 +64,7 @@ public class ItemPackageController {
 
     // Item Review
 
-    @PostMapping(value = "/addItemPackageReview")
+    @PostMapping(value = CommonConstants.CUSTOMER + "/addItemPackageReview")
     public ResponseEntity addItemPackageReview(@RequestBody ItemPackageReview itemPackageReview) {
         try {
             ItemPackageReviewDTO itemPackageReviewDTO = itemPackageS.addItemPackageReview(itemPackageReview);
@@ -81,7 +81,7 @@ public class ItemPackageController {
         }
     }
 
-    @PostMapping(value = "/addItemPackageResponse")
+    @PostMapping(value = CommonConstants.CUSTOMER + "/addItemPackageResponse")
     public ResponseEntity addItemPackageResponse(@RequestBody ItemPackageReviewResponse itemReviewResponse) {
         try {
             ItemPackageReviewResponseDTO itemReviewResponseDTO = itemPackageS.addItemPackageResponse(itemReviewResponse);

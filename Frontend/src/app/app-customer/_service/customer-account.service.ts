@@ -22,11 +22,11 @@ export class CustomerAccountService {
   }
 
   updateCustomerProfile(customerReg, customerProId): Observable<any> {
-    return this.http.put<any>(environment.backend_url + 'customer_profile/updateCustomerProfile/' + customerProId, customerReg);
+    return this.http.put<any>(environment.backend_url + 'customer_profile/customer/updateCustomerProfile/' + customerProId, customerReg, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getCustomerProfile(customerProfileId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'customer_profile/getCustomerProfile/' + customerProfileId);
+    return this.http.get<any>(environment.backend_url + 'customer_profile/customer/getCustomerProfile/' + customerProfileId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getBusinessCategories(): Observable<any> {
@@ -46,11 +46,11 @@ export class CustomerAccountService {
   }
 
   getFollowedBusinesses(customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/getFollowedBusinesses/' + customerId);
+    return this.http.get<any>(environment.backend_url + 'business_profile/customer/getFollowedBusinesses/' + customerId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   followBusiness(customerId, businessProfileId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/followBusiness/' + customerId + '/' + businessProfileId);
+    return this.http.get<any>(environment.backend_url + 'business_profile/customer/followBusiness/' + customerId + '/' + businessProfileId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   sendVerification(): Observable<any> {

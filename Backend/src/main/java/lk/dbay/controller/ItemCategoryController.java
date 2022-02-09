@@ -18,7 +18,7 @@ public class ItemCategoryController {
     @Autowired
     private ItemCategoryS itemCategoryS;
 
-    @PostMapping(value = "/addCategory")
+    @PostMapping(value = CommonConstants.SHOP + "/addCategory")
     public ResponseEntity addCategory(@RequestBody ItemCategory itemCategory) {
         try {
             ItemCategoryDTO itemCategoryDTO = itemCategoryS.addCategory(itemCategory);
@@ -36,7 +36,7 @@ public class ItemCategoryController {
         }
     }
 
-    @PutMapping(value = "/updateCategory/{categoryId}")
+    @PutMapping(value = CommonConstants.SHOP + "/updateCategory/{categoryId}")
     public ResponseEntity updateCategory(@RequestBody ItemCategory itemCategory, @PathVariable String categoryId) {
         try {
             ItemCategoryDTO itemCategoryDTO = itemCategoryS.updateCategory(itemCategory, categoryId);
@@ -53,7 +53,7 @@ public class ItemCategoryController {
         }
     }
 
-    @DeleteMapping(value = "/removeCategory/{categoryId}")
+    @DeleteMapping(value = CommonConstants.SHOP + "/removeCategory/{categoryId}")
     public ResponseEntity removeCategory(@PathVariable String categoryId) {
         try {
             return ResponseEntity.ok(itemCategoryS.removeCategory(categoryId));
@@ -63,12 +63,12 @@ public class ItemCategoryController {
         }
     }
 
-    @GetMapping(value = "/getItemCategoriesOrdered/{businessProfileId}/{businessCategoryId}")
+    @GetMapping(value = CommonConstants.SHOP + "/getItemCategoriesOrdered/{businessProfileId}/{businessCategoryId}")
     public ResponseEntity getItemCategoriesOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
         return ResponseEntity.ok(itemCategoryS.getItemCategoriesOrdered(businessProfileId, businessCategoryId));
     }
 
-    @GetMapping(value = "/getItemCategorySelected/{categoryId}")
+    @GetMapping(value = CommonConstants.SHOP + "/getItemCategorySelected/{categoryId}")
     public ResponseEntity getItemCategorySelected(@PathVariable String categoryId) {
         return ResponseEntity.ok(itemCategoryS.getItemCategorySelected(categoryId));
     }

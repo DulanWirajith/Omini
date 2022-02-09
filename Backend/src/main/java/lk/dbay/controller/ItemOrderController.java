@@ -20,7 +20,7 @@ public class ItemOrderController {
     @Autowired
     private ItemOrderS itemOrderS;
 
-    @PostMapping(value = "/addOrderDetail")
+    @PostMapping(value = CommonConstants.CUSTOMER + "/addOrderDetail")
     public ResponseEntity addOrderDetail(@RequestBody OrderDetail orderDetail) {
         try {
             OrderDetailDTO orderDetailDTO = itemOrderS.addOrderDetail(orderDetail);
@@ -38,12 +38,12 @@ public class ItemOrderController {
         }
     }
 
-    @GetMapping("/getIncOrder/{customerId}")
+    @GetMapping(value = CommonConstants.CUSTOMER + "/getIncOrder/{customerId}")
     public ResponseEntity getInCompletedOrder(@PathVariable String customerId) {
         return ResponseEntity.ok(itemOrderS.getInCompletedOrder(customerId));
     }
 
-    @PutMapping(value = "/updateOrderDetail/{updateType}")
+    @PutMapping(value = CommonConstants.CUSTOMER + "/updateOrderDetail/{updateType}")
     public ResponseEntity updateOrderDetail(@RequestBody OrderDetail orderDetail, @PathVariable String updateType) {
         try {
             OrderDetailDTO orderDetailDTO = itemOrderS.updateOrderDetail(orderDetail, updateType);
@@ -60,7 +60,7 @@ public class ItemOrderController {
         }
     }
 
-    @PostMapping(value = "/placeOrder")
+    @PostMapping(value = CommonConstants.CUSTOMER + "/placeOrder")
     public ResponseEntity placeOrder(@RequestBody ItemOrder itemOrder) {
         try {
             ItemOrderDTO itemOrderDTO = itemOrderS.placeOrder(itemOrder);
@@ -76,27 +76,27 @@ public class ItemOrderController {
 //        return ResponseEntity.ok(itemOrderS.placeOrder(itemOrder));
     }
 
-    @GetMapping("/getItemOrders/{businessProfileId}/{businessCategoryId}/{status}/{from}/{to}")
+    @GetMapping(value = CommonConstants.SHOP + "/getItemOrders/{businessProfileId}/{businessCategoryId}/{status}/{from}/{to}")
     public ResponseEntity getItemOrders(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable String status, @PathVariable String from, @PathVariable String to) {
         return ResponseEntity.ok(itemOrderS.getItemOrders(businessProfileId, businessCategoryId, status, from, to));
     }
 
-    @GetMapping("/getCustomerOrders/{customerId}/{status}/{from}/{to}")
+    @GetMapping(value = CommonConstants.CUSTOMER + "/getCustomerOrders/{customerId}/{status}/{from}/{to}")
     public ResponseEntity getCustomerOrders(@PathVariable String customerId, @PathVariable String status, @PathVariable String from, @PathVariable String to) {
         return ResponseEntity.ok(itemOrderS.getCustomerOrders(customerId, status, from, to));
     }
 
-    @GetMapping("/changeOrderStatus/{orderId}/{businessProfileId}/{businessCategoryId}/{status}")
+    @GetMapping(value = CommonConstants.SHOP + "/changeOrderStatus/{orderId}/{businessProfileId}/{businessCategoryId}/{status}")
     public ResponseEntity changeOrderStatus(@PathVariable String orderId, @PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable String status) {
         return ResponseEntity.ok(itemOrderS.changeOrderStatus(orderId, businessProfileId, businessCategoryId, status));
     }
 
-    @GetMapping("/acceptItem/{orderDetailId}")
+    @GetMapping(CommonConstants.SHOP + "/acceptItem/{orderDetailId}")
     public ResponseEntity acceptItem(@PathVariable String orderDetailId) {
         return ResponseEntity.ok(itemOrderS.acceptItem(orderDetailId));
     }
 
-    @DeleteMapping("/removeCartItem/{orderDetailId}")
+    @DeleteMapping(value = CommonConstants.CUSTOMER + "/removeCartItem/{orderDetailId}")
     public ResponseEntity removeCartItem(@PathVariable String orderDetailId) {
         try {
             return ResponseEntity.ok(itemOrderS.removeCartItem(orderDetailId));
@@ -106,7 +106,7 @@ public class ItemOrderController {
         }
     }
 
-    @DeleteMapping("/removeCartShop/{orderId}/{businessProfileId}/{businessCategoryId}")
+    @DeleteMapping(value = CommonConstants.CUSTOMER + "/removeCartShop/{orderId}/{businessProfileId}/{businessCategoryId}")
     public ResponseEntity removeCartShop(@PathVariable String orderId, @PathVariable String businessProfileId, @PathVariable String businessCategoryId) {
         try {
             return ResponseEntity.ok(itemOrderS.removeCartShop(orderId, businessProfileId, businessCategoryId));
@@ -116,7 +116,7 @@ public class ItemOrderController {
         }
     }
 
-    @DeleteMapping("/removeCart/{orderId}")
+    @DeleteMapping(value = CommonConstants.CUSTOMER + "/removeCart/{orderId}")
     public ResponseEntity removeCart(@PathVariable String orderId) {
         try {
             return ResponseEntity.ok(itemOrderS.removeCart(orderId));

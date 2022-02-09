@@ -26,31 +26,31 @@ export class ShopCartService {
   }
 
   addOrderDetail(order) {
-    return this.http.post<any>(environment.backend_url + 'item_order/addOrderDetail', order);
+    return this.http.post<any>(environment.backend_url + 'item_order/customer/addOrderDetail', order, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   updateOrderDetail(updateType, orderDetail) {
-    return this.http.put<any>(environment.backend_url + 'item_order/updateOrderDetail/' + updateType, orderDetail);
+    return this.http.put<any>(environment.backend_url + 'item_order/customer/updateOrderDetail/' + updateType, orderDetail, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getOrder(customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_order/getIncOrder/' + customerId);
+    return this.http.get<any>(environment.backend_url + 'item_order/customer/getIncOrder/' + customerId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   placeOrder(orderId) {
-    return this.http.post<any>(environment.backend_url + 'item_order/placeOrder', orderId);
+    return this.http.post<any>(environment.backend_url + 'item_order/customer/placeOrder', orderId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   removeCart(orderId) {
-    return this.http.delete<any>(environment.backend_url + 'item_order/removeCart/' + orderId);
+    return this.http.delete<any>(environment.backend_url + 'item_order/customer/removeCart/' + orderId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   removeCartItem(orderDetailId) {
-    return this.http.delete<any>(environment.backend_url + 'item_order/removeCartItem/' + orderDetailId);
+    return this.http.delete<any>(environment.backend_url + 'item_order/customer/removeCartItem/' + orderDetailId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   removeCartShop(orderId, businessProfileId, businessCategoryId) {
-    return this.http.delete<any>(environment.backend_url + 'item_order/removeCartShop/' + orderId + '/' + businessProfileId + '/' + businessCategoryId);
+    return this.http.delete<any>(environment.backend_url + 'item_order/customer/removeCartShop/' + orderId + '/' + businessProfileId + '/' + businessCategoryId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getNewItemOrder() {

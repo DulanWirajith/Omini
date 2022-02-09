@@ -8,6 +8,7 @@ public class CommonConstants {
     public static final String USER = "/user";
     public static final String BUSINESS_ADMIN = "/business_admin";
     public static final String CUSTOMER = "/customer";
+    public static final String SHOP = "/shop";
     public static final int ID_LENGTH = 6;
 
     public static final String DBAY_USER = "/dbay_user";

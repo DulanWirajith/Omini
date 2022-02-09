@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     this.loginService.authenticate(this.user).subscribe((user) => {
       // console.log(user)
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', 'Bearer ' + user.token);
       // this.loginService.loggedIn.next(1);
       if (user.role === 'B') {
         this.router.navigate(['/shop/header/business_account/ba_monitor'])

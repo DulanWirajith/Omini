@@ -53,21 +53,22 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            DbayUserDTO userDTO = new DbayUserDTO();
-            userDTO.setUserId(user.getUserId());
-            DbayUserDTO userCached = jwtCache.getUser(userDTO);
+//            DbayUserDTO userDTO = new DbayUserDTO();
+//            userDTO.setUserId(user.getUserId());
+//            DbayUserDTO userCached = jwtCache.getUser(userDTO);
             JwtUserDetails userDetails = null;
-            if (userCached != null) {
-                if (user.getSecurityKey() > 0) {
-                    List<GrantedAuthority> roles = new ArrayList<>();
-                    for (String privilege : user.getPrivileges()) {
-                        roles.add(new SimpleGrantedAuthority(privilege));
-                    }
-                    userDetails = new JwtUserDetails(userCached.getSecurityKey(), userCached.getUserId(), roles);
-                }else{
-                    throw new RuntimeException("JWT Token has expired");
-                }
-            }
+//            if (userCached != null) {
+//                if (user.getSecurityKey() > 0) {
+            List<GrantedAuthority> roles = new ArrayList<>();
+//                    for (String privilege : user.getPrivileges()) {
+//                        roles.add(new SimpleGrantedAuthority(privilege));
+//                    }
+//                    userDetails = new JwtUserDetails(userCached.getSecurityKey(), userCached.getUserId(), roles);
+            userDetails = new JwtUserDetails(user.getSecurityKey(), user.getUserId(), roles);
+//                }else{
+//                    throw new RuntimeException("JWT Token has expired");
+//                }
+//            }
 
             if (userDetails != null && jwtUtil.validateToken(user, userDetails, httpServletRequest)) {
 

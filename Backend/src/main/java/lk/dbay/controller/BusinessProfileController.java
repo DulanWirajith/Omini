@@ -38,7 +38,7 @@ public class BusinessProfileController {
         }
     }
 
-    @PutMapping(value = "/updateBusinessProfile/{businessProfileId}")
+    @PutMapping(value = CommonConstants.SHOP + "/updateBusinessProfile/{businessProfileId}")
     public ResponseEntity updateBusinessProfile(@RequestPart("businessProfile") BusinessProfile businessProfile, @RequestParam("imageFile") MultipartFile[] files, @PathVariable String businessProfileId) {
         try {
             BusinessProfileDTO businessProfileDTO = businessProfileS.updateBusinessProfile(businessProfile, files, businessProfileId);
@@ -65,19 +65,19 @@ public class BusinessProfileController {
         return ResponseEntity.ok(businessProfileS.getItemsBusinessProfile(businessProfileId, categoryId, customerId));
     }
 
-    @GetMapping(value = "/followBusiness/{customerId}/{businessProId}")
+    @GetMapping(value = CommonConstants.CUSTOMER + "/followBusiness/{customerId}/{businessProId}")
     public ResponseEntity followBusiness(@PathVariable String customerId, @PathVariable String businessProId) {
         return ResponseEntity.ok(businessProfileS.followBusiness(customerId, businessProId));
     }
 
-    @GetMapping(value = "/getFollowedBusinesses/{customerId}")
+    @GetMapping(value = CommonConstants.CUSTOMER + "/getFollowedBusinesses/{customerId}")
     public ResponseEntity getFollowedBusinesses(@PathVariable String customerId) {
         return ResponseEntity.ok(businessProfileS.getFollowedBusinesses(customerId));
     }
 
     //
 
-    @PostMapping(value = "/addBusinessReview")
+    @PostMapping(value = CommonConstants.CUSTOMER + "/addBusinessReview")
     public ResponseEntity addBusinessReview(@RequestBody BusinessReview itemPackageReview) {
         try {
             BusinessReviewDTO businessReviewDTO = businessProfileS.addBusinessReview(itemPackageReview);
@@ -94,7 +94,7 @@ public class BusinessProfileController {
         }
     }
 
-    @PostMapping(value = "/addBusinessReviewResponse")
+    @PostMapping(value = CommonConstants.CUSTOMER + "/addBusinessReviewResponse")
     public ResponseEntity addBusinessReviewResponse(@RequestBody BusinessReviewResponse itemReviewResponse) {
         try {
             BusinessReviewResponseDTO reviewResponseDTO = businessProfileS.addBusinessReviewResponse(itemReviewResponse);

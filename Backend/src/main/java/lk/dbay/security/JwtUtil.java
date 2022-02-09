@@ -38,7 +38,7 @@ public class JwtUtil {
             user.setUsername(body.getSubject());
             user.setUserId(body.get("userId").toString());
             user.setRole(body.get("role").toString());
-            user.setPrivileges((ArrayList) body.get("privileges"));
+//            user.setPrivileges((ArrayList) body.get("privileges"));
             user.setSecurityKey(Integer.valueOf(body.get("securityKey").toString()));
             return user;
         } catch (ExpiredJwtException e) {
@@ -69,11 +69,9 @@ public class JwtUtil {
 //        return user.getUserId().equals(userDetails.getUserId()) && user.getSecurityKey() == userDetails.getSecurityKey() && rollIdentified;
 
         boolean rollIdentified = false;
-        if (httpServletRequest.getRequestURI().matches("^(/)[a-z_]+(/)[a-z_]+(/superadmin/).+$") && user.getRole().equals("SuperAdmin")) {
+        if (httpServletRequest.getRequestURI().matches("^(/)[a-z_]+(/)[a-z_]+(/customer/).+$") && user.getRole().equals("C")) {
             rollIdentified = true;
-        } else if (httpServletRequest.getRequestURI().matches("^(/)[a-z_]+(/)[a-z_]+(/admin/).+$") && (user.getRole().equals("Admin") || user.getRole().equals("SuperAdmin"))) {
-            rollIdentified = true;
-        } else if (httpServletRequest.getRequestURI().matches("^(/)[a-z_]+(/)[a-z_]+(/user/).+$") && (user.getRole().equals("User") || user.getRole().equals("Admin") || user.getRole().equals("SuperAdmin"))) {
+        } else if (httpServletRequest.getRequestURI().matches("^(/)[a-z_]+(/)[a-z_]+(/shop/).+$") && user.getRole().equals("B")) {
             rollIdentified = true;
         }
         return user.getUserId().equals(userDetails.getUserId()) && user.getSecurityKey() == userDetails.getSecurityKey() && rollIdentified;
