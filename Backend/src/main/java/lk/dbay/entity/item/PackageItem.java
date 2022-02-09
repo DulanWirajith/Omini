@@ -21,7 +21,7 @@ public class PackageItem extends DateTime {
     @Id
     private String packageItemId;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private ItemPackage itemPackage;
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "packageItem")

@@ -23,7 +23,7 @@ public class Item extends DateTime {
     @Id
     private String itemId;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private ItemPackage itemPackage;
 
     @ManyToOne

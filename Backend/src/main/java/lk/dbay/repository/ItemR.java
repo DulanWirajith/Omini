@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface ItemR extends JpaRepository<Item, String> {
 
-    Optional<Item> getByItemCategory_ItemCategoryId(String categoryId);
+    List<Item> getByItemCategory_ItemCategoryId(String categoryId);
 
     List<Item> getAllByItemPackage_BusinessProfileCategory_BusinessProfileCategoryId(BusinessProfileCategoryPK businessCategoryId);
 

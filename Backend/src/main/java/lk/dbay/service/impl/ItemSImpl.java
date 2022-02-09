@@ -189,6 +189,7 @@ public class ItemSImpl implements ItemS {
     public boolean removeItem(String itemId) throws Exception {
         try {
             itemR.deleteById(itemId);
+            itemPackageR.deleteById(itemId);
             return true;
         } catch (Exception e) {
             throw new Exception("You cannot remove this item, since it is used.");
@@ -238,7 +239,9 @@ public class ItemSImpl implements ItemS {
         List<Item> itemsList = itemR.getAllByItemPackage_BusinessProfileCategory_BusinessProfileCategoryId(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId));
         List<ItemDTO> itemDTOS = new ArrayList<>();
         for (Item item : itemsList) {
-            itemDTOS.add(new ItemDTO(item));
+            ItemDTO itemDTO = new ItemDTO(item);
+            itemDTO.setItemPackage(new ItemPackageDTO());
+            itemDTOS.add(itemDTO);
         }
         return itemDTOS;
     }

@@ -101,7 +101,7 @@ export class BaManagePackageEditComponent implements OnInit {
       // this.item = undefined;
       imageInput.removeFiles();
       packageItem.itemPackage.itemPackageImages = packageItem.itemPackage.itemPackageImages.concat(itemPackageR.itemPackage.itemPackageImages);
-      packageItem.itemPackage.itemPkgImgs = [];
+      packageItem.itemPackage.itemImgsRaw = [];
       if (document.getElementById('btnPackage' + index) !== null) {
         document.getElementById('btnPackage' + index).click()
       }
@@ -262,9 +262,10 @@ export class BaManagePackageEditComponent implements OnInit {
   // confirmationSub = new Subject();
 
   setPackage(packageE, packageIndex) {
+    // console.log(packageE)
     this.packageE = packageE
     this.packageIndex = packageIndex;
-    this.setDialogBox('Do you want to remove <b>' + packageE.name + '</b> ?', false)
+    this.setDialogBox('Do you want to remove <b>' + packageE.itemPackage.name + '</b> ?', false)
   }
 
   setDialogBox(message, reply = false) {
@@ -273,7 +274,7 @@ export class BaManagePackageEditComponent implements OnInit {
   }
 
   removePackage() {
-    this.itemService.removePackage(this.packageE.itemPackageId).subscribe((reply) => {
+    this.itemService.removePackage(this.packageE.itemPackage.itemPackageId).subscribe((reply) => {
       if (reply) {
         this.packageItems.splice(this.packageIndex, 1);
         this.setDialogBox('Package has been removed', true);

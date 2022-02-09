@@ -67,7 +67,7 @@ public class ItemCategorySImpl implements ItemCategoryS {
                 itemsSetRemove.removeAll(items);
                 Set<Item> itemsSetAdd = new HashSet<>(itemCategory.getItems());
                 itemsSetAdd.removeAll(items);
-//                itemCategoryObj.setItems(itemsSetAdd);
+                itemCategoryObj.setItems(itemsSetAdd);
                 for (Item item : itemsSetRemove) {
                     item.setItemCategory(null);
                 }
@@ -117,15 +117,20 @@ public class ItemCategorySImpl implements ItemCategoryS {
     @Override
     public boolean removeCategory(String categoryId) throws Exception {
         try {
-            Optional<Item> itemOptional = itemR.getByItemCategory_ItemCategoryId(categoryId);
-            if (itemOptional.isPresent()) {
-                Item item = itemOptional.get();
+            List<Item> items = itemR.getByItemCategory_ItemCategoryId(categoryId);
+//            if (items.isPresent()) {
+//                Item item = items.get();
+//                item.setItemCategory(null);
+//                itemR.save(item);
+//            }
+            for (Item item : items) {
                 item.setItemCategory(null);
                 itemR.save(item);
             }
             itemCategoryR.deleteById(categoryId);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new Exception("You cannot remove this category, since it is used.");
         }
     }

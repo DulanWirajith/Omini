@@ -259,12 +259,12 @@
                   [searchWhileComposing]="true"
                   name="items"
                   #itemsE="ngModel" required
-                  [(ngModel)]="packageItem.itemPackage.itemItemPackages"
+                  [(ngModel)]="packageItem.packageItemItems"
                   style="width: 100%">
                 </ng-select>
               </div>
               <div
-                *ngIf="(baManageFormPackage.submitted) && packageItem.itemPackage.itemItemPackages.length===0"
+                *ngIf="(baManageFormPackage.submitted) && packageItem.packageItemItems.length===0"
                 class="validErr">
                 Item is required
               </div>

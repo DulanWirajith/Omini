@@ -134,13 +134,25 @@ export class BaManagePackageComponent implements OnInit {
     };
 
     // let itemItemPackages = [];
-    for (let i = 0; i < this.packageItem.itemPackage.itemItemPackages.length; i++) {
-      if (this.packageItem.itemPackage.itemItemPackages[i].itemPackage === undefined) {
-        this.packageItem.itemPackage.itemItemPackages[i] = {
-          name: this.packageItem.itemPackage.itemItemPackages[i].name,
-          item: this.packageItem.itemPackage.itemItemPackages[i],
-          itemPackage: {
-            itemPackageId: this.packageItem.itemPackage.itemPackageId
+    // for (let i = 0; i < this.packageItem.itemPackage.packageItemItems.length; i++) {
+    //   if (this.packageItem.itemPackage.packageItemItems[i].itemPackage === undefined) {
+    //     this.packageItem.itemPackage.packageItemItems[i] = {
+    //       name: this.packageItem.itemPackage.packageItemItems[i].name,
+    //       item: this.packageItem.itemPackage.packageItemItems[i],
+    //       itemPackage: {
+    //         itemPackageId: this.packageItem.itemPackage.itemPackageId
+    //       }
+    //     }
+    //   }
+    // }
+    for (let i = 0; i < this.packageItem.packageItemItems.length; i++) {
+      // console.log(itemPackageE.itemItemPackages[i].itemPackage)
+      if (this.packageItem.packageItemItems[i].packageItem === undefined) {
+        this.packageItem.packageItemItems[i] = {
+          name: this.packageItem.packageItemItems[i].name,
+          item: this.packageItem.packageItemItems[i],
+          packageItem: {
+            packageItemId: this.packageItem.packageItemId
           }
         }
       }
@@ -159,7 +171,7 @@ export class BaManagePackageComponent implements OnInit {
     }
 
     // this.itemPackage.itemItemPackages = itemItemPackages;
-    // console.log(this.packageItem)
+    console.log(this.packageItem)
     const uploadImageData = new FormData();
     for (let itemPackageImage of this.packageItem.itemPackage.itemImgsRaw) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
@@ -169,13 +181,14 @@ export class BaManagePackageComponent implements OnInit {
         type: "application/json"
       }));
     this.itemService.addPackage(uploadImageData).subscribe((packageItem) => {
-      this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
       this.packageItem.itemPackage.itemItemPackages = [];
       this.packageItem.itemPackage.itemPackageItemPackageFeatures = [];
-      packageItem.itemPackage.itemPackageImages = [];
+      packageItem.itemPackage.itemPackageImages = this.packageItem.itemPackage.itemPackageImages.concat(packageItem.itemPackage.itemPackageImages);
+      packageItem.itemPackage.itemImgsRaw = [];
       // this.item = undefined;
 
-      this.packageItems.push(packageItem)
+      this.packageItems.push(JSON.parse(JSON.stringify(packageItem)))
+      this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
       // this.item.itemItemFeatures = [];
       this.imageInput.removeFiles();
       if (document.getElementById('btnAddPackage') !== null) {

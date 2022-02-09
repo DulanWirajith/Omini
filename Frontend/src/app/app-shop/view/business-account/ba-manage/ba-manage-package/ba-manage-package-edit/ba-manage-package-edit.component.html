@@ -49,10 +49,10 @@
               </div>
             </div>
 
-            <div class="content-overlay end-0 top-0 pt-3 pe-3">
+            <div class="content-overlay end-0 top-0 pt-3 pe-3" style="opacity: 1">
               <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                       data-bs-toggle="modal" data-bs-target="#confirm-dialog-package"
-                      (click)="setPackage(itemPackage,i)"
+                      (click)="setPackage(packageItem,i)"
                       data-bs-placement="left" title="remove item">
                 <i class="fi-trash" style="font-size: 20px"></i>
               </button>
@@ -633,7 +633,7 @@
         <div class="d-flex w-100 justify-content-between">
           <a class="btn btn-icon btn-primary btn-md shadow-sm rounded-circle me-2 mb-0">
             <i class="fi-shopping-bag"></i></a>
-          <h5 class="modal-title" style="margin-top: 8px">Category</h5>
+          <h5 class="modal-title" style="margin-top: 8px">Package</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
       </div>

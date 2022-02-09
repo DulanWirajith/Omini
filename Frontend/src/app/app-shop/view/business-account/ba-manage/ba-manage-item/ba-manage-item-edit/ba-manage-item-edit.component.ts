@@ -128,6 +128,7 @@ export class BaManageItemEditComponent implements OnInit {
         document.getElementById('item-back-btn').click();
       }
       this.item.isNewItem = false;
+      this.item.itemPackage.discountedPrice = item.itemPackage.discountedPrice;
       this.getAlbum(this.item);
     })
   }

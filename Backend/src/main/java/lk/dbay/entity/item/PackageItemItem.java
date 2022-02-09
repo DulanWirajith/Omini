@@ -38,6 +38,10 @@ public class PackageItemItem extends DateTime {
 
     @Override
     public int hashCode() {
-        return Objects.hash(item.getItemId(), packageItem.getPackageItemId());
+        if (item != null && packageItem != null) {
+            return Objects.hash(item.getItemId(), packageItem.getPackageItemId());
+        } else {
+            return 0;
+        }
     }
 }

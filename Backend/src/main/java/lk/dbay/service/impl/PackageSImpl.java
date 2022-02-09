@@ -255,8 +255,10 @@ public class PackageSImpl implements PackageS {
     public boolean removePackage(String packageItemId) throws Exception {
         try {
             packageR.deleteById(packageItemId);
+            itemPackageR.deleteById(packageItemId);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new Exception("You cannot remove this package, since it is used.");
         }
     }

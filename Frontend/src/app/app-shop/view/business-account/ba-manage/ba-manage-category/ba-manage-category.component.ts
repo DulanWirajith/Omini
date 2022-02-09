@@ -52,11 +52,11 @@ export class BaManageCategoryComponent implements OnInit {
       businessProId: this.loginService.getUser().userId
     };
     // let items = [];
-    // for (let item of this.itemCategory.items) {
-    //   items.push({
-    //     itemId: item.itemPackageId
-    //   })
-    // }
+    for (let i = 0; i < this.itemCategory.items.length; i++) {
+      this.itemCategory.items[i].itemPackage = {
+        itemPackageId: this.itemCategory.items[i].itemId
+      }
+    }
     // this.itemCategory.items = items;
     // console.log(this.itemCategory)
     this.itemService.addCategory(this.itemCategory).subscribe((itemCategory) => {
@@ -77,7 +77,12 @@ export class BaManageCategoryComponent implements OnInit {
     itemCategory.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
-
+    for (let i = 0; i < itemCategory.items.length; i++) {
+      itemCategory.items[i].itemPackage = {
+        itemPackageId: itemCategory.items[i].itemId
+      }
+    }
+    console.log(itemCategory)
     this.itemService.updateCategory(itemCategory).subscribe((item) => {
       // this.items.push(item)
       this.baManageFormCategory.resetForm(this.itemService.getNewItem());

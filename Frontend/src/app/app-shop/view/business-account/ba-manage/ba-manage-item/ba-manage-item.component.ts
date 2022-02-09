@@ -69,13 +69,13 @@ export class BaManageItemComponent implements OnInit {
   getItemFeatures() {
     this.itemService.getItemPackageFeatures(this.item.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((itemFeatures) => {
       this.itemFeatures = itemFeatures;
-      this.item.itemPackageItemPackageFeatures = [];
+      this.item.itemPackage.itemPackageItemPackageFeatures = [];
     })
   }
 
   onSubmit() {
     // console.log(this.item.itemPackage.itemImgsRaw.length)
-    this.item.businessProfileCategory.businessProfile = {
+    this.item.itemPackage.businessProfileCategory.businessProfile = {
       businessProId: this.loginService.getUser().userId
     };
 
@@ -95,7 +95,7 @@ export class BaManageItemComponent implements OnInit {
     this.itemService.addItem(uploadImageData).subscribe((item) => {
       this.items.push(item);
       this.baManageFormItem.resetForm(this.itemService.getNewItem());
-      this.item.itemPackageItemPackageFeatures = [];
+      this.item.itemPackage.itemPackageItemPackageFeatures = [];
       this.imageInput.removeFiles();
       if (document.getElementById('btnAddItem') !== null) {
         document.getElementById('btnAddItem').click()
@@ -120,7 +120,7 @@ export class BaManageItemComponent implements OnInit {
 
   addFeature() {
     if (this.itemPackageFeature !== undefined) {
-      this.item.itemPackageItemPackageFeatures.push({
+      this.item.itemPackage.itemPackageItemPackageFeatures.push({
         itemPackage: {itemPackageId: this.item.itemId},
         itemPackageFeature: this.itemPackageFeature
       })
@@ -142,11 +142,12 @@ export class BaManageItemComponent implements OnInit {
 
   addNewItemFeature() {
     for (let itemPackageFeature of this.newItemFeaturesTemp) {
-      this.item.itemPackageItemPackageFeatures.push({
+      this.item.itemPackage.itemPackageItemPackageFeatures.push({
         itemPackage: {itemPackageId: this.item.itemId},
         itemPackageFeature: itemPackageFeature
       })
     }
+    console.log(this.item.itemPackage.itemPackageItemPackageFeatures)
     this.isNewFeature = false;
     this.newItemFeaturesTemp = [];
   }
