@@ -17,12 +17,12 @@ export class ProfileGService {
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
-  getBusinessProfile(businessProfileId, needItems, customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems + '/' + customerId);
+  getBusinessProfile(businessProfileId, needItems, customerId, type): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems + '/' + customerId + '/' + type);
   }
 
-  getItemsBusinessProfile(businessProfileId, categoryId, customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/getItemsBusinessProfile/' + businessProfileId + '/' + categoryId + '/' + customerId);
+  getItemsBusinessProfile(businessProfileId, categoryId, customerId, type): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getItemsBusinessProfile/' + businessProfileId + '/' + categoryId + '/' + customerId + '/' + type);
   }
 
   followBusiness(customerId, businessProfileId): Observable<any> {
@@ -71,6 +71,7 @@ export class ProfileGService {
       },
       businessAreas: [],
       businessProfileCategories: [],
+      itemCategories: [],
       dbayUser: {
         username: "",
         cPassword: "",

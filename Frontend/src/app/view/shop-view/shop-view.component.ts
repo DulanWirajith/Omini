@@ -19,10 +19,16 @@ export class ShopViewComponent implements OnInit {
   businessProfile;
   items = [];
   packageItems = [];
+  selectedType = {
+    businessCategory: {
+      businessCategoryId: ''
+    }
+  };
   selectedCategory = {
-    businessCategoryId: ''
+    itemCategoryId: 0
   };
   profileId;
+  businessCategories = [];
 
   constructor(private profileService: ProfileGService, private loginService: LoginService, private sanitizer: DomSanitizer, private itemServiceG: ItemGService, private shopCartService: ShopCartService) {
     this.businessProfile = profileService.getNewBusinessProfile();
@@ -56,14 +62,18 @@ export class ShopViewComponent implements OnInit {
   }
 
   getBusinessProfile() {
-    this.profileService.getBusinessProfile(this.profileService.profile.profileId, true, JSON.parse(localStorage.getItem('user')).userId).subscribe((businessProfile) => {
+    // console.log(this.profileService.profile.profileId)
+    if (this.profileService.profile.profileId === '') {
+      this.profileService.profile.profileId = this.getUser().userId;
+    }
+    this.profileService.getBusinessProfile(this.profileService.profile.profileId, true, this.getUser().userId, this.getUser().role).subscribe((businessProfile) => {
       // this.user = this.loginService.getUser();
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)
       if (businessProfile !== null) {
-        // console.log(businessProfile)
+        console.log(businessProfile.itemPackage.items)
         this.businessProfile = businessProfile;
-        this.selectedCategory = businessProfile.defaultBusiness;
+        this.selectedType = businessProfile.defaultBusiness;
         this.items = businessProfile.itemPackage.items;
         this.packageItems = businessProfile.itemPackage.itemPackages;
         this.getBusinessReviews();
@@ -72,10 +82,10 @@ export class ShopViewComponent implements OnInit {
     })
   }
 
-  getItemsBusinessProfile(categoryId) {
-    // console.log(categoryId)
-    this.selectedCategory.businessCategoryId = categoryId;
-    this.profileService.getItemsBusinessProfile(this.profileService.profile.profileId, categoryId, JSON.parse(localStorage.getItem('user')).userId).subscribe((businessProfile) => {
+  getItemsBusinessProfile() {
+    // console.log(this.selectedType)
+    // this.selectedType.businessCategoryId = categoryId;
+    this.profileService.getItemsBusinessProfile(this.profileService.profile.profileId, this.selectedType.businessCategory.businessCategoryId, this.getUser().userId, this.getUser().role).subscribe((businessProfile) => {
       // this.user = this.loginService.getUser();
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)
@@ -87,6 +97,22 @@ export class ShopViewComponent implements OnInit {
         this.setShopCart(this.shopCartService.shopCart);
       }
     })
+  }
+
+  getItemsItemCategory(itemCategoryId) {
+    this.selectedCategory.itemCategoryId = itemCategoryId
+    if (itemCategoryId === 0) {
+      this.items = this.businessProfile.itemPackage.items;
+    } else {
+      this.items = this.businessProfile.itemPackage.items;
+      let items = [];
+      for (let item of this.items) {
+        if (item.itemCategory !== undefined && item.itemCategory.itemCategoryId === itemCategoryId) {
+          items.push(item)
+        }
+      }
+      this.items = items;
+    }
   }
 
   addToCart(item, orderDetailType) {

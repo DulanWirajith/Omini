@@ -2,6 +2,7 @@ package lk.dbay.service.impl;
 
 import lk.dbay.dto.*;
 import lk.dbay.entity.*;
+import lk.dbay.entity.item.ItemCategory;
 import lk.dbay.entity.item.ItemPackage;
 import lk.dbay.entity.item.ItemPackageFavourite;
 import lk.dbay.repository.*;
@@ -44,6 +45,8 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     private BusinessReviewR businessReviewR;
     @Autowired
     private BusinessReviewResponseR businessReviewResponseR;
+    @Autowired
+    private ItemCategoryR itemCategoryR;
     @Value("${image.path}")
     private String filePath;
 
@@ -73,7 +76,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     }
 
     @Override
-    public BusinessProfileDTO getBusinessProfile(String businessProfileId, boolean needItems, String customerId) {
+    public BusinessProfileDTO getBusinessProfile(String businessProfileId, boolean needItems, String customerId, String type) {
         Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(businessProfileId);
         if (businessProfileOptional.isPresent()) {
             BusinessProfile businessProfile = businessProfileOptional.get();
@@ -85,7 +88,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             if (needItems) {
                 Optional<BusinessFollower> followerOptional = businessFollowerR.getByCustomerProfile_CustomerProIdAndBusinessProfile_BusinessProId(customerId, businessProfileId);
                 businessProfileDTO.setFollowed(followerOptional.isPresent());
-                setItemsToBusinessProfile(businessProfileId, businessProfile.getDefaultBusiness().getBusinessCategoryId(), businessProfileDTO, customerId);
+                setItemsToBusinessProfile(businessProfileId, businessProfile.getDefaultBusiness().getBusinessCategoryId(), businessProfileDTO, customerId, type);
             }
             return businessProfileDTO;
         }
@@ -93,9 +96,9 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     }
 
     @Override
-    public BusinessProfileDTO getItemsBusinessProfile(String businessProfileId, String categoryId, String customerId) {
+    public BusinessProfileDTO getItemsBusinessProfile(String businessProfileId, String categoryId, String customerId, String type) {
         BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO();
-        setItemsToBusinessProfile(businessProfileId, categoryId, businessProfileDTO, customerId);
+        setItemsToBusinessProfile(businessProfileId, categoryId, businessProfileDTO, customerId, type);
         return businessProfileDTO;
     }
 
@@ -188,20 +191,27 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         return null;
     }
 
-    private void setItemsToBusinessProfile(String businessProfileId, String categoryId, BusinessProfileDTO businessProfileDTO, String customerId) {
+    private void setItemsToBusinessProfile(String businessProfileId, String categoryId, BusinessProfileDTO businessProfileDTO, String customerId, String type) {
         List<ItemPackage> itemsBySearch = new ArrayList<>();
         List<ItemPackage> packagesBySearch = new ArrayList<>();
         ItemPackageDTO itemPackageDTO = new ItemPackageDTO();
         List<ItemPackageDTO> itemPackages = new ArrayList<>();
         List<ItemPackageDTO> items = new ArrayList<>();
+        List<ItemCategory> categoryList = itemCategoryR.getItemCategoriesOrdered(new BusinessProfileCategoryPK(businessProfileId, categoryId));
+        List<ItemCategoryDTO> itemCategoryDTOS = new ArrayList<>();
+        for (ItemCategory itemCategory : categoryList) {
+            itemCategoryDTOS.add(new ItemCategoryDTO(itemCategory));
+        }
         List<ItemPackage> itemPackageList = itemPackageR.getItemsForBusinessProId(businessProfileId, categoryId);
         for (ItemPackage itemPackage : itemPackageList) {
-            Optional<ItemPackageFavourite> itemPackageFavourite = itemPackageFavouriteR.getByCustomerProfile_CustomerProIdAndItemPackage_ItemPackageId(customerId, itemPackage.getItemPackageId());
-            itemPackage.setFavourite(itemPackageFavourite.isPresent());
-            if (itemPackage.getItemPackageType().equals("Item")) {
-                itemsBySearch.add(itemPackage);
-            } else if (itemPackage.getItemPackageType().equals("Package")) {
-                packagesBySearch.add(itemPackage);
+            if ((type.equals("C") && itemPackage.isAvailable()) || type.equals("B")) {
+                Optional<ItemPackageFavourite> itemPackageFavourite = itemPackageFavouriteR.getByCustomerProfile_CustomerProIdAndItemPackage_ItemPackageId(customerId, itemPackage.getItemPackageId());
+                itemPackage.setFavourite(itemPackageFavourite.isPresent());
+                if (itemPackage.getItemPackageType().equals("Item")) {
+                    itemsBySearch.add(itemPackage);
+                } else if (itemPackage.getItemPackageType().equals("Package")) {
+                    packagesBySearch.add(itemPackage);
+                }
             }
         }
         setItemPackageDTO(itemsBySearch, items);
@@ -209,6 +219,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         itemPackageDTO.setItemPackages(itemPackages);
         itemPackageDTO.setItems(items);
         businessProfileDTO.setItemPackage(itemPackageDTO);
+        businessProfileDTO.setItemCategories(itemCategoryDTOS);
     }
 
     private void setItemPackageDTO(List<ItemPackage> itemsBySearch, List<ItemPackageDTO> itemPackages) {
@@ -217,6 +228,9 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             itemPackageDTOObj.setBusinessProfileCategory(itemBySearch);
             itemPackageDTOObj.setItemPackageImages(itemBySearch);
             itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
+            if (itemBySearch.getItemPackageType().equals("Item")) {
+                itemPackageDTOObj.setItemCategory(itemBySearch);
+            }
             itemPackages.add(itemPackageDTOObj);
         }
     }

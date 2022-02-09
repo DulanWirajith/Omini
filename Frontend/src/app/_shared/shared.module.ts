@@ -86,7 +86,8 @@ let notifierModule: any = NotifierModule.withConfig(customNotifierOptions)
     RouterModule,
     MDBBootstrapModule,
     FormsModule,
-    notifierModule
+    notifierModule,
+    NgSelectModule
   ]
 })
 export class SharedModule {

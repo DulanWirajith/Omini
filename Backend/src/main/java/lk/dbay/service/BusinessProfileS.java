@@ -14,11 +14,11 @@ public interface BusinessProfileS {
 
     BusinessProfileDTO addBusinessProfile(BusinessProfile businessProfile, MultipartFile[] files) throws Exception;
 
-    BusinessProfileDTO getBusinessProfile(String businessProfileId, boolean needItems, String customerId);
+    BusinessProfileDTO getBusinessProfile(String businessProfileId, boolean needItems, String customerId, String type);
 
     BusinessProfileDTO updateBusinessProfile(BusinessProfile businessProfile, MultipartFile[] files, String businessProfileId) throws Exception;
 
-    BusinessProfileDTO getItemsBusinessProfile(String businessProfileId, String categoryId, String customerId);
+    BusinessProfileDTO getItemsBusinessProfile(String businessProfileId, String categoryId, String customerId, String type);
 
     boolean followBusiness(String customerId, String businessProId);
 

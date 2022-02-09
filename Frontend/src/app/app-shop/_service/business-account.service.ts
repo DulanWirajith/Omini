@@ -39,8 +39,8 @@ export class BusinessAccountService {
     return this.http.put<any>(environment.backend_url + 'business_profile/shop/updateBusinessProfile/' + businessProId, businessReg, {headers: this.commonService.createAuthorizationHeader()});
   }
 
-  getBusinessProfile(businessProfileId, needItems, customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems + '/' + customerId);
+  getBusinessProfile(businessProfileId, needItems, customerId, type): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'business_profile/getBusinessProfile/' + businessProfileId + '/' + needItems + '/' + customerId + '/' + type);
   }
 
   addBusinessProfile(businessReg): Observable<any> {

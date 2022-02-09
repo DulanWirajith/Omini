@@ -38,6 +38,7 @@ public class BusinessProfileDTO extends DateTimeDTO {
     private List<BusinessAreaDTO> businessAreas;
     private List<BusinessProfileCategoryDTO> businessProfileCategories;
     private ItemPackageDTO itemPackage;
+    private List<ItemCategoryDTO> itemCategories;
 
     public BusinessProfileDTO(BusinessProfile businessProfile) {
         if (businessProfile != null) {

@@ -55,15 +55,20 @@ public class BusinessProfileController {
         }
     }
 
-    @GetMapping(value = "/getBusinessProfile/{businessProfileId}/{needItems}/{customerId}")
-    public ResponseEntity getBusinessProfile(@PathVariable String businessProfileId, @PathVariable boolean needItems, @PathVariable String customerId) {
-        return ResponseEntity.ok(businessProfileS.getBusinessProfile(businessProfileId, needItems, customerId));
+    @GetMapping(value = "/getBusinessProfile/{businessProfileId}/{needItems}/{customerId}/{type}")
+    public ResponseEntity getBusinessProfile(@PathVariable String businessProfileId, @PathVariable boolean needItems, @PathVariable String customerId, @PathVariable String type) {
+        return ResponseEntity.ok(businessProfileS.getBusinessProfile(businessProfileId, needItems, customerId, type));
     }
 
-    @GetMapping(value = "/getItemsBusinessProfile/{businessProfileId}/{categoryId}/{customerId}")
-    public ResponseEntity getItemsBusinessProfile(@PathVariable String businessProfileId, @PathVariable String categoryId, @PathVariable String customerId) {
-        return ResponseEntity.ok(businessProfileS.getItemsBusinessProfile(businessProfileId, categoryId, customerId));
+    @GetMapping(value = "/getItemsBusinessProfile/{businessProfileId}/{categoryId}/{customerId}/{type}")
+    public ResponseEntity getItemsBusinessProfile(@PathVariable String businessProfileId, @PathVariable String categoryId, @PathVariable String customerId, @PathVariable String type) {
+        return ResponseEntity.ok(businessProfileS.getItemsBusinessProfile(businessProfileId, categoryId, customerId, type));
     }
+
+//    @GetMapping(value = "/getItemsItemCategory/{businessProfileId}/{categoryId}/{customerId}/{type}/{itemCategoryId}")
+//    public ResponseEntity getItemsItemCategory(@PathVariable String businessProfileId, @PathVariable String categoryId, @PathVariable String customerId, @PathVariable String type, @PathVariable String itemCategoryId) {
+//        return ResponseEntity.ok(businessProfileS.getItemsItemCategory(businessProfileId, categoryId, customerId, type, itemCategoryId));
+//    }
 
     @GetMapping(value = CommonConstants.CUSTOMER + "/followBusiness/{customerId}/{businessProId}")
     public ResponseEntity followBusiness(@PathVariable String customerId, @PathVariable String businessProId) {

@@ -57,6 +57,42 @@
                 class="fi-whatsapp"></i></a>
             </div>
           </div>
+          <div class="row" style="margin-top: 0px;border-top: 1px solid #ededed">
+            <div style="margin-top: 15px;line-height: 2.3;width: 98px;font-weight: bold">
+              Business
+            </div>
+            <div style="margin-top: 15px;padding-left: 0px;width: calc(100% - 98px)">
+              <!--<label class="form-label"-->
+              <!--&gt;Business type </label-->
+              <!--&gt;-->
+              <!--<a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"-->
+              <!--data-bs-toggle="tooltip" title="Select this item belongs to which type of business"-->
+              <!--data-bs-original-title="Select this item belongs to which type of business"-->
+              <!--aria-label="Select this item belongs to which type of business"><i class="fi-help"></i>-->
+              <!--</a>-->
+              <!-- <div class="d-flex flex-column flex-sm-row"> -->
+              <ng-select
+                [items]="businessProfile.businessProfileCategories"
+                bindLabel="name"
+                placeholder="Select Business Type"
+                dropdownPosition="auto"
+                [multiple]="false"
+                [searchWhileComposing]="true"
+                (change)="getItemsBusinessProfile()"
+                [(ngModel)]="selectedType">
+              </ng-select>
+              <!-- <div class="invalid-tooltip">
+                Please fill item quantity
+              </div>
+              <div class="valid-tooltip">Looks good!</div> -->
+              <!-- <button type="button" class="btn btn-light-primary btn-icon shadow-sm">
+                <i class="fi-plus"></i>
+              </button> -->
+              <!-- <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> -->
+              <!-- </div> -->
+
+            </div>
+          </div>
           <!-- Nav tabs-->
           <div class="offcanvas-header d-block border-bottom py-lg-4 py-3 px-lg-0">
             <ul class="nav nav-pills nav-fill" role="tablist">
@@ -72,17 +108,30 @@
               <!-- Categories-->
               <div class="tab-pane fade show active" id="biz-item-categories" role="tabpanel">
                 <div class="row row-cols-lg-2 row-cols-1 g-3">
-                  <div class="col" *ngFor="let category of businessProfile.businessProfileCategories"
-                       (click)="getItemsBusinessProfile(category.businessCategory.businessCategoryId)">
+                  <div class="col"
+                       (click)="getItemsItemCategory(0)">
                     <a class="icon-box card card-body h-100 border-0 shadow-sm card-hover text-center">
                       <div class="icon-box-media bg-faded-accent rounded-circle mb-3 mx-auto"><i
-                        [ngStyle]="{'color':selectedCategory.businessCategoryId===category.businessCategory.businessCategoryId?'orangered':'black'}"
+                        [ngStyle]="{'color':selectedCategory.itemCategoryId===0?'orangered':'black'}"
                         class="fi-bed"></i></div>
                       <h3 class=" fs-base mb-0"
-                          [ngStyle]="{'color':selectedCategory.businessCategoryId===category.businessCategory.businessCategoryId?'orangered':'black'}">
+                          [ngStyle]="{'color':selectedCategory.itemCategoryId===0?'orangered':'black'}">
+                        All
+                      </h3>
+                    </a>
+                  </div>
+                  <div class="col" *ngFor="let category of businessProfile.itemCategories"
+                       (click)="getItemsItemCategory(category.itemCategoryId)">
+                    <a class="icon-box card card-body h-100 border-0 shadow-sm card-hover text-center">
+                      <div class="icon-box-media bg-faded-accent rounded-circle mb-3 mx-auto"><i
+                        [ngStyle]="{'color':selectedCategory.itemCategoryId===category.itemCategoryId?'orangered':'black'}"
+                        class="fi-bed"></i></div>
+                      <h3 class=" fs-base mb-0"
+                          [ngStyle]="{'color':selectedCategory.itemCategoryId===category.itemCategoryId?'orangered':'black'}">
                         {{category.name}}
                       </h3>
-                    </a></div>
+                    </a>
+                  </div>
                   <!--<div class="col"><a class="icon-box card card-body h-100 border-0 shadow-sm card-hover text-center" href="#">-->
                   <!--<div class="icon-box-media bg-faded-primary text-primary rounded-circle mb-3 mx-auto"><i class="fi-dumbell"></i></div>-->
                   <!--<h3 class="icon-box-title fs-base mb-0">Fitness &amp; Sport</h3></a></div>-->
