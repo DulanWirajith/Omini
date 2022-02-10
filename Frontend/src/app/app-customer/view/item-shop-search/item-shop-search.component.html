@@ -22,14 +22,16 @@
         <p class="text-lg-start text-center mb-2 mb-lg-3 fs-lg">Find great places to stay, eat, shop, or visit from our
           partners and local experts.</p>
         <div class="btn-group mb-3" role="group" aria-label="Outline button group">
-          <button type="button" class="btn btn-outline-primary active">Item</button>
-          <button type="button" class="btn btn-outline-primary">Shop</button>
+          <button type="button" class="btn btn-outline-primary" [ngClass]="shopType==='Item'?'active':''"
+                  (click)="shopType='Item'">Item</button>
+          <button type="button" class="btn btn-outline-primary" [ngClass]="shopType==='Shop'?'active':''"
+                  (click)="shopType='Shop'">Shop</button>
         </div>
         <!-- Search form-->
         <div class="me-lg-n5">
 
           <form class="form-group d-block d-md-flex position-relative rounded-md-pill me-lg-n5" #itemShopSearch="ngForm"
-                (ngSubmit)="itemShopSearch.form.valid && searchItem()"
+                (ngSubmit)="itemShopSearch.form.valid && searchShopItems()"
                 novalidate>
 
             <!--<div class="input-group input-group-lg border-end-md"><span-->

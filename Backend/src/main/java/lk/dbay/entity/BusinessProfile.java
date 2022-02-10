@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -56,4 +57,5 @@ public class BusinessProfile extends DateTime {
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "businessProfile")
     private Set<BusinessProfileCategory> businessProfileCategories;
+
 }

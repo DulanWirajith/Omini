@@ -147,7 +147,7 @@ export class BaManageItemComponent implements OnInit {
         itemPackageFeature: itemPackageFeature
       })
     }
-    console.log(this.item.itemPackage.itemPackageItemPackageFeatures)
+    // console.log(this.item.itemPackage.itemPackageItemPackageFeatures)
     this.isNewFeature = false;
     this.newItemFeaturesTemp = [];
   }

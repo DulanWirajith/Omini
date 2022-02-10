@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -92,6 +93,20 @@ public class BusinessProfileDTO extends DateTimeDTO {
         for (BusinessProfileCategory businessProfileCategory : businessProfile.getBusinessProfileCategories()) {
             businessProfileCategories.add(new BusinessProfileCategoryDTO(businessProfile, businessProfileCategory.getBusinessCategory()));
         }
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BusinessProfileDTO that = (BusinessProfileDTO) o;
+        return Objects.equals(businessName, that.businessName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(businessName);
     }
 
 //    public BusinessProfileDTO(BusinessProfile businessProfile, DbayUser dbayUser) {

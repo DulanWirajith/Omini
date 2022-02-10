@@ -29,4 +29,6 @@ public interface BusinessProfileS {
     BusinessReviewDTO addBusinessReview(BusinessReview businessReview);
 
     BusinessReviewResponseDTO addBusinessReviewResponse(BusinessReviewResponse businessReviewResponse);
+
+    List<BusinessProfileDTO> getShopsBySearch(String txt, String category, String district, String town, String customerId);
 }

@@ -26,7 +26,8 @@
               <div class="input-group"><span class="input-group-text text-muted"><i class="fi-search"></i></span>
                 <input class="form-control" type="text" placeholder="Search..." [(ngModel)]="txt" name="txt">
               </div>
-              <button class="btn btn-primary rounded-pill d-lg-inline-block d-none" type="button" (click)="searchItems()">
+              <button class="btn btn-primary rounded-pill d-lg-inline-block d-none" type="button"
+                      (click)="searchShopItems()">
                 Search
               </button>
               <button class="btn btn-icon btn-primary rounded-circle flex-shrink-0 d-lg-none d-inline-flex"
@@ -36,10 +37,21 @@
           <!-- Nav tabs-->
           <div class="offcanvas-header d-block border-bottom py-lg-4 py-3 px-lg-0">
             <ul class="nav nav-pills nav-fill" role="tablist">
-              <li class="nav-item"><a class="nav-link d-flex align-items-center active" href="#filters"
-                                      data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>Item</a></li>
-              <li class="nav-item"><a class="nav-link d-flex align-items-center" href="#filters" data-bs-toggle="tab"
-                                      role="tab"><i class="fi-shop me-2"></i>Shop</a></li>
+              <li
+                [routerLink]="'/customer/header/search_result/item_package_search_result'"
+                (click)="shopType='Item'"
+                class="nav-item">
+                <a [routerLinkActive]="'active'"
+                   class="nav-link d-flex align-items-center" href="#filters"
+                   data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>Item</a></li>
+              <li
+                [routerLink]="'/customer/header/search_result/shop_search_result'"
+                (click)="shopType='Shop'"
+                class="nav-item">
+                <a
+                  [routerLinkActive]="'active'"
+                  class="nav-link d-flex align-items-center" href="#filters" data-bs-toggle="tab"
+                  role="tab"><i class="fi-shop me-2"></i>Shop</a></li>
             </ul>
           </div>
           <div class="offcanvas-body py-lg-4">
@@ -62,38 +74,40 @@
                   <h3 class="h6">Shop Type</h3>
                   <div class="dropdown mb-sm-0 mb-3" data-bs-toggle="select">
                     <!--<button-->
-                      <!--class="btn btn-outline-secondary d-flex align-items-center w-100 px-4 fw-normal text-start dropdown-toggle"-->
-                      <!--style="background-color: white;" type="button" data-bs-toggle="dropdown"><i-->
-                      <!--class="fi-list me-2 text-muted"></i><span-->
-                      <!--class="dropdown-toggle-label d-block w-100">All Shops</span></button>-->
+                    <!--class="btn btn-outline-secondary d-flex align-items-center w-100 px-4 fw-normal text-start dropdown-toggle"-->
+                    <!--style="background-color: white;" type="button" data-bs-toggle="dropdown"><i-->
+                    <!--class="fi-list me-2 text-muted"></i><span-->
+                    <!--class="dropdown-toggle-label d-block w-100">All Shops</span></button>-->
                     <input type="hidden">
                     <select class="form-select" [(ngModel)]="category" name="categogry">
                       <option value="0" selected>All Shops</option>
-                      <option *ngFor="let shopType of shopTypes" [value]="shopType.businessCategoryId">{{shopType.name}}</option>
+                      <option *ngFor="let shopType of shopTypes" [value]="shopType.businessCategoryId">
+                        {{shopType.name}}
+                      </option>
                     </select>
                     <!--<ul class="dropdown-menu w-100">-->
-                      <!--<li *ngFor="let shopType of shopTypes" (click)="category=shopType.businessCategoryId">-->
-                        <!--<a class="dropdown-item"><i class="fi-bed fs-lg opacity-60"></i><span-->
-                        <!--class="dropdown-item-label"> {{shopType.name}}</span></a></li>-->
-                      <!--<li><a class="dropdown-item" href="#"><i class="fi-cafe me-2 fs-lg opacity-60"></i><span-->
-                        <!--class="dropdown-item-label">Food &amp; Drink</span></a></li>-->
-                      <!--<li><a class="dropdown-item" href="#"><i class="fi-shopping-bag me-2 fs-lg opacity-60"></i><span-->
-                        <!--class="dropdown-item-label">Shopping</span></a></li>-->
-                      <!--<li><a class="dropdown-item" href="#"><i class="fi-museum me-2 fs-lg opacity-60"></i><span-->
-                        <!--class="dropdown-item-label">Art &amp; History</span></a></li>-->
-                      <!--<li><a class="dropdown-item" href="#"><i class="fi-entertainment me-2 fs-lg opacity-60"></i><span-->
-                        <!--class="dropdown-item-label">Entertainment</span></a></li>-->
-                      <!--<li><a class="dropdown-item" href="#"><i class="fi-meds me-2 fs-lg opacity-60"></i><span-->
-                        <!--class="dropdown-item-label">Medicine</span></a></li>-->
-                      <!--<li><a class="dropdown-item" href="#"><i class="fi-makeup me-2 fs-lg opacity-60"></i><span-->
-                        <!--class="dropdown-item-label">Beauty</span></a></li>-->
-                      <!--<li><a class="dropdown-item" href="#"><i class="fi-car me-2 fs-lg opacity-60"></i><span-->
-                        <!--class="dropdown-item-label">Auto Service</span></a></li>-->
+                    <!--<li *ngFor="let shopType of shopTypes" (click)="category=shopType.businessCategoryId">-->
+                    <!--<a class="dropdown-item"><i class="fi-bed fs-lg opacity-60"></i><span-->
+                    <!--class="dropdown-item-label"> {{shopType.name}}</span></a></li>-->
+                    <!--<li><a class="dropdown-item" href="#"><i class="fi-cafe me-2 fs-lg opacity-60"></i><span-->
+                    <!--class="dropdown-item-label">Food &amp; Drink</span></a></li>-->
+                    <!--<li><a class="dropdown-item" href="#"><i class="fi-shopping-bag me-2 fs-lg opacity-60"></i><span-->
+                    <!--class="dropdown-item-label">Shopping</span></a></li>-->
+                    <!--<li><a class="dropdown-item" href="#"><i class="fi-museum me-2 fs-lg opacity-60"></i><span-->
+                    <!--class="dropdown-item-label">Art &amp; History</span></a></li>-->
+                    <!--<li><a class="dropdown-item" href="#"><i class="fi-entertainment me-2 fs-lg opacity-60"></i><span-->
+                    <!--class="dropdown-item-label">Entertainment</span></a></li>-->
+                    <!--<li><a class="dropdown-item" href="#"><i class="fi-meds me-2 fs-lg opacity-60"></i><span-->
+                    <!--class="dropdown-item-label">Medicine</span></a></li>-->
+                    <!--<li><a class="dropdown-item" href="#"><i class="fi-makeup me-2 fs-lg opacity-60"></i><span-->
+                    <!--class="dropdown-item-label">Beauty</span></a></li>-->
+                    <!--<li><a class="dropdown-item" href="#"><i class="fi-car me-2 fs-lg opacity-60"></i><span-->
+                    <!--class="dropdown-item-label">Auto Service</span></a></li>-->
                     <!--</ul>-->
                   </div>
                 </div>
                 <div class="border-top py-4">
-                  <button class="btn btn-outline-primary rounded-pill" type="button" (click)="searchItems()">
+                  <button class="btn btn-outline-primary rounded-pill" type="button" (click)="searchShopItems()">
                     <i class="fi-rotate-right me-2"></i>Advanced Search
                   </button>
                 </div>

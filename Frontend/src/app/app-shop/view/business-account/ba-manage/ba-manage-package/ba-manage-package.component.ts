@@ -171,7 +171,7 @@ export class BaManagePackageComponent implements OnInit {
     }
 
     // this.itemPackage.itemItemPackages = itemItemPackages;
-    console.log(this.packageItem)
+    // console.log(this.packageItem)
     const uploadImageData = new FormData();
     for (let itemPackageImage of this.packageItem.itemPackage.itemImgsRaw) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);

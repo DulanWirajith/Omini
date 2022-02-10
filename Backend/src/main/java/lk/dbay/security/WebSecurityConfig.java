@@ -101,6 +101,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers(urlPrefix + CommonConstants.ITEM_PACKAGE + "/getItemsPackagesBySearch/**").permitAll()
                 .and()
+                .authorizeRequests().antMatchers(urlPrefix + CommonConstants.BUSINESS_PROFILE + "/getShopsBySearch/**").permitAll()
+                .and()
                 .authorizeRequests().antMatchers(urlPrefix + CommonConstants.ITEM_PACKAGE + "/getItemPackageSelected/**").permitAll()
                 .and()
                 .authorizeRequests().antMatchers(urlPrefix + CommonConstants.ITEM_PACKAGE + "/getItemPackageReviews/**").permitAll()

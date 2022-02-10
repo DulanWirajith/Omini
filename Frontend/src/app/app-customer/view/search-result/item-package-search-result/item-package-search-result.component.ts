@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ItemService} from "../../../_service/item.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {environment} from "../../../../../environments/environment";
@@ -17,6 +17,8 @@ import {ProfileGService} from "../../../../_service/profile-g.service";
 })
 export class ItemPackageSearchResultComponent implements OnInit {
 
+  // static lastComp: ItemPackageSearchResultComponent;
+
   items = [];
   itemPackages = [];
   itemCount = 0;
@@ -24,6 +26,7 @@ export class ItemPackageSearchResultComponent implements OnInit {
 
   constructor(private itemService: ItemService, private itemServiceG: ItemGService, private sanitizer: DomSanitizer, private shopCartService: ShopCartService,
               private notifierService: NotifierService, private router: Router, private profileService: ProfileGService, private loginService: LoginService) {
+    // if (ItemPackageSearchResultComponent.lastComp === undefined) {
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
       let itemObj: any = this.items.find(itemObj => {
         return itemObj.itemPackageId === item.itemPackageId
@@ -45,7 +48,8 @@ export class ItemPackageSearchResultComponent implements OnInit {
       this.orderDetails = orderDetails;
     })
     this.itemService.searchedItemPackagesSub.subscribe((searchedItemPackages) => {
-      console.log(searchedItemPackages)
+      // console.log(searchedItemPackages)
+      this.itemService.searchedItemPackages = searchedItemPackages;
       this.items = searchedItemPackages['items'];
       this.itemCount = searchedItemPackages['items'].length;
       this.itemPackages = searchedItemPackages['itemPackages'];
@@ -60,6 +64,10 @@ export class ItemPackageSearchResultComponent implements OnInit {
     this.toggleBtns();
     this.setShopCart(this.shopCartService.shopCart);
   }
+
+  // ngOnDestroy(): void {
+  //   ItemPackageSearchResultComponent.lastComp = this;
+  // }
 
   addToCart(item, orderDetailType) {
     item.orderDetail.orderDetailType = orderDetailType;

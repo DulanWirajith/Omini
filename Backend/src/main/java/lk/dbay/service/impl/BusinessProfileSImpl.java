@@ -47,6 +47,10 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     private BusinessReviewResponseR businessReviewResponseR;
     @Autowired
     private ItemCategoryR itemCategoryR;
+    @Autowired
+    private ShopDAO shopDAO;
+    @Autowired
+    private ItemPackageDAO itemPackageDAO;
     @Value("${image.path}")
     private String filePath;
 
@@ -189,6 +193,28 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             return new BusinessReviewResponseDTO(businessReviewResponse);
         }
         return null;
+    }
+
+    @Override
+    public List<BusinessProfileDTO> getShopsBySearch(String txt, String category, String district, String town, String customerId) {
+        List<BusinessProfile> shops = shopDAO.getShops(txt, category, district, town, customerId);
+        List<ItemPackage> itemsBySearch = itemPackageDAO.getItemPackages("Item", txt, category, district, town);
+        List<ItemPackage> packagesBySearch = itemPackageDAO.getItemPackages("Package", txt, category, district, town);
+        for (ItemPackage itemPackage : itemsBySearch) {
+            shops.add(itemPackage.getBusinessProfileCategory().getBusinessProfile());
+        }
+        for (ItemPackage itemPackage : packagesBySearch) {
+            shops.add(itemPackage.getBusinessProfileCategory().getBusinessProfile());
+        }
+        Set<BusinessProfileDTO> businessProfileDTOS = new HashSet<>();
+        for (BusinessProfile shop : shops) {
+            businessProfileDTOS.add(new BusinessProfileDTO(shop));
+        }
+        for (BusinessProfileDTO businessProfileDTO : businessProfileDTOS) {
+            Optional<BusinessFollower> followerOptional = businessFollowerR.getByCustomerProfile_CustomerProIdAndBusinessProfile_BusinessProId(customerId, businessProfileDTO.getBusinessProId());
+            businessProfileDTO.setFollowed(followerOptional.isPresent());
+        }
+        return new ArrayList<>(businessProfileDTOS);
     }
 
     private void setItemsToBusinessProfile(String businessProfileId, String categoryId, BusinessProfileDTO businessProfileDTO, String customerId, String type) {

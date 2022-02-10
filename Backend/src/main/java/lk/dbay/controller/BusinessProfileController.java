@@ -65,10 +65,10 @@ public class BusinessProfileController {
         return ResponseEntity.ok(businessProfileS.getItemsBusinessProfile(businessProfileId, categoryId, customerId, type));
     }
 
-//    @GetMapping(value = "/getItemsItemCategory/{businessProfileId}/{categoryId}/{customerId}/{type}/{itemCategoryId}")
-//    public ResponseEntity getItemsItemCategory(@PathVariable String businessProfileId, @PathVariable String categoryId, @PathVariable String customerId, @PathVariable String type, @PathVariable String itemCategoryId) {
-//        return ResponseEntity.ok(businessProfileS.getItemsItemCategory(businessProfileId, categoryId, customerId, type, itemCategoryId));
-//    }
+    @GetMapping(value = "/getShopsBySearch/{txt}/{category}/{district}/{town}/{customerId}")
+    public ResponseEntity getShopsBySearch(@PathVariable String txt, @PathVariable String category, @PathVariable String district, @PathVariable String town, @PathVariable String customerId) {
+        return ResponseEntity.ok(businessProfileS.getShopsBySearch(txt, category, district, town, customerId));
+    }
 
     @GetMapping(value = CommonConstants.CUSTOMER + "/followBusiness/{customerId}/{businessProId}")
     public ResponseEntity followBusiness(@PathVariable String customerId, @PathVariable String businessProId) {

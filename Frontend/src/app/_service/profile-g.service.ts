@@ -11,7 +11,8 @@ export class ProfileGService {
 
   profile = {
     profileId: '',
-    returnUrl: ''
+    returnUrl: '',
+    business: undefined
   };
 
   constructor(private http: HttpClient, private commonService: CommonService) {

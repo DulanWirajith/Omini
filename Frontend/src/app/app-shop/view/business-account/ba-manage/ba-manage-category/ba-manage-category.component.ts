@@ -83,7 +83,7 @@ export class BaManageCategoryComponent implements OnInit {
         itemPackageId: itemCategory.items[i].itemId
       }
     }
-    console.log(itemCategory)
+    // console.log(itemCategory)
     this.itemService.updateCategory(itemCategory).subscribe((item) => {
       // this.items.push(item)
       this.baManageFormCategory.resetForm(this.itemService.getNewItem());
@@ -122,7 +122,7 @@ export class BaManageCategoryComponent implements OnInit {
       })
     } else if (val === 'e') {
       this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.businessCategoryId).subscribe((items) => {
-        console.log(items)
+        // console.log(items)
         this.itemsToAddE = items;
         if (itemCategory !== undefined) {
           // console.log(itemCategory)

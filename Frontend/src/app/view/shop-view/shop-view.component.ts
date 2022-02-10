@@ -71,7 +71,7 @@ export class ShopViewComponent implements OnInit {
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)
       if (businessProfile !== null) {
-        console.log(businessProfile.itemPackage.items)
+        // console.log(businessProfile.itemPackage.items)
         this.businessProfile = businessProfile;
         this.selectedType = businessProfile.defaultBusiness;
         this.items = businessProfile.itemPackage.items;
@@ -160,6 +160,9 @@ export class ShopViewComponent implements OnInit {
   followBusiness(businessProfile) {
     this.profileService.followBusiness(JSON.parse(localStorage.getItem('user')).userId, businessProfile.businessProId).subscribe((followed) => {
       businessProfile.followed = followed;
+      if (this.profileService.profile.business !== undefined) {
+        this.profileService.profile.business.followed = followed;
+      }
     })
   }
 
