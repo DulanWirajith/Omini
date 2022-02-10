@@ -44,6 +44,13 @@ export class ItemPackageSearchResultComponent implements OnInit {
     this.shopCartService.initShopCartSub.subscribe((orderDetails) => {
       this.orderDetails = orderDetails;
     })
+    this.itemService.searchedItemPackagesSub.subscribe((searchedItemPackages) => {
+      console.log(searchedItemPackages)
+      this.items = searchedItemPackages['items'];
+      this.itemCount = searchedItemPackages['items'].length;
+      this.itemPackages = searchedItemPackages['itemPackages'];
+      this.setShopCart(this.shopCartService.shopCart);
+    })
   }
 
   ngOnInit(): void {

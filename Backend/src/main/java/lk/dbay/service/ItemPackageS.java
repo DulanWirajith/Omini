@@ -12,13 +12,13 @@ public interface ItemPackageS {
 
     ItemPackageImageDTO getItemPackageImage(String id);
 
-//    List<ItemPackageDTO> getItemPackagesOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
+    //    List<ItemPackageDTO> getItemPackagesOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
 //
 //    ItemPackageDTO getItemPackageSelected(String itemId);
 //
     boolean setItemPackageAvailable(String itemId);
 
-    ItemPackageDTO getItemsPackagesBySearch(String txt, String category, String customerId);
+    ItemPackageDTO getItemsPackagesBySearch(String txt, String category, String district, String town, String customerId);
 
     ItemPackageDTO getItemPackageSelected(String itemId, String type, String customerId);
 

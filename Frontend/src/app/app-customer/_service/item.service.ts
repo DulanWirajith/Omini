@@ -14,12 +14,13 @@ export class ItemService {
     items: [],
     itemPackages: []
   };
+  searchedItemPackagesSub = new Subject();
 
   constructor(private http: HttpClient, private commonService: CommonService, private shopCartService: ShopCartService) {
   }
 
-  getItemsPackagesBySearch(txt, category, customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/getItemsPackagesBySearch/' + txt + '/' + category + '/' + customerId);
+  getItemsPackagesBySearch(txt, category, district, town, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemsPackagesBySearch/' + txt + '/' + category + '/' + district + '/' + town + '/' + customerId);
   }
 
   getItemPackageSelected(itemId, type, customerId): Observable<any> {

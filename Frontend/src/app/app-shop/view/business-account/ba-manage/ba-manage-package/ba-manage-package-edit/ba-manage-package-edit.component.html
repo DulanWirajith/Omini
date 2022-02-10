@@ -46,6 +46,9 @@
                     <i class="fi-heart"></i>
                   </button> -->
                 </div>
+                <!--<div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">-->
+
+                <!--</div>-->
               </div>
             </div>
 
@@ -71,8 +74,23 @@
               </mdb-carousel>
             </div>
           </div>
-
-
+        </div>
+        <div class="form-check form-switch" style="display: flex;justify-content: right">
+          <div style="display: flex">
+            <div>
+              <input style="margin-right: 55px" class="form-check-input" type="checkbox"
+                     [checked]="packageItem.itemPackage.available"
+                     (click)="setItemAvailable(packageItem)">
+            </div>
+            <div>
+              <label *ngIf="!packageItem.itemPackage.available"
+                     class="form-check-label fs-xs fw-normal text-uppercase text-primary fw-bold">
+                Not Available</label>
+              <label style="padding-top: 5px" *ngIf="packageItem.itemPackage.available"
+                     class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
+                Available</label>
+            </div>
+          </div>
         </div>
         <!-- <div class="p-2 flex-grow-1 bd-highlight">
           <a href="#" class="nav-link">Category 1</a>
@@ -395,9 +413,11 @@
             </div>
             <div class="row">
               <div class="d-flex flex-wrap mb-4">
-                <span *ngFor="let itemPackageFeature of packageItem.itemPackage.itemPackageItemPackageFeatures;let j = index"
-                      class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemPackageFeature.itemPackageFeature.name}}
-                  <i class="fi-x fs-xs ms-2" (click)="packageItem.itemPackage.itemPackageItemPackageFeatures.splice(i,1)"
+                <span
+                  *ngFor="let itemPackageFeature of packageItem.itemPackage.itemPackageItemPackageFeatures;let j = index"
+                  class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemPackageFeature.itemPackageFeature.name}}
+                  <i class="fi-x fs-xs ms-2"
+                     (click)="packageItem.itemPackage.itemPackageItemPackageFeatures.splice(i,1)"
                      style="cursor: pointer"></i>
                 </span>
               </div>
@@ -449,7 +469,8 @@
                 class="validErr" style="margin-bottom: 10px">
                 Minimum 3 images are required
               </div>
-              <div class="col-md-4 mb-4" *ngFor='let itemPackageImage of packageItem.itemPackage.itemPackageImages;let j = index'>
+              <div class="col-md-4 mb-4"
+                   *ngFor='let itemPackageImage of packageItem.itemPackage.itemPackageImages;let j = index'>
                 <div style="position: relative" class="delImgT">
                   <img [src]="getImageSrc(itemPackageImage)" style="margin: 3px;height: 200px;width: 300px">
                   <span class="delImg">
@@ -495,7 +516,8 @@
             <div class="fw-bold" style="font-size: 21px;margin-top: 0px;margin-bottom: 15px">
               <i class="fi-cash mt-n1 me-2 lead align-middle opacity-70" style="font-size: 30px"></i>
               <span *ngIf="packageItem.itemPackage.discountType==='None'">LKR {{packageItem.itemPackage.price | number:'.2-2'}}</span>
-              <span *ngIf="packageItem.itemPackage.discountType!=='None'" style="text-decoration: line-through;color: red">LKR {{packageItem.itemPackage.price | number:'.2-2'}}</span>
+              <span *ngIf="packageItem.itemPackage.discountType!=='None'"
+                    style="text-decoration: line-through;color: red">LKR {{packageItem.itemPackage.price | number:'.2-2'}}</span>
               <span *ngIf="packageItem.itemPackage.discountType!=='None'" style="margin-left: 10px">LKR {{packageItem.itemPackage.discountedPrice | number:'.2-2'}}</span>
             </div>
             <div class="row cols-sm-2 row-cols-md-12"
@@ -508,7 +530,8 @@
                   <p class="mb-2 fs-sm fw-bold mx-2" style="text-align: center;color: #f29d00">
                     {{packageItem.itemPackage.quantity}}</p>
                 </div>
-                <div *ngIf="packageItem.itemPackage.quantity===0" style="border-right: 1px solid #d3d3d3;margin-top: 22px">
+                <div *ngIf="packageItem.itemPackage.quantity===0"
+                     style="border-right: 1px solid #d3d3d3;margin-top: 22px">
                   <p class="mb-2 fs-sm fw-bold mx-2"
                      style="text-align: center;">
                   <span style="color: #f24605;padding: 5px;border: 1px solid #f24605;border-radius: 10px">

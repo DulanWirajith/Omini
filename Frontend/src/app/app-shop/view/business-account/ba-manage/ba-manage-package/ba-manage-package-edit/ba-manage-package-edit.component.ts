@@ -239,6 +239,13 @@ export class BaManagePackageEditComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImg.imageName);
   }
 
+  setItemAvailable(packageItem) {
+    this.itemService.setItemPackageAvailable(packageItem.packageItemId).subscribe((reply) => {
+      // console.log(reply)
+      packageItem.itemPackage.available = reply;
+    })
+  }
+
   pondHandleAddFile(event, itemPackageE?) {
     itemPackageE.itemPkgImgs.push(event.file.file);
   }

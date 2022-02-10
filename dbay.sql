@@ -4,14 +4,14 @@ SELECT `country`.`country_id`,
     `country`.`name`
 FROM `dbay`.`country`;
 
-INSERT INTO `dbaytest`.`country` (`country_id`, `created_at`, `updated_at`, `name`) VALUES ('C001', '2021-11-19', '2021-11-19', 'Sri Lanka');
-INSERT INTO `dbaytest`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D001', '2021-11-19', '2021-11-19', 'Galle', 'C001');
-INSERT INTO `dbaytest`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D002', '2021-11-19', '2021-11-19', 'Matara', 'C001');
-INSERT INTO `dbaytest`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T001', '2021-11-19', '2021-11-19', 'Akuressa', 'D001');
-INSERT INTO `dbaytest`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T002', '2021-11-19', '2021-11-19', 'Karapitiya', 'D001');
-INSERT INTO `dbaytest`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC001', '2021-11-19', '2021-11-19', 'Juice Bar');
-INSERT INTO `dbaytest`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC002', '2021-11-19', '2021-11-19', 'Cake Baker');
-INSERT INTO `dbaytest`.`item_feature` (`item_feature_id`, `created_at`, `updated_at`, `confirmed`, `name`, `business_category_business_category_id`) VALUES ('IF1', '2020-05-05', '2020-05-05', true, 'White', 'BC001');
+INSERT INTO `dbaytest2`.`country` (`country_id`, `created_at`, `updated_at`, `name`) VALUES ('C001', '2021-11-19', '2021-11-19', 'Sri Lanka');
+INSERT INTO `dbaytest2`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D001', '2021-11-19', '2021-11-19', 'Galle', 'C001');
+INSERT INTO `dbaytest2`.`district` (`district_id`, `created_at`, `updated_at`, `name`, `country_country_id`) VALUES ('D002', '2021-11-19', '2021-11-19', 'Matara', 'C001');
+INSERT INTO `dbaytest2`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T001', '2021-11-19', '2021-11-19', 'Akuressa', 'D001');
+INSERT INTO `dbaytest2`.`town` (`town_id`, `created_at`, `updated_at`, `name`, `district_district_id`) VALUES ('T002', '2021-11-19', '2021-11-19', 'Karapitiya', 'D001');
+INSERT INTO `dbaytest2`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC001', '2021-11-19', '2021-11-19', 'Juice Bar');
+INSERT INTO `dbaytest2`.`business_category` (`business_category_id`, `created_at`, `updated_at`, `name`) VALUES ('BC002', '2021-11-19', '2021-11-19', 'Cake Baker');
+INSERT INTO `dbaytest2`.`item_feature` (`item_feature_id`, `created_at`, `updated_at`, `confirmed`, `name`, `business_category_business_category_id`) VALUES ('IF1', '2020-05-05', '2020-05-05', true, 'White', 'BC001');
 
 SELECT `district`.`district_id`,
     `district`.`created_at`,
@@ -117,22 +117,36 @@ SELECT `item_feature`.`item_feature_id`,
     `item_feature`.`business_category_business_category_id`
 FROM `dbay`.`item_feature`;
 
-
 SELECT `item`.`item_id`,
     `item`.`created_at`,
     `item`.`updated_at`,
-    `item`.`available`,
-    `item`.`description`,
-    `item`.`discount`,
-    `item`.`discount_type`,
-    `item`.`price`,
-    `item`.`quantity`,
-    `item`.`name`,
-    `item`.`business_category_id`,
-    `item`.`business_pro_id`,
     `item`.`item_category_item_category_id`,
-    `item`.`confirmed`
+    `item`.`item_package_item_package_id`
 FROM `dbay`.`item`;
+
+SELECT `item_package`.`item_package_id`,
+    `item_package`.`created_at`,
+    `item_package`.`updated_at`,
+    `item_package`.`available`,
+    `item_package`.`confirmed`,
+    `item_package`.`description`,
+    `item_package`.`discount`,
+    `item_package`.`discount_type`,
+    `item_package`.`discounted_price`,
+    `item_package`.`item_package_type`,
+    `item_package`.`make_to_order`,
+    `item_package`.`name`,
+    `item_package`.`price`,
+    `item_package`.`quantity`,
+    `item_package`.`business_category_id`,
+    `item_package`.`business_pro_id`
+FROM `dbay`.`item_package`;
+
+SELECT `package_item`.`package_item_id`,
+    `package_item`.`created_at`,
+    `package_item`.`updated_at`,
+    `package_item`.`item_package_item_package_id`
+FROM `dbay`.`package_item`;
 
 
 SELECT `item_item_feature`.`item_feature_id`,

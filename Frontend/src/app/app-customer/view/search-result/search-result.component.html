@@ -24,9 +24,11 @@
           <div class="offcanvas-header d-block border-bottom pt-0 pt-lg-4 px-lg-0">
             <form class="form-group mb-lg-2 rounded-pill">
               <div class="input-group"><span class="input-group-text text-muted"><i class="fi-search"></i></span>
-                <input class="form-control" type="text" placeholder="Search...">
+                <input class="form-control" type="text" placeholder="Search..." [(ngModel)]="txt" name="txt">
               </div>
-              <button class="btn btn-primary rounded-pill d-lg-inline-block d-none" type="button">Search</button>
+              <button class="btn btn-primary rounded-pill d-lg-inline-block d-none" type="button" (click)="searchItems()">
+                Search
+              </button>
               <button class="btn btn-icon btn-primary rounded-circle flex-shrink-0 d-lg-none d-inline-flex"
                       type="button"><i class="fi-search mt-n2"></i></button>
             </form>
@@ -47,55 +49,52 @@
               <div class="tab-pane fade show active" id="filters" role="tabpanel">
                 <div class="pb-4 mb-2">
                   <h3 class="h6">Location</h3>
-                  <select class="form-select mb-2">
-                    <option value="" selected disabled>Choose district</option>
-                    <option value="Berlin">Berlin</option>
-                    <option value="Hamburg">Hamburg</option>
-                    <option value="Munich">Munich</option>
-                    <option value="Koln">Koln</option>
-                    <option value="Frankfurt am Main">Frankfurt am Main</option>
+                  <select class="form-select mb-2" (change)="getTowns($event.target.value)">
+                    <option value="0" selected>All Districts</option>
+                    <option *ngFor="let district of districts" [value]="district.districtId">{{district.name}}</option>
                   </select>
-                  <select class="form-select">
-                    <option value="" selected disabled>Choose town</option>
-                    <option value="Berlin-Mitte">Berlin-Mitte</option>
-                    <option value="Charlottenburg">Charlottenburg</option>
-                    <option value="Prenzlauer Berg">Prenzlauer Berg</option>
-                    <option value="Friedrichshain">Friedrichshain</option>
-                    <option value="Kreuzberg">Kreuzberg</option>
+                  <select class="form-select" [(ngModel)]="town" name="town">
+                    <option value="0" selected>All Towns</option>
+                    <option *ngFor="let town of towns" [value]="town.townId">{{town.name}}</option>
                   </select>
                 </div>
                 <div class="pb-4 mb-2">
                   <h3 class="h6">Shop Type</h3>
                   <div class="dropdown mb-sm-0 mb-3" data-bs-toggle="select">
-                    <button
-                      class="btn btn-outline-secondary d-flex align-items-center w-100 px-4 fw-normal text-start dropdown-toggle"
-                      style="background-color: white;" type="button" data-bs-toggle="dropdown"><i
-                      class="fi-list me-2 text-muted"></i><span
-                      class="dropdown-toggle-label d-block w-100">All Shops</span></button>
+                    <!--<button-->
+                      <!--class="btn btn-outline-secondary d-flex align-items-center w-100 px-4 fw-normal text-start dropdown-toggle"-->
+                      <!--style="background-color: white;" type="button" data-bs-toggle="dropdown"><i-->
+                      <!--class="fi-list me-2 text-muted"></i><span-->
+                      <!--class="dropdown-toggle-label d-block w-100">All Shops</span></button>-->
                     <input type="hidden">
-                    <ul class="dropdown-menu w-100">
-                      <li><a class="dropdown-item" href="#"><i class="fi-bed fs-lg opacity-60"></i><span
-                        class="dropdown-item-label">Accomodation</span></a></li>
-                      <li><a class="dropdown-item" href="#"><i class="fi-cafe me-2 fs-lg opacity-60"></i><span
-                        class="dropdown-item-label">Food &amp; Drink</span></a></li>
-                      <li><a class="dropdown-item" href="#"><i class="fi-shopping-bag me-2 fs-lg opacity-60"></i><span
-                        class="dropdown-item-label">Shopping</span></a></li>
-                      <li><a class="dropdown-item" href="#"><i class="fi-museum me-2 fs-lg opacity-60"></i><span
-                        class="dropdown-item-label">Art &amp; History</span></a></li>
-                      <li><a class="dropdown-item" href="#"><i class="fi-entertainment me-2 fs-lg opacity-60"></i><span
-                        class="dropdown-item-label">Entertainment</span></a></li>
-                      <li><a class="dropdown-item" href="#"><i class="fi-meds me-2 fs-lg opacity-60"></i><span
-                        class="dropdown-item-label">Medicine</span></a></li>
-                      <li><a class="dropdown-item" href="#"><i class="fi-makeup me-2 fs-lg opacity-60"></i><span
-                        class="dropdown-item-label">Beauty</span></a></li>
-                      <li><a class="dropdown-item" href="#"><i class="fi-car me-2 fs-lg opacity-60"></i><span
-                        class="dropdown-item-label">Auto Service</span></a></li>
-                    </ul>
+                    <select class="form-select" [(ngModel)]="category" name="categogry">
+                      <option value="0" selected>All Shops</option>
+                      <option *ngFor="let shopType of shopTypes" [value]="shopType.businessCategoryId">{{shopType.name}}</option>
+                    </select>
+                    <!--<ul class="dropdown-menu w-100">-->
+                      <!--<li *ngFor="let shopType of shopTypes" (click)="category=shopType.businessCategoryId">-->
+                        <!--<a class="dropdown-item"><i class="fi-bed fs-lg opacity-60"></i><span-->
+                        <!--class="dropdown-item-label"> {{shopType.name}}</span></a></li>-->
+                      <!--<li><a class="dropdown-item" href="#"><i class="fi-cafe me-2 fs-lg opacity-60"></i><span-->
+                        <!--class="dropdown-item-label">Food &amp; Drink</span></a></li>-->
+                      <!--<li><a class="dropdown-item" href="#"><i class="fi-shopping-bag me-2 fs-lg opacity-60"></i><span-->
+                        <!--class="dropdown-item-label">Shopping</span></a></li>-->
+                      <!--<li><a class="dropdown-item" href="#"><i class="fi-museum me-2 fs-lg opacity-60"></i><span-->
+                        <!--class="dropdown-item-label">Art &amp; History</span></a></li>-->
+                      <!--<li><a class="dropdown-item" href="#"><i class="fi-entertainment me-2 fs-lg opacity-60"></i><span-->
+                        <!--class="dropdown-item-label">Entertainment</span></a></li>-->
+                      <!--<li><a class="dropdown-item" href="#"><i class="fi-meds me-2 fs-lg opacity-60"></i><span-->
+                        <!--class="dropdown-item-label">Medicine</span></a></li>-->
+                      <!--<li><a class="dropdown-item" href="#"><i class="fi-makeup me-2 fs-lg opacity-60"></i><span-->
+                        <!--class="dropdown-item-label">Beauty</span></a></li>-->
+                      <!--<li><a class="dropdown-item" href="#"><i class="fi-car me-2 fs-lg opacity-60"></i><span-->
+                        <!--class="dropdown-item-label">Auto Service</span></a></li>-->
+                    <!--</ul>-->
                   </div>
                 </div>
                 <div class="border-top py-4">
-                  <button class="btn btn-outline-primary rounded-pill" type="button"><i
-                    class="fi-rotate-right me-2"></i>Reset filters
+                  <button class="btn btn-outline-primary rounded-pill" type="button" (click)="searchItems()">
+                    <i class="fi-rotate-right me-2"></i>Advanced Search
                   </button>
                 </div>
               </div>

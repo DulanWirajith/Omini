@@ -52,9 +52,9 @@ public class ItemPackageController {
         return ResponseEntity.ok(itemPackageS.getFavItemPackages(customerId));
     }
 
-    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}/{customerId}")
-    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category, @PathVariable String customerId) {
-        return ResponseEntity.ok(itemPackageS.getItemsPackagesBySearch(txt, category, customerId));
+    @GetMapping(value = "/getItemsPackagesBySearch/{txt}/{category}/{district}/{town}/{customerId}")
+    public ResponseEntity getItemsPackagesBySearch(@PathVariable String txt, @PathVariable String category, @PathVariable String district, @PathVariable String town, @PathVariable String customerId) {
+        return ResponseEntity.ok(itemPackageS.getItemsPackagesBySearch(txt, category, district, town, customerId));
     }
 
     @GetMapping(value = "/getItemPackageSelected/{itemId}/{type}/{customerId}")
