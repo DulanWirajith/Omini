@@ -3,6 +3,9 @@ import {LoginService} from "../../../../../_service/login.service";
 import {DatePipe} from "@angular/common";
 import {ItemGService} from "../../../../../_service/item-g.service";
 import {TimeAgo} from "../../../../../_util/TimeAgo";
+import {ItemService} from "../../../../_service/item.service";
+import {Router} from "@angular/router";
+import {ProfileGService} from "../../../../../_service/profile-g.service";
 
 @Component({
   selector: 'app-c-order-view',
@@ -16,7 +19,7 @@ export class COrderViewComponent implements OnInit {
 
   // @Output() updateOrders = new EventEmitter();
 
-  constructor(private itemServiceG: ItemGService) {
+  constructor(private itemServiceG: ItemGService, private router: Router, private profileService: ProfileGService) {
   }
 
   ngOnInit(): void {
@@ -41,6 +44,13 @@ export class COrderViewComponent implements OnInit {
 
   getTimeAgo(time) {
     return this.timeAgo.timeSince(time);
+  }
+
+  routeToShop(profileId) {
+    this.profileService.profile.profileId = profileId;
+    // this.profileService.profile.business = shop;
+    this.profileService.profile.returnUrl = '/customer/header/customer_account/customer_order';
+    this.router.navigate(['/shop/header/shop_view'])
   }
 
   // getPreDate() {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ItemService} from "../../../_service/item.service";
 import {ShopCartService} from "../../../_service/shop-cart.service";
 import {LoginService} from "../../../../_service/login.service";
@@ -10,7 +10,9 @@ import {DatePipe} from "@angular/common";
   styleUrls: ['./c-order.component.css'],
   providers: [DatePipe]
 })
-export class COrderComponent implements OnInit {
+export class COrderComponent implements OnInit, OnDestroy {
+
+  static lastComp: COrderComponent;
 
   itemOrders = [];
   shopItemOrders = [];
@@ -19,10 +21,21 @@ export class COrderComponent implements OnInit {
   canceledOrders = [];
 
   constructor(private itemService: ItemService, private loginService: LoginService, private datePipe: DatePipe) {
+    if (COrderComponent.lastComp === undefined) {
+
+    } else {
+      return COrderComponent.lastComp;
+    }
   }
 
   ngOnInit(): void {
-    this.getCustomerOrders('Pending', this.getPreDate(), this.getCurDate());
+    if (COrderComponent.lastComp === undefined) {
+      this.getCustomerOrders('Pending', this.getPreDate(), this.getCurDate());
+    }
+  }
+
+  ngOnDestroy(): void {
+    COrderComponent.lastComp = this;
   }
 
   getCustomerOrders(status, from, to) {
