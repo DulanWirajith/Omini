@@ -22,7 +22,14 @@ public class ShopDAOImpl implements ShopDAO {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<BusinessProfile> cq = cb.createQuery(BusinessProfile.class);
         Root<BusinessProfile> businessProfileRoot = cq.from(BusinessProfile.class);
-        Predicate predicateName = cb.like(businessProfileRoot.get("businessName"), "%" + txt + "%");
+
+        String[] txtsBusinessName = txt.split(" ");
+        Predicate predicateNames[] = new Predicate[txtsBusinessName.length];
+        for (int i = 0; i < txtsBusinessName.length; i++) {
+            predicateNames[i] = cb.like(businessProfileRoot.get("businessName"), "%" + txtsBusinessName[i].trim() + "%");
+        }
+        Predicate predicateName = cb.or(predicateNames);
+
         Join<BusinessProfile, BusinessProfileCategory> businessProfileCategories = businessProfileRoot.join("businessProfileCategories");
         Predicate predicateBusinessProfileCategory, predicateShops;
         List<BusinessProfile> businessProfiles;
@@ -30,7 +37,12 @@ public class ShopDAOImpl implements ShopDAO {
         if (!category.equals("0")) {
             predicateBusinessProfileCategory = cb.like(businessProfileCategories.get("businessCategory").get("businessCategoryId"), category);
         } else {
-            predicateBusinessProfileCategory = cb.like(businessProfileCategories.get("businessCategory").get("name"), "%" + txt + "%");
+            String[] txtsBusinessCat = txt.split(" ");
+            Predicate predicateCats[] = new Predicate[txtsBusinessCat.length];
+            for (int i = 0; i < txtsBusinessCat.length; i++) {
+                predicateCats[i] = cb.like(businessProfileCategories.get("businessCategory").get("name"), "%" + txtsBusinessCat[i].trim() + "%");
+            }
+            predicateBusinessProfileCategory = cb.or(predicateCats);
         }
         predicateShops = cb.and(predicateName, predicateBusinessProfileCategory);
         if (!district.equals("0")) {
