@@ -9,7 +9,7 @@ body{
     background: purple;
     padding: .5em 1em;
   }
-  
+
   .dropdown-toggle::after {
     display: inline-block;
     width: .7em;
@@ -23,8 +23,8 @@ body{
   }
 @font-face {
     font-family: 'finder-icons';
-    src: url('/assets/fonts/finder-icons.ttf') format('truetype');
-    src: url('/assets/fonts/finder-icons.woff') format('woff');
+    src: url('../fonts/finder-icons.ttf') format('truetype');
+    /*src: url('../fonts/finder-icons.woff') format('woff');*/
     font-weight: normal;
     font-style: normal;
     font-display: block;
