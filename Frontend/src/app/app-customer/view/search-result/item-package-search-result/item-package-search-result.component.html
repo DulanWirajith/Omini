@@ -200,7 +200,7 @@
 
                     </div>
                   </div>
-                  <div style="display: flex" *ngIf="item.orderDetail!==undefined">
+                  <div style="display: flex" *ngIf="getUser()!==null && item.orderDetail!==undefined">
                     <button style="background-color: #06A773"
                             class="btn btn-icon btn-sm text-primary rounded-circle"
                             type="button" data-bs-toggle="tooltip" title="Add to Cart" (click)="addToCart(item,'Item')">
@@ -354,7 +354,7 @@
 
                     </div>
                   </div>
-                  <div style="display: flex" *ngIf="item.orderDetail!==undefined">
+                  <div style="display: flex" *ngIf="getUser()!==null && item.orderDetail!==undefined">
                     <button style="background-color: #06A773"
                             class="btn btn-icon btn-sm text-primary rounded-circle"
                             type="button" data-bs-toggle="tooltip" title="Add to Cart"

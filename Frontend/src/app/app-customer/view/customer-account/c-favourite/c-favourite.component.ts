@@ -73,7 +73,7 @@ export class CFavouriteComponent implements OnInit {
   routeToShop(profileId) {
     this.profileService.profile.profileId = profileId;
     this.profileService.profile.returnUrl = '/customer/header/customer_account/customer_favourite';
-    this.router.navigate(['/shop/header/shop_view']);
+    this.router.navigate(['/shop/header/shop_view'], {queryParams: {id: this.profileService.profile.profileId}})
   }
 
   addToCart(item, orderDetailType) {

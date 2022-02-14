@@ -8,6 +8,7 @@ import {ItemService} from "../../app-customer/_service/item.service";
 import {ItemGService} from "../../_service/item-g.service";
 import {NgForm} from "@angular/forms";
 import {ShopCartService} from "../../app-customer/_service/shop-cart.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-shop-view',
@@ -30,7 +31,7 @@ export class ShopViewComponent implements OnInit {
   profileId;
   businessCategories = [];
 
-  constructor(private profileService: ProfileGService, private loginService: LoginService, private sanitizer: DomSanitizer, private itemServiceG: ItemGService, private shopCartService: ShopCartService) {
+  constructor(private profileService: ProfileGService, private loginService: LoginService, private sanitizer: DomSanitizer, private itemServiceG: ItemGService, private shopCartService: ShopCartService, private route: ActivatedRoute) {
     this.businessProfile = profileService.getNewBusinessProfile();
     this.businessReview = this.getNewBusinessReview();
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
@@ -63,10 +64,18 @@ export class ShopViewComponent implements OnInit {
 
   getBusinessProfile() {
     // console.log(this.profileService.profile.profileId)
-    if (this.profileService.profile.profileId === '') {
+    if (this.getUser() !== null && this.profileService.profile.profileId === '') {
       this.profileService.profile.profileId = this.getUser().userId;
     }
-    this.profileService.getBusinessProfile(this.profileService.profile.profileId, true, this.getUser().userId, this.getUser().role).subscribe((businessProfile) => {
+    // console.log(this.route.snapshot.queryParamMap.get('id'))
+    // console.log(this.profileService.profile.profileId)
+    let userId = 0;
+    let role = 0;
+    if (this.getUser() !== null) {
+      userId = this.getUser().userId;
+      role = this.getUser().role;
+    }
+    this.profileService.getBusinessProfile(this.route.snapshot.queryParamMap.get('id'), true, userId, role).subscribe((businessProfile) => {
       // this.user = this.loginService.getUser();
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)
@@ -270,7 +279,11 @@ export class ShopViewComponent implements OnInit {
 
   getBusinessReviews() {
     this.review = true;
-    this.profileService.getBusinessReviews(this.businessProfile.businessProId, JSON.parse(localStorage.getItem('user')).userId).subscribe((businessReviews) => {
+    let userId = 0;
+    if (this.getUser() !== null) {
+      userId = this.getUser().userId;
+    }
+    this.profileService.getBusinessReviews(this.businessProfile.businessProId, userId).subscribe((businessReviews) => {
       this.businessReviews = businessReviews;
       // console.log(this.itemPackageReviews)
     })

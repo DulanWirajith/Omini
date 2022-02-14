@@ -33,10 +33,15 @@ public class DbayUser extends DateTime {
     private boolean confirmed;
     private boolean twoFactorAuth;
 
+    private String userImgName;
+    private String userImgType;
+    //    private String itemImgPath;
+    private boolean thumbnail;
+
     @ManyToOne
     private DbayUser confirmedBy;
     private LocalDateTime confirmedAt;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "dbayUser")
-    private Set<DbayUserImg> dbayUserImgs;
+//    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "dbayUser")
+//    private Set<DbayUserImg> dbayUserImgs;
 }

@@ -38,20 +38,17 @@
           <div class="offcanvas-header d-block border-bottom py-lg-4 py-3 px-lg-0">
             <ul class="nav nav-pills nav-fill" role="tablist">
               <li
-                [routerLink]="'/customer/header/search_result/item_package_search_result'"
-                (click)="shopType='Item'"
+                (click)="routeToItem()"
                 class="nav-item">
-                <a [routerLinkActive]="'active'"
+                <a [ngClass]="getUrl()==='/customer/header/search_result/item_package_search_result'?'active':''"
                    class="nav-link d-flex align-items-center" href="#filters"
                    data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>Item</a></li>
               <li
-                [routerLink]="'/customer/header/search_result/shop_search_result'"
-                (click)="shopType='Shop'"
+                (click)="routeToShop()"
                 class="nav-item">
-                <a
-                  [routerLinkActive]="'active'"
-                  class="nav-link d-flex align-items-center" href="#filters" data-bs-toggle="tab"
-                  role="tab"><i class="fi-shop me-2"></i>Shop</a></li>
+                <a [ngClass]="getUrl()==='/customer/header/search_result/shop_search_result'?'active':''"
+                   class="nav-link d-flex align-items-center" href="#filters" data-bs-toggle="tab"
+                   role="tab"><i class="fi-shop me-2"></i>Shop</a></li>
             </ul>
           </div>
           <div class="offcanvas-body py-lg-4">
@@ -61,7 +58,7 @@
               <div class="tab-pane fade show active" id="filters" role="tabpanel">
                 <div class="pb-4 mb-2">
                   <h3 class="h6">Location</h3>
-                  <select class="form-select mb-2" (change)="getTowns($event.target.value)">
+                  <select class="form-select mb-2" (change)="getTowns($event.target.value)" [(ngModel)]="district">
                     <option value="0" selected>All Districts</option>
                     <option *ngFor="let district of districts" [value]="district.districtId">{{district.name}}</option>
                   </select>

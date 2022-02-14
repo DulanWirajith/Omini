@@ -20,9 +20,9 @@ public class CustomerProfileController {
     private CustomerProfileS customerProfileS;
 
     @PostMapping(value = "/addCustomerProfile")
-    public ResponseEntity addCustomerProfile(@RequestPart("customerProfile") CustomerProfile customerProfile, @RequestParam("imageFile") MultipartFile[] files) {
+    public ResponseEntity addCustomerProfile(@RequestPart("customerProfile") CustomerProfile customerProfile, @RequestParam(value = "imageFile", required = false) MultipartFile file) {
         try {
-            CustomerProfileDTO customerProfileDTO = customerProfileS.addCustomerProfile(customerProfile, files);
+            CustomerProfileDTO customerProfileDTO = customerProfileS.addCustomerProfile(customerProfile, file);
             if (customerProfileDTO != null) {
                 return ResponseEntity.ok(customerProfileDTO);
             } else {
@@ -37,9 +37,9 @@ public class CustomerProfileController {
     }
 
     @PutMapping(value = CommonConstants.CUSTOMER + "/updateCustomerProfile/{customerProfileId}")
-    public ResponseEntity updateCustomerProfile(@RequestPart("customerProfile") CustomerProfile customerProfile, @RequestParam("imageFile") MultipartFile[] files, @PathVariable String customerProfileId) {
+    public ResponseEntity updateCustomerProfile(@RequestPart("customerProfile") CustomerProfile customerProfile, @RequestParam(value = "imageFile", required = false) MultipartFile file, @PathVariable String customerProfileId) {
         try {
-            CustomerProfileDTO customerProfileDTO = customerProfileS.updateCustomerProfile(customerProfile, files, customerProfileId);
+            CustomerProfileDTO customerProfileDTO = customerProfileS.updateCustomerProfile(customerProfile, file, customerProfileId);
             if (customerProfileDTO != null) {
                 return ResponseEntity.ok(customerProfileDTO);
             } else {

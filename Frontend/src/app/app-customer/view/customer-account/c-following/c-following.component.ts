@@ -36,7 +36,7 @@ export class CFollowingComponent implements OnInit {
   routeToShop(profileId) {
     this.profileService.profile.profileId = profileId;
     this.profileService.profile.returnUrl = '/customer/header/customer_account/customer_following';
-    this.router.navigate(['/shop/header/shop_view']);
+    this.router.navigate(['/shop/header/shop_view'], {queryParams: {id: this.profileService.profile.profileId}})
   }
 
   followBusiness(businessProfile, index) {

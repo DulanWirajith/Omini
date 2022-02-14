@@ -32,7 +32,7 @@ export class BaProfileComponent implements OnInit {
     // labelIdle: '<div class="btn btn-primary mt-3 mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos</div></br>or drag them in',
     labelIdle:
       '<div class="btn" style="margin-left: 0px;width: 100%">' +
-      '<i class="fi-camera-plus" style="font-size: 30px;margin-right: 20px"></i>Upload images</div></br>or drag them in',
+      '<i class="fi-camera-plus" style="font-size: 30px;margin-right: 20px"></i>Upload image</div></br>or drag them in',
     acceptedFileTypes: 'image/jpeg, image/png'
   };
   @ViewChild('imageInput') imageInput: any;
@@ -171,9 +171,13 @@ export class BaProfileComponent implements OnInit {
       }
       //console.log(this.businessProfile)
       const uploadImageData = new FormData();
-      for (let dbayUserImg of this.businessProfile.dbayUser.dbayUserImgsRaw) {
-        uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
+      // for (let dbayUserImg of this.businessProfile.dbayUser.dbayUserImgsRaw) {
+      //   uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
+      if (this.businessProfile.dbayUser.dbayUserImgRaw !== undefined) {
+        uploadImageData.append('imageFile', this.businessProfile.dbayUser.dbayUserImgRaw, this.businessProfile.dbayUser.dbayUserImgRaw.name);
       }
+
+      // }
       uploadImageData.append('businessProfile', new Blob([JSON.stringify(this.businessProfile)],
         {
           type: "application/json"
@@ -183,10 +187,12 @@ export class BaProfileComponent implements OnInit {
         this.businessProfile.dbayUser.password = '';
         this.businessProfile.dbayUser.passwordC = '';
         this.businessProfile.dbayUser.cPassword = '';
-        this.businessProfile.dbayUser.dbayUserImgsRaw = [];
-        if (businessProfile.dbayUser.dbayUserImgs.length > 0) {
-          this.businessProfile.dbayUser.dbayUserImgs = businessProfile.dbayUser.dbayUserImgs;
-        }
+        this.businessProfile.dbayUser.dbayUserImgRaw = undefined;
+        this.businessProfile.dbayUser.userImgName = businessProfile.dbayUser.userImgName;
+        this.businessProfile.dbayUser.userImgType = businessProfile.dbayUser.userImgType;
+        // if (businessProfile.dbayUser.dbayUserImgs.length > 0) {
+        //   this.businessProfile.dbayUser.dbayUserImgs = businessProfile.dbayUser.dbayUserImgs;
+        // }
         // localStorage.setItem('user', JSON.stringify(this.user));
         this.businessAccountService.navBarSub.next({
           name: 'Business',
@@ -209,15 +215,16 @@ export class BaProfileComponent implements OnInit {
   }
 
   pondHandleAddFile(event) {
-    this.businessProfile.dbayUser.dbayUserImgsRaw.push(event.file.file);
+    this.businessProfile.dbayUser.dbayUserImgRaw = event.file.file;
   }
 
   pondHandlerRemoveFile(event) {
-    for (let i = 0; i < this.businessProfile.dbayUser.dbayUserImgsRaw.length; i++) {
-      if (this.businessProfile.dbayUser.dbayUserImgsRaw[i].name === event.file.file.name) {
-        this.businessProfile.dbayUser.dbayUserImgsRaw.splice(i, 1);
-      }
-    }
+    // for (let i = 0; i < this.businessProfile.dbayUser.dbayUserImgsRaw.length; i++) {
+    //   if (this.businessProfile.dbayUser.dbayUserImgsRaw[i].name === event.file.file.name) {
+    //     this.businessProfile.dbayUser.dbayUserImgsRaw.splice(i, 1);
+    //   }
+    // }
+    this.businessProfile.dbayUser.dbayUserImgRaw = undefined;
   }
 
   getImageSrc(userImg) {

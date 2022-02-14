@@ -22,9 +22,9 @@ public class BusinessProfileController {
     private BusinessProfileS businessProfileS;
 
     @PostMapping(value = "/addBusinessProfile")
-    public ResponseEntity addBusinessProfile(@RequestPart("businessProfile") BusinessProfile businessProfile, @RequestParam("imageFile") MultipartFile[] files) {
+    public ResponseEntity addBusinessProfile(@RequestPart("businessProfile") BusinessProfile businessProfile, @RequestParam(value = "imageFile", required = false) MultipartFile file) {
         try {
-            BusinessProfileDTO businessProfileDTO = businessProfileS.addBusinessProfile(businessProfile, files);
+            BusinessProfileDTO businessProfileDTO = businessProfileS.addBusinessProfile(businessProfile, file);
             if (businessProfileDTO != null) {
                 return ResponseEntity.ok(businessProfileDTO);
             } else {
@@ -39,9 +39,9 @@ public class BusinessProfileController {
     }
 
     @PutMapping(value = CommonConstants.SHOP + "/updateBusinessProfile/{businessProfileId}")
-    public ResponseEntity updateBusinessProfile(@RequestPart("businessProfile") BusinessProfile businessProfile, @RequestParam("imageFile") MultipartFile[] files, @PathVariable String businessProfileId) {
+    public ResponseEntity updateBusinessProfile(@RequestPart("businessProfile") BusinessProfile businessProfile, @RequestParam(value = "imageFile", required = false) MultipartFile file, @PathVariable String businessProfileId) {
         try {
-            BusinessProfileDTO businessProfileDTO = businessProfileS.updateBusinessProfile(businessProfile, files, businessProfileId);
+            BusinessProfileDTO businessProfileDTO = businessProfileS.updateBusinessProfile(businessProfile, file, businessProfileId);
             if (businessProfileDTO != null) {
                 return ResponseEntity.ok(businessProfileDTO);
             } else {

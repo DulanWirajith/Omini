@@ -25,7 +25,7 @@
             <div class="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-1">
               <img class="rounded-circle" src="assets/img/37.png" width="48" alt="Annette Black">
               <div class="pt-md-2 pt-lg-0 ps-1 ps-md-0 ps-lg-3">
-                <h2 class="fs-lg mb-0">{{businessProfile.dbayUser.username}}</h2>
+                <h2 class="fs-lg mb-0">{{businessProfile.businessName}}</h2>
                 <span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i
                   class="star-rating-icon fi-star-filled active"></i><i
                   class="star-rating-icon fi-star-filled active"></i><i
@@ -169,7 +169,7 @@
                     <h3 class="h4 pb-3">
                       <i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9 ({{businessReviews.length}} review{{businessReviews.length>1?'s':''}})</h3>
                     <div class="d-flex flex-sm-row flex-md-column align-items-sm-center justify-content-between">
-                      <a *ngIf="getUser().role==='C'" class="btn btn-sm btn-outline-primary mb-sm-0 mb-2" href="#add-review"
+                      <a *ngIf="getUser()!==null && getUser().role==='C'" class="btn btn-sm btn-outline-primary mb-sm-0 mb-2" href="#add-review"
                          data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="add-review"><i
                         class="fi-edit me-1"></i>Add review</a>
                       <div class="d-flex align-items-center ms-sm-1" style="margin-top: 20px">
@@ -285,13 +285,13 @@
         <!-- Title-->
         <div class="d-sm-flex align-items-center justify-content-between pb-3 pb-sm-4 mb-3">
           <div style="display: flex">
-            <i *ngIf="getUser().role==='C'" class="fas fa-arrow-circle-left"
+            <i *ngIf="getUser()!==null && getUser().role==='C'" class="fas fa-arrow-circle-left"
                [routerLink]="getReturnUrl()"
                style="font-size: 30px;padding-top: 7px"></i>
             <h1 class="h2 mb-sm-0" style="margin-left: 10px">{{businessProfile.businessName}}</h1>
           </div>
 
-          <a *ngIf="getUser().role==='C'"
+          <a *ngIf="getUser()!==null && getUser().role==='C'"
              class="btn btn-round btn-primary d-inline-block fw-bold text-decoration-none py-1"
              data-bs-toggle-class="invisible" (click)="followBusiness(businessProfile)">
             <span *ngIf="!businessProfile.followed">
@@ -372,7 +372,7 @@
                       </div>
                       <!--<div class="content-overlay end-0 top-0"-->
                       <!--style="display: flex;justify-content: right;width: 95%;margin-top: 158px;margin-right: 10px">-->
-                      <div class="col-2" *ngIf="getUser().role==='C'">
+                      <div class="col-2" *ngIf="getUser()!==null && getUser().role==='C'">
                         <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                                 data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
                                 (click)="setItemFavourite(item,i)" style="padding-bottom: 10px">
@@ -448,7 +448,7 @@
 
                         </div>
                       </div>
-                      <div style="display: flex" *ngIf="item.orderDetail!==undefined && getUser().role==='C'">
+                      <div style="display: flex" *ngIf="item.orderDetail!==undefined && getUser()!==null && getUser().role==='C'">
                         <button style="background-color: #06A773"
                                 class="btn btn-icon btn-sm text-primary rounded-circle"
                                 type="button" data-bs-toggle="tooltip" title="Add to Cart"
@@ -512,7 +512,7 @@
                           </a>
                         </h3>
                       </div>
-                      <div class="col-2" *ngIf="getUser().role==='C'">
+                      <div class="col-2" *ngIf="getUser()!==null && getUser().role==='C'">
                         <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
                                 data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
                                 (click)="setItemFavourite(item,i)" style="padding-bottom: 10px">
@@ -586,7 +586,7 @@
 
                         </div>
                       </div>
-                      <div style="display: flex" *ngIf="item.orderDetail!==undefined && getUser().role==='C'">
+                      <div style="display: flex" *ngIf="item.orderDetail!==undefined && getUser()!==null && getUser().role==='C'">
                         <button style="background-color: #06A773"
                                 class="btn btn-icon btn-sm text-primary rounded-circle"
                                 type="button" data-bs-toggle="tooltip" title="Add to Cart"

@@ -50,7 +50,7 @@ export class COrderViewComponent implements OnInit {
     this.profileService.profile.profileId = profileId;
     // this.profileService.profile.business = shop;
     this.profileService.profile.returnUrl = '/customer/header/customer_account/customer_order';
-    this.router.navigate(['/shop/header/shop_view'])
+    this.router.navigate(['/shop/header/shop_view'], {queryParams: {id: this.profileService.profile.profileId}})
   }
 
   // getPreDate() {

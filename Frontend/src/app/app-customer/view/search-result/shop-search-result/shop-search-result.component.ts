@@ -29,7 +29,7 @@ export class ShopSearchResultComponent implements OnInit {
     this.profileService.profile.profileId = profileId;
     this.profileService.profile.business = shop;
     this.profileService.profile.returnUrl = '/customer/header/search_result/shop_search_result';
-    this.router.navigate(['/shop/header/shop_view'])
+    this.router.navigate(['/shop/header/shop_view'], {queryParams: {id: this.profileService.profile.profileId}})
   }
 
   followBusiness(businessProfile) {

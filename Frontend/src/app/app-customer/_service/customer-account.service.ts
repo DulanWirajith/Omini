@@ -84,8 +84,10 @@ export class CustomerAccountService {
         email: "",
         verificationCode: "",
         twoFactorAuth: false,
-        dbayUserImgs: [],
-        dbayUserImgsRaw: []
+        userImgName: "",
+        userImgType: "",
+        thumbnail: false,
+        dbayUserImgRaw: undefined
       }
     }
   }

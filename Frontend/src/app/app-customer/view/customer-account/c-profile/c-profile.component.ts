@@ -29,7 +29,7 @@ export class CProfileComponent implements OnInit {
     // labelIdle: '<div class="btn btn-primary mt-3 mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos</div></br>or drag them in',
     labelIdle:
       '<div class="btn" style="margin-left: 0px;width: 100%">' +
-      '<i class="fi-camera-plus" style="font-size: 30px;margin-right: 20px"></i>Upload images</div></br>or drag them in',
+      '<i class="fi-camera-plus" style="font-size: 30px;margin-right: 20px"></i>Upload image</div></br>or drag them in',
     acceptedFileTypes: 'image/jpeg, image/png'
   };
   @ViewChild('imageInput') imageInput: any;
@@ -86,29 +86,30 @@ export class CProfileComponent implements OnInit {
     this.setDialogBox('Do you want update your profile?');
     this.confirmationSub.observers = [];
     this.confirmationSub.subscribe(() => {
-    const uploadImageData = new FormData();
-    for (let dbayUserImg of this.customerProfile.dbayUser.dbayUserImgsRaw) {
-      uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
-    }
-    uploadImageData.append('customerProfile', new Blob([JSON.stringify(this.customerProfile)],
-      {
-        type: "application/json"
-      }));
-    this.customerAccountService.updateCustomerProfile(uploadImageData, this.customerProfile.customerProId).subscribe((customerProfile) => {
-      //console.log(customerProfile)
-      this.customerProfile.dbayUser.password = '';
-      this.customerProfile.dbayUser.passwordC = '';
-      this.customerProfile.dbayUser.cPassword = '';
-      this.customerProfile.dbayUser.dbayUserImgsRaw = [];
-      if (customerProfile.dbayUser.dbayUserImgs.length > 0) {
-        this.customerProfile.dbayUser.dbayUserImgs = customerProfile.dbayUser.dbayUserImgs;
+      const uploadImageData = new FormData();
+      // for (let dbayUserImg of this.customerProfile.dbayUser.dbayUserImgsRaw) {
+      if (this.customerProfile.dbayUser.dbayUserImgRaw !== undefined) {
+        uploadImageData.append('imageFile', this.customerProfile.dbayUser.dbayUserImgRaw, this.customerProfile.dbayUser.dbayUserImgRaw.name);
       }
-      // customerProfile.dbayUser.dbayUserImgs = [];
-      // this.customerProfile = customerProfile;
-      this.imageInput.removeFiles();
-      this.setDialogBox('Your profile has been updated', true)
-      // this.customerProfile.dbayUser.dbayUserImgs = this.customerProfile.dbayUser.dbayUserImgs.concat(customerProfile.dbayUser.dbayUserImgs);
-    })
+      // }
+      uploadImageData.append('customerProfile', new Blob([JSON.stringify(this.customerProfile)],
+        {
+          type: "application/json"
+        }));
+      this.customerAccountService.updateCustomerProfile(uploadImageData, this.customerProfile.customerProId).subscribe((customerProfile) => {
+        //console.log(customerProfile)
+        this.customerProfile.dbayUser.password = '';
+        this.customerProfile.dbayUser.passwordC = '';
+        this.customerProfile.dbayUser.cPassword = '';
+        this.customerProfile.dbayUser.dbayUserImgRaw = undefined;
+        this.customerProfile.dbayUser.userImgName = customerProfile.dbayUser.userImgName;
+        this.customerProfile.dbayUser.userImgType = customerProfile.dbayUser.userImgType;
+        // customerProfile.dbayUser.dbayUserImgs = [];
+        // this.customerProfile = customerProfile;
+        this.imageInput.removeFiles();
+        this.setDialogBox('Your profile has been updated', true)
+        // this.customerProfile.dbayUser.dbayUserImgs = this.customerProfile.dbayUser.dbayUserImgs.concat(customerProfile.dbayUser.dbayUserImgs);
+      })
     })
   }
 
@@ -131,15 +132,16 @@ export class CProfileComponent implements OnInit {
   }
 
   pondHandleAddFile(event) {
-    this.customerProfile.dbayUser.dbayUserImgsRaw.push(event.file.file);
+    this.customerProfile.dbayUser.dbayUserImgRaw = event.file.file;
   }
 
   pondHandlerRemoveFile(event) {
-    for (let i = 0; i < this.customerProfile.dbayUser.dbayUserImgsRaw.length; i++) {
-      if (this.customerProfile.dbayUser.dbayUserImgsRaw[i].name === event.file.file.name) {
-        this.customerProfile.dbayUser.dbayUserImgsRaw.splice(i, 1);
-      }
-    }
+    // for (let i = 0; i < this.customerProfile.dbayUser.dbayUserImgsRaw.length; i++) {
+    //   if (this.customerProfile.dbayUser.dbayUserImgsRaw[i].name === event.file.file.name) {
+    //     this.customerProfile.dbayUser.dbayUserImgsRaw.splice(i, 1);
+    //   }
+    // }
+    this.customerProfile.dbayUser.dbayUserImgRaw = undefined;
   }
 
   getImageSrc(userImg) {

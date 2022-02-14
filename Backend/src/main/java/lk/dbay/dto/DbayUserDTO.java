@@ -2,7 +2,6 @@ package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.DbayUser;
-import lk.dbay.entity.DbayUserImg;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -44,10 +43,15 @@ public class DbayUserDTO extends DateTimeDTO {
     private String curDateTime;
     //    private List<UserPrivilegeDTO> userPrivileges;
     private List<String> privileges;
-    private List<DbayUserImgDTO> dbayUserImgs;
+//    private List<DbayUserImgDTO> dbayUserImgs;
 
     private BusinessProfileDTO businessProfile;
     private CustomerProfileDTO customerProfile;
+
+    private String userImgName;
+    private String userImgType;
+    //    private String itemImgPath;
+    private boolean thumbnail;
 
 //    private InstituteDTO institute;
 //    private StudentDTO student;
@@ -66,20 +70,23 @@ public class DbayUserDTO extends DateTimeDTO {
             this.confirmed = dbayUser.isConfirmed();
 //            this.verificationCode = dbayUser.getVerificationCode();
             this.twoFactorAuth = dbayUser.isTwoFactorAuth();
+            this.userImgName = dbayUser.getUserImgName();
+            this.userImgType = dbayUser.getUserImgType();
+            this.thumbnail = dbayUser.isThumbnail();
 //            this.curDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 //            setCreatedAt(dbayUser.getCreatedAt());
 //            setUpdatedAt(dbayUser.getUpdatedAt());
         }
     }
 
-    public void setDbayUserImgs(DbayUser dbayUser) {
-        if (dbayUser.getDbayUserImgs() != null) {
-            this.dbayUserImgs = new ArrayList<>();
-            for (DbayUserImg dbayUserImg : dbayUser.getDbayUserImgs()) {
-                this.dbayUserImgs.add(new DbayUserImgDTO(dbayUserImg));
-            }
-        }
-    }
+//    public void setDbayUserImgs(DbayUser dbayUser) {
+//        if (dbayUser.getDbayUserImgs() != null) {
+//            this.dbayUserImgs = new ArrayList<>();
+//            for (DbayUserImg dbayUserImg : dbayUser.getDbayUserImgs()) {
+//                this.dbayUserImgs.add(new DbayUserImgDTO(dbayUserImg));
+//            }
+//        }
+//    }
 
     //    public DbayUserDTO(DbayUser dbayUser, Set<DbayUserImg> dbayUserImgs) {
 //        this(dbayUser);

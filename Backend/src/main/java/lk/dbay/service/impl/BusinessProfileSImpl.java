@@ -31,8 +31,8 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     private DbayUserR dbayUserR;
     @Autowired
     private BusinessAreaR businessAreaR;
-    @Autowired
-    private DbayUserImgR dbayUserImgR;
+    //    @Autowired
+//    private DbayUserImgR dbayUserImgR;
     @Autowired
     private BusinessProfileCategoryR businessProfileCategoryR;
     @Autowired
@@ -56,7 +56,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
 
     @Override
     @Transactional
-    public BusinessProfileDTO addBusinessProfile(BusinessProfile businessProfile, MultipartFile[] files) throws Exception {
+    public BusinessProfileDTO addBusinessProfile(BusinessProfile businessProfile, MultipartFile file) throws Exception {
         try {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
@@ -66,12 +66,12 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             businessProfile.getDbayUser().setRole("B");
             addBusinessAreas(businessProfile);
             addBusinessProfileCategories(businessProfile);
-            addImagesToBusinessProfile(businessProfile.getDbayUser(), files);
+            addImagesToBusinessProfile(businessProfile.getDbayUser(), file);
 //            businessProfile.getDbayUser().setVerificationCode(null);
             dbayUserR.save(businessProfile.getDbayUser());
             businessProfileR.save(businessProfile);
             BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
-            businessProfileDTO.setDbayUser(businessProfile, false);
+            businessProfileDTO.setDbayUser(businessProfile);
             return businessProfileDTO;
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         if (businessProfileOptional.isPresent()) {
             BusinessProfile businessProfile = businessProfileOptional.get();
             BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO(businessProfile);
-            businessProfileDTO.setDbayUser(businessProfile, true);
+            businessProfileDTO.setDbayUser(businessProfile);
             businessProfileDTO.setBusinessAreas(businessProfile);
             businessProfileDTO.setBusinessProfileCategories(businessProfile);
             businessProfileDTO.setTown(businessProfile);
@@ -233,11 +233,11 @@ public class BusinessProfileSImpl implements BusinessProfileS {
             if ((type.equals("C") && itemPackage.isAvailable()) || type.equals("B")) {
                 Optional<ItemPackageFavourite> itemPackageFavourite = itemPackageFavouriteR.getByCustomerProfile_CustomerProIdAndItemPackage_ItemPackageId(customerId, itemPackage.getItemPackageId());
                 itemPackage.setFavourite(itemPackageFavourite.isPresent());
-                if (itemPackage.getItemPackageType().equals("Item")) {
-                    itemsBySearch.add(itemPackage);
-                } else if (itemPackage.getItemPackageType().equals("Package")) {
-                    packagesBySearch.add(itemPackage);
-                }
+            }
+            if (itemPackage.getItemPackageType().equals("Item")) {
+                itemsBySearch.add(itemPackage);
+            } else if (itemPackage.getItemPackageType().equals("Package")) {
+                packagesBySearch.add(itemPackage);
             }
         }
         setItemPackageDTO(itemsBySearch, items);
@@ -262,7 +262,7 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     }
 
     @Override
-    public BusinessProfileDTO updateBusinessProfile(BusinessProfile businessProfile, MultipartFile[] files, String businessProfileId) throws Exception {
+    public BusinessProfileDTO updateBusinessProfile(BusinessProfile businessProfile, MultipartFile file, String businessProfileId) throws Exception {
         try {
             Optional<BusinessProfile> businessProfileOptional = businessProfileR.findById(businessProfileId);
             if (businessProfileOptional.isPresent()) {
@@ -317,17 +317,17 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessProfileObj.setBusinessProfileCategories(profileCategorySetAdd);
                 addBusinessProfileCategories(businessProfileObj);
 
-                if (businessProfile.getDbayUser().getDbayUserImgs() == null) {
-                    businessProfile.getDbayUser().setDbayUserImgs(new HashSet<>());
-                }
-                HashSet<DbayUserImg> dbayUserImgs = new HashSet<>(businessProfile.getDbayUser().getDbayUserImgs());
-                dbayUserImgs.retainAll(businessProfileObj.getDbayUser().getDbayUserImgs());
-                Set<DbayUserImg> dbayUserImgsSetRemove = new HashSet<>(businessProfileObj.getDbayUser().getDbayUserImgs());
-                dbayUserImgsSetRemove.removeAll(dbayUserImgs);
-                Set<DbayUserImg> dbayUserImgsSetAdd = new HashSet<>(businessProfile.getDbayUser().getDbayUserImgs());
-                dbayUserImgsSetAdd.removeAll(dbayUserImgs);
-                businessProfileObj.getDbayUser().setDbayUserImgs(dbayUserImgsSetAdd);
-                addImagesToBusinessProfile(businessProfileObj.getDbayUser(), files);
+//                if (businessProfile.getDbayUser().getDbayUserImgs() == null) {
+//                    businessProfile.getDbayUser().setDbayUserImgs(new HashSet<>());
+//                }
+//                HashSet<DbayUserImg> dbayUserImgs = new HashSet<>(businessProfile.getDbayUser().getDbayUserImgs());
+//                dbayUserImgs.retainAll(businessProfileObj.getDbayUser().getDbayUserImgs());
+//                Set<DbayUserImg> dbayUserImgsSetRemove = new HashSet<>(businessProfileObj.getDbayUser().getDbayUserImgs());
+//                dbayUserImgsSetRemove.removeAll(dbayUserImgs);
+//                Set<DbayUserImg> dbayUserImgsSetAdd = new HashSet<>(businessProfile.getDbayUser().getDbayUserImgs());
+//                dbayUserImgsSetAdd.removeAll(dbayUserImgs);
+//                businessProfileObj.getDbayUser().setDbayUserImgs(dbayUserImgsSetAdd);
+                addImagesToBusinessProfile(businessProfileObj.getDbayUser(), file);
 
 //                HashSet<BusinessProfileCategory> profileCategories = new HashSet<>(businessProfile.getBusinessProfileCategories());
 //                profileCategories.retainAll(businessProfileObj.getBusinessProfileCategories());
@@ -342,15 +342,15 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 if (profileCategorySetRemove.size() > 0) {
                     businessProfileCategoryR.deleteAll(profileCategorySetRemove);
                 }
-                if (dbayUserImgsSetRemove.size() > 0) {
-                    dbayUserImgR.deleteAll(dbayUserImgsSetRemove);
-                }
+//                if (dbayUserImgsSetRemove.size() > 0) {
+//                    dbayUserImgR.deleteAll(dbayUserImgsSetRemove);
+//                }
                 dbayUserR.save(businessProfileObj.getDbayUser());
                 businessProfileR.save(businessProfileObj);
                 businessProfileObj.getBusinessAreas().addAll(businessAreas);
                 businessProfileObj.getBusinessProfileCategories().addAll(profileCategories);
                 BusinessProfileDTO businessProfileDTO = new BusinessProfileDTO();
-                businessProfileDTO.setDbayUser(businessProfileObj, true);
+                businessProfileDTO.setDbayUser(businessProfileObj);
 //                businessProfileDTO.setBusinessAreas(businessProfile);
 //                businessProfileDTO.setBusinessProfileCategories(businessProfile);
                 return businessProfileDTO;
@@ -376,20 +376,21 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         }
     }
 
-    private void addImagesToBusinessProfile(DbayUser dbayUser, MultipartFile[] files) {
+    private void addImagesToBusinessProfile(DbayUser dbayUser, MultipartFile file) {
         try {
+            if (file != null) {
 //            Set<ItemImg> itemImgs = new HashSet<>();
-            for (DbayUserImg dbayUserImg : dbayUser.getDbayUserImgs()) {
-                dbayUserImg.setDbayUser(dbayUser);
-            }
-            LocalDateTime localDateTime = LocalDateTime.now();
-            String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-            int i = 0;
+//            for (DbayUserImg dbayUserImg : dbayUser.getDbayUserImgs()) {
+//                dbayUserImg.setDbayUser(dbayUser);
+//            }
+//            LocalDateTime localDateTime = LocalDateTime.now();
+//            String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+//            int i = 0;
 //            String filePath = "C:\\xampp\\htdocs\\Dbay";
-            String filePathCur = filePath + "\\business_pro";
-            for (MultipartFile file : files) {
-                DbayUserImg businessProfileImg = new DbayUserImg();
-                businessProfileImg.setUserImgId("BPIMG" + ++i + format);
+                String filePathCur = filePath + "\\business_pro";
+//            for (MultipartFile file : files) {
+//                DbayUserImg businessProfileImg = new DbayUserImg();
+//                businessProfileImg.setUserImgId("BPIMG" + ++i + format);
 //                itemImg.setItemImg(file.getBytes());
                 Path root = Paths.get(filePathCur);
                 if (!Files.exists(root)) {
@@ -400,11 +401,14 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 } catch (FileAlreadyExistsException e) {
                     e.printStackTrace();
                 }
-                businessProfileImg.setUserImgName("business_pro/" + StringUtils.cleanPath(file.getOriginalFilename()));
+                dbayUser.setUserImgName("business_pro/" + StringUtils.cleanPath(file.getOriginalFilename()));
 //                itemImg.setItemImgPath("C:\\xampp\\htdocs\\Dbay\\" + itemImg.getItemImgName());
-                businessProfileImg.setUserImgType(file.getContentType());
-                businessProfileImg.setDbayUser(dbayUser);
-                dbayUser.getDbayUserImgs().add(businessProfileImg);
+                dbayUser.setUserImgType(file.getContentType());
+//                businessProfileImg.setDbayUser(dbayUser);
+//                dbayUser.getDbayUserImgs().add(dbayUser);
+            } else {
+                dbayUser.setUserImgName(null);
+                dbayUser.setUserImgType(null);
             }
 //            item.setItemImgs(itemImgs);
         } catch (Exception e) {

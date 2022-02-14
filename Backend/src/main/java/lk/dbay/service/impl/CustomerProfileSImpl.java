@@ -30,8 +30,8 @@ public class CustomerProfileSImpl implements CustomerProfileS {
     private CustomerProfileR customerProfileR;
     @Autowired
     private DbayUserR dbayUserR;
-    @Autowired
-    private DbayUserImgR dbayUserImgR;
+    //    @Autowired
+//    private DbayUserImgR dbayUserImgR;
     @Value("${image.path}")
     private String filePath;
     @Autowired
@@ -39,7 +39,7 @@ public class CustomerProfileSImpl implements CustomerProfileS {
 
     @Override
     @Transactional
-    public CustomerProfileDTO addCustomerProfile(CustomerProfile customerProfile, MultipartFile[] files) throws Exception {
+    public CustomerProfileDTO addCustomerProfile(CustomerProfile customerProfile, MultipartFile file) throws Exception {
         try {
             LocalDateTime localDateTime = LocalDateTime.now();
             String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
@@ -50,12 +50,12 @@ public class CustomerProfileSImpl implements CustomerProfileS {
 //            customerProfile.setTown();
 //            addBusinessAreas(customerProfile);
 //            addBusinessProfileCategories(customerProfile);
-            addImagesToCustomerProfile(customerProfile.getDbayUser(), files);
+            addImagesToCustomerProfile(customerProfile.getDbayUser(), file);
 //            customerProfile.getDbayUser().setVerificationCode(null);
             dbayUserR.save(customerProfile.getDbayUser());
             customerProfileR.save(customerProfile);
             CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
-            customerProfileDTO.setDbayUser(customerProfile, false);
+            customerProfileDTO.setDbayUser(customerProfile);
             return customerProfileDTO;
 //            LocalDateTime localDateTime = LocalDateTime.now();
 //            String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
@@ -80,7 +80,7 @@ public class CustomerProfileSImpl implements CustomerProfileS {
         if (customerProfileOptional.isPresent()) {
             CustomerProfile customerProfile = customerProfileOptional.get();
             CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO(customerProfile);
-            customerProfileDTO.setDbayUser(customerProfile, true);
+            customerProfileDTO.setDbayUser(customerProfile);
             customerProfileDTO.setTown(customerProfile);
             return customerProfileDTO;
         }
@@ -88,7 +88,7 @@ public class CustomerProfileSImpl implements CustomerProfileS {
     }
 
     @Override
-    public CustomerProfileDTO updateCustomerProfile(CustomerProfile customerProfile, MultipartFile[] files, String customerProfileId) throws Exception {
+    public CustomerProfileDTO updateCustomerProfile(CustomerProfile customerProfile, MultipartFile file, String customerProfileId) throws Exception {
         try {
             Optional<CustomerProfile> customerProfileOptional = customerProfileR.findById(customerProfileId);
             if (customerProfileOptional.isPresent()) {
@@ -105,26 +105,26 @@ public class CustomerProfileSImpl implements CustomerProfileS {
                     customerProfileObj.getDbayUser().setPassword(customerProfile.getDbayUser().getPassword());
                 }
 
-                if (customerProfile.getDbayUser().getDbayUserImgs() == null) {
-                    customerProfile.getDbayUser().setDbayUserImgs(new HashSet<>());
-                }
-                HashSet<DbayUserImg> dbayUserImgs = new HashSet<>(customerProfile.getDbayUser().getDbayUserImgs());
-                dbayUserImgs.retainAll(customerProfileObj.getDbayUser().getDbayUserImgs());
-                Set<DbayUserImg> dbayUserImgsSetRemove = new HashSet<>(customerProfileObj.getDbayUser().getDbayUserImgs());
-                dbayUserImgsSetRemove.removeAll(dbayUserImgs);
-                Set<DbayUserImg> dbayUserImgsSetAdd = new HashSet<>(customerProfile.getDbayUser().getDbayUserImgs());
-                dbayUserImgsSetAdd.removeAll(dbayUserImgs);
-                customerProfileObj.getDbayUser().setDbayUserImgs(dbayUserImgsSetAdd);
-                addImagesToCustomerProfile(customerProfileObj.getDbayUser(), files);
+//                if (customerProfile.getDbayUser().getDbayUserImgs() == null) {
+//                    customerProfile.getDbayUser().setDbayUserImgs(new HashSet<>());
+//                }
+//                HashSet<DbayUserImg> dbayUserImgs = new HashSet<>(customerProfile.getDbayUser().getDbayUserImgs());
+//                dbayUserImgs.retainAll(customerProfileObj.getDbayUser().getDbayUserImgs());
+//                Set<DbayUserImg> dbayUserImgsSetRemove = new HashSet<>(customerProfileObj.getDbayUser().getDbayUserImgs());
+//                dbayUserImgsSetRemove.removeAll(dbayUserImgs);
+//                Set<DbayUserImg> dbayUserImgsSetAdd = new HashSet<>(customerProfile.getDbayUser().getDbayUserImgs());
+//                dbayUserImgsSetAdd.removeAll(dbayUserImgs);
+//                customerProfileObj.getDbayUser().setDbayUserImgs(dbayUserImgsSetAdd);
+                addImagesToCustomerProfile(customerProfileObj.getDbayUser(), file);
 
-                if (dbayUserImgsSetRemove.size() > 0) {
-                    dbayUserImgR.deleteAll(dbayUserImgsSetRemove);
-                }
+//                if (dbayUserImgsSetRemove.size() > 0) {
+//                    dbayUserImgR.deleteAll(dbayUserImgsSetRemove);
+//                }
 
                 dbayUserR.save(customerProfileObj.getDbayUser());
                 customerProfileR.save(customerProfileObj);
                 CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO();
-                customerProfileDTO.setDbayUser(customerProfileObj, true);
+                customerProfileDTO.setDbayUser(customerProfileObj);
                 return customerProfileDTO;
             }
             return null;
@@ -134,20 +134,21 @@ public class CustomerProfileSImpl implements CustomerProfileS {
         }
     }
 
-    private void addImagesToCustomerProfile(DbayUser dbayUser, MultipartFile[] files) {
+    private void addImagesToCustomerProfile(DbayUser dbayUser, MultipartFile file) {
         try {
+            if (file != null) {
 //            Set<ItemImg> itemImgs = new HashSet<>();
-            for (DbayUserImg dbayUserImg : dbayUser.getDbayUserImgs()) {
-                dbayUserImg.setDbayUser(dbayUser);
-            }
-            LocalDateTime localDateTime = LocalDateTime.now();
-            String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-            int i = 0;
+//            for (DbayUserImg dbayUserImg : dbayUser.getDbayUserImgs()) {
+//                dbayUserImg.setDbayUser(dbayUser);
+//            }
+//            LocalDateTime localDateTime = LocalDateTime.now();
+//            String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+//            int i = 0;
 //            String filePath = "C:\\xampp\\htdocs\\Dbay";
-            String filePathCur = filePath + "\\customer_pro";
-            for (MultipartFile file : files) {
-                DbayUserImg customerProfileImg = new DbayUserImg();
-                customerProfileImg.setUserImgId("CPIMG" + ++i + format);
+                String filePathCur = filePath + "\\customer_pro";
+//            for (MultipartFile file : files) {
+//                DbayUserImg customerProfileImg = new DbayUserImg();
+//                customerProfileImg.setUserImgId("CPIMG" + ++i + format);
 //                itemImg.setItemImg(file.getBytes());
                 Path root = Paths.get(filePathCur);
                 if (!Files.exists(root)) {
@@ -158,11 +159,14 @@ public class CustomerProfileSImpl implements CustomerProfileS {
                 } catch (FileAlreadyExistsException e) {
                     e.printStackTrace();
                 }
-                customerProfileImg.setUserImgName("customer_pro/" + StringUtils.cleanPath(file.getOriginalFilename()));
+                dbayUser.setUserImgName("customer_pro/" + StringUtils.cleanPath(file.getOriginalFilename()));
 //                itemImg.setItemImgPath("C:\\xampp\\htdocs\\Dbay\\" + itemImg.getItemImgName());
-                customerProfileImg.setUserImgType(file.getContentType());
-                customerProfileImg.setDbayUser(dbayUser);
-                dbayUser.getDbayUserImgs().add(customerProfileImg);
+                dbayUser.setUserImgType(file.getContentType());
+//                customerProfileImg.setDbayUser(dbayUser);
+//                dbayUser.getDbayUserImgs().add(customerProfileImg);
+            } else {
+                dbayUser.setUserImgName(null);
+                dbayUser.setUserImgType(null);
             }
 //            item.setItemImgs(itemImgs);
         } catch (Exception e) {

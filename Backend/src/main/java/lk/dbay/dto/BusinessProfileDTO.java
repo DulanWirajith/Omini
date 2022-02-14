@@ -63,15 +63,15 @@ public class BusinessProfileDTO extends DateTimeDTO {
         }
     }
 
-    public void setDbayUser(BusinessProfile businessProfile, boolean needImages) {
+    public void setDbayUser(BusinessProfile businessProfile) {
         if (businessProfile.getDbayUser() != null) {
-            if (needImages) {
-                DbayUserDTO dbayUserDTO = new DbayUserDTO(businessProfile.getDbayUser());
-                dbayUserDTO.setDbayUserImgs(businessProfile.getDbayUser());
-                this.dbayUser = dbayUserDTO;
-            } else {
+//            if (needImages) {
+//                DbayUserDTO dbayUserDTO = new DbayUserDTO(businessProfile.getDbayUser());
+//                dbayUserDTO.setDbayUserImgs(businessProfile.getDbayUser());
+//                this.dbayUser = dbayUserDTO;
+//            } else {
                 this.dbayUser = new DbayUserDTO(businessProfile.getDbayUser());
-            }
+//            }
         }
     }
 

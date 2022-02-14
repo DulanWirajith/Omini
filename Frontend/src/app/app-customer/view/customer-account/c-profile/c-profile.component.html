@@ -44,13 +44,13 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 mb-6" *ngFor='let dbayUserImg of customerProfile.dbayUser.dbayUserImgs;let j = index'>
+          <div class="col-md-6 mb-6" *ngIf="customerProfile.dbayUser.userImgName!==undefined && customerProfile.dbayUser.userImgType!==undefined">
             <div style="position: relative" class="delImgT">
-              <img [src]="getImageSrc(dbayUserImg)" style="margin: 3px;height: 200px;width: 300px">
+              <img [src]="getImageSrc(customerProfile.dbayUser)" style="margin: 3px;height: 200px;width: 300px">
               <span class="delImg">
                     <i class="fi-trash"
                        style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 25px;"
-                       (click)="customerProfile.dbayUser.dbayUserImgs.splice(j,1)"></i>
+                       (click)="customerProfile.dbayUser.userImgName=undefined;customerProfile.dbayUser.userImgType=undefined"></i>
                   </span>
             </div>
           </div>

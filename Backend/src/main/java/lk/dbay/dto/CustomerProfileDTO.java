@@ -36,15 +36,15 @@ public class CustomerProfileDTO extends DateTimeDTO {
         }
     }
 
-    public void setDbayUser(CustomerProfile customerProfile, boolean needImages) {
+    public void setDbayUser(CustomerProfile customerProfile) {
         if (customerProfile.getDbayUser() != null) {
-            if (needImages) {
-                DbayUserDTO dbayUserDTO = new DbayUserDTO(customerProfile.getDbayUser());
-                dbayUserDTO.setDbayUserImgs(customerProfile.getDbayUser());
-                this.dbayUser = dbayUserDTO;
-            } else {
-                this.dbayUser = new DbayUserDTO(customerProfile.getDbayUser());
-            }
+//            if (needImages) {
+//                DbayUserDTO dbayUserDTO = new DbayUserDTO(customerProfile.getDbayUser());
+//                dbayUserDTO.setDbayUserImgs(customerProfile.getDbayUser());
+//                this.dbayUser = dbayUserDTO;
+//            } else {
+            this.dbayUser = new DbayUserDTO(customerProfile.getDbayUser());
+//            }
         }
     }
 
