@@ -75,7 +75,7 @@ export class ShopViewComponent implements OnInit {
       userId = this.getUser().userId;
       role = this.getUser().role;
     }
-    this.profileService.getBusinessProfile(this.route.snapshot.queryParamMap.get('id'), true, userId, role).subscribe((businessProfile) => {
+    this.profileService.getBusinessProfile(JSON.parse(localStorage.getItem('shop-view')).id, true, userId, role).subscribe((businessProfile) => {
       // this.user = this.loginService.getUser();
       // let businessProfile = this.loginService.getUser();
       //console.log(businessProfile)

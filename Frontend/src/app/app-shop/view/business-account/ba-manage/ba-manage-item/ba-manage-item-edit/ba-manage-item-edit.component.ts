@@ -7,6 +7,7 @@ import {environment} from "../../../../../../../environments/environment";
 import {Lightbox} from 'ngx-lightbox';
 import {ShopCartService} from "../../../../../../app-customer/_service/shop-cart.service";
 import {LoginService} from "../../../../../../_service/login.service";
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-ba-manage-item-edit',
@@ -34,6 +35,7 @@ export class BaManageItemEditComponent implements OnInit {
   @ViewChild('baManageFormItemFeatureExs', {static: true}) public baManageFormItemFeatureExs: NgForm;
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   _album: [];
+  backBtn = false;
 
   // lightbox;
 
@@ -46,11 +48,14 @@ export class BaManageItemEditComponent implements OnInit {
     })
     this.itemService.itemSub.observers = [];
     this.itemService.itemSub.subscribe((item) => {
-      // console.log(item)
       this.item = item.item;
       this.items = item.items;
       this.itemIndex = item.index
       this.getAlbum(this.item);
+      let yourElem = <HTMLElement>document.querySelector('.item-viewer-g-btn');
+      if (yourElem !== null) {
+        yourElem.click();
+      }
     })
     this.itemService.itemFeaturesSub.observers = [];
     this.itemService.itemFeaturesSub.subscribe((itemFeatures) => {
@@ -224,5 +229,24 @@ export class BaManageItemEditComponent implements OnInit {
     }, (error) => {
       this.setDialogBox(error.error, true);
     })
+  }
+
+  review = false;
+  itemPackageReviews = [];
+
+  getItemPackageReviews() {
+    this.review = true;
+    let customerId = '0';
+    if (this.getUser() !== null) {
+      customerId = this.getUser().userId;
+    }
+    this.itemService.getItemPackageReviews(this.item.itemId, customerId).subscribe((itemPackageReviews) => {
+      this.itemPackageReviews = itemPackageReviews;
+      // console.log(this.itemPackageReviews)
+    })
+  }
+
+  getUser() {
+    return JSON.parse(localStorage.getItem('user'))
   }
 }

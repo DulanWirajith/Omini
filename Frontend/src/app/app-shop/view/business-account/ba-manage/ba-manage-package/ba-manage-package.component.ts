@@ -324,4 +324,51 @@ export class BaManagePackageComponent implements OnInit {
     }
   }
 
+  getPackageSelected(packageItem) {
+    // console.log(item.itemId)
+    let index: any = this.packageItems.findIndex(itemObj => {
+      return itemObj.packageItemId === packageItem.packageItemId
+    })
+    console.log(this.packageItems[index])
+    if (this.packageItems[index].itemPackageItemPackageFeatures === undefined) {
+      this.itemService.getItemPackageSelected(packageItem.packageItemId, 'Package').subscribe((packageItemR) => {
+        // Object.assign(this.items[index], item)
+        console.log(packageItemR)
+        packageItemR.packageItem.itemPackage.itemImgsRaw = [];
+        // item.itemItemFeatures = [];
+        // item.businessProfileCategory = {
+        //   businessProfile: undefined,
+        //   businessCategory: undefined
+        // }
+        // if (item.itemDiscountType === "None") {
+        //   item.itemDiscountView = "N/A";
+        // } else if (item.itemDiscountType === "Cash") {
+        //   item.itemDiscountView = "LKR " + item.itemDiscount;
+        // } else if (item.itemDiscountType === "Percentage") {
+        //   item.itemDiscountView = item.itemDiscount + "%";
+        // }
+        this.packageItems[index] = packageItemR.packageItem;
+        this.itemService.itemFeaturesSub.next(packageItemR.packageItem.itemFeatures);
+        this.itemService.packageItemSub.next({
+          packageItems: this.packageItems,
+          packageItem: this.packageItems[index],
+          index: index
+        });
+        //console.log(this.items[index])
+      })
+    } else {
+      this.itemService.packageItemSub.next({
+        packageItems: this.packageItems,
+        packageItem: this.packageItems[index],
+        index: index
+      });
+    }
+  }
+
+  setItemAvailable(packageItem) {
+    this.itemService.setItemPackageAvailable(packageItem.packageItemId).subscribe((reply) => {
+      // console.log(reply)
+      packageItem.itemPackage.available = reply;
+    })
+  }
 }

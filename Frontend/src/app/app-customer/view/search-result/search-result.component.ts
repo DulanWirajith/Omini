@@ -25,23 +25,23 @@ export class SearchResultComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.router)
-    if (this.router.url.split('?')[0] === '/customer/header/search_result/item_package_search_result') {
+    if (this.router.url === '/customer/header/search_result/item_package_search_result') {
       this.shopType = 'Item';
-    } else if (this.router.url.split('?')[0] === '/customer/header/search_result/shop_search_result') {
+    } else if (this.router.url === '/customer/header/search_result/shop_search_result') {
       this.shopType = 'Shop';
     }
     this.getDistricts();
     this.getBusinessCategories();
-    if (this.route.snapshot.queryParamMap.get('txt') !== null) {
-      this.txt = this.route.snapshot.queryParamMap.get('txt');
-      if (this.route.snapshot.queryParamMap.get('category') !== null) {
-        this.category = this.route.snapshot.queryParamMap.get('category');
+    if (this.getUrl().txt !== undefined) {
+      this.txt = this.getUrl().txt;
+      if (this.getUrl().category !== undefined) {
+        this.category = this.getUrl().category;
       }
-      if (this.route.snapshot.queryParamMap.get('district') !== null) {
-        this.district = this.route.snapshot.queryParamMap.get('district');
+      if (this.getUrl().district !== undefined) {
+        this.district = this.getUrl().district;
       }
-      if (this.route.snapshot.queryParamMap.get('town') !== null) {
-        this.town = this.route.snapshot.queryParamMap.get('town');
+      if (this.getUrl().town !== undefined) {
+        this.town = this.getUrl().town;
       }
       this.searchItems(1);
       this.searchShops(1);
@@ -82,14 +82,15 @@ export class SearchResultComponent implements OnInit {
 
   routeToItem() {
     this.shopType = 'Item';
-    this.router.navigate(['customer/header/search_result/item_package_search_result'], {
-      queryParams: {
-        'txt': this.txt,
-        'category': this.category,
-        'district': this.district,
-        'town': this.town
+    this.router.navigate(['customer/header/search_result/item_package_search_result'])
+    localStorage.setItem('item-shop-search', JSON.stringify(
+      {
+        txt: this.txt,
+        category: this.category,
+        district: this.district,
+        town: this.town
       }
-    })
+    ))
     if (this.itemService.searchedItemPackages.items.length === 0 || this.itemService.searchedItemPackages.itemPackages.length === 0) {
       this.searchItems(1)
     }
@@ -103,33 +104,29 @@ export class SearchResultComponent implements OnInit {
     this.itemService.getItemsPackagesBySearch(this.txt, this.category, this.district, this.town, userId).subscribe((searchedItemPackages) => {
       this.itemService.searchedItemPackagesSub.next(searchedItemPackages);
     })
-    const queryParams = {
-      'txt': this.txt,
-      'category': this.category,
-      'district': this.district,
-      'town': this.town
-    };
     if (val === 0) {
-      this.router.navigate(
-        [],
+      localStorage.setItem('item-shop-search', JSON.stringify(
         {
-          relativeTo: this.route,
-          queryParams: queryParams,
-          queryParamsHandling: 'merge', // remove to replace all query params by provided
-        });
+          txt: this.txt,
+          category: this.category,
+          district: this.district,
+          town: this.town
+        }
+      ))
     }
   }
 
   routeToShop() {
     this.shopType = 'Shop';
-    this.router.navigate(['customer/header/search_result/shop_search_result'], {
-      queryParams: {
-        'txt': this.txt,
-        'category': this.category,
-        'district': this.district,
-        'town': this.town
+    this.router.navigate(['customer/header/search_result/shop_search_result'])
+    localStorage.setItem('item-shop-search', JSON.stringify(
+      {
+        txt: this.txt,
+        category: this.category,
+        district: this.district,
+        town: this.town
       }
-    })
+    ))
     if (this.itemService.searchedShops.length === 0) {
       this.searchShops(1);
     }
@@ -144,20 +141,14 @@ export class SearchResultComponent implements OnInit {
       this.itemService.searchedShopsSub.next(searchedShops);
     })
     if (val === 0) {
-      const queryParams = {
-        'txt': this.txt,
-        'category': this.category,
-        'district': this.district,
-        'town': this.town
-      };
-
-      this.router.navigate(
-        [],
+      localStorage.setItem('item-shop-search', JSON.stringify(
         {
-          relativeTo: this.route,
-          queryParams: queryParams,
-          queryParamsHandling: 'merge', // remove to replace all query params by provided
-        });
+          txt: this.txt,
+          category: this.category,
+          district: this.district,
+          town: this.town
+        }
+      ))
     }
   }
 
@@ -166,6 +157,10 @@ export class SearchResultComponent implements OnInit {
   }
 
   getUrl() {
-    return this.router.url.split('?')[0];
+    return JSON.parse(localStorage.getItem('item-shop-search'));
+  }
+
+  getCurUrl(){
+    return this.router.url;
   }
 }

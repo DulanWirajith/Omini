@@ -11,6 +11,8 @@ export class ItemService {
 
   itemSub = new Subject<any>();
   itemFeaturesSub = new Subject<any>();
+  packageItemSub = new Subject<any>();
+  packageItemFeaturesSub = new Subject<any>();
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }
@@ -81,6 +83,10 @@ export class ItemService {
 
   getItemPackageSelected(itemId, type): Observable<any> {
     return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageSelected/' + itemId + '/' + type + '/0', {headers: this.commonService.createAuthorizationHeader()});
+  }
+
+  getItemPackageReviews(itemId, customerId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemPackageReviews/' + itemId + '/' + customerId);
   }
 
   // getItemSelected(itemId): Observable<any> {

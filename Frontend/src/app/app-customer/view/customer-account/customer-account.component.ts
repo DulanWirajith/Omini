@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {LoginService} from "../../../_service/login.service";
 
 @Component({
@@ -9,12 +9,21 @@ import {LoginService} from "../../../_service/login.service";
 })
 export class CustomerAccountComponent implements OnInit {
 
-  breadCrumbTxt = 'Order';
+  breadCrumbTxt;
 
   constructor(private router: Router, private loginService: LoginService) {
   }
 
   ngOnInit(): void {
+    if (this.router.url.includes('customer_profile')) {
+      this.breadCrumbTxt = 'Profile';
+    } else if (this.router.url.includes('customer_order')) {
+      this.breadCrumbTxt = 'Order';
+    } else if (this.router.url.includes('customer_favourite')) {
+      this.breadCrumbTxt = 'Favourite';
+    } else if (this.router.url.includes('customer_following')) {
+      this.breadCrumbTxt = 'Following';
+    }
   }
 
   signOut() {

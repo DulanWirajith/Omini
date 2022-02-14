@@ -125,7 +125,8 @@ export class ItemPackageSearchResultComponent implements OnInit {
   routeToShop(profileId) {
     this.profileService.profile.profileId = profileId;
     this.profileService.profile.returnUrl = '/customer/header/search_result/item_package_search_result';
-    this.router.navigate(['/shop/header/shop_view'], {queryParams: {id: this.profileService.profile.profileId}})
+    this.router.navigate(['/shop/header/shop_view'])
+    localStorage.setItem('shop-view', JSON.stringify({id: this.profileService.profile.profileId}))
   }
 
   setItemFavourite(itemPackage) {

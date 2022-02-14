@@ -35,12 +35,13 @@ export class ItemShopSearchComponent implements OnInit {
     if (this.categorySelected !== undefined) {
       // this.itemService.getItemsPackagesBySearch(this.txt, this.categorySelected.businessCategoryId, 0, 0, JSON.parse(localStorage.getItem('user')).userId).subscribe((searchedItemPackages) => {
       //   this.itemService.searchedItemPackages = searchedItemPackages;
-      this.router.navigate(['customer/header/search_result/item_package_search_result'], {
-        queryParams: {
-          'txt': this.txt,
-          'category': this.categorySelected.businessCategoryId
+      this.router.navigate(['customer/header/search_result/item_package_search_result'])
+      localStorage.setItem('item-shop-search', JSON.stringify(
+        {
+          txt: this.txt,
+          category: this.categorySelected.businessCategoryId
         }
-      })
+      ))
       // console.log(items)
       // })
     } else {
@@ -50,7 +51,8 @@ export class ItemShopSearchComponent implements OnInit {
       // }
       // this.itemService.getItemsPackagesBySearch(this.txt, '0', 0, 0, customerId).subscribe((searchedItemPackages) => {
       //   this.itemService.searchedItemPackages = searchedItemPackages;
-      this.router.navigate(['customer/header/search_result/item_package_search_result'], {queryParams: {'txt': this.txt}})
+      this.router.navigate(['customer/header/search_result/item_package_search_result'])
+      localStorage.setItem('item-shop-search', JSON.stringify({txt: this.txt}))
       // console.log(items)
       // })
     }
@@ -60,12 +62,13 @@ export class ItemShopSearchComponent implements OnInit {
     if (this.categorySelected !== undefined) {
       // this.itemService.getShopsBySearch(this.txt, this.categorySelected.businessCategoryId, 0, 0, JSON.parse(localStorage.getItem('user')).userId).subscribe((searchedShops) => {
       //   this.itemService.searchedShops = searchedShops;
-      this.router.navigate(['customer/header/search_result/shop_search_result'], {
-        queryParams: {
-          'txt': this.txt,
-          'category': this.categorySelected.businessCategoryId
+      this.router.navigate(['customer/header/search_result/shop_search_result'])
+      localStorage.setItem('item-shop-search', JSON.stringify(
+        {
+          txt: this.txt,
+          category: this.categorySelected.businessCategoryId
         }
-      })
+      ))
       // console.log(items)
       // })
     } else {
@@ -75,7 +78,8 @@ export class ItemShopSearchComponent implements OnInit {
       // }
       // this.itemService.getShopsBySearch(this.txt, '0', 0, 0, customerId).subscribe((searchedShops) => {
       //   this.itemService.searchedShops = searchedShops;
-      this.router.navigate(['customer/header/search_result/shop_search_result'], {queryParams: {'txt': this.txt}})
+      this.router.navigate(['customer/header/search_result/shop_search_result'])
+      localStorage.setItem('item-shop-search', JSON.stringify({txt: this.txt}))
       // console.log(items)
       // })
     }

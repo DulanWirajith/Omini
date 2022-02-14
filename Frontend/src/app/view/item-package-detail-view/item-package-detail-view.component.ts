@@ -40,7 +40,6 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
         this.getPackageItemSelected(itemPackageObj.itemPackage);
       })
       $(document).on('click', '.item-package-viewer-g-btn', function () {
-        // console.log(432)
       });
     } else {
       return ItemPackageDetailViewComponent.lastComp;

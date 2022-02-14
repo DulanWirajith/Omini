@@ -40,13 +40,13 @@
               <li
                 (click)="routeToItem()"
                 class="nav-item">
-                <a [ngClass]="getUrl()==='/customer/header/search_result/item_package_search_result'?'active':''"
+                <a [ngClass]="getCurUrl()==='/customer/header/search_result/item_package_search_result'?'active':''"
                    class="nav-link d-flex align-items-center" href="#filters"
                    data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>Item</a></li>
               <li
                 (click)="routeToShop()"
                 class="nav-item">
-                <a [ngClass]="getUrl()==='/customer/header/search_result/shop_search_result'?'active':''"
+                <a [ngClass]="getCurUrl()==='/customer/header/search_result/shop_search_result'?'active':''"
                    class="nav-link d-flex align-items-center" href="#filters" data-bs-toggle="tab"
                    role="tab"><i class="fi-shop me-2"></i>Shop</a></li>
             </ul>

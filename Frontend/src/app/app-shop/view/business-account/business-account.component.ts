@@ -12,7 +12,7 @@ import {LoginService} from "../../../_service/login.service";
 })
 export class BusinessAccountComponent implements OnInit {
 
-  breadCrumbTxt = 'Monitor';
+  breadCrumbTxt;
   businessCategories = [];
   businessProfileCategory;
   businessCategory = {
@@ -41,6 +41,17 @@ export class BusinessAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.router.url.includes('ba_monitor')) {
+      this.breadCrumbTxt = 'Monitor';
+    } else if (this.router.url.includes('ba_profile')) {
+      this.breadCrumbTxt = 'Profile';
+    } else if (this.router.url.includes('ba_order')) {
+      this.breadCrumbTxt = 'Order';
+    } else if (this.router.url.includes('ba_manage')) {
+      this.breadCrumbTxt = 'Manage';
+    } else if (this.router.url.includes('ba_reviews')) {
+      this.breadCrumbTxt = 'Reviews';
+    }
   }
 
   getBusinessCategories() {
