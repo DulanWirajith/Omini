@@ -19,6 +19,8 @@ export class SearchResultComponent implements OnInit {
   district = '0';
   town = '0';
   shopType;
+  itemIsSearched = false;
+  shopIsSearched = false;
 
   constructor(private customerAccService: CustomerAccountService, private itemService: ItemService, private router: Router, private route: ActivatedRoute) {
   }
@@ -27,8 +29,10 @@ export class SearchResultComponent implements OnInit {
     // console.log(this.router)
     if (this.router.url === '/customer/header/search_result/item_package_search_result') {
       this.shopType = 'Item';
+      this.itemIsSearched = true;
     } else if (this.router.url === '/customer/header/search_result/shop_search_result') {
       this.shopType = 'Shop';
+      this.shopIsSearched = true;
     }
     this.getDistricts();
     this.getBusinessCategories();
@@ -75,8 +79,10 @@ export class SearchResultComponent implements OnInit {
   searchShopItems() {
     if (this.shopType === 'Item') {
       this.searchItems(0);
+      this.itemIsSearched = true;
     } else if (this.shopType === 'Shop') {
       this.searchShops(0);
+      this.shopIsSearched = true;
     }
   }
 
@@ -91,7 +97,8 @@ export class SearchResultComponent implements OnInit {
         town: this.town
       }
     ))
-    if (this.itemService.searchedItemPackages.items.length === 0 || this.itemService.searchedItemPackages.itemPackages.length === 0) {
+    if (this.shopIsSearched) {
+      this.shopIsSearched = false;
       this.searchItems(1)
     }
   }
@@ -127,7 +134,8 @@ export class SearchResultComponent implements OnInit {
         town: this.town
       }
     ))
-    if (this.itemService.searchedShops.length === 0) {
+    if (this.itemIsSearched) {
+      this.itemIsSearched = false;
       this.searchShops(1);
     }
   }
@@ -160,7 +168,7 @@ export class SearchResultComponent implements OnInit {
     return JSON.parse(localStorage.getItem('item-shop-search'));
   }
 
-  getCurUrl(){
+  getCurUrl() {
     return this.router.url;
   }
 }
