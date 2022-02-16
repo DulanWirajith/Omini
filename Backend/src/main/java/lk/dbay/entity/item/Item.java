@@ -29,6 +29,8 @@ public class Item extends DateTime {
     @ManyToOne
     private ItemCategory itemCategory;
 
+    private boolean packageOnly;
+
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
     private Set<PackageItemItem> packageItemItems;
 

@@ -116,7 +116,7 @@ public class ItemPackageSImpl implements ItemPackageS {
             PackageItemDTO packageItemDTO = null;
             if (type.equals("Item")) {
                 itemPackageDTO.setItemCategory(itemPackage);
-                itemDTO = new ItemDTO().setItemPackageToItem(itemPackageDTO);
+                itemDTO = new ItemDTO(itemPackage.getItem()).setItemPackageToItem(itemPackageDTO);
             } else if (type.equals("Package")) {
                 packageItemDTO = new PackageItemDTO(itemPackage.getPackageItem()).setItemPackageToPackageItem(itemPackageDTO);
                 List<PackageItemItemDTO> packageItemItemDTOS = new ArrayList<>();

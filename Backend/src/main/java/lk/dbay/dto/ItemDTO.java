@@ -33,6 +33,7 @@ public class ItemDTO extends DateTimeDTO {
 //    private boolean available;
     private ItemCategoryDTO itemCategory;
     private ItemPackageDTO itemPackage;
+    private boolean packageOnly;
     //    private boolean itemAvailable;
     private BusinessProfileCategoryDTO businessProfileCategory;
     private List<ItemPackageItemPackageFeatureDTO> itemPackageItemPackageFeatures;
@@ -50,6 +51,7 @@ public class ItemDTO extends DateTimeDTO {
         if (item != null) {
             this.itemId = item.getItemId();
             this.name = item.getItemPackage().getName();
+            this.packageOnly = item.isPackageOnly();
         }
     }
 

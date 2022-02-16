@@ -298,6 +298,7 @@
                           <i class="fi-dislike"></i>
                           <span>({{businessReview.dislikeCount}})</span>
                         </button>
+                        <span *ngIf="getUser()!==null && getUser().role==='C'">
                         <button *ngIf="businessReview.editReview"
                                 style="margin-left: 15px;color: #0a53be;cursor: pointer;background: none;border: none;"
                                 type="submit">
@@ -306,10 +307,11 @@
                         <span *ngIf="!businessReview.editReview"
                               style="margin-left: 15px;color: #0a53be;cursor: pointer"
                               (click)="businessReview.editReview=true">
-                Edit
-                </span>
+                          Edit
+                          </span>
                         <span style="margin-left: 20px;color: red;cursor: pointer"
                               (click)="removeBusinessReview(businessReview.businessReviewId,i)">Remove</span>
+                          </span>
                       </div>
                     </form>
                   </div>

@@ -80,6 +80,7 @@ public class ItemSImpl implements ItemS {
                 itemPackageObj.setDescription(item.getItemPackage().getDescription());
                 itemPackageObj.setDiscount(item.getItemPackage().getDiscount());
                 itemPackageObj.setDiscountType(item.getItemPackage().getDiscountType());
+                itemObj.setPackageOnly(item.isPackageOnly());
                 itemPackageObj.setBusinessProfileCategory(item.getItemPackage().getBusinessProfileCategory());
                 itemPackageObj.getBusinessProfileCategory().setBusinessProfileCategoryId(
                         new BusinessProfileCategoryPK(itemPackageObj.getBusinessProfileCategory().getBusinessProfile().getBusinessProId(), itemPackageObj.getBusinessProfileCategory().getBusinessCategory().getBusinessCategoryId())
@@ -197,15 +198,15 @@ public class ItemSImpl implements ItemS {
     }
 
     @Override
-    public List<ItemDTO> getItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit) {
-        List<Item> itemList = itemR.getItemsOrdered(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), PageRequest.of(start, limit));
+    public List<ItemDTO> getItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit, boolean packageOnly) {
+        List<Item> itemList = itemR.getItemsOrdered(new BusinessProfileCategoryPK(businessProfileId, businessCategoryId), PageRequest.of(start, limit), packageOnly);
         List<ItemDTO> itemDTOS = new ArrayList<>();
         for (Item item : itemList) {
 //            ItemDTO itemDTO = ;
             ItemPackageDTO itemPackageDTO = new ItemPackageDTO(item.getItemPackage());
             itemPackageDTO.setItemPackageImages(item.getItemPackage());
 //            itemDTO.setItemPackage(itemPackageDTO);
-            itemDTOS.add(new ItemDTO().setItemPackageToItem(itemPackageDTO));
+            itemDTOS.add(new ItemDTO(item).setItemPackageToItem(itemPackageDTO));
         }
         return itemDTOS;
     }

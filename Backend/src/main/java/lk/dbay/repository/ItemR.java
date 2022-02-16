@@ -15,7 +15,7 @@ public interface ItemR extends JpaRepository<Item, String> {
 
     List<Item> getAllByItemPackage_BusinessProfileCategory_BusinessProfileCategoryId(BusinessProfileCategoryPK businessCategoryId);
 
-    @Query(value = "from Item where itemPackage.businessProfileCategory.businessProfileCategoryId=?1 order by itemPackage.name")
-    List<Item> getItemsOrdered(BusinessProfileCategoryPK businessProfileCategoryPK, Pageable pageable);
+    @Query(value = "from Item where itemPackage.businessProfileCategory.businessProfileCategoryId=?1 and packageOnly=?2 order by itemPackage.name")
+    List<Item> getItemsOrdered(BusinessProfileCategoryPK businessProfileCategoryPK, Pageable pageable, boolean packageOnly);
 
 }

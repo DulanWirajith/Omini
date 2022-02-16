@@ -133,6 +133,17 @@ public class PackageSImpl implements PackageS {
                 packageItemObj = packageR.save(packageItemObj);
                 PackageItemDTO packageItemDTO = new PackageItemDTO(packageItemObj);
                 packageItemDTO.setItemPackage(packageItemObj);
+                List<PackageItemItemDTO> packageItemItemDTOS = new ArrayList<>();
+                for (PackageItemItem packageItemItem : packageItemObj.getPackageItemItems()) {
+                    PackageItemItemDTO packageItemItemDTO = new PackageItemItemDTO(packageItemItem.getPackageItem(), packageItemItem.getItem());
+                    ItemPackageDTO itemPackageItemDTO = new ItemPackageDTO(packageItemItem.getItem().getItemPackage());
+                    itemPackageItemDTO.setBusinessProfileCategory(packageItemItem.getItem().getItemPackage());
+                    itemPackageItemDTO.setItemPackageItemPackageFeatures(packageItemItem.getItem().getItemPackage());
+                    itemPackageItemDTO.setItemPackageImages(packageItemItem.getItem().getItemPackage());
+                    packageItemItemDTO.getItem().setItemPackage(itemPackageItemDTO);
+                    packageItemItemDTOS.add(packageItemItemDTO);
+                }
+                packageItemDTO.setPackageItemItems(packageItemItemDTOS);
                 packageItemDTO.getItemPackage().setBusinessProfileCategory(packageItemObj.getItemPackage());
                 packageItemDTO.getItemPackage().setItemPackageImages(packageItemObj.getItemPackage());
                 return packageItemDTO;

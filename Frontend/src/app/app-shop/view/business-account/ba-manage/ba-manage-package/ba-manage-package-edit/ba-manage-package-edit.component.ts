@@ -58,6 +58,8 @@ export class BaManagePackageEditComponent implements OnInit {
       this.packageItems = packageItem.packageItems;
       this.itemIndex = packageItem.index
       this.getAlbum(this.packageItem);
+      this.packageItem.itemPackage.tempBusinessCategory = this.packageItem.itemPackage.businessProfileCategory.businessCategory;
+      this.getItems(this.packageItem.itemPackage.businessProfileCategory.businessCategory.businessCategoryId)
       // this.backBtn=true
       let yourElem = <HTMLElement>document.querySelector('.package-viewer-g-btn');
       if (yourElem !== null) {
@@ -156,6 +158,10 @@ export class BaManagePackageEditComponent implements OnInit {
       // this.itemPackage.itemItemPackages = [];
       // this.item = undefined;
       this.imageInput.removeFiles();
+      console.log(itemPackageR)
+      if (itemPackageR.packageItemItems.length > 0) {
+        this.packageItem.packageItemItems = this.packageItem.packageItemItems.concat(itemPackageR.packageItemItems);
+      }
       this.packageItem.itemPackage.itemPackageImages = this.packageItem.itemPackage.itemPackageImages.concat(itemPackageR.itemPackage.itemPackageImages);
       this.packageItem.itemPackage.itemImgsRaw = [];
       if (document.getElementById('package-back-btn') !== null) {
@@ -207,11 +213,13 @@ export class BaManagePackageEditComponent implements OnInit {
       // console.log(items)
       this.itemsToAdd = items;
       if (packageItem !== undefined) {
+        // console.log(packageItem.itemPackage.businessProfileCategory.businessCategory.businessCategoryId === packageItem.itemPackage.tempBusinessCategory.businessCategoryId)
         if (packageItem.itemPackage.businessProfileCategory.businessCategory.businessCategoryId === packageItem.itemPackage.tempBusinessCategory.businessCategoryId) {
           // console.log(itemPackage.tempItems)
           packageItem.packageItemItems = packageItem.tempItems;
           packageItem.itemPackageItemPackageFeatures = packageItem.tempItemFeatures;
         } else {
+          packageItem.tempItems = packageItem.packageItemItems;
           packageItem.packageItemItems = [];
           packageItem.itemPackageItemPackageFeatures = [];
         }

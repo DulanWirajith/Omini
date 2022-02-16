@@ -68,15 +68,6 @@
             Business
           </div>
           <div style="margin-top: 15px;padding-left: 0px;width: calc(100% - 98px)">
-            <!--<label class="form-label"-->
-            <!--&gt;Business type </label-->
-            <!--&gt;-->
-            <!--<a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"-->
-            <!--data-bs-toggle="tooltip" title="Select this item belongs to which type of business"-->
-            <!--data-bs-original-title="Select this item belongs to which type of business"-->
-            <!--aria-label="Select this item belongs to which type of business"><i class="fi-help"></i>-->
-            <!--</a>-->
-            <!-- <div class="d-flex flex-column flex-sm-row"> -->
             <ng-select
               [items]="businessCategories"
               bindLabel="name"
@@ -87,16 +78,6 @@
               (change)="setBusinessCategory()"
               [(ngModel)]="businessCategory">
             </ng-select>
-            <!-- <div class="invalid-tooltip">
-              Please fill item quantity
-            </div>
-            <div class="valid-tooltip">Looks good!</div> -->
-            <!-- <button type="button" class="btn btn-light-primary btn-icon shadow-sm">
-              <i class="fi-plus"></i>
-            </button> -->
-            <!-- <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> -->
-            <!-- </div> -->
-
           </div>
         </div>
 

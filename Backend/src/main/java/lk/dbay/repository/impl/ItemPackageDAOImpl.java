@@ -47,7 +47,9 @@ public class ItemPackageDAOImpl implements ItemPackageDAO {
         List<ItemPackage> items;
 
         if (type.equals("Item")) {
+            Predicate predicatePackageOnly = cb.equal(itemPackageRoot.get("item").get("packageOnly"), false);
             predicateItemPackage = cb.or(predicateName, predicateItemPackageFeatures);
+            predicateItemPackage = cb.and(predicatePackageOnly, predicateItemPackage);
         } else if (type.equals("Package")) {
             Join<ItemPackage, PackageItemItem> packageItemItems = itemPackageRoot.join("packageItem").join("packageItemItems");
 

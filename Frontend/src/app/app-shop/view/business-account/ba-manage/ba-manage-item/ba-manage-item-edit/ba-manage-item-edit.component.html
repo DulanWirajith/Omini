@@ -4,7 +4,8 @@
     <div class="d-flex align-items-center justify-content-between">
       <div style="display: flex">
         <h2 class="h5 mb-0" style="margin-right: 15px">{{item.itemPackage.name}}</h2>
-        <span class="badge rounded-pill bg-info" style="padding-top: 7px"> Item </span>
+        <span class="badge rounded-pill bg-info" style="padding-top: 7px" *ngIf="!item.packageOnly"> Item </span>
+        <span class="badge rounded-pill bg-info" style="padding-top: 7px" *ngIf="item.packageOnly"> Package Only Item </span>
       </div>
       <button id="item-close-btn" class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
     </div>
@@ -224,11 +225,18 @@
                 </div>
                 <div class="valid-tooltip">Looks good!</div>
               </div>
-              <div class="col-md-4 mb-3" style="margin-top: 46px">
+              <div class="col-md-3 mb-3" style="margin-top: 46px">
                 <label>
                   Make To Order
                   <input type="checkbox" name="makeToOrder" style="margin-left: 5px; transform: scale(1.4)"
                          [(ngModel)]="item.itemPackage.makeToOrder">
+                </label>
+              </div>
+              <div class="col-md-3 mb-3" style="margin-top: 46px">
+                <label>
+                  Package Only
+                  <input type="checkbox" name="packageOnly" style="margin-left: 5px; transform: scale(1.4)"
+                         [(ngModel)]="item.packageOnly">
                 </label>
               </div>
               <!-- <div class="col-md-4 mb-3">
@@ -238,9 +246,9 @@
                       <div class="valid-tooltip">Looks good!</div>
                     </div> -->
             </div>
-            <div class="row">
+            <div class="row" *ngIf="!item.packageOnly">
               <div class="col-md-4 mb-3">
-                <label class="form-label" for="validationTooltip03"
+                <label class="form-label"
                 >Discount type</label
                 >
                 <a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"

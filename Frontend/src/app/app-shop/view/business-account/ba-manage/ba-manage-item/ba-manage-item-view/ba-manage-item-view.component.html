@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
-        <div class="form-check form-switch">
+        <div class="form-check form-switch" *ngIf="!item.packageOnly">
           <input class="form-check-input" type="checkbox" [checked]="item.itemPackage.available"
                  (click)="setItemAvailable(item)">
           <label *ngIf="!item.itemPackage.available"
@@ -72,6 +72,10 @@
             Not Available</label>
           <label *ngIf="item.itemPackage.available" class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
             Available</label>
+        </div>
+        <div class="form-check form-switch" *ngIf="item.packageOnly" style="padding: 0px">
+          <label class="form-check-label fs-xs fw-normal text-uppercase text-green fw-bold">
+            Package Only Item</label>
         </div>
       </div>
     </div>

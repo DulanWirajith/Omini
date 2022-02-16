@@ -36,6 +36,7 @@ export class BaManageItemEditComponent implements OnInit {
   @ViewChild('baManageFormItemFeature', {static: true}) public baManageFormItemFeature: NgForm;
   _album: [];
   backBtn = false;
+  packageOnly;
 
   // lightbox;
 
@@ -48,6 +49,8 @@ export class BaManageItemEditComponent implements OnInit {
     })
     this.itemService.itemSub.observers = [];
     this.itemService.itemSub.subscribe((item) => {
+      // console.log(item)
+      this.packageOnly = item.item.packageOnly;
       this.item = item.item;
       this.items = item.items;
       this.itemIndex = item.index
@@ -135,6 +138,9 @@ export class BaManageItemEditComponent implements OnInit {
       this.item.isNewItem = false;
       this.item.itemPackage.discountedPrice = item.itemPackage.discountedPrice;
       this.getAlbum(this.item);
+      if (this.item.packageOnly !== this.packageOnly) {
+        this.items.splice(this.itemIndex, 1);
+      }
     })
   }
 

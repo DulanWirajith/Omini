@@ -16,7 +16,7 @@ public interface ItemS {
 
     boolean removeItem(String itemId) throws Exception;
 
-    List<ItemDTO> getItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit);
+    List<ItemDTO> getItemsOrdered(String businessProfileId, String businessCategoryId, int start, int limit, boolean packageOnly);
 
 //    ItemDTO getItemSelected(String itemId);
 

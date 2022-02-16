@@ -36,7 +36,10 @@ export class BaManageItemComponent implements OnInit {
     multiple: true,
     labelIdle: '<div class="btn btn-primary mt-3 mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos</div></br>or drag them in',
     acceptedFileTypes: 'image/jpeg, image/png'
-  }
+  };
+  businessCategoryId;
+  itemTypes = [{name: 'Items', val: false}, {name: 'Package Only Items', val: true}];
+  itemType = this.itemTypes[0];
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private loginService: LoginService) {
     this.item = this.itemService.getNewItem();
@@ -47,6 +50,7 @@ export class BaManageItemComponent implements OnInit {
     // console.log(4)
     // this.businessAccountService.businessCategorySub.observers = [];
     this.businessAccountService.businessCategorySub.subscribe((businessCategoryId) => {
+      this.businessCategoryId = businessCategoryId;
       this.getItemsOrdered(businessCategoryId);
       // console.log(2)
     })
@@ -58,6 +62,7 @@ export class BaManageItemComponent implements OnInit {
     // console.log(3)
     this.businessCategories = this.businessAccountService.businessCategories;
     if (this.businessAccountService.businessCategory !== undefined) {
+      this.businessCategoryId = this.businessAccountService.businessCategory.businessCategoryId;
       this.getItemsOrdered(this.businessAccountService.businessCategory.businessCategoryId);
     }
   }
@@ -93,7 +98,9 @@ export class BaManageItemComponent implements OnInit {
         type: "application/json"
       }));
     this.itemService.addItem(uploadImageData).subscribe((item) => {
-      this.items.push(item);
+      if (this.item.packageOnly === this.itemType.val) {
+        this.items.push(item);
+      }
       this.baManageFormItem.resetForm(this.itemService.getNewItem());
       this.item.itemPackage.itemPackageItemPackageFeatures = [];
       this.imageInput.removeFiles();
@@ -105,7 +112,14 @@ export class BaManageItemComponent implements OnInit {
   }
 
   getItemsOrdered(businessCategoryId) {
-    this.itemService.getItemsOrdered(this.loginService.getUser().userId, businessCategoryId, 0, 100).subscribe((items) => {
+    // let packageOnly = false;
+    // if (this.itemType === 'Package Only Items') {
+    //   packageOnly = true;
+    // } else if (this.itemType === 'Item') {
+    //   packageOnly = false;
+    // }
+    this.itemService.getItemsOrdered(this.loginService.getUser().userId, businessCategoryId, 0, 100, this.itemType.val).subscribe((items) => {
+      // console.log(items)
       this.items = items;
       for (let item of this.items) {
         item.itemPackage.itemImgsRaw = [];

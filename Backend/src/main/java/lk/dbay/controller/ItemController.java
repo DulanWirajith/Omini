@@ -65,9 +65,9 @@ public class ItemController {
         return ResponseEntity.ok(itemS.getItemsBusinessCategory(businessProfileId, businessCategoryId));
     }
 
-    @GetMapping(value = CommonConstants.SHOP + "/getItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}")
-    public ResponseEntity getItemsOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit) {
-        return ResponseEntity.ok(itemS.getItemsOrdered(businessProfileId, businessCategoryId, start, limit));
+    @GetMapping(value = CommonConstants.SHOP + "/getItemsOrdered/{businessProfileId}/{businessCategoryId}/{start}/{limit}/{packageOnly}")
+    public ResponseEntity getItemsOrdered(@PathVariable String businessProfileId, @PathVariable String businessCategoryId, @PathVariable int start, @PathVariable int limit, @PathVariable boolean packageOnly) {
+        return ResponseEntity.ok(itemS.getItemsOrdered(businessProfileId, businessCategoryId, start, limit, packageOnly));
     }
 
 //    @GetMapping(value = "/setItemAvailable/{itemId}")

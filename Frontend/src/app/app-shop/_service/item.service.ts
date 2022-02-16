@@ -65,8 +65,8 @@ export class ItemService {
     return this.http.get<any>(environment.backend_url + 'item/shop/getItemsBusinessCategory/' + businessProfileId + '/' + businessCategoryId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
-  getItemsOrdered(businessProfileId, businessCategoryId, start, limit): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item/shop/getItemsOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit, {headers: this.commonService.createAuthorizationHeader()});
+  getItemsOrdered(businessProfileId, businessCategoryId, start, limit, packageOnly): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'item/shop/getItemsOrdered/' + businessProfileId + '/' + businessCategoryId + '/' + start + '/' + limit + '/' + packageOnly, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   getItemCategoriesOrdered(businessProfileId, businessCategoryId): Observable<any> {
@@ -118,7 +118,8 @@ export class ItemService {
       itemId: "",
       itemPackage: this.getNewItemPackage(),
       isNewItem: false,
-      isUpdateItem: false
+      isUpdateItem: false,
+      packageOnly: false
     }
   }
 

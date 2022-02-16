@@ -10,19 +10,19 @@
 >
   <div class="d-flex flex-sm-row">
     <button id="btnAddItem"
-      class="
+            class="
                         btn btn-icon btn-outline-primary btn-xs
                         rounded-circle
                         shadow-sm
                       "
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#add-new-item"
-      aria-controls="add-new-item"
-      aria-expanded="false"
-      title="Add new item"
-      data-bs-original-title="Add new item"
-      aria-label="Add new item"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#add-new-item"
+            aria-controls="add-new-item"
+            aria-expanded="false"
+            title="Add new item"
+            data-bs-original-title="Add new item"
+            aria-label="Add new item"
     >
       <i class="fi-plus"></i>
     </button>
@@ -34,7 +34,6 @@
   <div class="d-flex align-items-center ms-sm-4">
     <label
       class="fs-sm me-2 pe-1 text-nowrap"
-      for="review-sorting1"
     ><i class="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort
       by:</label
     >
@@ -49,10 +48,30 @@
     </select>
   </div>
 </div>
+
+<div class="row" style="display: flex;margin-bottom: 40px">
+  <div style="line-height: 2.3;width: 150px;font-weight: bold">
+    Item Type
+  </div>
+  <div style="padding-left: 0px;width: calc(100% - 150px)">
+    <ng-select
+      [items]="itemTypes"
+      bindLabel="name"
+      placeholder="Select Item Type"
+      dropdownPosition="auto"
+      [multiple]="false"
+      [searchWhileComposing]="true"
+      (change)="getItemsOrdered(businessCategoryId)"
+      [(ngModel)]="itemType">
+    </ng-select>
+  </div>
+</div>
+
 <div class="collapse" id="add-new-item">
   <div class="card card-body">
 
-    <form #baManageFormItem="ngForm" (ngSubmit)="baManageFormItem.form.valid && item.itemPackage.itemImgsRaw.length>=3 && onSubmit()" novalidate>
+    <form #baManageFormItem="ngForm"
+          (ngSubmit)="baManageFormItem.form.valid && item.itemPackage.itemImgsRaw.length>=3 && onSubmit()" novalidate>
 
       <div class="row">
         <div class="col-md-12 mb-3">
@@ -99,11 +118,18 @@
           </div>
           <div class="valid-tooltip">Looks good!</div>
         </div>
-        <div class="col-md-4 mb-3" style="margin-top: 46px">
+        <div class="col-md-3 mb-3" style="margin-top: 46px">
           <label>
             Make To Order
             <input type="checkbox" name="makeToOrder" style="margin-left: 5px; transform: scale(1.4)"
                    [(ngModel)]="item.itemPackage.makeToOrder">
+          </label>
+        </div>
+        <div class="col-md-3 mb-3" style="margin-top: 46px">
+          <label>
+            Package Only
+            <input type="checkbox" name="packageOnly" style="margin-left: 5px; transform: scale(1.4)"
+                   [(ngModel)]="item.packageOnly">
           </label>
         </div>
         <!-- <div class="col-md-4 mb-3">
@@ -113,7 +139,7 @@
                 <div class="valid-tooltip">Looks good!</div>
               </div> -->
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!item.packageOnly">
         <div class="col-md-4 mb-3">
           <label class="form-label" for="validationTooltip03"
           >Discount type</label
@@ -289,7 +315,8 @@
         <div class="d-flex flex-wrap mb-4">
                 <span *ngFor="let itemPackageFeature of item.itemPackage.itemPackageItemPackageFeatures;let i = index"
                       class="bg-success text-light fs-sm btn btn-xs opacity-100 rounded-pill me-2 mb-2 ms-1 mt-1">{{itemPackageFeature.itemPackageFeature.name}}
-                  <i class="fi-x fs-xs ms-2" (click)="item.itemPackage.itemPackageItemPackageFeatures.splice(i,1)" style="cursor: pointer"></i>
+                  <i class="fi-x fs-xs ms-2" (click)="item.itemPackage.itemPackageItemPackageFeatures.splice(i,1)"
+                     style="cursor: pointer"></i>
                 </span>
         </div>
       </div>
@@ -374,37 +401,37 @@
 </div>
 
 <!--<div class="row" style="margin-top: 30px">-->
-  <!--<div class="col-md-12 mb-3">-->
-    <!--&lt;!&ndash;<label class="form-label"&ndash;&gt;-->
-    <!--&lt;!&ndash;&gt;Business type </label&ndash;&gt;-->
-    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;<a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"&ndash;&gt;-->
-    <!--&lt;!&ndash;data-bs-toggle="tooltip" title="Select this item belongs to which type of business"&ndash;&gt;-->
-    <!--&lt;!&ndash;data-bs-original-title="Select this item belongs to which type of business"&ndash;&gt;-->
-    <!--&lt;!&ndash;aria-label="Select this item belongs to which type of business"><i class="fi-help"></i>&ndash;&gt;-->
-    <!--&lt;!&ndash;</a>&ndash;&gt;-->
-    <!--&lt;!&ndash; <div class="d-flex flex-column flex-sm-row"> &ndash;&gt;-->
-    <!--<ng-select-->
-      <!--[items]="businessCategories"-->
-      <!--bindLabel="name"-->
-      <!--placeholder="Select Business Type"-->
-      <!--dropdownPosition="auto"-->
-      <!--[multiple]="false"-->
-      <!--[searchWhileComposing]="true"-->
-      <!--(change)="getItemsOrdered()"-->
-      <!--[(ngModel)]="businessProfileCategory">-->
-    <!--</ng-select>-->
-    <!--&lt;!&ndash; <div class="invalid-tooltip">-->
-      <!--Please fill item quantity-->
-    <!--</div>-->
-    <!--<div class="valid-tooltip">Looks good!</div> &ndash;&gt;-->
-    <!--&lt;!&ndash; <button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
-      <!--<i class="fi-plus"></i>-->
-    <!--</button> &ndash;&gt;-->
-    <!--&lt;!&ndash; <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> &ndash;&gt;-->
-    <!--&lt;!&ndash; </div> &ndash;&gt;-->
+<!--<div class="col-md-12 mb-3">-->
+<!--&lt;!&ndash;<label class="form-label"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;Business type </label&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<a class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-auto help"&ndash;&gt;-->
+<!--&lt;!&ndash;data-bs-toggle="tooltip" title="Select this item belongs to which type of business"&ndash;&gt;-->
+<!--&lt;!&ndash;data-bs-original-title="Select this item belongs to which type of business"&ndash;&gt;-->
+<!--&lt;!&ndash;aria-label="Select this item belongs to which type of business"><i class="fi-help"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;</a>&ndash;&gt;-->
+<!--&lt;!&ndash; <div class="d-flex flex-column flex-sm-row"> &ndash;&gt;-->
+<!--<ng-select-->
+<!--[items]="businessCategories"-->
+<!--bindLabel="name"-->
+<!--placeholder="Select Business Type"-->
+<!--dropdownPosition="auto"-->
+<!--[multiple]="false"-->
+<!--[searchWhileComposing]="true"-->
+<!--(change)="getItemsOrdered()"-->
+<!--[(ngModel)]="businessProfileCategory">-->
+<!--</ng-select>-->
+<!--&lt;!&ndash; <div class="invalid-tooltip">-->
+<!--Please fill item quantity-->
+<!--</div>-->
+<!--<div class="valid-tooltip">Looks good!</div> &ndash;&gt;-->
+<!--&lt;!&ndash; <button type="button" class="btn btn-light-primary btn-icon shadow-sm">-->
+<!--<i class="fi-plus"></i>-->
+<!--</button> &ndash;&gt;-->
+<!--&lt;!&ndash; <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> &ndash;&gt;-->
+<!--&lt;!&ndash; </div> &ndash;&gt;-->
 
-  <!--</div>-->
+<!--</div>-->
 <!--</div>-->
 
 <!--modal item-->

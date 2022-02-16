@@ -48,7 +48,8 @@ export class ItemService {
   getNewItem() {
     return {
       itemId: "",
-      itemPackage: this.getNewItemPackage()
+      itemPackage: this.getNewItemPackage(),
+      packageOnly: false
     }
   }
 

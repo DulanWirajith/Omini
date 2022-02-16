@@ -355,6 +355,7 @@
                   <i class="fi-dislike"></i>
                   <span>({{itemPackageReview.dislikeCount}})</span>
                 </button>
+                <span *ngIf="getUser()!==null && getUser().role==='C'">
                 <button *ngIf="itemPackageReview.editReview"
                         style="margin-left: 15px;color: #0a53be;cursor: pointer;background: none;border: none;"
                         type="submit">
@@ -362,10 +363,11 @@
                 </button>
                 <span *ngIf="!itemPackageReview.editReview" style="margin-left: 15px;color: #0a53be;cursor: pointer"
                       (click)="itemPackageReview.editReview=true">
-                Edit
+                  Edit
                 </span>
                 <span style="margin-left: 20px;color: red;cursor: pointer"
                       (click)="removeItemPackageReview(itemPackageReview.itemPackageReviewId,i)">Remove</span>
+                </span>
               </div>
             </form>
           </div>

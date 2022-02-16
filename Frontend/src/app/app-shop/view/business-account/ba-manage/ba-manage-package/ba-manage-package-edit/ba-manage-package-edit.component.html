@@ -4,7 +4,8 @@
     <div class="d-flex align-items-center justify-content-between">
       <div style="display: flex">
         <h2 class="h5 mb-0" style="margin-right: 15px">{{packageItem.itemPackage.name}}</h2>
-        <span *ngIf="packageItem.itemPackage.itemPackageType==='Item'" class="badge rounded-pill bg-info" style="padding-top: 7px"> Item </span>
+        <span *ngIf="packageItem.itemPackage.itemPackageType==='Item'" class="badge rounded-pill bg-info"
+              style="padding-top: 7px"> Item </span>
         <span *ngIf="packageItem.itemPackage.itemPackageType==='Package'" class="badge rounded-pill bg-success"
               style="padding-top: 7px"> Package </span>
       </div>
@@ -179,7 +180,7 @@
           <p class="mb-2 fs-sm text-dark fw-bold">Includes </p>
           <!--Item-->
           <div class="col-sm-12 col-md-6 col-xl-6" *ngFor="let packageItemItem of packageItem.packageItemItems">
-            <div class="card shadow-sm card-hover border-0 h-100">
+            <div class="card shadow-sm card-hover border-0 h-100" *ngIf="packageItemItem.item!==undefined">
               <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.25)">
                 <a class="img-overlay"></a>
                 <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
@@ -744,12 +745,13 @@
           class="fi-arrow-back fs-lg me-2"></i>Back</a>
       </li>
       <!--<li class="nav-item me-2" *ngIf="backBtn" (click)="backBtn=false">-->
-        <!--<a id="package-back-btn" class="btn btn-md btn-outline-info item-viewer-g-btn" href="#item-view"-->
-           <!--data-bs-toggle="tab" role="tab"><i-->
-          <!--class="fi-arrow-back fs-lg me-2"></i>Back</a>-->
+      <!--<a id="package-back-btn" class="btn btn-md btn-outline-info item-viewer-g-btn" href="#item-view"-->
+      <!--data-bs-toggle="tab" role="tab"><i-->
+      <!--class="fi-arrow-back fs-lg me-2"></i>Back</a>-->
       <!--</li>-->
-      <li class="nav-item me-2" *ngIf="review || backBtn"  (click)="backBtn=false">
-        <a id="package-back-btn" class="btn btn-md btn-outline-info package-viewer-g-btn" href="#package-view" data-bs-toggle="tab"
+      <li class="nav-item me-2" *ngIf="review || backBtn" (click)="backBtn=false">
+        <a id="package-back-btn" class="btn btn-md btn-outline-info package-viewer-g-btn" href="#package-view"
+           data-bs-toggle="tab"
            role="tab" (click)="review=false"><i
           class="fi-arrow-back fs-lg me-2"></i>Back</a>
       </li>
