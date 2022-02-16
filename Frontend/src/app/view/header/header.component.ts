@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
 
   routeToShop() {
     this.profileService.profile.profileId = this.loginService.getUser().userId;
-    this.router.navigate(['/shop/header/shop_view'], {queryParams: {id: this.profileService.profile.profileId}})
+    this.router.navigate(['/shop/header/shop_view'])
+    localStorage.setItem('shop-view', JSON.stringify({id: this.profileService.profile.profileId}))
   }
 }

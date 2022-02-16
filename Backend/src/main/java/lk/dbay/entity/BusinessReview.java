@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -27,4 +28,7 @@ public class BusinessReview extends DateTime {
 
     @ManyToOne(optional = false)
     private CustomerProfile customerProfile;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "businessReview")
+    private Set<BusinessReviewResponse> businessReviewResponses;
 }

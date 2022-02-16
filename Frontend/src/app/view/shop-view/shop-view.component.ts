@@ -85,7 +85,7 @@ export class ShopViewComponent implements OnInit {
         this.selectedType = businessProfile.defaultBusiness;
         this.items = businessProfile.itemPackage.items;
         this.packageItems = businessProfile.itemPackage.itemPackages;
-        this.getBusinessReviews();
+        // this.getBusinessReviews();
         this.setShopCart(this.shopCartService.shopCart);
       }
     })
@@ -230,6 +230,23 @@ export class ShopViewComponent implements OnInit {
     })
   }
 
+  updateBusinessReview(businessReview) {
+    this.profileService.updateBusinessReview(businessReview, businessReview.businessReviewId).subscribe((businessReviewR) => {
+      businessReview.description = businessReviewR.description;
+      businessReview.rating = businessReviewR.rating;
+      businessReview.tempRating = businessReviewR.tempRating;
+      businessReview.editReview = false;
+    })
+  }
+
+  removeBusinessReview(reviewId, index) {
+    this.profileService.removeBusinessReview(reviewId).subscribe((reply) => {
+      if (reply) {
+        this.businessReviews.splice(index, 1)
+      }
+    })
+  }
+
   addBusinessReviewResponse(businessReview, response) {
     // console.log(itemPackageReview)
     if (this.getUser().role === 'C') {
@@ -302,5 +319,9 @@ export class ShopViewComponent implements OnInit {
         customerProId: ''
       }
     }
+  }
+
+  getBreadCrumb() {
+    return this.profileService.profile.breadCrumb;
   }
 }

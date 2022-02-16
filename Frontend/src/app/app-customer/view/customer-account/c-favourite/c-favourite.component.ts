@@ -17,7 +17,7 @@ export class CFavouriteComponent implements OnInit {
   items = [];
   packageItems = [];
 
-  constructor(private itemService: ItemService, private sanitizer: DomSanitizer,private profileService: ProfileGService, private router: Router, private shopCartService: ShopCartService,private itemServiceG: ItemGService) {
+  constructor(private itemService: ItemService, private sanitizer: DomSanitizer, private profileService: ProfileGService, private router: Router, private shopCartService: ShopCartService, private itemServiceG: ItemGService) {
     this.shopCartService.shopCartItemsSub.subscribe((item) => {
       // console.log(item)
       // console.log(this.items)
@@ -73,7 +73,9 @@ export class CFavouriteComponent implements OnInit {
   routeToShop(profileId) {
     this.profileService.profile.profileId = profileId;
     this.profileService.profile.returnUrl = '/customer/header/customer_account/customer_favourite';
-    this.router.navigate(['/shop/header/shop_view'], {queryParams: {id: this.profileService.profile.profileId}})
+    this.profileService.profile.breadCrumb = ['Account', 'Favourite'];
+    this.router.navigate(['/shop/header/shop_view'])
+    localStorage.setItem('shop-view', JSON.stringify({id: this.profileService.profile.profileId}))
   }
 
   addToCart(item, orderDetailType) {

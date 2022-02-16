@@ -88,11 +88,28 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
       itemPackageId: this.itemPackage.itemPackageId
     };
     // this.itemPackageReview.reviewType = 'ItemPackage';
-    this.itemPackageReview.customerProfile.customerProId = JSON.parse(localStorage.getItem('user')).customerProfile.customerProId;
+    this.itemPackageReview.customerProfile.customerProId = this.getUser().customerProfile.customerProId;
     this.itemService.addItemPackageReview(this.itemPackageReview).subscribe((itemPackageReview) => {
       this.itemPackageReviews.push(itemPackageReview);
-      this.reviewForm.resetForm()
+      this.reviewForm.resetForm();
       this.itemPackageReview = this.getNewItemPackageReview();
+    })
+  }
+
+  updateItemPackageReview(itemPackageReview) {
+    this.itemService.updateItemPackageReview(itemPackageReview, itemPackageReview.itemPackageReviewId).subscribe((itemPackageReviewR) => {
+      itemPackageReview.description = itemPackageReviewR.description;
+      itemPackageReview.rating = itemPackageReviewR.rating;
+      itemPackageReview.tempRating = itemPackageReviewR.tempRating;
+      itemPackageReview.editReview = false;
+    })
+  }
+
+  removeItemPackageReview(reviewId, index) {
+    this.itemService.removeItemPackageReview(reviewId).subscribe((reply) => {
+      if (reply) {
+        this.itemPackageReviews.splice(index, 1)
+      }
     })
   }
 

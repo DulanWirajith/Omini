@@ -26,15 +26,20 @@ public class ItemPackageReviewDTO extends DateTimeDTO {
     //    private ItemDTO item;
     private CustomerProfileDTO customerProfile;
     private String postedDate;
-
+    private int rating;
+    private int tempRating;
     private int likeCount;
     private int dislikeCount;
     private ItemPackageReviewResponseDTO responseByMe;
+    private boolean editReview;
+    private boolean removeReview;
 
     public ItemPackageReviewDTO(ItemPackageReview itemPackageReview) {
         if (itemPackageReview != null) {
             this.itemPackageReviewId = itemPackageReview.getItemPackageReviewId();
             this.description = itemPackageReview.getDescription();
+            this.rating = itemPackageReview.getRating();
+            this.tempRating = itemPackageReview.getRating();
             if (itemPackageReview.getUpdatedAt() != null) {
                 this.postedDate = itemPackageReview.getUpdatedAt().format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
             } else {

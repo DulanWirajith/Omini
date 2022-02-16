@@ -10,7 +10,7 @@ import {DatePipe} from "@angular/common";
   styleUrls: ['./c-order.component.css'],
   providers: [DatePipe]
 })
-export class COrderComponent implements OnInit, OnDestroy {
+export class COrderComponent implements OnInit {
 
   static lastComp: COrderComponent;
 
@@ -21,22 +21,22 @@ export class COrderComponent implements OnInit, OnDestroy {
   canceledOrders = [];
 
   constructor(private itemService: ItemService, private loginService: LoginService, private datePipe: DatePipe) {
-    if (COrderComponent.lastComp === undefined) {
-
-    } else {
-      return COrderComponent.lastComp;
-    }
+    // if (COrderComponent.lastComp === undefined) {
+    //
+    // } else {
+    //   return COrderComponent.lastComp;
+    // }
   }
 
   ngOnInit(): void {
-    if (COrderComponent.lastComp === undefined) {
-      this.getCustomerOrders('Pending', this.getPreDate(), this.getCurDate());
-    }
+    // if (COrderComponent.lastComp === undefined) {
+    this.getCustomerOrders('Pending', this.getPreDate(), this.getCurDate());
+    // }
   }
 
-  ngOnDestroy(): void {
-    COrderComponent.lastComp = this;
-  }
+  // ngOnDestroy(): void {
+  //   COrderComponent.lastComp = this;
+  // }
 
   getCustomerOrders(status, from, to) {
     this.itemService.getCustomerOrders(this.loginService.getUser().userId, status, from, to).subscribe((itemOrders) => {

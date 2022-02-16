@@ -49,12 +49,12 @@
             <h6 class="fs-base mb-0">
               {{businessReview.customerProfile.firstName + ' ' + businessReview.customerProfile.lastName}}
             </h6>
-            <!--<span class="star-rating"><i-->
-            <!--class="star-rating-icon fi-star-filled active"></i><i-->
-            <!--class="star-rating-icon fi-star-filled active"></i><i-->
-            <!--class="star-rating-icon fi-star-filled active"></i><i-->
-            <!--class="star-rating-icon fi-star-filled active"></i><i-->
-            <!--class="star-rating-icon fi-star-filled active"></i></span>-->
+            <span class="star-rating">
+                      <i *ngFor="let rating of [].constructor(businessReview.tempRating)"
+                         class="star-rating-icon fi-star-filled active"></i>
+                      <i *ngFor="let rating of [].constructor(5-businessReview.tempRating)"
+                         class="star-rating-icon fi-star-filled"></i>
+                    </span>
           </div>
         </div>
         <!--<span class="text-muted fs-sm">Jan 17, 2021</span>-->

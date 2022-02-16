@@ -532,7 +532,8 @@
             </div>
           </div>
           <!-- Review-->
-          <div class="mb-4 pb-4 border-bottom" *ngFor="let itemPackageReview of itemPackageReviews">
+          <div class="mb-4 pb-4" *ngFor="let itemPackageReview of itemPackageReviews;let isLast=last"
+               [ngClass]="!isLast?'border-bottom':''">
             <div class="d-flex justify-content-between mb-3">
               <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
                                                                src="assets/img/37.png" width="48" alt="Avatar">
@@ -540,12 +541,12 @@
                   <h6 class="fs-base mb-0">
                     {{itemPackageReview.customerProfile.firstName + ' ' + itemPackageReview.customerProfile.lastName}}
                   </h6>
-                  <!--<span class="star-rating"><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i></span>-->
+                  <span class="star-rating">
+                      <i *ngFor="let rating of [].constructor(itemPackageReview.tempRating)"
+                         class="star-rating-icon fi-star-filled active"></i>
+                      <i *ngFor="let rating of [].constructor(5-itemPackageReview.tempRating)"
+                         class="star-rating-icon fi-star-filled"></i>
+                    </span>
                 </div>
               </div>
               <!--<span class="text-muted fs-sm">Jan 17, 2021</span>-->
@@ -578,7 +579,8 @@
   <div class="offcanvas-footer border-top" style="display: block;">
     <ul class="nav nav-tabs justify-content-end" role="tablist">
       <li class="nav-item me-2" *ngIf="backBtn" (click)="backBtn=false">
-        <a id="item-back-btn" class="btn btn-md btn-outline-info item-viewer-g-btn" href="#item-view" data-bs-toggle="tab" role="tab"><i
+        <a id="item-back-btn" class="btn btn-md btn-outline-info item-viewer-g-btn" href="#item-view"
+           data-bs-toggle="tab" role="tab"><i
           class="fi-arrow-back fs-lg me-2"></i>Back</a>
       </li>
       <li class="nav-item me-2" (click)="backBtn=true">

@@ -32,6 +32,10 @@ public interface ItemPackageS {
 
     ItemPackageDTO getFavItemPackages(String customerId);
 
+    ItemPackageReviewDTO updateItemPackageReview(ItemPackageReview itemPackageReview, String reviewId);
+
+    boolean removeItemPackageReview(String reviewId) throws Exception;
+
 //    ItemReviewDTO addItemPackageReview(ItemReview itemReview);
 
 //    List<ItemReviewDTO> getItemPackageReviews(String itemId, String customerId, String reviewType);

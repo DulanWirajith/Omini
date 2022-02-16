@@ -1,4 +1,5 @@
-<button *ngIf="getUser() !== null && getUser().role === 'C'" class="btn btn-icon btn-light rounded-circle position-fixed top-50 end-0 translate-middle-y me-3"
+<button *ngIf="getUser() !== null && getUser().role === 'C'"
+        class="btn btn-icon btn-light rounded-circle position-fixed top-50 end-0 translate-middle-y me-3"
         type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="cart"
         style="z-index: 1035;color: #FD5631;border: 2px solid #FD5631">
   <div
@@ -98,8 +99,10 @@
             <ul class="nav nav-pills nav-fill" role="tablist">
               <li class="nav-item"><a class="nav-link d-flex align-items-center active" href="#biz-item-categories"
                                       data-bs-toggle="tab" role="tab"><i class="fi-list me-2"></i>Categories</a></li>
-              <li class="nav-item"><a class="nav-link d-flex align-items-center" href="#biz-reviews"
-                                      data-bs-toggle="tab" role="tab"><i class="fi-star me-2"></i>Reviews</a></li>
+              <li class="nav-item" (click)="getBusinessReviews()"><a class="nav-link d-flex align-items-center"
+                                                                     href="#biz-reviews"
+                                                                     data-bs-toggle="tab" role="tab"><i
+                class="fi-star me-2"></i>Reviews</a></li>
             </ul>
           </div>
           <div class="offcanvas-body py-lg-4">
@@ -167,9 +170,11 @@
                   <!-- Reviews-->
                   <div class="mb-4 pb-4 border-bottom">
                     <h3 class="h4 pb-3">
-                      <i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9 ({{businessReviews.length}} review{{businessReviews.length>1?'s':''}})</h3>
+                      <i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9
+                      ({{businessReviews.length}} review{{businessReviews.length>1?'s':''}})</h3>
                     <div class="d-flex flex-sm-row flex-md-column align-items-sm-center justify-content-between">
-                      <a *ngIf="getUser()!==null && getUser().role==='C'" class="btn btn-sm btn-outline-primary mb-sm-0 mb-2" href="#add-review"
+                      <a *ngIf="getUser()!==null && getUser().role==='C'"
+                         class="btn btn-sm btn-outline-primary mb-sm-0 mb-2" href="#add-review"
                          data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="add-review"><i
                         class="fi-edit me-1"></i>Add review</a>
                       <div class="d-flex align-items-center ms-sm-1" style="margin-top: 20px">
@@ -224,45 +229,89 @@
                     </div>
                   </div>
                   <!-- Review-->
-                  <div class="mb-4 pb-4 border-bottom" *ngFor="let businessReview of businessReviews">
-                    <div class="d-flex justify-content-between mb-3">
-                      <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
-                                                                       src="assets/img/37.png" width="48"
-                                                                       alt="Avatar">
-                        <div class="ps-2">
-                          <h6 class="fs-base mb-0">
-                            {{businessReview.customerProfile.firstName + ' ' + businessReview.customerProfile.lastName}}
-                          </h6>
-                          <!--<span class="star-rating"><i-->
-                          <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                          <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                          <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                          <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                          <!--class="star-rating-icon fi-star-filled active"></i></span>-->
+                  <div class="mb-4 pb-4" *ngFor="let businessReview of businessReviews;let isLast=last;let i=index"
+                       [ngClass]="!isLast?'border-bottom':''">
+                    <form #reviewUpdateForm="ngForm"
+                          (ngSubmit)="reviewUpdateForm.form.valid && updateBusinessReview(businessReview,i)"
+                          novalidate>
+                      <div class="d-flex justify-content-between mb-3">
+                        <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
+                                                                         src="assets/img/37.png" width="48"
+                                                                         alt="Avatar">
+                          <div class="ps-2">
+                            <h6 class="fs-base mb-0">
+                              {{businessReview.customerProfile.firstName + ' ' +
+                              businessReview.customerProfile.lastName}}
+                            </h6>
+                            <span class="star-rating">
+                      <i *ngFor="let rating of [].constructor(businessReview.tempRating)"
+                         class="star-rating-icon fi-star-filled active"></i>
+                      <i *ngFor="let rating of [].constructor(5-businessReview.tempRating)"
+                         class="star-rating-icon fi-star-filled"></i>
+                    </span>
+                          </div>
+                        </div>
+                        <!--<span class="text-muted fs-sm">Jan 17, 2021</span>-->
+                        <span class="text-muted fs-sm">{{businessReview.postedDate}}</span>
+                      </div>
+                      <div *ngIf="businessReview.editReview">
+                        <select class="form-control form-select"
+                                [(ngModel)]="businessReview.rating" #businessReviewRateE="ngModel"
+                                name="businessReviewRateE" required style="margin-bottom: 10px">
+                          <option value="" selected>Choose rating</option>
+                          <option value="5">5 stars</option>
+                          <option value="4">4 stars</option>
+                          <option value="3">3 stars</option>
+                          <option value="2">2 stars</option>
+                          <option value="1">1 star</option>
+                        </select>
+                        <div
+                          *ngIf="(businessReviewRateE.touched || reviewUpdateForm.submitted) && businessReviewRateE.errors?.required"
+                          class="validErr" style="margin-bottom: 10px">
+                          Please rate the property
+                        </div>
+                        <textarea style="margin-bottom: 20px" class="form-control"
+                                  type="text" name="businessReviewDescE" required #businessReviewDescE="ngModel"
+                                  [(ngModel)]="businessReview.description"></textarea>
+                        <div
+                          *ngIf="(businessReviewDescE.touched || reviewUpdateForm.submitted) && businessReviewDescE.errors?.required"
+                          class="validErr" style="margin-bottom: 10px">
+                          Please write your review
                         </div>
                       </div>
-                      <!--<span class="text-muted fs-sm">Jan 17, 2021</span>-->
-                      <span class="text-muted fs-sm">{{businessReview.postedDate}}</span>
-                    </div>
-                    <p>{{businessReview.description}}</p>
-                    <div class="d-flex align-items-center">
-                      <button class="btn-like" type="button" (click)="addBusinessReviewResponse(businessReview,'like')"
-                              [ngStyle]="{'color':
+                      <p *ngIf="!businessReview.editReview">{{businessReview.description}}</p>
+                      <div class="d-flex align-items-center">
+                        <button class="btn-like" type="button"
+                                (click)="addBusinessReviewResponse(businessReview,'like')"
+                                [ngStyle]="{'color':
               businessReview.responseByMe!==undefined?
               businessReview.responseByMe.response==='like'?'green':'':''}">
-                        <i class="fi-like"></i>
-                        <span>({{businessReview.likeCount}})</span>
-                      </button>
-                      <div class="border-end me-1">&nbsp;</div>
-                      <button class="btn-dislike" type="button"
-                              (click)="addBusinessReviewResponse(businessReview,'dislike')"
-                              [ngStyle]="{'color':
+                          <i class="fi-like"></i>
+                          <span>({{businessReview.likeCount}})</span>
+                        </button>
+                        <div class="border-end me-1">&nbsp;</div>
+                        <button class="btn-dislike" type="button"
+                                (click)="addBusinessReviewResponse(businessReview,'dislike')"
+                                [ngStyle]="{'color':
               businessReview.responseByMe!==undefined?
               businessReview.responseByMe.response==='dislike'?'red':'':''}">
-                        <i class="fi-dislike"></i>
-                        <span>({{businessReview.dislikeCount}})</span>
-                      </button>
-                    </div>
+                          <i class="fi-dislike"></i>
+                          <span>({{businessReview.dislikeCount}})</span>
+                        </button>
+                        <button *ngIf="businessReview.editReview"
+                                style="margin-left: 15px;color: #0a53be;cursor: pointer;background: none;border: none;"
+                                type="submit">
+                          Save
+                        </button>
+                        <span *ngIf="!businessReview.editReview"
+                              style="margin-left: 15px;color: #0a53be;cursor: pointer"
+                              (click)="businessReview.editReview=true">
+                Edit
+                </span>
+                        <span style="margin-left: 20px;color: red;cursor: pointer"
+                              (click)="removeBusinessReview(businessReview.businessReviewId,i)">Remove</span>
+                      </div>
+                    </form>
                   </div>
 
                 </div>
@@ -277,15 +326,17 @@
         <!-- Breadcrumb-->
         <nav class="mb-3 pt-md-2" aria-label="Breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="./indexo.html">Home</a></li>
-            <li class="breadcrumb-item" aria-current="page"><a href="./client-shop-view.html">Find Item</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Business name</li>
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item" aria-current="page" *ngFor="let breadC of getBreadCrumb()">
+              <a>{{breadC}}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Shop</li>
           </ol>
         </nav>
         <!-- Title-->
         <div class="d-sm-flex align-items-center justify-content-between pb-3 pb-sm-4 mb-3">
           <div style="display: flex">
-            <i *ngIf="getUser()!==null && getUser().role==='C'" class="fas fa-arrow-circle-left"
+            <i class="fas fa-arrow-circle-left"
                [routerLink]="getReturnUrl()"
                style="font-size: 30px;padding-top: 7px"></i>
             <h1 class="h2 mb-sm-0" style="margin-left: 10px">{{businessProfile.businessName}}</h1>
@@ -448,7 +499,8 @@
 
                         </div>
                       </div>
-                      <div style="display: flex" *ngIf="item.orderDetail!==undefined && getUser()!==null && getUser().role==='C'">
+                      <div style="display: flex"
+                           *ngIf="item.orderDetail!==undefined && getUser()!==null && getUser().role==='C'">
                         <button style="background-color: #06A773"
                                 class="btn btn-icon btn-sm text-primary rounded-circle"
                                 type="button" data-bs-toggle="tooltip" title="Add to Cart"
@@ -586,7 +638,8 @@
 
                         </div>
                       </div>
-                      <div style="display: flex" *ngIf="item.orderDetail!==undefined && getUser()!==null && getUser().role==='C'">
+                      <div style="display: flex"
+                           *ngIf="item.orderDetail!==undefined && getUser()!==null && getUser().role==='C'">
                         <button style="background-color: #06A773"
                                 class="btn btn-icon btn-sm text-primary rounded-circle"
                                 type="button" data-bs-toggle="tooltip" title="Add to Cart"

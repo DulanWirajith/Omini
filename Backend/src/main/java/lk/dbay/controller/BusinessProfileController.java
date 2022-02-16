@@ -83,9 +83,9 @@ public class BusinessProfileController {
     //
 
     @PostMapping(value = CommonConstants.CUSTOMER + "/addBusinessReview")
-    public ResponseEntity addBusinessReview(@RequestBody BusinessReview itemPackageReview) {
+    public ResponseEntity addBusinessReview(@RequestBody BusinessReview businessReview) {
         try {
-            BusinessReviewDTO businessReviewDTO = businessProfileS.addBusinessReview(itemPackageReview);
+            BusinessReviewDTO businessReviewDTO = businessProfileS.addBusinessReview(businessReview);
             if (businessReviewDTO != null) {
                 return ResponseEntity.ok(businessReviewDTO);
             } else {
@@ -93,6 +93,33 @@ public class BusinessProfileController {
             }
         } catch (DataIntegrityViolationException e) {
             return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = CommonConstants.CUSTOMER + "/updateBusinessReview/{reviewId}")
+    public ResponseEntity updateBusinessReview(@RequestBody BusinessReview businessReview, @PathVariable String reviewId) {
+        try {
+            BusinessReviewDTO businessReviewDTO = businessProfileS.updateBusinessReview(businessReview, reviewId);
+            if (businessReviewDTO != null) {
+                return ResponseEntity.ok(businessReviewDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = CommonConstants.CUSTOMER + "/removeBusinessReview/{reviewId}")
+    public ResponseEntity removeBusinessReview(@PathVariable String reviewId) {
+        try {
+            return ResponseEntity.ok(businessProfileS.removeBusinessReview(reviewId));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

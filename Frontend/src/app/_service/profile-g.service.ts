@@ -12,6 +12,7 @@ export class ProfileGService {
   profile = {
     profileId: '',
     returnUrl: '',
+    breadCrumb: [],
     business: undefined
   };
 
@@ -32,6 +33,14 @@ export class ProfileGService {
 
   addBusinessReview(businessReview): Observable<any> {
     return this.http.post<any>(environment.backend_url + 'business_profile/customer/addBusinessReview', businessReview, {headers: this.commonService.createAuthorizationHeader()});
+  }
+
+  updateBusinessReview(businessReview, reviewId): Observable<any> {
+    return this.http.put<any>(environment.backend_url + 'business_profile/customer/updateBusinessReview/' + reviewId, businessReview, {headers: this.commonService.createAuthorizationHeader()});
+  }
+
+  removeBusinessReview(reviewId): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + 'business_profile/customer/removeBusinessReview/' + reviewId, {headers: this.commonService.createAuthorizationHeader()});
   }
 
   addBusinessReviewResponse(businessReviewResponse): Observable<any> {

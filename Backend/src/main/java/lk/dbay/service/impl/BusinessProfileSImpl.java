@@ -143,8 +143,8 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         if (businessReviews != null) {
             for (BusinessReview businessReview : businessReviews) {
                 BusinessReviewDTO businessReviewDTO = new BusinessReviewDTO(businessReview);
-                List<BusinessReviewResponse> responses = businessReviewResponseR.getAllByBusinessReview_BusinessReviewId(businessReview.getBusinessReviewId());
-                for (BusinessReviewResponse reviewResponse : responses) {
+//                List<BusinessReviewResponse> responses = businessReviewResponseR.getAllByBusinessReview_BusinessReviewId(businessReview.getBusinessReviewId());
+                for (BusinessReviewResponse reviewResponse : businessReview.getBusinessReviewResponses()) {
                     if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
                         businessReviewDTO.setResponseByMe(new BusinessReviewResponseDTO(reviewResponse));
                     }
@@ -170,6 +170,31 @@ public class BusinessProfileSImpl implements BusinessProfileS {
         BusinessReviewDTO businessReviewDTO = new BusinessReviewDTO(businessReview);
         businessReviewDTO.setCustomerProfile(businessReview);
         return businessReviewDTO;
+    }
+
+    @Override
+    public BusinessReviewDTO updateBusinessReview(BusinessReview businessReview, String reviewId) {
+        Optional<BusinessReview> businessReviewOptional = businessReviewR.findById(reviewId);
+        if (businessReviewOptional.isPresent()) {
+            BusinessReview businessReviewObj = businessReviewOptional.get();
+            businessReviewObj.setDescription(businessReview.getDescription());
+            businessReviewObj.setRating(businessReview.getRating());
+            businessReviewObj = businessReviewR.save(businessReviewObj);
+            //            itemPackageReviewDTO.setCustomerProfile(itemPackageReviewObj);
+            return new BusinessReviewDTO(businessReviewObj);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean removeBusinessReview(String reviewId) throws Exception {
+        try {
+            businessReviewR.deleteById(reviewId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("You cannot remove this item, since it is used.");
+        }
     }
 
     @Override

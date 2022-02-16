@@ -26,6 +26,14 @@ export class ItemGService {
     return this.http.post<any>(environment.backend_url + 'item_package/customer/addItemPackageReview', itemReview, {headers: this.commonService.createAuthorizationHeader()});
   }
 
+  updateItemPackageReview(itemReview, reviewId): Observable<any> {
+    return this.http.put<any>(environment.backend_url + 'item_package/customer/updateItemPackageReview/' + reviewId, itemReview, {headers: this.commonService.createAuthorizationHeader()});
+  }
+
+  removeItemPackageReview(reviewId): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + 'item_package/customer/removeItemPackageReview/' + reviewId, {headers: this.commonService.createAuthorizationHeader()});
+  }
+
   addItemPackageResponse(itemReviewResponse): Observable<any> {
     return this.http.post<any>(environment.backend_url + 'item_package/customer/addItemPackageResponse', itemReviewResponse, {headers: this.commonService.createAuthorizationHeader()});
   }

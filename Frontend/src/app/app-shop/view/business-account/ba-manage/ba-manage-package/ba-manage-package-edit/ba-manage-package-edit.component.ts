@@ -59,7 +59,7 @@ export class BaManagePackageEditComponent implements OnInit {
       this.itemIndex = packageItem.index
       this.getAlbum(this.packageItem);
       // this.backBtn=true
-      let yourElem = <HTMLElement>document.querySelector('.item-viewer-g-btn');
+      let yourElem = <HTMLElement>document.querySelector('.package-viewer-g-btn');
       if (yourElem !== null) {
         yourElem.click();
         // if (this.review) {

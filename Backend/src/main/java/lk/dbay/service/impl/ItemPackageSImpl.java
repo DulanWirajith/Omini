@@ -65,8 +65,8 @@ public class ItemPackageSImpl implements ItemPackageS {
 //            itemsBySearch = itemPackageR.getItemPackagesBySearchItem("%" + txt + "%", category);
 //            packagesBySearch = itemPackageR.getItemPackagesBySearchPackage("%" + txt + "%", category);
 //        }
-        List<ItemPackage> itemsBySearch = itemPackageDAO.getItemPackages("Item", txt, category,district,town);
-        List<ItemPackage> packagesBySearch = itemPackageDAO.getItemPackages("Package", txt, category,district,town);
+        List<ItemPackage> itemsBySearch = itemPackageDAO.getItemPackages("Item", txt, category, district, town);
+        List<ItemPackage> packagesBySearch = itemPackageDAO.getItemPackages("Package", txt, category, district, town);
         setItemPackageDTO(itemsBySearch, items, customerId);
         setItemPackageDTO(packagesBySearch, itemPackages, customerId);
         itemPackageDTO.setItemPackages(itemPackages);
@@ -151,14 +151,39 @@ public class ItemPackageSImpl implements ItemPackageS {
     }
 
     @Override
+    public ItemPackageReviewDTO updateItemPackageReview(ItemPackageReview itemPackageReview, String reviewId) {
+        Optional<ItemPackageReview> itemPackageReviewOptional = itemPackageReviewR.findById(reviewId);
+        if (itemPackageReviewOptional.isPresent()) {
+            ItemPackageReview itemPackageReviewObj = itemPackageReviewOptional.get();
+            itemPackageReviewObj.setDescription(itemPackageReview.getDescription());
+            itemPackageReviewObj.setRating(itemPackageReview.getRating());
+            itemPackageReviewObj = itemPackageReviewR.save(itemPackageReviewObj);
+            //            itemPackageReviewDTO.setCustomerProfile(itemPackageReviewObj);
+            return new ItemPackageReviewDTO(itemPackageReviewObj);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean removeItemPackageReview(String reviewId) throws Exception {
+        try {
+            itemPackageReviewR.deleteById(reviewId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("You cannot remove this item, since it is used.");
+        }
+    }
+
+    @Override
     public List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId) {
         List<ItemPackageReview> itemPackageReviews = itemPackageReviewR.getAllByItemPackage_ItemPackageId(itemId);
         List<ItemPackageReviewDTO> itemPackageReviewDTOS = new ArrayList<>();
         if (itemPackageReviews != null) {
             for (ItemPackageReview itemPackageReview : itemPackageReviews) {
                 ItemPackageReviewDTO itemPackageReviewDTO = new ItemPackageReviewDTO(itemPackageReview);
-                List<ItemPackageReviewResponse> responses = itemPackageReviewResponseR.getAllByItemPackageReview_ItemPackageReviewId(itemPackageReview.getItemPackageReviewId());
-                for (ItemPackageReviewResponse reviewResponse : responses) {
+//                List<ItemPackageReviewResponse> responses = itemPackageReviewResponseR.getAllByItemPackageReview_ItemPackageReviewId(itemPackageReview.getItemPackageReviewId());
+                for (ItemPackageReviewResponse reviewResponse : itemPackageReview.getItemPackageReviewResponses()) {
                     if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
                         itemPackageReviewDTO.setResponseByMe(new ItemPackageReviewResponseDTO(reviewResponse));
                     }
@@ -241,4 +266,5 @@ public class ItemPackageSImpl implements ItemPackageS {
         itemPackageDTO.setItems(items);
         return itemPackageDTO;
     }
+
 }

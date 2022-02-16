@@ -234,7 +234,8 @@
             </h3>
             <div
               class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
-              <a *ngIf="getUser()!==null && getUser().role==='C'" class="btn btn-outline-primary mb-sm-0 mb-3" href="#add-review" data-bs-toggle="collapse" role="button"
+              <a *ngIf="getUser()!==null && getUser().role==='C'" class="btn btn-outline-primary mb-sm-0 mb-3"
+                 href="#add-review" data-bs-toggle="collapse" role="button"
                  aria-expanded="false" aria-controls="add-review"><i class="fi-edit me-1"></i>Add review</a>
               <div class="d-flex align-items-center ms-sm-4">
                 <label class="me-2 pe-1 text-nowrap" for="reviews-sorting"><i
@@ -290,43 +291,83 @@
             </div>
           </div>
           <!-- Review-->
-          <div class="mb-4 pb-4 border-bottom" *ngFor="let itemPackageReview of itemPackageReviews">
-            <div class="d-flex justify-content-between mb-3">
-              <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
-                                                               src="assets/img/37.png" width="48" alt="Avatar">
-                <div class="ps-2">
-                  <h6 class="fs-base mb-0">
-                    {{itemPackageReview.customerProfile.firstName + ' ' + itemPackageReview.customerProfile.lastName}}
-                  </h6>
-                  <!--<span class="star-rating"><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i><i-->
-                  <!--class="star-rating-icon fi-star-filled active"></i></span>-->
+          <div class="mb-4 pb-4" *ngFor="let itemPackageReview of itemPackageReviews;let isLast=last;let i=index"
+               [ngClass]="!isLast?'border-bottom':''">
+            <form #reviewUpdateForm="ngForm"
+                  (ngSubmit)="reviewUpdateForm.form.valid && updateItemPackageReview(itemPackageReview,i)" novalidate>
+              <div class="d-flex justify-content-between mb-3">
+                <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
+                                                                 src="assets/img/37.png" width="48" alt="Avatar">
+                  <div class="ps-2">
+                    <h6 class="fs-base mb-0">
+                      {{itemPackageReview.customerProfile.firstName + ' ' + itemPackageReview.customerProfile.lastName}}
+                    </h6>
+                    <span class="star-rating">
+                      <i *ngFor="let rating of [].constructor(itemPackageReview.tempRating)"
+                         class="star-rating-icon fi-star-filled active"></i>
+                      <i *ngFor="let rating of [].constructor(5-itemPackageReview.tempRating)"
+                         class="star-rating-icon fi-star-filled"></i>
+                    </span>
+                  </div>
+                </div>
+                <!--<span class="text-muted fs-sm">Jan 17, 2021</span>-->
+                <span class="text-muted fs-sm">{{itemPackageReview.postedDate}}</span>
+              </div>
+              <div *ngIf="itemPackageReview.editReview">
+                <select class="form-control form-select"
+                        [(ngModel)]="itemPackageReview.rating" #itemPackageReviewRateE="ngModel"
+                        name="itemPackageReviewRateE" required style="margin-bottom: 10px">
+                  <option value="" selected>Choose rating</option>
+                  <option value="5">5 stars</option>
+                  <option value="4">4 stars</option>
+                  <option value="3">3 stars</option>
+                  <option value="2">2 stars</option>
+                  <option value="1">1 star</option>
+                </select>
+                <div
+                  *ngIf="(itemPackageReviewRateE.touched || reviewUpdateForm.submitted) && itemPackageReviewRateE.errors?.required"
+                  class="validErr" style="margin-bottom: 10px">
+                  Please rate the property
+                </div>
+                <textarea style="margin-bottom: 20px" class="form-control"
+                          type="text" name="itemPackageReviewDescE" required #itemPackageReviewDescE="ngModel"
+                          [(ngModel)]="itemPackageReview.description"></textarea>
+                <div
+                  *ngIf="(itemPackageReviewDescE.touched || reviewUpdateForm.submitted) && itemPackageReviewDescE.errors?.required"
+                  class="validErr" style="margin-bottom: 10px">
+                  Please write your review
                 </div>
               </div>
-              <!--<span class="text-muted fs-sm">Jan 17, 2021</span>-->
-              <span class="text-muted fs-sm">{{itemPackageReview.postedDate}}</span>
-            </div>
-            <p>{{itemPackageReview.description}}</p>
-            <div class="d-flex align-items-center">
-              <button class="btn-like" type="button" (click)="addItemReviewResponse(itemPackageReview,'like')"
-                      [ngStyle]="{'color':
+              <p *ngIf="!itemPackageReview.editReview">{{itemPackageReview.description}}</p>
+              <div class="d-flex align-items-center">
+                <button class="btn-like" type="button" (click)="addItemReviewResponse(itemPackageReview,'like')"
+                        [ngStyle]="{'color':
               itemPackageReview.responseByMe!==undefined?
               itemPackageReview.responseByMe.response==='like'?'green':'':''}">
-                <i class="fi-like"></i>
-                <span>({{itemPackageReview.likeCount}})</span>
-              </button>
-              <div class="border-end me-1">&nbsp;</div>
-              <button class="btn-dislike" type="button" (click)="addItemReviewResponse(itemPackageReview,'dislike')"
-                      [ngStyle]="{'color':
+                  <i class="fi-like"></i>
+                  <span>({{itemPackageReview.likeCount}})</span>
+                </button>
+                <div class="border-end me-1">&nbsp;</div>
+                <button class="btn-dislike" type="button" (click)="addItemReviewResponse(itemPackageReview,'dislike')"
+                        [ngStyle]="{'color':
               itemPackageReview.responseByMe!==undefined?
               itemPackageReview.responseByMe.response==='dislike'?'red':'':''}">
-                <i class="fi-dislike"></i>
-                <span>({{itemPackageReview.dislikeCount}})</span>
-              </button>
-            </div>
+                  <i class="fi-dislike"></i>
+                  <span>({{itemPackageReview.dislikeCount}})</span>
+                </button>
+                <button *ngIf="itemPackageReview.editReview"
+                        style="margin-left: 15px;color: #0a53be;cursor: pointer;background: none;border: none;"
+                        type="submit">
+                  Save
+                </button>
+                <span *ngIf="!itemPackageReview.editReview" style="margin-left: 15px;color: #0a53be;cursor: pointer"
+                      (click)="itemPackageReview.editReview=true">
+                Edit
+                </span>
+                <span style="margin-left: 20px;color: red;cursor: pointer"
+                      (click)="removeItemPackageReview(itemPackageReview.itemPackageReviewId,i)">Remove</span>
+              </div>
+            </form>
           </div>
 
         </div>
@@ -335,8 +376,10 @@
     </div>
   </div>
 
-  <div class="offcanvas-footer border-top" [ngStyle]="{'display': (getUser()!==null && getUser().role==='C')?'flex':'block'}">
-    <button *ngIf="getUser()!==null && getUser().role==='C'" class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+  <div class="offcanvas-footer border-top"
+       [ngStyle]="{'display': (getUser()!==null && getUser().role==='C')?'flex':'block'}">
+    <button *ngIf="getUser()!==null && getUser().role==='C'"
+            class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
             data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourite"
             style="padding-bottom: 24px" (click)="setItemFavourite(itemPackage)">
       <i *ngIf="!itemPackage.favourite" class="fi-heart" style="font-size: 26px"></i>

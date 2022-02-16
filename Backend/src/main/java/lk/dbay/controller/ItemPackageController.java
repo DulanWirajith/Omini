@@ -81,6 +81,33 @@ public class ItemPackageController {
         }
     }
 
+    @PutMapping(value = CommonConstants.CUSTOMER + "/updateItemPackageReview/{reviewId}")
+    public ResponseEntity updateItemPackageReview(@RequestBody ItemPackageReview itemPackageReview, @PathVariable String reviewId) {
+        try {
+            ItemPackageReviewDTO itemPackageReviewDTO = itemPackageS.updateItemPackageReview(itemPackageReview, reviewId);
+            if (itemPackageReviewDTO != null) {
+                return ResponseEntity.ok(itemPackageReviewDTO);
+            } else {
+                return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+            }
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getCause().getCause().getMessage().split("'")[3].replace('_', ' ') + " is already taken, Try again", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = CommonConstants.CUSTOMER + "/removeItemPackageReview/{reviewId}")
+    public ResponseEntity removeItemPackageReview(@PathVariable String reviewId) {
+        try {
+            return ResponseEntity.ok(itemPackageS.removeItemPackageReview(reviewId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping(value = CommonConstants.CUSTOMER + "/addItemPackageResponse")
     public ResponseEntity addItemPackageResponse(@RequestBody ItemPackageReviewResponse itemReviewResponse) {
         try {

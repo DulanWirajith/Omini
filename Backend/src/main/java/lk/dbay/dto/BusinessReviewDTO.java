@@ -23,7 +23,8 @@ public class BusinessReviewDTO extends DateTimeDTO {
     //    private ItemDTO item;
     private CustomerProfileDTO customerProfile;
     private String postedDate;
-
+    private int rating;
+    private int tempRating;
     private int likeCount;
     private int dislikeCount;
     private BusinessReviewResponseDTO responseByMe;
@@ -32,6 +33,8 @@ public class BusinessReviewDTO extends DateTimeDTO {
         if (businessReview != null) {
             this.businessReviewId = businessReview.getBusinessReviewId();
             this.description = businessReview.getDescription();
+            this.rating = businessReview.getRating();
+            this.tempRating = businessReview.getRating();
             if (businessReview.getUpdatedAt() != null) {
                 this.postedDate = businessReview.getUpdatedAt().format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
             } else {
