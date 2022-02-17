@@ -37,7 +37,6 @@ export class BaManageItemEditComponent implements OnInit {
   _album: [];
   backBtn = false;
   packageOnly;
-
   // lightbox;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private loginService: LoginService) {

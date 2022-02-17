@@ -18,7 +18,7 @@ public class ItemPackageFeatureSImpl implements ItemPackageFeatureS {
 
     @Override
     public List<ItemPackageFeatureDTO> getItemPackageFeatures(String businessCategoryId) {
-        List<ItemPackageFeature> itemFeatureRAll = itemPackageFeatureR.getAllByBusinessCategory_BusinessCategoryIdAndConfirmed(businessCategoryId, true);
+        List<ItemPackageFeature> itemFeatureRAll = itemPackageFeatureR.getAllByBusinessCategory_BusinessCategoryId(businessCategoryId);
         List<ItemPackageFeatureDTO> itemPackageFeatureDTOS = new ArrayList<>();
         for (ItemPackageFeature itemPackageFeature : itemFeatureRAll) {
             itemPackageFeatureDTOS.add(new ItemPackageFeatureDTO(itemPackageFeature));

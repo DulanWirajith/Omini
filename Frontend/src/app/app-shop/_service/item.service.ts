@@ -13,6 +13,7 @@ export class ItemService {
   itemFeaturesSub = new Subject<any>();
   packageItemSub = new Subject<any>();
   packageItemFeaturesSub = new Subject<any>();
+  packageItemsSub = new Subject<any>();
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }

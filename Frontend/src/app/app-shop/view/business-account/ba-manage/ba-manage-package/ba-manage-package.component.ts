@@ -120,6 +120,10 @@ export class BaManagePackageComponent implements OnInit {
     this.newPackageFeaturesTemp = [];
   }
 
+  addItemTemp() {
+
+  }
+
   onSubmit() {
     // let packageItems = [];
     // for (let packageItem of this.package.itemItemPackages) {
@@ -223,6 +227,12 @@ export class BaManagePackageComponent implements OnInit {
     // if (this.itemPackage.businessProfileCategory.businessCategory !== undefined) {
     this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, this.packageItem.itemPackage.businessProfileCategory.businessCategory.businessCategoryId).subscribe((items) => {
       // console.log(items)
+      for (let i = 0; i < items.length; i++) {
+        items[i] = {
+          name: items[i].name,
+          item: items[i]
+        }
+      }
       this.itemsToAdd = items;
       this.packageItem.packageItemItems = [];
     })

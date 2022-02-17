@@ -21,11 +21,12 @@ import { ShopSearchResultComponent } from './app-customer/view/search-result/sho
 import { ShopViewComponent } from './view/shop-view/shop-view.component';
 import { CFollowingComponent } from './app-customer/view/customer-account/c-following/c-following.component';
 import { BaReviewsComponent } from './app-shop/view/business-account/ba-reviews/ba-reviews.component';
+import { BaManagePackageItemComponent } from './app-shop/view/business-account/ba-manage/ba-manage-package/ba-manage-package-item/ba-manage-package-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    LoginComponent
 
 
 

@@ -241,7 +241,9 @@ public class ItemSImpl implements ItemS {
         List<ItemDTO> itemDTOS = new ArrayList<>();
         for (Item item : itemsList) {
             ItemDTO itemDTO = new ItemDTO(item);
-            itemDTO.setItemPackage(new ItemPackageDTO());
+            ItemPackageDTO itemPackageDTO = new ItemPackageDTO(item.getItemPackage());
+            itemPackageDTO.setItemPackageImages(item.getItemPackage());
+            itemDTO.setItemPackage(itemPackageDTO);
             itemDTOS.add(itemDTO);
         }
         return itemDTOS;

@@ -16,7 +16,7 @@ import {Lightbox} from "ngx-lightbox";
 })
 export class BaManagePackageEditComponent implements OnInit {
 
-
+  @Output() packageItemItems = [];
   itemIndex;
   items;
   packageItem;
@@ -41,6 +41,7 @@ export class BaManagePackageEditComponent implements OnInit {
   packageItemCur;
   itemsToAdd = [];
   itemPackageFeatures = [];
+  selectedPackageItem;
 
   // lightbox;
 
@@ -56,7 +57,7 @@ export class BaManagePackageEditComponent implements OnInit {
       // console.log(item)
       this.packageItem = packageItem.packageItem;
       this.packageItems = packageItem.packageItems;
-      this.itemIndex = packageItem.index
+      this.itemIndex = packageItem.index;
       this.getAlbum(this.packageItem);
       this.packageItem.itemPackage.tempBusinessCategory = this.packageItem.itemPackage.businessProfileCategory.businessCategory;
       this.getItems(this.packageItem.itemPackage.businessProfileCategory.businessCategory.businessCategoryId)
@@ -132,6 +133,7 @@ export class BaManagePackageEditComponent implements OnInit {
           }
         }
       }
+      this.packageItem.packageItemItems[i].item.item = undefined;
     }
     for (let i = 0; i < this.packageItem.itemPackage.itemPackageItemPackageFeatures.length; i++) {
       // console.log(itemPackageE.itemItemPackages[i].itemPackage)
@@ -144,7 +146,7 @@ export class BaManagePackageEditComponent implements OnInit {
         }
       }
     }
-    //console.log(itemPackage)
+    console.log(this.packageItem)
     const uploadImageData = new FormData();
     for (let itemPackageImage of this.packageItem.itemPackage.itemImgsRaw) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
@@ -158,10 +160,10 @@ export class BaManagePackageEditComponent implements OnInit {
       // this.itemPackage.itemItemPackages = [];
       // this.item = undefined;
       this.imageInput.removeFiles();
-      console.log(itemPackageR)
-      if (itemPackageR.packageItemItems.length > 0) {
-        this.packageItem.packageItemItems = this.packageItem.packageItemItems.concat(itemPackageR.packageItemItems);
-      }
+      // console.log(itemPackageR)
+      // if (itemPackageR.packageItemItems.length > 0) {
+      //   this.packageItem.packageItemItems = this.packageItem.packageItemItems.concat(itemPackageR.packageItemItems);
+      // }
       this.packageItem.itemPackage.itemPackageImages = this.packageItem.itemPackage.itemPackageImages.concat(itemPackageR.itemPackage.itemPackageImages);
       this.packageItem.itemPackage.itemImgsRaw = [];
       if (document.getElementById('package-back-btn') !== null) {
@@ -181,6 +183,11 @@ export class BaManagePackageEditComponent implements OnInit {
       // this.baManageFormPackageExs.resetForm()
       this.itemPackageFeature = undefined;
     }
+  }
+
+  addPackageItem() {
+    // this.selectedPackageItem.item.itemPackage=undefined
+    this.packageItem.packageItemItems.push(this.selectedPackageItem)
   }
 
   addFeatureTemp() {
@@ -210,6 +217,9 @@ export class BaManagePackageEditComponent implements OnInit {
     // if (this.businessProfileCategory !== undefined) {
     // console.log(5)
     this.itemService.getItemsBusinessCategory(this.loginService.getUser().userId, businessCategoryId).subscribe((items) => {
+      for (let i = 0; i < items.length; i++) {
+        items[i].item = items[i]
+      }
       // console.log(items)
       this.itemsToAdd = items;
       if (packageItem !== undefined) {
@@ -335,5 +345,9 @@ export class BaManagePackageEditComponent implements OnInit {
 
   getUser() {
     return JSON.parse(localStorage.getItem('user'))
+  }
+
+  setItemsToItemAdd(packageItems) {
+    this.itemService.packageItemsSub.next(packageItems);
   }
 }
