@@ -35,8 +35,11 @@ export class CrStep4Component implements OnInit {
 
   onSubmit() {
     const uploadImageData = new FormData();
-    for (let dbayUserImg of this.customerProfile.dbayUser.dbayUserImgsRaw) {
-      uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
+    // for (let dbayUserImg of this.customerProfile.dbayUser.dbayUserImgsRaw) {
+    //   uploadImageData.append('imageFile', dbayUserImg, dbayUserImg.name);
+    // }
+    if (this.customerProfile.dbayUser.dbayUserImgRaw !== undefined) {
+      uploadImageData.append('imageFile', this.customerProfile.dbayUser.dbayUserImgRaw, this.customerProfile.dbayUser.dbayUserImgRaw.name);
     }
     uploadImageData.append('customerProfile', new Blob([JSON.stringify(this.customerProfile)],
       {

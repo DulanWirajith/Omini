@@ -488,16 +488,17 @@
                     </div>
 
                     <div class="row" style="margin-top: 10px">
-                      <div class="col-sm-12 col-md-6 col-xl-6"
+                      <div class="col-sm-12 col-md-6 col-xl-6" style="margin-top: 10px"
                            *ngFor="let packageItemItem of packageItem.packageItemItems;let j=index">
                         <div class="card shadow-sm card-hover border-0 h-100" *ngIf="packageItemItem.item!==undefined">
                           <div class="tns-carousel-wrapper card-img-top card-img-hover"
                                style="background-color: rgba(0,0,0,0.25)">
                             <a class="img-overlay"></a>
-                            <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
-                              class="d-table badge bg-primary cursor-point"><h4
-                              class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i
-                              class="fi-star fs-sm"></i> 4.5 / 5</h4></span>
+                            <div class="position-absolute start-0 top-0 pt-3 ps-3"
+                            style="width: 95%;display: flex;justify-content: right">
+                              <!--<span class="d-table badge bg-primary cursor-point">-->
+                              <!--<h4 class="h6 text-light fs-sm" style="margin-bottom: 0px;">-->
+                              <!--<i class="fi-star fs-sm"></i> 4.5 / 5</h4></span>-->
 
                               <i class="fi-trash"
                                  style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 15px;"
@@ -521,7 +522,9 @@
                             <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
                             <h3 class="h6 mb-2 fs-base">
                               <a class="nav-link"
-                                 (click)="getItemPackageSelected(packageItem,packageItemItem.item)"
+                                 data-bs-toggle="offcanvas"
+                                 (click)="getItemSelected(packageItemItem.item)"
+                                 data-bs-target="#packageOnlyItem-viewer"
                                  style="font-weight: bold;padding: 0px">{{packageItemItem.item.itemPackage.name}}</a>
                             </h3>
                             <!-- <div class="d-flex align-items-center text-nowrap">

@@ -4,6 +4,7 @@ import {BusinessAccountService} from "../../../../../_service/business-account.s
 import {NgForm} from "@angular/forms";
 import {DomSanitizer} from "@angular/platform-browser";
 import {LoginService} from "../../../../../../_service/login.service";
+import {environment} from "../../../../../../../environments/environment";
 
 @Component({
   selector: 'app-ba-manage-package-item',
@@ -30,8 +31,10 @@ export class BaManagePackageItemComponent implements OnInit {
   itemPackageFeature;
   newItemFeature;
   packageItems = [];
+  itemIndex;
+  editForm = false;
 
-  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private loginService: LoginService) {
+  constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private loginService: LoginService, private sanitizer: DomSanitizer) {
     this.item = this.itemService.getNewItem();
     this.item.packageOnly = true;
     this.businessAccountService.businessCategoriesSub.subscribe((businessCategories) => {
@@ -39,6 +42,24 @@ export class BaManagePackageItemComponent implements OnInit {
     })
     this.itemService.packageItemsSub.subscribe((packageItems) => {
       this.packageItems = packageItems;
+    })
+    this.itemService.packageItemEditSub.observers = [];
+    this.itemService.packageItemEditSub.subscribe((item) => {
+      // console.log(item)
+      // this.packageOnly = item.item.packageOnly;
+      this.editForm = item.editForm;
+      this.item = item.packageItem;
+      this.packageItems = item.packageItems;
+      this.itemIndex = item.index
+      // this.getAlbum(this.item);
+      let yourElem = <HTMLElement>document.querySelector('.item-viewer-g-btn');
+      if (yourElem !== null) {
+        yourElem.click();
+      }
+    })
+    this.itemService.itemFeaturesSub.observers = [];
+    this.itemService.itemFeaturesSub.subscribe((itemFeatures) => {
+      this.itemFeatures = itemFeatures;
     })
   }
 
@@ -51,6 +72,14 @@ export class BaManagePackageItemComponent implements OnInit {
       this.itemFeatures = itemFeatures;
       this.item.itemPackage.itemPackageItemPackageFeatures = [];
     })
+  }
+
+  submitForm() {
+    if (this.editForm) {
+      this.onSubmitE()
+    } else {
+      this.onSubmit()
+    }
   }
 
   onSubmit() {
@@ -89,7 +118,42 @@ export class BaManagePackageItemComponent implements OnInit {
         item: item,
         itemPackage: item.itemPackage
       })
-      console.log(this.packageItems)
+      // console.log(this.packageItems)
+    })
+  }
+
+  onSubmitE() {
+    this.item.itemPackage.businessProfileCategory.businessProfile = {
+      businessProId: this.loginService.getUser().userId
+    };
+    if (this.item.itemPackage.discount === 'N/A') {
+      this.item.itemPackage.discount = 0;
+    }
+    // for (let item of this.item.itemItemFeatures) {
+    //   item.name = item.item.name;
+    // }
+    //console.log(this.item)
+    const uploadImageData = new FormData();
+    for (let itemPackageImage of this.item.itemPackage.itemImgsRaw) {
+      uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
+    }
+    uploadImageData.append('item', new Blob([JSON.stringify(this.item)],
+      {
+        type: "application/json"
+      }));
+    this.itemService.updateItem(uploadImageData, this.item.itemId).subscribe((item) => {
+      this.imageInput.removeFiles();
+      // this.item.itemPackage.itemImgsRaw = [];
+      this.item.itemPackage.itemPackageImages = this.item.itemPackage.itemPackageImages.concat(item.itemPackage.itemPackageImages);
+      if (document.getElementById('btnBackItem') !== null) {
+        document.getElementById('btnBackItem').click();
+      }
+      this.item.isNewItem = false;
+      this.item.itemPackage.discountedPrice = item.itemPackage.discountedPrice;
+      // this.getAlbum(this.item);
+      // if (this.item.packageOnly !== this.packageOnly) {
+      //   this.items.splice(this.itemIndex, 1);
+      // }
     })
   }
 
@@ -140,5 +204,12 @@ export class BaManagePackageItemComponent implements OnInit {
         this.item.itemPackage.itemImgsRaw.splice(i, 1);
       }
     }
+  }
+
+  getImageSrc(itemPackageImage) {
+    // console.log(itemPackageImage)
+    // let imageData = 'data:' + itemImg.itemImgType + ';base64,' + itemImg.itemImg;
+    // return this.sanitizer.bypassSecurityTrustUrl(imageData);
+    return this.sanitizer.bypassSecurityTrustUrl(environment.image_url + itemPackageImage.imageName);
   }
 }

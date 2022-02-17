@@ -124,7 +124,7 @@ export class BaManagePackageEditComponent implements OnInit {
       businessProId: this.loginService.getUser().userId
     };
     for (let i = 0; i < this.packageItem.packageItemItems.length; i++) {
-      console.log(this.packageItem.packageItemItems[i])
+      // console.log(this.packageItem.packageItemItems[i])
       if (this.packageItem.packageItemItems[i].packageItem === undefined) {
         this.packageItem.packageItemItems[i] = {
           item: this.packageItem.packageItemItems[i],
@@ -146,7 +146,7 @@ export class BaManagePackageEditComponent implements OnInit {
         }
       }
     }
-    console.log(this.packageItem)
+    // console.log(this.packageItem)
     const uploadImageData = new FormData();
     for (let itemPackageImage of this.packageItem.itemPackage.itemImgsRaw) {
       uploadImageData.append('imageFile', itemPackageImage, itemPackageImage.name);
@@ -349,5 +349,49 @@ export class BaManagePackageEditComponent implements OnInit {
 
   setItemsToItemAdd(packageItems) {
     this.itemService.packageItemsSub.next(packageItems);
+  }
+
+  getItemSelected(item) {
+    // console.log(this.packageItem.packageItemItems)
+    let index: any = this.packageItem.packageItemItems.findIndex(itemObj => {
+      return itemObj.itemId === item.itemId
+    })
+    // console.log(this.items[index])
+    this.packageItem.packageItemItems[index].item.itemPackage.itemImgsRaw = [];
+    if (this.packageItem.packageItemItems[index].item.itemPackage.itemPackageItemPackageFeatures === undefined) {
+      this.itemService.getItemPackageSelected(item.itemId, 'Item').subscribe((itemPackage) => {
+        // Object.assign(this.items[index], item)
+        // itemPackage.item.itemPackage.itemImgsRaw = [];
+        // item.itemItemFeatures = [];
+        // item.businessProfileCategory = {
+        //   businessProfile: undefined,
+        //   businessCategory: undefined
+        // }
+        // if (item.itemDiscountType === "None") {
+        //   item.itemDiscountView = "N/A";
+        // } else if (item.itemDiscountType === "Cash") {
+        //   item.itemDiscountView = "LKR " + item.itemDiscount;
+        // } else if (item.itemDiscountType === "Percentage") {
+        //   item.itemDiscountView = item.itemDiscount + "%";
+        // }
+        this.packageItem.packageItemItems[index].item.itemPackage.itemImgsRaw = [];
+        this.packageItem.packageItemItems[index].item.itemPackage.itemPackageItemPackageFeatures = itemPackage.item.itemPackage.itemPackageItemPackageFeatures;
+        this.itemService.itemFeaturesSub.next(itemPackage.item.itemFeatures);
+        this.itemService.packageItemEditSub.next({
+          packageItems: this.packageItem.packageItemItems,
+          packageItem: this.packageItem.packageItemItems[index].item,
+          index: index,
+          editForm: true
+        });
+        //console.log(this.items[index])
+      })
+    } else {
+      this.itemService.packageItemEditSub.next({
+        packageItems: this.packageItem.packageItemItems,
+        packageItem: this.packageItem.packageItemItems[index].item,
+        index: index,
+        editForm: true
+      });
+    }
   }
 }

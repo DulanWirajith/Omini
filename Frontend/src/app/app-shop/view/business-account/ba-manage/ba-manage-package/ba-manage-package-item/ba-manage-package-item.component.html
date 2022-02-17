@@ -4,7 +4,7 @@
     <!-- Tabs content-->
     <div class="tab-content">
       <!-- Item View-->
-      <div class="tab-pane fade show active" id="item-view" role="tabpanel">
+      <div class="tab-pane fade show active" id="packageOnlyItem-view" role="tabpanel">
         <!--<div class="modal-body tab-content py-4">-->
         <!--<div class="alert alert-info d-flex" role="alert">-->
         <!--<i class="fi-alert-circle me-2 me-sm-3 lead"></i>-->
@@ -12,7 +12,7 @@
         <!--</div>-->
 
         <form #baManageFormItem="ngForm"
-              (ngSubmit)="baManageFormItem.form.valid && item.itemPackage.itemImgsRaw.length>=3 && onSubmit()"
+              (ngSubmit)="baManageFormItem.form.valid && (item.itemPackage.itemImgsRaw.length+item.itemPackage.itemPackageImages.length)>=3 && submitForm()"
               novalidate>
 
           <div class="row">
@@ -313,9 +313,22 @@
             <!--<img [src]="url" style="margin: 3px;height: 200px;width: 300px">-->
             <!--</div>-->
             <div
-              *ngIf="(item.itemPackage.itemImgsRaw.length<3 && baManageFormItem.submitted)"
+              *ngIf="((item.itemPackage.itemImgsRaw.length+item.itemPackage.itemPackageImages.length)<3 && baManageFormItem.submitted)"
               class="validErr" style="margin-bottom: 10px">
               Minimum 3 images are required
+            </div>
+            <div class="col-md-6 mb-6"
+                 *ngFor='let itemPackageImage of item.itemPackage.itemPackageImages;let j = index'>
+              <div
+                style="position: relative;display: flex;justify-content: center;border: 1px solid #efefef;margin-bottom: 20px"
+                class="delImgT">
+                <img [src]="getImageSrc(itemPackageImage)" style="margin: 3px;height: 200px;width: 300px">
+                <span class="delImg">
+                    <i class="fi-trash"
+                       style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 25px;"
+                       (click)="item.itemPackage.itemPackageImages.splice(j,1)"></i>
+                  </span>
+              </div>
             </div>
           </div>
           <div class="mb-3 py-2">

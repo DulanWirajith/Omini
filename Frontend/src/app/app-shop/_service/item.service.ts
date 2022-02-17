@@ -14,6 +14,7 @@ export class ItemService {
   packageItemSub = new Subject<any>();
   packageItemFeaturesSub = new Subject<any>();
   packageItemsSub = new Subject<any>();
+  packageItemEditSub = new Subject<any>();
 
   constructor(private http: HttpClient, private commonService: CommonService) {
   }

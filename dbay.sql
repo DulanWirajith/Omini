@@ -245,11 +245,33 @@ inner join item_package itempackag2_ on (orderdetai0_.item_package_item_package_
 inner join item_order itemorder3_ on (orderdetai0_.item_order_order_id=itemorder3_.order_id) 
 where orderdetai0_.item_item_id=item4_.item_id and orderdetai0_.item_package_item_package_id=itempackag5_.item_package_id and orderdetai0_.item_order_order_id=itemorder6_.order_id and ((item4_.business_category_id, item4_.business_pro_id)=('BC001', 'B321') or (itempackag5_.business_category_id, itempackag5_.business_pro_id)=('BC001', 'B321'));
 
-SELECT `item_review`.`item_review_id`,
-    `item_review`.`created_at`,
-    `item_review`.`updated_at`,
-    `item_review`.`description`,
-    `item_review`.`customer_profile_customer_pro_id`,
-    `item_review`.`item_item_id`,
-    `item_review`.`rating`
-FROM `dbay`.`item_review`;
+SELECT `item_package_review`.`item_package_review_id`,
+    `item_package_review`.`created_at`,
+    `item_package_review`.`updated_at`,
+    `item_package_review`.`description`,
+    `item_package_review`.`rating`,
+    `item_package_review`.`review_type`,
+    `item_package_review`.`customer_profile_customer_pro_id`,
+    `item_package_review`.`item_package_item_package_id`
+FROM `dbay`.`item_package_review`;
+
+
+SELECT `dbay_user`.`user_id`,
+`dbay_user`.`user_img_name`,
+    `dbay_user`.`user_img_type`,
+    `dbay_user`.`created_at`,
+    `dbay_user`.`updated_at`,
+    `dbay_user`.`available`,
+    `dbay_user`.`confirmed`,
+    `dbay_user`.`confirmed_at`,
+    `dbay_user`.`email`,
+    `dbay_user`.`password`,
+    `dbay_user`.`role`,
+    `dbay_user`.`two_factor_auth`,
+    `dbay_user`.`type`,
+    `dbay_user`.`username`,
+    `dbay_user`.`verification_code`,
+    `dbay_user`.`confirmed_by_user_id`,
+    `dbay_user`.`thumbnail`
+FROM `dbay`.`dbay_user`;
+

@@ -339,11 +339,11 @@ export class BaManagePackageComponent implements OnInit {
     let index: any = this.packageItems.findIndex(itemObj => {
       return itemObj.packageItemId === packageItem.packageItemId
     })
-    console.log(this.packageItems[index])
+    // console.log(this.packageItems[index])
     if (this.packageItems[index].itemPackageItemPackageFeatures === undefined) {
       this.itemService.getItemPackageSelected(packageItem.packageItemId, 'Package').subscribe((packageItemR) => {
         // Object.assign(this.items[index], item)
-        console.log(packageItemR)
+        // console.log(packageItemR)
         packageItemR.packageItem.itemPackage.itemImgsRaw = [];
         // item.itemItemFeatures = [];
         // item.businessProfileCategory = {
