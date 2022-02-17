@@ -124,7 +124,7 @@ export class BaManagePackageEditComponent implements OnInit {
       businessProId: this.loginService.getUser().userId
     };
     for (let i = 0; i < this.packageItem.packageItemItems.length; i++) {
-      // console.log(itemPackageE.itemItemPackages[i].itemPackage)
+      console.log(this.packageItem.packageItemItems[i])
       if (this.packageItem.packageItemItems[i].packageItem === undefined) {
         this.packageItem.packageItemItems[i] = {
           item: this.packageItem.packageItemItems[i],

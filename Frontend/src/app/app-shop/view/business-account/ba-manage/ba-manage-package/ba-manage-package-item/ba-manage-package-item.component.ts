@@ -86,7 +86,8 @@ export class BaManagePackageItemComponent implements OnInit {
       this.packageItems.push({
         itemId: item.itemId,
         name: item.itemPackage.name,
-        item: item
+        item: item,
+        itemPackage: item.itemPackage
       })
       console.log(this.packageItems)
     })
