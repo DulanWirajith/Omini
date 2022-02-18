@@ -51,7 +51,7 @@
               <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
                 class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
                                                                   style="margin-bottom: 0px;"><i
-                class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
+                class="fi-star fs-sm" style="margin-right: 5px"></i> {{item.rating1 | number:'.1-1'}} / 5.0</h4></span></div>
               <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
                 <mdb-carousel-item *ngFor="let image of item.itemPackageImages">
                   <span style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
@@ -134,11 +134,10 @@
                         </a>
                       </h2>
                       <div class="star-rating">
-                        <i class="star-rating-icon fi-star-filled active"></i>
-                        <i class="star-rating-icon fi-star-filled active"></i>
-                        <i class="star-rating-icon fi-star-filled active"></i>
-                        <i class="star-rating-icon fi-star-filled active"></i>
-                        <i class="star-rating-icon fi-star-filled active"></i>
+                        <i *ngFor="let rating of [].constructor(item.businessProfileCategory.businessProfile.rating2)"
+                           class="star-rating-icon fi-star-filled active"></i>
+                        <i *ngFor="let rating of [].constructor(5-item.businessProfileCategory.businessProfile.rating2)"
+                           class="star-rating-icon fi-star-filled"></i>
                       </div>
                     </div>
 
@@ -178,7 +177,7 @@
               <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
                 class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
                                                                   style="margin-bottom: 0px;"><i
-                class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
+                class="fi-star fs-sm" style="margin-right: 5px"></i> {{item.rating1 | number:'.1-1'}} / 5.0</h4></span></div>
               <!--<div class="content-overlay end-0 top-0"-->
               <!--style="display: flex;justify-content: right;width: 95%;margin-top: 158px;margin-right: 10px">-->
               <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
@@ -265,11 +264,10 @@
                         </a>
                       </h2>
                       <div class="star-rating">
-                        <i class="star-rating-icon fi-star-filled active"></i>
-                        <i class="star-rating-icon fi-star-filled active"></i>
-                        <i class="star-rating-icon fi-star-filled active"></i>
-                        <i class="star-rating-icon fi-star-filled active"></i>
-                        <i class="star-rating-icon fi-star-filled active"></i>
+                        <i *ngFor="let rating of [].constructor(item.businessProfileCategory.businessProfile.rating2)"
+                           class="star-rating-icon fi-star-filled active"></i>
+                        <i *ngFor="let rating of [].constructor(5-item.businessProfileCategory.businessProfile.rating2)"
+                           class="star-rating-icon fi-star-filled"></i>
                       </div>
                     </div>
 

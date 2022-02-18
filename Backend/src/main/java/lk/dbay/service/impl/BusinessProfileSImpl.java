@@ -137,12 +137,15 @@ public class BusinessProfileSImpl implements BusinessProfileS {
     }
 
     @Override
-    public List<BusinessReviewDTO> getBusinessReviews(String businessId, String customerId) {
+    public BusinessReviewDTO getBusinessReviews(String businessId, String customerId) {
         List<BusinessReview> businessReviews = businessReviewR.getAllByBusinessProfile_BusinessProId(businessId);
         List<BusinessReviewDTO> businessReviewDTOS = new ArrayList<>();
+        BusinessReviewDTO businessReviewDTOObj = new BusinessReviewDTO();
+        double tempRating = 0;
         if (businessReviews != null) {
             for (BusinessReview businessReview : businessReviews) {
                 BusinessReviewDTO businessReviewDTO = new BusinessReviewDTO(businessReview);
+                tempRating += businessReview.getRating();
 //                List<BusinessReviewResponse> responses = businessReviewResponseR.getAllByBusinessReview_BusinessReviewId(businessReview.getBusinessReviewId());
                 for (BusinessReviewResponse reviewResponse : businessReview.getBusinessReviewResponses()) {
                     if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
@@ -157,8 +160,13 @@ public class BusinessProfileSImpl implements BusinessProfileS {
                 businessReviewDTO.setCustomerProfile(businessReview);
                 businessReviewDTOS.add(businessReviewDTO);
             }
+            if (businessReviews.size() > 0) {
+                businessReviewDTOObj.setRating1((tempRating / businessReviews.size()));
+                businessReviewDTOObj.setRating2((int) businessReviewDTOObj.getRating1());
+            }
         }
-        return businessReviewDTOS;
+        businessReviewDTOObj.setBusinessReviews(businessReviewDTOS);
+        return businessReviewDTOObj;
     }
 
     @Override

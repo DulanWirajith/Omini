@@ -224,7 +224,14 @@ export class ShopViewComponent implements OnInit {
     // this.itemPackageReview.reviewType = 'ItemPackage';
     this.businessReview.customerProfile.customerProId = JSON.parse(localStorage.getItem('user')).customerProfile.customerProId;
     this.profileService.addBusinessReview(this.businessReview).subscribe((businessReview) => {
-      this.businessReviews.push(businessReview);
+      this.businessReviewR.businessReviews.push(businessReview);
+      if (this.businessReviewR.businessReviews.length > 0) {
+        this.businessReviewR.rating1 = 0;
+        for (let review of this.businessReviewR.businessReviews) {
+          this.businessReviewR.rating1 += review.rating;
+        }
+        this.businessReviewR.rating1 = this.businessReviewR.rating1 / this.businessReviewR.businessReviews.length;
+      }
       this.reviewForm.resetForm()
       this.businessReview = this.getNewBusinessReview();
     })
@@ -236,13 +243,27 @@ export class ShopViewComponent implements OnInit {
       businessReview.rating = businessReviewR.rating;
       businessReview.tempRating = businessReviewR.tempRating;
       businessReview.editReview = false;
+      if (this.businessReviewR.businessReviews.length > 0) {
+        this.businessReviewR.rating1 = 0;
+        for (let review of this.businessReviewR.businessReviews) {
+          this.businessReviewR.rating1 += review.rating;
+        }
+        this.businessReviewR.rating1 = this.businessReviewR.rating1 / this.businessReviewR.businessReviews.length;
+      }
     })
   }
 
   removeBusinessReview(reviewId, index) {
     this.profileService.removeBusinessReview(reviewId).subscribe((reply) => {
       if (reply) {
-        this.businessReviews.splice(index, 1)
+        this.businessReviewR.businessReviews.splice(index, 1);
+        if (this.businessReviewR.businessReviews.length > 0) {
+          this.businessReviewR.rating1 = 0;
+          for (let review of this.businessReviewR.businessReviews) {
+            this.businessReviewR.rating1 += review.rating;
+          }
+          this.businessReviewR.rating1 = this.businessReviewR.rating1 / this.businessReviewR.businessReviews.length;
+        }
       }
     })
   }
@@ -294,14 +315,20 @@ export class ShopViewComponent implements OnInit {
     }
   }
 
+  businessReviewR = {
+    rating1: 0,
+    rating2: 0,
+    businessReviews: []
+  };
+
   getBusinessReviews() {
     this.review = true;
     let userId = 0;
     if (this.getUser() !== null) {
       userId = this.getUser().userId;
     }
-    this.profileService.getBusinessReviews(this.businessProfile.businessProId, userId).subscribe((businessReviews) => {
-      this.businessReviews = businessReviews;
+    this.profileService.getBusinessReviews(this.businessProfile.businessProId, userId).subscribe((businessReviewR) => {
+      this.businessReviewR = businessReviewR;
       // console.log(this.itemPackageReviews)
     })
   }

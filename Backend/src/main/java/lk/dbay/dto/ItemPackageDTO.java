@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.item.ItemPackage;
 import lk.dbay.entity.item.ItemPackageImage;
 import lk.dbay.entity.item.ItemPackageItemPackageFeature;
+import lk.dbay.entity.item.ItemPackageReview;
 import lombok.*;
 import lombok.experimental.Tolerate;
 
@@ -40,6 +41,8 @@ public class ItemPackageDTO extends DateTimeDTO {
     private String itemPackageType;
     private ItemCategoryDTO itemCategory;
     private boolean favourite;
+    private double rating1;
+    private int rating2;
 
     public ItemPackageDTO(ItemPackage itemPackage) {
         if (itemPackage != null) {
@@ -61,6 +64,16 @@ public class ItemPackageDTO extends DateTimeDTO {
                 this.discountedPrice = (this.price * ((100 - this.discount) / 100));
             } else if (this.discountType.equals("None")) {
                 this.discountedPrice = this.price;
+            }
+            double tempRating = 0;
+            if (itemPackage.getItemPackageReviews() != null) {
+                for (ItemPackageReview itemPackageReview : itemPackage.getItemPackageReviews()) {
+                    tempRating += itemPackageReview.getRating();
+                }
+                if (itemPackage.getItemPackageReviews().size() > 0) {
+                    rating1 = (tempRating / itemPackage.getItemPackageReviews().size());
+                    rating2 = (int) rating1;
+                }
             }
         }
     }

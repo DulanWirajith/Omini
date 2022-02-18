@@ -8,7 +8,11 @@ import {BusinessAccountService} from "../../../_service/business-account.service
 })
 export class BaReviewsComponent implements OnInit {
 
-  businessReviews = [];
+  businessReview = {
+    rating1: 0,
+    rating2: 0,
+    businessReviews: []
+  };
 
   constructor(private businessAccService: BusinessAccountService) {
   }
@@ -18,8 +22,8 @@ export class BaReviewsComponent implements OnInit {
   }
 
   getBusinessReviews() {
-    this.businessAccService.getBusinessReviews(JSON.parse(localStorage.getItem('user')).userId, '0').subscribe((businessReviews) => {
-      this.businessReviews = businessReviews;
+    this.businessAccService.getBusinessReviews(JSON.parse(localStorage.getItem('user')).userId, '0').subscribe((businessReview) => {
+      this.businessReview = businessReview;
     })
   }
 }

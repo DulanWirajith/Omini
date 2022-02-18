@@ -109,6 +109,8 @@ export class BusinessAccountService {
       socialLinkedIn: "",
       country: "",
       district: "",
+      rating1: 0,
+      rating2: 0,
       town: {
         townId: "",
         district: {

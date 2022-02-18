@@ -58,4 +58,6 @@ public class BusinessProfile extends DateTime {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "businessProfile")
     private Set<BusinessProfileCategory> businessProfileCategories;
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "businessProfile")
+    private Set<BusinessReview> businessReviews;
 }

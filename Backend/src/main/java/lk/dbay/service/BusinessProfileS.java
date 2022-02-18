@@ -24,7 +24,7 @@ public interface BusinessProfileS {
 
     List<BusinessProfileDTO> getFollowedBusinesses(String customerId);
 
-    List<BusinessReviewDTO> getBusinessReviews(String businessId, String customerId);
+    BusinessReviewDTO getBusinessReviews(String businessId, String customerId);
 
     BusinessReviewDTO addBusinessReview(BusinessReview businessReview);
 

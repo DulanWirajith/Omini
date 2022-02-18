@@ -37,6 +37,7 @@ export class BaManageItemEditComponent implements OnInit {
   _album: [];
   backBtn = false;
   packageOnly;
+
   // lightbox;
 
   constructor(private businessAccountService: BusinessAccountService, private itemService: ItemService, private sanitizer: DomSanitizer, private lightbox: Lightbox, private loginService: LoginService) {
@@ -237,7 +238,10 @@ export class BaManageItemEditComponent implements OnInit {
   }
 
   review = false;
-  itemPackageReviews = [];
+  itemPackageReview = {
+    rating: 0,
+    itemPackageReviews: []
+  };
 
   getItemPackageReviews() {
     this.review = true;
@@ -245,8 +249,8 @@ export class BaManageItemEditComponent implements OnInit {
     if (this.getUser() !== null) {
       customerId = this.getUser().userId;
     }
-    this.itemService.getItemPackageReviews(this.item.itemId, customerId).subscribe((itemPackageReviews) => {
-      this.itemPackageReviews = itemPackageReviews;
+    this.itemService.getItemPackageReviews(this.item.itemId, customerId).subscribe((itemPackageReview) => {
+      this.itemPackageReview = itemPackageReview;
       // console.log(this.itemPackageReviews)
     })
   }

@@ -177,7 +177,7 @@
                 <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
                   class="d-table badge bg-primary cursor-point"><h4
                   class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i
-                  class="fi-star fs-sm"></i> 4.5 / 5</h4></span>
+                  class="fi-star fs-sm" style="margin-right: 5px"></i> {{packageItemItem.item.rating1 | number:'.1-1'}} / 5.0</h4></span>
                 </div>
                 <!--<div class="content-overlay end-0 top-0 pt-3 pe-3">-->
                 <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
@@ -773,7 +773,7 @@
           <!-- Reviews-->
           <div class="mb-4 pb-4 border-bottom">
             <h3 class="h4 pb-3"><i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>
-              4,9 ({{itemPackageReviews.length}} review{{itemPackageReviews.length>1?'s':''}})
+              {{itemPackageReview.rating}} ({{itemPackageReview.itemPackageReviews.length}} review{{itemPackageReview.itemPackageReviews.length>1?'s':''}})
             </h3>
             <div
               class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
@@ -794,7 +794,7 @@
             </div>
           </div>
           <!-- Review-->
-          <div class="mb-4 pb-4" *ngFor="let itemPackageReview of itemPackageReviews;let isLast=last"
+          <div class="mb-4 pb-4" *ngFor="let itemPackageReview of itemPackageReview.itemPackageReviews;let isLast=last"
                [ngClass]="!isLast?'border-bottom':''">
             <div class="d-flex justify-content-between mb-3">
               <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"

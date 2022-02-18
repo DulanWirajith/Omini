@@ -90,7 +90,14 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
     // this.itemPackageReview.reviewType = 'ItemPackage';
     this.itemPackageReview.customerProfile.customerProId = this.getUser().customerProfile.customerProId;
     this.itemService.addItemPackageReview(this.itemPackageReview).subscribe((itemPackageReview) => {
-      this.itemPackageReviews.push(itemPackageReview);
+      this.itemPackageReviewR.itemPackageReviews.push(itemPackageReview);
+      if (this.itemPackageReviewR.itemPackageReviews.length > 0) {
+        this.itemPackageReviewR.rating1 = 0;
+        for (let review of this.itemPackageReviewR.itemPackageReviews) {
+          this.itemPackageReviewR.rating1 += review.rating;
+        }
+        this.itemPackageReviewR.rating1 = this.itemPackageReviewR.rating1 / this.itemPackageReviewR.itemPackageReviews.length;
+      }
       this.reviewForm.resetForm();
       this.itemPackageReview = this.getNewItemPackageReview();
     })
@@ -102,13 +109,27 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
       itemPackageReview.rating = itemPackageReviewR.rating;
       itemPackageReview.tempRating = itemPackageReviewR.tempRating;
       itemPackageReview.editReview = false;
+      if (this.itemPackageReviewR.itemPackageReviews.length > 0) {
+        this.itemPackageReviewR.rating1 = 0;
+        for (let review of this.itemPackageReviewR.itemPackageReviews) {
+          this.itemPackageReviewR.rating1 += review.rating;
+        }
+        this.itemPackageReviewR.rating1 = this.itemPackageReviewR.rating1 / this.itemPackageReviewR.itemPackageReviews.length;
+      }
     })
   }
 
   removeItemPackageReview(reviewId, index) {
     this.itemService.removeItemPackageReview(reviewId).subscribe((reply) => {
       if (reply) {
-        this.itemPackageReviews.splice(index, 1)
+        this.itemPackageReviewR.itemPackageReviews.splice(index, 1)
+        if (this.itemPackageReviewR.itemPackageReviews.length > 0) {
+          this.itemPackageReviewR.rating1 = 0;
+          for (let review of this.itemPackageReviewR.itemPackageReviews) {
+            this.itemPackageReviewR.rating1 += review.rating;
+          }
+          this.itemPackageReviewR.rating1 = this.itemPackageReviewR.rating1 / this.itemPackageReviewR.itemPackageReviews.length;
+        }
       }
     })
   }
@@ -160,14 +181,20 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
     }
   }
 
+  itemPackageReviewR = {
+    rating1: 0,
+    rating2: 0,
+    itemPackageReviews: []
+  };
+
   getItemPackageReviews() {
     this.review = true;
     let customerId = '0';
     if (JSON.parse(localStorage.getItem('user')) !== null) {
       customerId = JSON.parse(localStorage.getItem('user')).userId;
     }
-    this.itemService.getItemPackageReviews(this.itemPackage.itemPackageId, customerId).subscribe((itemPackageReviews) => {
-      this.itemPackageReviews = itemPackageReviews;
+    this.itemService.getItemPackageReviews(this.itemPackage.itemPackageId, customerId).subscribe((itemPackageReview) => {
+      this.itemPackageReviewR = itemPackageReview;
       // console.log(this.itemPackageReviews)
     })
   }

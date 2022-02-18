@@ -69,6 +69,8 @@ export class ItemService {
       itemPackageImages: [],
       itemImgsRaw: [],
       itemAvailable: false,
+      rating1: 0,
+      rating2: 0,
       businessProfileCategory: {
         businessProfile: {
           businessProfile: undefined

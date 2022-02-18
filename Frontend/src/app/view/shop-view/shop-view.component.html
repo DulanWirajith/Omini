@@ -27,11 +27,12 @@
               <img class="rounded-circle" src="assets/img/37.png" width="48" alt="Annette Black">
               <div class="pt-md-2 pt-lg-0 ps-1 ps-md-0 ps-lg-3">
                 <h2 class="fs-lg mb-0">{{businessProfile.businessName}}</h2>
-                <span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i
-                  class="star-rating-icon fi-star-filled active"></i><i
-                  class="star-rating-icon fi-star-filled active"></i><i
-                  class="star-rating-icon fi-star-filled active"></i><i
-                  class="star-rating-icon fi-star-filled active"></i></span>
+                <span class="star-rating">
+                      <i *ngFor="let rating of [].constructor(businessProfile.rating2)"
+                         class="star-rating-icon fi-star-filled active"></i>
+                      <i *ngFor="let rating of [].constructor(5-businessProfile.rating2)"
+                         class="star-rating-icon fi-star-filled"></i>
+                    </span>
                 <ul class="list-unstyled fs-sm mt-3 mb-0">
                   <li><a class="nav-link fw-normal p-0" href="tel:3025550107">
                     <i class="fi-phone opacity-60 me-2"></i>(302) 555-0107</a>
@@ -170,8 +171,10 @@
                   <!-- Reviews-->
                   <div class="mb-4 pb-4 border-bottom">
                     <h3 class="h4 pb-3">
-                      <i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9
-                      ({{businessReviews.length}} review{{businessReviews.length>1?'s':''}})</h3>
+                      <i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>
+                      {{businessReviewR.rating1 | number:'.1-1'}} / 5.0 ({{businessReviewR.businessReviews.length}}
+                      review{{businessReviewR.businessReviews.length>1?'s':''}})
+                    </h3>
                     <div class="d-flex flex-sm-row flex-md-column align-items-sm-center justify-content-between">
                       <a *ngIf="getUser()!==null && getUser().role==='C'"
                          class="btn btn-sm btn-outline-primary mb-sm-0 mb-2" href="#add-review"
@@ -229,7 +232,8 @@
                     </div>
                   </div>
                   <!-- Review-->
-                  <div class="mb-4 pb-4" *ngFor="let businessReview of businessReviews;let isLast=last;let i=index"
+                  <div class="mb-4 pb-4"
+                       *ngFor="let businessReview of businessReviewR.businessReviews;let isLast=last;let i=index"
                        [ngClass]="!isLast?'border-bottom':''">
                     <form #reviewUpdateForm="ngForm"
                           (ngSubmit)="reviewUpdateForm.form.valid && updateBusinessReview(businessReview,i)"
@@ -401,7 +405,8 @@
                     <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
                       class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
                                                                         style="margin-bottom: 0px;"><i
-                      class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
+                      class="fi-star fs-sm"
+                      style="margin-right: 5px"></i> {{item.rating1 | number:'.1-1'}} / 5.0</h4></span></div>
                     <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
                       <mdb-carousel-item *ngFor="let image of item.itemPackageImages">
                         <span
@@ -536,7 +541,8 @@
                     <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
                       class="d-table badge bg-primary cursor-point"><h4 class="h6 text-light fs-sm"
                                                                         style="margin-bottom: 0px;"><i
-                      class="fi-star fs-sm"></i> 4.5 / 5</h4></span></div>
+                      class="fi-star fs-sm"
+                      style="margin-right: 5px"></i> {{item.rating1 | number:'.1-1'}} / 5.0</h4></span></div>
                     <!--<div class="content-overlay end-0 top-0"-->
                     <!--style="display: flex;justify-content: right;width: 95%;margin-top: 158px;margin-right: 10px">-->
                     <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->

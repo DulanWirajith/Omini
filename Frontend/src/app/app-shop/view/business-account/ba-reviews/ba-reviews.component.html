@@ -24,8 +24,8 @@
   <div class="tab-pane fade show active" id="reviews-about-you" role="tabpanel">
     <div
       class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3">
-      <h3 class="h4 mb-sm-0"><i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>4,9
-        ({{businessReviews.length}} review{{businessReviews.length>1?'s':''}})
+      <h3 class="h4 mb-sm-0"><i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>
+        {{businessReview.rating1 | number:'.1-1'}} ({{businessReview.businessReviews.length}} review{{businessReview.businessReviews.length>1?'s':''}})
       </h3>
       <div class="d-flex align-items-center ms-sm-4">
         <label class="fs-sm me-2 pe-1 text-nowrap" for="review-sorting1"><i
@@ -40,7 +40,7 @@
       </div>
     </div>
     <!-- Review-->
-    <div class="mb-4 pb-4 border-bottom" *ngFor="let businessReview of businessReviews">
+    <div class="mb-4 pb-4 border-bottom" *ngFor="let businessReview of businessReview.businessReviews">
       <div class="d-flex justify-content-between mb-3">
         <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1"
                                                          src="assets/img/37.png" width="48"

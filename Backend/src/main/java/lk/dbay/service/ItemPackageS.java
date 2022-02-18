@@ -24,7 +24,7 @@ public interface ItemPackageS {
 
     ItemPackageReviewDTO addItemPackageReview(ItemPackageReview itemPackageReview);
 
-    List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId);
+    ItemPackageReviewDTO getItemPackageReviews(String itemId, String customerId);
 
     ItemPackageReviewResponseDTO addItemPackageResponse(ItemPackageReviewResponse itemReviewResponse);
 

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,10 +25,13 @@ public class BusinessReviewDTO extends DateTimeDTO {
     private CustomerProfileDTO customerProfile;
     private String postedDate;
     private int rating;
+    private double rating1;
+    private int rating2;
     private int tempRating;
     private int likeCount;
     private int dislikeCount;
     private BusinessReviewResponseDTO responseByMe;
+    private List<BusinessReviewDTO> businessReviews;
 
     public BusinessReviewDTO(BusinessReview businessReview) {
         if (businessReview != null) {

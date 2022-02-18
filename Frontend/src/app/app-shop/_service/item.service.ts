@@ -150,6 +150,8 @@ export class ItemService {
       itemPackageImages: [],
       itemImgsRaw: [],
       available: false,
+      rating1: 0,
+      rating2: 0,
       businessProfileCategory: {
         businessProfile: undefined,
         businessCategory: undefined

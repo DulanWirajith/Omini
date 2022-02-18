@@ -45,12 +45,13 @@
                 <img class="rounded-circle" src="assets/img/37.png" width="60" alt="Annette Black">
               </div>
               <h3 class="icon-box-title fs-base mb-0">{{business.businessName}}</h3>
-              <span class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i
-                class="star-rating-icon fi-star-filled active"></i><i
-                class="star-rating-icon fi-star-filled active"></i><i
-                class="star-rating-icon fi-star-filled active"></i><i
-                class="star-rating-icon fi-star-filled active"></i></span>
-              <h3 class="icon-box-title fs-base mb-0">4.5 / 5.0</h3>
+              <span class="star-rating">
+                      <i *ngFor="let rating of [].constructor(business.rating2)"
+                         class="star-rating-icon fi-star-filled active"></i>
+                      <i *ngFor="let rating of [].constructor(5-business.rating2)"
+                         class="star-rating-icon fi-star-filled"></i>
+                    </span>
+              <h3 class="icon-box-title fs-base mb-0">{{business.rating1 | number:'.1-1'}} / 5.0</h3>
             </a>
             <div class="d-flex justify-content-between w-100 mt-2">
               <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2 mb-0"

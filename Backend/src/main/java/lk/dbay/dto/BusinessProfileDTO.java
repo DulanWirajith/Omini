@@ -40,6 +40,8 @@ public class BusinessProfileDTO extends DateTimeDTO {
     private List<BusinessProfileCategoryDTO> businessProfileCategories;
     private ItemPackageDTO itemPackage;
     private List<ItemCategoryDTO> itemCategories;
+    private double rating1;
+    private int rating2;
 
     public BusinessProfileDTO(BusinessProfile businessProfile) {
         if (businessProfile != null) {
@@ -60,6 +62,16 @@ public class BusinessProfileDTO extends DateTimeDTO {
             this.proViewCount = businessProfile.getProViewCount();
             this.contactViewCount = businessProfile.getContactViewCount();
             this.defaultBusiness = new BusinessCategoryDTO(businessProfile.getDefaultBusiness());
+            double tempRating = 0;
+            if (businessProfile.getBusinessReviews() != null) {
+                for (BusinessReview businessReview : businessProfile.getBusinessReviews()) {
+                    tempRating += businessReview.getRating();
+                }
+                if (businessProfile.getBusinessReviews().size() > 0) {
+                    rating1 = (tempRating / businessProfile.getBusinessReviews().size());
+                    rating2 = (int) rating1;
+                }
+            }
         }
     }
 
@@ -70,7 +82,7 @@ public class BusinessProfileDTO extends DateTimeDTO {
 //                dbayUserDTO.setDbayUserImgs(businessProfile.getDbayUser());
 //                this.dbayUser = dbayUserDTO;
 //            } else {
-                this.dbayUser = new DbayUserDTO(businessProfile.getDbayUser());
+            this.dbayUser = new DbayUserDTO(businessProfile.getDbayUser());
 //            }
         }
     }

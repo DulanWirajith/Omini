@@ -63,6 +63,9 @@ public class ItemPackage extends DateTime {
     @OneToOne(cascade = {CascadeType.ALL}, mappedBy = "itemPackage")
     private Item item;
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "itemPackage")
+    private Set<ItemPackageReview> itemPackageReviews;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

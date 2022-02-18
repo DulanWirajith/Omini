@@ -71,6 +71,8 @@ export class ProfileGService {
       country: "",
       district: "",
       followed: false,
+      rating1: 0,
+      rating2: 0,
       town: {
         townId: "",
         district: {

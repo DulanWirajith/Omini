@@ -27,12 +27,15 @@ public class ItemPackageReviewDTO extends DateTimeDTO {
     private CustomerProfileDTO customerProfile;
     private String postedDate;
     private int rating;
+    private double rating1;
+    private int rating2;
     private int tempRating;
     private int likeCount;
     private int dislikeCount;
     private ItemPackageReviewResponseDTO responseByMe;
     private boolean editReview;
     private boolean removeReview;
+    private List<ItemPackageReviewDTO> itemPackageReviews;
 
     public ItemPackageReviewDTO(ItemPackageReview itemPackageReview) {
         if (itemPackageReview != null) {

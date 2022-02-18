@@ -176,12 +176,15 @@ public class ItemPackageSImpl implements ItemPackageS {
     }
 
     @Override
-    public List<ItemPackageReviewDTO> getItemPackageReviews(String itemId, String customerId) {
+    public ItemPackageReviewDTO getItemPackageReviews(String itemId, String customerId) {
         List<ItemPackageReview> itemPackageReviews = itemPackageReviewR.getAllByItemPackage_ItemPackageId(itemId);
         List<ItemPackageReviewDTO> itemPackageReviewDTOS = new ArrayList<>();
+        ItemPackageReviewDTO itemPackageReviewDTOObj = new ItemPackageReviewDTO();
+        double tempRating = 0;
         if (itemPackageReviews != null) {
             for (ItemPackageReview itemPackageReview : itemPackageReviews) {
                 ItemPackageReviewDTO itemPackageReviewDTO = new ItemPackageReviewDTO(itemPackageReview);
+                tempRating += itemPackageReview.getRating();
 //                List<ItemPackageReviewResponse> responses = itemPackageReviewResponseR.getAllByItemPackageReview_ItemPackageReviewId(itemPackageReview.getItemPackageReviewId());
                 for (ItemPackageReviewResponse reviewResponse : itemPackageReview.getItemPackageReviewResponses()) {
                     if (reviewResponse.getCustomerProfile().getCustomerProId().equals(customerId)) {
@@ -196,8 +199,13 @@ public class ItemPackageSImpl implements ItemPackageS {
                 itemPackageReviewDTO.setCustomerProfile(itemPackageReview);
                 itemPackageReviewDTOS.add(itemPackageReviewDTO);
             }
+            if (itemPackageReviews.size() > 0) {
+                itemPackageReviewDTOObj.setRating1((tempRating / itemPackageReviews.size()));
+                itemPackageReviewDTOObj.setRating2((int) itemPackageReviewDTOObj.getRating1());
+            }
         }
-        return itemPackageReviewDTOS;
+        itemPackageReviewDTOObj.setItemPackageReviews(itemPackageReviewDTOS);
+        return itemPackageReviewDTOObj;
     }
 
     @Override
