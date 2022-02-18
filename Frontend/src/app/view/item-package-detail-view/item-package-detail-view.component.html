@@ -134,14 +134,15 @@
         <div *ngIf="itemPackage.itemPackageType==='Package'" class="row" style="margin-top: 10px">
           <p class="mb-2 fs-sm text-dark fw-bold">Includes </p>
           <!--Item-->
-          <div class="col-sm-12 col-md-6 col-xl-6" *ngFor="let packageItemItem of itemPackage.packageItemItems">
+          <div class="col-sm-12 col-md-6 col-xl-6" *ngFor="let packageItemItem of itemPackage.packageItemItems"
+               style="margin-top: 10px">
             <div class="card shadow-sm card-hover border-0 h-100">
               <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.25)">
                 <a class="img-overlay"></a>
                 <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
                   class="d-table badge bg-primary cursor-point"><h4
                   class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i
-                  class="fi-star fs-sm"></i> 4.5 / 5</h4></span>
+                  class="fi-star fs-sm" style="margin-right: 5px"></i> {{packageItemItem.item.itemPackage.rating1 | number:'.1-1'}} / 5.0</h4></span>
                 </div>
                 <!--<div class="content-overlay end-0 top-0 pt-3 pe-3">-->
                 <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
@@ -165,6 +166,8 @@
                   <a class="nav-link"
                      (click)="getItemPackageSelected(itemPackage,packageItemItem.item.itemPackage)"
                      style="font-weight: bold;padding: 0px">{{packageItemItem.item.itemPackage.name}}</a></h3>
+                <span style="font-size: 14px">Quantity : </span>
+                <span style="font-size: 14px">{{packageItemItem.quantity}}</span>
                 <!-- <div class="d-flex align-items-center text-nowrap">
                   <p class="mb-2 fs-sm text-muted">Quantity </p>
                   <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
