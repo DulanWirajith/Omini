@@ -97,6 +97,7 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
           this.itemPackageReviewR.rating1 += review.rating;
         }
         this.itemPackageReviewR.rating1 = this.itemPackageReviewR.rating1 / this.itemPackageReviewR.itemPackageReviews.length;
+        this.itemPackageObj.itemPackage.rating1 = this.itemPackageReviewR.rating1;
       }
       this.reviewForm.resetForm();
       this.itemPackageReview = this.getNewItemPackageReview();
@@ -115,6 +116,7 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
           this.itemPackageReviewR.rating1 += review.rating;
         }
         this.itemPackageReviewR.rating1 = this.itemPackageReviewR.rating1 / this.itemPackageReviewR.itemPackageReviews.length;
+        this.itemPackageObj.itemPackage.rating1 = this.itemPackageReviewR.rating1;
       }
     })
   }
@@ -129,6 +131,7 @@ export class ItemPackageDetailViewComponent implements OnInit, OnDestroy {
             this.itemPackageReviewR.rating1 += review.rating;
           }
           this.itemPackageReviewR.rating1 = this.itemPackageReviewR.rating1 / this.itemPackageReviewR.itemPackageReviews.length;
+          this.itemPackageObj.itemPackage.rating1 = this.itemPackageReviewR.rating1;
         }
       }
     })

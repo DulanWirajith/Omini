@@ -306,7 +306,8 @@ export class BaManagePackageEditComponent implements OnInit {
 
   review = false;
   itemPackageReview = {
-    rating: 0,
+    rating1: 0,
+    rating2: 0,
     itemPackageReviews: []
   };
 
@@ -316,7 +317,7 @@ export class BaManagePackageEditComponent implements OnInit {
     if (this.getUser() !== null) {
       customerId = this.getUser().userId;
     }
-    this.itemService.getItemPackageReviews(this.packageItem.itemId, customerId).subscribe((itemPackageReview) => {
+    this.itemService.getItemPackageReviews(this.packageItem.packageItemId, customerId).subscribe((itemPackageReview) => {
       this.itemPackageReview = itemPackageReview;
       // console.log(this.itemPackageReviews)
     })

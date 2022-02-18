@@ -239,7 +239,8 @@ export class BaManageItemEditComponent implements OnInit {
 
   review = false;
   itemPackageReview = {
-    rating: 0,
+    rating1: 0,
+    rating2: 0,
     itemPackageReviews: []
   };
 

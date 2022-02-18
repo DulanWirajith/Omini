@@ -519,7 +519,7 @@
           <!-- Reviews-->
           <div class="mb-4 pb-4 border-bottom">
             <h3 class="h4 pb-3"><i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>
-              {{itemPackageReview.rating}} ({{itemPackageReview.itemPackageReviews.length}} review{{itemPackageReview.itemPackageReviews.length>1?'s':''}})
+              {{itemPackageReview.rating1 | number:'.1-1'}} ({{itemPackageReview.itemPackageReviews.length}} review{{itemPackageReview.itemPackageReviews.length>1?'s':''}})
             </h3>
             <div
               class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">

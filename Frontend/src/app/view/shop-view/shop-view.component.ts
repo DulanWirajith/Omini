@@ -231,6 +231,7 @@ export class ShopViewComponent implements OnInit {
           this.businessReviewR.rating1 += review.rating;
         }
         this.businessReviewR.rating1 = this.businessReviewR.rating1 / this.businessReviewR.businessReviews.length;
+        this.businessProfile.rating2 = Math.floor(this.businessReviewR.rating1)
       }
       this.reviewForm.resetForm()
       this.businessReview = this.getNewBusinessReview();
@@ -249,6 +250,7 @@ export class ShopViewComponent implements OnInit {
           this.businessReviewR.rating1 += review.rating;
         }
         this.businessReviewR.rating1 = this.businessReviewR.rating1 / this.businessReviewR.businessReviews.length;
+        this.businessProfile.rating2 = Math.floor(this.businessReviewR.rating1)
       }
     })
   }
