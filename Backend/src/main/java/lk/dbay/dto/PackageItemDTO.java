@@ -46,7 +46,7 @@ public class PackageItemDTO extends DateTimeDTO {
     public void setPackageItemItems(PackageItem packageItem) {
         this.packageItemItems = new ArrayList<>();
         for (PackageItemItem packageItemItem : packageItem.getPackageItemItems()) {
-            this.packageItemItems.add(new PackageItemItemDTO(packageItemItem.getPackageItem(), packageItemItem.getItem()));
+            this.packageItemItems.add(new PackageItemItemDTO(packageItemItem));
         }
     }
 }

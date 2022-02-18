@@ -3,6 +3,7 @@ package lk.dbay.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.item.Item;
 import lk.dbay.entity.item.PackageItem;
+import lk.dbay.entity.item.PackageItemItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,14 +20,16 @@ public class PackageItemItemDTO extends DateTimeDTO {
     private String name;
     private PackageItemDTO packageItem;
     private ItemDTO item;
+    private int quantity;
 
-    public PackageItemItemDTO(PackageItem packageItem, Item item) {
-        if (packageItem != null)
-            this.packageItem = new PackageItemDTO(packageItem);
-        if (item != null) {
-            this.itemId = item.getItemId();
-            this.name = item.getItemPackage().getName();
-            this.item = new ItemDTO(item);
+    public PackageItemItemDTO(PackageItemItem packageItemItem) {
+        this.quantity = packageItemItem.getQuantity();
+        if (packageItemItem.getPackageItem() != null)
+            this.packageItem = new PackageItemDTO(packageItemItem.getPackageItem());
+        if (packageItemItem.getItem() != null) {
+            this.itemId = packageItemItem.getItem().getItemId();
+            this.name = packageItemItem.getItem().getItemPackage().getName();
+            this.item = new ItemDTO(packageItemItem.getItem());
         }
     }
 

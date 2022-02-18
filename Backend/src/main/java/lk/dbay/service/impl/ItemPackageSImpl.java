@@ -121,7 +121,7 @@ public class ItemPackageSImpl implements ItemPackageS {
                 packageItemDTO = new PackageItemDTO(itemPackage.getPackageItem()).setItemPackageToPackageItem(itemPackageDTO);
                 List<PackageItemItemDTO> packageItemItemDTOS = new ArrayList<>();
                 for (PackageItemItem packageItemItem : itemPackage.getPackageItem().getPackageItemItems()) {
-                    PackageItemItemDTO packageItemItemDTO = new PackageItemItemDTO(packageItemItem.getPackageItem(), packageItemItem.getItem());
+                    PackageItemItemDTO packageItemItemDTO = new PackageItemItemDTO(packageItemItem);
                     ItemPackageDTO itemPackageItemDTO = new ItemPackageDTO(packageItemItem.getItem().getItemPackage());
                     itemPackageItemDTO.setBusinessProfileCategory(packageItemItem.getItem().getItemPackage());
                     itemPackageItemDTO.setItemPackageItemPackageFeatures(packageItemItem.getItem().getItemPackage());

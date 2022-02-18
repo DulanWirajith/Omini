@@ -27,6 +27,8 @@ public class PackageItemItem extends DateTime {
     @JoinColumn(name = "packageItemId", referencedColumnName = "packageItemId", insertable = false, updatable = false, nullable = false)
     private PackageItem packageItem;
 
+    private int quantity;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

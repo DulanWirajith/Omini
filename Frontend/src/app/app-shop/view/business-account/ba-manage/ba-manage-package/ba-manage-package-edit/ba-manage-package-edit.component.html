@@ -174,10 +174,14 @@
             <div class="card shadow-sm card-hover border-0 h-100" *ngIf="packageItemItem.item!==undefined">
               <div class="tns-carousel-wrapper card-img-top card-img-hover" style="background-color: rgba(0,0,0,0.25)">
                 <a class="img-overlay"></a>
-                <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                <div class="position-absolute start-0 top-0 pt-3 ps-3" style="display: flex">
+                  <span
                   class="d-table badge bg-primary cursor-point"><h4
                   class="h6 text-light fs-sm" style="margin-bottom: 0px;"><i
-                  class="fi-star fs-sm" style="margin-right: 5px"></i> {{packageItemItem.item.rating1 | number:'.1-1'}} / 5.0</h4></span>
+                  class="fi-star fs-sm" style="margin-right: 5px"></i> {{packageItemItem.item.itemPackage.rating1 | number:'.1-1'}} / 5.0</h4></span>
+                  <!--<div *ngIf="packageItemItem.item.packageOnly"-->
+                       <!--class="d-table badge bg-info">Package Only Item-->
+                  <!--</div>-->
                 </div>
                 <!--<div class="content-overlay end-0 top-0 pt-3 pe-3">-->
                 <!--<button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"-->
@@ -197,17 +201,25 @@
               <div class="card-body position-relative pb-3">
 
                 <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
+                <!--<div class="row">-->
+                <!--<div class="col-10">-->
                 <h3 class="h6 mb-2 fs-base">
                   <a class="nav-link"
                      (click)="getItemPackageSelected(packageItem,packageItemItem.item)"
                      style="font-weight: bold;padding: 0px">{{packageItemItem.item.itemPackage.name}}</a></h3>
+                <!--</div>-->
+                <!--<div class="col-2">-->
+                <span style="font-size: 14px">Quantity : </span>
+                <span style="font-size: 14px">{{packageItemItem.quantity}}</span>
+                <!--</div>-->
+                <!--</div>-->
                 <!-- <div class="d-flex align-items-center text-nowrap">
                   <p class="mb-2 fs-sm text-muted">Quantity </p>
                   <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
                 </div> -->
-                <div class="row g-2">
+                <!--<div class="row g-2">-->
 
-                </div>
+                <!--</div>-->
                 <!--<div class="row cols-sm-2 row-cols-md-12"-->
                 <!--style="border-top: 1px solid #eaeaea;border-bottom: 1px solid #eaeaea;margin-top: 10px;margin-bottom: 10px">-->
                 <!--<div class="col" style="padding: 0px">-->
@@ -495,14 +507,18 @@
                                style="background-color: rgba(0,0,0,0.25)">
                             <a class="img-overlay"></a>
                             <div class="position-absolute start-0 top-0 pt-3 ps-3"
-                            style="width: 95%;display: flex;justify-content: right">
+                                 style="width: 95%;display: flex">
+                              <div *ngIf="packageItemItem.item.packageOnly"
+                                   class="d-table badge bg-info">Package Only Item
+                              </div>
                               <!--<span class="d-table badge bg-primary cursor-point">-->
                               <!--<h4 class="h6 text-light fs-sm" style="margin-bottom: 0px;">-->
                               <!--<i class="fi-star fs-sm"></i> 4.5 / 5</h4></span>-->
-
-                              <i class="fi-trash"
-                                 style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 15px;"
-                                 (click)="packageItem.packageItemItems.splice(j,1)"></i>
+                              <div style="display: flex;justify-content: right;width: 100%">
+                                <i class="fi-trash"
+                                   style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 15px;"
+                                   (click)="packageItem.packageItemItems.splice(j,1)"></i>
+                              </div>
                             </div>
 
                             <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
@@ -520,13 +536,27 @@
                           <div class="card-body position-relative pb-3">
 
                             <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
-                            <h3 class="h6 mb-2 fs-base">
+                            <!--<div class="row">-->
+                            <!--<div class="col-9">-->
+                            <h3 class="h6 mb-2 fs-base" *ngIf="packageItemItem.item.packageOnly">
                               <a class="nav-link"
                                  data-bs-toggle="offcanvas"
                                  (click)="getItemSelected(packageItemItem.item)"
                                  data-bs-target="#packageOnlyItem-viewer"
                                  style="font-weight: bold;padding: 0px">{{packageItemItem.item.itemPackage.name}}</a>
                             </h3>
+                            <h3 class="h6 mb-2 fs-base" *ngIf="!packageItemItem.item.packageOnly">
+                              <a class="nav-link"
+                                 style="font-weight: bold;padding: 0px">{{packageItemItem.item.itemPackage.name}}</a>
+                            </h3>
+                            <!--</div>-->
+                            <div style="display: flex">
+                              <div style="width: 150px;line-height: 2.3;font-size: 14px">Quantity :</div>
+                              <input type="number" name="qty{{j}}" [(ngModel)]="packageItemItem.quantity"
+                                     class="form-control"
+                                     style="font-size: 14px">
+                            </div>
+                            <!--</div>-->
                             <!-- <div class="d-flex align-items-center text-nowrap">
                               <p class="mb-2 fs-sm text-muted">Quantity </p>
                               <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
@@ -773,7 +803,8 @@
           <!-- Reviews-->
           <div class="mb-4 pb-4 border-bottom">
             <h3 class="h4 pb-3"><i class="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>
-              {{itemPackageReview.rating1 | number:'.1-1'}} ({{itemPackageReview.itemPackageReviews.length}} review{{itemPackageReview.itemPackageReviews.length>1?'s':''}})
+              {{itemPackageReview.rating1 | number:'.1-1'}} ({{itemPackageReview.itemPackageReviews.length}}
+              review{{itemPackageReview.itemPackageReviews.length>1?'s':''}})
             </h3>
             <div
               class="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">

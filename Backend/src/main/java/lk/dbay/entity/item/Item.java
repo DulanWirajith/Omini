@@ -30,7 +30,6 @@ public class Item extends DateTime {
     private ItemCategory itemCategory;
 
     private boolean packageOnly;
-    private int packageOnlyQty;
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "item")
     private Set<PackageItemItem> packageItemItems;

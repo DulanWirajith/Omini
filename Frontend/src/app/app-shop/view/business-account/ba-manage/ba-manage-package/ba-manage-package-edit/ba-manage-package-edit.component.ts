@@ -54,7 +54,7 @@ export class BaManagePackageEditComponent implements OnInit {
     })
     this.itemService.packageItemSub.observers = [];
     this.itemService.packageItemSub.subscribe((packageItem) => {
-      // console.log(item)
+      // console.log(packageItem)
       this.packageItem = packageItem.packageItem;
       this.packageItems = packageItem.packageItems;
       this.itemIndex = packageItem.index;
@@ -130,7 +130,8 @@ export class BaManagePackageEditComponent implements OnInit {
           item: this.packageItem.packageItemItems[i],
           packageItem: {
             packageItemId: this.packageItem.packageItemId
-          }
+          },
+          quantity: this.packageItem.packageItemItems[i].quantity
         }
       }
       this.packageItem.packageItemItems[i].item.item = undefined;
@@ -160,7 +161,7 @@ export class BaManagePackageEditComponent implements OnInit {
       // this.itemPackage.itemItemPackages = [];
       // this.item = undefined;
       this.imageInput.removeFiles();
-      // console.log(itemPackageR)
+      // console.log(this.packageItem)
       // if (itemPackageR.packageItemItems.length > 0) {
       //   this.packageItem.packageItemItems = this.packageItem.packageItemItems.concat(itemPackageR.packageItemItems);
       // }

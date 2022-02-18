@@ -93,6 +93,17 @@ public class PackageSImpl implements PackageS {
                 );
                 itemPackageObj.setBusinessProfileCategory(businessProfileCategory);
 
+                List<PackageItemItem> packageItemItemsQty = new ArrayList<>();
+                for (PackageItemItem packageItemItem : packageItem.getPackageItemItems()) {
+                    Optional<PackageItemItem> packageItemItemOptional = packageItemItemR.findById(new PackageItemItemPK(packageItemItem.getPackageItem().getPackageItemId(), packageItemItem.getItem().getItemId()));
+                    if (packageItemItemOptional.isPresent()) {
+                        PackageItemItem packageItemItemObj = packageItemItemOptional.get();
+                        packageItemItemObj.setQuantity(packageItemItem.getQuantity());
+                        packageItemItemsQty.add(packageItemItemObj);
+                    }
+                    packageItemItemR.saveAll(packageItemItemsQty);
+                }
+
                 HashSet<PackageItemItem> packageItemItems = new HashSet<>(packageItem.getPackageItemItems());
                 packageItemItems.retainAll(packageItemObj.getPackageItemItems());
                 Set<PackageItemItem> packageItemItemsSetRemove = new HashSet<>(packageItemObj.getPackageItemItems());
@@ -135,7 +146,7 @@ public class PackageSImpl implements PackageS {
                 packageItemDTO.setItemPackage(packageItemObj);
                 List<PackageItemItemDTO> packageItemItemDTOS = new ArrayList<>();
                 for (PackageItemItem packageItemItem : packageItemObj.getPackageItemItems()) {
-                    PackageItemItemDTO packageItemItemDTO = new PackageItemItemDTO(packageItemItem.getPackageItem(), packageItemItem.getItem());
+                    PackageItemItemDTO packageItemItemDTO = new PackageItemItemDTO(packageItemItem);
                     ItemPackageDTO itemPackageItemDTO = new ItemPackageDTO(packageItemItem.getItem().getItemPackage());
                     itemPackageItemDTO.setBusinessProfileCategory(packageItemItem.getItem().getItemPackage());
                     itemPackageItemDTO.setItemPackageItemPackageFeatures(packageItemItem.getItem().getItemPackage());
@@ -158,6 +169,7 @@ public class PackageSImpl implements PackageS {
     private void addItemsToPackageItem(PackageItem packageItem) {
         for (PackageItemItem packageItemItem : packageItem.getPackageItemItems()) {
             packageItemItem.setPackageItemItemId(new PackageItemItemPK(packageItem.getPackageItemId(), packageItemItem.getItem().getItemId()));
+//            packageItemItem.setQuantity(1);
             packageItemItem.setPackageItem(packageItem);
         }
     }

@@ -112,11 +112,13 @@ export class BaManagePackageItemComponent implements OnInit {
         document.getElementById('btnBackItem').click()
       }
       this.item.isNewItem = false;
+      // console.log(this.packageItems)
       this.packageItems.push({
         itemId: item.itemId,
         name: item.itemPackage.name,
         item: item,
-        itemPackage: item.itemPackage
+        itemPackage: item.itemPackage,
+        quantity: 1
       })
       // console.log(this.packageItems)
     })
