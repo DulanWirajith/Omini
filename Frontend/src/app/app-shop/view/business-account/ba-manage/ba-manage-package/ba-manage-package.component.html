@@ -58,7 +58,7 @@
     <!--<form #baManageFormPackage="ngForm"-->
     <!--(ngSubmit)="baManageFormPackage.form.valid && itemPackage.itemItemPackages.length > 0 && onSubmit()" novalidate>-->
     <form #baManageFormPackage="ngForm"
-          (ngSubmit)="baManageFormPackage.form.valid && packageItem.itemPackage.itemImgsRaw.length>=3 && onSubmit()"
+          (ngSubmit)="baManageFormPackage.form.valid && packageItem.packageItemItems.length>0 && packageItem.itemPackage.itemPackageItemPackageFeatures.length>0 && packageItem.itemPackage.itemImgsRaw.length>=3 && onSubmit()"
           novalidate>
 
       <div class="row">
@@ -249,8 +249,12 @@
              data-bs-target="#packageOnlyItem-viewer"
              class="btn btn-icon btn-light btn-xs text-primary content-overlay mb-2 ms-3 fw-bold"
              title="You can create new feature." data-bs-original-title="You can create new package only item."
-             aria-label="You can create new package only item." style="padding-left: 20px;padding-top: 4px">Create Item
+             aria-label="You can create new package only item." style="padding-left: 20px;padding-top: 4px"
+             (click)="setItemsToItemAdd(packageItem.packageItemItems)">Create
+            Item
           </a>
+          <!--<form #baManageFormPackageItemExs="ngForm" (ngSubmit)="baManageFormPackageItemExs.form.valid && addItem()"-->
+          <!--novalidate>-->
 
           <div class="d-flex flex-column flex-sm-row">
             <div style="width: 100%">
@@ -260,11 +264,11 @@
                   bindLabel="name"
                   placeholder="Select Item"
                   dropdownPosition="auto"
-                  [multiple]="true"
+                  [multiple]="false"
                   [searchWhileComposing]="true"
-                  name="items"
-                  #itemsE="ngModel" required
-                  [(ngModel)]="packageItem.packageItemItems"
+                  name="packageItemItems"
+                  #itemsE="ngModel"
+                  [(ngModel)]="selectedPackageItem"
                   style="width: 100%">
                 </ng-select>
               </div>
@@ -273,22 +277,86 @@
                 class="validErr">
                 Item is required
               </div>
+
+              <div class="row" style="margin-top: 10px">
+                <div class="col-sm-12 col-md-6 col-xl-6" style="margin-top: 10px"
+                     *ngFor="let packageItemItem of packageItem.packageItemItems;let j=index">
+                  <div class="card shadow-sm card-hover border-0 h-100" *ngIf="packageItemItem.item!==undefined">
+                    <div class="tns-carousel-wrapper card-img-top card-img-hover"
+                         style="background-color: rgba(0,0,0,0.25)">
+                      <a class="img-overlay"></a>
+                      <div class="position-absolute start-0 top-0 pt-3 ps-3"
+                           style="width: 95%;display: flex">
+                        <div *ngIf="packageItemItem.item.packageOnly"
+                             class="d-table badge bg-info">Package Only Item
+                        </div>
+                        <!--<span class="d-table badge bg-primary cursor-point">-->
+                        <!--<h4 class="h6 text-light fs-sm" style="margin-bottom: 0px;">-->
+                        <!--<i class="fi-star fs-sm"></i> 4.5 / 5</h4></span>-->
+                        <div style="display: flex;justify-content: right;width: 100%">
+                          <i class="fi-trash"
+                             style="color: red;padding: 5px;background-color: white;border-radius: 10px;cursor: pointer;font-size: 15px;"
+                             (click)="packageItem.packageItemItems.splice(j,1)"></i>
+                        </div>
+                      </div>
+
+                      <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+                        <mdb-carousel-item
+                          *ngFor="let image of packageItemItem.item.itemPackage.itemPackageImages">
+                                <span
+                                  style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.25);position: absolute"></span>
+                          <img style="max-height:200px;height: 200px" class="d-block w-100"
+                               [src]="getImageSrc(image)"
+                               alt="First slide">
+                        </mdb-carousel-item>
+                      </mdb-carousel>
+
+                    </div>
+                    <div class="card-body position-relative pb-3">
+
+                      <!-- <h4 class="mb-1 fs-xs fw-normal text-uppercase text-primary fw-bold">Not Available</h4> -->
+                      <!--<div class="row">-->
+                      <!--<div class="col-9">-->
+                      <h3 class="h6 mb-2 fs-base" *ngIf="packageItemItem.item.packageOnly">
+                        <a class="nav-link"
+                           data-bs-toggle="offcanvas"
+                           (click)="getItemSelected(packageItemItem.item)"
+                           data-bs-target="#packageOnlyItem-viewer"
+                           style="font-weight: bold;padding: 0px">{{packageItemItem.item.itemPackage.name}}</a>
+                      </h3>
+                      <h3 class="h6 mb-2 fs-base" *ngIf="!packageItemItem.item.packageOnly">
+                        <a class="nav-link"
+                           style="font-weight: bold;padding: 0px">{{packageItemItem.item.itemPackage.name}}</a>
+                      </h3>
+                      <!--</div>-->
+                      <div style="display: flex">
+                        <div style="width: 150px;line-height: 2.3;font-size: 14px">Quantity :</div>
+                        <input type="number" name="qtyA{{j}}" [(ngModel)]="packageItemItem.quantity"
+                               class="form-control"
+                               style="font-size: 14px">
+                      </div>
+                      <!--</div>-->
+                      <!-- <div class="d-flex align-items-center text-nowrap">
+                        <p class="mb-2 fs-sm text-muted">Quantity </p>
+                        <p class="mb-2 fs-sm text-primary fw-bold mx-2"> 250g</p>
+                      </div> -->
+                      <div class="row g-2">
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
               <!--<div style="color: blue;padding-left: 10px;padding-top: 5px">-->
               <!--Add new feature-->
               <!--</div>-->
             </div>
-            <button style="margin-left: 10px" type="submit"
+
+            <button style="margin-left: 10px" (click)="addPackageItem()"
                     class="btn btn-light-primary btn-icon shadow-sm">
               <i class="fi-plus"></i>
             </button>
-            <!-- <div class="invalid-tooltip">
-              Please fill item quantity
-            </div>
-            <div class="valid-tooltip">Looks good!</div> -->
-            <!--<button style="margin-left: 10px" type="submit"-->
-            <!--class="btn btn-light-primary btn-icon shadow-sm">-->
-            <!--<i class="fi-plus"></i>-->
-            <!--</button>-->
             <!-- <button class="btn btn-translucent-primary rounded-pill" type="button">Add</button> -->
           </div>
           <!--</form>-->
@@ -331,8 +399,9 @@
                     style="width: 100%">
                   </ng-select>
                 </div>
-                <div *ngIf="(baManageFormPackageExs.submitted) && itemPackageFeature===undefined"
-                     class="validErr">
+                <div
+                  *ngIf="((baManageFormPackageExs.submitted) && itemPackageFeature===undefined) || (baManageFormPackage.submitted && packageItem.itemPackage.itemPackageItemPackageFeatures.length===0)"
+                  class="validErr">
                   Feature is required
                 </div>
                 <!--<div style="color: blue;padding-left: 10px;padding-top: 5px">-->
@@ -551,7 +620,8 @@
 
             <!-- <a class="img-overlay" href="#"></a> -->
             <span class="img-gradient-overlay"></span>
-            <div class="position-absolute start-0 top-0 pt-3 ps-3"><span class="d-table badge bg-primary cursor-point"><h4
+            <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+              class="d-table badge bg-primary cursor-point"><h4
               class="h6 text-light fs-sm" style="margin-bottom: 0px">
           <i class="fi-star fs-sm" style="margin-right: 5px"></i> {{packageItem.itemPackage.rating1 | number:'.1-1'}} / 5.0</h4></span>
             </div>

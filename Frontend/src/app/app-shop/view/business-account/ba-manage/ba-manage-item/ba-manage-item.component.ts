@@ -99,15 +99,23 @@ export class BaManageItemComponent implements OnInit {
       }));
     this.itemService.addItem(uploadImageData).subscribe((item) => {
       if (this.item.packageOnly === this.itemType.val) {
-        this.items.push(item);
+        if (this.businessAccountService.businessCategory.businessCategoryId === this.item.itemPackage.businessProfileCategory.businessCategory.businessCategoryId) {
+          this.items.push(item);
+        }
       }
-      this.baManageFormItem.resetForm(this.itemService.getNewItem());
-      this.item.itemPackage.itemPackageItemPackageFeatures = [];
+      this.baManageFormItem.resetForm();
       this.imageInput.removeFiles();
       if (document.getElementById('btnAddItem') !== null) {
         document.getElementById('btnAddItem').click()
       }
-      this.item.isNewItem = false;
+      let that = this;
+      setTimeout(function () {
+        that.item = that.itemService.getNewItem();
+      }, 500)
+      // this.item.itemPackage.itemPackageItemPackageFeatures = [];
+      // this.item.itemPackage.itemImgsRaw = [];
+      // this.item.isNewItem = false;
+      // console.log(this.item)
     })
   }
 

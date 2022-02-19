@@ -71,7 +71,7 @@
   <div class="card card-body">
 
     <form #baManageFormItem="ngForm"
-          (ngSubmit)="baManageFormItem.form.valid && item.itemPackage.itemImgsRaw.length>=3 && onSubmit()" novalidate>
+          (ngSubmit)="baManageFormItem.form.valid && item.itemPackage.itemPackageItemPackageFeatures.length>0 && item.itemPackage.itemImgsRaw.length>=3 && onSubmit()" novalidate>
 
       <div class="row">
         <div class="col-md-12 mb-3">
@@ -289,7 +289,7 @@
                     style="width: 100%">
                   </ng-select>
                 </div>
-                <div *ngIf="(baManageFormItemFeatureExs.submitted) && itemPackageFeature===undefined"
+                <div *ngIf="((baManageFormItemFeatureExs.submitted) && itemPackageFeature===undefined) || (baManageFormItem.submitted && item.itemPackage.itemPackageItemPackageFeatures.length===0)"
                      class="validErr">
                   Feature is required
                 </div>

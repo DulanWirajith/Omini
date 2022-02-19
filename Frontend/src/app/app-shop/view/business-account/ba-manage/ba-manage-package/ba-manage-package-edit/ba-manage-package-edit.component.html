@@ -278,7 +278,7 @@
       <div class="tab-pane fade" id="package-edit" role="tabpanel" *ngIf="itemPackageObj.backBtn===undefined">
         <div class="card card-body">
           <form #baManageFormPackageE="ngForm"
-                (ngSubmit)="baManageFormPackageE.form.valid && (packageItem.itemPackage.itemImgsRaw.length+packageItem.itemPackage.itemPackageImages.length)>=3 && onSubmit()"
+                (ngSubmit)="baManageFormPackageE.form.valid && packageItem.packageItemItems.length>0 && packageItem.itemPackage.itemPackageItemPackageFeatures.length>0 && (packageItem.itemPackage.itemImgsRaw.length+packageItem.itemPackage.itemPackageImages.length)>=3 && onSubmit()"
                 novalidate>
 
             <div class="row">
@@ -552,7 +552,7 @@
                             <!--</div>-->
                             <div style="display: flex">
                               <div style="width: 150px;line-height: 2.3;font-size: 14px">Quantity :</div>
-                              <input type="number" name="qty{{j}}" [(ngModel)]="packageItemItem.quantity"
+                              <input type="number" name="qtyE{{j}}" [(ngModel)]="packageItemItem.quantity"
                                      class="form-control"
                                      style="font-size: 14px">
                             </div>
@@ -681,7 +681,7 @@
                           style="width: 100%">
                         </ng-select>
                       </div>
-                      <div *ngIf="(baManageFormPackageExs.submitted) && itemPackageFeature===undefined"
+                      <div *ngIf="(baManageFormPackageExs.submitted) && packageItem.itemPackage.itemPackageItemPackageFeatures.length===0"
                            class="validErr">
                         Feature is required
                       </div>
@@ -928,7 +928,7 @@
       </div>
       <div *ngIf="!confirmation.reply" class="modal-footer border-none">
         <button type="submit" class="btn btn-success btn-sm"
-                (click)="removeItem(packageItem.itemId)">Yes
+                (click)="removePackage(packageItem.packageItemId)">Yes
         </button>
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">No</button>
       </div>

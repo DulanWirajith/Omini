@@ -65,6 +65,7 @@ export class BaManageItemViewComponent implements OnInit {
         //   item.itemDiscountView = item.itemDiscount + "%";
         // }
         // console.log(itemPackage.item)
+        this.items[index].itemPackage.businessProfileCategory = itemPackage.item.itemPackage.businessProfileCategory;
         this.items[index].itemPackage.itemImgsRaw = [];
         this.items[index].itemPackage.itemPackageItemPackageFeatures = itemPackage.item.itemPackage.itemPackageItemPackageFeatures;
         this.itemService.itemFeaturesSub.next(itemPackage.item.itemFeatures);

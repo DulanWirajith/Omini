@@ -291,8 +291,8 @@ export class BaManagePackageEditComponent implements OnInit {
     this.confirmation.message = message;
   }
 
-  removeItem(itemId) {
-    this.itemService.removeItem(itemId).subscribe((reply) => {
+  removePackage(itemId) {
+    this.itemService.removePackage(itemId).subscribe((reply) => {
       if (reply) {
         this.items.splice(this.itemIndex, 1);
         if (document.getElementById('item-close-btn') !== null) {

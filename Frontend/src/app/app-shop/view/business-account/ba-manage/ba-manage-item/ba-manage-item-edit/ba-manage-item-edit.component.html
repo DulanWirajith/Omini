@@ -178,7 +178,7 @@
       <div class="tab-pane fade" id="item-edit" role="tabpanel">
         <div class="card card-body">
           <form #baManageFormItemE="ngForm"
-                (ngSubmit)="baManageFormItemE.form.valid && (item.itemPackage.itemImgsRaw.length+item.itemPackage.itemPackageImages.length)>=3 && onSubmitE()"
+                (ngSubmit)="baManageFormItemE.form.valid && item.itemPackage.itemPackageItemPackageFeatures.length>0 && (item.itemPackage.itemImgsRaw.length+item.itemPackage.itemPackageImages.length)>=3 && onSubmitE()"
                 novalidate>
 
             <div class="row">
@@ -395,7 +395,7 @@
                           style="width: 100%">
                         </ng-select>
                       </div>
-                      <div *ngIf="(baManageFormItemFeatureExs.submitted) && itemPackageFeature===undefined"
+                      <div *ngIf="((baManageFormItemFeatureExs.submitted) && itemPackageFeature===undefined) || (baManageFormItemE.submitted && item.itemPackage.itemPackageItemPackageFeatures.length===0)"
                            class="validErr">
                         Feature is required
                       </div>

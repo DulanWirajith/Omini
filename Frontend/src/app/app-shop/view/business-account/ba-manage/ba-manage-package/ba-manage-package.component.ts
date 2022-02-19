@@ -87,10 +87,11 @@ export class BaManagePackageComponent implements OnInit {
   // }
   // }
   addFeature() {
-    if (this.itemPackageFeature !== undefined) {
+    // console.log(this.itemPackageItemPackageFeature)
+    if (this.itemPackageItemPackageFeature !== undefined) {
       this.packageItem.itemPackage.itemPackageItemPackageFeatures.push({
-        itemPackage: {itemId: this.packageItem.itemPackage.itemPackageId},
-        itemPackageFeature: this.itemPackageFeature
+        itemPackage: {itemPackageId: this.packageItem.itemPackage.itemPackageId},
+        itemPackageFeature: this.itemPackageItemPackageFeature
       })
       this.baManageFormPackageExs.resetForm()
       this.itemPackageFeature = undefined;
@@ -154,10 +155,11 @@ export class BaManagePackageComponent implements OnInit {
       if (this.packageItem.packageItemItems[i].packageItem === undefined) {
         this.packageItem.packageItemItems[i] = {
           name: this.packageItem.packageItemItems[i].name,
-          item: this.packageItem.packageItemItems[i],
+          item: this.packageItem.packageItemItems[i].item,
           packageItem: {
             packageItemId: this.packageItem.packageItemId
-          }
+          },
+          quantity: this.packageItem.packageItemItems[i].quantity
         }
       }
     }
@@ -184,21 +186,27 @@ export class BaManagePackageComponent implements OnInit {
       {
         type: "application/json"
       }));
-    this.itemService.addPackage(uploadImageData).subscribe((packageItem) => {
-      this.packageItem.itemPackage.itemItemPackages = [];
-      this.packageItem.itemPackage.itemPackageItemPackageFeatures = [];
-      packageItem.itemPackage.itemPackageImages = this.packageItem.itemPackage.itemPackageImages.concat(packageItem.itemPackage.itemPackageImages);
-      packageItem.itemPackage.itemImgsRaw = [];
+    this.itemService.addPackage(uploadImageData).subscribe((packageItemR) => {
+      packageItemR.itemPackage.itemItemPackages = [];
+      packageItemR.itemPackage.itemPackageItemPackageFeatures = [];
+      packageItemR.itemPackage.itemPackageImages = this.packageItem.itemPackage.itemPackageImages.concat(packageItemR.itemPackage.itemPackageImages);
+      packageItemR.itemPackage.itemImgsRaw = [];
+      this.packageItem = packageItemR;
       // this.item = undefined;
-
-      this.packageItems.push(JSON.parse(JSON.stringify(packageItem)))
-      this.baManageFormPackage.resetForm(this.itemService.getNewPackage());
+      if (this.businessAccountService.businessCategory.businessCategoryId === this.packageItem.itemPackage.businessProfileCategory.businessCategory.businessCategoryId) {
+        this.packageItems.push(JSON.parse(JSON.stringify(this.packageItem)))
+      }
+      this.baManageFormPackage.resetForm();
       // this.item.itemItemFeatures = [];
       this.imageInput.removeFiles();
       if (document.getElementById('btnAddPackage') !== null) {
         document.getElementById('btnAddPackage').click()
       }
-      this.packageItem.itemPackage.isNewPackage = false;
+      let that = this;
+      setTimeout(function () {
+        that.packageItem = that.itemService.getNewPackage();
+      }, 500)
+      // this.packageItem.itemPackage.isNewPackage = false;
     })
   }
 
@@ -380,5 +388,16 @@ export class BaManagePackageComponent implements OnInit {
       // console.log(reply)
       packageItem.itemPackage.available = reply;
     })
+  }
+
+  selectedPackageItem;
+
+  addPackageItem() {
+    this.selectedPackageItem.quantity = 1;
+    this.packageItem.packageItemItems.push(this.selectedPackageItem)
+  }
+
+  setItemsToItemAdd(packageItems) {
+    this.itemService.packageItemsSub.next(packageItems);
   }
 }
