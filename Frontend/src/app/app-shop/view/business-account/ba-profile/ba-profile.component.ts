@@ -24,7 +24,7 @@ export class BaProfileComponent implements OnInit {
     toggleView: false
   };
   countries;
-  districts;
+  regions;
   towns;
   pondOptions = {
     class: 'my-filepond',
@@ -62,8 +62,8 @@ export class BaProfileComponent implements OnInit {
         businessProfile.dbayUser.dbayUserImgsRaw = [];
         // console.log(businessProfile)
         this.businessProfile = businessProfile;
-        this.getDistricts(businessProfile.town.district.country.countryId)
-        this.getTowns(businessProfile.town.district.districtId)
+        this.getDistricts(businessProfile.town.region.country.countryId)
+        this.getTowns(businessProfile.town.region.regionId)
       }
     })
   }
@@ -75,13 +75,13 @@ export class BaProfileComponent implements OnInit {
   }
 
   getDistricts(countryId) {
-    this.businessAccountService.getDistricts(countryId).subscribe((districts) => {
-      this.districts = districts;
+    this.businessAccountService.getDistricts(countryId).subscribe((regions) => {
+      this.regions = regions;
     })
   }
 
-  getTowns(districtId) {
-    this.businessAccountService.getTowns(districtId).subscribe((towns) => {
+  getTowns(regionId) {
+    this.businessAccountService.getTowns(regionId).subscribe((towns) => {
       this.towns = towns;
     })
   }

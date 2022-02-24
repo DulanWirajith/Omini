@@ -50,7 +50,7 @@ public class CustomerProfileDTO extends DateTimeDTO {
 
     public void setTown(CustomerProfile customerProfile) {
         if (customerProfile.getTown() != null) {
-            this.town = new TownDTO(customerProfile.getTown(), customerProfile.getTown().getDistrict(), customerProfile.getTown().getDistrict().getCountry());
+            this.town = new TownDTO(customerProfile.getTown(), customerProfile.getTown().getRegion(), customerProfile.getTown().getRegion().getCountry());
         }
     }
 //    public CustomerProfileDTO(@NonNull CustomerProfile customerProfile, @NonNull DbayUserDTO dbayUser) {

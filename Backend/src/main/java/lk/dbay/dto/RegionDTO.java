@@ -2,8 +2,7 @@ package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lk.dbay.entity.Country;
-import lk.dbay.entity.District;
-import lk.dbay.entity.Town;
+import lk.dbay.entity.Region;
 import lombok.*;
 
 @NoArgsConstructor
@@ -11,21 +10,21 @@ import lombok.*;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DistrictDTO extends DateTimeDTO {
+public class RegionDTO extends DateTimeDTO {
 
-    private String districtId;
+    private String regionId;
     private String name;
     private CountryDTO country;
 
-    public DistrictDTO(District district) {
-        if (district != null) {
-            this.districtId = district.getDistrictId();
-            this.name = district.getName();
+    public RegionDTO(Region region) {
+        if (region != null) {
+            this.regionId = region.getRegionId();
+            this.name = region.getName();
         }
     }
 
-    public DistrictDTO(District district, Country country) {
-        this(district);
+    public RegionDTO(Region region, Country country) {
+        this(region);
         if (country != null) {
             this.country = new CountryDTO(country);
         }

@@ -69,13 +69,13 @@ export class ProfileGService {
       socialTwitter: "",
       socialLinkedIn: "",
       country: "",
-      district: "",
+      region: "",
       followed: false,
       rating1: 0,
       rating2: 0,
       town: {
         townId: "",
-        district: {
+        region: {
           country: {
             name: ""
           }

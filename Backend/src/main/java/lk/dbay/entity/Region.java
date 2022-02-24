@@ -13,12 +13,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name", name = "District_Name")
+        @UniqueConstraint(columnNames = "name", name = "Region_Name")
 })
-public class District extends DateTime {
+public class Region extends DateTime {
 
     @Id
-    private String districtId;
+    private String regionId;
     private String name;
 
     @ManyToOne(optional = false)

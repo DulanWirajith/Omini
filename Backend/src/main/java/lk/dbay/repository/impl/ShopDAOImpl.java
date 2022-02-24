@@ -45,14 +45,14 @@ public class ShopDAOImpl implements ShopDAO {
             predicateBusinessProfileCategory = cb.or(predicateCats);
         }
         predicateShops = cb.and(predicateName, predicateBusinessProfileCategory);
-        if (!district.equals("0")) {
-            Predicate predicateDistrict = cb.like(businessProfileRoot.get("town").get("district").get("districtId"), district);
-            predicateShops = cb.and(predicateShops, predicateDistrict);
-        }
-        if (!town.equals("0")) {
-            Predicate predicateTown = cb.like(businessProfileRoot.get("town").get("townId"), town);
-            predicateShops = cb.and(predicateShops, predicateTown);
-        }
+//        if (!district.equals("0")) {
+//            Predicate predicateDistrict = cb.like(businessProfileRoot.get("town").get("district").get("districtId"), district);
+//            predicateShops = cb.and(predicateShops, predicateDistrict);
+//        }
+//        if (!town.equals("0")) {
+//            Predicate predicateTown = cb.like(businessProfileRoot.get("town").get("townId"), town);
+//            predicateShops = cb.and(predicateShops, predicateTown);
+//        }
         CriteriaQuery<BusinessProfile> criteriaQueryPackageItem = cq.select(businessProfileRoot).where(predicateShops).distinct(true);
         businessProfiles = entityManager.createQuery(criteriaQueryPackageItem).getResultList();
         return businessProfiles;

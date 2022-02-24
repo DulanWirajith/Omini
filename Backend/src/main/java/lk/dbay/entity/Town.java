@@ -21,7 +21,9 @@ public class Town extends DateTime {
     @Id
     private String townId;
     private String name;
+    private double latitude;
+    private double longitude;
 
     @ManyToOne(optional = false)
-    private District district;
+    private Region region;
 }

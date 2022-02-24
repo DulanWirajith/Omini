@@ -41,8 +41,8 @@ export class CustomerAccountService {
     return this.http.get<any>(environment.backend_url + 'town/getDistricts/' + countryId);
   }
 
-  getTowns(districtId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'town/getTowns/' + districtId);
+  getTowns(regionId): Observable<any> {
+    return this.http.get<any>(environment.backend_url + 'town/getTowns/' + regionId);
   }
 
   getFollowedBusinesses(customerId): Observable<any> {
@@ -67,10 +67,10 @@ export class CustomerAccountService {
       customerAddress: "",
       gender: "",
       country: "",
-      district: "",
+      region: "",
       town: {
         townId: "",
-        district: {
+        region: {
           country: {
             name: ""
           }

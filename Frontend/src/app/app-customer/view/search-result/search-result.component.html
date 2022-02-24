@@ -58,9 +58,9 @@
               <div class="tab-pane fade show active" id="filters" role="tabpanel">
                 <div class="pb-4 mb-2">
                   <h3 class="h6">Location</h3>
-                  <select class="form-select mb-2" (change)="getTowns($event.target.value)" [(ngModel)]="district">
+                  <select class="form-select mb-2" (change)="getTowns($event.target.value)" [(ngModel)]="region">
                     <option value="0" selected>All Districts</option>
-                    <option *ngFor="let district of districts" [value]="district.districtId">{{district.name}}</option>
+                    <option *ngFor="let region of regions" [value]="region.regionId">{{region.name}}</option>
                   </select>
                   <select class="form-select" [(ngModel)]="town" name="town">
                     <option value="0" selected>All Towns</option>

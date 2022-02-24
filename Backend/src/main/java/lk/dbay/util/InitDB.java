@@ -1,5 +1,7 @@
 package lk.dbay.util;
 
+import lk.dbay.entity.Region;
+import lk.dbay.repository.RegionR;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -9,14 +11,14 @@ import org.springframework.stereotype.Component;
 public class InitDB {
 
 //    @Autowired
-//    private PrivilegeRepository privilegeRepository;
+//    private RegionR regionR;
 //    @Autowired
 //    private SubjectRepository subjectRepository;
 
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
-//        if (privilegeRepository.findAll().size() == 0) {
-//            privilegeRepository.save(new Privilege("Dashboard", 1));
+//        if (regionR.findAll().size() == 0) {
+//            regionR.save(new Region("R001", "Southern"));
 //            privilegeRepository.save(new Privilege("Institute", 2));
 //            privilegeRepository.save(new Privilege("Tutors", 3));
 //            privilegeRepository.save(new Privilege("Subjects", 4));

@@ -11,7 +11,7 @@ export class CrStep3Component implements OnInit {
 
   customerProfile;
   countries;
-  districts;
+  regions;
   towns;
 
   @ViewChild('crForm3', {static: true}) public crForm3: NgForm;
@@ -27,9 +27,9 @@ export class CrStep3Component implements OnInit {
     this.getCountries();
     if (localStorage.getItem('cr') !== null) {
       this.customerProfile = JSON.parse(localStorage.getItem('cr'));
-      if (this.customerProfile.country !== '' && this.customerProfile.district !== '') {
+      if (this.customerProfile.country !== '' && this.customerProfile.region !== '') {
         this.getDistricts(this.customerProfile.country)
-        this.getTowns(this.customerProfile.district)
+        this.getTowns(this.customerProfile.region)
       }
     }
   }
@@ -41,13 +41,13 @@ export class CrStep3Component implements OnInit {
   }
 
   getDistricts(countryId) {
-    this.customerAccountService.getDistricts(countryId).subscribe((districts) => {
-      this.districts = districts;
+    this.customerAccountService.getDistricts(countryId).subscribe((regions) => {
+      this.regions = regions;
     })
   }
 
-  getTowns(districtId) {
-    this.customerAccountService.getTowns(districtId).subscribe((towns) => {
+  getTowns(regionId) {
+    this.customerAccountService.getTowns(regionId).subscribe((towns) => {
       this.towns = towns;
     })
   }

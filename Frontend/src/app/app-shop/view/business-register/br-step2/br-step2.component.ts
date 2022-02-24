@@ -11,7 +11,7 @@ export class BrStep2Component implements OnInit {
 
   businessProfile;
   countries;
-  districts;
+  regions;
   towns;
 
   @ViewChild('brForm2', {static: true}) public brForm2: NgForm;
@@ -24,9 +24,9 @@ export class BrStep2Component implements OnInit {
     this.getCountries();
     if (localStorage.getItem('br') !== null) {
       this.businessProfile = JSON.parse(localStorage.getItem('br'));
-      if (this.businessProfile.country !== '' && this.businessProfile.district !== '') {
+      if (this.businessProfile.country !== '' && this.businessProfile.region !== '') {
         this.getDistricts(this.businessProfile.country)
-        this.getTowns(this.businessProfile.district)
+        this.getTowns(this.businessProfile.region)
       }
     }
   }
@@ -38,13 +38,13 @@ export class BrStep2Component implements OnInit {
   }
 
   getDistricts(countryId) {
-    this.businessAccountService.getDistricts(countryId).subscribe((districts) => {
-      this.districts = districts;
+    this.businessAccountService.getDistricts(countryId).subscribe((regions) => {
+      this.regions = regions;
     })
   }
 
-  getTowns(districtId) {
-    this.businessAccountService.getTowns(districtId).subscribe((towns) => {
+  getTowns(regionId) {
+    this.businessAccountService.getTowns(regionId).subscribe((towns) => {
       this.towns = towns;
     })
   }

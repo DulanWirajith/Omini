@@ -21,7 +21,7 @@ export class CProfileComponent implements OnInit {
     toggleView: false
   };
   countries;
-  districts;
+  regions;
   towns;
   pondOptions = {
     class: 'my-filepond',
@@ -120,13 +120,13 @@ export class CProfileComponent implements OnInit {
   }
 
   getDistricts(countryId) {
-    this.customerAccountService.getDistricts(countryId).subscribe((districts) => {
-      this.districts = districts;
+    this.customerAccountService.getDistricts(countryId).subscribe((regions) => {
+      this.regions = regions;
     })
   }
 
-  getTowns(districtId) {
-    this.customerAccountService.getTowns(districtId).subscribe((towns) => {
+  getTowns(regionId) {
+    this.customerAccountService.getTowns(regionId).subscribe((towns) => {
       this.towns = towns;
     })
   }

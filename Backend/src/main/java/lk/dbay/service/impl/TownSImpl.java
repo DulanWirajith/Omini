@@ -1,13 +1,13 @@
 package lk.dbay.service.impl;
 
 import lk.dbay.dto.CountryDTO;
-import lk.dbay.dto.DistrictDTO;
+import lk.dbay.dto.RegionDTO;
 import lk.dbay.dto.TownDTO;
 import lk.dbay.entity.Country;
-import lk.dbay.entity.District;
+import lk.dbay.entity.Region;
 import lk.dbay.entity.Town;
 import lk.dbay.repository.CountryR;
-import lk.dbay.repository.DistrictR;
+import lk.dbay.repository.RegionR;
 import lk.dbay.repository.TownR;
 import lk.dbay.service.TownS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class TownSImpl implements TownS {
     @Autowired
     private CountryR countryR;
     @Autowired
-    private DistrictR districtR;
+    private RegionR districtR;
     @Autowired
     private TownR townR;
 
@@ -37,18 +37,18 @@ public class TownSImpl implements TownS {
     }
 
     @Override
-    public List<DistrictDTO> getDistricts(String countryId) {
-        List<District> districtRAll = districtR.getAllByCountry_CountryId(countryId);
-        List<DistrictDTO> districtDTOS = new ArrayList<>();
-        for (District district : districtRAll) {
-            districtDTOS.add(new DistrictDTO(district));
+    public List<RegionDTO> getDistricts(String countryId) {
+        List<Region> districtRAll = districtR.getAllByCountry_CountryId(countryId);
+        List<RegionDTO> districtDTOS = new ArrayList<>();
+        for (Region district : districtRAll) {
+            districtDTOS.add(new RegionDTO(district));
         }
         return districtDTOS;
     }
 
     @Override
-    public List<TownDTO> getTowns(String districtId) {
-        List<Town> townRAll = townR.getAllByDistrict_DistrictId(districtId);
+    public List<TownDTO> getTowns(String regionId) {
+        List<Town> townRAll = townR.getAllByRegion_RegionId(regionId);
         List<TownDTO> townDTOS = new ArrayList<>();
         for (Town town : townRAll) {
             townDTOS.add(new TownDTO(town));

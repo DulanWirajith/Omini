@@ -89,7 +89,7 @@ public class BusinessProfileDTO extends DateTimeDTO {
 
     public void setTown(BusinessProfile businessProfile) {
         if (businessProfile.getTown() != null) {
-            this.town = new TownDTO(businessProfile.getTown(), businessProfile.getTown().getDistrict(), businessProfile.getTown().getDistrict().getCountry());
+            this.town = new TownDTO(businessProfile.getTown(), businessProfile.getTown().getRegion(), businessProfile.getTown().getRegion().getCountry());
         }
     }
 

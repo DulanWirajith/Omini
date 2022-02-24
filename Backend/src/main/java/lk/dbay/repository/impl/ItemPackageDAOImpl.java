@@ -75,14 +75,14 @@ public class ItemPackageDAOImpl implements ItemPackageDAO {
             Predicate predicateBusinessProfileCategory = cb.like(itemPackageRoot.get("businessProfileCategory").get("businessCategory").get("businessCategoryId"), category);
             predicateItemPackage = cb.and(predicateItemPackage, predicateBusinessProfileCategory);
         }
-        if (!district.equals("0")) {
-            Predicate predicateDistrict = cb.like(itemPackageRoot.get("businessProfileCategory").get("businessProfile").get("town").get("district").get("districtId"), district);
-            predicateItemPackage = cb.and(predicateItemPackage, predicateDistrict);
-        }
-        if (!town.equals("0")) {
-            Predicate predicateTown = cb.like(itemPackageRoot.get("businessProfileCategory").get("businessProfile").get("town").get("townId"), town);
-            predicateItemPackage = cb.and(predicateItemPackage, predicateTown);
-        }
+//        if (!district.equals("0")) {
+//            Predicate predicateDistrict = cb.like(itemPackageRoot.get("businessProfileCategory").get("businessProfile").get("town").get("district").get("districtId"), district);
+//            predicateItemPackage = cb.and(predicateItemPackage, predicateDistrict);
+//        }
+//        if (!town.equals("0")) {
+//            Predicate predicateTown = cb.like(itemPackageRoot.get("businessProfileCategory").get("businessProfile").get("town").get("townId"), town);
+//            predicateItemPackage = cb.and(predicateItemPackage, predicateTown);
+//        }
         predicateItemPackage = cb.and(predicateItemPackage, predicate1);
         CriteriaQuery<ItemPackage> criteriaQueryPackageItem = cq.select(itemPackageRoot).where(predicateItemPackage).distinct(true);
         items = entityManager.createQuery(criteriaQueryPackageItem).getResultList();

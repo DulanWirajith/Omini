@@ -240,7 +240,7 @@
                   class="fi-help"></i>
                 </a>
               </label>
-              <div id="client-country-value">{{customerProfile.town.district.country.name}}</div>
+              <div id="client-country-value">{{customerProfile.town.region.country.name}}</div>
             </div>
             <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0"
                                                                         href="#client-country-collapse"
@@ -249,7 +249,7 @@
           </div>
           <div class="collapse" id="client-country-collapse" data-bs-parent="#location-details">
             <select class="form-select mt-3" data-bs-binded-element="#country-value" required
-                    [(ngModel)]="customerProfile.town.district.country.countryId" #country="ngModel" name="country"
+                    [(ngModel)]="customerProfile.town.region.country.countryId" #country="ngModel" name="country"
                     (change)="getDistricts($event.target.value)">
               <option value="" disabled selected>Choose country</option>
               <option *ngFor="let country of countries" [value]="country.countryId">{{country.name}}</option>
@@ -270,21 +270,21 @@
                    aria-label="You can change the District."><i class="fi-help"></i>
                 </a>
               </label>
-              <div id="client-district-value">{{customerProfile.town.district.name}}</div>
+              <div id="client-region-value">{{customerProfile.town.region.name}}</div>
             </div>
             <div class="me-n3" data-bs-toggle="tooltip" title="Edit"><a class="nav-link py-0"
-                                                                        href="#client-district-collapse"
+                                                                        href="#client-region-collapse"
                                                                         data-bs-toggle="collapse"><i
               class="fi-edit"></i></a></div>
           </div>
-          <div class="collapse" id="client-district-collapse" data-bs-parent="#location-details">
-            <select class="form-select mt-3" data-bs-binded-element="#district-value" required
-                    [(ngModel)]="customerProfile.town.district.districtId" #district="ngModel" name="district"
+          <div class="collapse" id="client-region-collapse" data-bs-parent="#location-details">
+            <select class="form-select mt-3" data-bs-binded-element="#region-value" required
+                    [(ngModel)]="customerProfile.town.region.regionId" #region="ngModel" name="region"
                     (change)="getTowns($event.target.value)">
-              <option value="" disabled selected>Choose district</option>
-              <option *ngFor="let district of districts" [value]="district.districtId">{{district.name}}</option>
+              <option value="" disabled selected>Choose region</option>
+              <option *ngFor="let region of regions" [value]="region.regionId">{{region.name}}</option>
             </select>
-            <div *ngIf="(district.touched || cpProfileForm.submitted) && district.errors?.required" class="validErr">
+            <div *ngIf="(region.touched || cpProfileForm.submitted) && region.errors?.required" class="validErr">
               District is required
             </div>
           </div>

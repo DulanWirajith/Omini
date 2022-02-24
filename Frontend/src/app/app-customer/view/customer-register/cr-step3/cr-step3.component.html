@@ -26,14 +26,14 @@
         </div>
       </div>
       <div class="col-sm-6 mb-4">
-        <label class="form-label" for="biz-district">District <span class='text-danger'>*</span></label>
-        <select class="form-select form-select-lg" id="biz-district" required
-                [(ngModel)]="customerProfile.district" #district="ngModel" name="district"
+        <label class="form-label" for="biz-region">District <span class='text-danger'>*</span></label>
+        <select class="form-select form-select-lg" id="biz-region" required
+                [(ngModel)]="customerProfile.region" #region="ngModel" name="region"
                 (change)="getTowns($event.target.value)">
-          <option value="" disabled selected>Choose district</option>
-          <option *ngFor="let district of districts" [value]="district.districtId">{{district.name}}</option>
+          <option value="" disabled selected>Choose region</option>
+          <option *ngFor="let region of regions" [value]="region.regionId">{{region.name}}</option>
         </select>
-        <div *ngIf="(district.touched || crForm3.submitted) && district.errors?.required" class="validErr">
+        <div *ngIf="(region.touched || crForm3.submitted) && region.errors?.required" class="validErr">
           District is required
         </div>
       </div>

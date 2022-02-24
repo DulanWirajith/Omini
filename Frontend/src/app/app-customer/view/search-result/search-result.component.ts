@@ -11,12 +11,12 @@ import {ShopCartService} from "../../_service/shop-cart.service";
 })
 export class SearchResultComponent implements OnInit {
 
-  districts = [];
+  regions = [];
   towns = [];
   shopTypes = [];
   txt;
   category = '0';
-  district = '0';
+  region = '0';
   town = '0';
   shopType;
   itemIsSearched = false;
@@ -41,8 +41,8 @@ export class SearchResultComponent implements OnInit {
       if (this.getUrl().category !== undefined) {
         this.category = this.getUrl().category;
       }
-      if (this.getUrl().district !== undefined) {
-        this.district = this.getUrl().district;
+      if (this.getUrl().region !== undefined) {
+        this.region = this.getUrl().region;
       }
       if (this.getUrl().town !== undefined) {
         this.town = this.getUrl().town;
@@ -53,9 +53,9 @@ export class SearchResultComponent implements OnInit {
   }
 
   getDistricts() {
-    this.customerAccService.getDistricts('C001').subscribe((districts) => {
-      this.districts = districts;
-      this.getTowns(this.district)
+    this.customerAccService.getDistricts('C001').subscribe((regions) => {
+      this.regions = regions;
+      this.getTowns(this.region)
     })
   }
 
@@ -65,10 +65,10 @@ export class SearchResultComponent implements OnInit {
     })
   }
 
-  getTowns(districtId) {
-    // console.log(districtId)
-    this.district = districtId;
-    this.customerAccService.getTowns(districtId).subscribe((towns) => {
+  getTowns(regionId) {
+    // console.log(regionId)
+    this.region = regionId;
+    this.customerAccService.getTowns(regionId).subscribe((towns) => {
       this.towns = towns;
       if (towns.length === 0) {
         this.town = '0';
@@ -93,7 +93,7 @@ export class SearchResultComponent implements OnInit {
       {
         txt: this.txt,
         category: this.category,
-        district: this.district,
+        region: this.region,
         town: this.town
       }
     ))
@@ -108,7 +108,7 @@ export class SearchResultComponent implements OnInit {
     if (this.getUser() !== null) {
       userId = this.getUser().userId;
     }
-    this.itemService.getItemsPackagesBySearch(this.txt, this.category, this.district, this.town, userId).subscribe((searchedItemPackages) => {
+    this.itemService.getItemsPackagesBySearch(this.txt, this.category, this.region, this.town, userId).subscribe((searchedItemPackages) => {
       this.itemService.searchedItemPackagesSub.next(searchedItemPackages);
     })
     if (val === 0) {
@@ -116,7 +116,7 @@ export class SearchResultComponent implements OnInit {
         {
           txt: this.txt,
           category: this.category,
-          district: this.district,
+          region: this.region,
           town: this.town
         }
       ))
@@ -130,7 +130,7 @@ export class SearchResultComponent implements OnInit {
       {
         txt: this.txt,
         category: this.category,
-        district: this.district,
+        region: this.region,
         town: this.town
       }
     ))
@@ -145,7 +145,7 @@ export class SearchResultComponent implements OnInit {
     if (this.getUser() !== null) {
       userId = this.getUser().userId;
     }
-    this.itemService.getShopsBySearch(this.txt, this.category, this.district, this.town, userId).subscribe((searchedShops) => {
+    this.itemService.getShopsBySearch(this.txt, this.category, this.region, this.town, userId).subscribe((searchedShops) => {
       this.itemService.searchedShopsSub.next(searchedShops);
     })
     if (val === 0) {
@@ -153,7 +153,7 @@ export class SearchResultComponent implements OnInit {
         {
           txt: this.txt,
           category: this.category,
-          district: this.district,
+          region: this.region,
           town: this.town
         }
       ))

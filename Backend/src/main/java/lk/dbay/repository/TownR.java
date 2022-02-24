@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TownR extends JpaRepository<Town, String> {
 
-    List<Town> getAllByDistrict_DistrictId(String districtId);
+    List<Town> getAllByRegion_RegionId(String regionId);
 }
