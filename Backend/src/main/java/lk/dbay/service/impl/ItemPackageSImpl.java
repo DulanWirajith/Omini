@@ -3,6 +3,7 @@ package lk.dbay.service.impl;
 import lk.dbay.dto.*;
 import lk.dbay.entity.BusinessArea;
 import lk.dbay.entity.CustomerProfile;
+import lk.dbay.entity.Town;
 import lk.dbay.entity.item.*;
 import lk.dbay.repository.*;
 import lk.dbay.service.ItemPackageS;
@@ -67,22 +68,24 @@ public class ItemPackageSImpl implements ItemPackageS {
     }
 
     private void setItemPackageDTO(List<ItemPackage> itemsBySearch, List<ItemPackageDTO> itemPackages, String customerId, double lat, double lon) {
-        HashMap<Double, ItemPackageDTO> distanceList = new HashMap<>();
         for (ItemPackage itemBySearch : itemsBySearch) {
             ItemPackageDTO itemPackageDTOObj = new ItemPackageDTO(itemBySearch);
             if (!customerId.equals("0")) {
                 Optional<ItemPackageFavourite> itemPackageFavourite = itemPackageFavouriteR.getByCustomerProfile_CustomerProIdAndItemPackage_ItemPackageId(customerId, itemBySearch.getItemPackageId());
                 itemPackageDTOObj.setFavourite(itemPackageFavourite.isPresent());
             }
-            Set<BusinessArea> businessAreas = itemBySearch.getBusinessProfileCategory().getBusinessProfile().getBusinessAreas();
             itemPackageDTOObj.setBusinessProfileCategory(itemBySearch);
             itemPackageDTOObj.setItemPackageImages(itemBySearch);
             itemPackageDTOObj.setOrderDetail(new OrderDetailDTO());
-            for (BusinessArea businessArea : businessAreas) {
-                double distance = distanceBetweenLatLong(lat, lon, businessArea.getTown().getLatitude(), businessArea.getTown().getLongitude());
-                itemPackageDTOObj.setDistance(distance);
-                distanceList.put(distance, itemPackageDTOObj);
-            }
+//            Set<BusinessArea> businessAreas = itemBySearch.getBusinessProfileCategory().getBusinessProfile().getBusinessAreas();
+//            for (BusinessArea businessArea : businessAreas) {
+//                double distance = distanceBetweenLatLong(lat, lon, businessArea.getTown().getLatitude(), businessArea.getTown().getLongitude());
+//                itemPackageDTOObj.setDistance(distance);
+////                itemPackages.add(itemPackageDTOObj);
+////                distanceList.put(distance, itemPackageDTOObj);
+//            }
+            Town town = itemBySearch.getBusinessProfileCategory().getBusinessProfile().getTown();
+            itemPackageDTOObj.setDistance(distanceBetweenLatLong(lat, lon, town.getLatitude(), town.getLongitude()));
             itemPackages.add(itemPackageDTOObj);
         }
         Collections.sort(itemPackages);
