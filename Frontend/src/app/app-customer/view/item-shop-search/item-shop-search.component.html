@@ -1,133 +1,415 @@
-<main class="page-wrapper">
+<!--<main class="page-wrapper">-->
 
-  <!--Header-->
-  <!--<app-header></app-header>-->
+<!--&lt;!&ndash;Header&ndash;&gt;-->
+<!--&lt;!&ndash;<app-header></app-header>&ndash;&gt;-->
 
-  <section class="container py-5 mt-5 mb-lg-3">
-    <div class="row align-items-center mt-md-2">
-      <div class="col-lg-7 order-lg-2 mb-lg-0 mb-4 pb-2 pb-lg-0">
-        <img class="d-block mx-auto" src="assets/img/hero-img.jpg" width="746" alt="Hero image">
+<!--<section class="container py-5 mt-5 mb-lg-3">-->
+<!--<div class="row align-items-center mt-md-2">-->
+<!--<div class="col-lg-7 order-lg-2 mb-lg-0 mb-4 pb-2 pb-lg-0">-->
+<!--<img class="d-block mx-auto" src="assets/img/hero-img.jpg" width="746" alt="Hero image">-->
+<!--</div>-->
+<!--<div class="col-lg-5 order-lg-1 pe-lg-0">-->
+<!--<h1 class="display-5 mb-4 me-lg-n5 text-lg-start text-center mb-4"><span style="line-height: 1.4">exploring</span><br>-->
+<!--<span class="dropdown d-inline-block">-->
+<!--<a class="dropdown-toggle text-decoration-none" href="#"-->
+<!--style="padding: 0; background: white;" role="button"-->
+<!--data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ambalangoda <small-->
+<!--class="fs-sm">Galle</small></a><span class="dropdown-menu dropdown-menu-end my-1"><a-->
+<!--class="dropdown-item fs-base fw-bold" href="#">Hamburg</a><a class="dropdown-item fs-base fw-bold" href="#">Munich</a><a-->
+<!--class="dropdown-item fs-base fw-bold" href="#">Frankfurt am Main</a><a class="dropdown-item fs-base fw-bold"-->
+<!--href="#">Stuttgart</a><a-->
+<!--class="dropdown-item fs-base fw-bold" href="#">Cologne</a></span></span></h1>-->
+<!--<p class="text-lg-start text-center mb-2 mb-lg-3 fs-lg">Find great places to stay, eat, shop, or visit from our-->
+<!--partners and local experts.</p>-->
+<!--<div class="btn-group mb-3" role="group" aria-label="Outline button group">-->
+<!--<button type="button" class="btn btn-outline-primary" [ngClass]="shopType==='Item'?'active':''"-->
+<!--(click)="shopType='Item'">Item</button>-->
+<!--<button type="button" class="btn btn-outline-primary" [ngClass]="shopType==='Shop'?'active':''"-->
+<!--(click)="shopType='Shop'">Shop</button>-->
+<!--</div>-->
+<!--&lt;!&ndash; Search form&ndash;&gt;-->
+<!--<div class="me-lg-n5">-->
+
+<!--<form class="form-group d-block d-md-flex position-relative rounded-md-pill me-lg-n5" #itemShopSearch="ngForm"-->
+<!--(ngSubmit)="itemShopSearch.form.valid && searchShopItems()"-->
+<!--novalidate>-->
+
+<!--&lt;!&ndash;<div class="input-group input-group-lg border-end-md"><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="input-group-text text-muted rounded-pill ps-3"><i class="fi-search"></i></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<input class="form-control" type="text" placeholder="What are you looking for?" [(ngModel)]="txt"&ndash;&gt;-->
+<!--&lt;!&ndash;name="txt" required>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--<hr class="d-md-none my-2">-->
+<!--<div class="dropdown mb-sm-0 mb-3 border-end-md" data-bs-toggle="select">-->
+<!--<button class="btn btn-link btn-lg dropdown-toggle ps-2 ps-sm-3" type="button"-->
+<!--data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">-->
+<!--{{categorySelected===undefined ? 'All categories':categorySelected.name}}-->
+<!--</span>-->
+<!--</button>-->
+<!--<input type="hidden">-->
+<!--&lt;!&ndash;<ul class="dropdown-menu">&ndash;&gt;-->
+<!--&lt;!&ndash;<li (click)="category=''"><a class="dropdown-item"><i class="fi-bed fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">Accommodation</span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-cafe fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">Food &amp; Drink</span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-shopping-bag fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">Shopping</span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-museum fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">Art &amp; History</span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-entertainment fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">Entertainment</span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-meds fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">Medicine</span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-makeup fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">Beauty</span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-car fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">Car Rental</span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;</ul>&ndash;&gt;-->
+<!--<ul class="dropdown-menu">-->
+<!--<li><a class="dropdown-item" (click)="categorySelected=undefined"><i class="fi-list me-2"></i><span-->
+<!--class="dropdown-item-label">All Categories</span></a></li>-->
+<!--<li *ngFor="let category of businessCategories" (click)="categorySelected=category">-->
+<!--<a class="dropdown-item"><i class="fi-list me-2"></i><span-->
+<!--class="dropdown-item-label">{{category.name}}</span></a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="d-sm-flex" style="width: 100%">-->
+<!--<div class="input-group input-group-lg border-end-md"><span-->
+<!--class="input-group-text text-muted rounded-pill ps-3"><i class="fi-search"></i></span>-->
+<!--<input style="margin-top: 5px" class="form-control" type="text" placeholder="What are you looking for?" [(ngModel)]="txt"-->
+<!--name="txt" required>-->
+<!--</div>-->
+<!--&lt;!&ndash;<div class="dropdown w-100 mb-sm-0 mb-3" data-bs-toggle="select">&ndash;&gt;-->
+<!--&lt;!&ndash;<button class="btn btn-link btn-lg dropdown-toggle ps-2 ps-sm-3" type="button"&ndash;&gt;-->
+<!--&lt;!&ndash;data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">&ndash;&gt;-->
+<!--&lt;!&ndash;{{categorySelected===undefined ? 'All categories':categorySelected.name}}&ndash;&gt;-->
+<!--&lt;!&ndash;</span>&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<input type="hidden">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<ul class="dropdown-menu">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<li (click)="category=''"><a class="dropdown-item"><i class="fi-bed fs-lg opacity-60 me-2"></i><span&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;class="dropdown-item-label">Accommodation</span></a></li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-cafe fs-lg opacity-60 me-2"></i><span&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;class="dropdown-item-label">Food &amp; Drink</span></a></li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-shopping-bag fs-lg opacity-60 me-2"></i><span&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;class="dropdown-item-label">Shopping</span></a></li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-museum fs-lg opacity-60 me-2"></i><span&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;class="dropdown-item-label">Art &amp; History</span></a></li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-entertainment fs-lg opacity-60 me-2"></i><span&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;class="dropdown-item-label">Entertainment</span></a></li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-meds fs-lg opacity-60 me-2"></i><span&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;class="dropdown-item-label">Medicine</span></a></li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-makeup fs-lg opacity-60 me-2"></i><span&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;class="dropdown-item-label">Beauty</span></a></li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-car fs-lg opacity-60 me-2"></i><span&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;class="dropdown-item-label">Car Rental</span></a></li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</ul>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<ul class="dropdown-menu">&ndash;&gt;-->
+<!--&lt;!&ndash;<li><a class="dropdown-item" (click)="categorySelected=undefined"><i class="fi-list me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">All Categories</span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li *ngFor="let category of businessCategories" (click)="categorySelected=category">&ndash;&gt;-->
+<!--&lt;!&ndash;<a class="dropdown-item"><i class="fi-list me-2"></i><span&ndash;&gt;-->
+<!--&lt;!&ndash;class="dropdown-item-label">{{category.name}}</span></a>&ndash;&gt;-->
+<!--&lt;!&ndash;</li>&ndash;&gt;-->
+<!--&lt;!&ndash;</ul>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--<button class="btn btn-primary btn-lg rounded-pill w-100 w-md-auto ms-sm-3" type="submit">Search</button>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</section>-->
+
+<!--</main>-->
+
+<!--&lt;!&ndash; Back to top button&ndash;&gt;<a class="btn-scroll-top" href="#top" data-scroll-->
+<!--&gt;<span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span-->
+<!--&gt;<i class="btn-scroll-top-icon fi-chevron-up"> </i-->
+<!--&gt;</a>-->
+
+<section class="jarallax bg-dark zindex-1 py-xxl-5" data-jarallax data-speed="0.5"><span
+  class="img-overlay bg-transparent opacity-100"
+  style="background-image: linear-gradient(0deg, rgba(31, 27, 45, .7), rgba(31, 27, 45, .7));"></span>
+  <div class="jarallax-img" style="background-image: url(img/city-guide/home/hero-bg.jpg);"></div>
+  <div class="content-overlay container py-md-5">
+    <div class="mt-5 mb-md-5 py-5">
+      <div class="col-xl-6 col-lg-8 col-md-10 mx-auto mb-sm-5 mb-4 px-0 text-center">
+        <h1 class="display-5 text-light mt-sm-5 my-4">Start exploring<span class="dropdown d-inline-block ms-2">
+                <a class="text-decoration-none" href="#" style="background: none;padding: 0;">Galle</a>
+          <!-- <span class="dropdown-menu dropdown-menu-end my-1">
+            <a class="dropdown-item fs-base fw-bold" href="#">Hamburg</a><a class="dropdown-item fs-base fw-bold" href="#">Munich</a><a class="dropdown-item fs-base fw-bold" href="#">Frankfurt am Main</a><a class="dropdown-item fs-base fw-bold" href="#">Stuttgart</a><a class="dropdown-item fs-base fw-bold" href="#">Cologne</a>
+          </span> -->
+              </span></h1>
+        <p class="fs-lg text-white">Now you can find stores Islandwide or Near to you with us.</p>
       </div>
-      <div class="col-lg-5 order-lg-1 pe-lg-0">
-        <h1 class="display-5 mb-4 me-lg-n5 text-lg-start text-center mb-4"><span style="line-height: 1.4">exploring</span><br>
-          <span class="dropdown d-inline-block">
-          <a class="dropdown-toggle text-decoration-none" href="#"
-                                             style="padding: 0; background: white;" role="button"
-                                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ambalangoda <small
-          class="fs-sm">Galle</small></a><span class="dropdown-menu dropdown-menu-end my-1"><a
-          class="dropdown-item fs-base fw-bold" href="#">Hamburg</a><a class="dropdown-item fs-base fw-bold" href="#">Munich</a><a
-          class="dropdown-item fs-base fw-bold" href="#">Frankfurt am Main</a><a class="dropdown-item fs-base fw-bold"
-                                                                                 href="#">Stuttgart</a><a
-          class="dropdown-item fs-base fw-bold" href="#">Cologne</a></span></span></h1>
-        <p class="text-lg-start text-center mb-2 mb-lg-3 fs-lg">Find great places to stay, eat, shop, or visit from our
-          partners and local experts.</p>
-        <div class="btn-group mb-3" role="group" aria-label="Outline button group">
-          <button type="button" class="btn btn-outline-primary" [ngClass]="shopType==='Item'?'active':''"
-                  (click)="shopType='Item'">Item</button>
-          <button type="button" class="btn btn-outline-primary" [ngClass]="shopType==='Shop'?'active':''"
-                  (click)="shopType='Shop'">Shop</button>
-        </div>
+      <div class="col-xl-11 col-lg-11 col-md-11 mx-auto px-0">
         <!-- Search form-->
-        <div class="me-lg-n5">
-
-          <form class="form-group d-block d-md-flex position-relative rounded-md-pill me-lg-n5" #itemShopSearch="ngForm"
-                (ngSubmit)="itemShopSearch.form.valid && searchShopItems()"
-                novalidate>
-
-            <!--<div class="input-group input-group-lg border-end-md"><span-->
-              <!--class="input-group-text text-muted rounded-pill ps-3"><i class="fi-search"></i></span>-->
-              <!--<input class="form-control" type="text" placeholder="What are you looking for?" [(ngModel)]="txt"-->
-                     <!--name="txt" required>-->
-            <!--</div>-->
-            <hr class="d-md-none my-2">
-            <div class="dropdown mb-sm-0 mb-3 border-end-md" data-bs-toggle="select">
-              <button class="btn btn-link btn-lg dropdown-toggle ps-2 ps-sm-3" type="button"
-                      data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">
-                  {{categorySelected===undefined ? 'All categories':categorySelected.name}}
-                </span>
-              </button>
-              <input type="hidden">
-              <!--<ul class="dropdown-menu">-->
-              <!--<li (click)="category=''"><a class="dropdown-item"><i class="fi-bed fs-lg opacity-60 me-2"></i><span-->
-              <!--class="dropdown-item-label">Accommodation</span></a></li>-->
-              <!--<li><a class="dropdown-item"><i class="fi-cafe fs-lg opacity-60 me-2"></i><span-->
-              <!--class="dropdown-item-label">Food &amp; Drink</span></a></li>-->
-              <!--<li><a class="dropdown-item"><i class="fi-shopping-bag fs-lg opacity-60 me-2"></i><span-->
-              <!--class="dropdown-item-label">Shopping</span></a></li>-->
-              <!--<li><a class="dropdown-item"><i class="fi-museum fs-lg opacity-60 me-2"></i><span-->
-              <!--class="dropdown-item-label">Art &amp; History</span></a></li>-->
-              <!--<li><a class="dropdown-item"><i class="fi-entertainment fs-lg opacity-60 me-2"></i><span-->
-              <!--class="dropdown-item-label">Entertainment</span></a></li>-->
-              <!--<li><a class="dropdown-item"><i class="fi-meds fs-lg opacity-60 me-2"></i><span-->
-              <!--class="dropdown-item-label">Medicine</span></a></li>-->
-              <!--<li><a class="dropdown-item"><i class="fi-makeup fs-lg opacity-60 me-2"></i><span-->
-              <!--class="dropdown-item-label">Beauty</span></a></li>-->
-              <!--<li><a class="dropdown-item"><i class="fi-car fs-lg opacity-60 me-2"></i><span-->
-              <!--class="dropdown-item-label">Car Rental</span></a></li>-->
-              <!--</ul>-->
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" (click)="categorySelected=undefined"><i class="fi-list me-2"></i><span
-                  class="dropdown-item-label">All Categories</span></a></li>
-                <li *ngFor="let category of businessCategories" (click)="categorySelected=category">
-                  <a class="dropdown-item"><i class="fi-list me-2"></i><span
-                    class="dropdown-item-label">{{category.name}}</span></a>
-                </li>
-              </ul>
-            </div>
-            <div class="d-sm-flex" style="width: 100%">
-              <div class="input-group input-group-lg border-end-md"><span
-                class="input-group-text text-muted rounded-pill ps-3"><i class="fi-search"></i></span>
-                <input style="margin-top: 5px" class="form-control" type="text" placeholder="What are you looking for?" [(ngModel)]="txt"
+        <form class="form-group form-group-light d-block rounded-xl-pill mt-n3 mt-md-4 mt-xl-5 mb-md-4"
+              #itemShopSearch="ngForm"
+              (ngSubmit)="itemShopSearch.form.valid && searchShopItems()"
+              novalidate>
+          <div class="row align-items-center g-0 ms-n2">
+            <div class="col-md-3 col-xl-3">
+              <div class="input-group input-group-lg border-end-md border-light"><span
+                class="input-group-text text-light rounded-pill opacity-50 ps-3"><i class="fi-search"></i></span>
+                <input class="form-control" type="text" placeholder=" What are you looking for?" [(ngModel)]="txt"
                        name="txt" required>
               </div>
-              <!--<div class="dropdown w-100 mb-sm-0 mb-3" data-bs-toggle="select">-->
-                <!--<button class="btn btn-link btn-lg dropdown-toggle ps-2 ps-sm-3" type="button"-->
-                        <!--data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">-->
-                  <!--{{categorySelected===undefined ? 'All categories':categorySelected.name}}-->
-                <!--</span>-->
-                <!--</button>-->
-                <!--<input type="hidden">-->
-                <!--&lt;!&ndash;<ul class="dropdown-menu">&ndash;&gt;-->
-                <!--&lt;!&ndash;<li (click)="category=''"><a class="dropdown-item"><i class="fi-bed fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
-                <!--&lt;!&ndash;class="dropdown-item-label">Accommodation</span></a></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-cafe fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
-                <!--&lt;!&ndash;class="dropdown-item-label">Food &amp; Drink</span></a></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-shopping-bag fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
-                <!--&lt;!&ndash;class="dropdown-item-label">Shopping</span></a></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-museum fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
-                <!--&lt;!&ndash;class="dropdown-item-label">Art &amp; History</span></a></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-entertainment fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
-                <!--&lt;!&ndash;class="dropdown-item-label">Entertainment</span></a></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-meds fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
-                <!--&lt;!&ndash;class="dropdown-item-label">Medicine</span></a></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-makeup fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
-                <!--&lt;!&ndash;class="dropdown-item-label">Beauty</span></a></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;<li><a class="dropdown-item"><i class="fi-car fs-lg opacity-60 me-2"></i><span&ndash;&gt;-->
-                <!--&lt;!&ndash;class="dropdown-item-label">Car Rental</span></a></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                <!--<ul class="dropdown-menu">-->
-                  <!--<li><a class="dropdown-item" (click)="categorySelected=undefined"><i class="fi-list me-2"></i><span-->
-                    <!--class="dropdown-item-label">All Categories</span></a></li>-->
-                  <!--<li *ngFor="let category of businessCategories" (click)="categorySelected=category">-->
-                    <!--<a class="dropdown-item"><i class="fi-list me-2"></i><span-->
-                      <!--class="dropdown-item-label">{{category.name}}</span></a>-->
-                  <!--</li>-->
-                <!--</ul>-->
-              <!--</div>-->
-              <button class="btn btn-primary btn-lg rounded-pill w-100 w-md-auto ms-sm-3" type="submit">Search</button>
             </div>
-          </form>
-        </div>
+            <hr class="hr-light d-md-none my-2">
+            <div class="col-md-9 col-xl-5 d-sm-flex">
+              <div class="dropdown w-sm-50 border-end-sm border-light" data-bs-toggle="select">
+                <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown"><i
+                  class="fi-map-pin me-2"></i><span class="dropdown-toggle-label">District</span></button>
+                <input type="hidden">
+                <ul class="dropdown-menu dropdown-menu-dark my-3">
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Islandwide</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Southern</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Western</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Northern</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Eastern</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Uva</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">North Western</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">North Central</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Sabaragamuwa</span></a></li>
+                </ul>
+              </div>
+              <hr class="hr-light d-sm-none my-2">
+              <div class="dropdown w-sm-50 border-end-xl border-light" data-bs-toggle="select">
+                <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown"><i
+                  class="fi-geo me-2"></i><span class="dropdown-toggle-label">Town</span></button>
+                <input type="hidden">
+                <ul class="dropdown-menu dropdown-menu-dark my-3">
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Galle</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Akmeemana</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Bogahagoda</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Walahanduwa</span></a></li>
+                  <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Yakkalamulla</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <hr class="hr-light d-xl-none mt-2 mb-3">
+            <div class="col-xl-4 d-sm-flex align-items-center">
+              <div class="d-flex align-items-center w-100 ms-xl-1 ps-3">
+                <div class="dropdown w-100 mb-sm-0 mb-3" data-bs-toggle="select">
+                  <button class="btn btn-link btn-lg dropdown-toggle ps-2 ps-sm-3" type="button"
+                          data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">All categories</span>
+                  </button>
+                  <input type="hidden">
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-submenu"><a class="dropdown-item" href="#"><i
+                      class="fi-makeup fs-lg opacity-60 me-2"></i><span class="dropdown-item-label">Fashion</span></a>
+                      <ul class="dropdown-menu" style="margin-top: -6px !important;">
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Clothing Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Kids Wear Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Beach Wear Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Ladies Wear Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Men Wear Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Bridal Store</span></a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-submenu"><a class="dropdown-item" href="#"><i
+                      class="fi-cafe fs-lg opacity-60 me-2"></i><span
+                      class="dropdown-item-label">Food &amp; Drink</span></a>
+                      <ul class="dropdown-menu" style="margin-top: -6px !important;">
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Food Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Cake Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Sweet Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Juice Bar</span></a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-submenu"><a class="dropdown-item" href="#"><i
+                      class="fi-computer fs-lg opacity-60 me-2"></i><span class="dropdown-item-label">Computer &amp; Mobile</span></a>
+                      <ul class="dropdown-menu" style="margin-top: -6px !important;">
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Computer Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Mobile Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Gaming Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Gadget Store</span></a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-submenu"><a class="dropdown-item" href="#"><i
+                      class="fi-iron fs-lg opacity-60 me-2"></i><span class="dropdown-item-label">Electronic &amp; Electrical</span></a>
+                      <ul class="dropdown-menu" style="margin-top: -6px !important;">
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Electrical Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Electronic Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Light Room</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Gadget Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Arduino Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Home Equipment Store</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a class="dropdown-item" href="#"><i class="fi-double-bed fs-lg opacity-60 me-2"></i><span
+                      class="dropdown-item-label">Furniture Store</span></a>
+                    </li>
+                    <li class="dropdown-submenu"><a class="dropdown-item" href="#"><i
+                      class="fi-car fs-lg opacity-60 me-2"></i><span class="dropdown-item-label">Automobile</span></a>
+                      <ul class="dropdown-menu" style="margin-top: -6px !important;">
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Bike Spareparts Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Threewheel Spareparts Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Spareparts Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Modification Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Tyre Store</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a class="dropdown-item" href="#"><i class="fi-odnoklassniki fs-lg opacity-60 me-2"></i><span
+                      class="dropdown-item-label">Toy Store</span></a>
+
+                    </li>
+                    <li class="dropdown-submenu"><a class="dropdown-item" href="#"><i
+                      class="fi-dumbell fs-lg opacity-60 me-2"></i><span
+                      class="dropdown-item-label">Gym &amp; Sport</span></a>
+                      <ul class="dropdown-menu" style="margin-top: -6px !important;">
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Gym Equipment Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Sport Equipment Store</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a class="dropdown-item" href="#"><i class="fi-plant fs-lg opacity-60 me-2"></i><span
+                      class="dropdown-item-label">Agriculture Store</span></a>
+                    <li><a class="dropdown-item" href="#"><i class="fi-footer fs-lg opacity-60 me-2"></i><span
+                      class="dropdown-item-label">Bookstore</span></a>
+                    </li>
+                    <li class="dropdown-submenu"><a class="dropdown-item" href="#"><i
+                      class="fi-home fs-lg opacity-60 me-2"></i><span class="dropdown-item-label">Hardware &amp; Construction</span></a>
+                      <ul class="dropdown-menu" style="margin-top: -6px !important;">
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Tools & Accessories Store</span></a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fi-shop fs-lg opacity-60 me-2"></i><span
+                          class="dropdown-item-label">Tools Renting Store</span></a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-lg w-100 w-sm-50 w-lg-auto rounded-pill mt-4 mt-sm-0" type="submit">
+                Find
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-  </section>
-
-</main>
-
-<!-- Back to top button--><a class="btn-scroll-top" href="#top" data-scroll
-><span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span
-><i class="btn-scroll-top-icon fi-chevron-up"> </i
-></a>
+  </div>
+  <div class="position-absolute d-none d-xxl-block bottom-0 start-0 w-100 bg-white zindex-1"
+       style="border-top-left-radius: 30px; border-top-right-radius: 30px; height: 30px;"></div>
+</section>
+<!-- Categories-->
+<section
+  class="container d-flex flex-wrap flex-column flex-sm-row pb-5 mb-md-3 mt-3"
+>
+  <a
+    class="icon-box card flex-row align-items-center flex-shrink-0 card-hover border-0 shadow-sm rounded-pill py-2 ps-2 pe-4 mb-2 mb-sm-3 me-sm-3 me-xxl-4"
+    href="#"
+  >
+    <div
+      class="icon-box-media bg-faded-accent text-accent rounded-circle me-2"
+    >
+      <i class="fi-makeup"></i>
+    </div>
+    <h3 class="icon-box-title fs-sm ps-1 pe-2 mb-0">Fashion</h3></a
+  ><a
+  class="icon-box card flex-row align-items-center flex-shrink-0 card-hover border-0 shadow-sm rounded-pill py-2 ps-2 pe-4 mb-2 mb-sm-3 me-sm-3 me-xxl-4"
+  href="#"
+>
+  <div
+    class="icon-box-media bg-faded-warning text-warning rounded-circle me-2"
+  >
+    <i class="fi-cafe"></i>
+  </div>
+  <h3 class="icon-box-title fs-sm ps-1 pe-2 mb-0">
+    Food &amp; Drink
+  </h3></a
+><a
+  class="icon-box card flex-row align-items-center flex-shrink-0 card-hover border-0 shadow-sm rounded-pill py-2 ps-2 pe-4 mb-2 mb-sm-3 me-sm-3 me-xxl-4"
+  href="#"
+>
+  <div
+    class="icon-box-media bg-faded-primary text-primary rounded-circle me-2"
+  >
+    <i class="fi-computer"></i>
+  </div>
+  <h3 class="icon-box-title fs-sm ps-1 pe-2 mb-0">Computer &amp; Mobile</h3></a
+><a
+  class="icon-box card flex-row align-items-center flex-shrink-0 card-hover border-0 shadow-sm rounded-pill py-2 ps-2 pe-4 mb-2 mb-sm-3 me-sm-3 me-xxl-4"
+  href="#"
+>
+  <div
+    class="icon-box-media bg-faded-success text-success rounded-circle me-2"
+  >
+    <i class="fi-iron"></i>
+  </div>
+  <h3 class="icon-box-title fs-sm ps-1 pe-2 mb-0">
+    Electronic &amp; Electrical
+  </h3></a
+><a
+  class="icon-box card flex-row align-items-center flex-shrink-0 card-hover border-0 shadow-sm rounded-pill py-2 ps-2 pe-4 mb-2 mb-sm-3 me-sm-3 me-xxl-4"
+  href="#"
+>
+  <div
+    class="icon-box-media bg-faded-primary text-primary rounded-circle me-2"
+  >
+    <i class="fi-double-bed"></i>
+  </div>
+  <h3 class="icon-box-title fs-sm ps-1 pe-2 mb-0">Furniture Store</h3></a
+>
+  <div class="dropdown mb-2 mb-sm-3">
+    <a
+      class="icon-box card flex-row align-items-center flex-shrink-0 card-hover border-0 shadow-sm rounded-pill py-2 ps-2 pe-4"
+      href="#"
+      data-bs-toggle="dropdown"
+    >
+      <div
+        class="icon-box-media bg-faded-info text-info rounded-circle me-2"
+      >
+        <i class="fi-dots-horisontal"></i>
+      </div>
+      <h3 class="icon-box-title fs-sm ps-1 pe-2 mb-0">More</h3></a
+    >
+    <div class="dropdown-menu dropdown-menu-sm-end my-1">
+      <a class="dropdown-item fw-bold" href="#"
+      ><i class="fi-car fs-base opacity-60 me-2"></i>Automobile</a
+      ><a class="dropdown-item fw-bold" href="#"
+    ><i class="fi-plant fs-base opacity-60 me-2"></i>Agriculture Store</a>
+      <a class="dropdown-item fw-bold" href="#">
+        <i class="fi-footer fs-base opacity-60 me-2"></i>Bookstore</a>
+      <a class="dropdown-item fw-bold" href="#">
+        <i class="fi-odnoklassniki fs-base opacity-60 me-2"></i>Toy Store</a>
+      <a class="dropdown-item fw-bold" href="#"
+      ><i class="fi-dumbell fs-base opacity-60 me-2"></i>Gym &amp; Sport</a>
+      <a class="dropdown-item fw-bold" href="#">
+        <i class="fi-home fs-base opacity-60 me-2"></i>Hardware &amp; Construction</a
+      >
+    </div>
+  </div>
+</section>
 
 <app-shop-cart></app-shop-cart>
 <!--<app-item-detail-view></app-item-detail-view>-->

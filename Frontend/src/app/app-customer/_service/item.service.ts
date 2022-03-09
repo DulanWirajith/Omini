@@ -22,7 +22,7 @@ export class ItemService {
   }
 
   getItemsPackagesBySearch(txt, category, region, town, customerId): Observable<any> {
-    return this.http.get<any>(environment.backend_url + 'item_package/getItemsPackagesBySearch/' + txt + '/' + category + '/' + region + '/' + town + '/' + customerId);
+    return this.http.get<any>(environment.backend_url + 'item_package/getItemsPackagesBySearch/' + txt + '/' + category + '/' + region + '/' + town + '/' + customerId+'/0/0');
   }
 
   getShopsBySearch(txt, category, region, town, customerId): Observable<any> {

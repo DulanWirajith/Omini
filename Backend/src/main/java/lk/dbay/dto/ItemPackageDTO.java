@@ -1,10 +1,7 @@
 package lk.dbay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lk.dbay.entity.item.ItemPackage;
-import lk.dbay.entity.item.ItemPackageImage;
-import lk.dbay.entity.item.ItemPackageItemPackageFeature;
-import lk.dbay.entity.item.ItemPackageReview;
+import lk.dbay.entity.item.*;
 import lombok.*;
 import lombok.experimental.Tolerate;
 
@@ -16,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ItemPackageDTO extends DateTimeDTO {
+public class ItemPackageDTO extends DateTimeDTO implements Comparable {
 
     private String itemPackageId;
     private String name;
@@ -43,6 +40,7 @@ public class ItemPackageDTO extends DateTimeDTO {
     private boolean favourite;
     private double rating1;
     private int rating2;
+    private double distance;
 
     public ItemPackageDTO(ItemPackage itemPackage) {
         if (itemPackage != null) {
@@ -108,6 +106,17 @@ public class ItemPackageDTO extends DateTimeDTO {
     public void setItemCategory(ItemPackage itemPackage) {
         if (itemPackage.getItem() != null && itemPackage.getItem().getItemCategory() != null)
             this.itemCategory = new ItemCategoryDTO(itemPackage.getItem().getItemCategory());
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        ItemPackageDTO itemPackageDTO = (ItemPackageDTO) o;
+        if (this.distance > (itemPackageDTO.distance)) {
+            return 1;
+        } else if (this.distance < (itemPackageDTO.distance)) {
+            return -1;
+        }
+        return 0;
     }
 
 //    public ItemPackageDTO(@NonNull ItemPackage itemPackage, @NonNull BusinessProfileCategory businessProfileCategory, @NonNull Set<ItemPackageImg> itemPackageImgs) {

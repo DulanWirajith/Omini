@@ -4,8 +4,6 @@ import lk.dbay.dto.*;
 import lk.dbay.entity.item.ItemPackageReview;
 import lk.dbay.entity.item.ItemPackageReviewResponse;
 
-import java.util.List;
-
 public interface ItemPackageS {
 
 //    List<ItemPackageDTO> getItemsPackageBusinessCategory(String businessProfileId, String businessCategoryId);
@@ -18,7 +16,7 @@ public interface ItemPackageS {
 //
     boolean setItemPackageAvailable(String itemId);
 
-    ItemPackageDTO getItemsPackagesBySearch(String txt, String category, String district, String town, String customerId);
+    ItemPackageDTO getItemsPackagesBySearch(String txt, String category, String district, String town, String customerId, double lat, double lon);
 
     ItemPackageDTO getItemPackageSelected(String itemId, String type, String customerId);
 
